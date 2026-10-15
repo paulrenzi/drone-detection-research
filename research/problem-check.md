@@ -16,7 +16,7 @@ Before building more, check the premise: are units' current methods failing, wou
 
 **The case for the problem is strong.** Drones are the biggest killer at the front. Troops survive mainly by staying hidden and not moving, which is coping, not protection. The fastest-growing part of the threat, fibre-optic FPVs, defeats the cheap detectors units carry, and the expensive camera systems are not at the front. A Ukrainian firm is now building acoustic FPV sensors for positions, which supports the approach.
 
-**One link is unproven:** whether **earlier warning changes what troops do**. No source measures it. If troops act on it, our estimate is that a forward line averts about **1–4 of every 100 drone casualties** (range 0.3–14), almost all among people about to move: rotation, resupply, evacuation ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Weapons need only seconds, so at a fixed position a minute adds little. The cheapest check is to ask the people who would use it (T18), before any more hardware.
+**Fibre-optic FPVs arrive unwarned.** Radio detectors can't hear them, so any earlier warning, at lower cost, fills a gap. How many lives that saves is a guess. Our central estimate: our estimate is that a forward line averts about **1–4 of every 100 drone casualties** (range 0.3–14), almost all among people about to move: rotation, resupply, evacuation ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Weapons need only seconds, so at a fixed position a minute adds little. Interviews (T18) would firm up that number; they are not a gate.
 
 ## What the evidence says
 
@@ -114,7 +114,7 @@ Any of these, found by asking users or by testing:
 3. **A cheap enough sensor is already in units' hands**, such as the NW0 at scale.
 4. **Radio can't get out of the trees**, even with a [wired edge receiver]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees) (T9, T17).
 
-## The next step: ask before building (T18)
+## Questions for front-line users (T18) {#the-next-step-ask-before-building-t18}
 
 Talk to 5–10 people with recent front-line experience: soldiers, the volunteers who equip units, Brave1, and Ukrainian drone and EW firms. Ask:
 
@@ -128,4 +128,4 @@ Talk to 5–10 people with recent front-line experience: soldiers, the volunteer
 8. Roughly how far is it from the tree edge that faces open ground?
 9. What share of your drone casualties happen on the move, and how many come from drones already waiting by the road?
 
-Warning matters; these ask whether there is a gap this fills. **Pass:** most have no reliable warning of fibre-optic FPVs, and name a moment where a minute, not seconds, changes what they do. **Fail:** they already get that warning another way, or those moments are rare. Either answer is worth more than T9.
+**Not a gate.** Warning of a threat nothing else detects is worth having. The answers size the [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %}) and shape placement.

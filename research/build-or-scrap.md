@@ -13,7 +13,7 @@ A review of whether the case for our model holds, after a fresh sweep of competi
 > **Verdict: don't scrap, but narrow.**
 > - **Keep the forward-laid tripwire.** It is the one part nobody sells, and the one part that physics favours. What it buys is a go/no-go minute for people about to move: about 1–4 of every 100 drone casualties averted, on our central guess ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})).
 > - **Drop the hand-placed node as a product.** A Ukrainian LoRa acoustic module is already listed at about $211, inside our $125–300 band.
-> - **The case is not bulletproof, and more desk research won't make it so.** Three things could still kill it. A $0 interview round (T18) and two field tests under $300 each (T9, T19) decide them.
+> - **The case is not bulletproof, and more desk research won't make it so.** Two things could still kill it, and two field tests under $300 each (T9, T19) decide them. Interviews (T18) size the payoff but don't gate it.
 
 1. TOC
 {:toc}
@@ -68,7 +68,7 @@ Earlier comparisons gave competitors their claimed ranges. Here every row uses t
 
 Ranked by how likely each is to end the idea, with the test that decides it.
 
-### 1. Warning matters; whether this warning fills a gap is unproven (T18)
+### 1. How many lives a minute saves is a guess (T18)
 
 We found **no study, after-action report or soldier account comparing outcomes with and without warning**. What exists:
 
@@ -81,7 +81,7 @@ We found **no study, after-action report or soldier account comparing outcomes w
 
 **Weapons need seconds; a minute buys go/no-go calls on movement.** Russia's roadside drone "traffic lights" already serve that purpose ([the comparison]({{ site.baseurl }}{% link research/problem-check.md %}#a-minute-against-the-alternatives)). In lives, our central guess is about 1–4 of every 100 drone casualties averted, range 0.3–14 ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})).
 
-**Scrap the tripwire if** T18 interviewees say a minute changes nothing for them, at the position or on the move. Ask specifically about drivers, medics and resupply runs.
+**Not a reason to scrap:** fibre-optic FPVs get no warning today, so any warning, cheaper, fills a gap. T18 interviews, especially with drivers, medics and resupply crews, would narrow the estimate.
 
 ### 2. The radio link home gets jammed or found (T9, new T19)
 
@@ -105,10 +105,10 @@ Below about 50 m, a 3 km line needs 60 or more listeners and each re-lay takes 1
 
 ## What would make the case bulletproof
 
-1. **T18:** 5–10 front-line interviews, including drivers and medics. $0.
-2. **T11:** fly a real FPV past one cheap microphone on a mast and log the range in calm and in wind. Under $300.
-3. **T19:** run the T9 radio test again next to a working ELRS jammer. Under $300.
-4. **An independent test of NW0 or DroneAlert alongside ours.** Buying one DroneAlert kit (~$670 for three modules and a gateway) would give the first like-for-like range figure anyone has published.
+1. **T11:** fly a real FPV past one cheap microphone on a mast and log the range in calm and in wind. Under $300.
+2. **T19:** run the T9 radio test again next to a working ELRS jammer. Under $300.
+3. **An independent test of NW0 or DroneAlert alongside ours.** Buying one DroneAlert kit (~$670 for three modules and a gateway) would give the first like-for-like range figure anyone has published.
+4. **T18:** 5–10 front-line interviews, including drivers and medics, to narrow the lives estimate. $0.
 
 Desk research has reached diminishing returns. Every remaining unknown is a measurement or an interview.
 

@@ -59,7 +59,7 @@ Counter-drone sensing has split into a few camps. Each one is good at something,
 
 - **What troops have doesn't cover it.** Against fibre-optic FPVs the baseline is ears, eyes and a firearm. Jamming is failing ("Jamming no longer works", says a brigade EW commander), nets leak, and an AI turret is in only a handful of units ([what troops have]({{ site.baseurl }}{% link research/frontline-kit.md %})).
 
-**What a minute is worth.** Weapons need only seconds, so at a fixed position a minute adds little. Its value is a go/no-go call for people about to move. If troops act on it, our central guess is that a forward line averts about **1–4 of every 100 drone casualties** (range 0.3–14) ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Whether they would is not yet shown. That is the next thing to check, and it costs nothing: ask front-line users (T18).
+**What a minute is worth.** Weapons need only seconds, so at a fixed position a minute adds little. Its value is a go/no-go call for people about to move. Against fibre-optic FPVs, which nothing else detects, our central guess is that a forward line averts about **1–4 of every 100 drone casualties** (range 0.3–14) ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Front-line interviews (T18) would narrow that; the next real test is radio under trees (T9).
 
 **The build path.** The [MVP path]({{ site.baseurl }}{% link mvp.md %}) takes the tripwire from an $80 radio test to a six-listener line in five gated layers, about $600–750 in all, with parts you can order today.
 

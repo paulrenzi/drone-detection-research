@@ -41,7 +41,7 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 - **Rated 3 out of 5.** Every part exists, but nobody has shown that a forward line can get its alerts home.
 - **The deciding test is radio under trees (T9).** Published measurements say open ground probably works. Under trees, where troops and attacking drones actually go, it is unproven. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
 - **The proposed answer: hear the lines from the edge of the unit's tree line.** A listen-only receiver, placed by hand and raised at the belt edge, wired back to the dugout so the unit's position emits nothing. [Design](#getting-alerts-out-of-the-trees).
-- **The one unproven link is whether warning changes what troops do.** No source measures it. If they act on it, our central guess is about 1–4 of every 100 drone casualties averted, almost all among people about to move ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Ask front-line users before building more ([T18]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)).
+- **The payoff is a guess, not a doubt.** Fibre-optic FPVs get no warning today. Our central guess is about 1–4 of every 100 drone casualties averted, almost all among people about to move ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Front-line interviews would narrow it ([T18]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)); they are not a gate.
 - **Next steps cost little.** The first five tests each cost under $500; see [Parts and first build](#components-and-mvp).
 
 ## Front-line problems, in plain terms
@@ -332,7 +332,7 @@ For warning time, probably: about a minute instead of about ten seconds, includi
 - A minute is only worth what the unit can do with it. Against fibre-optic FPVs that is mostly avoidance (hold a movement, get under cover). Weapons need only seconds ([a minute against the alternatives]({{ site.baseurl }}{% link research/problem-check.md %}#a-minute-against-the-alternatives)).
 - The enemy adapts, by flying round the ends or hunting listeners.
 
-Whether a minute changes outcomes is for front-line users to say, not a test bench, and nothing published answers it. So that comes first: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %}) sets out the evidence and the questions to ask (T18).
+How many lives a minute saves is for front-line users to refine, not a test bench. [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %}) sets out the evidence and the questions (T18).
 
 ### Should listeners be retrievable, for example by a magnet on the drone?
 

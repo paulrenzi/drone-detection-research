@@ -13,7 +13,7 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 
 | Layer | Question | Spend | Total | Gate |
 |---|---|---|---|---|
-| [0](#layer-0) T18 | Is there a warning gap this fills, at moments troops can act? | $0 | $0 | Most lack warning of fibre FPVs and name a moment a minute changes, else stop |
+| [0](#layer-0) T18 | Where does a minute help most, and how would troops place a line? | $0 | $0 | None: sizes the payoff, shapes placement |
 | [1](#layer-1-the-radio-test-t9) T9 | Can a board at 0.5–1 m report back over 2–3 km, through trees? | ~$65–80 | ~$80 | T9's marks, or margins that predict them |
 | [2](#layer-2-hear-a-drone-from-near-the-ground-t11) T11 | How far does a mic at 0.5–1 m hear a drone? | ~$50 | ~$130 | ≥100 m (sets spacing, so cost per km) |
 | [3](#layer-3-the-edge-receiver-t17) T17 | Can the edge receiver hear the line without transmitting? | ~$90–130 | ~$250 | Layer 1's delivery, SDR sees nothing |
@@ -53,9 +53,9 @@ Amazon where it sells the part. Prices checked 2026-10-15. Alternatives are in e
 | 5 | 2 more Heltec 2-packs (6 listeners in all) | [Amazon](https://www.amazon.com/dp/B0CW6151WJ) | $89.96 |
 | 5 | IP65 box 100×68×50 mm, uxcell | [Amazon](https://www.amazon.com/dp/B07FKN8SZG) | $15.69 each |
 
-## Layer 0: ask first (T18, $0) {#layer-0}
+## Layer 0: ask alongside (T18, $0, not a gate) {#layer-0}
 
-Run alongside everything. 5–10 interviews with recent front-line users ([questions]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)). Warning saves lives; that is not in question. What is: do troops already get it another way (radio detectors miss fibre-optic FPVs), at which moments a minute beats the seconds they get now, and would they place and trust the kit. Those set the [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %}), and no hardware test answers them.
+Earlier warning against a threat nothing else detects (fibre-optic FPVs), at lower cost, is worth having; that is not tested here. 5–10 interviews ([questions]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)) only tune the build: which moments matter most (sizes the [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %})), and how troops would place listeners and a receiver.
 
 <details class="layer" id="layer-1-the-radio-test-t9" markdown="block">
 <summary><span class="layer-title">Layer 1: radio test (T9), ~$80</span><span class="layer-sub">Board at 0.5–1 m to a raised receiver, 2–3 km, across open ground, forest and hedgerows</span></summary>
