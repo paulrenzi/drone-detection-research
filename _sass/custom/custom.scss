@@ -89,17 +89,19 @@ body.ou {
 
 // Search (Just the Docs' own search, restyled)
 .ou .search {
-  position: relative;
-  flex: 0 1 300px;
-  height: auto;
+  position: relative !important;
+  flex: 0 0 300px;
+  width: 300px !important;
+  height: 44px !important;
   padding: 0;
 }
 
 .ou .search-input-wrap {
   display: flex;
   align-items: center;
-  height: 44px;
-  width: 100%;
+  position: relative !important;
+  height: 44px !important;
+  width: 100% !important;
   background: #fff;
   border: 1px solid $ou-ink;
   border-radius: 0;
@@ -548,6 +550,7 @@ body.ou {
 
   .ou .search {
     flex: 1 1 auto;
+    width: auto !important;
   }
 
   .ou-nav {
