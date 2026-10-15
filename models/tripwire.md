@@ -43,6 +43,7 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 - **The proposed answer: hear the lines from the edge of the unit's tree line.** A listen-only receiver, placed by hand and raised at the belt edge, wired back to the dugout so the unit's position emits nothing. [Design](#getting-alerts-out-of-the-trees).
 - **The payoff is a guess, not a doubt.** Fibre-optic FPVs get no warning today. Our central guess is about 1–4 of every 100 drone casualties averted, almost all among people about to move ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Front-line interviews would narrow it ([T18]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)); they are not a gate.
 - **Next steps cost little.** The first five tests each cost under $500; see [Parts and first build](#components-and-mvp).
+- **Designs exist now:** a printable dart, an X500 release harness and a printed carrier ([Build: hardware]({{ site.baseurl }}{% link build-hardware.md %})), and the software laid out component by component ([Build: software]({{ site.baseurl }}{% link build-software.md %})).
 
 ## Front-line problems, in plain terms
 

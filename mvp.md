@@ -213,7 +213,7 @@ A pass shows the idea works at small scale on US ground. It does not show it aga
 | Test | Adds | Why later |
 |---|---|---|
 | T7 | 20+ listeners, losses in a mass raid | ~$1,000; only matters once a line works |
-| T10, T13, T14 | Drone-laid listeners, with and without GPS | Hand placement proves the rest first |
+| T10, T13, T14 | Drone-laid listeners, with and without GPS. Dart, X500 harness and printed carrier: [Build: hardware]({{ site.baseurl }}{% link build-hardware.md %}) | Hand placement proves the rest first |
 | T15 | Friend or foe | Needs recordings of friendly drones |
 | T19 | Jamming | Illegal in the US; needs a licensed range or Ukraine |
 | T6 | Shahed-class engines | Needs a partner |
