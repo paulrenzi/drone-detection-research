@@ -148,9 +148,12 @@ th {
   border-bottom: 0;
 }
 
-th,
 td {
   border-color: #e9e3d9;
+}
+
+th {
+  border-color: $ou-ink;
 }
 
 // Overview hero
