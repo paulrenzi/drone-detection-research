@@ -120,7 +120,7 @@ The middle column is sourced. The four right-hand columns are our inference from
 | **Interceptor drone** | Piloted "using VR goggles", over 160 km/h, built for Shaheds ([Militarnyi, Oct 2024](https://militarnyi.com/en/news/ukrainian-engineers-launch-sting-interceptor-against-shahed-drones)). No published time from cue to launch, and no verified kill of an FPV attacking a position | ❌ | ❌ | ❌ | 🟡 only with one on the pad and a pilot ready; also needs a track, which a line crossing doesn't give |
 | **Laser** (Tryzub) | FPVs at "around 800–900 meters", with radar integration ([Euromaidan Press, May 2026](https://euromaidanpress.com/2026/05/08/tryzub-laser/)). Time needed on target: not published. Rare at the front | ❌ | ❌ | 🟡 | 🟡 cue to slew, if one is present |
 | **Nets, net tunnels, cable traps** | Always up. Ukraine plans another 4,000 km of net-covered road by the end of 2026 ([Liga.net, Feb 2026](https://news.liga.net/en/politics/news/another-4000-km-of-roads-will-be-covered-with-anti-drone-tunnels-in-ukraine-by-the-end-of-the-year-photo)) | ✅ | — | — | — |
-| **Jamming** | No effect on fibre-optic FPVs | ❌ | ❌ | ❌ | ❌ |
+| **Jamming** | Triggers the drone's own fail-safe by drowning its radio and GNSS links. Crews use detectors to decide when to switch jammers on ([Foreign Policy, Aug 2024](https://foreignpolicy.com/2024/08/05/ukraine-russia-war-drone-detectors-jamming-tsukorok/)); site jammers such as CERBAIR MEDUSA are built to be switched on by a detector's cue ([spec sheet](https://comsecfl.com/wp-content/uploads/2022/04/Specsheet_Medusa.pdf)). **No effect on fibre-optic FPVs** | ❌ | 🟡 radio FPVs only | ✅ radio FPVs only | ✅ radio FPVs only; less time transmitting |
 
 ### What this shows (inference)
 
