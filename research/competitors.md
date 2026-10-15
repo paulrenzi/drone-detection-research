@@ -194,8 +194,8 @@ They serve the rear, cost too much for a platoon, or don't hear fibre-optic dron
 - **The architecture is no moat.** DroneAlert already sells LoRa acoustic modules on a battery at ~$211. If its price falls to listener level, only drone-laying, data and fielding set us apart.
 - **The radio link home gets jammed.** Common Russian jammers cover 100 MHz–1.1 GHz, and a LoRa-hunting prototype ("Tishina") is described ([Armada, Sep 2026](https://www.armadainternational.com/2026/09/russia-tishina-software-defined-jammer-electronic-warfare/)). Test T19 decides.
 - **Komodo or RADD go cheap and forward.** Komodo already drops sensors by drone, and RADD has US Army access. Our defence is speed and cost per listener.
-- **A listening sentry is good enough at the position.** Then only forward placement pays.
-- **Warning may not change much.** No source measures what warning saves ([problem check]({{ site.baseurl }}{% link research/problem-check.md %})). RUSI's brigades report about half of casualties in the rear, during rotation and resupply ([RUSI, Feb 2025](https://static.rusi.org/tactical-developments-third-year-russo-ukrainian-war-february-2205.pdf)). A sensor at the position misses those, and lines along routes might not.
+- **A listening sentry or an AI turret is good enough at the position.** Turrets that carry their own sensor are in more than 10 units ([what troops have]({{ site.baseurl }}{% link research/frontline-kit.md %})). Then only forward placement pays.
+- **Warning may not change much.** No source measures what warning saves. Our central guess is about 1–4 of every 100 drone casualties averted, range 0.3–14 ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). RUSI's brigades report about half of casualties in the rear, during rotation and resupply ([RUSI, Feb 2025](https://static.rusi.org/tactical-developments-third-year-russo-ukrainian-war-february-2205.pdf)). A sensor at the position misses those, and lines along routes might not.
 - **No moat in hardware.** The lasting advantage is front-line training data and fielded integrations.
 
 ## Sources

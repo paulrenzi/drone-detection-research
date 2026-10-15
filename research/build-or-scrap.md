@@ -11,7 +11,7 @@ A review of whether the case for our model holds, after a fresh sweep of competi
 
 {: .important }
 > **Verdict: don't scrap, but narrow.**
-> - **Keep the forward-laid tripwire.** It is the one part nobody sells, and the one part that physics favours.
+> - **Keep the forward-laid tripwire.** It is the one part nobody sells, and the one part that physics favours. What it buys is a go/no-go minute for people about to move: about 1–4 of every 100 drone casualties averted, on our central guess ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})).
 > - **Drop the hand-placed node as a product.** A Ukrainian LoRa acoustic module is already listed at about $211, inside our $125–300 band.
 > - **The case is not bulletproof, and more desk research won't make it so.** Three things could still kill it. A $0 interview round (T18) and two field tests under $300 each (T9, T19) decide them.
 
@@ -61,6 +61,7 @@ Earlier comparisons gave competitors their claimed ranges. Here every row uses t
   - **ZVOOK Tracking**: a bearing-capable array at about $2,670 ([Flash Army](https://flasharmy.com.ua/sensor-zvook-tracking)).
 - **Nobody sells forward lines.** Komodo's star is still the only acoustic sensor sold as drone-droppable, and it's priced and pitched as a capable Shahed sensor.
 - **No independent test of any acoustic FPV detector** was found: not NW0, RADD, Komodo, DroneAlert or SKANER. Poland's seven-system trial at Ustka (April 2026) published no results.
+- **At the front, the kit is shifting** ([inventory]({{ site.baseurl }}{% link research/frontline-kit.md %})). Jamming is failing ("Jamming no longer works", a brigade EW commander). An AI turret that tracks fibre-optic drones is in more than 10 units. Interceptors are the most-ordered category on Brave1 Market. None of it gives a minute's warning of fibre-optic FPVs.
 - **Money is moving into acoustic, for the rear.** NATO's procurement agency (NSPA) named a Bionic System Solutions-led consortium as one of five counter-drone framework contractors (July 2026). Lithuania is piloting Sky Fortress, and a Czech fund has invested in Zvook (Oct 2026). None of this is for FPVs at a position.
 
 ## What could still kill it

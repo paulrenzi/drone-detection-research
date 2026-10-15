@@ -31,7 +31,7 @@ nav_order: 0
 
 - **Drones cause about 80% of casualties** at the front, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)).
 - **Units cope by not moving:** underground, under nets, taking hours to cover a kilometre. Every trip out is exposure (same source).
-- **Fibre-optic FPVs, the fastest-growing threat, emit no radio**, so the detectors units carry miss them. A microphone hears them.
+- **Fibre-optic FPVs, the fastest-growing threat, emit no radio**, so the detectors units carry miss them, and jamming does nothing to them. A microphone hears them ([what troops have]({{ site.baseurl }}{% link research/frontline-kit.md %})).
 - **Nothing cheap fills the gap yet.** Camera systems like WISP aren't at the front and can't see through tree lines; Zvook's acoustic FPV sensor, the NW0, sits at the unit, not forward: it needs 15–18 W of power and a link. It's on sale at about $834–950 per sensor, but its range and fibre-optic claims are the maker's only ([details]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0--direct-competitor-claims-only)). Denmark's Komodo already sells a sensor variant that drones can drop, built for Shaheds rather than FPV lines ([details]({{ site.baseurl }}{% link research/competitors.md %}#komodo--the-drone-dropped-sensor-already-exists)).
 
 Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
@@ -41,7 +41,7 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 - **Rated 3 out of 5.** Every part exists, but nobody has shown that a forward line can get its alerts home.
 - **The deciding test is radio under trees (T9).** Published measurements say open ground probably works. Under trees, where troops and attacking drones actually go, it is unproven. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
 - **The proposed answer: hear the lines from the edge of the unit's tree line.** A listen-only receiver, placed by hand and raised at the belt edge, wired back to the dugout so the unit's position emits nothing. [Design](#getting-alerts-out-of-the-trees).
-- **The one unproven link is whether warning changes what troops do.** No source measures it. Ask front-line users before building more ([T18]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)).
+- **The one unproven link is whether warning changes what troops do.** No source measures it. If they act on it, our central guess is about 1–4 of every 100 drone casualties averted, almost all among people about to move ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Ask front-line users before building more ([T18]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)).
 - **Next steps cost little.** The first five tests each cost under $500; see [Parts and first build](#components-and-mvp).
 
 ## Front-line problems, in plain terms
@@ -329,7 +329,7 @@ For warning time, probably: about a minute instead of about ten seconds, includi
 
 - It only catches drones that cross a line. Launches from inside it, or routes round its ends, are missed.
 - It says *something crossed here*, not where it will strike.
-- A minute is only worth what the unit can do with it. Against fibre-optic FPVs that is mostly avoidance (get under cover, hold movement), plus readying shooters and cueing turrets ([what a minute buys]({{ site.baseurl }}{% link research/problem-check.md %}#what-a-minute-buys)).
+- A minute is only worth what the unit can do with it. Against fibre-optic FPVs that is mostly avoidance (hold a movement, get under cover). Weapons need only seconds ([a minute against the alternatives]({{ site.baseurl }}{% link research/problem-check.md %}#a-minute-against-the-alternatives)).
 - The enemy adapts, by flying round the ends or hunting listeners.
 
 Whether a minute changes outcomes is for front-line users to say, not a test bench, and nothing published answers it. So that comes first: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %}) sets out the evidence and the questions to ask (T18).

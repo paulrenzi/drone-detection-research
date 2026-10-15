@@ -7,7 +7,7 @@ nav_order: 0.3
 # What the forward line gains in lives
 {: .no_toc }
 
-We estimate what a minute of warning from a forward listening line does for troops' lives, compared with the ~10 seconds a sensor at the position gives, and with the partner systems each could cue. This is a Fermi estimate. Each input is marked **measured**, **claimed** (a source says so, unverified) or **guess** (ours). No source measures what warning does to drone casualties, so the result is a range, not a number. Reviewed 2026-10-15.
+We estimate what a minute of warning from a forward listening line does for troops' lives, compared with the ~10 seconds a sensor at the position gives, and with the partner systems each could cue. This is a Fermi estimate. Each input is marked **measured**, **claimed** (a source says so, unverified) or **guess** (ours). No source measures what warning does to drone casualties, so the result is a range, not a number. What troops already carry is on [What troops have, and what listening adds]({{ site.baseurl }}{% link research/frontline-kit.md %}). Reviewed 2026-10-15.
 
 1. TOC
 {:toc}
@@ -77,16 +77,14 @@ The ranges multiply the low ends together and the high ends together, so the tru
 | **AI turret** | Enough to slew and track | Same | ≈0 |
 | **Cover at the position** | Enough if the dugout is a few metres away | Smoke and dispersal also become possible | small |
 | **Holding a movement** (vehicle, resupply, walkers, evacuation) | Too late: they are already in the open | A go/no-go call before setting out. Russia's roadside drone "traffic lights" do this on roads ([Espreso, Dec 2024](https://global.espreso.tv/russia-ukraine-war-russia-installs-traffic-lights-to-counter-ukrainian-fpv-drones)) | **most of the chain above** |
-| **Cued jammer** (e.g. CERBAIR MEDUSA, [partners]({{ site.baseurl }}{% link research/competitors.md %}#partners-and-the-budget-we-compete-for)) | Switches on while the drone is already on its final approach | Switches on early and only when a drone is coming, so it transmits less. Also covers radio links its own detector misses | radio FPVs only; **none against fibre-optic** |
+| **Cued jammer** (e.g. CERBAIR MEDUSA, [partners]({{ site.baseurl }}{% link research/competitors.md %}#partners-and-the-budget-we-compete-for)) | Switches on while the drone is already on its final approach | Switches on early and only when a drone is coming, so it transmits less. Also covers radio links its own detector misses | radio FPVs only, and fading: "Jamming no longer works", says a brigade EW commander; **none against fibre-optic** |
 | **Interceptor drone** | Can't launch and climb in time | Plausibly the minimum lead time (our inference; no source gives launch-to-intercept times against FPVs) | unknown |
 | **Nets, tunnels, cable traps** | Need no warning | Need no warning | ≈0; they compete with the line for the same budget |
 
 **What this shows (inference):**
-- Against **radio-controlled FPVs**, a radio detector already gives a minute, and partner jammers already depend on it. The line adds little there beyond cueing jammers for drones the detector misses.
+- Against **radio-controlled FPVs**, a radio detector already gives a minute, and partner jammers already depend on it. The line adds little there beyond cueing jammers for drones the detector misses, and jamming itself is losing ground.
 - Against **fibre-optic FPVs**, jammers do nothing and weapons get only seconds whatever the warning. The line's minute is the only early warning available, and its value is entirely in **avoidance by people who are about to move**.
 - So the line's value grows with the fibre-optic share in a sector and with how much movement the unit has to make in the open.
-
-For what troops already carry, item by item, see [What troops have, and what listening adds]({{ site.baseurl }}{% link research/frontline-kit.md %}).
 
 ## Is it worth the cost?
 
