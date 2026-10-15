@@ -33,7 +33,36 @@ Software is the comparatively easy part. The hard parts are **range** (how far a
 {: .important }
 > The proven model is a dense, fixed network of cheap ground sensors. Ukraine's Sky Fortress runs on ~10,000–14,000 of them at about $400–1,000 each. The most credible way to beat that cost is a **purpose-built mic-array node at roughly $60–120**, mounted high (masts, rooftops, telecom towers), that reports bearings instead of raw detections. The only airborne option still on the list is lighter-than-air: a tethered aerostat.
 
-<p class="kicker">02 · The constraint</p>
+<p class="kicker">02 · The landscape</p>
+
+## What's out there, what works, what failed.
+
+Counter-drone sensing has split into a few camps. Each one is good at something, and each has a blind spot.
+
+**What works.** Ukraine settled the main question: cheap acoustic networks work in war. Sky Fortress runs about 14,000 phone-and-microphone sensors on poles at $400–1,000 each, roughly $5M for the whole network, and tracks Shaheds and cruise missiles with them. Zvook puts microcomputers on radio towers and is trialling a vehicle version with NATO. At the top end, Squarehead's Discovair and Microflown's AVISA show what premium acoustic arrays can do without line of sight: a few hundred metres against small drones. Soldiers already buy cheap radio detectors in numbers; BlueBird's Chuyka costs about $750–850 and picks up analog FPV video at up to 4 km. Anduril's WISP cameras and Lattice software sit at the expensive end and are becoming the US Army's backbone.
+
+**What falls short, and why.** The blind spots are exactly where drones are moving.
+
+- **Radio detectors** hear radio, not drones. Fibre-optic FPVs and pre-programmed drones are invisible to them, and they rarely give a position to put on a map.
+- **Radar** is accurate, but it transmits all the time, so it can be found and targeted. It also needs line of sight and costs $40k–160k a unit.
+- **Cameras**, even WISP, can't see a low drone behind trees, buildings or a ridge.
+- **Premium acoustic arrays** work, but they are single expensive sensors sold through prime contractors. Even they top out at a few hundred metres, so better hardware alone doesn't buy more range.
+- **Sky Fortress** is built for national coverage of loud engine drones over cellular networks, not for portable kits that units can carry against FPVs.
+
+**What failed outright.** Microphones on flying drones don't work: the listener's own rotors sit centimetres from the mic, and published measurements put the target 10–30 times quieter than the drone's own noise. Perching drones (land, stop the motors, listen) fix that, but landing reliably and keeping them powered is still research. Fibre-optic acoustic sensing turns a cable into a long line of microphones, but buried fibre hears airborne sound poorly and has only detected vehicles close to the cable. All three rated below 3 and are no longer on this site.
+
+## The routes still open.
+
+The gap nobody fills cheaply is **passive detection of drones that don't transmit and can't be seen, at a price every unit can carry.** Four practical routes lead there:
+
+1. **Purpose-built mic-array nodes at $60–120, mounted high** ([M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) on [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %}) placements). Many cheap nodes rather than one better sensor, each reporting a bearing rather than a bare alarm. This is the core.
+2. **Phones as a fast start** ([M2]({{ site.baseurl }}{% link models/m02-phone-network.md %})). Proven at scale by Sky Fortress. Trade unit quality for speed when coverage is needed this month.
+3. **Portable unit kits.** 8–12 nodes around a ~500 m perimeter for about $1,500–2,500, placed by hand or dropped by drone ([M7]({{ site.baseurl }}{% link models/m07-drone-deployed-nodes.md %})), with vehicle-mounted nodes ([M9]({{ site.baseurl }}{% link models/m09-mobile-nodes.md %})) for units on the move. This is the form factor Sky Fortress wasn't built for.
+4. **Be the sensor, not the platform** ([M10]({{ site.baseurl }}{% link models/m10-hybrid-cueing.md %})). Feed tracks into Lattice, TAK and SAPIENT, and use acoustic bearings to point cameras and RF sensors at drones they would otherwise miss.
+
+The lasting advantage isn't the hardware, which anyone can copy. It's **training data** (real combat recordings and local false-alarm sounds) and integrations that are already in the field. Details and sources are in [Existing systems]({{ site.baseurl }}{% link research/existing-systems.md %}) and the [competitor analysis]({{ site.baseurl }}{% link research/competitors.md %}).
+
+<p class="kicker">03 · The constraint</p>
 
 ## Passive by design.
 
@@ -46,7 +75,7 @@ So every model on this site has to work without an active emitter:
 - **No radar in our kit.** We add no emitter of our own. If a site already runs a radar, its track can be fused in, but nothing we field depends on it.
 - **Other sensors must be passive too.** Passive RF (receive only) and cameras (visible or thermal) qualify; anything that illuminates the target does not.
 
-<p class="kicker">03 · Feasibility matrix</p>
+<p class="kicker">04 · Feasibility matrix</p>
 
 ## Eight ways to build the network.
 
@@ -66,7 +95,7 @@ Rated **1 (not feasible now) to 5 (proven, build today)**. Models rated below 3 
 
 Each model's page says what it works best against. Reference point: commercial acoustic arrays such as Squarehead **Discovair G2** (Norway) detect small drones at "several hundred metres" and are sold inside full counter-UAS systems at far higher prices. See [Existing systems]({{ site.baseurl }}{% link research/existing-systems.md %}).
 
-<p class="kicker">04 · Positioning</p>
+<p class="kicker">05 · Positioning</p>
 
 ## The layer the others miss.
 
@@ -76,7 +105,7 @@ The first integration target is **Anduril Lattice**, which the US Army has picke
 
 [Read the competitor analysis →]({{ site.baseurl }}{% link research/competitors.md %}){: .btn .btn-primary }
 
-<p class="kicker">05 · Ratings</p>
+<p class="kicker">06 · Ratings</p>
 
 ## How ratings work
 {: #how-ratings-work }
@@ -92,7 +121,7 @@ Each model is scored 1–5 on four axes, and the overall score is a judgement, n
 
 The single most important number is **cost per square kilometre covered = node cost × node density**. Node density is driven by detection range, which differs hugely by target. See [Range and cost-per-km² model]({{ site.baseurl }}{% link research/range-and-cost.md %}).
 
-<p class="kicker">06 · Contributing</p>
+<p class="kicker">07 · Contributing</p>
 
 ## How to add to this
 
