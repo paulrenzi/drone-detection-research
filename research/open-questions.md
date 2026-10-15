@@ -27,6 +27,7 @@ The ratings on this site are judgements. These tests would turn them into measur
 | T14 | Tripwire: the T13 sortie with GPS unavailable, flying on optical flow, compass and barometer from a known start point ([Delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %}#flying-when-gps-is-jammed)) | Can a line be laid under jamming, and how far off are the drops? | < $300 | Not started |
 | T15 | Record friendly drone types (observation quads, bombers, resupply) and test whether the classifier, which line trips first, and friendly flight times can sort friend from foe, with node clocks kept in step without GPS, by neighbours relaying or by a rare time beacon from a surveyed point ([design]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost)) | Will a line raise false alarms on its own side's drones? | < $200 | Not started |
 | T16 | [M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) and [M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}) under GPS jamming: survey 3–5 nodes and one anchor, then compare three ways to keep positions and clocks without GPS: time-of-flight ranging to the anchor (SX1280 boards), a time beacon from the anchor, and calibrating against the delivery drone's logged track as it flies over. Suggested by a reader. [Evidence](#t16-positions-and-clocks-without-gps) | Can nodes that need precise positions and clocks keep them under jamming, and how much do they have to transmit to do it? | < $300 (est.) | Not started |
+| T17 | [Tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): build a [listen-only edge receiver]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees), a LoRa board raised 5–10 m at a tree-belt edge with a small Yagi, wired 300–1,000 m to the dugout over RS-485, with a second receiver on the same wire. Confirm with an SDR that it emits nothing (as in T8) | Can a unit hear its lines from inside a tree line without transmitting from its position? | < $300 (est.) | Not started |
 
 ## T9: can a forward line report back?
 
@@ -59,6 +60,23 @@ At 915 MHz a radio link needs a clear zone around the straight line between the 
 
 **Only a field test can settle the forest case**, and the forest case is the one that matters, because a line laid along a treeline or through woods is the realistic deployment.
 
+### Predicting it before the field test
+
+Simple arithmetic isn't enough. Multiplying per-hop delivery (80% per hop with three retries is about 99.8%, so about 98% over 12 hops) assumes failures are random. Under trees most aren't: a link blocked by a trunk or a fold in the ground stays blocked, and retrying doesn't help. What decides it is whether every gap in the line has at least one working link, counting links that skip a neighbour.
+
+A simulation could estimate that (not yet built):
+
+1. Fit a path-loss model to the measurements above, adding foliage loss from a standard vegetation model such as [Weissberger's](https://en.wikipedia.org/wiki/Weissberger%27s_model) and random shadowing.
+2. Scatter thousands of lines, each listener 20–50 m off its planned point, and check every link against the SX1262's sensitivity at SF7–12.
+3. Report the chance a line connects at each spacing, in forest and in windbreak country, to a receiver under a belt and to a [raised edge receiver]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees).
+
+Ready-made simulators cover the routing side: [Meshtasticator](https://github.com/meshtastic/Meshtasticator) (Meshtastic's own), [ns-3 LoRaWAN](https://github.com/signetlabdei/lorawan) and [FLoRa](https://flora.aalto.fi/). The result would be a prediction, not proof, but it would let the field test check the model at a few points instead of surveying blind.
+
+**Nearest published work.** Nothing we found measures delivery against hop count under canopy:
+
+- [Leenders et al., 2023](https://pmc.ncbi.nlm.nih.gov/articles/PMC10255751): 30 LoRa nodes relaying up to three hops on a university campus, mostly indoors. 90% of nodes delivered at least 70% of packets, and delivery fell with distance from the gateway because end-to-end delivery is the product of each hop's. Not a forest.
+- [Cappelli et al., 2023](https://doi.org/10.1109/SAS58821.2023.10254173): LoRaWAN links of 50, 100 and 200 m in an artificial wood. Standard path-loss models matched at 50 and 100 m but underestimated the vegetation loss at 200 m.
+
 ### The test (T9)
 
 Uses the two Heltec WiFi LoRa 32 V3 boards from the [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector).
@@ -79,6 +97,7 @@ Uses the two Heltec WiFi LoRa 32 V3 boards from the [weekend test kit]({{ site.b
 | B | Forest (node under canopy, receiver at the edge or in a clearing) | 1 m | 8–10 m | 250 m, 500 m, 1, 1.5, 2 km |
 | C | Forest, node to node (both under canopy) | 1 m both | — | 100, 150, 200, 300 m |
 | D | Repeat the best and worst of A–C with the 3–5 dBi antennas | as above | as above | as above |
+| E | Windbreak country: node in the open or at a belt edge, with 1, 2 and 3 belts between it and the receiver | 1 m | Edge receiver at a belt: 2 m inside the belt, then 5–10 m in the canopy, with and without a small Yagi ([design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees)) | 1, 2, 3 km |
 
 At each point: stake the node, send **at least 100 packets per spreading factor**, and log packets sent and received, RSSI, SNR, node and receiver heights, terrain and canopy, temperature and wind. Fading in forest is severe, so also move the node a few metres and repeat at each forest point. Run on at least **two different days**, one of them warm.
 
@@ -86,6 +105,7 @@ At each point: stake the node, send **at least 100 packets per spreading factor*
 
 - **Open ground:** 90% or more of packets delivered at **3 km** from a 1 m node to the 8–10 m receiver, at any spreading factor.
 - **Forest, one of:** 80% or more delivered **direct at 2 km** to the raised receiver, **or** 80% or more **node to node at 200 m** (so a hop chain at the planned spacing holds).
+- **Windbreak country:** 90% or more delivered at **2 km across two belts** to a raised edge receiver.
 - Both on two separate days.
 
 **What a fail means:** if forest hops fall under 80% at 150 m, the tripwire still works in open country, but in woods it needs either far denser lines or a different way home: a relay drone left on high ground, or an [aerostat]({{ site.baseurl }}{% link models/m05-aerostats.md %}) at the unit. Either way, record the numbers on the tripwire page.
