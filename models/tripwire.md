@@ -32,7 +32,7 @@ nav_order: 0
 - **Drones cause about 80% of casualties** at the front, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)).
 - **Units cope by not moving:** underground, under nets, taking hours to cover a kilometre. Every trip out is exposure (same source).
 - **Fibre-optic FPVs, the fastest-growing threat, emit no radio**, so the detectors units carry miss them. A microphone hears them.
-- **Nothing cheap fills the gap yet.** Camera systems like WISP aren't at the front and can't see through tree lines; Zvook's acoustic FPV sensor (announced January 2026) sits at the unit, not forward.
+- **Nothing cheap fills the gap yet.** Camera systems like WISP aren't at the front and can't see through tree lines; Zvook's acoustic FPV sensor, the NW0, sits at the unit, not forward. It was announced in January 2026, and all we know of it is the maker's claims ([details]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0-the-one-direct-competitor-claims-only)).
 
 Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
 
@@ -242,6 +242,16 @@ A reader suggested one central node with a known position, and listeners that me
 {: .warning }
 > Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first ones. A full kit of 24 listeners and one delivery drone is estimated at **$1,500–2,500**.
 
+### The running cost: lines are ammunition
+
+The kit price is only the start. Listeners aren't recovered, so every line is re-laid when its batteries run out. All figures below are estimates, built on the part prices above and the unproven "weeks" battery target (T12):
+
+- **One re-lay** of two 12-listener lines: 24 × $17–50 ≈ **$400–1,200** in listeners, plus 6–8 drone sorties at 3–4 listeners each.
+- **At four weeks per battery:** about 13 re-lays a year, so **≈ $5–16k a year** per 3 km front. That doubles at two weeks.
+- **Plus** listeners lost to shelling, and the occasional delivery drone.
+
+So the tripwire is a consumable, not a one-off purchase. It costs less than a radar but more than a radio detector bought once. Two things shrink the bill: battery life measured in months, not weeks, and a cheaper listener. Test T12 decides which bill is real.
+
 ### Five build steps
 
 Each step answers one question before money goes into the next. They match the [tests](#open-questions).
@@ -272,7 +282,7 @@ The claim is narrow: **for early warning of low drones approaching a unit, inclu
 
 | | Fibre-optic FPV | Behind trees or a ridge | Warning time vs FPV | Emits while watching | Rough cost | A unit can carry it |
 |---|:-:|:-:|---|:-:|---|:-:|
-| **Drone-laid tripwire** | ✅ | ✅ | **~1–2 min** | ❌ | **~$1.5–2.5k kit** | ✅ |
+| **Drone-laid tripwire** | ✅ | ✅ | **~1–2 min** | ❌ | **~$1.5–2.5k kit, then ≈ $5–16k a year in re-lays** ([est.](#the-running-cost-lines-are-ammunition)) | ✅ |
 | Hand-placed acoustic ring | ✅ | ✅ | ~10 s | ❌ | similar | ✅ |
 | Radio detector (e.g. Chuyka) | ❌ | partly | long, if it emits | ❌ | ~$750–850 | ✅ |
 | Camera (e.g. WISP) | ✅ if in sight | ❌ | depends on sight lines | ❌ | far higher | ❌ |

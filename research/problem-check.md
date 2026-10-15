@@ -53,7 +53,9 @@ There is no single "current model". At the front it is a set of coping measures:
 
 **ZVOOK NW0** (announced January 2026): a Ukrainian acoustic sensor for FPVs, including fibre-optic ones. Claimed 150–450 m range, 360°, 15–20 W, linked by fibre, twisted pair, LTE or LoRa, spaced 400–600 m, pitched for front-line positions, frontline towns and logistics routes. No price or deployment reported ([Militarnyi](https://militarnyi.com/en/news/ukraine-develops-acoustic-detector-for-fpv-drones/)).
 
-That is both validation (a Ukrainian team building from the front thinks acoustic FPV detection is worth fielding) and competition. Where we would still differ: battery power for weeks instead of 15–20 W of wired power, throwaway cost, and lines laid forward rather than sensors at the unit.
+**Every figure is the maker's claim.** The specs come from Zvook's own announcement, which news sites repeated. We found no independent test, no price and no unit reported using it ([profile]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0-the-one-direct-competitor-claims-only)). So it's weak validation: a credible team with existing customers thinks acoustic FPV detection is worth building. It isn't proof that the approach works. It's also competition.
+
+**Nor does anyone else prove it.** The US Army's March 2026 review of Ukrainian acoustic networks says they detect FPVs. Its cited sources cover Shaheds and cruise missiles over the rear, not FPVs at the front ([details]({{ site.baseurl }}{% link research/competitors.md %}#two-markets-only-one-of-them-ours)). Cheap acoustic detection is proven against Shaheds. Against FPVs at a position, it's still unproven, for us and for Zvook alike. Where we would still differ: battery power for weeks instead of 15–20 W of wired power, throwaway cost, and lines laid forward rather than sensors at the unit.
 
 ## What a minute buys
 
