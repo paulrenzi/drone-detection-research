@@ -132,7 +132,7 @@ The middle column is sourced. The four right-hand columns are our inference from
 
 **Pairing, not replacing:** a forward line for go/no-go decisions, and the ear, a radio detector or a sensor at the position for the last seconds a weapon needs.
 
-**In lives:** our central guess is that the line averts about 1–4 of every 100 drone casualties in a unit that uses it (range 0.3–14), almost all among people about to move. See [What the line gains in lives]({{ site.baseurl }}{% link research/lives-model.md %}).
+**In lives:** our central guess is that the line averts about 1–4 of every 100 drone casualties in a unit that uses it (range 0.3–14), almost all among people about to move. See [What the line gains in lives]({{ site.baseurl }}{% link research/lives-model.md %}) and [what troops already have]({{ site.baseurl }}{% link research/frontline-kit.md %}).
 
 {: .warning }
 > Almost every timing here is inference. No source gives the seconds of warning a defence needs, the time to reach cover, the time to build a smoke screen, or the time from cue to interceptor launch. A shallow search also found nothing on Scan Horizon or Sky Sentinel reaction times. These are T18 questions.

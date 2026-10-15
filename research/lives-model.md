@@ -86,6 +86,8 @@ The ranges multiply the low ends together and the high ends together, so the tru
 - Against **fibre-optic FPVs**, jammers do nothing and weapons get only seconds whatever the warning. The line's minute is the only early warning available, and its value is entirely in **avoidance by people who are about to move**.
 - So the line's value grows with the fibre-optic share in a sector and with how much movement the unit has to make in the open.
 
+For what troops already carry, item by item, see [What troops have, and what listening adds]({{ site.baseurl }}{% link research/frontline-kit.md %}).
+
 ## Is it worth the cost?
 
 The tripwire costs about $1.5–2.5k for the kit and about $5–16k a year in re-lays ([running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)).
