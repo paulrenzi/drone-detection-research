@@ -80,7 +80,7 @@ A microphone hears a small FPV at roughly **100–300 m** ([working estimate]({{
 {: .warning }
 > FPV speeds and detection ranges are planning estimates, not field measurements. The ratio is what matters: ten times the distance is roughly ten times the warning.
 
-Ten seconds is enough to flinch. A minute is enough to get people under cover, hold a resupply run or evacuation, ready shooters, and cue a camera or turret. Interceptor drones are built mostly for other targets so far. [What a minute buys]({{ site.baseurl }}{% link research/problem-check.md %}#what-a-minute-buys).
+Ten seconds is enough to get a shotgun or net-gun up; weapons have only about 1–4 seconds of the drone's flight in range, so a minute adds little for them. What a minute adds is a go/no-go call on exposure: get people under cover, don't start a vehicle run, hold a resupply pickup. Only a line forward gives that against fibre-optic FPVs. Interceptor drones are built mostly for other targets so far. [A minute against the alternatives]({{ site.baseurl }}{% link research/problem-check.md %}#a-minute-against-the-alternatives).
 
 ### Lines, not coverage
 

@@ -86,6 +86,55 @@ Suppose a unit knows a drone is coming a minute before it arrives. What do troop
 
 So the question for T18 is not just "would warning help?" but **which of these moments matter most, and how often**.
 
+## A minute against the alternatives
+
+The table above asks whether warning helps. This one asks **how much each defence needs**, and so what a minute adds over the few seconds that other sources of warning already give. Reviewed 2026-10-15.
+
+### How much warning each source gives
+
+Warning is the distance at which the drone is detected, divided by its speed. FPVs reach "a top speed of 140 kilometers an hour" ([ERR, Nov 2025](https://news.err.ee/1609861089/err-in-ukraine-up-close-with-ukraine-s-counter-drone-air-defense-teams)), so the figures below take 100–140 km/h (28–39 m/s). They are our arithmetic, not measurements, and they ignore the second or two needed to recognise the sound.
+
+| Source of warning | Detects at | Warning vs an FPV (est.) | Against fibre-optic FPVs? |
+|---|---|---|---|
+| None: drone seen at the last moment | — | 0 s | — |
+| A sentry's ear | ~150 m (Mavic-class, quiet field, [measured](https://www.mdpi.com/2076-3417/10/16/5501)) | ~4–5 s | Yes, if it is heard |
+| Acoustic sensor at the position | 120 m (DroneAlert) to 450 m (NW0), both makers' claims | ~3–16 s | Yes, on the makers' claims |
+| Radio detector (Chuyka 3.0) | "up to 4 kilometers", scanning every "4 to 8 seconds" ([Militarnyi, May 2025](https://militarnyi.com/en/news/ukraine-develops-chuyka-3-0-drone-video-signal-detector/)) | ~1.5–2.5 min | **No**: it hears only analog video |
+| **Forward listener line** | 2–4 km out | **~50 s–2.5 min** | Yes, if the listeners hear it (T11) |
+
+**A minute is not new. A radio detector already gives one against radio-controlled FPVs.** What is new is a minute against fibre-optic FPVs, where every other source drops to seconds.
+
+### What each defence needs, and what each window buys
+
+The middle column is sourced. The four right-hand columns are our inference from it. ✅ the window is enough; 🟡 helps partly; ❌ not enough; — makes no difference.
+
+| Defence | What it needs (sourced) | 0 s | ~5 s | ~15 s | ~1 min |
+|---|---|:-:|:-:|:-:|:-:|
+| **Net-gun** | Range "up to 25 metres", net open "within 0.2 seconds" ([MITLA-1, Ukrainska Pravda, Jul 2025](https://www.pravda.com.ua/eng/news/2025/07/12/7521456/)); up to 30 m, 2 s reload ([Ptashka 2.0, Mezha](https://oboronka.mezha.ua/en/ptashka-drones-predstavila-sitkomet-ptashka-2-0-310877/)). At FPV speed that is about one second of flight in range | 🟡 last ditch | ✅ in hand, facing it | ✅ | — |
+| **Shotgun or rifle** | 10–15 m from a large FPV is "life-threatening"; shoot at "at least 40–50 meters", rifles at 50–100 m ([Militarnyi, Jun 2026](https://militarnyi.com/en/news/shotguns-ineffective-15-inch-fpv-drones/)). That is about 1–4 s of flight in range | 🟡 reflex | ✅ weapon up | ✅ facing the right way | 🟡 team moves to the threatened side |
+| **AI turret** | Detects and tracks itself; the operator "only needs to confirm engagement with a single button press" ([Ukrinform, May 2026](https://ukrinform.net/rubric-ato/4121457-ukraines-defense-minister-shows-ai-turret-used-in-combat-to-intercept-drones-on-battlefield.html)). Reaction time and whether it takes outside cues: not published | 🟡 on its own sensors | — | — | 🟡 only if it accepts cues |
+| **Smoke** | "highly effective if the unit being targeted can be warned promptly"; no seconds given ([RUSI, Oct 2024](https://static.rusi.org/protecting-the-force-from-uncrewed-uas.pdf)). It "risks drawing Russia's attention" ([Business Insider, Dec 2025](https://www.aol.com/articles/hunted-drones-ukrainian-forces-hide-113401181.html)) | ❌ | 🟡 a screen may not be up in time | ✅ probably | ✅ |
+| **Get under cover** | No published distance to shelter or time to reach it. On foot at 3–5 m/s (our assumption), 5 s covers ~15–25 m and 1 min ~200–300 m | ❌ | 🟡 next to a dugout | 🟡 within ~50–75 m | ✅ off a path and under cover |
+| **Hold a movement** (vehicle run, resupply pickup) | Russian roadside "traffic lights" (yellow means "a distant drone detection") let drivers "navigate risky areas at safer times" ([Espreso, Dec 2024](https://global.espreso.tv/russia-ukraine-war-russia-installs-traffic-lights-to-counter-ukrainian-fpv-drones)) | ❌ | ❌ | ❌ | ✅ don't set off; stop under cover |
+| **Casualty evacuation** | Troops "often have to wait for nighttime, fog, or rain" to evacuate; the golden hour has become a "golden day" ([Business Insider, Dec 2025](https://www.aol.com/articles/hunted-drones-ukrainian-forces-hide-113401181.html)) | ❌ | ❌ | ❌ | 🟡 may let a team move between drones rather than wait for dark; unproven |
+| **Interceptor drone** | Piloted "using VR goggles", over 160 km/h, built for Shaheds ([Militarnyi, Oct 2024](https://militarnyi.com/en/news/ukrainian-engineers-launch-sting-interceptor-against-shahed-drones)). No published time from cue to launch, and no verified kill of an FPV attacking a position | ❌ | ❌ | ❌ | 🟡 only with one on the pad and a pilot ready; also needs a track, which a line crossing doesn't give |
+| **Laser** (Tryzub) | FPVs at "around 800–900 meters", with radar integration ([Euromaidan Press, May 2026](https://euromaidanpress.com/2026/05/08/tryzub-laser/)). Time needed on target: not published. Rare at the front | ❌ | ❌ | 🟡 | 🟡 cue to slew, if one is present |
+| **Nets, net tunnels, cable traps** | Always up. Ukraine plans another 4,000 km of net-covered road by the end of 2026 ([Liga.net, Feb 2026](https://news.liga.net/en/politics/news/another-4000-km-of-roads-will-be-covered-with-anti-drone-tunnels-in-ukraine-by-the-end-of-the-year-photo)) | ✅ | — | — | — |
+| **Jamming** | No effect on fibre-optic FPVs | ❌ | ❌ | ❌ | ❌ |
+
+### What this shows (inference)
+
+- **Weapons need seconds, not a minute.** A net-gun, shotgun or rifle has about 1–4 seconds of the drone's flight in range. A few seconds' warning gets the weapon up and facing the right way; more adds little. A sensor at the position, if it works and gives a bearing, already covers most of that. **The minute is not a weapons cue.** The tripwire should not be pitched as one.
+- **The minute buys one thing nothing else gives against fibre-optic FPVs: a go/no-go call on exposure.** Don't set off, stop the vehicle under cover, hold the resupply pickup, get the walkers off the path. Seconds can't do this; only something 1–4 km out can.
+- **Someone already pays for this.** Russia's roadside traffic lights exist to time movement around drones. That is the same job as a forward line, done for roads.
+- **Above a minute, units fall back on hours.** Evacuations wait for night, fog or rain. A minute's warning competes with that free, slow default. Whether units would trade it for faster moves between drones is exactly what T18 must ask.
+- **Always-on defences need no warning at all.** Nets, net tunnels and cable traps are scaling fast, and anything a minute protects must be outside them.
+
+**Pairing, not replacing:** a forward line for go/no-go decisions, and the ear, a radio detector or a sensor at the position for the last seconds a weapon needs.
+
+{: .warning }
+> Almost every timing here is inference. No source gives the seconds of warning a defence needs, the time to reach cover, the time to build a smoke screen, or the time from cue to interceptor launch. A shallow search also found nothing on Scan Horizon or Sky Sentinel reaction times. These are T18 questions.
+
 ## What would make it a waste
 
 Any of these, found by asking users or by testing:

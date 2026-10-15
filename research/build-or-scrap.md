@@ -78,6 +78,8 @@ We found **no study, after-action report or soldier account comparing outcomes w
 
   A line across the approach would warn a convoy of drones flying in. It **would not** warn of one already waiting with its motors off, which is silent until it launches (inference).
 
+**Weapons need seconds; a minute buys go/no-go calls on movement.** Russia's roadside drone "traffic lights" already serve that purpose ([the comparison]({{ site.baseurl }}{% link research/problem-check.md %}#a-minute-against-the-alternatives)).
+
 **Scrap the tripwire if** T18 interviewees say a minute changes nothing for them, at the position or on the move. Ask specifically about drivers, medics and resupply runs.
 
 ### 2. The radio link home gets jammed or found (T9, new T19)
