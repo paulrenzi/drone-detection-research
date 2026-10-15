@@ -4,13 +4,15 @@ layout: home
 nav_order: 1
 ---
 
+<div class="hero" markdown="1">
+<span class="hero-tag">RESEARCH NOTEBOOK</span>
+
 # Low-Cost Acoustic Drone Detection
 {: .fs-8 }
 
 Can a mesh of cheap microphones detect and locate drones well enough to plot them on a shared map — for a fraction of what military counter-UAS sensors cost today?
 {: .fs-5 .fw-300 }
-
----
+</div>
 
 ## The idea
 
@@ -43,6 +45,7 @@ Ratings run **1 (not feasible now) to 5 (proven / build today)**. See [how ratin
 | M9 | [Vehicle / soldier-mounted mobile nodes]({{ site.baseurl }}{% link models/m09-mobile-nodes.md %}) | **3** | $150–1,000 | Convoys, forward positions | Being trialled (Zvook) |
 | M10 | [Hybrid: acoustic + passive RF + camera cueing]({{ site.baseurl }}{% link models/m10-hybrid-cueing.md %}) | **4** | $100–2,000 / site | All, incl. confirmation | Phase 2 add-on |
 | M11 | [Fiber-optic distributed acoustic sensing]({{ site.baseurl }}{% link models/m11-fiber-das.md %}) | **1–2** | interrogator $50k+ | Near existing fiber | Exploratory |
+{: .matrix }
 
 Reference point: commercial acoustic arrays such as Squarehead **Discovair G2** (Norway) detect small drones at "several hundred metres" and are sold inside full counter-UAS systems at far higher prices. See [Existing systems]({{ site.baseurl }}{% link research/existing-systems.md %}).
 
