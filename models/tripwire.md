@@ -165,6 +165,8 @@ Safer than anything forward of the unit. It goes where the troops already are, i
 | Pole, or throw line and pulley for the canopy | $20–60 |
 | **One edge receiver and its wire** | **≈ $100–250** |
 
+The wire works in every terrain case: a few metres to an edge in a windbreak, hundreds of metres in real forest, a short run to a roof or pole in ruins (inference; no source gives the distance, see [field conditions]({{ site.baseurl }}{% link research/field-conditions.md %}#where-infantry-actually-sit-tree-lines)). The open risk is the radio leg from listeners to the edge receiver, which is T9 run E.
+
 This is test T17. It also adds a windbreak run to [T9]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
 
 </details>

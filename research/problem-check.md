@@ -98,5 +98,7 @@ Talk to 5–10 people with recent front-line experience: soldiers, the volunteer
 4. Roughly what share of FPVs attacking you are fibre-optic?
 5. Would you place 10 listeners by hand, or accept a receiver on a pole at your tree-line edge?
 6. Who decides what kit a unit gets, and who pays: the unit, volunteers, or the state?
+7. Is your position in a windbreak, a forest, a field or ruins?
+8. Roughly how far is it from the tree edge that faces open ground?
 
 **Pass:** most say a minute's warning would change what they do, and name the moment it matters. **Fail:** most say it wouldn't. Either answer is worth more than T9.
