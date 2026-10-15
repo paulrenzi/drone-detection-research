@@ -14,7 +14,9 @@ Before building more, check the premise: are units' current methods failing, wou
 
 ## Short answer
 
-**Not a waste, but not proven worth it either.** The threat is real, it is the biggest killer at the front, and the fastest-growing part of it (fibre-optic FPVs) defeats the cheap detectors units carry. What nobody has published is whether **earlier warning changes what troops do**, and that is the claim the tripwire rests on. It is also the cheapest thing to check: ask the people who would use it (T18), before any more hardware.
+**The case for the problem is strong.** Drones are the biggest killer at the front. Troops survive mainly by staying hidden and not moving, which is coping, not protection. The fastest-growing part of the threat, fibre-optic FPVs, defeats the cheap detectors units carry, and the expensive camera systems are not at the front. A Ukrainian firm is now building acoustic FPV sensors for positions, which supports the approach.
+
+**One link is unproven:** whether **earlier warning changes what troops do**. No source measures it, and it is the claim the tripwire rests on. It is also the cheapest thing to check: ask the people who would use it (T18), before any more hardware.
 
 ## What the evidence says
 

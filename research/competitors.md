@@ -105,6 +105,8 @@ The gap no cheap product fills: **passive, non-line-of-sight detection of drones
 
 **On integration:** be a **sensor, not a platform**. Output Cursor-on-Target to ATAK, SAPIENT for NATO, and target a Lattice integration — Lattice is becoming the US Army's counter-drone backbone, so being a cheap sensor that feeds it is worth more than a competing dashboard. Acoustic bearings that point WISP or a camera at a drone it couldn't otherwise find makes the expensive systems better.
 
+**Front-line evidence backs this.** Drones cause about 80% of casualties, fibre-optic FPVs beat the radio detectors units carry, and WISP-class camera systems aren't at the front. See [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
+
 **One-line positioning:**
 > *The passive acoustic layer that catches the drones radio detectors and cameras miss — at the price of a radio detector.*
 

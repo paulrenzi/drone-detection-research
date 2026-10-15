@@ -49,12 +49,19 @@ Counter-drone sensing has split into a few camps. Each one is good at something,
 - **Premium acoustic arrays** work, but they are single expensive sensors sold through prime contractors. Even they top out at a few hundred metres, so better hardware alone doesn't buy more range.
 - **Sky Fortress** is built for national coverage of loud engine drones over cellular networks, not for portable kits that units can carry against FPVs.
 
+**What the front tells us.** The evidence makes a strong case that the gap is real, and that it is where units are dying ([full review]({{ site.baseurl }}{% link research/problem-check.md %})):
+
+- **Drones cause about 80% of casualties**, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)).
+- **Troops survive mainly by not moving:** underground, under nets, hiding when they hear a drone, taking hours to cover a kilometre and going months without rotation (same source). That is coping, not protection.
+- **The fastest-growing threat beats the detectors units carry.** Fibre-optic FPVs send no radio, so radio detectors miss them ([Kyiv Independent](https://kyivindependent.com/as-russias-fiber-optic-drones-flood-the-battlefield-ukraine-is-racing-to-catch-up/)); they are 30–50% or more of FPVs in some sectors.
+- **The expensive answer isn't there.** We found no reporting of Anduril's WISP at Ukraine's front ([its published use](https://dronexl.co/2026/08/06/anduril-wisp-washington-national-guard-drones-birds/) is US domestic security), and cameras can't see through tree lines anyway.
+- **Ukrainian builders are moving the same way.** Zvook announced an acoustic FPV sensor for front-line positions in January 2026 ([Militarnyi](https://militarnyi.com/en/news/ukraine-develops-acoustic-detector-for-fpv-drones/)): validation of the approach, and a competitor.
+
+What is not yet shown is that **earlier warning changes what troops do**. No source measures it. That is the next thing to check, and it costs nothing: ask front-line users (T18).
+
 **What failed outright.** Microphones on flying drones don't work: the listener's own rotors sit centimetres from the mic, and published measurements put the target 10–30 times quieter than the drone's own noise. Perching drones (land, stop the motors, listen) fix that, but landing reliably and keeping them powered is still research. Fibre-optic acoustic sensing turns a cable into a long line of microphones, but buried fibre hears airborne sound poorly and has only detected vehicles close to the cable. All three rated below 3 and are no longer on this site.
 
 ## The routes still open.
-
-{: .warning }
-> Before building more, check the premise: [is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %}) Short answer: the threat is real and largely unsolved, but whether earlier warning changes what troops do is unproven. Asking users comes first.
 
 The gap nobody fills cheaply is **passive detection of drones that don't transmit and can't be seen, at a price every unit can carry.** Four practical routes lead there:
 

@@ -27,12 +27,21 @@ nav_order: 0
 3. **Report back.** A few-byte alert hops listener to listener to a raised receiver at the unit.
 4. **Warn.** Warning time is distance ÷ drone speed, so a line 2 km out gives about 50–65 seconds against an FPV. A ring of microphones 300 m out gives 8–10 (both estimates).
 
+## Why it matters
+
+- **Drones cause about 80% of casualties** at the front, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)).
+- **Units cope by not moving:** underground, under nets, taking hours to cover a kilometre. Every trip out is exposure (same source).
+- **Fibre-optic FPVs, the fastest-growing threat, emit no radio**, so the detectors units carry miss them. A microphone hears them.
+- **Nothing cheap fills the gap yet.** Camera systems like WISP aren't at the front and can't see through tree lines; Zvook's acoustic FPV sensor (announced January 2026) sits at the unit, not forward.
+
+Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
+
 ## Where it stands
 
 - **Rated 3 out of 5.** Every part exists, but nobody has shown that a forward line can get its alerts home.
 - **The deciding test is radio under trees (T9).** Published measurements say open ground probably works. Under trees, where troops and attacking drones actually go, it is unproven. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
 - **The proposed answer: hear the lines from the edge of the unit's tree line.** A listen-only receiver, placed by hand and raised at the belt edge, wired back to the dugout so the unit's position emits nothing. [Design](#getting-alerts-out-of-the-trees).
-- **First, check the premise.** Drones cause most casualties and fibre-optic FPVs beat the radio detectors units carry, but nobody has shown that earlier warning changes what troops do. Ask users before building more ([T18]({{ site.baseurl }}{% link research/problem-check.md %})).
+- **The one unproven link is whether warning changes what troops do.** No source measures it. Ask front-line users before building more ([T18]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)).
 - **Next steps cost little.** The first five tests each cost under $500; see [Parts and first build](#components-and-mvp).
 
 ## Front-line problems, in plain terms
@@ -401,5 +410,6 @@ In the Vietnam War, **Operation Igloo White** air-dropped acoustic and seismic s
 | 2026-10-15 | 3 (unchanged) | Reviewed front-line conditions. Fibre-optic FPVs, which radio detectors can't see, and predictable approach routes along tree lines support the payoff. GPS jamming, friendly drones and the forest radio case add work; they are now tests T14, T15 and T9. |
 | 2026-10-15 | 3 (unchanged) | Proposed [no-extra-cost fixes](#solving-the-field-limits-at-no-extra-cost) for those limits: drop the node's GPS, sort friend from foe by line order and flight windows, and report battery and temperature. The fixes also turn the line into a record of drone traffic. All untested; rating moves only on test results. |
 | 2026-10-15 | 3 (unchanged) | Page reorganised into layers: summary, front-line problems in plain terms, then fold-out detail. No change to the evidence. |
+| 2026-10-15 | 3 (unchanged); payoff 5 confirmed | [Front-line evidence]({{ site.baseurl }}{% link research/problem-check.md %}) supports the payoff: drones cause about 80% of casualties, fibre-optic FPVs beat the radio detectors units carry, and no cheap system fills the gap. Feasibility is unchanged: radio out of the trees (T9, T17) and whether warning changes behaviour (T18) are still unproven. |
 | 2026-10-15 | 3 (unchanged) | Proposed an engineering answer to the radio question: a listen-only receiver at the edge of the unit's tree line, wired back. Windbreak belts are 3–15 m wide, not forests, and cost a few dB each on paper. Untested (T9, T17). |
 </details>
