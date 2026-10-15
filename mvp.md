@@ -22,6 +22,37 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 
 Assumed owned: laptop, phone, USB power banks, soldering iron.
 
+## Shopping list
+
+Amazon where it sells the part. Prices checked 2026-10-15. Alternatives are in each layer below.
+
+| Layer | Item | Buy | Price |
+|---|---|---|---|
+| 1 | Heltec LoRa 32 V3, 915 MHz, 2-pack | [Amazon](https://www.amazon.com/dp/B0CW6151WJ) | $44.98 |
+| 1 | u.FL→SMA pigtail, Proxicast | [Amazon](https://www.amazon.com/dp/B09GJGNPQX) | $7.94 |
+| 1 | 10 dB SMA attenuator, MWRF | [Amazon](https://www.amazon.com/dp/B07MRG9RDV) | $12.49 |
+| 1 | 915 MHz omni, N, with u.FL lead (run D) | [Amazon](https://www.amazon.com/dp/B0GSB5XKLF) | $16.95 |
+| 1 | Mast, 23 ft fiberglass (optional; a window or tree is free) | [Amazon](https://www.amazon.com/dp/B0GYYL3S6C) | $59.99 |
+| 2 | INMP441 I2S mic, 5-pack | [Amazon](https://www.amazon.com/dp/B09G4RNT3G) | $12.51 |
+| 2 | Fur windscreens, 5-pack | [Amazon](https://www.amazon.com/dp/B01E4ZMTEG) | $8.99 |
+| 2 | Breadboards + jumpers | [Amazon](https://www.amazon.com/dp/B08Y59P6D1) | $9.99 |
+| 2 | Seeed XIAO ESP32S3 Sense (recorder) | [Amazon](https://www.amazon.com/dp/B0C69FFVHH) | $23.99 |
+| 2 | 48 in fiberglass stakes, 20-pack | [Amazon](https://www.amazon.com/dp/B0DF58T198) | $23.99 |
+| 2 | Anemometer (optional) | [Amazon](https://www.amazon.com/dp/B0D7Z43M9S) | $12.99 |
+| 3 | Heltec V3, single | [Amazon](https://www.amazon.com/dp/B0D1H1FN9Y) | $34.99 |
+| 3 | MAX3485 RS-485 modules (3.3 V), 5-pack | [Amazon](https://www.amazon.com/dp/B0FTFXT876) | $8.99 |
+| 3 | USB→RS-485, FT232RL | [Amazon](https://www.amazon.com/dp/B081MB6PN2) | $16.31 |
+| 3 | RTL-SDR Blog V3 + dipole kit | [Amazon](https://www.amazon.com/dp/B0BMKB3L47) | $47.95 |
+| 3 | 915 MHz Yagi, 7 dBi (optional; DIY is a few dollars) | [Amazon](https://www.amazon.com/dp/B0CPFT1V9L) | $24.99 |
+| 3 | Throw line kit (optional; a tennis ball works) | [Amazon](https://www.amazon.com/dp/B0DH2SV5XK) | $21.68 |
+| 3 | Burial Cat5e, 1000 ft (300 m run only) | [Amazon](https://www.amazon.com/dp/B0092TJ4K2) | $89.99 |
+| 4 | Nordic PPK2 current meter | [Adafruit](https://www.adafruit.com/product/5048) (Amazon $189.99) | $99.95 |
+| 4 | 18650 cells, Molicel P28A (not on Amazon) | [18650 Battery Store](https://www.18650batterystore.com/products/molicel-p28a) | $5.99 each |
+| 4 | 18650 holders with leads, 2-pack | [Amazon](https://www.amazon.com/dp/B092TGQ7PB) | $5.99 |
+| 4 | Inkbird IBS-TH2 Plus freezer logger | [Amazon](https://www.amazon.com/dp/B08TM67HJH) | $24.99 |
+| 5 | 2 more Heltec 2-packs (6 listeners in all) | [Amazon](https://www.amazon.com/dp/B0CW6151WJ) | $89.96 |
+| 5 | IP65 box 100×68×50 mm, uxcell | [Amazon](https://www.amazon.com/dp/B07FKN8SZG) | $15.69 each |
+
 ## Layer 0: ask first (T18, $0) {#layer-0}
 
 Run alongside everything. 5–10 interviews with recent front-line users ([questions]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)). The [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %}) depends on whether troops act on warning. No hardware test answers that.
@@ -33,13 +64,13 @@ Run alongside everything. 5–10 interviews with recent front-line users ([quest
 
 | Item | Buy | Alternatives |
 |---|---|---|
-| **2 × LoRa board**, 915 MHz | Heltec WiFi LoRa 32 V3, [Rokland, $29.97](https://store.rokland.com/products/heltec-wifi-lora-32v3) | [Heltec direct, $17.90–19.90](https://heltec.org/project/wifi-lora-32-v3/) + China shipping; [RAK WisBlock kit, $34.97](https://store.rokland.com/products/rak-wireless-wisblock-meshtastic-starter-kit); [LILYGO T3S3, $72.99](https://www.tindie.com/products/yihang/915mhz-meshtastic-kit-t3s3-s3-sx1262/) |
-| **u.FL→SMA cable** (V3 has no SMA) | [Adafruit 851, $3.95](https://www.adafruit.com/product/851) | Any u.FL to SMA-female pigtail |
-| **10 dB attenuator** (margin method) | [Inmet AHC-10, RF Parts, $15.91](https://www.rfparts.com/ahc-10.html) | [L-com 20 dB, $92.09](https://www.l-com.com/coaxial-2w-20db-rf-fixed-attenuator-sma-male-to-sma-female-passivated-stainless-steel-body-up-to-6-ghz) |
-| **Mast**, 6–10 m | **Free:** upstairs window, roof edge, tree | [Spiderbeam 12 m HD, $109.99](https://moonrakeronline.com/us/spiderpole-12hd-telescopic-pole-12m-heavy-duty-fibreglass); 7 m ~$55, same store |
-| **Antenna** (run D) | [8 dBi omni, Newegg Business, $16.99](https://www.neweggbusiness.com/p/9B-2VT-04FG-00029) | [Rokland 5.8 dBi kit, $49.97](https://store.rokland.com/products/meshtastic-compatible-6-dbi-n-female-omni-outdoor-915-mhz-antenna-kit-with-6-10-or-15-cable-choice) |
+| **2 × LoRa board**, 915 MHz | Heltec V3 2-pack, [Amazon, $44.98](https://www.amazon.com/dp/B0CW6151WJ) | [Rokland, $29.97 each](https://store.rokland.com/products/heltec-wifi-lora-32v3); [Heltec direct, $17.90–19.90](https://heltec.org/project/wifi-lora-32-v3/) + China shipping; [RAK WisBlock kit, $34.97](https://store.rokland.com/products/rak-wireless-wisblock-meshtastic-starter-kit); [LILYGO T3S3, $72.99](https://www.tindie.com/products/yihang/915mhz-meshtastic-kit-t3s3-s3-sx1262/) |
+| **u.FL→SMA cable** (V3 has no SMA) | Proxicast, [Amazon, $7.94](https://www.amazon.com/dp/B09GJGNPQX) | [Adafruit 851, $3.95](https://www.adafruit.com/product/851) |
+| **10 dB attenuator** (margin method) | MWRF, [Amazon, $12.49](https://www.amazon.com/dp/B07MRG9RDV) | [Inmet AHC-10, RF Parts, $15.91](https://www.rfparts.com/ahc-10.html); [L-com 20 dB, $92.09](https://www.l-com.com/coaxial-2w-20db-rf-fixed-attenuator-sma-male-to-sma-female-passivated-stainless-steel-body-up-to-6-ghz) |
+| **Mast**, 6–10 m | **Free:** upstairs window, roof edge, tree | Mifoci 23 ft, [Amazon, $59.99](https://www.amazon.com/dp/B0GYYL3S6C) (16 ft [$39.99](https://www.amazon.com/dp/B0GYXPXCNY)); [Spiderbeam 12 m HD, $109.99](https://moonrakeronline.com/us/spiderpole-12hd-telescopic-pole-12m-heavy-duty-fibreglass) |
+| **Antenna** (run D) | 915 MHz omni with u.FL lead, [Amazon, $16.95](https://www.amazon.com/dp/B0GSB5XKLF) | [8 dBi omni, Newegg Business, $16.99](https://www.neweggbusiness.com/p/9B-2VT-04FG-00029); [Rokland 5.8 dBi kit, $49.97](https://store.rokland.com/products/meshtastic-compatible-6-dbi-n-female-omni-outdoor-915-mhz-antenna-kit-with-6-10-or-15-cable-choice) |
 
-**Minimum:** 2 boards + cable, $64. With the attenuator, $80.
+**Minimum:** 2 boards + cable, $53. With the attenuator, $65.
 
 **Firmware**
 - **Quick walk:** Meshtastic [Range Test](https://meshtastic.org/docs/configuration/module/range-test/), region US. Logs `rangetest.csv` with GPS. It sends one packet every 15–60 s, so it finds where the link dies but can't count delivery.
@@ -71,13 +102,13 @@ Run with leaves on now and leaves off in December.
 
 | Item | Buy | Alternatives |
 |---|---|---|
-| **3 × I2S mic** | [Adafruit SPH0645, $6.95](https://www.adafruit.com/product/3421) (Adafruit's replacement for the ICS-43434) | INMP441 (Batear's wiring): [Vetco, $4.95](https://vetco.net/products/omnidirectional-microphone-module-inmp441-high-precision-i2s); [Amazon 5-pack, ~$13](https://www.amazon.com/dp/B09G4RNT3G) |
-| **Fur windscreens** | [Movo WS10n 5-pack, $14.95](https://www.movophoto.com/products/ws10n-universal-furry-outdoor-microphone-windscreen-lavalier) | [Movo WS-RD 2-pack, $9.95](https://www.movophoto.com/products/ws-rd-furry-lav-mic-windscreen-2x) |
-| **Breadboard + jumpers** | [Adafruit 3314, $9.95](https://www.adafruit.com/products/3314) | [SparkFun 140 pcs, $8.95](https://www.sparkfun.com/jumper-wire-kit-140pcs.html) |
-| **Recorder** | [XIAO ESP32S3 Sense, $13.99](https://www.seeedstudio.com/XIAO-ESP32S3-Sense-p-5639.html) | Phone in a windscreen (free); [SparkFun Thing Plus S3, $24.95](https://www.sparkfun.com/sparkfun-thing-plus-esp32-s3.html) |
-| **Stake** | Search "fiberglass driveway marker" 48 in, ~$3–5 | Garden stake |
+| **3 × I2S mic** | INMP441 5-pack (Batear's wiring), [Amazon, $12.51](https://www.amazon.com/dp/B09G4RNT3G) | Adafruit SPH0645: [Amazon, $12.62](https://www.amazon.com/dp/B06XNL2GBW), [Adafruit, $6.95](https://www.adafruit.com/product/3421); INMP441 at [Vetco, $4.95](https://vetco.net/products/omnidirectional-microphone-module-inmp441-high-precision-i2s) |
+| **Fur windscreens** | eBoot 5-pack, [Amazon, $8.99](https://www.amazon.com/dp/B01E4ZMTEG) | [Movo WS10n 5-pack, $14.95](https://www.movophoto.com/products/ws10n-universal-furry-outdoor-microphone-windscreen-lavalier) |
+| **Breadboard + jumpers** | BOJACK kit, [Amazon, $9.99](https://www.amazon.com/dp/B08Y59P6D1) | [Adafruit 3314, $9.95](https://www.adafruit.com/products/3314); [SparkFun 140 pcs, $8.95](https://www.sparkfun.com/jumper-wire-kit-140pcs.html) |
+| **Recorder** | XIAO ESP32S3 Sense, [Amazon, $23.99](https://www.amazon.com/dp/B0C69FFVHH) | Phone in a windscreen (free); [Seeed direct, $13.99](https://www.seeedstudio.com/XIAO-ESP32S3-Sense-p-5639.html) |
+| **Stake** | 48 in fiberglass, 20-pack, [Amazon, $23.99](https://www.amazon.com/dp/B0DF58T198) | Garden stake |
 | **Drone** | **Borrow a 5–7 in FPV:** [AMA clubs](https://www.modelaircraft.org/club-finder), [MultiGP](https://www.multigp.com/chapters/) | [Potensic ATOM SE, $249.99](https://store.potensic.com/products/atom-se); DJI Mini 4K ~$299 (search); [DJI Neo, $169](https://store.dji.com/product/dji-neo), out of stock |
-| **Wind** | Phone weather app | Handheld anemometer, ~$15–35 (search) |
+| **Wind** | Phone weather app | Anemometer, [Amazon, $12.99](https://www.amazon.com/dp/B0D7Z43M9S) |
 
 **Run** ([weekend plan]({{ site.baseurl }}{% link research/open-source-builds.md %}#a-weekend-plan), mic at 0.5 and 1 m)
 - Hover 60 s at 25, 50, 100, 150, 200 and 300 m, at two altitudes. Then fly straight passes.
@@ -99,13 +130,13 @@ Run with leaves on now and leaves off in December.
 
 | Item | Buy | Alternatives |
 |---|---|---|
-| **3rd LoRa board** | Heltec V3, [Rokland, $29.97](https://store.rokland.com/products/heltec-wifi-lora-32v3) | As layer 1 |
-| **RS-485, edge** | [SparkFun breakout (3.3 V), $12.50](https://www.sparkfun.com/sparkfun-transceiver-breakout-rs-485.html) | MAX3485 module (not the 5 V MAX485) |
-| **USB→RS-485, laptop** | [Waveshare (B), ~$7.99](https://www.waveshare.com/product/iot-communication/wired-comm-converter/usb-to-rs485-b.htm) | Any FTDI/CH340 adapter |
-| **Wire** | Old Ethernet cable (one pair) | 300 m run: [burial Cat5e 1000 ft, $243](https://www.cctvcameraworld.com/products/direct-burial-cat5e-cable-1000ft.html) |
-| **Directional antenna** | **DIY** wire Yagi on a wooden boom, a few dollars | [Pasternack 9 dBi, $254.99](https://www.pasternack.com/single-antenna-880-960-mhz-9-dbi-gain-n-pe51ya1018-p.aspx) (N, needs N→SMA); layer 1's omni |
-| **Into the canopy** | Tennis ball + paracord | [WesSpur throw line kit](https://wesspur.com/arborist-throw-line-kit), ~$50+ |
-| **SDR** | [Nooelec NESDR SMArt v5, $54.95](https://www.nooelec.com/store/sdr/sdr-receivers/nesdr-smart.html) | [RTL-SDR Blog V3, ~$35–40](https://www.rtl-sdr.com/buy-rtl-sdr-dvb-t-dongles/) (V4 discontinued) |
+| **3rd LoRa board** | Heltec V3, [Amazon, $34.99](https://www.amazon.com/dp/B0D1H1FN9Y) | [Rokland, $29.97](https://store.rokland.com/products/heltec-wifi-lora-32v3); as layer 1 |
+| **RS-485, edge** | MAX3485 (3.3 V) 5-pack, [Amazon, $8.99](https://www.amazon.com/dp/B0FTFXT876) | [SparkFun breakout, $12.50](https://www.sparkfun.com/sparkfun-transceiver-breakout-rs-485.html). Not the 5 V MAX485 |
+| **USB→RS-485, laptop** | FT232RL adapter, [Amazon, $16.31](https://www.amazon.com/dp/B081MB6PN2) | [Waveshare (B), ~$7.99](https://www.waveshare.com/product/iot-communication/wired-comm-converter/usb-to-rs485-b.htm) |
+| **Wire** | Old Ethernet cable (one pair) | 300 m run: burial Cat5e 1000 ft, [Amazon VIVO, $89.99](https://www.amazon.com/dp/B0092TJ4K2) or [TRUE CABLE, $228.99](https://www.amazon.com/dp/B01JAVNWOK) |
+| **Directional antenna** | **DIY** wire Yagi on a wooden boom, a few dollars | 7 dBi Yagi, N-female, [Amazon, $24.99](https://www.amazon.com/dp/B0CPFT1V9L) (needs N→SMA); [Pasternack 9 dBi, $254.99](https://www.pasternack.com/single-antenna-880-960-mhz-9-dbi-gain-n-pe51ya1018-p.aspx) |
+| **Into the canopy** | Tennis ball + paracord | Throw line kit, [Amazon, $21.68](https://www.amazon.com/dp/B0DH2SV5XK) |
+| **SDR** | RTL-SDR Blog V3 + dipoles, [Amazon, $47.95](https://www.amazon.com/dp/B0BMKB3L47) | Dongle only, [Amazon, $37.95](https://www.amazon.com/dp/B0BMKZCKTF); Nooelec SMArt v5, [Amazon, $44.95](https://www.amazon.com/dp/B01HA642SW) |
 
 **Run**
 1. Raise the receive-only board 5–10 m at a woodlot edge and cable it in to a laptop.
@@ -124,11 +155,11 @@ Run with leaves on now and leaves off in December.
 
 | Item | Buy | Alternatives |
 |---|---|---|
-| **Current meter** | [Nordic PPK2, Adafruit, $99.95](https://www.adafruit.com/product/5048) (reads µA sleep current) | USB meter, e.g. FNIRSI FNB58, ~$40–50 (search). Average current only |
-| **Cells** | [Molicel P28A, $5.99](https://www.18650batterystore.com/products/molicel-p28a) | [Samsung 30Q, $6.99](https://www.18650batterystore.com/products/samsung-30q); [Battery Junction P28A, ~$6.70](https://batteryjunction.com/molicel-inr18650-p28a) |
-| **Holder** | [SparkFun 1×18650, $1.25](https://www.sparkfun.com/battery-holder-1x18650-wire-leads.html) (backordered) | Any 18650 holder with leads |
+| **Current meter** | [Nordic PPK2, Adafruit, $99.95](https://www.adafruit.com/product/5048) (reads µA sleep current; Amazon $189.99) | FNIRSI FNB58, [Amazon, $49.99](https://www.amazon.com/dp/B0BJ253W31). Average current only |
+| **Cells** (not on Amazon) | [Molicel P28A, $5.99](https://www.18650batterystore.com/products/molicel-p28a) | [Samsung 30Q, $6.99](https://www.18650batterystore.com/products/samsung-30q); [Battery Junction P28A, ~$6.70](https://batteryjunction.com/molicel-inr18650-p28a) |
+| **Holder** | 2-pack with leads, [Amazon, $5.99](https://www.amazon.com/dp/B092TGQ7PB) | [SparkFun 1×18650, $1.25](https://www.sparkfun.com/battery-holder-1x18650-wire-leads.html) (backordered) |
 | **Plug** | Solder the V3's included SH1.25 lead to the holder | LiPo with "Micro JST 1.25" ([Rokland V3 page](https://store.rokland.com/products/heltec-wifi-lora-32v3)). Adafruit LiPos (JST-PH) don't fit |
-| **Freezer logger** | [Inkbird IBS-TH2 Plus, $24.99](https://inkbird.com/products/ibs-th2-plus) (only the probe goes in; the body is rated to −10 °C) | [GoveeLife R1, $39.99](https://us.govee.com/products/goveelife-smart-thermometer-r1) |
+| **Freezer logger** | Inkbird IBS-TH2 Plus, [Amazon, $24.99](https://www.amazon.com/dp/B08TM67HJH) (only the probe goes in; the body is rated to −10 °C) | [GoveeLife R1, $39.99](https://us.govee.com/products/goveelife-smart-thermometer-r1) |
 
 **Run**
 1. Measure the current asleep, listening and sending, then work out days per cell.
@@ -146,14 +177,14 @@ Run with leaves on now and leaves off in December.
 
 | Per listener | Source | Cost |
 |---|---|---|
-| Heltec V3 | [Rokland](https://store.rokland.com/products/heltec-wifi-lora-32v3) or [Heltec](https://heltec.org/project/wifi-lora-32-v3/) | $18–30 |
-| Mic + windscreen | Layer 2 | $7–10 |
-| Cell + holder | Layer 4 | $7–8 |
-| Box | [IP65 ABS 100×68×50 mm, Newegg Business, $10.99](https://www.neweggbusiness.com/p/9B-072-001K-007A7) | $11 |
-| Stake | Driveway marker | $3–5 |
-| **Total** | | **$45–65** |
+| Heltec V3 | [Amazon 2-pack](https://www.amazon.com/dp/B0CW6151WJ), or [Heltec direct](https://heltec.org/project/wifi-lora-32-v3/) | $18–23 |
+| Mic + windscreen | Layer 2 packs | $4–5 |
+| Cell + holder | Layer 4 | $9 |
+| Box | uxcell IP65 100×68×50 mm, [Amazon, $15.69](https://www.amazon.com/dp/B07FKN8SZG); [Newegg Business, $10.99](https://www.neweggbusiness.com/p/9B-072-001K-007A7) | $11–16 |
+| Stake | Layer 2's 20-pack | $1–2 |
+| **Total** | | **$45–55** |
 
-Six listeners cost $270–390. Add four if layer 1's forest hops need tighter spacing.
+Six listeners cost $270–330. Add four if layer 1's forest hops need tighter spacing.
 
 **Run**
 1. [Place by hand]({{ site.baseurl }}{% link models/tripwire.md %}#why-not-have-people-place-the-listeners) across a hedgerow gap, at layer 2's spacing, 1–2 km from the edge.
