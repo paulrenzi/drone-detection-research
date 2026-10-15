@@ -180,7 +180,7 @@ Where phones still win: **today**, in rear areas with power and coverage, and as
 
 ## Limits and risks
 
-- **Getting reports back is the hardest part.** Ground-to-ground radio range in trees or rough terrain can fall well under a kilometre. The line has to relay hop by hop, and the raised receiver at the unit matters a lot. This is the most likely point of failure, so it is the first thing to test.
+- **Getting reports back is the hardest part.** Published measurements with antennas near the ground show over 4 km in open country, but only 50–250 m in most forest tests and about 1 km at best. In woods the line would have to relay hop by hop at perhaps 100–200 m, more densely than the spacing assumed above. Nobody has measured a 0.5–1 m node reaching a raised receiver 2–4 km away. See [the evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
 - **The relay chain can point home.** A chain of bursts leading back to the unit could be traced. Keep bursts short and rare, bend the chain instead of running it straight, and treat nodes as disposable.
 - **Laying the line is noisy.** The delivery drone can be heard and seen, so the enemy may learn roughly where the line is. Lay lines at night or under other noise, and expect to lose some nodes.
 - **Only drones that cross the line are caught.** A drone launched from inside the line, or one routed around its ends, is missed. The inner ring is still needed.
@@ -196,7 +196,7 @@ The idea is older than it looks. In the Vietnam War, **Operation Igloo White** a
 
 | Test | What it answers | Rough cost |
 |---|---|---|
-| Ground-to-ground LoRa range at 2–3 km, in open ground and in trees, with a raised receiver at the unit | Can a forward line report back at all? The deciding question | < $300 |
+| Ground-to-ground LoRa range at 2–3 km, in open ground and in trees, with a raised receiver at the unit ([test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back)) | Can a forward line report back at all? The deciding question. Published data says probably yes in the open; the forest case is unproven | < $300 |
 | Drop-test printed dart bodies onto soil, sand, mud and grass | Do nodes land upright and keep the microphone clear? | < $200 |
 | FPV detection range for a single microphone on a 0.5–1 m spring mast | How far apart nodes can be | < $300 |
 | Wake-on-sound battery life with a small drone classifier on a microcontroller | Is "weeks" real? | < $200 |
@@ -209,3 +209,4 @@ These are tracked in [Open questions]({{ site.baseurl }}{% link research/open-qu
 | Date | Rating | Why |
 |---|---|---|
 | 2026-10-15 | 3 | Each part exists (cheap nodes, autonomous drop drones, LoRa mesh), but nobody has proven forward lines can report back over 2–4 km. Rises to 4 if the radio range test passes. |
+| 2026-10-15 | 3 (unchanged) | Reviewed published LoRa range measurements: over 4 km in the open with antennas at 1.5 m, but 1 km or less in forest. The open-ground case looks likely; the forest case needs the [T9 field test]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back), which now has pass/fail criteria. |
