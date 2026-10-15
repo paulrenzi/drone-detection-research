@@ -13,7 +13,7 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 
 | Layer | Question | Spend | Total | Gate |
 |---|---|---|---|---|
-| [0](#layer-0) T18 | Would a minute's warning change what troops do? | $0 | $0 | Most say yes, else stop |
+| [0](#layer-0) T18 | Is there a warning gap this fills, at moments troops can act? | $0 | $0 | Most lack warning of fibre FPVs and name a moment a minute changes, else stop |
 | [1](#layer-1-the-radio-test-t9) T9 | Can a board at 0.5–1 m report back over 2–3 km, through trees? | ~$65–80 | ~$80 | T9's marks, or margins that predict them |
 | [2](#layer-2-hear-a-drone-from-near-the-ground-t11) T11 | How far does a mic at 0.5–1 m hear a drone? | ~$50 | ~$130 | ≥100 m (sets spacing, so cost per km) |
 | [3](#layer-3-the-edge-receiver-t17) T17 | Can the edge receiver hear the line without transmitting? | ~$90–130 | ~$250 | Layer 1's delivery, SDR sees nothing |
@@ -55,7 +55,7 @@ Amazon where it sells the part. Prices checked 2026-10-15. Alternatives are in e
 
 ## Layer 0: ask first (T18, $0) {#layer-0}
 
-Run alongside everything. 5–10 interviews with recent front-line users ([questions]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)). The [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %}) depends on whether troops act on warning. No hardware test answers that.
+Run alongside everything. 5–10 interviews with recent front-line users ([questions]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)). Warning saves lives; that is not in question. What is: do troops already get it another way (radio detectors miss fibre-optic FPVs), at which moments a minute beats the seconds they get now, and would they place and trust the kit. Those set the [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %}), and no hardware test answers them.
 
 <details class="layer" id="layer-1-the-radio-test-t9" markdown="block">
 <summary><span class="layer-title">Layer 1: radio test (T9), ~$80</span><span class="layer-sub">Board at 0.5–1 m to a raised receiver, 2–3 km, across open ground, forest and hedgerows</span></summary>

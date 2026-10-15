@@ -128,4 +128,4 @@ Talk to 5–10 people with recent front-line experience: soldiers, the volunteer
 8. Roughly how far is it from the tree edge that faces open ground?
 9. What share of your drone casualties happen on the move, and how many come from drones already waiting by the road?
 
-**Pass:** most say a minute's warning would change what they do, and name the moment it matters. **Fail:** most say it wouldn't. Either answer is worth more than T9.
+Warning matters; these ask whether there is a gap this fills. **Pass:** most have no reliable warning of fibre-optic FPVs, and name a moment where a minute, not seconds, changes what they do. **Fail:** they already get that warning another way, or those moments are rare. Either answer is worth more than T9.

@@ -68,7 +68,7 @@ Earlier comparisons gave competitors their claimed ranges. Here every row uses t
 
 Ranked by how likely each is to end the idea, with the test that decides it.
 
-### 1. A minute of warning may not change what troops do (T18)
+### 1. Warning matters; whether this warning fills a gap is unproven (T18)
 
 We found **no study, after-action report or soldier account comparing outcomes with and without warning**. What exists:
 
