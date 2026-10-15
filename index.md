@@ -99,7 +99,11 @@ Each model's page says what it works best against. Reference point: commercial a
 
 ## The layer the others miss.
 
-For protecting bases and units in the field: *the passive acoustic layer that catches the drones radio detectors and cameras miss, at the price of a radio detector.*
+For protecting bases and units in the field: *the acoustic layer that hears the drones radio detectors and cameras miss, at the price of a radio detector.*
+
+Being passive sets us apart from radar, not from everyone: cameras such as Anduril's WISP are passive too. What sets us apart is **hearing what they can't see**: a small drone flying low behind trees, buildings or a ridge, including fibre-optic FPVs that give off no radio signal for a detector to catch. Sky Fortress hears drones too, but it is a fixed national network tuned for larger, louder targets, not a kit a unit can carry.
+
+Be honest about range. Against small quadcopters even premium arrays reach only a few hundred metres, so this is an **early-warning perimeter that cues cameras and other sensors**, giving seconds to tens of seconds of warning. It is not wide-area coverage.
 
 The first integration target is **Anduril Lattice**, which the US Army has picked as its counter-drone backbone. A cheap passive sensor that feeds Lattice makes the expensive systems better instead of competing with them. See [Lattice integration]({{ site.baseurl }}{% link research/integration.md %}#anduril-lattice).
 
