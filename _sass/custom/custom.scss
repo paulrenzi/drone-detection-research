@@ -349,12 +349,12 @@ body.ou {
   &:last-child {
     border-right: 0;
     background: $ou-accent;
-
-    .stat-num,
-    .stat-label {
-      color: #fff;
-    }
   }
+}
+
+.ou .main-content .stat:last-child .stat-num,
+.ou .main-content .stat:last-child .stat-label {
+  color: #fff;
 }
 
 .ou .main-content .stat-num {
@@ -537,8 +537,8 @@ body.ou {
 
   .ou-wordmark,
   .ou-wordmark:hover {
-    font-size: 26px;
-    letter-spacing: -1px;
+    font-size: 22px;
+    letter-spacing: -0.8px;
   }
 
   .ou-menu-button {
