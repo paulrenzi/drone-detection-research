@@ -32,7 +32,7 @@ nav_order: 0
 - **Drones cause about 80% of casualties** at the front, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)).
 - **Units cope by not moving:** underground, under nets, taking hours to cover a kilometre. Every trip out is exposure (same source).
 - **Fibre-optic FPVs, the fastest-growing threat, emit no radio**, so the detectors units carry miss them. A microphone hears them.
-- **Nothing cheap fills the gap yet.** Camera systems like WISP aren't at the front and can't see through tree lines; Zvook's acoustic FPV sensor, the NW0, sits at the unit, not forward. It was announced in January 2026, and all we know of it is the maker's claims ([details]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0-the-one-direct-competitor-claims-only)).
+- **Nothing cheap fills the gap yet.** Camera systems like WISP aren't at the front and can't see through tree lines; Zvook's acoustic FPV sensor, the NW0, sits at the unit, not forward. It was announced in January 2026, and all we know of it is the maker's claims ([details]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0--the-one-direct-competitor-claims-only)).
 
 Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
 
