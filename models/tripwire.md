@@ -79,6 +79,38 @@ Nodes send a few-byte detection report (time, node ID, class, confidence) only w
 
 Every unit's lines report to the same shared map. As units lay their own tripwires, the lines add up to a broader network that nobody had to plan or fund centrally: Sky Fortress-style coverage, grown out of kits that units carry.
 
+## Components and MVP
+
+### What goes in one node
+
+| Part | Example | Est. cost | Why it's there |
+|---|---|---|---|
+| Microcontroller | ESP32-S3 | $4–10 | Runs the drone / no-drone classifier on the device, so only a few bytes are sent |
+| Microphone | INMP441 or ICS-43434 (I²S digital MEMS) | $1–3 | One mic is enough: a line node only has to hear, not take a bearing |
+| LoRa radio | SX1262, 915 MHz in the US | $6–25 | Sends the report and relays neighbours' reports back toward the unit |
+| GPS | u-blox M8/M10 class | $8–15 | Says where the node landed, and timestamps detections so both lines can be compared |
+| Battery | small LiPo cell | ~$3–8 (estimate) | Weeks, not days, only if the node sleeps until it hears something |
+| Body, spring mast, battery housing | 3D-printed | $1–2 in filament | Sticks upright and holds the mic 0.5–1 m up |
+| Windscreen | fur or foam cover | ~$1–3 (estimate) | Wind is the biggest range-killer in [VolAnti's tests]({{ site.baseurl }}{% link research/open-source-builds.md %}#volanti) |
+| **Total** | | **~$25–65** | Against the **$30–60 target** above |
+
+{: .warning }
+> Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first nodes.
+
+### The MVP, step by step
+
+Each step answers one question before money goes into the next. The steps match the tests in [Open questions](#open-questions).
+
+| Step | What you build | What it proves | Rough cost |
+|---|---|---|---|
+| **1. Weekend test kit** | 2 Heltec V3 boards running [Batear]({{ site.baseurl }}{% link research/open-source-builds.md %}#batear), 3 INMP441 mics, windscreens, phones as recorders | A cheap mic hears a drone at known distances; first labelled training audio; a first LoRa range figure in your terrain | **~$80–90** with a borrowed drone, tripods and power banks; ~$360–480 buying everything |
+| **2. Radio range test (T9)** | The same two boards, one carried away from a raised receiver | Whether a line 2–4 km out can report back at all. **The deciding question** | < $300 |
+| **3. Node on a mast (T10, T11)** | One node on a 0.5–1 m spring mast, plus a drop-tested printed dart body | Detection range at node height (sets node spacing), and whether nodes land upright | < $500 |
+| **4. Battery test (T12)** | One node with wake-on-sound and a small classifier | Whether "weeks on a small battery" is real | < $200 |
+| **5. Drop sortie (T13)** | A printed quad that lays 4 nodes on GPS points | Placement accuracy and payload | < $500 |
+
+Parts, photos, buying advice and a weekend plan for step 1 are in the [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector).
+
 ## Why 3D-print the drones (and the nodes)
 
 The honest answer: **printing doesn't make the drone much cheaper, but it makes the whole system easier to field.**
