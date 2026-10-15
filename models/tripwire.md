@@ -257,7 +257,7 @@ So the tripwire is a consumable, not a one-off purchase. It costs less than a ra
 
 ### Five build steps
 
-Each step answers one question before money goes into the next. They match the [tests](#open-questions).
+Each step answers one question before money goes into the next. They match the [tests](#open-questions). The [MVP path]({{ site.baseurl }}{% link mvp.md %}) lays the same steps out as layers you can order parts for today, starting with an $80 radio test.
 
 | Step | What you build | What it proves | Rough cost |
 |---|---|---|---|

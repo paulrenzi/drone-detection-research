@@ -61,6 +61,8 @@ Counter-drone sensing has split into a few camps. Each one is good at something,
 
 **What a minute is worth.** Weapons need only seconds, so at a fixed position a minute adds little. Its value is a go/no-go call for people about to move. If troops act on it, our central guess is that a forward line averts about **1–4 of every 100 drone casualties** (range 0.3–14) ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Whether they would is not yet shown. That is the next thing to check, and it costs nothing: ask front-line users (T18).
 
+**The build path.** The [MVP path]({{ site.baseurl }}{% link mvp.md %}) takes the tripwire from an $80 radio test to a six-listener line in five gated layers, about $600–750 in all, with parts you can order today.
+
 **What failed outright.** Microphones on flying drones don't work: the listener's own rotors sit centimetres from the mic, and published measurements put the target 10–30 times quieter than the drone's own noise. Perching drones (land, stop the motors, listen) fix that, but landing reliably and keeping them powered is still research. Fibre-optic acoustic sensing turns a cable into a long line of microphones, but buried fibre hears airborne sound poorly and has only detected vehicles close to the cable. All three rated below 3 and are no longer on this site.
 
 ## The routes still open.

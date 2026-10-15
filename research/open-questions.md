@@ -81,6 +81,9 @@ Ready-made simulators cover the routing side: [Meshtasticator](https://github.co
 
 ### The test (T9)
 
+{: .note }
+> **Cheapest version, about $80:** two boards, an adapter cable and a free mast (a window, roof or tree), plus a margin method that lets a small woodlot stand in for most of the forest run. Parts with links: [MVP path, layer 1]({{ site.baseurl }}{% link mvp.md %}#layer-1-the-radio-test-t9).
+
 Uses the two Heltec WiFi LoRa 32 V3 boards from the [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector).
 
 **Extra kit (estimates):** a telescoping fibreglass mast or pole that reaches 8–10 m (~$60–120), two stakes to hold a board at 0.5 m and 1 m, and a pair of 3–5 dBi 915 MHz antennas to compare against the stock ones (~$20–30). Total with the boards stays under **$300**.
