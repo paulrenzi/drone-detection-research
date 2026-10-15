@@ -7,6 +7,7 @@ nav_order: 4
 
 | Date | Change |
 |---|---|
+| 2026-10-15 | Added two research notes: [Front-line conditions in Ukraine]({{ site.baseurl }}{% link research/field-conditions.md %}) (tree lines, seasons, the kill zone, jamming, what infantry use to hear drones) and [Delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %}) (airframes, ArduPilot missions with drop steps, open-source software, flying under GPS jamming). Fed both into the tripwire and M7, and added tests T14 (laying a line without GPS) and T15 (ignoring friendly drones). |
 | 2026-10-15 | Reviewed published ground-level LoRa range measurements for the tripwire's deciding question (T9): likely to work in open ground, unproven in forest. Added the evidence and a field test with pass/fail criteria to Open questions, and updated the tripwire's limits. Tripwire part photos now also show on the tripwire page. |
 | 2026-10-15 | Added a Components and MVP section to the drone-laid tripwire: a per-node parts table and a five-step MVP path, linked to the weekend test kit. |
 | 2026-10-15 | Added a weekend test kit (parts with photos, an ~$80–90 MVP and a weekend plan) to Open-source projects. Corrected the claim that VolAnti's four-mic board could give bearings. |

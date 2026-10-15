@@ -67,7 +67,7 @@ Each listener is a single-microphone node ([M3]({{ site.baseurl }}{% link models
 
 A small quadcopter carries **3–4 nodes**, flies a pre-planned GPS route, drops each node on its point and returns. Six sorties lay two lines across a 3 km front.
 
-- **Autonomous, not piloted.** It runs a pre-planned mission on open-source autopilot firmware such as ArduPilot or INAV, with no video feed. That means no operator skill is needed, and no video transmitter is broadcasting while the line is laid.
+- **Autonomous, not piloted.** It runs a pre-planned mission on open-source autopilot firmware such as ArduPilot, with no video feed. Each drop is a step in the mission, and ArduPilot can be set to finish the mission with every radio link off. That means no operator skill is needed, and nothing is broadcasting while the line is laid. Airframes, software and how it handles GPS jamming: [Delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %}).
 - **Reusable**, but cheap enough to lose.
 - At the end of its life, a delivery drone can be landed on high ground and left as a relay (see below).
 
@@ -183,6 +183,10 @@ Where phones still win: **today**, in rear areas with power and coverage, and as
 - **Getting reports back is the hardest part.** Published measurements with antennas near the ground show over 4 km in open country, but only 50–250 m in most forest tests and about 1 km at best. In woods the line would have to relay hop by hop at perhaps 100–200 m, more densely than the spacing assumed above. Nobody has measured a 0.5–1 m node reaching a raised receiver 2–4 km away. See [the evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
 - **The relay chain can point home.** A chain of bursts leading back to the unit could be traced. Keep bursts short and rare, bend the chain instead of running it straight, and treat nodes as disposable.
 - **Laying the line is noisy.** The delivery drone can be heard and seen, so the enemy may learn roughly where the line is. Lay lines at night or under other noise, and expect to lose some nodes.
+- **GPS is jammed at the front.** The delivery drone can't count on GPS to reach its drop points, and nodes can't count on it to report where they landed ([Front-line conditions]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)). A line doesn't need metre accuracy, and a node's position can be taken from the drop point in the mission, but flying the route without GPS is untested (T14).
+- **The sky is full of friendly drones.** Ukrainian observation, bomber and resupply drones fly over the same tree lines. A line that alarms on every drone is useless, so it needs a way to tell friend from foe, such as friendly flight schedules or known friendly sound signatures (T15).
+- **Tree lines decide the layout.** Infantry, their footpaths and fibre-optic FPVs all follow the windbreak tree lines ([Front-line conditions]({{ site.baseurl }}{% link research/field-conditions.md %}#where-infantry-actually-sit-tree-lines)). That is good for hearing drones, since their routes are predictable, but it makes the forest radio case in T9 the one that matters. Cover and radio paths change when leaves fall.
+- **Cold.** Hobby-grade parts are often rated only to about −10 °C. Winter battery life must be measured, not assumed (T12).
 - **Only drones that cross the line are caught.** A drone launched from inside the line, or one routed around its ends, is missed. The inner ring is still needed.
 - **False alarms with nobody to check.** Wind, vehicles and birds can trip a single node. Requiring both lines, or two neighbouring nodes, to agree is the main filter.
 - **Litter.** Throwaway nodes are electronic waste left in the field. Consider biodegradable printed bodies and a battery that can't leak.
@@ -201,8 +205,10 @@ The idea is older than it looks. In the Vietnam War, **Operation Igloo White** a
 | FPV detection range for a single microphone on a 0.5–1 m spring mast | How far apart nodes can be | < $300 |
 | Wake-on-sound battery life with a small drone classifier on a microcontroller | Is "weeks" real? | < $200 |
 | Autonomous drop sortie: 4 nodes on GPS points from a printed quad | Placement accuracy and payload | < $500 |
+| The same sortie with GPS unavailable (optical flow, compass and barometer from a known start point) | Can the line be laid under jamming? | < $300 |
+| Record friendly drones and test whether the classifier, plus friendly flight times, can ignore them | Will the line cry wolf? | < $200 |
 
-These are tracked in [Open questions]({{ site.baseurl }}{% link research/open-questions.md %}) as T9–T13.
+These are tracked in [Open questions]({{ site.baseurl }}{% link research/open-questions.md %}) as T9–T15. What the ground looks like for the units it serves is in [Front-line conditions]({{ site.baseurl }}{% link research/field-conditions.md %}).
 
 ## Rating history
 
@@ -210,3 +216,4 @@ These are tracked in [Open questions]({{ site.baseurl }}{% link research/open-qu
 |---|---|---|
 | 2026-10-15 | 3 | Each part exists (cheap nodes, autonomous drop drones, LoRa mesh), but nobody has proven forward lines can report back over 2–4 km. Rises to 4 if the radio range test passes. |
 | 2026-10-15 | 3 (unchanged) | Reviewed published LoRa range measurements: over 4 km in the open with antennas at 1.5 m, but 1 km or less in forest. The open-ground case looks likely; the forest case needs the [T9 field test]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back), which now has pass/fail criteria. |
+| 2026-10-15 | 3 (unchanged) | Reviewed front-line conditions. Fibre-optic FPVs, which radio detectors can't see, and predictable approach routes along tree lines support the payoff. GPS jamming, friendly drones and the forest radio case add work; they are now tests T14, T15 and T9. |

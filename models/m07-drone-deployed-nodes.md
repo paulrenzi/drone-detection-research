@@ -30,6 +30,7 @@ nav_order: 7
 - A cargo drone carries several hardened M1 nodes and places or drops them at planned points (ridgelines, field edges, rooftops).
 - Each node self-orients: it reads its tilt from the accelerometer, its heading from the compass (or by listening to a known sound), and its position from GPS, then joins the mesh.
 - Nodes sit on battery + small solar for weeks.
+- The delivery drone flies a pre-loaded ArduPilot mission with a drop step at each point and no radio link in flight. See [Delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %}).
 
 ## Strengths
 
@@ -41,6 +42,7 @@ nav_order: 7
 - Nodes on the ground sit low (less range than [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %})), and may land in grass, mud or at an angle.
 - Drop survivability and self-calibration of heading are design problems.
 - Nodes can be found and spoofed or destroyed; they need tamper and anti-spoof measures.
+- GPS is routinely jammed at the front ([Front-line conditions]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)), so neither the delivery drone nor the nodes can count on it.
 
 ## Open questions
 

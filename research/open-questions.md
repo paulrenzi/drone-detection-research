@@ -24,6 +24,8 @@ The ratings on this site are judgements. These tests would turn them into measur
 | T11 | Tripwire: FPV detection range for one mic on a 0.5–1 m spring mast | Node spacing along a line | < $300 | Not started |
 | T12 | Tripwire: wake-on-sound battery life with a small drone classifier on a microcontroller | Is "weeks on a small battery" real? | < $200 | Not started |
 | T13 | Tripwire: autonomous drop sortie, 4 nodes on GPS points from a printed quad | Placement accuracy and payload | < $500 | Not started |
+| T14 | Tripwire: the T13 sortie with GPS unavailable, flying on optical flow, compass and barometer from a known start point ([Delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %}#flying-when-gps-is-jammed)) | Can a line be laid under jamming, and how far off are the drops? | < $300 | Not started |
+| T15 | Record friendly drone types (observation quads, bombers, resupply) and test whether the classifier plus friendly flight times can ignore them | Will a line raise false alarms on its own side's drones? | < $200 | Not started |
 
 ## T9: can a forward line report back?
 
