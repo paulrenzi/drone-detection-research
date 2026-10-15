@@ -1,0 +1,33 @@
+title: Low-Cost Acoustic Drone Detection
+description: Research notebook on sensor-network models for detecting and locating drones cheaply
+remote_theme: just-the-docs/just-the-docs@v0.10.0
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+color_scheme: dark
+search_enabled: true
+heading_anchors: true
+back_to_top: true
+back_to_top_text: "Back to top"
+
+aux_links:
+  "Repository":
+    - "https://github.com/paulrenzi/drone-detection-research"
+
+footer_content: "Research notes compiled from public sources. Ratings are working judgements, not test results. Last full review 2026-10-15."
+
+callouts:
+  note:
+    title: Note
+    color: blue
+  warning:
+    title: Unverified
+    color: yellow
+  important:
+    title: Key point
+    color: green
+
+exclude:
+  - README.md
+  - models/_template.md
