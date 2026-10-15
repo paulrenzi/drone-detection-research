@@ -53,5 +53,5 @@ Takeaways:
 - **Spreading loss:** ~6 dB lost per doubling of distance, plus air absorption that grows with frequency.
 - **Background noise:** a quiet rural night vs. a city day can be 30 dB apart.
 - **Wind:** turbulence at the mic adds low-frequency noise; wind direction also bends sound.
-- **Terrain and height:** obstacles block; ground absorbs; height helps (see [M4]({% link models/m04-elevated-nodes.md %})).
+- **Terrain and height:** obstacles block; ground absorbs; height helps (see [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %})).
 - **Array gain:** combining N mics adds up to ~10·log₁₀(N) dB against diffuse noise — about 6 dB for 4 mics, 9 dB for 8.

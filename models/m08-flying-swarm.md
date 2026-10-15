@@ -13,7 +13,7 @@ nav_order: 8
 
 **Unit cost (est.):** $200–2,000 per airframe, plus spares, chargers and operators
 **Best against:** —
-**One-line verdict:** Not recommended as a detection layer. A flying drone's own propellers drown out the target it's listening for. See [M6]({% link models/m06-perch-and-listen.md %}) for the variant that works.
+**One-line verdict:** Not recommended as a detection layer. A flying drone's own propellers drown out the target it's listening for. See [M6]({{ site.baseurl }}{% link models/m06-perch-and-listen.md %}) for the variant that works.
 
 1. TOC
 {:toc}

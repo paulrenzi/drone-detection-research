@@ -50,4 +50,4 @@ nav_order: 3
 
 ## Sources
 
-- See [Localization methods]({% link research/localization.md %}).
+- See [Localization methods]({{ site.baseurl }}{% link research/localization.md %}).

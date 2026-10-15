@@ -36,7 +36,7 @@ Each node reports a bearing line. Where three or more lines cross is the target.
 
 ## 3. Cross-check: time difference between nodes
 
-Nodes with GPS timing (PPS) can timestamp detections to well under a millisecond. Sound travels ~34 cm per ms, so arrival-time differences between nodes give an independent range check. Hard to use alone for continuous drone noise (see [M3]({% link models/m03-single-mic-tdoa.md %})), useful as a second opinion.
+Nodes with GPS timing (PPS) can timestamp detections to well under a millisecond. Sound travels ~34 cm per ms, so arrival-time differences between nodes give an independent range check. Hard to use alone for continuous drone noise (see [M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %})), useful as a second opinion.
 
 ## 4. Tracking
 
@@ -49,4 +49,4 @@ Possible tricks (loudness falloff, Doppler shift, ratio of high to low frequenci
 
 ## Validation plan
 
-Fly a drone with a GPS logger over 3–5 nodes. Compare network tracks to the GPS log to measure bearing error, position error vs. distance, and detection range. The Western Sydney 24-mic dataset (see [Datasets]({% link research/datasets.md %})) includes GPS flight logs and can be used before any hardware exists.
+Fly a drone with a GPS logger over 3–5 nodes. Compare network tracks to the GPS log to measure bearing error, position error vs. distance, and detection range. The Western Sydney 24-mic dataset (see [Datasets]({{ site.baseurl }}{% link research/datasets.md %})) includes GPS flight logs and can be used before any hardware exists.

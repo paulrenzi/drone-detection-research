@@ -31,7 +31,7 @@ nav_order: 7
 
 ## Limits and risks
 
-- Nodes on the ground sit low (less range than [M4]({% link models/m04-elevated-nodes.md %})), and may land in grass, mud or at an angle.
+- Nodes on the ground sit low (less range than [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %})), and may land in grass, mud or at an angle.
 - Drop survivability and self-calibration of heading are design problems.
 - Nodes can be found and spoofed or destroyed; they need tamper and anti-spoof measures.
 

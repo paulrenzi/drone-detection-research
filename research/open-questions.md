@@ -22,6 +22,6 @@ The ratings on this site are judgements. These tests would turn them into measur
 
 ## Open questions
 
-- Where is the Ukraine/Norway open-source sound library? (see [Datasets]({% link research/datasets.md %}))
+- Where is the Ukraine/Norway open-source sound library? (see [Datasets]({{ site.baseurl }}{% link research/datasets.md %}))
 - What price would a NATO buyer pay per node, and what certification would they demand?
 - Is the better business the **node**, the **fusion software**, or the **training data**?

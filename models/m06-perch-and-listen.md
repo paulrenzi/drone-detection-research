@@ -22,7 +22,7 @@ nav_order: 6
 
 1. A small drone carries an M1-style mic array, GPS, compass and radio.
 2. It flies to a chosen perch — rooftop, ridge, pole top, tree — and lands.
-3. Motors stop. It now works exactly like a fixed elevated node ([M4]({% link models/m04-elevated-nodes.md %})), on battery or a small solar panel.
+3. Motors stop. It now works exactly like a fixed elevated node ([M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %})), on battery or a small solar panel.
 4. When needed (battery low, coverage gap moves, threat to the node) it flies to a new perch or home.
 
 ## Strengths
@@ -51,4 +51,4 @@ nav_order: 6
 
 ## Sources
 
-- See [M8 — Flying microphone swarm]({% link models/m08-flying-swarm.md %}) for the ego-noise evidence that motivates this model.
+- See [M8 — Flying microphone swarm]({{ site.baseurl }}{% link models/m08-flying-swarm.md %}) for the ego-noise evidence that motivates this model.

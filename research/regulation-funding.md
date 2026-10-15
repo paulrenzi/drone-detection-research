@@ -22,7 +22,7 @@ nav_order: 7
 ## Legal (peacetime use)
 
 - Recording audio in public may touch wiretap/privacy laws — another reason to process on-device and send no raw audio.
-- Passive RF monitoring of communications ([M10]({% link models/m10-hybrid-cueing.md %})) has its own legal limits.
+- Passive RF monitoring of communications ([M10]({{ site.baseurl }}{% link models/m10-hybrid-cueing.md %})) has its own legal limits.
 - Radio modules need FCC (or local) certification.
 - Aerostats and drones need airspace approvals.
 

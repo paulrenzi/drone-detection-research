@@ -26,7 +26,7 @@ nav_order: 1
 | Roke acoustic detection | UK | Array-based drone detection | Research/product line from a UK defence firm. |
 
 {: .note }
-> Squarehead is likely the "Norway" half of the original framing. A specific open-source Ukraine/Norway drone **sound library** has **not** been found yet — see [Datasets]({% link research/datasets.md %}).
+> Squarehead is likely the "Norway" half of the original framing. A specific open-source Ukraine/Norway drone **sound library** has **not** been found yet — see [Datasets]({{ site.baseurl }}{% link research/datasets.md %}).
 
 ## Who is pushing for this
 

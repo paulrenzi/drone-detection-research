@@ -26,7 +26,7 @@ nav_order: 1
 - The node sends a tiny report: `time, node position, bearing, elevation, class, confidence`. No raw audio leaves the node, which keeps bandwidth low and avoids recording people.
 - The server intersects bearings from **three or more nodes** to get a position, and a tracking filter (Kalman / multi-target tracker) turns positions into tracks.
 
-See [Localization methods]({% link research/localization.md %}) for detail.
+See [Localization methods]({{ site.baseurl }}{% link research/localization.md %}) for detail.
 
 ## Bill of materials (estimate, volume pricing)
 
@@ -42,7 +42,7 @@ See [Localization methods]({% link research/localization.md %}) for detail.
 | PCB, assembly, mounting | | $8–15 |
 | **Total** | | **≈ $60–150** |
 
-Full detail and alternatives: [Hardware notes]({% link research/hardware.md %}).
+Full detail and alternatives: [Hardware notes]({{ site.baseurl }}{% link research/hardware.md %}).
 
 ## Strengths
 
