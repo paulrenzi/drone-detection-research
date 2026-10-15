@@ -449,6 +449,57 @@ body.ou {
   border: 1px solid $ou-ink;
 }
 
+// Test-kit cards: photo, name, price, role
+.ou .main-content .kit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.ou .main-content .kit-card {
+  margin: 0;
+  background: #fff;
+  border: 1px solid $ou-rule;
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-bottom: 1px solid $ou-rule;
+  }
+
+  figcaption {
+    padding: 12px 14px 14px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: $ou-body;
+  }
+
+  p {
+    margin: 0 0 8px;
+  }
+
+  .kit-name {
+    font-weight: 900;
+    color: $ou-ink;
+  }
+
+  .kit-price {
+    @include ou-label;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: $ou-accent;
+  }
+
+  .kit-credit {
+    margin: 0;
+    font-size: 11px;
+    color: $ou-muted;
+  }
+}
+
 // Callouts: white card, ink border, mono label
 .ou p.important,
 .ou blockquote.important,

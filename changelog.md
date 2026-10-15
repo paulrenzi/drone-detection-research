@@ -7,6 +7,7 @@ nav_order: 4
 
 | Date | Change |
 |---|---|
+| 2026-10-15 | Added a weekend test kit (parts with photos, an ~$80–90 MVP and a weekend plan) to Open-source projects. Corrected the claim that VolAnti's four-mic board could give bearings. |
 | 2026-10-15 | Added a landscape summary to the overview: what exists, what works, what failed and why, and the routes still open. |
 | 2026-10-15 | Added a **Payoff** score next to feasibility on the matrix and every model page; added the tripwire to the matrix. Added a research note on open-source projects to build on (Batear, VolAnti, AcousticPrint) and linked it from range, training data and the tripwire. |
 | 2026-10-15 | Added the drone-laid tripwire use case: cheap throwaway listeners dropped 2–4 km forward by a 3D-printed delivery drone, compared honestly against phones and other sensors. Added tests T9–T13. |
