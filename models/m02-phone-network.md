@@ -7,13 +7,17 @@ nav_order: 2
 # M2 — Phone-based sensor network
 {: .no_toc }
 
-| Overall | Technical readiness | Cost per km² | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|
-| **5/5** | 5/5 | 3/5 | 3/5 | 5/5 |
+| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| **5/5** | **3/5** | 5/5 | 3/5 | 3/5 | 5/5 |
 
 **Unit cost (est.):** $100–500 (used phone + mic + mount + power); Sky Fortress reports $400–1,000 per sensor
+
 **Best against:** Shahed-class engine drones and cruise missiles at low altitude
+
 **One-line verdict:** Proven at national scale. The benchmark to beat on cost, not a dead end — and the fastest way to stand up coverage.
+
+**Payoff:** Proven and fast, but needs cell coverage and power, which units at the front often lack.
 
 1. TOC
 {:toc}

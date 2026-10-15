@@ -7,13 +7,17 @@ nav_order: 9
 # M9 — Vehicle and soldier-mounted mobile nodes
 {: .no_toc }
 
-| Overall | Technical readiness | Cost per km² | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|
-| **3/5** | 3/5 | 3/5 | 4/5 | 4/5 |
+| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| **3/5** | **3/5** | 3/5 | 3/5 | 4/5 | 4/5 |
 
 **Unit cost (est.):** $150–1,000 (ruggedized M1 array + vehicle power)
+
 **Best against:** threats to convoys, checkpoints and forward positions
+
 **One-line verdict:** Brings the network to where troops actually are. Vehicle noise is the main problem; works best while stopped.
+
+**Payoff:** Covers units on the move, but range drops while moving.
 
 1. TOC
 {:toc}

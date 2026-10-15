@@ -19,6 +19,7 @@ nav_order: 5
 | **Multiclass acoustic drone dataset** (2025) | 3,200 recordings from 32 UAV types, ~16,000 s | arXiv 2509.04715 | Multi-class identification |
 | **Drone Sound Audio Detection** | Binary drone / unknown | Kaggle | Baseline classifier |
 | **Sara Al-Emadi drone audio dataset** | Early drone audio corpus | Public | Baseline |
+| **AcousticPrint** | 5 commercial drones recorded at ~20 m, 4 more from YouTube, plus vehicles, bees and speech as negatives | No licence stated; ask the authors before reuse | Open-set rejection of unknown sounds; see [Open-source projects]({{ site.baseurl }}{% link research/open-source-builds.md %}#acousticprint) |
 | **Western Sydney 24-mic localization** | Multi-mic recordings with GPS flight logs | Research release | Testing bearings and triangulation offline |
 
 ## The real gap
@@ -28,6 +29,7 @@ nav_order: 5
 
 - Public datasets are mostly small hobby/commercial quadcopters.
 - **Shahed/Geran, Lancet and fibre-optic FPV recordings** are what a military customer cares about, and they are scarce publicly. This is likely the true data bottleneck; partnering with a Ukrainian or Baltic program for recordings matters more than any model architecture.
+- **Collecting our own:** the open-source [Batear]({{ site.baseurl }}{% link research/open-source-builds.md %}#batear) detector can save the audio around each alarm to an SD card, a cheap way to gather labelled field recordings.
 - **Negative data** (mopeds, chainsaws, generators, tractors, aircraft, wind, rain) from the actual deployment region is just as important, to keep false alarms down.
 
 ## Sources

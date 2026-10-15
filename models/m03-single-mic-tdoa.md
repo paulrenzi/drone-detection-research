@@ -7,13 +7,17 @@ nav_order: 3
 # M3 — Single-mic nodes + time-difference of arrival
 {: .no_toc }
 
-| Overall | Technical readiness | Cost per km² | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|
-| **3/5** | 3/5 | 4/5 | 4/5 | 3/5 |
+| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| **3/5** | **3/5** | 3/5 | 4/5 | 4/5 | 3/5 |
 
 **Unit cost (est.):** $30–50
+
 **Best against:** loud, continuous sources (Shahed-class) in areas with dense nodes
+
 **One-line verdict:** Cheapest hardware, but shifts all the difficulty into timing and computation. Better as a cross-check inside M1 than as the whole system.
+
+**Payoff:** Too sparse to locate drones on its own, but its low cost is what makes throwaway tripwire nodes possible.
 
 1. TOC
 {:toc}

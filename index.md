@@ -79,18 +79,19 @@ So every model on this site has to work without an active emitter:
 
 ## Eight ways to build the network.
 
-Rated **1 (not feasible now) to 5 (proven, build today)**. Models rated below 3 (perch-and-listen drones, flying microphone swarms, and fibre-optic distributed acoustic sensing) have been dropped. See [how ratings work](#how-ratings-work).
+Each model gets two scores. **Feasible** runs from 1 (not feasible now) to 5 (proven, build today). **Payoff** runs from 1 to 5 for how much it would matter to units in the field, against small drones including fibre-optic FPVs, if it works. Models rated below 3 (perch-and-listen drones, flying microphone swarms, and fibre-optic distributed acoustic sensing) have been dropped. See [how ratings work](#how-ratings-work).
 
-| # | Model | Overall | Unit cost | Status |
-|---|---|:-:|---|---|
-| M1 | [Fixed ground mic-array mesh]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) | <span class="score score-hi">4</span> | $60–120 | Recommended core |
-| M2 | [Phone-based sensor network]({{ site.baseurl }}{% link models/m02-phone-network.md %}) | <span class="score score-hi">5</span> | $100–500 | Proven at scale (Ukraine) |
-| M3 | [Single-mic nodes + time-difference]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}) | <span class="score score-mid">3</span> | $30–50 | Cheapest, harder to make work |
-| M4 | [Elevated fixed nodes (towers, masts)]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %}) | <span class="score score-hi">4</span> | $80–300 + mount | Recommended placement for M1 |
-| M5 | [Tethered aerostats / balloons]({{ site.baseurl }}{% link models/m05-aerostats.md %}) | <span class="score score-mid">3</span> | $5k–50k+ | Niche, gap-filler |
-| M7 | [Drone-deployed ground nodes]({{ site.baseurl }}{% link models/m07-drone-deployed-nodes.md %}) | <span class="score score-mid">3</span> | node + delivery | Deployment method for M1 |
-| M9 | [Vehicle / soldier-mounted mobile nodes]({{ site.baseurl }}{% link models/m09-mobile-nodes.md %}) | <span class="score score-mid">3</span> | $150–1,000 | Being trialled (Zvook) |
-| M10 | [Hybrid: acoustic + passive RF + camera cueing]({{ site.baseurl }}{% link models/m10-hybrid-cueing.md %}) | <span class="score score-hi">4</span> | $100–2,000 / site | Phase 2 add-on |
+| # | Model | Feasible | Payoff | Unit cost | Status |
+|---|---|:-:|:-:|---|---|
+| UC | [Drone-laid tripwire (use case: M3 nodes laid by M7)]({{ site.baseurl }}{% link models/tripwire.md %}) | <span class="score score-mid">3</span> | <span class="score score-hi">5</span> | ~$1.5–2.5k kit | Highest payoff; one radio test away |
+| M1 | [Fixed ground mic-array mesh]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) | <span class="score score-hi">4</span> | <span class="score score-hi">4</span> | $60–120 | Recommended core |
+| M2 | [Phone-based sensor network]({{ site.baseurl }}{% link models/m02-phone-network.md %}) | <span class="score score-hi">5</span> | <span class="score score-mid">3</span> | $100–500 | Proven at scale (Ukraine) |
+| M3 | [Single-mic nodes + time-difference]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}) | <span class="score score-mid">3</span> | <span class="score score-mid">3</span> | $30–50 | Cheapest, harder to make work |
+| M4 | [Elevated fixed nodes (towers, masts)]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %}) | <span class="score score-hi">4</span> | <span class="score score-hi">4</span> | $80–300 + mount | Recommended placement for M1 |
+| M5 | [Tethered aerostats / balloons]({{ site.baseurl }}{% link models/m05-aerostats.md %}) | <span class="score score-mid">3</span> | <span class="score score-lo">2</span> | $5k–50k+ | Niche, gap-filler |
+| M7 | [Drone-deployed ground nodes]({{ site.baseurl }}{% link models/m07-drone-deployed-nodes.md %}) | <span class="score score-mid">3</span> | <span class="score score-hi">4</span> | node + delivery | Deployment method for M1 |
+| M9 | [Vehicle / soldier-mounted mobile nodes]({{ site.baseurl }}{% link models/m09-mobile-nodes.md %}) | <span class="score score-mid">3</span> | <span class="score score-mid">3</span> | $150–1,000 | Being trialled (Zvook) |
+| M10 | [Hybrid: acoustic + passive RF + camera cueing]({{ site.baseurl }}{% link models/m10-hybrid-cueing.md %}) | <span class="score score-hi">4</span> | <span class="score score-hi">4</span> | $100–2,000 / site | Phase 2 add-on |
 {: .matrix }
 
 Each model's page says what it works best against. Reference point: commercial acoustic arrays such as Squarehead **Discovair G2** (Norway) detect small drones at "several hundred metres" and are sold inside full counter-UAS systems at far higher prices. See [Existing systems]({{ site.baseurl }}{% link research/existing-systems.md %}).
@@ -114,7 +115,7 @@ The first integration target is **Anduril Lattice**, which the US Army has picke
 ## How ratings work
 {: #how-ratings-work }
 
-Each model is scored 1–5 on four axes, and the overall score is a judgement, not an average:
+**Feasibility** is scored 1–5 on four axes, and the feasibility score is a judgement, not an average:
 
 | Axis | Question |
 |---|---|
@@ -123,6 +124,8 @@ Each model is scored 1–5 on four axes, and the overall score is a judgement, n
 | **Persistence** | Can it run unattended for weeks or months? |
 | **Deployability** | Can non-specialists put it out and keep it running at scale? |
 
+**Payoff** is scored separately, 1–5: how much the model would matter for protecting units in the field against small drones, including fibre-optic FPVs, if it works. A model can be easy and unimportant (phones in a rear area) or hard and decisive (the drone-laid tripwire). Read the two together.
+
 The single most important number is **cost per square kilometre covered = node cost × node density**. Node density is driven by detection range, which differs hugely by target. See [Range and cost-per-km² model]({{ site.baseurl }}{% link research/range-and-cost.md %}).
 
 <p class="kicker">07 · Contributing</p>
@@ -130,6 +133,6 @@ The single most important number is **cost per square kilometre covered = node c
 ## How to add to this
 
 - **New research note:** add a Markdown file to `research/` with `parent: Research Notes` in the front matter.
-- **New model:** copy `models/_template.md`, number it `mNN-short-name.md`, and add a row to the matrix above. It must work without an active emitter, and it is only listed if it rates 3 or higher.
+- **New model:** copy `models/_template.md`, number it `mNN-short-name.md`, and add a row to the matrix above. It must work without an active emitter, it is only listed if its feasibility rates 3 or higher, and it needs both a feasibility and a payoff score.
 - **Changed a rating?** Say why in the model page's *Rating history* and in the [Changelog]({{ site.baseurl }}{% link changelog.md %}).
 - Mark anything not yet confirmed with an `{: .warning }` callout.

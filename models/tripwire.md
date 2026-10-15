@@ -7,13 +7,17 @@ nav_order: 0
 # Use case — Drone-laid tripwire
 {: .no_toc }
 
-| Overall | Technical readiness | Cost per km² | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|
-| **3/5** | 3/5 | 4/5 | 4/5 | 4/5 |
+| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| **3/5** | **5/5** | 3/5 | 4/5 | 4/5 | 4/5 |
 
 **Kit cost (est.):** about $1,500–2,500 for 24 throwaway listeners plus one reusable, 3D-printed delivery drone
+
 **Best against:** low FPVs and small quads heading for a unit, including fibre-optic FPVs that emit no radio
+
 **One-line verdict:** Don't try to make a microphone hear farther. Put cheap ones farther out. A unit gets about a minute of warning instead of about ten seconds, without transmitting anything while it listens.
+
+**Payoff:** The only option here that gives about a minute of warning against fibre-optic FPVs at a price units can afford.
 
 1. TOC
 {:toc}
@@ -48,6 +52,9 @@ Drones attacking a unit mostly come from one direction: the enemy side. Covering
 A node in a line only has to hear the drone, not fix its position, so nodes can be spaced at roughly their detection range: about every 200–300 m against FPVs. A 3 km front then takes about 12 nodes per line, or 24 for two lines.
 
 ### 2. Throwaway listeners
+
+{: .note }
+> Open-source starting points exist: [Batear]({{ site.baseurl }}{% link research/open-source-builds.md %}#batear) (MIT licence) already runs a single-mic harmonic detector with encrypted LoRa alerts on an ESP32-S3, and [VolAnti]({{ site.baseurl }}{% link research/open-source-builds.md %}#volanti) has published a 104 m range test. See [Open-source projects to build on]({{ site.baseurl }}{% link research/open-source-builds.md %}).
 
 Each listener is a single-microphone node ([M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}) class) built to be dropped, not placed:
 

@@ -7,13 +7,17 @@ nav_order: 4
 # M4 — Elevated fixed nodes (towers, masts, rooftops)
 {: .no_toc }
 
-| Overall | Technical readiness | Cost per km² | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|
-| **4/5** | 5/5 | 4/5 | 5/5 | 3/5 |
+| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| **4/5** | **4/5** | 5/5 | 4/5 | 5/5 | 3/5 |
 
 **Unit cost (est.):** M1 node ($80–150) + mount ($0 on existing structures, $100–300 for a dedicated mast)
+
 **Best against:** everything — height helps for all targets
+
 **One-line verdict:** Not a separate sensor so much as *where to put M1*. Getting mics 10–30 m up is probably the cheapest range gain available.
+
+**Payoff:** Height is the cheapest range gain available, and range is the biggest weakness.
 
 1. TOC
 {:toc}

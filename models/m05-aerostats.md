@@ -7,13 +7,17 @@ nav_order: 5
 # M5 — Tethered aerostats and balloons
 {: .no_toc }
 
-| Overall | Technical readiness | Cost per km² | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|
-| **3/5** | 4/5 | 2/5 | 3/5 | 2/5 |
+| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| **3/5** | **2/5** | 4/5 | 2/5 | 3/5 | 2/5 |
 
 **Unit cost (est.):** small helium balloon kits from ~$5k; military tethered aerostats $50k to millions
+
 **Best against:** low-flying drones and cruise missiles hidden from ground sensors by terrain
+
 **One-line verdict:** A quiet way to get mics (and radios) very high for days at a time. A gap-filler for valleys and coastlines, not a replacement for the ground mesh.
+
+**Payoff:** A useful gap-filler at fixed sites; too costly and visible for most units.
 
 1. TOC
 {:toc}

@@ -7,13 +7,17 @@ nav_order: 7
 # M7 — Drone-deployed ground nodes
 {: .no_toc }
 
-| Overall | Technical readiness | Cost per km² | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|
-| **3/5** | 3/5 | 3/5 | 4/5 | 4/5 |
+| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| **3/5** | **4/5** | 3/5 | 3/5 | 4/5 | 4/5 |
 
 **Unit cost (est.):** M1 node in a drop-safe case ($80–150) + share of a reusable delivery drone
+
 **Best against:** any target, in areas people can't safely reach
+
 **One-line verdict:** Use the drone as the *installer*, not the sensor. Fast mesh build-out in contested or remote ground.
+
+**Payoff:** The delivery method behind the drone-laid tripwire.
 
 {: .note }
 > The strongest use of this model is the [drone-laid tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): throwaway listeners dropped in lines 2–4 km forward of a unit for a minute or more of warning.

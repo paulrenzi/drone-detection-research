@@ -7,13 +7,17 @@ nav_order: 1
 # M1 — Fixed ground mic-array mesh
 {: .no_toc }
 
-| Overall | Technical readiness | Cost per km² | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|
-| **4/5** | 4/5 | 4/5 | 4/5 | 4/5 |
+| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| **4/5** | **4/5** | 4/5 | 4/5 | 4/5 | 4/5 |
 
 **Unit cost (est.):** $60–120 per node at volume
+
 **Best against:** engine-driven one-way attack drones (Shahed/Geran class), larger multirotors
+
 **One-line verdict:** The recommended core. A purpose-built board that reports *bearing + class + confidence* is cheaper than a phone and gives better direction data.
+
+**Payoff:** The layer that locates drones near a unit; any position fix needs it.
 
 1. TOC
 {:toc}

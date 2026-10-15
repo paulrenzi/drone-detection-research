@@ -7,13 +7,17 @@ nav_order: 10
 # M10 — Hybrid: acoustic + passive RF + camera cueing
 {: .no_toc }
 
-| Overall | Technical readiness | Cost per km² | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|
-| **4/5** | 4/5 | 3/5 | 4/5 | 3/5 |
+| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| **4/5** | **4/5** | 4/5 | 3/5 | 4/5 | 3/5 |
 
 **Unit cost (est.):** acoustic nodes everywhere ($60–120 each) + RF sensor ($50–500) and PTZ/thermal camera ($300–2,000+) at selected sites
+
 **Best against:** all targets, including confirming what the acoustic layer flags
+
 **One-line verdict:** Acoustic as the cheap wide-area tripwire, other sensors only where they add the most. This is how a credible military system will be judged.
+
+**Payoff:** Turns detections into something buyers' systems (Lattice, TAK) act on.
 
 1. TOC
 {:toc}

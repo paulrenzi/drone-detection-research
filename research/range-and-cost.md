@@ -32,6 +32,8 @@ A simple layout rule: on a triangular grid with spacing equal to the detection r
 
 Squarehead's commercial array claims small-drone detection out to "several hundred metres", consistent with the middle rows.
 
+The first published field number for a cheap node comes from the open-source [VolAnti]({{ site.baseurl }}{% link research/open-source-builds.md %}#volanti) unit: a hovering quad detected at **104.2 m** on a street with traffic, with expected range falling from 100–200 m in still air to 5–25 m in strong wind. That supports the low end of the small-quad rows and shows how much wind matters.
+
 ## Worked examples
 
 | Range *r* | Nodes / km² | At $100 / node | At $450 / node (phone benchmark) |
