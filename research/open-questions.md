@@ -25,7 +25,8 @@ The ratings on this site are judgements. These tests would turn them into measur
 | T12 | Tripwire: wake-on-sound battery life with a small drone classifier on a microcontroller, including the battery and temperature reports, in cold | Is "weeks on a small battery" real, and how much shorter in winter? | < $200 | Not started |
 | T13 | Tripwire: autonomous drop sortie, 4 nodes on GPS points from a printed quad | Placement accuracy and payload | < $500 | Not started |
 | T14 | Tripwire: the T13 sortie with GPS unavailable, flying on optical flow, compass and barometer from a known start point ([Delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %}#flying-when-gps-is-jammed)) | Can a line be laid under jamming, and how far off are the drops? | < $300 | Not started |
-| T15 | Record friendly drone types (observation quads, bombers, resupply) and test whether the classifier, which line trips first, and friendly flight times can sort friend from foe, with node clocks kept in step without GPS ([design]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost)) | Will a line raise false alarms on its own side's drones? | < $200 | Not started |
+| T15 | Record friendly drone types (observation quads, bombers, resupply) and test whether the classifier, which line trips first, and friendly flight times can sort friend from foe, with node clocks kept in step without GPS, by neighbours relaying or by a rare time beacon from a surveyed point ([design]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost)) | Will a line raise false alarms on its own side's drones? | < $200 | Not started |
+| T16 | [M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) and [M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}) under GPS jamming: survey 3–5 nodes and one anchor, then compare three ways to keep positions and clocks without GPS: time-of-flight ranging to the anchor (SX1280 boards), a time beacon from the anchor, and calibrating against the delivery drone's logged track as it flies over. Suggested by a reader. [Evidence](#t16-positions-and-clocks-without-gps) | Can nodes that need precise positions and clocks keep them under jamming, and how much do they have to transmit to do it? | < $300 (est.) | Not started |
 
 ## T9: can a forward line report back?
 
@@ -91,6 +92,28 @@ At each point: stake the node, send **at least 100 packets per spreading factor*
 
 {: .warning }
 > Two boards measure one link at a time. How well a chain of many hops holds up is estimated from single-link delivery rates, not measured, until T7's 20-node test.
+
+## T16: positions and clocks without GPS
+
+A reader's suggestion: one central node knows where it is, and the others work out their own positions from it, instead of every node carrying GPS. It matters most for [M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) and [M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}), which locate drones from several nodes. The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost) doesn't need that precision.
+
+The anchor itself should be a surveyed point, not a GPS receiver: at the unit it would be jammed too ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)).
+
+### What has been measured
+
+| Source | Setup | Result |
+|---|---|---|
+| [Müller et al., 2021](https://digitalcollection.zhaw.ch/bitstream/11475/22769/3/2021_Mueller-etal_Outdoor-ranging-and-positioning-based-on-LoRa-modulation.pdf) (ZHAW with armasuisse) | SX1280, 2.4 GHz, 400 kHz bandwidth, SF8; fixed node at 1.5 m, walking node at 2 m; 8.2 km route over flat farmland, up to 1.4 km apart, about 25,000 measurements | Average error **46 m**, spread 84 m. Distances read long because of reflections. Worst average error **91 m** at 950 m, where a forest shadowed the link. A straight-line correction fitted to the same route cut the average error below 10 m. Positioning from four reference nodes about 400 m × 130 m apart: about 30 m error per fix, about 5 m when filtered along a walked track. Clear line of sight throughout; the authors expect worse with obstacles |
+| Same paper, from Semtech's figures | SX1280 at its maximum 12.5 dBm | Best link budget about **134.5 dB**, "up to a few kilometers" in the countryside. Compare roughly 159 dB estimated for the SX1262 in [T9](#t9-can-a-forward-line-report-back) |
+
+{: .note }
+> Semtech documents the SX1280's ranging in application notes AN1200.29 and AN1200.50; we have not read figures from them. Nothing above was measured under canopy, so ranging accuracy and reach in forest are unknown.
+
+### What this suggests (inference)
+
+- **Positions:** a node that never moves needs its position once. Surveying it at install, or calibrating it from a known drone flyby, avoids any recurring emission. Ranging gives tens of metres, which is coarse for M1 and far too coarse for M3 (10 m is about 30 ms of sound travel).
+- **Clocks** are the recurring need, and a time beacon from the anchor is the part most worth testing. Its accuracy over LoRa is not measured here.
+- **Calibration flyby** (our idea, not the reader's): the delivery drone logs its own track. Each node's detection time, and for M1 its bearing, compared against that log could correct both position and clock, and M1's compass, with no extra radio traffic.
 
 ## Open questions
 

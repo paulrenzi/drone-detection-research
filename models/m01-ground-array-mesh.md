@@ -60,6 +60,7 @@ Full detail and alternatives: [Hardware notes]({{ site.baseurl }}{% link researc
 - **Small electric quadcopters are quiet.** Expect hundreds of metres, not kilometres, so coverage against them needs much denser nodes.
 - **Wind noise** is the biggest real-world degrader of range. Needs good windscreens and wind-aware detection thresholds.
 - **Compass error** directly becomes bearing error. Needs calibration at install (e.g. point at a known landmark or use two GPS fixes).
+- **GPS jamming.** GPS gives each node its position and clock, and front-line jamming reaches 20–25 km ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)). A node that never moves needs its position only once, from a survey at install. Keeping clocks in step is the harder part. A reader suggested an alternative: nodes measure their distance to one surveyed central node by radio time of flight (SX1280-class radio, 2.4 GHz). One published outdoor test measured an average error of 46 m at up to 1.4 km, cut below 10 m by a correction fitted to that same route ([Müller et al., 2021](https://digitalcollection.zhaw.ch/bitstream/11475/22769/3/2021_Mueller-etal_Outdoor-ranging-and-positioning-based-on-LoRa-modulation.pdf)). That is coarse for this model and unmeasured under trees, and each exchange is another emission. A time beacon from the same anchor, or calibrating nodes against the delivery drone's logged track as it flies over, may do better. See [T16]({{ site.baseurl }}{% link research/open-questions.md %}#t16-positions-and-clocks-without-gps).
 - **False alarms** from mopeds, chainsaws, generators, aircraft. Needs lots of local negative training data.
 - **Multiple simultaneous drones:** matching the right bearings to the right target is a real algorithm problem ("data association").
 - A custom board means a hardware design cycle, certification (radio), and a supply chain.
@@ -70,6 +71,7 @@ Full detail and alternatives: [Hardware notes]({{ site.baseurl }}{% link researc
 - Measured bearing accuracy from a 15 cm 4-mic array vs. an 8-mic array — is the extra cost worth it?
 - How many false alarms per node per day in a farm, a town, and near a highway?
 - LoRa mesh vs. cellular: latency and reliability with hundreds of nodes reporting during a raid.
+- Under GPS jamming, can a surveyed anchor (ranging, a time beacon) or a calibration flyby keep node positions and clocks good enough? ([T16]({{ site.baseurl }}{% link research/open-questions.md %}#t16-positions-and-clocks-without-gps))
 
 ## Rating history
 

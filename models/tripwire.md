@@ -141,6 +141,16 @@ Over weeks, a line becomes a record of drone traffic on the unit's approach:
 - **Positions from the drop plan** are only as good as the drone's navigation (T14).
 - **Battery life in cold**, with the extra bytes counted (T12).
 
+### Considered: anchoring to a central node
+
+A reader suggested one central node with a known position, and listeners that measure their distance to it, instead of GPS on every node.
+
+- **The tripwire already works this way.** Listeners carry no GPS; the delivery drone's release point is the reference. The anchor wouldn't need GPS either, since it would be jammed at the unit too: make it a point fixed from a map or a one-off survey.
+- **A central time beacon** is simpler than neighbours syncing with each other, and is now one of the options in T15. The catch is that a regular transmission marks the unit (T8), so it would have to be rare or sent from somewhere else.
+- **Dead reckoning** is for things that move. A dropped listener doesn't; the drone already dead-reckons (T14).
+- **Radio ranging doesn't pay here.** With listeners 100–300 m apart, 20–50 m of position error doesn't change "a drone crossed near listener 7". The current radio (SX1262) can't measure distance; the SX1280 can, but on 2.4 GHz, which reaches less far. A published outdoor test reached 1.4 km over open farmland with an average error of 46 m, worst where a forest shadowed the link ([Müller et al., 2021](https://digitalcollection.zhaw.ch/bitstream/11475/22769/3/2021_Mueller-etal_Outdoor-ranging-and-positioning-based-on-LoRa-modulation.pdf)). A listener 2–4 km out under trees would probably not reach an anchor at all, and every ranging exchange is another emission.
+- **Where it could pay:** [M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) and [M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}), which locate a drone from several nodes and need positions and clocks to a few metres and milliseconds. That is [T16]({{ site.baseurl }}{% link research/open-questions.md %}#t16-positions-and-clocks-without-gps).
+
 </details>
 
 <details class="layer" id="components-and-mvp" markdown="block">

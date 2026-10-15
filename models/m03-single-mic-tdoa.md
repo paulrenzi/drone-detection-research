@@ -40,11 +40,13 @@ nav_order: 3
 - Nodes far apart hear the drone through different wind, echoes and Doppler, which smears the timing.
 - Needs at least 3–4 nodes hearing simultaneously; with weak targets that's rare.
 - Bandwidth: LoRa can't carry correlation snippets from many nodes during a mass raid.
+- **GPS jamming removes the timing pulse** this model depends on, and front-line jamming reaches 20–25 km ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)). Positions can be surveyed once, but clocks drift without it. Radio ranging to a central anchor, suggested by a reader, is too coarse for positions here: the best published outdoor figure we found is an average error under 10 m after correction ([Müller et al., 2021](https://digitalcollection.zhaw.ch/bitstream/11475/22769/3/2021_Mueller-etal_Outdoor-ranging-and-positioning-based-on-LoRa-modulation.pdf)), and 10 m is about 30 ms of sound travel. A time beacon from a surveyed anchor is the more promising half; its accuracy is unmeasured. See [T16]({{ site.baseurl }}{% link research/open-questions.md %}#t16-positions-and-clocks-without-gps).
 
 ## Open questions
 
 - Can a compact feature (e.g. engine harmonic phase over 1–2 s) be correlated across nodes reliably enough to send over LoRa?
 - What's the accuracy versus M1 bearings for the same node count?
+- Without GPS, how closely can a time beacon from a surveyed anchor keep node clocks in step? ([T16]({{ site.baseurl }}{% link research/open-questions.md %}#t16-positions-and-clocks-without-gps))
 
 ## Rating history
 
