@@ -27,6 +27,7 @@ nav_order: 0
 | | Microflown AVISA Skysentry (Netherlands) | Acoustic vector sensors | 400 m for small, quiet drones | High | Yes |
 | | Sky Fortress (Ukraine) | Phones + mics on poles, national network | km-class vs. Shaheds | $400–1,000 per sensor | Yes |
 | | Zvook (Ukraine) | Tower-mounted and vehicle acoustic | Not published | Not published | Yes |
+| | Zvook NW0 (Ukraine, announced Jan 2026) | Acoustic FPV sensor for positions and routes, incl. fibre-optic; 15–20 W, wired or LoRa | 150–450 m | Not published | Yes |
 | **Soldier-worn RF detectors** | MyDefence Wingman (Denmark) | RF control/video link detection | up to 6 km | Not published; US Army bought 400 | Yes |
 | | BlueBird Chuyka 3.0 (Ukraine) | Analog FPV video detection | up to 4 km | ~$750–850 | Yes |
 | **Crowd-sourced** | Drone Rada (Lithuania) | Volunteers' phones | Short | ~$0 to operator | Yes |
@@ -109,7 +110,7 @@ The gap no cheap product fills: **passive, non-line-of-sight detection of drones
 
 ## Risks to this positioning
 
-- **Sky Fortress or Zvook** ship a portable unit kit first — they already have data, combat credibility and NATO customers. Partner, or move faster on the field-kit form factor.
+- **Sky Fortress or Zvook** ship a portable unit kit first — they already have data, combat credibility and NATO customers. Partner, or move faster on the field-kit form factor. **Update (2026-10-15):** Zvook announced the [NW0](https://militarnyi.com/en/news/ukraine-develops-acoustic-detector-for-fpv-drones/), an acoustic FPV sensor for front-line positions and routes, in January 2026. No price or deployment reported yet. See [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
 - **A prime adds cheap acoustics.** DroneShield already resells Squarehead; Anduril could add an acoustic sensor to Lattice. Our defence is price, speed, and being Lattice-compatible from day one.
 - **Short range against FPVs** (~100–300 m, so ~5–10 s warning) may not satisfy buyers alone. The answer is placing nodes outward (rings 300–800 m out) and cueing other sensors — sell it as a layer, not a complete system.
 - **No proprietary moat in the hardware.** The lasting advantage is **training data** (real combat recordings, local negatives) and fielded integrations.

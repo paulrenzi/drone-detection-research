@@ -53,6 +53,9 @@ Counter-drone sensing has split into a few camps. Each one is good at something,
 
 ## The routes still open.
 
+{: .warning }
+> Before building more, check the premise: [is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %}) Short answer: the threat is real and largely unsolved, but whether earlier warning changes what troops do is unproven. Asking users comes first.
+
 The gap nobody fills cheaply is **passive detection of drones that don't transmit and can't be seen, at a price every unit can carry.** Four practical routes lead there:
 
 1. **Purpose-built mic-array nodes at $60–120, mounted high** ([M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) on [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %}) placements). Many cheap nodes rather than one better sensor, each reporting a bearing rather than a bare alarm. This is the core.

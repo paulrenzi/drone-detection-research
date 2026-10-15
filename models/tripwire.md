@@ -32,6 +32,7 @@ nav_order: 0
 - **Rated 3 out of 5.** Every part exists, but nobody has shown that a forward line can get its alerts home.
 - **The deciding test is radio under trees (T9).** Published measurements say open ground probably works. Under trees, where troops and attacking drones actually go, it is unproven. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
 - **The proposed answer: hear the lines from the edge of the unit's tree line.** A listen-only receiver, placed by hand and raised at the belt edge, wired back to the dugout so the unit's position emits nothing. [Design](#getting-alerts-out-of-the-trees).
+- **First, check the premise.** Drones cause most casualties and fibre-optic FPVs beat the radio detectors units carry, but nobody has shown that earlier warning changes what troops do. Ask users before building more ([T18]({{ site.baseurl }}{% link research/problem-check.md %})).
 - **Next steps cost little.** The first five tests each cost under $500; see [Parts and first build](#components-and-mvp).
 
 ## Front-line problems, in plain terms
@@ -305,7 +306,7 @@ For warning time, probably: about a minute instead of about ten seconds, includi
 - A minute is only worth what the unit can do with it: take cover, cue a camera, launch an interceptor.
 - The enemy adapts, by flying round the ends or hunting listeners.
 
-Whether a minute changes outcomes is for front-line users to say, not a test bench. The tests are cheap enough (each under $500) to be worth running either way.
+Whether a minute changes outcomes is for front-line users to say, not a test bench, and nothing published answers it. So that comes first: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %}) sets out the evidence and the questions to ask (T18).
 
 ### Should listeners be retrievable, for example by a magnet on the drone?
 
