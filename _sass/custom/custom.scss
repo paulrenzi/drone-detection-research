@@ -500,6 +500,91 @@ body.ou {
   }
 }
 
+// Fold-out layers: summary row with title and one-line description
+.ou .main-content details.layer {
+  margin: 12px 0;
+  padding: 0 20px;
+  background: #fff;
+  border: 1px solid $ou-ink;
+
+  > summary {
+    position: relative;
+    margin: 0 -20px;
+    padding: 16px 56px 16px 20px;
+    list-style: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: "+";
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+      color: $ou-accent;
+    }
+
+    &:hover .layer-title {
+      color: $ou-accent-dark;
+    }
+  }
+
+  &[open] {
+    padding-bottom: 8px;
+
+    > summary {
+      margin-bottom: 8px;
+      border-bottom: 1px solid $ou-rule;
+
+      &::after {
+        content: "\2013";
+      }
+    }
+  }
+
+  h3:first-of-type {
+    margin-top: 16px;
+  }
+}
+
+.ou .main-content .layer-title {
+  display: block;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.25;
+  color: $ou-ink;
+}
+
+.ou .main-content .layer-sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: $ou-muted;
+}
+
+.ou .main-content .layer-toggle {
+  @include ou-label;
+  font-size: 11px;
+  min-height: 44px;
+  padding: 0 16px;
+  background: #fff;
+  color: $ou-ink;
+  border: 1px solid $ou-ink;
+  cursor: pointer;
+
+  &:hover {
+    background: $ou-ink;
+    color: #fff;
+  }
+}
+
 // Callouts: white card, ink border, mono label
 .ou p.important,
 .ou blockquote.important,
