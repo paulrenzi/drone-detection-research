@@ -22,42 +22,11 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 
 Assumed owned: laptop, phone, USB power banks, soldering iron.
 
-## Shopping list
-
-Amazon where it sells the part. Prices checked 2026-10-15. Alternatives are in each layer below.
-
-| Layer | Item | Buy | Price |
-|---|---|---|---|
-| 1 | Heltec LoRa 32 V3, 915 MHz, 2-pack | [Amazon](https://www.amazon.com/dp/B0CW6151WJ) | $44.98 |
-| 1 | u.FL→SMA pigtail, Proxicast | [Amazon](https://www.amazon.com/dp/B09GJGNPQX) | $7.94 |
-| 1 | 10 dB SMA attenuator, MWRF | [Amazon](https://www.amazon.com/dp/B07MRG9RDV) | $12.49 |
-| 1 | 915 MHz omni, N, with u.FL lead (run D) | [Amazon](https://www.amazon.com/dp/B0GSB5XKLF) | $16.95 |
-| 1 | Mast, 23 ft fiberglass (optional; a window or tree is free) | [Amazon](https://www.amazon.com/dp/B0GYYL3S6C) | $59.99 |
-| 2 | INMP441 I2S mic, 5-pack | [Amazon](https://www.amazon.com/dp/B09G4RNT3G) | $12.51 |
-| 2 | Fur windscreens, 5-pack | [Amazon](https://www.amazon.com/dp/B01E4ZMTEG) | $8.99 |
-| 2 | Breadboards + jumpers | [Amazon](https://www.amazon.com/dp/B08Y59P6D1) | $9.99 |
-| 2 | Seeed XIAO ESP32S3 Sense (recorder) | [Amazon](https://www.amazon.com/dp/B0C69FFVHH) | $23.99 |
-| 2 | 48 in fiberglass stakes, 20-pack | [Amazon](https://www.amazon.com/dp/B0DF58T198) | $23.99 |
-| 2 | Anemometer (optional) | [Amazon](https://www.amazon.com/dp/B0D7Z43M9S) | $12.99 |
-| 3 | Heltec V3, single | [Amazon](https://www.amazon.com/dp/B0D1H1FN9Y) | $34.99 |
-| 3 | MAX3485 RS-485 modules (3.3 V), 5-pack | [Amazon](https://www.amazon.com/dp/B0FTFXT876) | $8.99 |
-| 3 | USB→RS-485, FT232RL | [Amazon](https://www.amazon.com/dp/B081MB6PN2) | $16.31 |
-| 3 | RTL-SDR Blog V3 + dipole kit | [Amazon](https://www.amazon.com/dp/B0BMKB3L47) | $47.95 |
-| 3 | 915 MHz Yagi, 7 dBi (optional; DIY is a few dollars) | [Amazon](https://www.amazon.com/dp/B0CPFT1V9L) | $24.99 |
-| 3 | Throw line kit (optional; a tennis ball works) | [Amazon](https://www.amazon.com/dp/B0DH2SV5XK) | $21.68 |
-| 3 | Burial Cat5e, 1000 ft (300 m run only) | [Amazon](https://www.amazon.com/dp/B0092TJ4K2) | $89.99 |
-| 4 | Nordic PPK2 current meter | [Adafruit](https://www.adafruit.com/product/5048) (Amazon $189.99) | $99.95 |
-| 4 | 18650 cells, Molicel P28A (not on Amazon) | [18650 Battery Store](https://www.18650batterystore.com/products/molicel-p28a) | $5.99 each |
-| 4 | 18650 holders with leads, 2-pack | [Amazon](https://www.amazon.com/dp/B092TGQ7PB) | $5.99 |
-| 4 | Inkbird IBS-TH2 Plus freezer logger | [Amazon](https://www.amazon.com/dp/B08TM67HJH) | $24.99 |
-| 5 | 2 more Heltec 2-packs (6 listeners in all) | [Amazon](https://www.amazon.com/dp/B0CW6151WJ) | $89.96 |
-| 5 | IP65 box 100×68×50 mm, uxcell | [Amazon](https://www.amazon.com/dp/B07FKN8SZG) | $15.69 each |
-
 ## Layer 0: ask alongside (T18, $0, not a gate) {#layer-0}
 
 Earlier warning against a threat nothing else detects (fibre-optic FPVs), at lower cost, is worth having; that is not tested here. 5–10 interviews ([questions]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)) only tune the build: which moments matter most (sizes the [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %})), and how troops would place listeners and a receiver.
 
-<details class="layer" id="layer-1-the-radio-test-t9" markdown="block">
+<details class="layer" id="layer-1-the-radio-test-t9" markdown="block" open>
 <summary><span class="layer-title">Layer 1: radio test (T9), ~$80</span><span class="layer-sub">Board at 0.5–1 m to a raised receiver, 2–3 km, across open ground, forest and hedgerows</span></summary>
 
 **Why first:** it is the [deciding question]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-home), it needs no drone, and every later layer reuses the boards.
@@ -204,6 +173,38 @@ Six listeners cost $270–330. Add four if layer 1's forest hops need tighter sp
 - **No transmission** from the receiving end, checked on the SDR.
 
 A pass shows the idea works at small scale on US ground. It does not show it against jamming, Ukrainian terrain, mass raids or air-dropped placement.
+
+</details>
+
+<details class="layer" id="shopping-list" markdown="block">
+<summary><span class="layer-title">Full shopping list, all layers</span><span class="layer-sub">Amazon where it sells the part, prices checked 2026-10-15. Alternatives are in each layer</span></summary>
+
+| Layer | Item | Buy | Price |
+|---|---|---|---|
+| 1 | Heltec LoRa 32 V3, 915 MHz, 2-pack | [Amazon](https://www.amazon.com/dp/B0CW6151WJ) | $44.98 |
+| 1 | u.FL→SMA pigtail, Proxicast | [Amazon](https://www.amazon.com/dp/B09GJGNPQX) | $7.94 |
+| 1 | 10 dB SMA attenuator, MWRF | [Amazon](https://www.amazon.com/dp/B07MRG9RDV) | $12.49 |
+| 1 | 915 MHz omni, N, with u.FL lead (run D) | [Amazon](https://www.amazon.com/dp/B0GSB5XKLF) | $16.95 |
+| 1 | Mast, 23 ft fiberglass (optional; a window or tree is free) | [Amazon](https://www.amazon.com/dp/B0GYYL3S6C) | $59.99 |
+| 2 | INMP441 I2S mic, 5-pack | [Amazon](https://www.amazon.com/dp/B09G4RNT3G) | $12.51 |
+| 2 | Fur windscreens, 5-pack | [Amazon](https://www.amazon.com/dp/B01E4ZMTEG) | $8.99 |
+| 2 | Breadboards + jumpers | [Amazon](https://www.amazon.com/dp/B08Y59P6D1) | $9.99 |
+| 2 | Seeed XIAO ESP32S3 Sense (recorder) | [Amazon](https://www.amazon.com/dp/B0C69FFVHH) | $23.99 |
+| 2 | 48 in fiberglass stakes, 20-pack | [Amazon](https://www.amazon.com/dp/B0DF58T198) | $23.99 |
+| 2 | Anemometer (optional) | [Amazon](https://www.amazon.com/dp/B0D7Z43M9S) | $12.99 |
+| 3 | Heltec V3, single | [Amazon](https://www.amazon.com/dp/B0D1H1FN9Y) | $34.99 |
+| 3 | MAX3485 RS-485 modules (3.3 V), 5-pack | [Amazon](https://www.amazon.com/dp/B0FTFXT876) | $8.99 |
+| 3 | USB→RS-485, FT232RL | [Amazon](https://www.amazon.com/dp/B081MB6PN2) | $16.31 |
+| 3 | RTL-SDR Blog V3 + dipole kit | [Amazon](https://www.amazon.com/dp/B0BMKB3L47) | $47.95 |
+| 3 | 915 MHz Yagi, 7 dBi (optional; DIY is a few dollars) | [Amazon](https://www.amazon.com/dp/B0CPFT1V9L) | $24.99 |
+| 3 | Throw line kit (optional; a tennis ball works) | [Amazon](https://www.amazon.com/dp/B0DH2SV5XK) | $21.68 |
+| 3 | Burial Cat5e, 1000 ft (300 m run only) | [Amazon](https://www.amazon.com/dp/B0092TJ4K2) | $89.99 |
+| 4 | Nordic PPK2 current meter | [Adafruit](https://www.adafruit.com/product/5048) (Amazon $189.99) | $99.95 |
+| 4 | 18650 cells, Molicel P28A (not on Amazon) | [18650 Battery Store](https://www.18650batterystore.com/products/molicel-p28a) | $5.99 each |
+| 4 | 18650 holders with leads, 2-pack | [Amazon](https://www.amazon.com/dp/B092TGQ7PB) | $5.99 |
+| 4 | Inkbird IBS-TH2 Plus freezer logger | [Amazon](https://www.amazon.com/dp/B08TM67HJH) | $24.99 |
+| 5 | 2 more Heltec 2-packs (6 listeners in all) | [Amazon](https://www.amazon.com/dp/B0CW6151WJ) | $89.96 |
+| 5 | IP65 box 100×68×50 mm, uxcell | [Amazon](https://www.amazon.com/dp/B07FKN8SZG) | $15.69 each |
 
 </details>
 
