@@ -109,7 +109,14 @@ Each step answers one question before money goes into the next. The steps match 
 | **4. Battery test (T12)** | One node with wake-on-sound and a small classifier | Whether "weeks on a small battery" is real | < $200 |
 | **5. Drop sortie (T13)** | A printed quad that lays 4 nodes on GPS points | Placement accuracy and payload | < $500 |
 
-Parts, photos, buying advice and a weekend plan for step 1 are in the [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector).
+### Parts for step 1
+
+{: .warning }
+> Prices are rough US figures checked in October 2026 and change often. Parts marked "ships from China" won't arrive in days. The "step 2" recorder board below is the kit's own later upgrade, not MVP step 2.
+
+{% include kit-parts.html %}
+
+Buying advice and a full weekend plan for step 1 are in the [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector).
 
 ## Why 3D-print the drones (and the nodes)
 
