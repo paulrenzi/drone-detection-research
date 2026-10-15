@@ -56,7 +56,7 @@ What follows is inference:
 
 ### Someone is already building the near-unit layer
 
-**ZVOOK NW0** (announced January 2026): a Ukrainian acoustic sensor for FPVs, including fibre-optic ones. Claimed 150–450 m range, 360°, 15–20 W, linked by fibre, twisted pair, LTE or LoRa, spaced 400–600 m, pitched for front-line positions, frontline towns and logistics routes. No price or deployment reported ([Militarnyi](https://militarnyi.com/en/news/ukraine-develops-acoustic-detector-for-fpv-drones/)).
+**ZVOOK NW0** (announced January 2026): a Ukrainian acoustic sensor for FPVs, including fibre-optic ones. Claimed 150–450 m range, 360°, 15–20 W, linked by fibre, twisted pair, LTE or LoRa, spaced 400–600 m, pitched for front-line positions, frontline towns and logistics routes. No deployment reported ([Militarnyi](https://militarnyi.com/en/news/ukraine-develops-acoustic-detector-for-fpv-drones/)).
 
 **Every performance figure is the maker's claim.** The specs come from Zvook's own announcement, which news sites repeated. It is now on public sale at about $834–950 per sensor, but we found no independent test and no unit reported using it ([profile]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0--direct-competitor-claims-only)). So it's weak validation: a credible team with existing customers thinks acoustic FPV detection is worth building. It isn't proof that the approach works. It's also competition.
 

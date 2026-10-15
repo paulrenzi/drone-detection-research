@@ -50,7 +50,7 @@ Full detail and alternatives: [Hardware notes]({{ site.baseurl }}{% link researc
 
 ## Strengths
 
-- Roughly **4–8× cheaper** than the current $400–1,000 per-sensor benchmark.
+- **Cheaper than the $400–1,000 per-sensor benchmark**, but not by a firm ratio. Ours is a parts estimate ($60–150); Sky Fortress's is a reported field cost, and we don't know what it includes. Like for like, the gap is probably smaller than the raw 3–15× (an inference).
 - Produces **bearings**, which triangulate far better than "detected / not detected" from a single mic.
 - Low power: on-device processing plus small reports means solar operation for months.
 - No phone OS, app store, SIM churn or screen to break; easier to harden and to certify.

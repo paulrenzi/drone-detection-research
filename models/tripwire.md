@@ -292,6 +292,8 @@ The claim is narrow: **for early warning of low drones approaching a unit, inclu
 | Radar | ✅ if in sight | ❌ | long, if in sight | **✅** | $40k–160k | ❌ |
 | Phone network (Sky Fortress) | ✅ | ✅ | ~10 s for FPVs near the unit | **✅** (cellular) | $400–1,000 per sensor | ❌ |
 
+**The same assumptions on every row.** The warning times are our estimates from where each sensor sits, not measurements. Every acoustic row, ours included, assumes the sensor actually hears an FPV, which nobody has measured ([what's measured]({{ site.baseurl }}{% link research/competitors.md %}#what-is-actually-measured)). The tripwire's minute comes from distance, not from a better microphone; if T11 finds short range, it needs more listeners, not less warning.
+
 **Trees hurt every option, in different ways.** A windbreak belt weakens a radio link by a few dB ([estimate](#getting-alerts-out-of-the-trees)), and sound gets through too, but a belt blocks a camera's or radar's view outright. A radio detector at the unit isn't stopped by trees, but can't hear fibre-optic FPVs. Phones need cell coverage. Any sensor pushed forward, of any kind, has to get its report home through the same trees: the tripwire's radio problem is shared, not unique to it.
 
 ### Why not just drop phones?
