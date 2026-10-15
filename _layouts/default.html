@@ -1,0 +1,67 @@
+---
+layout: table_wrappers
+---
+
+<!DOCTYPE html>
+
+<html lang="{{ site.lang | default: 'en-US' }}">
+{% include head.html %}
+<body class="ou">
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  {% include icons/icons.html %}
+  <div class="ou-page" id="top">
+    <header class="ou-masthead">
+      <a href="{{ '/' | relative_url }}" class="ou-wordmark">ACOUSTIC<span>/</span>DETECTION</a>
+      <button type="button" class="ou-menu-button" aria-controls="ou-nav" aria-expanded="false" onclick="var n=document.getElementById('ou-nav');var o=n.classList.toggle('is-open');this.setAttribute('aria-expanded',o);">Menu</button>
+      <div id="main-header" class="ou-tools">
+        {% include components/search_header.html %}
+        {% for link in site.aux_links %}
+          <a class="ou-repo" href="{{ link.last }}">{{ link.first | upcase }} &#8599;</a>
+        {% endfor %}
+      </div>
+    </header>
+
+    <div class="ou-body">
+      <nav id="ou-nav" class="ou-nav" aria-label="Site">
+        <a href="{{ '/' | relative_url }}" class="ou-nav-link ou-nav-top{% if page.url == '/' %} is-active{% endif %}">Overview</a>
+        {% assign sections = "Sensor Models,Research Notes" | split: "," %}
+        {% for section in sections %}
+          {% assign section_page = site.pages | where: "title", section | first %}
+          <a href="{{ section_page.url | relative_url }}" class="ou-nav-label{% if page.url == section_page.url %} is-active{% endif %}">{{ section | upcase }}</a>
+          {% assign kids = site.pages | where: "parent", section | sort: "nav_order", "last" %}
+          {% for p in kids %}
+            <a href="{{ p.url | relative_url }}" class="ou-nav-link{% if p.url == page.url %} is-active{% endif %}">{{ p.title }}</a>
+          {% endfor %}
+        {% endfor %}
+        {% assign changelog = site.pages | where: "title", "Changelog" | first %}
+        <a href="{{ changelog.url | relative_url }}" class="ou-nav-link ou-nav-top{% if page.url == changelog.url %} is-active{% endif %}">Changelog</a>
+      </nav>
+
+      <div class="ou-main">
+        {% unless page.url == '/' %}
+          {% include components/breadcrumbs.html %}
+        {% endunless %}
+        <div id="main-content" class="main-content">
+          <main>
+            {% if site.heading_anchors != false %}
+              {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><use xlink:href=\"#svg-link\"></use></svg>" anchorClass="anchor-heading" anchorAttrs="aria-labelledby=\"%html_id%\"" %}
+            {% else %}
+              {{ content }}
+            {% endif %}
+
+            {% if page.has_toc != false %}
+              {% include components/children_nav.html %}
+            {% endif %}
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <footer class="ou-footer">{{ site.footer_content }}</footer>
+  </div>
+
+  {% if site.search_enabled != false %}
+    {% include components/search_footer.html %}
+  {% endif %}
+</body>
+</html>

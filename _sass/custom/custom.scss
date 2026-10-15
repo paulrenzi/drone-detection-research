@@ -1,109 +1,277 @@
-// Owners-update look: warm paper, ink rules, rust accent, square corners.
+// Owners-update look, built to match the "Drone Research Site Redesign" canvas.
 $ou-ink: #151515;
 $ou-body: #444039;
 $ou-muted: #6a625a;
 $ou-paper: #f7f5f0;
 $ou-ground: #ece8e0;
 $ou-rule: #d9d3c7;
+$ou-row: #e9e3d9;
 $ou-accent: #d2451e;
 $ou-accent-dark: #b83a16;
 $ou-green: #2f6b3a;
 $ou-amber: #8a5a00;
+$ou-sans: "Inter", -apple-system, blinkmacsystemfont, "Segoe UI", sans-serif;
 $ou-mono: "IBM Plex Mono", menlo, consolas, monospace;
 
-// Header and wordmark
-.site-header {
-  border-bottom: 3px solid $ou-ink;
-}
-
-.site-title {
-  padding: 0.75rem 1rem;
-  overflow: hidden;
-}
-
-.wordmark {
-  white-space: nowrap;
-  font-size: 1.1rem;
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-  color: $ou-ink;
-}
-
-.wordmark-slash {
-  color: $ou-accent;
-}
-
-.main-header {
-  background: $ou-paper;
-  border-bottom: 3px solid $ou-ink;
-}
-
-.search-input {
-  font-size: 0.9rem;
-}
-
-.aux-nav .aux-nav-list-item a {
+@mixin ou-label {
   font-family: $ou-mono;
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+}
+
+// Page frame
+body.ou {
+  background: $ou-ground;
+  color: $ou-ink;
+  font-family: $ou-sans;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+.ou-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  background: $ou-paper;
+  border: 1px solid $ou-rule;
+}
+
+// Masthead
+.ou-masthead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 26px 32px 14px;
+  border-bottom: 3px solid $ou-ink;
+}
+
+.ou-wordmark,
+.ou-wordmark:hover {
+  font-size: 40px;
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  color: $ou-ink;
+  text-decoration: none;
+
+  span {
+    color: $ou-accent;
+  }
+}
+
+.ou-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+}
+
+.ou-repo,
+.ou-repo:hover {
+  @include ou-label;
+  color: $ou-ink;
+  text-decoration: none;
+}
+
+.ou-menu-button {
+  display: none;
+  @include ou-label;
+  background: $ou-ink;
+  color: #fff;
+  border: 0;
+  min-height: 44px;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+// Search (Just the Docs' own search, restyled)
+.ou .search {
+  position: relative;
+  flex: 0 1 300px;
+  height: auto;
+  padding: 0;
+}
+
+.ou .search-input-wrap {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid $ou-ink;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.ou .search-input {
+  position: static;
+  width: 100%;
+  height: 42px;
+  padding: 0 12px 0 38px;
+  background: transparent;
+  font-family: $ou-sans;
+  font-size: 14px;
   color: $ou-ink;
 }
 
-// Sidebar
-.side-bar {
-  border-right: 1px solid $ou-rule;
+.ou .search-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 44px;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+
+  .search-icon {
+    width: 16px;
+    height: 16px;
+    fill: $ou-body;
+  }
 }
 
-.nav-list .nav-list-item .nav-list-link {
+.ou .search-results {
+  border: 1px solid $ou-ink;
+  border-radius: 0;
+}
+
+// Body: nav + content
+.ou-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ou-nav {
+  flex: 1 1 220px;
+  max-width: 260px;
+  padding: 28px 24px;
+  border-right: 1px solid $ou-rule;
+  box-sizing: border-box;
+}
+
+.ou-nav-link,
+.ou-nav-label {
+  display: block;
+  text-decoration: none;
+}
+
+.ou-nav-link {
+  padding: 6px 12px;
+  font-size: 13px;
+  line-height: 1.35;
   color: $ou-body;
 
   &:hover {
-    background-image: none;
-    background-color: $ou-paper;
     color: $ou-ink;
+    background: $ou-ground;
   }
 
-  &.active {
-    background-image: none;
-    background-color: $ou-ink;
+  &.is-active,
+  &.is-active:hover {
+    background: $ou-ink;
     color: #fff;
     font-weight: 700;
   }
 }
 
-.nav-list .nav-list-item > .nav-list-link:not(.active) {
-  font-weight: 600;
+.ou-nav-top {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: $ou-ink;
 }
 
-.nav-list .nav-list-item .nav-list-expander {
+.ou-nav-label {
+  @include ou-label;
+  font-size: 11px;
+  margin: 26px 0 8px;
   color: $ou-accent;
+
+  &:hover,
+  &.is-active {
+    color: $ou-ink;
+  }
 }
 
-.site-footer {
+.ou-nav-top + .ou-nav-label {
+  margin-top: 26px;
+}
+
+.ou-nav-link + .ou-nav-top {
+  margin-top: 26px;
+}
+
+.ou-main {
+  flex: 999 1 560px;
+  min-width: 0;
+  padding: 0 0 48px;
+}
+
+.ou .breadcrumb-nav {
+  padding: 20px 40px 0;
+}
+
+.ou .breadcrumb-nav-list-item {
+  font-size: 12px;
   color: $ou-muted;
 }
 
-// Body type
-.main-content {
+// Content
+.ou .main-content {
+  padding: 0 40px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: $ou-body;
+
   h1,
   h2,
-  h3 {
+  h3,
+  h4 {
     color: $ou-ink;
     font-weight: 900;
-    letter-spacing: -0.5px;
   }
 
   h1 {
-    letter-spacing: -1px;
+    margin: 32px 0 16px;
+    font-size: 44px;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
   }
 
   h2 {
-    margin-top: 2.5rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid $ou-rule;
+    margin: 0 0 14px;
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
+  }
+
+  h3 {
+    margin-top: 28px;
+    font-size: 20px;
+    letter-spacing: -0.3px;
+  }
+
+  h2:not(.no-kicker) {
+    margin-top: 44px;
+  }
+
+  .kicker {
+    @include ou-label;
+    margin: 44px 0 10px;
+    color: $ou-accent;
+  }
+
+  .kicker + h2 {
+    margin-top: 0;
+  }
+
+  p,
+  li {
+    color: $ou-body;
   }
 
   strong,
@@ -113,145 +281,326 @@ $ou-mono: "IBM Plex Mono", menlo, consolas, monospace;
 
   a:not(.btn) {
     color: $ou-accent-dark;
-    text-decoration-color: rgba($ou-accent, 0.4);
 
     &:hover {
       color: $ou-ink;
-      text-decoration-color: $ou-ink;
     }
   }
 
   hr {
-    background-color: $ou-ink;
     height: 3px;
+    background-color: $ou-ink;
   }
 
   code {
+    background: $ou-ground;
     border-color: $ou-rule;
   }
 }
 
-// Tables: ink frame, dark mono header
-.table-wrapper {
-  border: 1px solid $ou-ink;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-th {
-  background-color: $ou-ink;
-  color: #fff;
-  font-family: $ou-mono;
-  font-size: 0.7rem !important;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  border-bottom: 0;
-}
-
-td {
-  border-color: #e9e3d9;
-}
-
-th {
-  border-color: $ou-ink;
-}
-
-// Overview hero
-.hero {
+// Overview hero, flush with the content column
+.ou .main-content .hero {
+  margin: 0 -40px 0;
+  padding: 40px 40px 38px;
   background: $ou-ink;
-  color: #e9e3d9;
-  margin: 0 0 2rem;
-  padding: 2rem 2rem 1.9rem;
 
-  .main-content & h1 {
+  h1 {
+    margin: 16px 0 0;
+    font-size: 52px;
+    line-height: 1;
     color: #fff;
-    margin-top: 0.9rem;
-    margin-bottom: 0;
-    line-height: 1.05;
   }
 
   p {
-    color: #e9e3d9;
-    max-width: 42rem;
+    margin: 16px 0 0;
+    max-width: 680px;
+    font-size: 18px;
+    line-height: 1.55;
+    font-weight: 400;
+    color: $ou-row;
   }
 }
 
 .hero-tag {
   display: inline-block;
+  padding: 5px 9px;
   background: $ou-accent;
   color: #fff;
-  font-size: 0.7rem;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  padding: 5px 9px;
 }
 
-// Feasibility matrix score chips
-.matrix td:nth-child(3) strong {
+// Stat strip
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 32px;
+  border: 1px solid $ou-ink;
+}
+
+.stat {
+  padding: 16px 14px;
+  background: #fff;
+  border-right: 1px solid $ou-ink;
+
+  &:last-child {
+    border-right: 0;
+    background: $ou-accent;
+
+    .stat-num,
+    .stat-label {
+      color: #fff;
+    }
+  }
+}
+
+.ou .main-content .stat-num {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+  color: $ou-ink;
+}
+
+.ou .main-content .stat-label {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: $ou-body;
+}
+
+// Tables
+.ou .table-wrapper {
+  margin: 16px 0;
+  border: 1px solid $ou-ink;
+  border-radius: 0;
+  box-shadow: none;
+  background: #fff;
+}
+
+.ou th,
+.ou td {
+  font-size: 14px !important;
+  padding: 10px 12px;
+}
+
+.ou th {
+  background: $ou-ink;
+  color: #fff;
+  font-family: $ou-mono;
+  font-size: 11px !important;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  border: 0;
+}
+
+.ou td {
+  background: #fff;
+  color: $ou-body;
+  border: 0;
+  border-top: 1px solid $ou-row;
+}
+
+.ou .matrix td:first-child {
+  font-family: $ou-mono;
+  font-weight: 700;
+  color: $ou-muted;
+}
+
+.ou .main-content .matrix td a {
+  color: $ou-ink;
+  font-weight: 600;
+}
+
+.ou .main-content .matrix td a:hover {
+  color: $ou-accent-dark;
+}
+
+// Score chips: 4-5 accent, 3 ink, 1-2 outlined
+.score {
   display: inline-block;
-  min-width: 2.2rem;
-  padding: 3px 8px;
+  min-width: 34px;
+  padding: 4px 8px;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.ou .main-content .score-hi {
   background: $ou-accent;
   color: #fff;
-  font-weight: 900;
+}
+
+.ou .main-content .score-mid {
+  background: $ou-ink;
+  color: #fff;
+}
+
+.ou .main-content .score-lo {
+  background: #fff;
+  color: $ou-ink;
+  border: 1px solid $ou-ink;
 }
 
 // Callouts: white card, ink border, mono label
-p.important,
-blockquote.important,
-p.note,
-blockquote.note,
-p.warning,
-blockquote.warning {
+.ou p.important,
+.ou blockquote.important,
+.ou p.note,
+.ou blockquote.note,
+.ou p.warning,
+.ou blockquote.warning {
+  margin: 28px 0;
+  padding: 20px 22px;
   background: #fff;
   border: 1px solid $ou-ink;
   border-radius: 0;
   box-shadow: none;
-  color: $ou-body;
 
   &::before {
-    font-family: $ou-mono;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+    @include ou-label;
+    font-size: 11px;
+    margin-bottom: 8px;
   }
 }
 
-p.important::before,
-blockquote.important::before,
-.important-title {
+.ou p.important::before,
+.ou blockquote.important::before {
   color: $ou-green;
 }
 
-p.note::before,
-blockquote.note::before,
-.note-title {
+.ou p.note::before,
+.ou blockquote.note::before {
   color: $ou-accent;
 }
 
-p.warning,
-blockquote.warning {
+.ou p.warning,
+.ou blockquote.warning {
   background: #fbf6ea;
 }
 
-p.warning::before,
-blockquote.warning::before,
-.warning-title {
+.ou p.warning::before,
+.ou blockquote.warning::before {
   color: $ou-amber;
 }
 
 // Buttons
-.btn-primary {
+.ou .btn-primary,
+.ou .main-content a.btn-primary {
+  display: inline-block;
+  padding: 14px 22px;
+  background: $ou-accent;
   background-image: none;
-  background-color: $ou-accent;
+  border: 0;
   border-radius: 0;
   box-shadow: none;
+  color: #fff;
+  font-size: 15px;
   font-weight: 800;
+  text-decoration: none;
 
   &:hover {
+    background: $ou-accent-dark;
     background-image: none;
-    background-color: $ou-accent-dark;
+    color: #fff;
+  }
+}
+
+// Footer
+.ou-footer {
+  padding: 18px 32px;
+  border-top: 3px solid $ou-ink;
+  font-size: 12px;
+  color: $ou-muted;
+}
+
+// Phone: menu collapses behind a button, tighter gutters
+@media (max-width: 800px) {
+  body.ou {
+    padding: 0;
+  }
+
+  .ou-page {
+    border: 0;
+  }
+
+  .ou-masthead {
+    padding: 18px 16px 12px;
+    align-items: center;
+  }
+
+  .ou-wordmark,
+  .ou-wordmark:hover {
+    font-size: 26px;
+    letter-spacing: -1px;
+  }
+
+  .ou-menu-button {
+    display: block;
+  }
+
+  .ou-tools {
+    width: 100%;
+  }
+
+  .ou .search {
+    flex: 1 1 auto;
+  }
+
+  .ou-nav {
+    display: none;
+    max-width: none;
+    flex-basis: 100%;
+    padding: 16px;
+    border-right: 0;
+    border-bottom: 1px solid $ou-rule;
+
+    &.is-open {
+      display: block;
+    }
+  }
+
+  .ou .breadcrumb-nav {
+    padding: 16px 16px 0;
+  }
+
+  .ou .main-content {
+    padding: 0 16px;
+
+    h1 {
+      font-size: 34px;
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  .ou .main-content .hero {
+    margin: 0 -16px;
+    padding: 28px 16px;
+
+    h1 {
+      font-size: 34px;
+    }
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stat:nth-child(2) {
+    border-right: 0;
+  }
+
+  .stat:nth-child(-n + 2) {
+    border-bottom: 1px solid $ou-ink;
+  }
+
+  .ou-footer {
+    padding: 16px;
   }
 }
