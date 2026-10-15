@@ -34,8 +34,8 @@ There is no single "current model". At the front it is a set of coping measures:
 |---|---|---|
 | **Stay underground and hidden** | The main defence. Troops move on foot, slowly, and hide when they hear a drone: one group took four hours to cover 1 km ([NPR](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)) | It works by not moving, at a huge cost: rotations take hours to days, and some infantry have gone more than a year without one (same source) |
 | **Nets** | Physical barrier over positions and routes (same source) | Static; no warning |
-| **Listening by ear** | Troops hide when they hear one (same source) | Detection by ear is short-range; no measured figure found |
-| **Radio detectors** (Chuyka and similar, ~$750–850) | Warn of FPVs by their video signal, up to about 4 km ([site note]({{ site.baseurl }}{% link research/competitors.md %})) | Blind to fibre-optic FPVs ([Kyiv Independent](https://kyivindependent.com/as-russias-fiber-optic-drones-flood-the-battlefield-ukraine-is-racing-to-catch-up/)) |
+| **Listening by ear** | Troops hide when they hear one (same source) | Short-range. In a quiet field, 2 of 24 people faintly heard a Mavic-class drone at 150 m and none at 250 m ([Li et al. 2020](https://www.mdpi.com/2076-3417/10/16/5501)). No figure for FPVs or combat noise |
+| **Radio detectors** (Chuyka and similar, ~$584–701) | Warn of FPVs by their video signal, up to about 4 km ([site note]({{ site.baseurl }}{% link research/competitors.md %})) | Blind to fibre-optic FPVs ([Kyiv Independent](https://kyivindependent.com/as-russias-fiber-optic-drones-flood-the-battlefield-ukraine-is-racing-to-catch-up/)) |
 | **Shotguns** | Last-ditch kill | FPVs close at close to 100 km/h, giving infantry "only a moment to react" ([RFU News, Nov 2025](https://www.rfunews.com/articles/insider-annual-why-shotguns-are-suddenly-the-most-valuable-defense-against-fpv-drones)) |
 | **Interceptor drones** | Kill drones in the air | Built mostly for Shaheds and reconnaissance wings. They work only inside a radar or acoustic sensor's detection zone ([Ukrainska Pravda, Mar 2026](https://www.pravda.com.ua/eng/articles/2026/03/11/8025014/)) |
 
@@ -43,7 +43,12 @@ There is no single "current model". At the front it is a set of coping measures:
 
 ### Is ten seconds enough?
 
-**No published figure answers this.** No source we found says how many seconds of warning troops need, or measures what a detector's warning saves. Detector makers describe the value as seconds to find cover. What follows is inference:
+**No published figure answers this.** No source we found says how many seconds of warning troops need, or measures what a detector's warning saves. Detector makers describe the value as seconds to find cover. The serious analyses argue for warning but don't measure it:
+- **RUSI (Oct 2024)** says smoke against FPVs and Lancets is "highly effective" if the unit is warned promptly, and only with a low false-alarm rate. Neither claim has a footnote ([Watling & Bronk](https://afghanistan.wilsoncenter.org/sites/default/files/media/uploads/documents/protecting-the-force-from-uncrewed-uas.pdf), p.17).
+- **RUSI (Feb 2025):** Ukrainian brigades report about half their casualties in the rear, during rotation, resupply and recovery ([Watling & Reynolds](https://static.rusi.org/tactical-developments-third-year-russo-ukrainian-war-february-2205.pdf)). Warning that covers only the position misses those.
+- **An Israeli vendor's CEO** says "we just need 30 seconds warning" to take defensive action ([Ynet](https://www.ynetnews.com/article/s1oz79p011x)). That is a vendor's view, not a measurement.
+
+What follows is inference:
 
 - **Troops already underground** need warning only when they are exposed: on the move, collecting a drone-delivered resupply, observing, repairing, fighting.
 - **Ten seconds** is enough to step into a dugout a few metres away. It is not enough for people strung out on a four-hour walk, or to launch an interceptor.
@@ -53,7 +58,7 @@ There is no single "current model". At the front it is a set of coping measures:
 
 **ZVOOK NW0** (announced January 2026): a Ukrainian acoustic sensor for FPVs, including fibre-optic ones. Claimed 150–450 m range, 360°, 15–20 W, linked by fibre, twisted pair, LTE or LoRa, spaced 400–600 m, pitched for front-line positions, frontline towns and logistics routes. No price or deployment reported ([Militarnyi](https://militarnyi.com/en/news/ukraine-develops-acoustic-detector-for-fpv-drones/)).
 
-**Every figure is the maker's claim.** The specs come from Zvook's own announcement, which news sites repeated. We found no independent test, no price and no unit reported using it ([profile]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0--the-one-direct-competitor-claims-only)). So it's weak validation: a credible team with existing customers thinks acoustic FPV detection is worth building. It isn't proof that the approach works. It's also competition.
+**Every performance figure is the maker's claim.** The specs come from Zvook's own announcement, which news sites repeated. It is now on public sale at about $834–950 per sensor, but we found no independent test and no unit reported using it ([profile]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0--direct-competitor-claims-only)). So it's weak validation: a credible team with existing customers thinks acoustic FPV detection is worth building. It isn't proof that the approach works. It's also competition.
 
 **Nor does anyone else prove it.** The US Army's March 2026 review of Ukrainian acoustic networks says they detect FPVs. Its cited sources cover Shaheds and cruise missiles over the rear, not FPVs at the front ([details]({{ site.baseurl }}{% link research/competitors.md %}#two-markets-only-one-of-them-ours)). Cheap acoustic detection is proven against Shaheds. Against FPVs at a position, it's still unproven, for us and for Zvook alike. Where we would still differ: battery power for weeks instead of 15–20 W of wired power, throwaway cost, and lines laid forward rather than sensors at the unit.
 

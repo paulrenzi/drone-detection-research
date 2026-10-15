@@ -32,7 +32,7 @@ nav_order: 0
 - **Drones cause about 80% of casualties** at the front, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)).
 - **Units cope by not moving:** underground, under nets, taking hours to cover a kilometre. Every trip out is exposure (same source).
 - **Fibre-optic FPVs, the fastest-growing threat, emit no radio**, so the detectors units carry miss them. A microphone hears them.
-- **Nothing cheap fills the gap yet.** Camera systems like WISP aren't at the front and can't see through tree lines; Zvook's acoustic FPV sensor, the NW0, sits at the unit, not forward. It was announced in January 2026, and all we know of it is the maker's claims ([details]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0--the-one-direct-competitor-claims-only)).
+- **Nothing cheap fills the gap yet.** Camera systems like WISP aren't at the front and can't see through tree lines; Zvook's acoustic FPV sensor, the NW0, sits at the unit, not forward: it needs 15–18 W of power and a link. It's on sale at about $834–950 per sensor, but its range and fibre-optic claims are the maker's only ([details]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0--direct-competitor-claims-only)). Denmark's Komodo already sells a sensor variant that drones can drop, built for Shaheds rather than FPV lines ([details]({{ site.baseurl }}{% link research/competitors.md %}#komodo--the-drone-dropped-sensor-already-exists)).
 
 Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
 
@@ -67,6 +67,9 @@ Each section opens for the full reasoning, numbers and sources.
 ### Warning time comes from distance
 
 A microphone hears a small FPV at roughly **100–300 m** ([working estimate]({{ site.baseurl }}{% link research/range-and-cost.md %})). Better hardware barely moves that, so move the listeners forward instead.
+
+{: .warning }
+> **The only measured range for cheap microphones is lower: about 50–60 m** against a consumer drone in a windy field ([what's measured]({{ site.baseurl }}{% link research/competitors.md %}#what-is-actually-measured)). FPVs are probably louder, but no study has flown one at distance. If 50–60 m holds, listeners sit about 100 m apart and a 3 km line needs about 30, not 12. T11 decides it.
 
 | Where the listeners sit | Warning against an FPV at 30–40 m/s |
 |---|---|
@@ -284,7 +287,7 @@ The claim is narrow: **for early warning of low drones approaching a unit, inclu
 |---|:-:|:-:|---|:-:|---|:-:|
 | **Drone-laid tripwire** | ✅ | ✅ | **~1–2 min** | ❌ | **~$1.5–2.5k kit, then ≈ $5–16k a year in re-lays** ([est.](#the-running-cost-lines-are-ammunition)) | ✅ |
 | Hand-placed acoustic ring | ✅ | ✅ | ~10 s | ❌ | similar | ✅ |
-| Radio detector (e.g. Chuyka) | ❌ | partly | long, if it emits | ❌ | ~$750–850 | ✅ |
+| Radio detector (e.g. Chuyka) | ❌ | partly | long, if it emits | ❌ | ~$584–701 | ✅ |
 | Camera (e.g. WISP) | ✅ if in sight | ❌ | depends on sight lines | ❌ | far higher | ❌ |
 | Radar | ✅ if in sight | ❌ | long, if in sight | **✅** | $40k–160k | ❌ |
 | Phone network (Sky Fortress) | ✅ | ✅ | ~10 s for FPVs near the unit | **✅** (cellular) | $400–1,000 per sensor | ❌ |
