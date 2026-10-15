@@ -77,7 +77,7 @@ A microphone hears a small FPV at roughly **100–300 m** ([working estimate]({{
 {: .warning }
 > FPV speeds and detection ranges are planning estimates, not field measurements. The ratio is what matters: ten times the distance is roughly ten times the warning.
 
-Ten seconds is enough to flinch. A minute is enough to take cover, cue a camera and launch an interceptor.
+Ten seconds is enough to flinch. A minute is enough to get people under cover, hold a resupply run or evacuation, ready shooters, and cue a camera or turret. Interceptor drones are built mostly for other targets so far. [What a minute buys]({{ site.baseurl }}{% link research/problem-check.md %}#what-a-minute-buys).
 
 ### Lines, not coverage
 
@@ -312,7 +312,7 @@ For warning time, probably: about a minute instead of about ten seconds, includi
 
 - It only catches drones that cross a line. Launches from inside it, or routes round its ends, are missed.
 - It says *something crossed here*, not where it will strike.
-- A minute is only worth what the unit can do with it: take cover, cue a camera, launch an interceptor.
+- A minute is only worth what the unit can do with it. Against fibre-optic FPVs that is mostly avoidance (get under cover, hold movement), plus readying shooters and cueing turrets ([what a minute buys]({{ site.baseurl }}{% link research/problem-check.md %}#what-a-minute-buys)).
 - The enemy adapts, by flying round the ends or hunting listeners.
 
 Whether a minute changes outcomes is for front-line users to say, not a test bench, and nothing published answers it. So that comes first: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %}) sets out the evidence and the questions to ask (T18).

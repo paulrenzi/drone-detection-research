@@ -55,6 +55,30 @@ There is no single "current model". At the front it is a set of coping measures:
 
 That is both validation (a Ukrainian team building from the front thinks acoustic FPV detection is worth fielding) and competition. Where we would still differ: battery power for weeks instead of 15–20 W of wired power, throwaway cost, and lines laid forward rather than sensors at the unit.
 
+## What a minute buys
+
+Suppose a unit knows a drone is coming a minute before it arrives. What do troops actually do with that? Against fibre-optic FPVs, jamming does nothing, so every defence is physical: avoid being found, block the drone, or shoot it down.
+
+| Defence | In use? | Does warning help? |
+|---|---|---|
+| **Get under cover and stop moving** | The main defence. Troops already hide when they hear a drone ([NPR](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)) | **Yes, most.** A minute gets people off a path, out of the open and below ground, or lets the unit hold a resupply pickup, a vehicle run or a casualty evacuation until the drone has passed (inference) |
+| **Shotguns and mobile shooter teams** | Yes. Two shotgun-armed shooters per vehicle, and teams that patrol known drone routes ([United24, Oct 2025](https://united24media.com/war-in-ukraine/can-fiber-optic-drones-be-stopped-how-ukraine-faces-the-unjammable-threat-12502)). Their task is to "detect drones quickly" ([VGI, May 2026](https://vgi.com.ua/en/nets-fire-teams-and-lasers-inside-the-fight-against-fiber-optic-drones/)) | **Yes.** A shooter who knows a drone is inbound, and from which line, is ready and facing the right way instead of reacting at the last moment (inference) |
+| **Net-guns** | Yes, carried as a "last-resort" weapon for a drone already very close ([United24](https://united24media.com/war-in-ukraine/can-fiber-optic-drones-be-stopped-how-ukraine-faces-the-unjammable-threat-12502)) | A little: readiness only |
+| **Automated turrets** | A Brave1-developed AI turret that can shoot down fibre-optic FPVs was in more than ten front-line units by May 2026; sensors and weapon not published ([Euromaidan Press](https://euromaidanpress.com/?p=405676)). Scan Horizon, a net-firing demonstrator, hears drones at up to 20 m with microphones ([Defense Post](https://thedefensepost.com/2026/05/08/ukraine-autonomous-net-turret/amp/)) | **Possibly.** A cue could wake a turret or point it the right way. Whether these turrets accept outside cues is not published |
+| **Nets over positions, dugouts and roads** | Everywhere: "All positions, 'from infantry to artillery,' are draped with nets" ([United24](https://united24media.com/war-in-ukraine/can-fiber-optic-drones-be-stopped-how-ukraine-faces-the-unjammable-threat-12502)). They burn and melt (same source), and small gaps let drones through ([VGI](https://vgi.com.ua/en/nets-fire-teams-and-lasers-inside-the-fight-against-fiber-optic-drones/)) | No. Static, always up |
+| **Cable traps** (barbed wire, heated wire) | Reported, not standard ([VGI](https://vgi.com.ua/en/nets-fire-teams-and-lasers-inside-the-fight-against-fiber-optic-drones/), [United24](https://united24media.com/war-in-ukraine/can-fiber-optic-drones-be-stopped-how-ukraine-faces-the-unjammable-threat-12502)) | No. Passive |
+| **Interceptor drones** | Scaling fast, but built mostly for Shaheds and reconnaissance drones, working inside a radar or acoustic sensor's coverage ([Ukrainska Pravda](https://www.pravda.com.ua/eng/articles/2026/03/11/8025014/)). No verified report found of one stopping an FPV attacking a position | Only if one is ready to launch; unproven against FPVs |
+| **Lasers** | Explored, including burning through the fibre ([VGI](https://vgi.com.ua/en/nets-fire-teams-and-lasers-inside-the-fight-against-fiber-optic-drones/)) | Unknown |
+
+**What this means (inference):**
+
+- **Warning mostly buys avoidance, not a kill.** The biggest gain is people not being in the open when the drone arrives. That fits how troops already survive.
+- **It turns a reflex shot into a prepared one** for shooters, and could cue the automated turrets now reaching units.
+- **It matters most where exposure is a choice of timing:** resupply pickups, walking rotations, vehicle runs, casualty evacuation. In those moments a unit can wait a minute.
+- **It does nothing against a drone already waiting** on the ground in ambush, or against one launched from inside the line.
+
+So the question for T18 is not just "would warning help?" but **which of these moments matter most, and how often**.
+
 ## What would make it a waste
 
 Any of these, found by asking users or by testing:
@@ -70,7 +94,7 @@ Talk to 5–10 people with recent front-line experience: soldiers, the volunteer
 
 1. When are you most exposed to FPVs: in position, on rotation, at resupply pickups, observing?
 2. How do you know a drone is coming now, and how much warning does that give?
-3. What would you do differently with 10 seconds, one minute, three minutes?
+3. What would you do differently with 10 seconds, one minute, three minutes? Would you hold a resupply pickup, a vehicle run or an evacuation? Would shooters or a turret be ready?
 4. Roughly what share of FPVs attacking you are fibre-optic?
 5. Would you place 10 listeners by hand, or accept a receiver on a pole at your tree-line edge?
 6. Who decides what kit a unit gets, and who pays: the unit, volunteers, or the state?
