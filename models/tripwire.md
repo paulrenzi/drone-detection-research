@@ -61,7 +61,7 @@ Each listener is a single-microphone node ([M3]({{ site.baseurl }}{% link models
 - **Dart body** that sticks upright in soil, with a **spring mast** that lifts the microphone 0.5–1 m off the ground. A microphone lying in grass hears much worse.
 - **Wake on sound.** A low-power trigger listens all the time; the microcontroller, classifier and radio wake only when something drone-like is heard. The target is **weeks on a small battery**.
 - **No recovery.** Nodes are consumables, like ammunition. Lost, found or dead nodes are simply replaced by the next sortie.
-- **Target bill of materials: $30–60** (microcontroller, MEMS microphone, GPS, LoRa radio, battery, printed body). See [Hardware]({{ site.baseurl }}{% link research/hardware.md %}).
+- **Target bill of materials: $30–60** (microcontroller, MEMS microphone, LoRa radio, battery, printed body). No GPS: see [Solving the field limits](#solving-the-field-limits-at-no-extra-cost). See [Hardware]({{ site.baseurl }}{% link research/hardware.md %}).
 
 ### 3. A cheap delivery drone
 
@@ -73,7 +73,7 @@ A small quadcopter carries **3–4 nodes**, flies a pre-planned GPS route, drops
 
 ### 4. Reports find their way back
 
-Nodes send a few-byte detection report (time, node ID, class, confidence) only when they hear something. Reports hop node to node down the line and back toward the unit, where a raised receiver on a mast or [aerostat]({{ site.baseurl }}{% link models/m05-aerostats.md %}) collects them and feeds the shared map, TAK and [Lattice]({{ site.baseurl }}{% link research/integration.md %}#anduril-lattice).
+Nodes send a few-byte detection report (time, node ID, class, confidence, plus a short description of the sound and the node's battery level) only when they hear something. Reports hop node to node down the line and back toward the unit, where a raised receiver on a mast or [aerostat]({{ site.baseurl }}{% link models/m05-aerostats.md %}) collects them and feeds the shared map, TAK and [Lattice]({{ site.baseurl }}{% link research/integration.md %}#anduril-lattice).
 
 ### 5. The network grows from the bottom up
 
@@ -88,11 +88,11 @@ Every unit's lines report to the same shared map. As units lay their own tripwir
 | Microcontroller | ESP32-S3 | $4–10 | Runs the drone / no-drone classifier on the device, so only a few bytes are sent |
 | Microphone | INMP441 or ICS-43434 (I²S digital MEMS) | $1–3 | One mic is enough: a line node only has to hear, not take a bearing |
 | LoRa radio | SX1262, 915 MHz in the US | $6–25 | Sends the report and relays neighbours' reports back toward the unit |
-| GPS | u-blox M8/M10 class | $8–15 | Says where the node landed, and timestamps detections so both lines can be compared |
+| GPS | none | $0 (was $8–15) | Dropped: it would be jammed where it matters most. Position comes from the drop plan and the delivery drone's log, time from neighbouring nodes ([why](#solving-the-field-limits-at-no-extra-cost)) |
 | Battery | small LiPo cell | ~$3–8 (estimate) | Weeks, not days, only if the node sleeps until it hears something |
 | Body, spring mast, battery housing | 3D-printed | $1–2 in filament | Sticks upright and holds the mic 0.5–1 m up |
 | Windscreen | fur or foam cover | ~$1–3 (estimate) | Wind is the biggest range-killer in [VolAnti's tests]({{ site.baseurl }}{% link research/open-source-builds.md %}#volanti) |
-| **Total** | | **~$25–65** | Against the **$30–60 target** above |
+| **Total** | | **~$17–50** | Against the **$30–60 target** above (~$25–65 with GPS) |
 
 {: .warning }
 > Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first nodes.
@@ -187,10 +187,54 @@ Where phones still win: **today**, in rear areas with power and coverage, and as
 - **The sky is full of friendly drones.** Ukrainian observation, bomber and resupply drones fly over the same tree lines. A line that alarms on every drone is useless, so it needs a way to tell friend from foe, such as friendly flight schedules or known friendly sound signatures (T15).
 - **Tree lines decide the layout.** Infantry, their footpaths and fibre-optic FPVs all follow the windbreak tree lines ([Front-line conditions]({{ site.baseurl }}{% link research/field-conditions.md %}#where-infantry-actually-sit-tree-lines)). That is good for hearing drones, since their routes are predictable, but it makes the forest radio case in T9 the one that matters. Cover and radio paths change when leaves fall.
 - **Cold.** Hobby-grade parts are often rated only to about −10 °C. Winter battery life must be measured, not assumed (T12).
+- The GPS, friendly-drone, tree-line and cold limits each have a fix that adds no cost and gathers information: see [Solving the field limits](#solving-the-field-limits-at-no-extra-cost).
 - **Only drones that cross the line are caught.** A drone launched from inside the line, or one routed around its ends, is missed. The inner ring is still needed.
 - **False alarms with nobody to check.** Wind, vehicles and birds can trip a single node. Requiring both lines, or two neighbouring nodes, to agree is the main filter.
 - **Litter.** Throwaway nodes are electronic waste left in the field. Consider biodegradable printed bodies and a battery that can't leak.
 - **Export controls.** A counter-drone sensor kit may fall under ITAR/EAR once it is built for military use.
+
+## Solving the field limits at no extra cost
+
+The four limits from [front-line conditions]({{ site.baseurl }}{% link research/field-conditions.md %}) (GPS jamming, friendly drones, tree lines and cold) can each be handled with parts the node already has. Each fix also makes the line collect something the unit can use. The node gets cheaper, not dearer, because the GPS comes out.
+
+{: .warning }
+> This is a design proposal, not a tested system. The tests that would check it are listed at the end of this section.
+
+### The fixes
+
+| Limit | Fix | What the line learns from it | Extra cost |
+|---|---|---|---|
+| **GPS is jammed** | Take the GPS off the node. Its position is the planned drop point, corrected by where the delivery drone's flight log says it released. Its clock is set when it is loaded on the drone and kept in step with its neighbours whenever they relay a message. A node's own GPS would be jammed in the same places as the drone's, so it adds little where it matters most | ArduPilot's flight log records GPS fix quality on every flight. Each sortie becomes a survey of where GPS failed or the position jumped along the unit's own routes | **Saves $8–15 per node** |
+| **Friendly drones** | Use the two lines the design already has. A drone heading in trips the outer line first; one heading out trips the inner line first. The unit enters its own flight windows on the receiving tablet. An inbound drone outside a friendly window is an alarm; everything else is logged quietly | Each alert carries a few bytes describing the sound: main tone, loudness and how long it lasted. Alerts inside a friendly window are labelled friendly automatically, so the line builds its own labelled examples for training the next batch's classifier | None: a few more bytes per alert |
+| **Tree lines** | Lay lines across the tree belts and the gaps between them, spaced closer under canopy. The GPS saving pays for it: the money that bought 12 nodes with GPS buys about 15–17 without | Every received packet already comes with its signal strength and noise level. Logging them for each link shows when leaf fall or new growth changes range, and which links are about to fail | None |
+| **Cold** | Don't pay for cold-rated cells up front. Each node adds its battery voltage and chip temperature to packets it already sends, plus a rare stand-alone check-in | Measured winter battery life from the field, which no source we found has published, and a forecast of when each line needs re-laying | None on boards that already read their battery, such as the Heltec V3 (Meshtastic reports its battery level). A custom node needs two resistors, a few cents. The ESP32-S3 has a [built-in temperature sensor](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/peripherals/temp_sensor.html); it reads the chip, which is close to the air temperature only while the node sleeps |
+
+Cost per node, from the parts table above: **about $17–50 without GPS**, against $25–65 with it.
+
+### What the unit gets
+
+Over weeks, a line turns into a record of drone traffic on the unit's approach:
+
+- **When and where enemy drones come:** time of day, which tree lines and gaps they use, and their speed from the time between the two lines. That tells the unit when to keep under cover and where to point a camera or interceptor. On the shared map, many units' lines show the pattern across a sector.
+- **Friendly traffic:** a count of the unit's own flights through the line, useful for checking against neighbouring units' drones.
+- **A jamming map** from the delivery drone's logs, updated every sortie.
+- **A radio and season map** from link strength, showing where lines need closer spacing and when.
+- **Cold-weather battery data**, measured where it matters.
+- **Lost nodes as a signal (an inference):** a node that goes quiet while its last battery reading was healthy didn't run flat. It was probably destroyed or found. Where and when that happens is itself a sign of activity.
+
+### Rules that keep it cheap and quiet
+
+- **No new transmissions to gather data.** Sound summaries, battery and temperature ride on alerts and relays the node sends anyway. A stand-alone check-in goes out at most once or twice a day, and the unit can switch it off. Every extra byte adds air time, so keep the extra summary to roughly 10–15 bytes (an estimate).
+- **No audio leaves the node.** LoRa is far too slow for it. Raw recordings for training come from the [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector) and test ranges, not from the front.
+- **Classifier updates go into the next batch of nodes**, not over the air. Nodes are consumables, so each new batch carries what the last one learned.
+- **The record lives at the unit's receiver and on the shared map**, not in the nodes.
+
+### What has to be proven
+
+- **Clocks without GPS.** Telling direction from which line trips first needs neighbouring nodes' clocks to agree within about 1–2 seconds for weeks. A drone at 30–40 m/s crosses lines a few hundred metres apart roughly 5–15 seconds apart, and ordinary microcontroller clocks drift by a few seconds a day (both estimates). Syncing with neighbours has to keep up (T15).
+- **Direction alone doesn't sort friend from foe.** Friendly drones fly home inbound, and enemy scouts leave outbound. Until T15 shows whether sound can tell them apart, the flight windows carry most of the weight.
+- **Positions from the drop plan** are only as good as the drone's navigation (T14).
+- **Battery life in cold**, with the extra bytes counted (T12).
 
 ## Precedent
 
@@ -206,7 +250,7 @@ The idea is older than it looks. In the Vietnam War, **Operation Igloo White** a
 | Wake-on-sound battery life with a small drone classifier on a microcontroller | Is "weeks" real? | < $200 |
 | Autonomous drop sortie: 4 nodes on GPS points from a printed quad | Placement accuracy and payload | < $500 |
 | The same sortie with GPS unavailable (optical flow, compass and barometer from a known start point) | Can the line be laid under jamming? | < $300 |
-| Record friendly drones and test whether the classifier, plus friendly flight times, can ignore them | Will the line cry wolf? | < $200 |
+| Record friendly drones and test whether the classifier, which line trips first, and friendly flight times can sort friend from foe, with node clocks kept in step without GPS | Will the line cry wolf? | < $200 |
 
 These are tracked in [Open questions]({{ site.baseurl }}{% link research/open-questions.md %}) as T9–T15. What the ground looks like for the units it serves is in [Front-line conditions]({{ site.baseurl }}{% link research/field-conditions.md %}).
 
@@ -217,3 +261,4 @@ These are tracked in [Open questions]({{ site.baseurl }}{% link research/open-qu
 | 2026-10-15 | 3 | Each part exists (cheap nodes, autonomous drop drones, LoRa mesh), but nobody has proven forward lines can report back over 2–4 km. Rises to 4 if the radio range test passes. |
 | 2026-10-15 | 3 (unchanged) | Reviewed published LoRa range measurements: over 4 km in the open with antennas at 1.5 m, but 1 km or less in forest. The open-ground case looks likely; the forest case needs the [T9 field test]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back), which now has pass/fail criteria. |
 | 2026-10-15 | 3 (unchanged) | Reviewed front-line conditions. Fibre-optic FPVs, which radio detectors can't see, and predictable approach routes along tree lines support the payoff. GPS jamming, friendly drones and the forest radio case add work; they are now tests T14, T15 and T9. |
+| 2026-10-15 | 3 (unchanged) | Proposed [no-extra-cost fixes](#solving-the-field-limits-at-no-extra-cost) for those limits: drop the node's GPS, sort friend from foe by line order and flight windows, and report battery and temperature. The fixes also turn the line into a record of drone traffic. All untested; rating moves only on test results. |

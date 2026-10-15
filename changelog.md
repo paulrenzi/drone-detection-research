@@ -7,6 +7,7 @@ nav_order: 4
 
 | Date | Change |
 |---|---|
+| 2026-10-15 | Tripwire: [solved the field limits at no extra cost]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost). Nodes drop GPS (about $17–50 each instead of $25–65), friend and foe are sorted by which line trips first plus the unit's flight windows, and alerts carry sound, battery and temperature summaries, so each line becomes a record of drone traffic, jamming, radio range and winter battery life. Proposed, not tested; T12 and T15 updated. |
 | 2026-10-15 | Added two research notes: [Front-line conditions in Ukraine]({{ site.baseurl }}{% link research/field-conditions.md %}) (tree lines, seasons, the kill zone, jamming, what infantry use to hear drones) and [Delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %}) (airframes, ArduPilot missions with drop steps, open-source software, flying under GPS jamming). Fed both into the tripwire and M7, and added tests T14 (laying a line without GPS) and T15 (ignoring friendly drones). |
 | 2026-10-15 | Reviewed published ground-level LoRa range measurements for the tripwire's deciding question (T9): likely to work in open ground, unproven in forest. Added the evidence and a field test with pass/fail criteria to Open questions, and updated the tripwire's limits. Tripwire part photos now also show on the tripwire page. |
 | 2026-10-15 | Added a Components and MVP section to the drone-laid tripwire: a per-node parts table and a five-step MVP path, linked to the weekend test kit. |

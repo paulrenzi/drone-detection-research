@@ -22,10 +22,10 @@ The ratings on this site are judgements. These tests would turn them into measur
 | T9 | [Tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): ground-to-ground LoRa range at 2–3 km, open ground and trees, raised receiver at the unit. [Evidence and test plan](#t9-can-a-forward-line-report-back) | Can a forward line report back at all? The deciding question for the tripwire | < $300 | Literature reviewed; field test designed, not run |
 | T10 | Tripwire: drop-test printed dart bodies onto soil, sand, mud and grass | Do nodes land upright with the mic clear? | < $200 | Not started |
 | T11 | Tripwire: FPV detection range for one mic on a 0.5–1 m spring mast | Node spacing along a line | < $300 | Not started |
-| T12 | Tripwire: wake-on-sound battery life with a small drone classifier on a microcontroller | Is "weeks on a small battery" real? | < $200 | Not started |
+| T12 | Tripwire: wake-on-sound battery life with a small drone classifier on a microcontroller, including the battery and temperature reports, in cold | Is "weeks on a small battery" real, and how much shorter in winter? | < $200 | Not started |
 | T13 | Tripwire: autonomous drop sortie, 4 nodes on GPS points from a printed quad | Placement accuracy and payload | < $500 | Not started |
 | T14 | Tripwire: the T13 sortie with GPS unavailable, flying on optical flow, compass and barometer from a known start point ([Delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %}#flying-when-gps-is-jammed)) | Can a line be laid under jamming, and how far off are the drops? | < $300 | Not started |
-| T15 | Record friendly drone types (observation quads, bombers, resupply) and test whether the classifier plus friendly flight times can ignore them | Will a line raise false alarms on its own side's drones? | < $200 | Not started |
+| T15 | Record friendly drone types (observation quads, bombers, resupply) and test whether the classifier, which line trips first, and friendly flight times can sort friend from foe, with node clocks kept in step without GPS ([design]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost)) | Will a line raise false alarms on its own side's drones? | < $200 | Not started |
 
 ## T9: can a forward line report back?
 
