@@ -19,6 +19,11 @@ The ratings on this site are judgements. These tests would turn them into measur
 | T6 | Obtain Shahed-class engine recordings (partner or surrogate engine of similar size) | Classifier accuracy on the real target | partnership | Not started |
 | T7 | LoRa mesh with 20+ nodes reporting simultaneously | Latency and loss during a mass-raid burst | ~$1,000 | Not started |
 | T8 | Measure each node's radio emissions (duty cycle, power, burst length) with an SDR | How detectable is a node? Backs the passive claim in SBIR proposals | < $300 | Not started |
+| T9 | [Tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): ground-to-ground LoRa range at 2–3 km, open ground and trees, raised receiver at the unit | Can a forward line report back at all? The deciding question for the tripwire | < $300 | Not started |
+| T10 | Tripwire: drop-test printed dart bodies onto soil, sand, mud and grass | Do nodes land upright with the mic clear? | < $200 | Not started |
+| T11 | Tripwire: FPV detection range for one mic on a 0.5–1 m spring mast | Node spacing along a line | < $300 | Not started |
+| T12 | Tripwire: wake-on-sound battery life with a small drone classifier on a microcontroller | Is "weeks on a small battery" real? | < $200 | Not started |
+| T13 | Tripwire: autonomous drop sortie, 4 nodes on GPS points from a printed quad | Placement accuracy and payload | < $500 | Not started |
 
 ## Open questions
 

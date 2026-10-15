@@ -15,6 +15,9 @@ nav_order: 7
 **Best against:** any target, in areas people can't safely reach
 **One-line verdict:** Use the drone as the *installer*, not the sensor. Fast mesh build-out in contested or remote ground.
 
+{: .note }
+> The strongest use of this model is the [drone-laid tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): throwaway listeners dropped in lines 2–4 km forward of a unit for a minute or more of warning.
+
 1. TOC
 {:toc}
 
