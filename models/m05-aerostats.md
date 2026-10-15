@@ -31,7 +31,7 @@ A helium balloon or aerostat on a tether lifts a mic array (and often a radio re
 
 ## Strengths
 
-- Silent platform — no rotor noise, unlike a hovering drone ([M8]({{ site.baseurl }}{% link models/m08-flying-swarm.md %})).
+- Silent platform — no rotor noise, unlike a hovering drone.
 - Stays up for days; tethered power removes battery limits.
 - One high node can cover the gap that would need many ground nodes in rough terrain.
 

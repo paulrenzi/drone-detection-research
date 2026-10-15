@@ -16,9 +16,9 @@ The ratings on this site are judgements. These tests would turn them into measur
 | T3 | Same nodes at 2 m vs. 10 m vs. rooftop | Range gain from height (M4) | ~$0 extra | Not started |
 | T4 | Windscreen comparison at different wind speeds | How much range wind costs; best cheap windscreen | < $100 | Not started |
 | T5 | Leave nodes running a week in a farm, town and near a road | False alarms per node per day | ~$0 extra | Not started |
-| T6 | Mount a 4-mic board on a drone; record a second drone, motors running vs. landed | Quantifies ego-noise (M8 vs. M6) | < $200 | Not started |
-| T7 | Obtain Shahed-class engine recordings (partner or surrogate engine of similar size) | Classifier accuracy on the real target | partnership | Not started |
-| T8 | LoRa mesh with 20+ nodes reporting simultaneously | Latency and loss during a mass-raid burst | ~$1,000 | Not started |
+| T6 | Obtain Shahed-class engine recordings (partner or surrogate engine of similar size) | Classifier accuracy on the real target | partnership | Not started |
+| T7 | LoRa mesh with 20+ nodes reporting simultaneously | Latency and loss during a mass-raid burst | ~$1,000 | Not started |
+| T8 | Measure each node's radio emissions (duty cycle, power, burst length) with an SDR | How detectable is a node? Backs the passive claim in SBIR proposals | < $300 | Not started |
 
 ## Open questions
 

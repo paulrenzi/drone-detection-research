@@ -31,6 +31,6 @@ nav_order: 7
 | Route | Fit |
 |---|---|
 | **DIU** (Defense Innovation Unit) | Commercial solutions openings; counter-UAS is a stated priority |
-| **AFWERX** (Air Force) SBIR/STTR | Small-business R&D funding; USAFE interest makes this a natural fit |
+| **AFWERX** (Air Force) SBIR/STTR | Small-business R&D funding; USAFE interest makes this a natural fit. Many counter-drone topics ask for **passive** sensing, which is this project's core constraint |
 | **Army SBIR / xTech** competitions | Prize challenges, fast pilot contracts |
 | NATO **DIANA** | Allied accelerator for dual-use tech |
