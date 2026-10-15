@@ -46,6 +46,10 @@ Ratings run **1 (not feasible now) to 5 (proven / build today)**. See [how ratin
 
 Reference point: commercial acoustic arrays such as Squarehead **Discovair G2** (Norway) detect small drones at "several hundred metres" and are sold inside full counter-UAS systems at far higher prices. See [Existing systems]({% link research/existing-systems.md %}).
 
+## Competitors and positioning
+
+For protecting bases and units in the field: see [Competitor analysis and positioning]({% link research/competitors.md %}). Short version: *the passive acoustic layer that catches the drones radio detectors and cameras miss, at the price of a radio detector.*
+
 ## How ratings work
 
 Each model is scored 1–5 on four axes, and the overall score is a judgement, not an average:
