@@ -19,7 +19,7 @@ ROD_D, ROD_L = 6.0, 110.0
 POLE_D, POLE_SEG = 8.5, 160.0
 POLE_SEGS = 4  # 4 x 160 = 0.64 m; an even count leaves the head beside the hinge when folded
 
-# SG90 micro servo body 22.2 x 11.8 x 31 (TowerPro datasheet), tab span 32.2 (ESTIMATE, MEASURE)
+# SG90 micro servo body 22.2 x 11.8 x 31 (TowerPro datasheet, friendlywire.com copy), tab span 32.2 (ESTIMATE, MEASURE)
 SERVO = (22.2, 11.8, 31.0)
 SERVO_TAB_SPAN, SERVO_TAB_T, SERVO_TAB_Z = 32.2, 2.5, 15.9
 

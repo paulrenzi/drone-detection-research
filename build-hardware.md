@@ -15,7 +15,7 @@ Printable designs for the [tripwire]({{ site.baseurl }}{% link models/tripwire.m
 Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
 {: .warning }
-> **Version 0 designs, never printed or flown.** Dimensions from datasheets are sourced; masses, flight times and impact figures are estimates from the models and labelled as such. Parts marked *measure* in [`cad/params.py`](https://github.com/paulrenzi/drone-detection-research/blob/master/cad/params.py) must be checked with calipers before printing.
+> **Version 0 designs, never printed or flown.** Dimensions from datasheets are sourced; masses, flight times and impact figures are estimates from the models and labelled as such. Parts marked *measure* in [`cad/params.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/params.py) must be checked with calipers before printing.
 
 1. TOC
 {:toc}
@@ -37,7 +37,7 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 ## The printer and the CAD
 
 - **Printer: Anycubic Vyper.** Build volume 245 × 245 × 260 mm, nozzle up to 260 °C, bed up to 110 °C. Officially it prints PLA, PETG, TPU, ABS and wood fill ([spec, via 3DSourced](https://www.3dsourced.com/3d-printer-reviews/anycubic-vyper-test-review-specs/)). It has no enclosure, so print in **PETG**: it tolerates sun and heat better than PLA and prints well without an enclosure (inference). Carbon-filled nylon and ASA, the usual next step for arms, warp without an enclosure and need a hardened nozzle. That is a second printer, needed only after the prototype stage.
-- **CAD: CadQuery,** text-based and in Python. Every model is a script in [`cad/`](https://github.com/paulrenzi/drone-detection-research/tree/master/cad) that reads its dimensions from one file, `cad/params.py`, so a change shows up as a readable diff. Each run writes STL (for slicing), STEP (for any other CAD tool) and the PNG renders on this page, and prints bed-fit checks, masses and the flight-time table. Install: `python -m venv cad-env` then `cad-env/Scripts/pip install cadquery`. Run `python dart.py`, `harness.py` or `quad.py` from `cad/`.
+- **CAD: CadQuery,** text-based and in Python. Every model is a script in [`cad/`](https://github.com/paulrenzi/drone-detection-research/tree/main/cad) that reads its dimensions from one file, `cad/params.py`, so a change shows up as a readable diff. Each run writes STL (for slicing), STEP (for any other CAD tool) and the PNG renders on this page, and prints bed-fit checks, masses and the flight-time table. Install: `python -m venv cad-env` then `cad-env/Scripts/pip install cadquery`. Run `python dart.py`, `harness.py` or `quad.py` from `cad/`.
 
 ## 1. The listener dart
 
@@ -89,7 +89,7 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
 - **One 210 × 120 mm plate**, clamped to both rails by four printed saddles and caps on M3 bolts. Holybro doesn't publish the rail spacing, so the clamp holes are slots covering 40–90 mm. *Measure it.*
 - **Four release blocks** hang under the plate. Each has a slot that takes a dart's tongue from below and a 3 mm steel pin across the slot.
-- **One SG90 per block** (22.2 × 11.8 × 31 mm, 9 g, [datasheet](https://bit.nkust.edu.tw/~csshieh/teach/111A/mc/datasheet/SG90.pdf)) pulls its pin about 8 mm through a wire pushrod.
+- **One SG90 per block** (22.2 × 11.8 × 31 mm, 9 g, [datasheet](https://www.friendlywire.com/projects/ne555-servo-safe/SG90-datasheet.pdf)) pulls its pin about 8 mm through a wire pushrod.
 - **Wired to Pixhawk 6C AUX 1–4,** each with `SERVOx_FUNCTION = 0`, and fired by `DO_SET_SERVO` at its drop point ([ArduPilot](https://ardupilot.org/copter/docs/common-servo.html); mission format on the [software page]({{ site.baseurl }}{% link build-software.md %}#i5-mission-file-mission-tooling--drone)).
 - **Darts hang upright, heads outboard,** in a 294 × 76 mm footprint, so each falls point-first with no need to turn over.
 
@@ -97,7 +97,7 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
 **One fix the model found:** the hanging darts reach about **219 mm below the rails**, about 44 mm lower than the X500's stock feet (215 mm gear, [Holybro](https://holybro.com/products/px4-development-kit-x500-v2); rail height below the plate estimated). The drone needs **leg extensions of about 60–80 mm** to take off and land with darts on. Holybro doesn't publish the leg tube size, so those aren't modelled yet. *Measure the legs.*
 
-**Bench checks before flying:** each pin releases under a 200 g load at the servo's commanded PWM; no pin releases while the airframe is shaken by hand; a pin with no dart doesn't jam; SITL fires the same mission ([software page]({{ site.baseurl }}{% link build-software.md %}#test-harness)).
+**Bench checks before flying:** each pin releases under a 200 g load at the servo's commanded PWM; no pin releases while the airframe is shaken by hand; a pin with no dart doesn't jam; SITL fires the same mission ([software page]({{ site.baseurl }}{% link build-software.md %}#6-test-harness)).
 
 ## 3. A fully printed carrier: TL-1
 
@@ -112,7 +112,7 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 | Legs ×4 | 12 mm tube, 250 mm, with a foot | Tall enough to clear hanging darts. **Meant to break before an arm does:** a leg is a 30-minute reprint |
 | Wheelbase | 450 mm | 10-inch props are about 318 mm apart between neighbouring motors, so they clear |
 
-**Estimated frame mass ~380 g** (CAD volume × PETG density × 0.75 fill), against 610 g for the X500 frame. A printed frame flexes more than carbon. Arm stiffness and vibration at the flight controller are the first things to check, through ArduPilot's vibration logs. Documented printed quads exist at this scale, such as a 134 g frame flying 9-inch props ([Printables](https://www.printables.com/model/387178-fully-printed-quadcopterdrone-frame-for-9-propelle)), but none carries a drop payload that we found.
+**Estimated frame mass ~380 g** (CAD volume × PETG density × 0.75 fill), against 610 g for the X500 frame. A printed frame flexes more than carbon. Arm stiffness and vibration at the flight controller are the first things to check, through ArduPilot's vibration logs.
 
 ### Payload and flight time (estimates)
 
@@ -154,15 +154,15 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 
 - **Edge receiver mount:** a pole-top box for a receive-only Heltec, an RS-485 module and a Yagi clamp, from the [edge receiver design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees). It follows T17's bench version.
 - **X500 leg extensions:** once the leg tube is measured.
-- **A custom listener board:** it shrinks the head pod and fixes the sleep current (see [wake-on-sound]({{ site.baseurl }}{% link build-software.md %}#listener-firmware)).
+- **A custom listener board:** it shrinks the head pod and fixes the sleep current (see [wake-on-sound]({{ site.baseurl }}{% link build-software.md %}#1-listener-firmware)).
 
 ## Files
 
 | Model | Script | Printable outputs (STL and STEP) | Render |
 |---|---|---|---|
-| Dart | [`cad/dart.py`](https://github.com/paulrenzi/drone-detection-research/blob/master/cad/dart.py) | `dart_body`, `dart_cap`, `dart_hinge`, `dart_pod` | `dart-deployed.png`, `dart-stowed.png` |
-| X500 harness | [`cad/harness.py`](https://github.com/paulrenzi/drone-detection-research/blob/master/cad/harness.py) | `harness_plate`, `harness_saddle`, `harness_release_block` | `harness-x500.png`, `harness-x500-close.png` |
-| TL-1 | [`cad/quad.py`](https://github.com/paulrenzi/drone-detection-research/blob/master/cad/quad.py) | `quad_hull`, `quad_arm`, `quad_leg` | `quad-tl1.png` |
-| Shared | [`cad/params.py`](https://github.com/paulrenzi/drone-detection-research/blob/master/cad/params.py), [`cad/render.py`](https://github.com/paulrenzi/drone-detection-research/blob/master/cad/render.py) | | |
+| Dart | [`cad/dart.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/dart.py) | `dart_body`, `dart_cap`, `dart_hinge`, `dart_pod` | `dart-deployed.png`, `dart-stowed.png` |
+| X500 harness | [`cad/harness.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/harness.py) | `harness_plate`, `harness_saddle`, `harness_release_block` | `harness-x500.png`, `harness-x500-close.png` |
+| TL-1 | [`cad/quad.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/quad.py) | `quad_hull`, `quad_arm`, `quad_leg` | `quad-tl1.png` |
+| Shared | [`cad/params.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/params.py), [`cad/render.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/render.py) | | |
 
-STL and STEP files are in [`cad/out/`](https://github.com/paulrenzi/drone-detection-research/tree/master/cad/out).
+STL and STEP files are in [`cad/out/`](https://github.com/paulrenzi/drone-detection-research/tree/main/cad/out).
