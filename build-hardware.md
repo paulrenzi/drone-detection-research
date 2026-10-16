@@ -24,8 +24,8 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
 | | Dart | X500 harness | Printed TL-1 quad |
 |---|---|---|---|
-| Printed parts | 4 (body, cap, hinge, head pod) | Plate, 4 saddles, 4 release blocks | Hull, 4 arms, 4 legs |
-| Mass (est.) | ~195 g each, with an 18650 cell | ~150 g with 4 servos | ~380 g frame, against 610 g for the X500 frame ([Holybro](https://holybro.com/products/px4-development-kit-x500-v2)) |
+| Printed parts | 4 (body, cap, hinge, head pod) | 1 plate | Hull, 4 arms, 4 legs |
+| Mass (est.) | ~195 g each, with an 18650 cell | ~100 g with 4 servos | ~380 g frame, against 610 g for the X500 frame ([Holybro](https://holybro.com/products/px4-development-kit-x500-v2)) |
 | Hover time with 4 darts (est.) | n/a | 9–10 min | 11.5–12 min |
 | Reach with 4 darts (est.) | n/a | **~2.2–2.3 km out** | **~2.8–2.9 km out** |
 | Fits the Vyper's 245 × 245 × 260 mm bed | Yes | Yes | Yes, every part |
@@ -79,21 +79,31 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
 ## 2. Release harness for the Holybro X500 V2
 
-<img src="{{ site.baseurl }}/assets/images/build/harness-x500.png" alt="Harness plate clamped under the X500's two payload rails, four pin-puller releases with SG90 servos, four stowed darts hanging upright in a 2 by 2 grid" width="720">
+<img src="{{ site.baseurl }}/assets/images/build/harness-simple.png" alt="One printed plate zip-tied under the X500's two rails, four SG90 servos dropped into pockets, four darts hanging upright; the front-left dart is falling after its servo turned" width="720">
 
-<img src="{{ site.baseurl }}/assets/images/build/harness-x500-close.png" alt="Underside view of the harness: release blocks, servos, pins and the four darts" width="560">
+<img src="{{ site.baseurl }}/assets/images/build/harness-simple-latch.png" alt="Close-up: the servo horn arm passes through the side-open notch in the dart's tongue" width="440">
 
 **Why the X500:** it is the site's pick ([delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %}#recommended-prototype)). It runs ArduPilot, has spare servo outputs, carries a 1–1.5 kg payload (Holybro's two pages disagree, [product](https://holybro.com/products/px4-development-kit-x500-v2), [docs](https://docs.holybro.com/drone-development-kit/px4-development-kit-x500v2.md)), and has **two 10 mm payload rails, 250 mm long**, under the body.
 
-**How it mounts and releases:**
+**v1: the servo horn is the latch.** One printed part, four servos, zip ties.
 
-- **One 210 × 120 mm plate**, clamped to both rails by four printed saddles and caps on M3 bolts. Holybro doesn't publish the rail spacing, so the clamp holes are slots covering 40–90 mm. *Measure it.*
-- **Four release blocks** hang under the plate. Each has a slot that takes a dart's tongue from below and a 3 mm steel pin across the slot.
-- **One SG90 per block** (22.2 × 11.8 × 31 mm, 9 g, [datasheet](https://www.friendlywire.com/projects/ne555-servo-safe/SG90-datasheet.pdf)) pulls its pin about 8 mm through a wire pushrod.
+- **One 150 × 120 × 5 mm plate** (~63 g, est.), zip-tied to both rails through long slots, which absorbs the unpublished rail spacing.
+- **Four SG90s** (22.2 × 11.8 × 31 mm, 9 g, [datasheet](https://www.friendlywire.com/projects/ne555-servo-safe/SG90-datasheet.pdf)) drop into pockets shaft-down, held by their own tab screws.
+- **Each dart's tongue has a side-open notch.** The servo's stock horn arm passes through it, and the dart hangs on the arm.
+- **To release, the horn turns 90°** and the arm swings out of the open side. The model checks the latched arm sits in the notch and the sweep clears the tongue at every angle from 0° to 90°, on all four servos.
 - **Wired to Pixhawk 6C AUX 1–4,** each with `SERVOx_FUNCTION = 0`, and fired by `DO_SET_SERVO` at its drop point ([ArduPilot](https://ardupilot.org/copter/docs/common-servo.html); mission format on the [software page]({{ site.baseurl }}{% link build-software.md %}#i5-mission-file-mission-tooling--drone)).
-- **Darts hang upright, heads outboard,** in a 294 × 76 mm footprint, so each falls point-first with no need to turn over.
+- **Darts hang upright with heads outboard,** so each falls point-first.
 
-**Load:** 4 × ~195 g darts + ~150 g harness ≈ **0.93 kg** (estimate), inside Holybro's 1–1.5 kg.
+| | v0 pin-puller | **v1 horn latch** |
+|---|---|---|
+| Printed parts | 13 (plate, 4 saddles, 4 caps, 4 blocks) | **1** |
+| Other hardware | 4 pins, 4 pushrods, 8+ M3 bolts | **zip ties** |
+| Failure points per dart | servo, pushrod, pin bore | **servo** |
+| Harness mass (est.) | ~150 g | **~100 g** |
+
+**Risk to bench-test:** the horn is held only by the servo's gears. Shake the loaded airframe by hand, then fly once with dummy darts, before trusting it in flight. If it slips, the v0 pin-puller (`cad/harness.py`) is the fallback.
+
+**Load:** 4 × ~195 g darts + ~100 g harness ≈ **0.88 kg** (estimate), inside Holybro's 1–1.5 kg.
 
 **One fix the model found:** the hanging darts reach about **219 mm below the rails**, about 44 mm lower than the X500's stock feet (215 mm gear, [Holybro](https://holybro.com/products/px4-development-kit-x500-v2); rail height below the plate estimated). The drone needs **leg extensions of about 60–80 mm** to take off and land with darts on. Holybro doesn't publish the leg tube size, so those aren't modelled yet. *Measure the legs.*
 
@@ -143,12 +153,11 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 | 1 | SG90 servos, 10-pack | [Miuzei, Amazon](https://www.amazon.com/dp/B072V529YD) | [Hosyond 10-pack, Amazon](https://www.amazon.com/dp/B09GFN98X9), $15.99 | $19.99 |
 | 1 | 8.5 mm fibreglass shock-cord pole kit: 4 × 25.5 in sections, cord, ferrules. Cut to 160 mm and re-ferrule | [Eureka!, Amazon](https://www.amazon.com/dp/B001DBFA0U) | | $29.95 |
 | 1 | 6 mm × 300 mm stainless rod, 2-pack (6 spikes) | [uxcell, Amazon](https://www.amazon.com/dp/B082ZNKJ5B) | | $9.99 |
-| 1 | 3 × 30 mm stainless dowel pins, 10-pack (release pins) | [uxcell, Amazon](https://www.amazon.com/dp/B01N942DIY) | | $5.93 |
 | 1 | Torsion spring assortment, 45 pcs (hinge) | [Swpeet, Amazon](https://www.amazon.com/dp/B0D94766KX) | | $10.99 |
-| 1 | M3 socket bolts and nuts | [Hilitchi 420 pcs, Amazon](https://www.amazon.com/dp/B014OO5KQG) | [Glarks 510 pcs, Amazon](https://www.amazon.com/dp/B08HHZHXTP), $14.99 | $15.89 |
+| 1 | M3 socket bolts and nuts (dart hinge) | [Hilitchi 420 pcs, Amazon](https://www.amazon.com/dp/B014OO5KQG) | [Glarks 510 pcs, Amazon](https://www.amazon.com/dp/B08HHZHXTP), $14.99 | $15.89 |
 | 1 | Fur windscreens, 5 + 5 foam | [Cubilux, Amazon](https://www.amazon.com/dp/B0B2D836LY) | [Ruittos 5-pack, Amazon](https://www.amazon.com/dp/B07BQ2LZDX), $8.99 | $9.99 |
 | 4 | 18650 cells (not on Amazon) | [Molicel P28A, 18650 Battery Store](https://www.18650batterystore.com/products/molicel-p28a) | as on the MVP page | $5.99 each |
-| | **Total** | | | **≈ $145** |
+| | **Total** (zip ties assumed owned) | | | **≈ $139** |
 
 ## 4. Not yet designed
 
@@ -161,7 +170,8 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 | Model | Script | Printable outputs (STL and STEP) | Render |
 |---|---|---|---|
 | Dart | [`cad/dart.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/dart.py) | `dart_body`, `dart_cap`, `dart_hinge`, `dart_pod` | `dart-deployed.png`, `dart-stowed.png` |
-| X500 harness | [`cad/harness.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/harness.py) | `harness_plate`, `harness_saddle`, `harness_release_block` | `harness-x500.png`, `harness-x500-close.png` |
+| X500 harness v1 | [`cad/harness_simple.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/harness_simple.py) | `harness_simple_plate`, `dart_cap` (notched) | `harness-simple.png`, `harness-simple-latch.png` |
+| X500 harness v0 (fallback) | [`cad/harness.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/harness.py) | `harness_plate`, `harness_saddle`, `harness_release_block` | `harness-x500.png`, `harness-x500-close.png` |
 | TL-1 | [`cad/quad.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/quad.py) | `quad_hull`, `quad_arm`, `quad_leg` | `quad-tl1.png` |
 | Shared | [`cad/params.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/params.py), [`cad/render.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/render.py) | | |
 

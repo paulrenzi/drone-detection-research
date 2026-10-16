@@ -17,6 +17,8 @@ DECK = BODY_TOP + CAP_T                         # top face of the cap
 PIVOT_Z = DECK + 12
 HINGE_PIN_D = 3.2         # M3 bolt
 TONGUE_X, TONGUE_H, TONGUE_HOLE_Z = -8.0, 26.0, DECK + 21
+HOOK = True               # v1 release: horn-as-latch notch (False = v0 pin hole)
+NOTCH_H = 2.6             # SG90 horn arm ~1.6 mm thick (MEASURE) + clearance
 POD_OD, POD_L = 34.0, 92.0
 SOCKET = 28.0             # pole depth into the pod
 
@@ -52,8 +54,12 @@ def cap():
               .circle(HINGE_PIN_D / 2).extrude(40))
     tongue = (cq.Workplane("XY").workplane(offset=DECK).center(TONGUE_X, 0)
               .rect(4, 8).extrude(TONGUE_H).edges("|X and >Z").fillet(2))
-    tongue = tongue.cut(cq.Workplane("YZ").workplane(offset=TONGUE_X - 5).center(0, TONGUE_HOLE_Z)
-                        .circle(1.8).extrude(10))                  # release pin hole, 3 mm pin
+    if HOOK:   # side-open notch: the servo horn arm sits in it and swings out sideways to release
+        tongue = tongue.cut(cq.Workplane("XY").workplane(offset=TONGUE_HOLE_Z - NOTCH_H / 2)
+                            .center(TONGUE_X, 1.5).rect(6, 5.2).extrude(NOTCH_H))
+    else:      # v0: hole for a 3 mm pin
+        tongue = tongue.cut(cq.Workplane("YZ").workplane(offset=TONGUE_X - 5).center(0, TONGUE_HOLE_Z)
+                            .circle(1.8).extrude(10))
     c = c.union(tongue)
     c = c.cut(cq.Workplane("XY").workplane(offset=BODY_TOP - 9).center(6, -2).rect(3, 3).extrude(20))  # power wire
     return c
