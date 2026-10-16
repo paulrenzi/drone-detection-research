@@ -326,7 +326,7 @@ if __name__ == "__main__":
     first = order[0]
     sc = scene(STEP[first], dropped=(first,)) + [(s.translate((0, 0, -90)).rotate((0, 0, 0), (0, 0, 1), 0), c)
                                                  for s, c in hung(first)]
-    render(sc, img / "v2-harness.png", elev=-18, azim=-58, size=(1300, 850), zoom=1.15)
+    render(sc, img / "v2-harness.png", elev=-18, azim=-58, size=(1300, 700), zoom=1.8)
     clips = [(to_harness(clip(CLIP_Z), i), "print2") for i in range(4)]
     render([(pl, "print"), (rotor(STEP[first]), "carbon")] + [c for k, c in enumerate(clips) if k != first],
            img / "v2-rotor.png", elev=60, azim=-90, size=(1000, 800), zoom=1.25)
