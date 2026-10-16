@@ -8,7 +8,8 @@ nav_order: 1.6
 
 Printable designs for the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}):
 
-- **v2, the current design:** a rigid one-rod listener dart and an X500 harness with one servo. It has 27 parts against v1's 61 and costs about $63 against $139.
+- **v3, the current design:** each dart is a fibreglass rod, one printed body and a head pod: 3 parts. It hangs from v2's one-servo harness unchanged. A 4-dart kit has 15 parts against v2's 27, and the parts list is about $50 against $63.
+- **v2:** the one-rod dart with a separate clip, a zip tie and foam. Its harness is still the current one.
 - **v1, superseded:** a folding-mast dart and a four-servo harness, kept below for its drop-test questions and as a fallback.
 - **A fully printed carrier quad (TL-1):** built round the X500's electronics.
 
@@ -22,15 +23,15 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
 ## Short answer
 
-| | v2 dart | v2 X500 harness | Printed TL-1 quad |
+| | v3 dart | v2 X500 harness | Printed TL-1 quad |
 |---|---|---|---|
-| Printed parts | 3 (body, clip, head pod) | 2 (plate, rotor) | Hull, 4 arms, 4 legs |
-| Mass (est.) | ~126 g each, with an 18650 cell | ~80 g with its one servo | ~380 g frame, against 610 g for the X500 frame ([Holybro](https://holybro.com/products/px4-development-kit-x500-v2)) |
+| Printed parts | 2 (body, head pod) | 2 (plate, rotor) | Hull, 4 arms, 4 legs |
+| Mass (est.) | ~127 g each, with an 18650 cell | ~80 g with its one servo | ~380 g frame, against 610 g for the X500 frame ([Holybro](https://holybro.com/products/px4-development-kit-x500-v2)) |
 | Hover time with 4 darts (est.) | n/a | **11.3–11.8 min** (v1: 9–10) | 11.5–12 min with v1 darts |
 | Reach with 4 darts (est.) | n/a | **~2.7–2.8 km out** (v1: 2.2–2.3) | ~2.8–2.9 km out with v1 darts |
 | Fits the Vyper's 245 × 245 × 260 mm bed | Yes | Yes | Yes, every part |
 
-- **v2 carries four darts about 2.7 km out on an X500.** Lines 3–4 km out need fewer darts per sortie, a bigger pack, or a fixed-wing. That is T13's question, now with numbers to test against.
+- **An X500 carries four v3 darts about 2.7 km out,** the same as v2: the dart weighs about the same. Lines 3–4 km out need fewer darts per sortie, a bigger pack, or a fixed-wing. That is T13's question, now with numbers to test against.
 - **The printed quad wins on mass, not money.** The frame cost saving is small, as [the tripwire says]({{ site.baseurl }}{% link models/tripwire.md %}#why-3d-print-the-drones-and-the-nodes). But an estimated ~230 g lighter frame is worth about 2.5 more minutes of hover with four darts, and the dart bay is built into the hull.
 - **Print the dart first.** It is needed for T10 (drop test), T11 (range at 0.5–1 m) and T12 (battery), whichever drone carries it.
 
@@ -39,7 +40,50 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 - **Printer: Anycubic Vyper.** Build volume 245 × 245 × 260 mm, nozzle up to 260 °C, bed up to 110 °C. Officially it prints PLA, PETG, TPU, ABS and wood fill ([spec, via 3DSourced](https://www.3dsourced.com/3d-printer-reviews/anycubic-vyper-test-review-specs/)). It has no enclosure, so print in **PETG**: it tolerates sun and heat better than PLA and prints well without an enclosure (inference). Carbon-filled nylon and ASA, the usual next step for arms, warp without an enclosure and need a hardened nozzle. That is a second printer, needed only after the prototype stage.
 - **CAD: CadQuery,** text-based and in Python. Every model is a script in [`cad/`](https://github.com/paulrenzi/drone-detection-research/tree/main/cad) that reads its dimensions from one file, `cad/params.py`, so a change shows up as a readable diff. Each run writes STL (for slicing), STEP (for any other CAD tool) and the PNG renders on this page, and prints bed-fit checks, masses and the flight-time table. Install: `python -m venv cad-env` then `cad-env/Scripts/pip install cadquery`. Run `python v2.py`, `dart.py`, `harness_simple.py` or `quad.py` from `cad/`.
 
-## 1. v2: one rod, one servo
+## 1. v3: three parts per dart
+
+<img src="{{ site.baseurl }}/assets/images/build/v3-harness.png" alt="Four v3 darts under the X500's rails on the v2 plate and rotor: each dart is a fibreglass rod with one long orange printed body, holding the cell near the tip and the hanger post at the balance point, and a blue head pod at the back; one dart is falling" width="760">
+
+<p style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
+<img src="{{ site.baseurl }}/assets/images/build/v3-body.png" alt="The v3 body as printed, lying on its flat underside: an open cell cradle at one end, a sleeve along the rod, and the hanger post with its round head at the other end" width="500">
+<img src="{{ site.baseurl }}/assets/images/build/v3-dart.png" alt="v3 dart standing in soil: bare rod tip in the ground, the orange body from the surface up to the hanger post, and the blue head pod with its whip at the top" width="160">
+</p>
+
+*Top: four darts on v2's harness, with the first one falling. Left: the body as it prints, cradle open on top. Right: a dart in soil.*
+
+**v3 changes only the dart.** v2's plate, rotor and servo carry it as they are: the hanger head is the same round head on the same radius. The model reruns v2's checks with v3 darts: each dart stays on the rim until its own step, drops at it, and nothing collides at any angle.
+
+**Each dart is a rod, one printed body and the head pod.**
+
+- **The body is one print: nose, cell cradle, sleeve and hanger.** The 18650 presses down into an open cradle whose lips are 15.8 mm apart, narrower than the 18.6 mm cell, so it snaps in and the cradle wraps 251° round it. That replaces v2's zip tie. A sleeve runs back along the rod to the hanger post, which the model places at the balance point, 246 mm from the tip. That replaces v2's separate clip, which had to be glued at a measured spot.
+- **No foam.** The mic looks out of a side port under a small printed hood on the pod.
+- **It prints lying on its flat underside,** post and cradle opening up, with no supports. It is 186 mm long and weighs about 22 g (estimate).
+
+| | v2 | **v3** |
+|---|---|---|
+| Parts per dart | 6 (rod, body, clip, pod, foam, zip tie) | **3 (rod, body, pod)** |
+| Parts in a 4-dart kit with the harness | 27 | **15** |
+| Glue joints set at a measured spot | 1 per dart (clip at the balance point) | **0** |
+| Dart mass (est.) | ~126 g | ~127 g |
+| Parts to buy for 4 darts and the harness | ≈ $63 | **≈ $50** |
+
+**What it costs in performance:**
+
+- **It still rides flat and must turn point-down as it falls** (T10). The balance point is 44% of the length from the tip, against v2's 45%.
+- **No windscreen** means more wind noise. T11 should measure with and without foam. If foam is needed, it's $0.50 a dart and one part back.
+- **The balance point is fixed in the print.** If the real board and wiring weigh more or less than the estimates, the dart hangs slightly nose- or tail-low; the plate slot keeps the post upright. The fix is to weigh one assembled dart, put the masses into `v3.py` and reprint the body.
+- **The cradle has to hold the cell at landing.** The impact pushes the cell into the solid nose wall, not out through the snap, but T10 should check it.
+- **Samsung 25R cells hold 2,500 mAh against the P28A's 2,800,** about 11% less battery, for $1 less each. The Samsung 35E holds 3,500 mAh for $5.99.
+
+**Why the cost fell by a fifth, not by half.** The cells are $20 of the $50, and filament, rods and servos come in packs bigger than one kit needs. Per 4-dart re-lay, the bill is about $26.50: cells $20, rods $4.40 and about $2 of filament (estimates from the model's masses), against about $33 for v2. **The rest of the cost is the cells.** EVE 35V cells (3,500 mAh) were listed at $2.50–2.99 but were sold out on 2026-10-15 at both [18650 Battery Store](https://18650batterystore.com/products/eve-35v-18650-3500mah-10a-battery) and [IMR Batteries](https://imrbatteries.com/products/eve-35v-18650-3500mah-10a-battery). In stock, they would bring a re-lay to about $16.50 (half of v2's) and the parts list to about $40.
+
+**Wiring and mission:** as v2: Pixhawk AUX 1, one `DO_SET_SERVO` step per dart.
+
+*Measure before printing:* as v2, plus the cell's real diameter. The snap needs the lips narrower than the cell, and the 25R measures 18.4 mm, not 18.6.
+
+## 2. v2: one rod, one servo
+
+v3 keeps v2's plate, rotor and servo as they are; only the dart changed. v2's dart is the fallback if the snap cradle or the fixed hanger position fails.
 
 <img src="{{ site.baseurl }}/assets/images/build/v2-harness.png" alt="v2 harness under the X500's two rails: a round printed plate with a dark rotor on top, four darts lying flat beneath it, each a long fibreglass rod with an orange cell body near the tip, a blue clip near the middle and a blue head pod at the back; one dart is falling" width="760">
 
@@ -90,7 +134,7 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
 *Measure before printing:* how high the SG90's shaft stands above its tabs, which sets the rotor height (sand the ring to match), the rail spacing, and the rod's real diameter.
 
-## 2. v1 dart: folding mast (superseded by v2)
+## 3. v1 dart: folding mast (superseded by v2)
 
 v1 is kept because its drop-test questions still apply to v2, and as a fallback if a flat-carried dart won't turn point-down.
 
@@ -130,7 +174,7 @@ v1 is kept because its drop-test questions still apply to v2, and as a fallback 
 | Does the mast deploy in a 1–2 s fall? | Unknown | Video; if not, deploy on impact instead (a pin knocked out by the landing) |
 | No drop-deployed sensor with published drop figures was found | The Vietnam-era ADSID dart used a steel spike and a drag plate, but its patent gives no drop height ([US3984804A](https://patents.google.com/patent/US3984804A)) | |
 
-## 3. v1 harness: four servos (superseded by v2)
+## 4. v1 harness: four servos (superseded by v2)
 
 <img src="{{ site.baseurl }}/assets/images/build/harness-simple.png" alt="One printed plate zip-tied under the X500's two rails, four SG90 servos dropped into pockets, four darts hanging upright; the front-left dart is falling after its servo turned" width="720">
 
@@ -162,7 +206,7 @@ v1 is kept because its drop-test questions still apply to v2, and as a fallback 
 
 **Bench checks before flying:** each pin releases under a 200 g load at the servo's commanded PWM; no pin releases while the airframe is shaken by hand; a pin with no dart doesn't jam; SITL fires the same mission ([software page]({{ site.baseurl }}{% link build-software.md %}#6-test-harness)).
 
-## 4. A fully printed carrier: TL-1
+## 5. A fully printed carrier: TL-1
 
 <img src="{{ site.baseurl }}/assets/images/build/quad-tl1.png" alt="Printed quad TL-1: orange hull with built-in dart bay, four blue printed arms and tall legs, 10 inch prop discs, four darts hanging under the hull" width="760">
 
@@ -199,22 +243,23 @@ Hover power for fixed props grows with mass to the power 1.5, by momentum theory
 - Lines 4 km out need the TL-1 with 2 darts, or a fixed-wing carrier. Printed fixed-wing airframes such as Eclipson's take off at 0.5–1.5 kg ([air-rc](https://www.air-rc.com/aircraft/Eclipson-Airplanes_Apex_apex)) but publish no payload or endurance, so a fixed-wing stays unscoped until T13 shows whether 3 km is enough.
 - T13 now has a prediction to beat: **X500, 4 v2 darts, about 11–12 minutes' hover.** The v2 rows use the model's masses: 126 g per dart, 80 g for the harness.
 
-## 5. Parts to buy: v2, 4 darts and the harness
+## 6. Parts to buy: v3, 4 darts and the harness
 
 Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Cart at the price given. Electronics already on the [MVP list]({{ site.baseurl }}{% link mvp.md %}#shopping-list) (Heltec boards, INMP441) are not repeated.
 
 | Qty | Part | Buy | Alternative | Price |
 |---|---|---|---|---|
-| 1 | PETG 1.75 mm, 1 kg (plate, rotor and 4 darts use about 0.3 kg, est.) | [Overture, Amazon](https://www.amazon.com/dp/B0991YSBDG) | | $17.99 |
+| 1 | PETG 1.75 mm, 1 kg (plate, rotor and 4 darts use about 0.25 kg, est.) | [SUNLU, Amazon](https://www.amazon.com/dp/B0DJS3PJVX) | [Overture, Amazon](https://www.amazon.com/dp/B0991YSBDG), $17.99 | $13.99 |
 | 1 | Solid fibreglass rod, 6 mm × 500 mm, 10-pack (one rod per dart) | [LLZZQQF, Amazon](https://www.amazon.com/dp/B0FNZQLH1P) | [6 × 420 mm 10-pack, Amazon](https://www.amazon.com/dp/B0CGLMZSTG), $9.99; mic about 0.42 m | $11.00 |
 | 1 | SG90 servo, 2-pack (one fitted, one spare) | [Amazon](https://www.amazon.com/dp/B0DFKPVRC2) | [Beffkkip 3-pack, Amazon](https://www.amazon.com/dp/B0G6R7ZZXH), $6.99 | $4.99 |
-| 1 | Foam mic windscreens, 10-pack | [Phinus, Amazon](https://www.amazon.com/dp/B07X4VKKQ7) | [10-pack, Amazon](https://www.amazon.com/dp/B0FYPRW9ST), $4.69 | $4.99 |
-| 4 | 18650 cells (not on Amazon) | [Molicel P28A, 18650 Battery Store](https://www.18650batterystore.com/products/molicel-p28a) | as on the MVP page | $5.99 each |
-| | **Total** (zip ties and CA glue assumed owned) | | | **≈ $63** |
+| 4 | 18650 cells (not on Amazon) | [Samsung 25R, 2,500 mAh, 18650 Battery Store](https://www.18650batterystore.com/products/samsung-25r-18650) | [Samsung 35E, 3,500 mAh](https://www.18650batterystore.com/collections/18650-batteries), $5.99; [Molicel P28A](https://www.18650batterystore.com/products/molicel-p28a), $5.99 | $4.99 each |
+| | **Total** (CA glue assumed owned) | | | **≈ $50** |
 
-**Where the $76 went:** the folding mast (pole kit $29.95, springs $10.99, M3 hardware $15.89), the steel spike ($9.99), three of four servos (a 2-pack replaces a 10-pack), and fur (foam instead). v1's list was PETG, a 10-pack of SG90s, the pole kit, stainless rod, springs, M3 hardware, fur and cells, ≈ $139.
+**Where v2's $13 went:** the foam ($4.99), a cheaper spool of the same PETG ($4.00 less), and cheaper cells ($4.00 less for four). If T11 shows foam is needed: [Phinus 10-pack, Amazon](https://www.amazon.com/dp/B07X4VKKQ7), $4.99.
 
-## 6. Not yet designed
+**Where v1's $76 went (v1 to v2):** the folding mast (pole kit $29.95, springs $10.99, M3 hardware $15.89), the steel spike ($9.99), three of four servos (a 2-pack replaces a 10-pack), and fur (foam instead). v1's list was PETG, a 10-pack of SG90s, the pole kit, stainless rod, springs, M3 hardware, fur and cells, ≈ $139.
+
+## 7. Not yet designed
 
 - **Edge receiver mount:** a pole-top box for a receive-only Heltec, an RS-485 module and a Yagi clamp, from the [edge receiver design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees). It follows T17's bench version.
 - **X500 leg extensions:** only for v1 darts; v2 darts ride high enough for stock legs.
@@ -226,7 +271,8 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 | Model | Script | Printable outputs (STL and STEP) | Render |
 |---|---|---|---|
 | Dart | [`cad/dart.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/dart.py) | `dart_body`, `dart_cap`, `dart_hinge`, `dart_pod` | `dart-deployed.png`, `dart-stowed.png` |
-| **v2 dart and harness** | [`cad/v2.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/v2.py) | `v2_dart_body`, `v2_dart_clip`, `v2_dart_pod`, `v2_plate`, `v2_rotor` | `v2-harness.png`, `v2-rotor.png`, `v2-dart.png` |
+| **v3 dart** | [`cad/v3.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/v3.py) | `v3_dart_body`, `v3_dart_pod` (harness: v2's `v2_plate`, `v2_rotor`) | `v3-harness.png`, `v3-body.png`, `v3-dart.png` |
+| v2 dart and harness | [`cad/v2.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/v2.py) | `v2_dart_body`, `v2_dart_clip`, `v2_dart_pod`, `v2_plate`, `v2_rotor` | `v2-harness.png`, `v2-rotor.png`, `v2-dart.png` |
 | X500 harness v1 | [`cad/harness_simple.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/harness_simple.py) | `harness_simple_plate`, `dart_cap` (notched) | `harness-simple.png`, `harness-simple-latch.png` |
 | X500 harness v0 (fallback) | [`cad/harness.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/harness.py) | `harness_plate`, `harness_saddle`, `harness_release_block` | `harness-x500.png`, `harness-x500-close.png` |
 | TL-1 | [`cad/quad.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/quad.py) | `quad_hull`, `quad_arm`, `quad_leg` | `quad-tl1.png` |

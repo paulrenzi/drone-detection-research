@@ -96,7 +96,7 @@ Covering a whole area against small drones would take thousands of nodes ([the d
 
 Single-microphone nodes ([M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}) class) built to be dropped, not placed:
 
-- A **dart** that sticks upright in soil and holds the microphone about 0.5 m up on a rigid fibreglass rod ([v2 design]({{ site.baseurl }}{% link build-hardware.md %}#1-v2-one-rod-one-servo)). A microphone lying in grass hears much worse.
+- A **dart** that sticks upright in soil and holds the microphone about 0.5 m up on a rigid fibreglass rod ([v3 design]({{ site.baseurl }}{% link build-hardware.md %}#1-v3-three-parts-per-dart)). A microphone lying in grass hears much worse.
 - **Wake on sound:** the processor and radio wake only when something drone-like is heard. Target: **weeks on a small battery**.
 - **No recovery.** Lost or dead listeners are replaced by the next flight, like ammunition.
 
@@ -239,7 +239,7 @@ A reader suggested one central node with a known position, and listeners that me
 | LoRa radio | SX1262, 915 MHz in the US | $6–25 | Sends alerts and relays neighbours' alerts toward the unit |
 | GPS | none | $0 (was $8–15) | Dropped: it would be jammed where it matters most ([why](#solving-the-field-limits-at-no-extra-cost)) |
 | Battery | small LiPo cell | ~$3–8 (estimate) | Weeks, not days, only if the listener sleeps until it hears something |
-| Body, clip and head pod on a fibreglass rod | 3D-printed, plus a ~$1.10 rod | $1–2 in filament | Sticks upright and holds the mic about 0.5 m up |
+| One printed body and a head pod on a fibreglass rod | 3D-printed, plus a ~$1.10 rod | $1–2 in filament | Sticks upright and holds the mic about 0.5 m up |
 | Windscreen | fur or foam cover | ~$1–3 (estimate) | Wind is the biggest range-killer in [VolAnti's tests]({{ site.baseurl }}{% link research/open-source-builds.md %}#volanti) |
 | **Total** | | **~$17–50** | Against a **$30–60 target** (~$25–65 with GPS) |
 
@@ -306,7 +306,7 @@ Phones are the [best-proven acoustic sensor there is]({{ site.baseurl }}{% link 
 | **Emissions** | Silent until it hears something, then one short burst | Keeps checking in with the cell network, so it can be located; with radios off it can't report |
 | **Network** | Its own mesh; no cell towers | Needs cell coverage, which near the front is jammed, destroyed or watched |
 | **Battery** | Wake-on-sound: weeks (target) | Running a mic and classifier non-stop: about a day (estimate) |
-| **Weight** | Target well under 100 g, so a small drone carries 3–4 | ~126 g with its rod (v2 estimate) |
+| **Weight** | Target well under 100 g, so a small drone carries 3–4 | ~127 g with its rod (v3 estimate) |
 | **Cost** | $17–50 (estimate) | ~$50–100 for the cheapest phone, plus mount and protection |
 | **Survives a drop** | Designed for it | Isn't |
 | **Brains** | Only needs "drone-like sound: yes or no" | Can run much bigger classifiers |
