@@ -1,0 +1,718 @@
+{
+  "dart": [
+    {
+      "name": "body",
+      "volume_mm3": 32795.56371530752,
+      "density_g_cm3": 1.27,
+      "mass_g": 41.650365918440556,
+      "centroid_mm": [
+        172.78416676440997,
+        6.962462393582443,
+        8.682754751494523
+      ],
+      "basis": "100% infill, 4 walls, solid PETG"
+    },
+    {
+      "name": "pod_shell",
+      "volume_mm3": 17124.415105298136,
+      "density_g_cm3": 1.27,
+      "mass_g": 21.748007183728635,
+      "centroid_mm": [
+        517.4936912261444,
+        -0.30901107516679843,
+        2.4059790641563925
+      ],
+      "basis": "100% infill, thin walls solid"
+    },
+    {
+      "name": "pod_lid",
+      "volume_mm3": 6334.935293002187,
+      "density_g_cm3": 1.27,
+      "mass_g": 8.045367822112777,
+      "centroid_mm": [
+        521.4476413984368,
+        -0.019456965032068008,
+        16.61972521485918
+      ],
+      "basis": "100% infill, thin walls solid"
+    },
+    {
+      "name": "fibreglass_rod",
+      "volume_mm3": 13923.41297700382,
+      "density_g_cm3": 1.9,
+      "mass_g": 26.454484656307255,
+      "centroid_mm": [
+        253.77004305093004,
+        6.985417729409094e-17,
+        5.199999999999998
+      ],
+      "basis": "MEASURE composite density"
+    },
+    {
+      "name": "Samsung25R_cell",
+      "volume_mm3": 17044.54949089256,
+      "density_g_cm3": null,
+      "mass_g": 45.0,
+      "centroid_mm": [
+        110.29898609740465,
+        16.49999999999999,
+        11.599999999999996
+      ],
+      "basis": "Samsung max45g, MEASURE actual"
+    },
+    {
+      "name": "Heltec_with_OLED",
+      "volume_mm3": 2929.3086874915134,
+      "density_g_cm3": null,
+      "mass_g": 9.0,
+      "centroid_mm": [
+        529.8887802196118,
+        0.034097850615118434,
+        3.5696175916768964
+      ],
+      "basis": "MEASURE9g; OEM CAD spatial distribution proxy"
+    },
+    {
+      "name": "INMP441_breakout",
+      "volume_mm3": 240.0471995191069,
+      "density_g_cm3": null,
+      "mass_g": 1.0,
+      "centroid_mm": [
+        539.9050761015101,
+        -15.22744570970401,
+        6.000000000000002
+      ],
+      "basis": "MEASURE1g; geometric centroid"
+    },
+    {
+      "name": "pod_insert_0",
+      "volume_mm3": 20.94681397950463,
+      "density_g_cm3": 8.5,
+      "mass_g": 0.17804791882578935,
+      "centroid_mm": [
+        485.50022719379024,
+        -13.000070095932827,
+        13.971501512423421
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "pod_M2x6_0",
+      "volume_mm3": 40.124022333429835,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.3149735753174242,
+      "centroid_mm": [
+        485.50000000000017,
+        -13.000000000000002,
+        16.098941367488607
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "pod_insert_1",
+      "volume_mm3": 20.946813979504732,
+      "density_g_cm3": 8.5,
+      "mass_g": 0.1780479188257902,
+      "centroid_mm": [
+        485.5002271937899,
+        12.999929904067185,
+        13.971501512423425
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "pod_M2x6_1",
+      "volume_mm3": 40.124022333429835,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.3149735753174242,
+      "centroid_mm": [
+        485.50000000000017,
+        13.000000000000002,
+        16.098941367488607
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "pod_insert_2",
+      "volume_mm3": 20.946813979504928,
+      "density_g_cm3": 8.5,
+      "mass_g": 0.17804791882579188,
+      "centroid_mm": [
+        558.0002271937899,
+        -13.00007009593281,
+        13.97150151242336
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "pod_M2x6_2",
+      "volume_mm3": 40.12402233343009,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.3149735753174262,
+      "centroid_mm": [
+        558.0000000000001,
+        -13.000000000000004,
+        16.098941367488603
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "pod_insert_3",
+      "volume_mm3": 20.946813979505077,
+      "density_g_cm3": 8.5,
+      "mass_g": 0.17804791882579316,
+      "centroid_mm": [
+        558.0002271937896,
+        12.99992990406719,
+        13.971501512423355
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "pod_M2x6_3",
+      "volume_mm3": 40.12402233343009,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.3149735753174262,
+      "centroid_mm": [
+        558.0000000000001,
+        12.999999999999998,
+        16.098941367488603
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "perimeter_silicone_seal",
+      "volume_mm3": 248.98324551878028,
+      "density_g_cm3": 1.1,
+      "mass_g": 0.27388157007065833,
+      "centroid_mm": [
+        521.0000000000013,
+        -4.8690113909221685e-15,
+        15.55000000000002
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "mic_waterproof_film",
+      "volume_mm3": 2.5132741228718523,
+      "density_g_cm3": 1.1,
+      "mass_g": 0.0027646015351590375,
+      "centroid_mm": [
+        540.0,
+        -16.625,
+        6.000000000000006
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "mic_silicone_cavity_seal",
+      "volume_mm3": 26.23858184278204,
+      "density_g_cm3": 1.1,
+      "mass_g": 0.028862440027060246,
+      "centroid_mm": [
+        540.0,
+        -16.199999999999996,
+        6.0000000000000036
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "board_retention_foam_513_-11.65",
+      "volume_mm3": 13.5,
+      "density_g_cm3": 0.15,
+      "mass_g": 0.002025,
+      "centroid_mm": [
+        513.0,
+        -11.649999999999999,
+        3.375
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "board_retention_foam_513_11.65",
+      "volume_mm3": 13.5,
+      "density_g_cm3": 0.15,
+      "mass_g": 0.002025,
+      "centroid_mm": [
+        513.0,
+        11.650000000000002,
+        3.375
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "board_retention_foam_548_-11.65",
+      "volume_mm3": 13.5,
+      "density_g_cm3": 0.15,
+      "mass_g": 0.002025,
+      "centroid_mm": [
+        548.0,
+        -11.649999999999999,
+        3.375
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "board_retention_foam_548_11.65",
+      "volume_mm3": 13.5,
+      "density_g_cm3": 0.15,
+      "mass_g": 0.002025,
+      "centroid_mm": [
+        548.0,
+        11.650000000000002,
+        3.375
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "nickel_tab_77.82",
+      "volume_mm3": 6.7500000000001705,
+      "density_g_cm3": 8.9,
+      "mass_g": 0.06007500000000152,
+      "centroid_mm": [
+        77.81999999999998,
+        16.5,
+        11.700000000000001
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "nickel_tab_142.85",
+      "volume_mm3": 6.749999999999317,
+      "density_g_cm3": 8.9,
+      "mass_g": 0.060074999999993925,
+      "centroid_mm": [
+        142.85,
+        16.5,
+        11.700000000000003
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "power_wire_0",
+      "volume_mm3": 323.8599699283098,
+      "density_g_cm3": 1.45,
+      "mass_g": 0.4695969563960492,
+      "centroid_mm": [
+        321.42799587594493,
+        4.885218256337637,
+        4.89161784893651
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "power_wire_1",
+      "volume_mm3": 404.1957707094339,
+      "density_g_cm3": 1.45,
+      "mass_g": 0.586083867528679,
+      "centroid_mm": [
+        278.0652473212395,
+        10.63444542652286,
+        4.8431406224567235
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "rod_tie_320",
+      "volume_mm3": 159.12580098815414,
+      "density_g_cm3": 1.14,
+      "mass_g": 0.18140341312649572,
+      "centroid_mm": [
+        320.0000000000003,
+        4.360223509219431,
+        7.225991652363763
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "rod_tie_420",
+      "volume_mm3": 159.12580098815414,
+      "density_g_cm3": 1.14,
+      "mass_g": 0.18140341312649572,
+      "centroid_mm": [
+        420.0000000000003,
+        4.360223509219433,
+        7.22599165236376
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "body_strain_relief_tie",
+      "volume_mm3": 211.1258009881546,
+      "density_g_cm3": 1.14,
+      "mass_g": 0.24068341312649622,
+      "centroid_mm": [
+        163.0,
+        3.546197566562766,
+        8.004869799704881
+      ],
+      "basis": "material-density model; wire1.45 composite, foam.15, silicone1.10"
+    },
+    {
+      "name": "whip_and_pigtail",
+      "volume_mm3": 281.18944453933494,
+      "density_g_cm3": null,
+      "mass_g": 1.2,
+      "centroid_mm": [
+        585.6826187988863,
+        0.0976187405924187,
+        6.934102000014985
+      ],
+      "basis": "MEASURE1.2g; envelope centroid"
+    }
+  ],
+  "dart_total_g": 158.16324123209918,
+  "dart_cg_mm": [
+    265.72794768688186,
+    6.469517472530669,
+    8.21611061118542
+  ],
+  "hanger_x_mm": 265.7338971139896,
+  "hanger_y_mm": 6.46769473213635,
+  "balance_residual_mm": -0.005949427107736938,
+  "harness": [
+    {
+      "name": "plate",
+      "volume_mm3": 103683.19756902335,
+      "density_g_cm3": 1.27,
+      "mass_g": 131.67766091265966,
+      "centroid_mm": [
+        -5.197235418028087,
+        -0.004196990265567284,
+        9.189259967403194
+      ],
+      "basis": "100% infill PETG"
+    },
+    {
+      "name": "rotor",
+      "volume_mm3": 30410.991532145108,
+      "density_g_cm3": 1.27,
+      "mass_g": 38.621959245824286,
+      "centroid_mm": [
+        0.2522215961072896,
+        -0.5044868873906239,
+        13.510612136446351
+      ],
+      "basis": "100% infill PETG"
+    },
+    {
+      "name": "SG90_with_stock_horn",
+      "volume_mm3": 7290.361157155206,
+      "density_g_cm3": null,
+      "mass_g": 9.0,
+      "centroid_mm": [
+        -4.881250860249073,
+        1.1680697081807316e-16,
+        -8.8434586650617
+      ],
+      "basis": "S3 rated9g; model external centroid"
+    },
+    {
+      "name": "SG90_spline_screw",
+      "volume_mm3": 27.507624138151776,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.21593484948449143,
+      "centroid_mm": [
+        -2.825238971328428e-17,
+        -3.3588865485319834e-17,
+        12.487597237058775
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "rotor_keeper_spacer",
+      "volume_mm3": 19.000352368911066,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.14915276609595188,
+      "centroid_mm": [
+        1.0517707279971948e-16,
+        -1.5643595830344452e-16,
+        13.500000000000002
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "rotor_keeper_washer",
+      "volume_mm3": 30.340716450206834,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.23817462413412363,
+      "centroid_mm": [
+        8.965003891043881e-17,
+        -2.617705664391143e-17,
+        15.800000000000002
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "drive_pin_-9.0",
+      "volume_mm3": 30.473448739820984,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.23921657260759474,
+      "centroid_mm": [
+        -9.0,
+        -1.7445301427737474e-17,
+        12.350000000000001
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "drive_pin_lower_nut_-9.0",
+      "volume_mm3": 18.538569229331834,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.1455277684502549,
+      "centroid_mm": [
+        -9.0,
+        -2.371957720414833e-16,
+        9.000000000000004
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "drive_pin_upper_nut_-9.0",
+      "volume_mm3": 18.538569229331827,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.14552776845025484,
+      "centroid_mm": [
+        -9.0,
+        -2.371957720414834e-16,
+        12.200000000000003
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "drive_pin_9.0",
+      "volume_mm3": 30.473448739820984,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.23921657260759474,
+      "centroid_mm": [
+        8.999999999999998,
+        -1.7445301427737474e-17,
+        12.350000000000001
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "drive_pin_lower_nut_9.0",
+      "volume_mm3": 18.538569229331834,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.1455277684502549,
+      "centroid_mm": [
+        9.000000000000004,
+        -2.247626773623664e-16,
+        8.999999999999998
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "drive_pin_upper_nut_9.0",
+      "volume_mm3": 18.53856922933184,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.14552776845025497,
+      "centroid_mm": [
+        8.999999999999998,
+        -1.7685291643567927e-16,
+        12.200000000000003
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "servo_mount_nut_-1",
+      "volume_mm3": 18.53856922933185,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.145527768450255,
+      "centroid_mm": [
+        -19.200000000000003,
+        2.407259547803674e-16,
+        -0.5999999999999998
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "servo_M2x6_-1",
+      "volume_mm3": 40.12402233342998,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.3149735753174253,
+      "centroid_mm": [
+        -19.2,
+        -6.020884170361877e-16,
+        -4.298941367488608
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "servo_mount_nut_1",
+      "volume_mm3": 18.538569229331834,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.1455277684502549,
+      "centroid_mm": [
+        8.300000000000002,
+        -2.245495486692066e-16,
+        -0.5999999999999998
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "servo_M2x6_1",
+      "volume_mm3": 40.124022333429984,
+      "density_g_cm3": 7.85,
+      "mass_g": 0.31497357531742537,
+      "centroid_mm": [
+        8.3,
+        -6.162148032068337e-16,
+        -4.298941367488609
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "servo_lead_0",
+      "volume_mm3": 51.84104402952703,
+      "density_g_cm3": 1.45,
+      "mass_g": 0.0751695138428142,
+      "centroid_mm": [
+        -35.78696981447954,
+        -9.686771562164964,
+        -3.3009753468687983
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "servo_lead_1",
+      "volume_mm3": 51.84104402156706,
+      "density_g_cm3": 1.45,
+      "mass_g": 0.07516951383127222,
+      "centroid_mm": [
+        -35.78696981640328,
+        -8.686771561809433,
+        -3.3009753463441007
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "servo_lead_2",
+      "volume_mm3": 51.841044024574266,
+      "density_g_cm3": 1.45,
+      "mass_g": 0.07516951383563268,
+      "centroid_mm": [
+        -35.78696981543889,
+        -7.686771562110255,
+        -3.300975346608801
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "servo_JR_plug",
+      "volume_mm3": 177.42477796076935,
+      "density_g_cm3": 1.2,
+      "mass_g": 0.21290973355292322,
+      "centroid_mm": [
+        -69.0,
+        -10.000000000000002,
+        0.8000000000000003
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "rail_zip_-85.0_-30",
+      "volume_mm3": 221.12580098815482,
+      "density_g_cm3": 1.14,
+      "mass_g": 0.25208341312649646,
+      "centroid_mm": [
+        -85.00000000000001,
+        -27.118429885494454,
+        75.26150469306779
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "rail_zip_-85.0_30",
+      "volume_mm3": 221.12580098815485,
+      "density_g_cm3": 1.14,
+      "mass_g": 0.2520834131264965,
+      "centroid_mm": [
+        -84.99999999999999,
+        32.88157011450553,
+        75.2615046930678
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "rail_zip_60.0_-30",
+      "volume_mm3": 221.12580098815474,
+      "density_g_cm3": 1.14,
+      "mass_g": 0.2520834131264964,
+      "centroid_mm": [
+        60.0,
+        -27.118429885494447,
+        75.26150469306779
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "rail_zip_60.0_30",
+      "volume_mm3": 221.1258009881547,
+      "density_g_cm3": 1.14,
+      "mass_g": 0.25208341312649635,
+      "centroid_mm": [
+        59.99999999999996,
+        32.88157011450554,
+        75.26150469306782
+      ],
+      "basis": "modeled hardware density"
+    },
+    {
+      "name": "PTFE_bearing_film",
+      "volume_mm3": 67.1798173043648,
+      "density_g_cm3": 2.2,
+      "mass_g": 0.14779559806960257,
+      "centroid_mm": [
+        -1.5568945391742113e-13,
+        -2.293566144769247e-15,
+        11.954999999999993
+      ],
+      "basis": "modeled hardware density"
+    }
+  ],
+  "harness_total_g": 183.47897683038832,
+  "harness_cg_mm": [
+    -4.136356415280687,
+    -0.11565017766541275,
+    9.52145320329093
+  ],
+  "carried_payload_g": 816.131941758785,
+  "infill": "100% in all prototype parts; four 0.4mm walls and six top/bottom layers; no global density multiplier",
+  "balance_iterations": [
+    {
+      "hanger": [
+        267.0,
+        6.0
+      ],
+      "cg": [
+        265.81746651364085,
+        6.439844593206674
+      ],
+      "mass": 158.00838106138954
+    },
+    {
+      "hanger": [
+        265.81746651364085,
+        6.439844593206674
+      ],
+      "cg": [
+        265.7338971139896,
+        6.46769473213635
+      ],
+      "mass": 158.1547361166509
+    },
+    {
+      "hanger": [
+        265.7338971139896,
+        6.46769473213635
+      ],
+      "cg": [
+        265.72794768688186,
+        6.469517472530669
+      ],
+      "mass": 158.16324123209918
+    }
+  ]
+}

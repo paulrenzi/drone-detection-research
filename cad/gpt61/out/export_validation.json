@@ -1,0 +1,230 @@
+{
+  "printed": [
+    {
+      "part": "body",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 14594,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 32795.56355158128,
+      "stl_volume_mm3": 32797.73340605873,
+      "relative_volume_error": 6.616304897567388e-05,
+      "stl_bounds": [
+        -103.36695098876953,
+        103.36695098876953,
+        -18.649999618530273,
+        18.649999618530273,
+        1.0000000116860974e-07,
+        53.20000076293945
+      ]
+    },
+    {
+      "part": "pod_shell",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 13512,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 17124.415292142334,
+      "stl_volume_mm3": 17122.861830396814,
+      "relative_volume_error": 9.071619199940894e-05,
+      "stl_bounds": [
+        -41.75,
+        41.75,
+        -20.700000762939453,
+        20.700000762939453,
+        0.0,
+        21.200000762939453
+      ]
+    },
+    {
+      "part": "pod_lid",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 7796,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 6334.935293002034,
+      "stl_volume_mm3": 6334.89979748119,
+      "relative_volume_error": 5.603138659247565e-06,
+      "stl_bounds": [
+        -41.0,
+        41.0,
+        -18.0,
+        18.0,
+        0.0,
+        13.5
+      ]
+    },
+    {
+      "part": "plate",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 13228,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 103683.19779530354,
+      "stl_volume_mm3": 103655.62451144792,
+      "relative_volume_error": 0.00026593782253948867,
+      "stl_bounds": [
+        -88.5,
+        88.5,
+        -82.33316802978516,
+        82.33316802978516,
+        1.0000000116860974e-07,
+        76.19999694824219
+      ]
+    },
+    {
+      "part": "rotor",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 4104,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 30410.991532147244,
+      "stl_volume_mm3": 30393.014210758578,
+      "relative_volume_error": 0.0005911455195290785,
+      "stl_bounds": [
+        -64.64907836914062,
+        64.64952087402344,
+        -64.89903259277344,
+        64.89077758789062,
+        -8.414006546110921e-16,
+        6.0
+      ]
+    },
+    {
+      "part": "fit_coupon",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 3164,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 3537.223465853333,
+      "stl_volume_mm3": 3537.572500873729,
+      "relative_volume_error": 9.867485720522786e-05,
+      "stl_bounds": [
+        -27.5,
+        27.5,
+        -5.800000190734863,
+        5.800000190734863,
+        0.0,
+        10.800000190734863
+      ]
+    }
+  ],
+  "files": [
+    {
+      "file": "assembly_carried.step",
+      "bytes": 244547724,
+      "sha256": "b3175997b5f31bf1c7ce1997e1803d4c216989c308c223c2ba747d02eedc9af2"
+    },
+    {
+      "file": "assembly_mid_release.step",
+      "bytes": 244558120,
+      "sha256": "8806f94c129564aa6e011ad7fd248cdcd2c351eb43ef0e312cc619d07b9bcb8a"
+    },
+    {
+      "file": "assembly_stood.step",
+      "bytes": 244577351,
+      "sha256": "a5911b73297c316217bed5a39e3cea5ac2f08d530c5879c41c44075a5448c2dc"
+    },
+    {
+      "file": "body.step",
+      "bytes": 1536002,
+      "sha256": "9128886a45cdd693f2b23880bf47dd7785649cfb5929560a0094ca4b94f11bcf"
+    },
+    {
+      "file": "body.stl",
+      "bytes": 729834,
+      "sha256": "49870c67e131f5c853360ee0627dd51066e362c9fbda77a9535ccef604deb509"
+    },
+    {
+      "file": "bought_18650.step",
+      "bytes": 28862,
+      "sha256": "5578b6e3d777c9e2595b6dbfd57a8410f8b57b787ec5705a4d2ddd88c36c707d"
+    },
+    {
+      "file": "bought_heltec_v3.step",
+      "bytes": 34896369,
+      "sha256": "f8379bfff9cc4ab70ee26b1cd4cb59e2d7652d5fe4b84bfc520a10613bf6666c"
+    },
+    {
+      "file": "bought_inmp441.step",
+      "bytes": 132491,
+      "sha256": "f2e062708cfb6e8ed2503038182e0574170e83ad6a552c7d16083c3fb9b2e67e"
+    },
+    {
+      "file": "bought_rod.step",
+      "bytes": 8205,
+      "sha256": "bc767ae815b63d92c27141104db5aac8f7a34716593b04e5cdccead182a89455"
+    },
+    {
+      "file": "bought_SG90.step",
+      "bytes": 1145513,
+      "sha256": "5c120b94219a39f4f9188ccc4224548e0a951c1155d33b8c46fc462452e79b04"
+    },
+    {
+      "file": "bought_x500.step",
+      "bytes": 189444063,
+      "sha256": "a05342d4f29982ec51f002daca129e1bb2e924eca1efaf79a37d14078e98ed06"
+    },
+    {
+      "file": "dart_stood.step",
+      "bytes": 49410549,
+      "sha256": "3b9db0f64d827f788edd1c10443c3d88dbc4020af5468d3bfec1dace45e59b39"
+    },
+    {
+      "file": "fit_coupon.step",
+      "bytes": 253082,
+      "sha256": "468b552fc67e9b63014d3f9852b7858c017c329d7888daee25c5c2f88f54ddd4"
+    },
+    {
+      "file": "fit_coupon.stl",
+      "bytes": 158284,
+      "sha256": "d5a9e07753fbc8db2366306ef7d83c385bbe35d7323414db766baad406229280"
+    },
+    {
+      "file": "plate.step",
+      "bytes": 1568495,
+      "sha256": "24298c329a2f2d1c638db26faae184c207d78036234756d7a716763dc2367f55"
+    },
+    {
+      "file": "plate.stl",
+      "bytes": 661484,
+      "sha256": "53a45a86ed632e9e62642869b96df8c20e18c1a17925bcf402b0fed6c607f483"
+    },
+    {
+      "file": "pod_lid.step",
+      "bytes": 333942,
+      "sha256": "fd87f79603cf4bd9ec8144859bfcbcd1cb3326aa44b3950909215eaab16afcdb"
+    },
+    {
+      "file": "pod_lid.stl",
+      "bytes": 389884,
+      "sha256": "d5b23775cec662f1cc630a4237b80245a4223e9fcd7e90e6948218a2aeaef813"
+    },
+    {
+      "file": "pod_shell.step",
+      "bytes": 798570,
+      "sha256": "83f3128b172e933a363346d7383678d12c75a4ec2fb2b5a06a9601dd404138af"
+    },
+    {
+      "file": "pod_shell.stl",
+      "bytes": 675684,
+      "sha256": "54d647941e6b79b14f4821b141c0819875da88c1721d1d4eba9a933618a17b8f"
+    },
+    {
+      "file": "rotor.step",
+      "bytes": 211281,
+      "sha256": "e3d65d2efbac6656c93816d72792e6d9fd19a3659cd706e861856f1d15848dc4"
+    },
+    {
+      "file": "rotor.stl",
+      "bytes": 205284,
+      "sha256": "500680ed698ca593f1c46f4e457443630886650da0f727d2b8063b1c3ce4a222"
+    }
+  ]
+}

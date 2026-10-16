@@ -1,0 +1,68 @@
+[
+  {
+    "part": "body",
+    "quantity": 4,
+    "step": "body.step",
+    "stl": "body.stl",
+    "print_bbox_mm": [
+      206.73389721398965,
+      37.300000100000005,
+      53.20000010000002
+    ]
+  },
+  {
+    "part": "pod_shell",
+    "quantity": 4,
+    "step": "pod_shell.step",
+    "stl": "pod_shell.stl",
+    "print_bbox_mm": [
+      83.5000001,
+      41.4,
+      21.200000100000004
+    ]
+  },
+  {
+    "part": "pod_lid",
+    "quantity": 4,
+    "step": "pod_lid.step",
+    "stl": "pod_lid.stl",
+    "print_bbox_mm": [
+      82.00000000000003,
+      36.0,
+      13.500000000000009
+    ]
+  },
+  {
+    "part": "plate",
+    "quantity": 1,
+    "step": "plate.step",
+    "stl": "plate.stl",
+    "print_bbox_mm": [
+      177.0,
+      164.66632928440472,
+      76.20000019999999
+    ]
+  },
+  {
+    "part": "rotor",
+    "quantity": 1,
+    "step": "rotor.step",
+    "stl": "rotor.stl",
+    "print_bbox_mm": [
+      129.29904772779176,
+      129.8,
+      6.000000000000011
+    ]
+  },
+  {
+    "part": "fit_coupon",
+    "quantity": 1,
+    "step": "fit_coupon.step",
+    "stl": "fit_coupon.stl",
+    "print_bbox_mm": [
+      55.0,
+      11.6,
+      10.8
+    ]
+  }
+]

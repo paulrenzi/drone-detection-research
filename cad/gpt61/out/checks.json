@@ -1,0 +1,714 @@
+{
+  "checks": [
+    {
+      "check": "body_solid",
+      "pass_": true,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 32795.56371530752
+    },
+    {
+      "check": "body_bed",
+      "pass_": true,
+      "bbox_mm": [
+        206.73389721398965,
+        37.300000100000005,
+        53.20000010000002
+      ],
+      "bed_mm": [
+        245.0,
+        245.0,
+        260.0
+      ]
+    },
+    {
+      "check": "pod_shell_solid",
+      "pass_": true,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 17124.415105298136
+    },
+    {
+      "check": "pod_shell_bed",
+      "pass_": true,
+      "bbox_mm": [
+        83.5000001,
+        41.4,
+        21.200000100000004
+      ],
+      "bed_mm": [
+        245.0,
+        245.0,
+        260.0
+      ]
+    },
+    {
+      "check": "pod_lid_solid",
+      "pass_": true,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 6334.935293002187
+    },
+    {
+      "check": "pod_lid_bed",
+      "pass_": true,
+      "bbox_mm": [
+        82.00000000000003,
+        36.0,
+        13.500000000000009
+      ],
+      "bed_mm": [
+        245.0,
+        245.0,
+        260.0
+      ]
+    },
+    {
+      "check": "plate_solid",
+      "pass_": true,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 103683.19756902335
+    },
+    {
+      "check": "plate_bed",
+      "pass_": true,
+      "bbox_mm": [
+        177.0,
+        164.66632928440472,
+        76.20000019999999
+      ],
+      "bed_mm": [
+        245.0,
+        245.0,
+        260.0
+      ]
+    },
+    {
+      "check": "rotor_solid",
+      "pass_": true,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 30410.991532145108
+    },
+    {
+      "check": "rotor_bed",
+      "pass_": true,
+      "bbox_mm": [
+        129.29904772779176,
+        129.8,
+        6.000000000000011
+      ],
+      "bed_mm": [
+        245.0,
+        245.0,
+        260.0
+      ]
+    },
+    {
+      "check": "fit_coupon_solid",
+      "pass_": true,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 3537.2234658533307
+    },
+    {
+      "check": "fit_coupon_bed",
+      "pass_": true,
+      "bbox_mm": [
+        55.0,
+        11.6,
+        10.8
+      ],
+      "bed_mm": [
+        245.0,
+        245.0,
+        260.0
+      ]
+    },
+    {
+      "check": "balance_fixed_point",
+      "pass_": true,
+      "hanger_mm": 265.7338971139896,
+      "cg_mm": [
+        265.72794768688186,
+        6.469517472530669,
+        8.21611061118542
+      ],
+      "mass_g": 158.16324123209918
+    },
+    {
+      "check": "snap_flexure_screen",
+      "pass_": true,
+      "per_arm_deflection_mm": 0.8999999999999986,
+      "nominal_surface_strain": 0.004999999999999991,
+      "root_factor": 2.0,
+      "factored_strain": 0.009999999999999983,
+      "screen_allowable": 0.015,
+      "per_arm_tip_force_N": 0.7253333333333319,
+      "four_arm_force_N": 2.9013333333333278,
+      "method": "linear axial cantilever, F=3EI delta/L^3; conservative tip load"
+    },
+    {
+      "check": "hanger_tension_screen",
+      "pass_": true,
+      "stress_3g_MPa": 0.23706417490590237,
+      "assumed_print_allowable_MPa": 8,
+      "method": "axial neck area, layer-strength coupon required"
+    },
+    {
+      "check": "bearing_friction_screen",
+      "pass_": true,
+      "assumed_mu": 0.12,
+      "static_torque_Nm": 0.036865573980528574,
+      "three_g_torque_Nm": 0.11059672194158572,
+      "SG90_4v8_stall_Nm": 0.1765197,
+      "scope": "engineering estimate with PTFE tape, no measured friction or servo current"
+    },
+    {
+      "check": "cell_to_body",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "PCB_to_shell",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "PCB_to_lid",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "mic_to_shell",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "mic_to_lid",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "shell_to_lid",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "power_wire_0_to_body",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "power_wire_0_to_pod_shell",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "power_wire_0_to_pod_lid",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "power_wire_1_to_body",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "power_wire_1_to_pod_shell",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "power_wire_1_to_pod_lid",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "rod_press_lands_declared",
+      "pass_": true,
+      "intentional_interference_mm3": 4.378204164032724,
+      "land_bore_mm": 5.95,
+      "rod_mm": 6.0,
+      "main_bore_mm": 6.35
+    },
+    {
+      "check": "servo_case_to_plate",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "servo_case_to_rotor",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "rotor_to_plate",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "horn_and_drive_to_plate",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "horn_and_drive_to_rotor",
+      "pass_": true,
+      "interference_mm3": 0.0
+    },
+    {
+      "check": "axial_keeper_to_rotor",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "keeper_gap_mm": 0.4
+    },
+    {
+      "check": "rail_tie_channels",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "nominal_tie_width_mm": 2.5,
+      "channel_width_mm": 3.1
+    },
+    {
+      "check": "dart1_release",
+      "pass_": true,
+      "initial_mm2": 26.725850868571634,
+      "previous_detent_mm2": 26.725850868571634,
+      "minimum_before_previous_detent_mm2": 26.725850868571634,
+      "at_release_mm2": 0.0,
+      "release_deg": 16.0,
+      "full_clear_window_deg": [
+        11.0,
+        21.0
+      ]
+    },
+    {
+      "check": "dart2_release",
+      "pass_": true,
+      "initial_mm2": 26.725850868572085,
+      "previous_detent_mm2": 26.725850868572127,
+      "minimum_before_previous_detent_mm2": 26.72585086857206,
+      "at_release_mm2": 0.0,
+      "release_deg": 48.0,
+      "full_clear_window_deg": [
+        43.0,
+        53.0
+      ]
+    },
+    {
+      "check": "dart3_release",
+      "pass_": true,
+      "initial_mm2": 26.725850868571815,
+      "previous_detent_mm2": 26.725850868571797,
+      "minimum_before_previous_detent_mm2": 26.72585086857173,
+      "at_release_mm2": 0.0,
+      "release_deg": 32.0,
+      "full_clear_window_deg": [
+        27.0,
+        37.0
+      ]
+    },
+    {
+      "check": "dart4_release",
+      "pass_": true,
+      "initial_mm2": 26.725850868571815,
+      "previous_detent_mm2": 26.72585086857179,
+      "minimum_before_previous_detent_mm2": 26.725850868571676,
+      "at_release_mm2": 0.0,
+      "release_deg": 64.0,
+      "full_clear_window_deg": [
+        59.0,
+        64.0
+      ]
+    },
+    {
+      "check": "rotor_body_sweep",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "worst_angle_dart": [],
+      "sampled_step_deg": 2
+    },
+    {
+      "check": "harness_to_OEM_drone",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 0.0,
+      "nearest": "x500_landing_gear_002"
+    },
+    {
+      "check": "carried_dart1_frame",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 17.399999999999974,
+      "nearest": "x500_frame_203"
+    },
+    {
+      "check": "carried_dart1_landing_gear",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 1.9263859386617455,
+      "nearest": "x500_landing_gear_003"
+    },
+    {
+      "check": "carried_dart1_prop_sweeps",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 123.59999999999998,
+      "nearest": "prop_swept_0"
+    },
+    {
+      "check": "carried_dart1_harness",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 0.0,
+      "nearest": "plate"
+    },
+    {
+      "check": "carried_dart1_ground",
+      "pass_": true,
+      "clearance_mm": 90.2764334894
+    },
+    {
+      "check": "carried_dart2_frame",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 17.399999999999974,
+      "nearest": "x500_frame_203"
+    },
+    {
+      "check": "carried_dart2_landing_gear",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 0.0,
+      "nearest": "x500_landing_gear_003"
+    },
+    {
+      "check": "carried_dart2_prop_sweeps",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 123.59999999999998,
+      "nearest": "prop_swept_0"
+    },
+    {
+      "check": "carried_dart2_harness",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 0.0,
+      "nearest": "plate"
+    },
+    {
+      "check": "carried_dart2_ground",
+      "pass_": true,
+      "clearance_mm": 90.2764334894
+    },
+    {
+      "check": "darts_1_2_separation",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "clearance_lower_bound_mm": 2.6999998999999804
+    },
+    {
+      "check": "carried_dart3_frame",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 17.399999999999974,
+      "nearest": "x500_frame_203"
+    },
+    {
+      "check": "carried_dart3_landing_gear",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 0.0,
+      "nearest": "x500_landing_gear_019"
+    },
+    {
+      "check": "carried_dart3_prop_sweeps",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 123.59999999999998,
+      "nearest": "prop_swept_1"
+    },
+    {
+      "check": "carried_dart3_harness",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 0.0,
+      "nearest": "plate"
+    },
+    {
+      "check": "carried_dart3_ground",
+      "pass_": true,
+      "clearance_mm": 90.2764334894
+    },
+    {
+      "check": "darts_1_3_separation",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "clearance_lower_bound_mm": 6.699999900000005
+    },
+    {
+      "check": "darts_2_3_separation",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "clearance_lower_bound_mm": 42.599999999999994
+    },
+    {
+      "check": "carried_dart4_frame",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 17.4169272606206,
+      "nearest": "x500_frame_203"
+    },
+    {
+      "check": "carried_dart4_landing_gear",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 0.0,
+      "nearest": "x500_landing_gear_019"
+    },
+    {
+      "check": "carried_dart4_prop_sweeps",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 123.59999999999998,
+      "nearest": "prop_swept_1"
+    },
+    {
+      "check": "carried_dart4_harness",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "part": "",
+      "min_clearance_mm": 0.0,
+      "nearest": "plate"
+    },
+    {
+      "check": "carried_dart4_ground",
+      "pass_": true,
+      "clearance_mm": 90.2764334894
+    },
+    {
+      "check": "darts_1_4_separation",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "clearance_lower_bound_mm": 42.599999999999994
+    },
+    {
+      "check": "darts_2_4_separation",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "clearance_lower_bound_mm": 82.59999999999998
+    },
+    {
+      "check": "darts_3_4_separation",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "clearance_lower_bound_mm": 2.6999998999999804
+    },
+    {
+      "check": "vertical_extraction_sweep",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "worst_dart_drop_part": null,
+      "drop_samples_mm": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        75,
+        80,
+        85,
+        90
+      ],
+      "min_leg_clearance_mm": 0.0
+    },
+    {
+      "check": "post_extraction_pitch_sweep",
+      "pass_": true,
+      "max_interference_mm3": 0.0,
+      "worst": null,
+      "pitch_step_deg": 5,
+      "vertical_translation_before_pitch_mm": 430,
+      "aircraft_height_above_stock_ground_mm": 1500,
+      "ground_clearance_mm": 907.9586469865958,
+      "scope": "prescribed path only, no fall dynamics or aerodynamic claim"
+    },
+    {
+      "check": "stood_body_ground",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "lowest_height_mm": -1.0000000532907051e-07
+    },
+    {
+      "check": "stood_pod_shell_ground",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "lowest_height_mm": 408.4999999
+    },
+    {
+      "check": "stood_pod_lid_ground",
+      "pass_": true,
+      "interference_mm3": 0.0,
+      "lowest_height_mm": 410.0
+    },
+    {
+      "check": "stood_full_aircraft_scene",
+      "pass_": true,
+      "clearance_lower_bound_mm": 195.51871363043637,
+      "listener_offset_mm": [
+        650,
+        0,
+        0
+      ],
+      "stock_skid_ground_z_mm": 0,
+      "scope": "end-state review layout; intentional70mm tip-soil penetration"
+    }
+  ],
+  "failed": [],
+  "rigid_interferences": [],
+  "release_contact": {
+    "1": {
+      "initial_mm2": 26.725850868571634,
+      "previous_detent_mm2": 26.725850868571634,
+      "minimum_before_previous_detent_mm2": 26.725850868571634,
+      "at_release_mm2": 0.0,
+      "release_deg": 16.0,
+      "full_clear_window_deg": [
+        11.0,
+        21.0
+      ]
+    },
+    "2": {
+      "initial_mm2": 26.725850868572085,
+      "previous_detent_mm2": 26.725850868572127,
+      "minimum_before_previous_detent_mm2": 26.72585086857206,
+      "at_release_mm2": 0.0,
+      "release_deg": 48.0,
+      "full_clear_window_deg": [
+        43.0,
+        53.0
+      ]
+    },
+    "3": {
+      "initial_mm2": 26.725850868571815,
+      "previous_detent_mm2": 26.725850868571797,
+      "minimum_before_previous_detent_mm2": 26.72585086857173,
+      "at_release_mm2": 0.0,
+      "release_deg": 32.0,
+      "full_clear_window_deg": [
+        27.0,
+        37.0
+      ]
+    },
+    "4": {
+      "initial_mm2": 26.725850868571815,
+      "previous_detent_mm2": 26.72585086857179,
+      "minimum_before_previous_detent_mm2": 26.725850868571676,
+      "at_release_mm2": 0.0,
+      "release_deg": 64.0,
+      "full_clear_window_deg": [
+        59.0,
+        64.0
+      ]
+    }
+  },
+  "measure_parameters": {
+    "rod_d": 6.0,
+    "rod_fit_bore": 5.95,
+    "rod_density": 1.9,
+    "cell_d": 18.33,
+    "cell_l": 64.85,
+    "cell_mass": 45.0,
+    "cell_terminal_d": 6.0,
+    "cell_terminal_h": 0.35,
+    "cell_insulator_d": 14.4,
+    "cell_insulator_t": 0.12,
+    "sg_case_l": 22.7,
+    "sg_case_w": 12.2,
+    "sg_case_h": 27.0,
+    "sg_tabs_span": 32.3,
+    "sg_tab_z": 17.0,
+    "sg_tab_t": 2.0,
+    "sg_hole_pitch": 27.5,
+    "sg_hole_d": 2.0,
+    "sg_axis_from_end": 5.9,
+    "sg_spline_d": 4.8,
+    "sg_spline_teeth": 21,
+    "sg_spline_h": 3.3,
+    "sg_screw_d": 1.6,
+    "sg_gear_cap_h": 4.3,
+    "sg_gear_cap_r": 5.7,
+    "sg_rear_cap_r": 3.2,
+    "sg_rear_cap_h": 3.0,
+    "sg_case_corner_r": 1.0,
+    "sg_spline_groove_w": 0.35,
+    "horn_l": 27.0,
+    "horn_w": 5.2,
+    "horn_t": 1.6,
+    "horn_boss_d": 7.0,
+    "horn_boss_h": 3.8,
+    "horn_pin_pitch": 18.0,
+    "mic_board_w": 14.0,
+    "mic_board_l": 16.0,
+    "mic_board_t": 1.0,
+    "mic_port_d": 1.0,
+    "mic_port_x_offset": 0.0,
+    "mic_pad_row_span": 11.0,
+    "mic_pad_pitch": 4.5,
+    "mic_mass": 1.0,
+    "board_mass": 9.0,
+    "oled_w": 18.56,
+    "oled_l": 33.28,
+    "oled_z": 3.6,
+    "oled_t": 1.6,
+    "oled_active_l": 21.74,
+    "oled_active_w": 10.86,
+    "whip_l": 82.0,
+    "whip_d": 1.6,
+    "whip_base_d": 4.0,
+    "whip_boot_l": 8.0,
+    "whip_mass": 1.2,
+    "petg_density": 1.27,
+    "petg_modulus": 1600.0,
+    "printed_allowable_strain": 0.015,
+    "wire_od": 1.05,
+    "prop_plane_from_bottom_plate": 57.0,
+    "prop_sweep_thickness": 4.0
+  },
+  "clearance_distances": "Vehicle distances are conservative axis-aligned bounding-box lower bounds; a zero lower bound is NOT a measured zero gap. Interference results use actual B-rep boolean volumes after broad-phase pruning.",
+  "discrete_sampling": "0.5deg contact; 2deg rotor-neck; 5mm extraction; 5deg prescribed pitch",
+  "limitations": [
+    "No aerodynamic or self-righting simulation",
+    "No print, proof load, water, shake, cycling or flight test",
+    "MEASURE parameters remain nominal assumptions",
+    "Intentional press-fit, heat-set and elastomer contacts are excluded from clearance pass claims"
+  ]
+}

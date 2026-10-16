@@ -3,3 +3,12 @@ run.jsonl
 run.err
 run.pid
 __pycache__/
+cache/
+tmp/
+vendor/
+*.log
+# >100 MB, over the GitHub limit; regenerate with build.py
+out/assembly_carried.step
+out/assembly_mid_release.step
+out/assembly_stood.step
+out/bought_x500.step

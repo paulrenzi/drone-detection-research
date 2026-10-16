@@ -1,0 +1,23 @@
+{
+  "assembly_files": [
+    {
+      "file": "assembly_carried.step",
+      "bytes": 244547724,
+      "step_header_tail": true
+    },
+    {
+      "file": "assembly_mid_release.step",
+      "bytes": 244558120,
+      "step_header_tail": true
+    },
+    {
+      "file": "assembly_stood.step",
+      "bytes": 244577351,
+      "step_header_tail": true
+    }
+  ],
+  "carried_native_STEP_parser": "IFSelect_RetDone",
+  "transfer_roots": 1,
+  "elapsed_s": 7.8365278244018555,
+  "scope": "Native STEP syntax/entity parse of full carried assembly; printed parts separately transferred and topology-checked"
+}

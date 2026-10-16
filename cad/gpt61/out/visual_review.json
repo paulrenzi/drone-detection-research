@@ -1,0 +1,175 @@
+{
+  "reviewed_utc": "2026-10-16T02:32:59.169253+00:00",
+  "images": [
+    {
+      "file": "assembly_carried.png",
+      "pixels": [
+        1800,
+        1200
+      ],
+      "sha256": "51a6d70e212b3f1f9dc5cf6e709a8c09353f95044cc1b577788fae281a4c0737",
+      "reviewed": true,
+      "note": "Full X500, four horizontally carried listeners, stock legs and prop sweeps visible."
+    },
+    {
+      "file": "assembly_mid_release.png",
+      "pixels": [
+        1800,
+        1200
+      ],
+      "sha256": "04598727b275d4667a8415ba74adbde79b974f26890e5a06771e65adb0451990",
+      "reviewed": true,
+      "note": "First listener separated70mm, other three retained."
+    },
+    {
+      "file": "assembly_stood.png",
+      "pixels": [
+        1900,
+        1200
+      ],
+      "sha256": "7f19d11fbccd174e2e4f2662bac5014b6638019d5cacfd078791e16de7e06ee3",
+      "reviewed": true,
+      "note": "Aircraft and three listeners on stock skid ground; fourth stands in soil."
+    },
+    {
+      "file": "bought_heltec.png",
+      "pixels": [
+        1500,
+        1000
+      ],
+      "sha256": "6b9ad44e6f7fb316d3f034540c9b7dfbb45beee734efdeb017e7c576f1ac6c41",
+      "reviewed": true,
+      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    },
+    {
+      "file": "bought_servo.png",
+      "pixels": [
+        1300,
+        1100
+      ],
+      "sha256": "e05fb02f275a511785c1df6577df1241f9560923caf844aa08f5797299116c2c",
+      "reviewed": true,
+      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    },
+    {
+      "file": "dart_stood.png",
+      "pixels": [
+        850,
+        1600
+      ],
+      "sha256": "2febcb70a6a4bbb34e6774edaa3dcd4385ba538f4273def27519610731fbe0db",
+      "reviewed": true,
+      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    },
+    {
+      "file": "pod_exploded.png",
+      "pixels": [
+        1600,
+        1150
+      ],
+      "sha256": "72c162b4aff69875f07f337bfb010c537443c48842391a66dff8c8b1d75a6225",
+      "reviewed": true,
+      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    },
+    {
+      "file": "print_body.png",
+      "pixels": [
+        1600,
+        1000
+      ],
+      "sha256": "3266b52d1b466bbae33c830d8b35ae423e80ba81ee00866f88a47b3080015b9d",
+      "reviewed": true,
+      "note": "Widened hanger foundation and shortened aft gusset supported by base; local snap/flange supports specified."
+    },
+    {
+      "file": "print_fit_coupon.png",
+      "pixels": [
+        1600,
+        1000
+      ],
+      "sha256": "52e9914163c54aca3c23a5317bd8ee7631e2b65eaa53af581694bf57052619d7",
+      "reviewed": true,
+      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    },
+    {
+      "file": "print_plate.png",
+      "pixels": [
+        1600,
+        1000
+      ],
+      "sha256": "1d9db6f77a26947c41ddc1623dc5b9041407f7877c96c49095e476030a15dd1b",
+      "reviewed": true,
+      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    },
+    {
+      "file": "print_pod_lid.png",
+      "pixels": [
+        1600,
+        1000
+      ],
+      "sha256": "8ae888166d18a94d54caffd1e073a286be95affc9bedfc453d1eab1c42d3c6a7",
+      "reviewed": true,
+      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    },
+    {
+      "file": "print_pod_shell.png",
+      "pixels": [
+        1600,
+        1000
+      ],
+      "sha256": "03a676c69d4e274465c203a9096390166411466e552e6f56b032a5891cea26d3",
+      "reviewed": true,
+      "note": "Open electronics tray and seal land visible; local hood, entry and guide supports specified."
+    },
+    {
+      "file": "print_rotor.png",
+      "pixels": [
+        1600,
+        1000
+      ],
+      "sha256": "c7daf1f44bc7c284270d527ca8f4e22122d139fd5bfcf61acefba81ec171d798",
+      "reviewed": true,
+      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    },
+    {
+      "file": "release_detail.png",
+      "pixels": [
+        1500,
+        1100
+      ],
+      "sha256": "4c36fbaf1a4e3ca923e0e601d347c804e239622feb13c2ef265fb070a67cccd6",
+      "reviewed": true,
+      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    },
+    {
+      "file": "section_body.png",
+      "pixels": [
+        1600,
+        900
+      ],
+      "sha256": "db0bff7592f97907401aef4335010d138491642d54dfbe05ad6ce066e0ee648a",
+      "reviewed": true,
+      "note": "Cell omitted to expose saddle, beam reliefs and end stops."
+    },
+    {
+      "file": "section_body_snap.png",
+      "pixels": [
+        1200,
+        950
+      ],
+      "sha256": "f8dbbc15e66e8061bdfa0f8f79578bc2af7c9e2b2cf5aa95eef63f577541ab20",
+      "reviewed": true,
+      "note": "Rod bore, cell clearance, lips and separate deflecting beams visible."
+    },
+    {
+      "file": "section_pod.png",
+      "pixels": [
+        1600,
+        1100
+      ],
+      "sha256": "d11c822c408e89a9e4fbef9e8f2700712ea782510a9716ab03bafc93311324f0",
+      "reviewed": true,
+      "note": "Real boolean section exposes PCB/OLED stack, rod socket, lid supports and side microphone."
+    }
+  ]
+}
