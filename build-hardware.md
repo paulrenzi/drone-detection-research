@@ -13,6 +13,9 @@ Printable designs for the [tripwire]({{ site.baseurl }}{% link models/tripwire.m
 - **v1, superseded:** a folding-mast dart and a four-servo harness, kept below for its drop-test questions and as a fallback.
 - **A fully printed carrier quad (TL-1):** built round the X500's electronics.
 
+{: .note }
+> **A newer, detailed model of the dart and harness** is on [Build: 3D models]({{ site.baseurl }}{% link build-3d.md %}): built by GPT-6.1 from manufacturer CAD and datasheets, with a 3D viewer and exploded views. It keeps this page's concept. The renders below are the earlier hand-built models.
+
 Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
 {: .warning }

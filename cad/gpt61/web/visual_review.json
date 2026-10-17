@@ -1,0 +1,81 @@
+{
+  "reviewed_at_utc": "2026-10-16T23:49:09.594917+00:00",
+  "reviewer": "Codex visual inspection of each final PNG via view_image",
+  "pass_": true,
+  "mass_metadata_checks": {
+    "dart": {
+      "known_modelled_mass_g": 158.16324123209918,
+      "unknown_mass_nodes": 0,
+      "complete_aircraft_mass_available": null
+    },
+    "harness": {
+      "known_modelled_mass_g": 816.131941758785,
+      "unknown_mass_nodes": 2,
+      "complete_aircraft_mass_available": null
+    },
+    "aircraft": {
+      "known_modelled_mass_g": 816.131941758785,
+      "unknown_mass_nodes": 246,
+      "complete_aircraft_mass_available": false
+    }
+  },
+  "images": [
+    {
+      "file": "../renders/dart_exploded.png",
+      "size_bytes": 69235,
+      "sha256": "05ec5b8a73b9dba039fda58641d862820d0164d16926b025086394dbc38799fc",
+      "dimensions_px": [
+        2200,
+        1200
+      ],
+      "inspected": true,
+      "notes": "Reviewed full rod, integral body snaps/hanger, lifted cell, both wires, three ties, pod stack and antenna; labels terminate on parts."
+    },
+    {
+      "file": "../renders/dart_exploded_pod.png",
+      "size_bytes": 85199,
+      "sha256": "55e4f5b1129b5f58805a1922a6a33df4d35b6d675bfb423415b96f501423cb62",
+      "dimensions_px": [
+        1700,
+        1500
+      ],
+      "inspected": true,
+      "notes": "Reviewed four screws, lid fingers, cord, four foam pads, populated board/OLED, four inserts, tray, mic PCB, film and cavity seal; small items are distinct."
+    },
+    {
+      "file": "../renders/harness_exploded.png",
+      "size_bytes": 133295,
+      "sha256": "2c141b4a491bf066b3ca3f252afc5c0e81fbb66b495ef8bfec7620555ff99d21",
+      "dimensions_px": [
+        2200,
+        1500
+      ],
+      "inspected": true,
+      "notes": "Reviewed four full horizontal darts in two display tiers, lowered servo, plate/towers, horn/drive hardware, PTFE, rotor and keeper; all four rail ties are visibly separated."
+    },
+    {
+      "file": "../renders/harness_exploded_detail.png",
+      "size_bytes": 93011,
+      "sha256": "017fc487a6bf83ba2736820c9dae6b5fe9a1966cb88f0f47926048cf90a330ff",
+      "dimensions_px": [
+        1700,
+        1700
+      ],
+      "inspected": true,
+      "notes": "Reviewed the complete keeper and drive stack with sectioned hanger bodies; increased spacer/tie offsets clear the rotor in projection."
+    },
+    {
+      "file": "../renders/aircraft_exploded.png",
+      "size_bytes": 215282,
+      "sha256": "e6853d6b53ce185aeb4db8e4fb57771b23dd57f48b8765c76d5cbabf8e3ea78d",
+      "dimensions_px": [
+        2100,
+        2100
+      ],
+      "inspected": true,
+      "notes": "Reviewed original airframe, landing gear and translucent propeller clearance proxies, with separated harness stack and all four loaded darts below; no model clipping."
+    }
+  ],
+  "protected_geometry_unchanged": true,
+  "limitations": "Visual review of CAD presentation only; endpoint collision scope and physical-test limitations remain as documented."
+}

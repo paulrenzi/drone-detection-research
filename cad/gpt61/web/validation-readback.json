@@ -1,0 +1,119 @@
+{
+  "dart": {
+    "pass_": true,
+    "readers": [
+      "GLB binary + accessor round-trip",
+      "trimesh.Scene"
+    ],
+    "size_budget_bytes": 8000000,
+    "node_count": 30,
+    "triangle_count": 116996,
+    "unique_mesh_count": 30,
+    "animation_samples": 81,
+    "max_animation_translation_error_m": 1.7337799085304084e-08,
+    "bounds": {
+      "assembled": {
+        "min_m": [
+          -0.3219999971863449,
+          -0.010400000028312206,
+          -0.031700000166893005
+        ],
+        "max_m": [
+          0.32199999690055847,
+          0.04800000041723251,
+          0.023399999365210533
+        ]
+      },
+      "exploded": {
+        "min_m": [
+          -0.5622549653053284,
+          -0.010400000028312206,
+          -0.13352499902248383
+        ],
+        "max_m": [
+          0.5320000052452087,
+          0.1738000065088272,
+          0.08581999689340591
+        ]
+      }
+    }
+  },
+  "harness": {
+    "pass_": true,
+    "readers": [
+      "GLB binary + accessor round-trip",
+      "trimesh.Scene"
+    ],
+    "size_budget_bytes": 8000000,
+    "node_count": 146,
+    "triangle_count": 489392,
+    "unique_mesh_count": 56,
+    "animation_samples": 81,
+    "max_animation_translation_error_m": 1.4080403842875455e-08,
+    "bounds": {
+      "assembled": {
+        "min_m": [
+          -0.3300767242908478,
+          -0.03999999910593033,
+          -0.087232306599617
+        ],
+        "max_m": [
+          0.44260895252227783,
+          0.08240000158548355,
+          0.09186769276857376
+        ]
+      },
+      "exploded": {
+        "min_m": [
+          -0.3300767242908478,
+          -0.2549999952316284,
+          -0.087232306599617
+        ],
+        "max_m": [
+          0.44260895252227783,
+          0.20909999310970306,
+          0.09186769276857376
+        ]
+      }
+    }
+  },
+  "aircraft": {
+    "pass_": true,
+    "readers": [
+      "GLB binary + accessor round-trip",
+      "trimesh.Scene"
+    ],
+    "size_budget_bytes": 20000000,
+    "node_count": 390,
+    "triangle_count": 965136,
+    "unique_mesh_count": 300,
+    "animation_samples": 81,
+    "max_animation_translation_error_m": 2.9661543554659886e-08,
+    "bounds": {
+      "assembled": {
+        "min_m": [
+          -0.3300767242908478,
+          -0.13027643365725428,
+          -0.3071019952316284
+        ],
+        "max_m": [
+          0.44260895252227783,
+          0.19199999979141824,
+          0.3071019952316284
+        ]
+      },
+      "exploded": {
+        "min_m": [
+          -0.3300767242908478,
+          -0.6550000309944153,
+          -0.3071019952316284
+        ],
+        "max_m": [
+          0.44260895252227783,
+          0.19199999979141824,
+          0.3071019952316284
+        ]
+      }
+    }
+  }
+}

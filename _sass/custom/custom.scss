@@ -744,3 +744,95 @@ body.ou {
     padding: 16px;
   }
 }
+
+// 3D CAD viewer (assets/js/cad-viewer.js)
+.cad-viewer {
+  margin: 1rem 0 1.5rem;
+  border: 1px solid $ou-ink;
+  background: #ffffff;
+}
+
+.cad-stage {
+  position: relative;
+  height: 520px;
+  background: radial-gradient(circle at 50% 40%, #ffffff 0%, $ou-ground 100%);
+  touch-action: none;
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+  }
+}
+
+.cad-status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  color: $ou-muted;
+  font-family: $ou-mono;
+  font-size: 13px;
+  text-align: center;
+}
+
+.cad-tip {
+  position: absolute;
+  display: none;
+  padding: 3px 8px;
+  background: $ou-ink;
+  color: #ffffff;
+  font-family: $ou-mono;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.cad-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-top: 1px solid $ou-ink;
+  background: $ou-paper;
+}
+
+.cad-btn {
+  padding: 5px 12px;
+  border: 1px solid $ou-ink;
+  background: #ffffff;
+  color: $ou-ink;
+  font-family: $ou-mono;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &.is-on {
+    background: $ou-accent;
+    border-color: $ou-accent-dark;
+    color: #ffffff;
+  }
+}
+
+.cad-slider {
+  flex: 1 1 140px;
+  accent-color: $ou-accent;
+}
+
+.cad-info {
+  padding: 6px 10px;
+  border-top: 1px solid $ou-rule;
+  color: $ou-muted;
+  font-size: 13px;
+}
+
+@media (max-width: 50rem) {
+  .cad-stage {
+    height: 380px;
+  }
+}
