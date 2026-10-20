@@ -59,14 +59,14 @@ same key (the defect is described in `tripwire-firmware/main/lora_crypto.h`). Fi
   tag_boot, tag_ctr)**, where the tag bytes are the origin's boot and counter, low byte
   each. This closed a spec gap: I2 rule 2 used to dedup on the origin's nonce, which a
   relay can't see.
-- On relay: age saturates at 65535, hops capped at `TW_HOPS_MAX` (15 in the codec),
-  `rssi_hint = max(hint, clamp(-rssi, 1, 255))`.
+- On relay: age saturates at 65535, hops capped at `TW_HOPS_MAX` (63; `HOPS_MAX` in
+  Python), `rssi_hint = max(hint, clamp(-rssi, 1, 255))`.
 - **Relay rule:** relay once; wait 100–600 ms, shorter the weaker the alert was heard,
   plus up to 50 ms jitter; cancel on hearing another copy; check the channel before
   sending and re-draw the wait if busy.
-- 🛑 **The spec now says hop cap 63 or more** (`build-software.md` rule 4). The C codec
-  constant `TW_HOPS_MAX` is still 15 and the simulator's default `hop_limit` is 15. Raise
-  both when I2 is implemented in firmware.
+- **Hop cap is 63** everywhere: the spec (`build-software.md` rule 4), `TW_HOPS_MAX`,
+  Python `HOPS_MAX`, and the simulator's default `hop_limit` (raised 2026-10-19,
+  firmware 692b51d, tools da93d01). The `relay_saturates` vector holds hops at 63.
 
 ### 2.3 Code map
 
@@ -81,6 +81,23 @@ same key (the defect is described in `tripwire-firmware/main/lora_crypto.h`). Fi
 Firmware wiring: `main/lora_crypto.h` wraps `tw_seal`/`tw_open`; `main/lora_task.cpp`
 holds the `tw_tx_t` state and the NVS boot; `main/gateway_task.cpp` runs the replay check
 on (boot, counter) from the nonce.
+
+**Roles.** Ours are variants of Batear's, so every existing `CONFIG_BATEAR_ROLE_*` check
+still holds and upstream merges stay simple:
+
+| Build | Kconfig | sdkconfig | What differs from Batear's role |
+|---|---|---|---|
+| `listener` | `BATEAR_ROLE_DETECTOR` + `TRIPWIRE_LISTENER` | `sdkconfig.listener` | nothing yet but the boot log; I2 and the sleep go here |
+| `edge` | `BATEAR_ROLE_GATEWAY` + `TRIPWIRE_EDGE` | `sdkconfig.edge` | no `mqtt_task.cpp` (so no Wi-Fi start-up), RadioLib `transmit`/`startTransmit`/`finishTransmit`/`transmitDirect` poisoned in `gateway_task.cpp` |
+
+- The poison is a **source-level** guard on our code. CI proves it bites: it appends a
+  `transmit` call to the edge build and requires the compile to fail with "poisoned".
+  RadioLib's TX code is still linked (its methods are virtual), so T17's SDR check is
+  still the real proof that the edge emits nothing.
+- Image sizes (firmware 310ff7b): edge 457 KB against the gateway's 1,103 KB, so Wi-Fi
+  and MQTT really are out of the image; listener = detector, 498 KB.
+- Not done yet for the edge (Phase 2): RS-485/I3, a replay table in flash. The config
+  console still lists the gateway's Wi-Fi keys; they do nothing on the edge.
 
 C API in one line each: `tw_tx_start(tx, sender_id, stored_boot)`,
 `tw_tx_take(tx, &nonce, &persist_boot)`, `tw_seal`, `tw_open`,
@@ -124,7 +141,7 @@ replaces these numbers when it exists.
 - **Delay to the edge 10–30 s**, ~2 s per hop. The listening cycle sets most of it:
   0.25 s cycles cut the delay by ~40% at a battery cost T12 must measure.
 - **Transmissions per alert ≈ half the listeners** with I2 as written.
-- **Hop cap 15 is too low** for 30 listeners in dense forest: 48% delivered vs 77% at 63.
+- **Hop cap 15 was too low** for 30 listeners in dense forest: 48% delivered vs 77% at 63 (now the cap).
 - **The signal-weighted wait beats random** (88% vs 54%, dense forest, 80 m) and is faster
   than Meshtastic's client wait (0.7–12 s at this slot time; it is tuned for chat).
 - **Cancel-on-one-duplicate loses alerts.** The front-most listener hears a copy from a
@@ -148,8 +165,10 @@ python -m tripwire.relay_report --trials 400 > reports/relay-sim-phase0.md
 🛑 **There is no C compiler on Paul's PC.** Run them in one of two places:
 
 - GitHub CI: workflow `codec-host-test.yml` (installs `libssl-dev`, runs
-  `make -C components/tw_codec/test`). ESP-IDF builds of all three Batear roles run in
-  `esp-idf-build.yml`.
+  `make -C components/tw_codec/test`). ESP-IDF builds of all five roles (Batear's three
+  plus `listener` and `edge`) run in `esp-idf-build.yml`.
+- 🛑 `gh` in `tripwire-firmware` resolves to **Batear** (the `upstream` remote) by default.
+  Always pass `-R paulrenzi/tripwire-firmware`.
 - `ssh ubuntu@claude-dev` (gcc 11 + libssl-dev): clone or copy the repo there, then
   `make -C components/tw_codec/test`. 102 checks pass under ASan/UBSan.
 
@@ -196,11 +215,11 @@ open_fail (tampering), tx (the nonce state machine) and replay. The test also as
 ## 6. Status and open items (as of 2026-10-19)
 
 Done (Phase 0, laptop only): nonce fix, codec in C and Python on one vector file, relay
-simulator and report. Nothing has run on a board.
+simulator and report, `listener` and `edge` roles building in CI, hop cap 63 in code.
+Nothing has run on a board.
 
 Open:
-- **Paul:** cancel after 1 or 2 duplicates (§3).
-- Build the `listener` and `edge` roles in the firmware repo's CI (plan Phase 0 bullet 1).
-- Raise `TW_HOPS_MAX` and the simulator default to 63 when I2 lands in firmware.
+- **Paul:** cancel after 1 or 2 duplicates (§3). Then set `RelayRule.cancel_after`'s
+  default, update I2 rule 3 in `build-software.md`, and regenerate the report.
 - Phase 1 needs Heltec V3 boards — ask Paul whether he has them.
 - Optional: run Meshtasticator itself on the same simple cases as an independent check.
