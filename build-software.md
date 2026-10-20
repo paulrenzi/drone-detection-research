@@ -70,7 +70,8 @@ Keep Batear's envelope: **36 bytes on air**, `[4 B nonce][16 B ciphertext][16 B 
 | 1 | `vbat_cv` | As Batear: V = 2.50 + 0.01 × value |
 | 1 | `temp_c` | Chip temperature + 40 |
 | 1 | `rssi_hint` | Weakest link RSSI on the way in, for line health |
-| 3 | spare | Classifier version, flags |
+| 2 | `tag` | The origin's boot and counter, low byte of each. Names the alert after relays re-encrypt it, so relays can drop duplicates (I2 rule 2) |
+| 1 | spare | Classifier version, flags |
 
 **Why age, not clocks:** a relay already decrypts the packet to check it, so it can add its own holding time to `age_ds` and re-encrypt. The receiver then dates the sound as *arrival time − age − airtime × (hops + 1)*. Airtime is fixed for a fixed spreading factor. That gives each crossing a time good to well under a second without any listener knowing the time of day. The 1–2 s neighbour-sync problem in [T15]({{ site.baseurl }}{% link models/tripwire.md %}#what-has-to-be-proven) goes away for line-order direction (an inference, to be checked on the bench).
 
@@ -81,16 +82,16 @@ Batear builds the 12-byte GCM IV from the first 8 bytes of the network key plus 
 - **Two detectors reuse the same IV under the same key.** Detector 1's packet 5 and detector 2's packet 5 are encrypted identically. In GCM, a reused nonce leaks the XOR of the two plaintexts and lets an attacker who collects such pairs recover the authentication key and forge packets ([NIST SP 800-38D §8](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf) requires unique IVs per key).
 - **A reboot silences a detector.** The gateway drops any packet whose counter is at or below the last one it saw from that device ([`gateway_task.cpp` L246](https://github.com/batear-io/batear/blob/main/main/gateway_task.cpp)). After a detector reboots, every alert is rejected as a replay until the counter climbs past the old value. The same happens when the counter wraps at 65,536.
 
-**Fix:** IV = `listener_id` (2 B) + boot count stored in flash (2 B) + 32-bit packet counter (4 B), with 4 B of key prefix. On air the nonce grows from 4 to 8 bytes, so a packet is 40 bytes. The receiver keys its replay check on (`listener_id`, boot, counter). A relay re-encrypts under **its own** ID and counter, so relays never reuse an IV either. Worth offering upstream as a pull request.
+**Fix:** IV = `listener_id` (2 B) + boot count stored in flash (2 B) + 32-bit packet counter (4 B), with 4 B of key prefix. On air the nonce grows from 4 to 8 bytes, so a packet is 40 bytes. All little-endian; the counter moves to the next boot rather than wrapping. The receiver keys its replay check on (sender ID, boot, counter) from the nonce. A relay re-encrypts under **its own** ID and counter, so relays never reuse an IV either. **Built 2026-10-19** in `tripwire-firmware` (`components/tw_codec`, and Batear's own detector and gateway) and `tripwire-tools` (`tripwire/codec.py`), both tested against one vector file. Not yet offered upstream.
 
 ### I2. Relay rules (listener → listener)
 
 Managed flooding with duplicate suppression, the scheme Meshtastic uses ([Meshtastic docs](https://meshtastic.org/docs/overview/mesh-algo/)), cut down:
 
 1. **Listen in short windows only.** A sleeping listener can't hear neighbours. It wakes the radio in receive mode briefly on a fixed cycle, using LoRa channel-activity detection ([Semtech AN1200.85](https://www.semtech.com/products/wireless-rf/lora-connect/sx1262)), so an alert is preceded by a preamble long enough to span one cycle. Cycle and preamble length trade battery against delay; T12 sizes them.
-2. **Relay each (origin, boot, counter) once.** Keep the last 32 seen in RAM.
+2. **Relay each alert once,** keyed on (origin `listener_id`, `tag`) from the plaintext, since a relayed copy carries the relay's nonce, not the origin's. Keep the last 32 seen in RAM.
 3. **Wait before relaying, shorter the weaker the alert was heard,** as Meshtastic does: the farthest listener relays first, so each hop covers the most ground. If a neighbour relays the same alert first, stay quiet. The window (100–600 ms proposed) comes from the relay simulator ([plan, phase 0]({{ site.baseurl }}{% link build-software-plan.md %}#phase-0-groundwork-laptop-only-s-0)).
-4. **No hop limit is needed** on a line of 12–30, since each listener relays each alert once. Cap `hops` at 15 anyway.
+4. **No hop limit is needed** on a line of 12–30, since each listener relays each alert once. Cap `hops` at 63 or more, not 15: the relay simulator shows a 30-listener line in dense forest needs more than 15 hops (`tripwire-tools/reports/relay-sim-phase0.md`).
 5. **CHECKIN packets are not relayed by default**, so a quiet line stays quiet. The unit can turn relaying on for one day's check-in to get a health map.
 
 ### I3. RS-485 frame (edge receiver → dugout)
