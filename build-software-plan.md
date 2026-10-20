@@ -127,7 +127,7 @@ The **packet codec** (I1, I1a) is written twice, in C for the firmware and in Py
 
 ### Phase 4: relaying and the line display (layer 5; L)
 
-- Flooding per I2, with the **signal-weighted wait** and cancel-on-duplicate, `age_ds` updated by each relay, and a dedup cache.
+- Flooding per I2, with the **signal-weighted wait** and cancel after two duplicates, `age_ds` updated by each relay, and a dedup cache.
 - Six bench listeners at low power, then six in the field.
 - **Display:** the line map on Leaflet with an offline PMTiles map, line health, the false-alarm policy, and both-lines direction.
 - **Offer the nonce fix and the relay upstream** to Batear, against issue #51.

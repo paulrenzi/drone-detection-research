@@ -62,8 +62,9 @@ same key (the defect is described in `tripwire-firmware/main/lora_crypto.h`). Fi
 - On relay: age saturates at 65535, hops capped at `TW_HOPS_MAX` (63; `HOPS_MAX` in
   Python), `rssi_hint = max(hint, clamp(-rssi, 1, 255))`.
 - **Relay rule:** relay once; wait 100–600 ms, shorter the weaker the alert was heard,
-  plus up to 50 ms jitter; cancel on hearing another copy; check the channel before
-  sending and re-draw the wait if busy.
+  plus up to 50 ms jitter; **cancel only after hearing two more copies** (Paul,
+  2026-10-19; Meshtastic cancels on one); check the channel before sending and re-draw
+  the wait if busy.
 - **Hop cap is 63** everywhere: the spec (`build-software.md` rule 4), `TW_HOPS_MAX`,
   Python `HOPS_MAX`, and the simulator's default `hop_limit` (raised 2026-10-19,
   firmware 692b51d, tools da93d01). The `relay_saturates` vector holds hops at 63.
@@ -124,7 +125,11 @@ a line of listeners to an edge receiver (`EDGE = -1`, never transmits).
   | `meshtasticator` | 127.41 dB at 40 m | 2.08 | Meshtasticator defaults, used by the tests |
 
 - **Rules (`RelayRule.kind`):** `weighted` (ours, I2), `random` (old uniform 100–600 ms),
-  `meshtastic` (the firmware's client rule). `cancel_after=k` cancels after k duplicates.
+  `meshtastic` (the firmware's client rule). `cancel_after=k` cancels after k duplicates;
+  left at `None` it is the kind's own (`dups_to_cancel`): **2 for `weighted`/`random`,
+  1 for `meshtastic`**, so the Meshtastic checks still model Meshtastic.
+- `test_weighted_wait_takes_longer_hops_than_random` pins `cancel_after=1`: at 2 the hop
+  gap is noise (1.96 vs 2.00 over 1,500 trials), so it can only see the mechanism at 1.
 - **Meshtastic's rule as modelled** (read from its firmware source 2026-10-19): CWmin 3,
   CWmax 8, `CW = map(snr, -20, 10, 3, 8)` in integer arithmetic (truncates, does not
   clamp), wait `(2·CWmax + random(0, 2^CW))` slots, slot = `max(2.25, 4 + 0.5)·Tsym + 7.6 ms`
@@ -136,18 +141,19 @@ a line of listeners to an edge receiver (`EDGE = -1`, never transmits).
 From `tripwire-tools/reports/relay-sim-phase0.md` (400 trials per row). T9's field data
 replaces these numbers when it exists.
 
-- **Spacing for 90% delivery** from the far end of 20–30 listeners: dense forest ~70 m,
-  light forest ~200 m, open ~900 m. A 20-listener dense-forest line is ~1.4 km, not 2–3 km.
-- **Delay to the edge 10–30 s**, ~2 s per hop. The listening cycle sets most of it:
-  0.25 s cycles cut the delay by ~40% at a battery cost T12 must measure.
-- **Transmissions per alert ≈ half the listeners** with I2 as written.
-- **Hop cap 15 was too low** for 30 listeners in dense forest: 48% delivered vs 77% at 63 (now the cap).
-- **The signal-weighted wait beats random** (88% vs 54%, dense forest, 80 m) and is faster
-  than Meshtastic's client wait (0.7–12 s at this slot time; it is tuned for chat).
-- **Cancel-on-one-duplicate loses alerts.** The front-most listener hears a copy from a
-  listener *behind* it and cancels, so nobody ahead is reached (15 of 20 failures traced).
-  Cancel-after-2 gains 7–17 points of delivery for ~1.5× transmissions.
-  **Open decision for Paul** — delivery against emissions, not a bug.
+- **Spacing for 90% delivery** from the far end of 20–30 listeners: dense forest ~100 m,
+  light forest ~250 m, open ~1,200 m. A 20-listener dense-forest line is ~2 km.
+- **Delay to the edge 15–40 s** at those spacings, ~2.3 s per hop. The listening cycle
+  sets most of it: 0.25 s cycles cut the delay by ~40% at a battery cost T12 must measure.
+- **Nearly every listener transmits once per alert** (17 of 20, 27 of 30, dense forest).
+- **Hop cap 15 was too low** for 30 listeners in dense forest at 90 m: 62% vs 94% at 63.
+- **The signal-weighted wait now leads random only slightly** (95% vs 92%, dense forest,
+  80 m; 88% vs 54% under cancel-after-1). It still beats Meshtastic's client wait (78%,
+  slower; 0.7–12 s waits at this slot time, tuned for chat).
+- **Cancel-after-2 is the rule (Paul, 2026-10-19).** Cancel-on-one lost alerts: the
+  front-most listener heard a copy from a listener *behind* it and cancelled, so nobody
+  ahead was reached (15 of 20 failures traced). Two costs ~1.5× the transmissions for
+  +7 to +19 points of delivery.
 
 ## 4. How to run and debug
 
@@ -215,11 +221,10 @@ open_fail (tampering), tx (the nonce state machine) and replay. The test also as
 ## 6. Status and open items (as of 2026-10-19)
 
 Done (Phase 0, laptop only): nonce fix, codec in C and Python on one vector file, relay
-simulator and report, `listener` and `edge` roles building in CI, hop cap 63 in code.
+simulator and report, `listener` and `edge` roles building in CI, hop cap 63 in code,
+cancel-after-2 decided and set as the simulator default.
 Nothing has run on a board.
 
 Open:
-- **Paul:** cancel after 1 or 2 duplicates (§3). Then set `RelayRule.cancel_after`'s
-  default, update I2 rule 3 in `build-software.md`, and regenerate the report.
 - Phase 1 needs Heltec V3 boards — ask Paul whether he has them.
 - Optional: run Meshtasticator itself on the same simple cases as an independent check.
