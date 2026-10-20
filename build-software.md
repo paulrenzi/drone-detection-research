@@ -6,7 +6,7 @@ nav_order: 1.7
 # Build: software, from listener to dugout
 {: .no_toc }
 
-The six programs the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) needs, the interfaces between them, and how much of each [Batear]({{ site.baseurl }}{% link research/open-source-builds.md %}#batear) (MIT licence) already covers. Hardware: [Build: hardware]({{ site.baseurl }}{% link build-hardware.md %}).
+The six programs the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) needs, the interfaces between them, and how much of each [Batear]({{ site.baseurl }}{% link research/open-source-builds.md %}#batear) (MIT licence) already covers. Hardware: [Build: hardware]({{ site.baseurl }}{% link build-hardware.md %}). The open-source parts to build each one from, and the build plan: [Build: software plan]({{ site.baseurl }}{% link build-software-plan.md %}).
 
 {: .warning }
 > **A design, not code.** Nothing here is written or tested yet. Batear's behaviour was read from its source and docs on 2026-10-15 (last push 2026-10-06). Every byte count and timing below is a proposal or an estimate unless a source is linked.
@@ -89,7 +89,7 @@ Managed flooding with duplicate suppression, the scheme Meshtastic uses ([Meshta
 
 1. **Listen in short windows only.** A sleeping listener can't hear neighbours. It wakes the radio in receive mode briefly on a fixed cycle, using LoRa channel-activity detection ([Semtech AN1200.85](https://www.semtech.com/products/wireless-rf/lora-connect/sx1262)), so an alert is preceded by a preamble long enough to span one cycle. Cycle and preamble length trade battery against delay; T12 sizes them.
 2. **Relay each (origin, boot, counter) once.** Keep the last 32 seen in RAM.
-3. **Wait 100–600 ms at random before relaying.** If a neighbour relays the same alert first and it was heard louder than ours would be, stay quiet.
+3. **Wait before relaying, shorter the weaker the alert was heard,** as Meshtastic does: the farthest listener relays first, so each hop covers the most ground. If a neighbour relays the same alert first, stay quiet. The window (100–600 ms proposed) comes from the relay simulator ([plan, phase 0]({{ site.baseurl }}{% link build-software-plan.md %}#phase-0-groundwork-laptop-only-s-0)).
 4. **No hop limit is needed** on a line of 12–30, since each listener relays each alert once. Cap `hops` at 15 anyway.
 5. **CHECKIN packets are not relayed by default**, so a quiet line stays quiet. The unit can turn relaying on for one day's check-in to get a health map.
 
@@ -167,7 +167,7 @@ Batear's gateway role minus Wi-Fi and MQTT, plus:
 
 **Line health:** last check-in and battery per listener, listeners silent for over a day (possibly destroyed, [a signal in itself]({{ site.baseurl }}{% link models/tripwire.md %}#what-the-unit-gets)), weakest-link RSSI, and a re-lay forecast from battery trends.
 
-**Build:** a single offline HTML page, served from the device and reading the serial port through the browser's Web Serial API, is the least code. It runs in Chrome on a laptop or an Android tablet. Offline map tiles are loaded before deployment. A TAK output (CoT messages) comes later ([integration]({{ site.baseurl }}{% link research/integration.md %})).
+**Build:** a single offline HTML page, served from the device and reading the serial port through the browser's Web Serial API, is the least code. It runs in Chrome on a laptop. Chrome on Android has Web Serial over Bluetooth; whether it reads a **wired** USB serial adapter was not settled from public sources on 2026-10-19, so test it on the actual tablet ([plan, phase 2]({{ site.baseurl }}{% link build-software-plan.md %}#phase-2-edge-receiver-and-display-v0-t17-layer-3-m)). Offline map tiles are loaded before deployment. A TAK output (CoT messages) comes later ([integration]({{ site.baseurl }}{% link research/integration.md %})).
 
 ### 4. Mission tooling: `lay_line`
 
