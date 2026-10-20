@@ -3,7 +3,7 @@
 Written at HEAD 37a73dc (2026-10-19). Supersedes the "Next" list in `2026-10-15-build-pages-done.md` for software work; its hardware "measure before printing" list still stands.
 
 ## Where things stand
-- Site: https://paulrenzi.github.io/drone-detection-research/ (Jekyll, just-the-docs, GitHub Pages from `master`).
+- Site: https://paulrenzi.github.io/drone-detection-research/ (Jekyll, just-the-docs, GitHub Pages from `main`).
 - **The plan is `build-software-plan.md`** (live at `/build-software-plan.html`, render-verified). It is the authority for what to build and in what order. `build-software.md` holds the component and interface specs (I1 packet, I1a nonce, I2 relay rules, I3 RS-485 frame) the plan refers to.
 - **No code exists yet.** None of the three repos has been created.
 
