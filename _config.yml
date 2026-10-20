@@ -32,4 +32,5 @@ callouts:
 
 exclude:
   - README.md
+  - docs/
   - models/_template.md
