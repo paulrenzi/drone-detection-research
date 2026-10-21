@@ -10,21 +10,21 @@ nav_primary: 4
 
 **Pass:** heard at 330 ft. **Fail:** under 200 ft.
 
-**You need:** the two XIAO ESP32S3 + Wio-SX1262 kits with their antennas, a USB-C data cable, a laptop with Chrome, an INMP441 mic with jumper wires (its pins need soldering), two fur windscreens, a Bluetooth speaker, two phones, two power banks and a tape measure ([kit and prices]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector)).
+**You need:** the two XIAO ESP32S3 + Wio-SX1262 kits with their antennas, a USB-C data cable, a laptop with Chrome, an INMP441 mic with jumper wires (its pins need soldering), two fur windscreens, a Bluetooth speaker, one phone with a free sound meter app (NIOSH SLM on an iPhone), two power banks and a tape measure ([kit and prices]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector)).
 
 ## The steps
 
 Do steps 1–3 at home the day before.
 
-1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* with your phone's hotspot ([how](#phone-setup)). This replaces the Meshtastic firmware they came with. Then scan the flasher's QR code with the logger phone, and the code under the logger's *Sound at the mic* with the second phone. The second phone becomes the **mic phone**: the sound meter and recorder, run from the logger.
+1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* with your phone's hotspot ([how](#phone-setup)). This replaces the Meshtastic firmware they came with. Then scan the flasher's QR code with the phone. It opens the logger, which runs the whole test.
 2. **Wire the mic** to the detector: SCK to D3, WS to D4, SD to D5, L/R to GND, VDD to 3V3, GND to GND.
-3. **Check it works.** Turn on the hotspot and power both boards. The logger should show *gateway online*, and *last packet* should reset about once a minute as the detector checks in. Pair the speaker, then in the logger's *Speaker test* tap **Play calibration** next to the mic. You should see an alarm. On the mic phone, tap **Start the mic** and set its meter once ([how](#mic-phone)).
-4. **Lay out the field** ([where everything goes](#field-layout)). Put the detector and the mic phone side by side, 20 in up, in windscreens. Put the speaker on a chair 16 ft away, with the logger phone and gateway on the chair too. On the logger phone, turn on Do Not Disturb and set Auto-Lock to Never.
+3. **Check it works.** Turn on the hotspot and power both boards. The logger should show *gateway online*, and *last packet* should reset about once a minute as the detector checks in. In the logger's *Sound at the mic*, tap **Start this phone's mic** and set its meter once ([how](#phone-meter)). Pair the speaker, then in *Speaker test* tap **Play calibration** next to the mic. You should see an alarm, and the speaker should sound full, not thin like a phone call ([why](#phone-meter)).
+4. **Lay out the field** ([where everything goes](#field-layout)). Put the detector 20 in up in its windscreen, with the phone right beside it at the same height. Put the speaker on a chair 16 ft away, facing the mic, with the gateway and its power bank on the chair too. On the phone, turn on Do Not Disturb and set Auto-Lock to Never.
 5. **Calibrate the speaker** from the logger: set the volume until *Sound at the mic* reads 60–65 dB(A), then tap **Measure at the mic** ([how](#speaker-test)).
-6. **Start the sweep.** Tap **Start sequence**, then walk 65 ft behind the speaker and stay quiet for about an hour. The logger starts the mic phone recording, plays every distance (about 28 minutes), records 30 minutes of background with the speaker off, and stops the recording. Then tap **Save recording** on the mic phone.
-7. **Walk the gateway away** with the logger phone, stopping at 330, 660 and 1,300 ft and on. At each stop, set *Type* to *Radio walk*, enter the distance, tap **Start run**, and stop it once a packet arrives, about a minute. Turn back when none comes in two minutes.
+6. **Start the sweep.** Tap **Start sequence**, then walk 65 ft behind the speaker and stay quiet for about an hour. The phone records at the mic, plays every distance (about 28 minutes), records 30 minutes of background with the speaker off, and stops the recording. Then tap **Save recording**.
+7. **Walk the gateway away** with the phone, stopping at 330, 660 and 1,300 ft and on. At each stop, set *Type* to *Radio walk*, enter the distance, tap **Start run**, and stop it once a packet arrives, about a minute. Turn back when none comes in two minutes.
 
-**The result** is the logger's *Range so far* table: for each distance, whether the detector heard it, the level the mic phone measured, and the detector's own level. There's nothing to export: the logger saves every run online as it goes, so you can ask Claude to read the latest session from anywhere. The mic phone's recording is for [training clips](#weekend-downloads).
+**The result** is the logger's *Range so far* table: for each distance, whether the detector heard it, the level the phone measured at the mic, and the detector's own level. There's nothing to export: the logger saves every run online as it goes, so you can ask Claude to read the latest session from anywhere. The recording is for [training clips](#weekend-downloads).
 
 <p><a class="btn btn-primary" href="{{ site.baseurl }}/tools/weekend/logger.html">Open the logger</a></p>
 
@@ -33,26 +33,45 @@ A speaker can't copy what 330 ft of real ground and wind does to the sound. A re
 ## Details
 
 <details class="layer" id="field-layout" markdown="block">
-<summary><span class="layer-title">Where everything goes</span><span class="layer-sub">No house WiFi needed: the gateway joins the logger phone's hotspot</span></summary>
+<summary><span class="layer-title">Where everything goes</span><span class="layer-sub">One phone at the mic; no house WiFi needed: the gateway joins the phone's hotspot</span></summary>
 
-```
-mic + detector, 20 in up
-        mic phone beside it: meter and recorder
-        │
-        │  16 ft, measured with a tape
-        │
-chair:  speaker, facing the mic
-        logger phone + gateway + its power bank
-        │
-        │  65 ft or more
-        │
-you, quiet, behind the speaker
-```
+<figure class="field-layout" style="margin:12px 0 16px">
+<svg viewBox="0 0 680 300" width="100%" role="img" aria-labelledby="flTitle flDesc" style="max-width:680px;color:inherit;font-family:inherit">
+<title id="flTitle">Field layout for the Saturday test</title>
+<desc id="flDesc">Seen from above: the detector and mic 20 inches up in windscreens, with the phone beside them; a chair 16 feet away holding the Bluetooth speaker facing the mic, plus the gateway and its power bank; you standing quiet 65 feet or more behind the speaker. Not to scale.</desc>
+<defs><marker id="flArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#c2562c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="10" y="10" width="660" height="250" rx="12" fill="#6a9a3a" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.3" stroke-dasharray="4 4"/>
+<text x="26" y="34" font-size="13" fill="currentColor" fill-opacity="0.7">Grass, 16 ft or more from walls, cars and fences</text>
+<circle cx="110" cy="150" r="27" fill="#1d9e75" fill-opacity="0.18" stroke="#1d9e75"/>
+<text x="110" y="155" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor">Mic</text>
+<text x="110" y="198" font-size="13" text-anchor="middle" fill="currentColor">Detector + mic</text>
+<text x="110" y="215" font-size="13" text-anchor="middle" fill="currentColor">20 in up, windscreen</text>
+<rect x="91" y="66" width="38" height="56" rx="7" fill="#534ab7" fill-opacity="0.15" stroke="#534ab7"/>
+<text x="110" y="98" font-size="12" text-anchor="middle" fill="currentColor">Phone</text>
+<text x="140" y="80" font-size="13" fill="currentColor">The logger: plays,</text>
+<text x="140" y="97" font-size="13" fill="currentColor">measures, records</text>
+<rect x="300" y="118" width="96" height="64" rx="8" fill="#c2562c" fill-opacity="0.15" stroke="#c2562c"/>
+<text x="348" y="145" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor">Chair</text>
+<text x="348" y="165" font-size="13" text-anchor="middle" fill="currentColor">Speaker</text>
+<text x="348" y="202" font-size="13" text-anchor="middle" fill="currentColor">Gateway + power bank</text>
+<text x="348" y="219" font-size="13" text-anchor="middle" fill="currentColor">on the chair too</text>
+<line x1="296" y1="150" x2="143" y2="150" stroke="#c2562c" stroke-width="1.5" marker-end="url(#flArrow)"/>
+<text x="220" y="141" font-size="13" text-anchor="middle" fill="currentColor">16 ft, taped</text>
+<path d="M131 110 Q 220 62 302 126" fill="none" stroke="#534ab7" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="232" y="66" font-size="12" text-anchor="middle" fill="currentColor" fill-opacity="0.8">Bluetooth + hotspot</text>
+<line x1="400" y1="150" x2="526" y2="150" stroke="currentColor" stroke-opacity="0.45" stroke-dasharray="2 4"/>
+<text x="463" y="141" font-size="13" text-anchor="middle" fill="currentColor">65 ft or more</text>
+<circle cx="568" cy="132" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<path d="M555 170 Q568 142 581 170" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<text x="568" y="198" font-size="13" text-anchor="middle" fill="currentColor">You, quiet,</text>
+<text x="568" y="215" font-size="13" text-anchor="middle" fill="currentColor">behind the speaker</text>
+<text x="26" y="286" font-size="12" fill="currentColor" fill-opacity="0.7">Not to scale. For the radio walk afterwards, carry the gateway and the phone away together.</text>
+</svg>
+</figure>
 
+- **The phone sits at the mic,** at the same height, so what it measures and records is what the detector hears. It plays to the speaker by Bluetooth from there. Bluetooth reaches about 33 ft, less through a body or a bag, so nobody stands between them.
 - **Each board gets its own power bank,** since they sit 16 ft apart. If *last packet* stops resetting, the detector's power bank may have switched itself off: some do when a board draws too little. Use another one.
-- **Keep the gateway within a few yards of the logger phone** all day. It reaches the logger through the phone's hotspot. The detector reaches the gateway by LoRa, which goes hundreds of yards.
-- **The mic phone needs mobile data** to reach the logger, like the hotspot. Keep its screen on.
-- **Keep the logger phone beside the speaker.** Bluetooth only reaches about 33 ft, less through a body or a bag. The sequence runs on its own, so nobody needs to hold the phone.
+- **Keep the gateway within about 30 ft of the phone** all day. It reaches the logger through the phone's hotspot. The detector reaches the gateway by LoRa, which goes hundreds of yards.
 - **Stay 16 ft or more from walls, cars and fences,** on grass. A hard surface behind the mic adds up to 3 dB and flatters the result.
 - **Check for a cell signal** where you set up. The hotspot needs mobile data. Without it, use a laptop and the USB cable.
 - **Do Not Disturb matters.** A notification plays through the speaker at test volume and gets logged as drone sound, and a call stops the audio. Airplane mode won't work, because the hotspot needs data.
@@ -67,31 +86,33 @@ you, quiet, behind the speaker
 3. Scan the flasher's QR code with the phone. It opens the logger with that gateway ID and connects.
 4. Power the gateway. The chip turns to *gateway online* when the board checks in. An iPhone only shows its hotspot while the Personal Hotspot screen is open, so keep it open until then.
 
-Readings pass through a free public broker, and the saved sessions can be read by anyone with the link: fine for a test, not for anything sensitive. Keep the screen on, since readings that arrive while it's locked are lost.
+Readings pass through a free public broker, and the saved sessions can be read by anyone with the link: fine for a test, not for anything sensitive. Keep the screen on, since readings that arrive while it's locked are lost, and a locked phone stops its mic.
 
 With a laptop and a cable, use **Connect USB** instead. Phones can't read a USB board from a web page. Plugging in the detector as well adds its confidence score.
 
 The gateway hears from the detector when it alarms, when it clears, and once a minute in between. That once-a-minute check-in is what the radio walk counts. Leave **Beep on alarm** off while recording.
 </details>
 
-<details class="layer" id="mic-phone" markdown="block">
-<summary><span class="layer-title">Set up the mic phone</span><span class="layer-sub">The second phone is the sound meter and the recorder; the logger runs it</span></summary>
+<details class="layer" id="phone-meter" markdown="block">
+<summary><span class="layer-title">Set the phone's meter, and check the speaker</span><span class="layer-sub">Once per phone, at home; the phone is the sound meter and the recorder</span></summary>
 
-1. On the logger, open *Sound at the mic* and scan its code with the second phone. It opens the logger's mic page for the same gateway ID.
-2. Tap **Start the mic** and allow the microphone.
-3. **Set its meter, once per phone.** Phone microphones differ by several dB, and every 6 dB halves or doubles the distance the speaker emulates. Play a steady sound (the logger's calibration will do) and hold another phone running a free sound meter app, set to A-weighting, right beside the mic phone. The logger phone will do. Enter the meter's reading and tap **Set**. The page remembers it. Don't switch apps on the mic phone itself: that stops its mic.
+1. **Read a steady sound with a meter app.** Pick something that doesn't change: a fan, or pink noise playing from the laptop. Hold the phone 3 ft from it and read the level in a free sound meter app, set to A-weighting. NIOSH SLM is a good one on an iPhone.
+2. **Type it into the logger.** Without moving the phone or changing the sound, switch to the logger, tap **Start this phone's mic** and allow the microphone. Wait 5 s, type the app's reading and tap **Set**. The logger remembers it.
+3. **Check the speaker.** Pair it, keep the mic on, and in *Speaker test* tap **Play calibration**. It should sound the same as it did with the mic off.
 
-The mic phone sends one reading a second to the logger and records when the logger tells it to. After the sweep, tap **Save recording** to keep the file. It weighs about 45 MB an hour. The phone's mic is not a measuring instrument: its readings are good to a few dB, which is why the speaker test aims at 60–65 dB(A) rather than an exact figure.
+Phone mics differ by several dB, and every 6 dB halves or doubles the distance the speaker emulates, which is why the meter is set once. Even then, a phone is not a measuring instrument: its readings are good to a few dB, which is why the speaker test aims at 60–65 dB(A) rather than an exact figure. The recording weighs about 45 MB an hour.
+
+**If the speaker sounds thin once the mic is on,** like a phone call, the phone has switched it into call mode, which cuts the high notes the detector listens for. Some speakers with a built-in mic do this. Use a speaker without a mic, an aux cable, or a second phone as the mic: open *Or use a second phone as the mic* under *Sound at the mic* and scan its code with the second phone, then set that phone's meter on its own page.
 </details>
 
 <details class="layer" id="speaker-test" markdown="block">
 <summary><span class="layer-title">Run the speaker test</span><span class="layer-sub">Everything from the logger: the sound, the level at the mic, the plays and the recording</span></summary>
 
-1. **Set up.** Silent mode off on the logger phone. Speaker on a chair 16 ft from the mic, facing it, with the logger phone beside it. The mic phone beside the mic.
-2. **Calibrate.** In the logger's *Speaker test*, pick a sound and tap **Play calibration**. Use the volume buttons, on the phone or the speaker, until *Sound at the mic* reads 60–65 dB(A). Then tap **Measure at the mic**: the mic phone reads 10 s with the speaker off and 10 s of calibration, and both readings fill in. Don't touch the volume again. Without a mic phone, type the two readings from any sound meter.
-3. **Start sequence.** The logger starts the mic phone recording, plays each distance for 60 s, three times over with 20 s of quiet between, and logs every play as a *Speaker* run. The default, 80 ft to 1,000 ft, takes about 28 minutes. Then it records 30 minutes of background as a *No drone* run, with the speaker off, and stops the recording.
+1. **Set up.** Silent mode off on the phone. Speaker on a chair 16 ft from the mic, facing it. The phone beside the mic, with its mic on.
+2. **Calibrate.** In the logger's *Speaker test*, pick a sound and tap **Play calibration**. Use the volume buttons, on the phone or the speaker, until *Sound at the mic* reads 60–65 dB(A). Then tap **Measure at the mic**: the phone reads 10 s with the speaker off and 10 s of calibration, and both readings fill in. Don't touch the volume again. Without the phone's mic, type the two readings from any sound meter.
+3. **Start sequence.** The logger starts the recording, plays each distance for 60 s, three times over with 20 s of quiet between, and logs every play as a *Speaker* run. The default, 80 ft to 1,000 ft, takes about 28 minutes. Then it records 30 minutes of background as a *No drone* run, with the speaker off, and stops the recording.
 
-Each run keeps the level it aimed for, the level the mic phone measured and the detector's own level, so a play that came out wrong shows in the *Runs* table.
+Each run keeps the level it aimed for, the level the phone measured and the detector's own level, so a play that came out wrong shows in the *Runs* table.
 
 **Why not louder:** near full volume a small speaker distorts, and distortion adds the harmonics the detector listens for. The loudest step needs only 42 dB(A) at the mic.
 
@@ -105,7 +126,7 @@ The sounds are a DJI Mini 4 Pro and a 5-inch FPV from [batear-datasets](https://
 |---|---|---|
 | Logger | One file that also works offline over USB | <a href="{{ site.baseurl }}/tools/weekend/logger.html" download>logger.html</a> |
 | Drone sounds | Built into the logger | <a href="{{ site.baseurl }}/tools/weekend/sounds/mini.mp3" download>mini.mp3</a> · <a href="{{ site.baseurl }}/tools/weekend/sounds/fpv.mp3" download>fpv.mp3</a> |
-| Clip cutter | Fetches the saved session, lines the mic phone's recording up with the logger and cuts each run into labelled 1 s clips, noting whether Batear was alarming | <a href="{{ site.baseurl }}/tools/weekend/cut_clips.py" download>cut_clips.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_cut_clips.py" download>tests</a> |
+| Clip cutter | Fetches the saved session, lines the phone's recording up with the logger and cuts each run into labelled 1 s clips, noting whether Batear was alarming | <a href="{{ site.baseurl }}/tools/weekend/cut_clips.py" download>cut_clips.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_cut_clips.py" download>tests</a> |
 
 Optional, afterwards (Python 3.11+, and [ffmpeg](https://ffmpeg.org/) for a phone's `.m4a`):
 
@@ -113,7 +134,7 @@ Optional, afterwards (Python 3.11+, and [ffmpeg](https://ffmpeg.org/) for a phon
 python cut_clips.py --session latest --recording S20261025-1003-mic.m4a --mic --tag mic05 --rate 16000 --out clips
 ```
 
-`--mic` uses the start time the mic phone logged, good to a few tenths of a second, which is fine for 1 s clips. For a recording made any other way, clap next to it while tapping **Sync clap** and use `--sync`.
+`--mic` uses the start time the phone logged, good to a few tenths of a second, which is fine for 1 s clips. For a recording made any other way, clap next to it while tapping **Sync clap** and use `--sync`.
 
 Hold out whole runs for testing, never clips from a run you trained on.
 </details>

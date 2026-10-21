@@ -183,16 +183,29 @@ body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
         <div class="stat"><div class="v" id="vMic">–</div><div class="k" id="vMicK">loudness at mic, dB(A)</div></div>
         <div class="stat"><div class="v" id="vSensor">–</div><div class="k">detector hears, dBFS</div></div>
         <div class="stat"><div class="v" id="vRec">–</div><div class="k">recording</div></div>
-        <div class="stat"><div class="v" id="vMicAgo">–</div><div class="k">mic phone</div></div>
+        <div class="stat"><div class="v" id="vMicAgo">–</div><div class="k" id="vMicAgoK">mic</div></div>
+      </div>
+      <div class="hide-embed" id="localMic" style="margin-top:8px">
+        <button class="primary" id="bLocalMic" style="width:100%">Start this phone's mic</button>
+        <p class="note">Put this phone beside the mic, at the same height. It measures and records the sound there, and plays to the speaker by Bluetooth.</p>
+        <div class="inline" id="lmMeter" style="margin-top:10px" hidden>
+          <label>Set this phone's meter, dB(A) <input id="lmRef" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
+          <button id="lmSet">Set</button>
+        </div>
+        <p class="note" id="lmCalLine" hidden></p>
       </div>
       <div class="row hide-embed" style="margin-top:8px">
         <button class="grow" id="bRec" disabled>Start recording at the mic</button>
-      </div>
-      <div class="micjoin hide-embed" id="micJoin" hidden>
-        <div id="micQr"></div>
-        <p><b>Scan this with the second phone</b> and put it beside the mic. It becomes the sound meter and the recorder, and this page runs it. Or open <a id="micLink" href="#">this link</a> on it.</p>
+        <button class="grow" id="lmSave" disabled hidden>Save recording</button>
       </div>
       <p class="note" id="micLine"></p>
+      <details class="hide-embed" id="micJoinBox" style="margin-top:8px">
+        <summary>Or use a second phone as the mic</summary>
+        <div class="micjoin" id="micJoin">
+          <div id="micQr"></div>
+          <p>Only if this phone's speaker test sounds thin, like a phone call, once its mic is on. <b>Scan this with the second phone</b> and put it beside the mic instead. Or open <a id="micLink" href="#">this link</a> on it.</p>
+        </div>
+      </details>
       <p class="note hide-embed"><a href="#guide" class="toguide">What do these numbers mean?</a></p>
     </section>
 
@@ -231,10 +244,10 @@ body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
     <details class="panel hide-embed" id="speakerPanel">
       <summary><h2>Speaker test</h2></summary>
       <ol class="steps">
-        <li>Pair a Bluetooth speaker with this phone. Silent mode off, Do Not Disturb on, Auto-Lock off. Put the speaker on a chair 16 ft from the mic, facing it, with this phone and the gateway beside it.</li>
+        <li>Pair a Bluetooth speaker with this phone. Silent mode off, Do Not Disturb on, Auto-Lock off. Put the speaker on a chair 16 ft from the mic, facing it, with the gateway beside it. Keep this phone beside the mic, with its mic on (<i>Sound at the mic</i>).</li>
         <li>Pick a sound, tap <b>Play calibration</b>, and use the volume buttons until <i>Sound at the mic</i> reads 60–65 dB(A). Then don't touch the volume again.</li>
-        <li>Tap <b>Measure at the mic</b>. The mic phone reads 10 s with the speaker off, then 10 s of calibration, and fills both readings in. Without a mic phone, type them from any sound meter.</li>
-        <li>Tap <b>Start sequence</b> and walk 65 ft behind the speaker. The mic phone starts recording, each play is logged as a <i>Speaker</i> run, then the logger records the background as a <i>No drone</i> run and stops the recording.</li>
+        <li>Tap <b>Measure at the mic</b>. The phone reads 10 s with the speaker off, then 10 s of calibration, and fills both readings in. Or type them from any sound meter.</li>
+        <li>Tap <b>Start sequence</b> and walk 65 ft behind the speaker. The phone starts recording, each play is logged as a <i>Speaker</i> run, then the logger records the background as a <i>No drone</i> run and stops the recording.</li>
       </ol>
       <div class="fields">
         <label class="span2">Sound
@@ -345,7 +358,7 @@ body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
     <dt>dBFS, the raw level</dt>
     <dd>How loud the sound is inside a microphone's own recording, where 0 is the loudest it can record. So it is always negative: about −90 is near silence and −20 is loud. Two devices give different dBFS for the same sound, so it only tells you if a sound got louder or quieter for that one device. The detector reports dBFS: <i>detector hears</i>.</dd>
     <dt>Setting the meter</dt>
-    <dd>Turns the mic phone's raw level into dB(A). Phone mics differ by several dB, so once per phone you play a steady sound, hold a second phone running a sound meter app beside it, and type in that app's reading. Until then the logger shows the raw level in orange.</dd>
+    <dd>Turns the phone's raw level into dB(A). Phone mics differ by several dB, so once per phone you read a steady sound, such as a fan, with a sound meter app on the same phone, then type that reading in here while the same sound plays. Until then the logger shows the raw level in orange.</dd>
     <dt>Background</dt>
     <dd>The level with nothing playing: wind, birds, traffic. A drone has to rise above it to be heard, so a quiet day makes for a longer range.</dd>
   </dl>
@@ -358,7 +371,7 @@ body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
     <dt>Calibration</dt>
     <dd>A steady sound at the speaker's full test volume. Its reading at the mic is the starting point the logger turns down from for each distance.</dd>
     <dt>Aimed, measured, detector</dt>
-    <dd>In the tables, <i>Aimed</i> is the level the logger tried to play at the mic, <i>Measured</i> is what the mic phone heard, and <i>Detector</i> is what the detector heard, in its own raw level. If aimed and measured are far apart, that play didn't stand in for the distance it claims.</dd>
+    <dd>In the tables, <i>Aimed</i> is the level the logger tried to play at the mic, <i>Measured</i> is what the phone at the mic heard, and <i>Detector</i> is what the detector heard, in its own raw level. If aimed and measured are far apart, that play didn't stand in for the distance it claims.</dd>
   </dl>
   <h3>Radio and detection</h3>
   <dl>
@@ -812,6 +825,11 @@ function handleMic(text, demo) {
 }
 
 function micSend(cmd) {
+  if (mv.local) {
+    if (cmd.cmd === "rec_start") mvRecStart(cmd.session);
+    if (cmd.cmd === "rec_stop") mvRecStop();
+    return true;
+  }
   if (!mqttClient || !mqttClient.connected) return false;
   mqttClient.publish(`${micTopic(settings().gwId)}/cmd`, JSON.stringify(Object.assign({ t: Date.now() }, cmd)));
   return true;
@@ -837,7 +855,7 @@ function micAverage(seconds) {
   const t0 = Date.now() + 1000;
   return new Promise((res, rej) => setTimeout(() => {
     const v = mic.levels.filter(([t]) => t >= t0 && t <= t0 + seconds * 1000).map((x) => x[1]);
-    if (v.length < seconds / 2) rej(new Error("The mic phone stopped sending readings. Check it's on the page with the screen on."));
+    if (v.length < seconds / 2) rej(new Error("The mic stopped sending readings. Keep the page open with the screen on."));
     else res(energyMean(v));
   }, seconds * 1000 + 1500));
 }
@@ -861,18 +879,19 @@ function renderMic() {
   $("#vSensor").textContent = live.sensorDb ?? "–";
   $("#vRec").textContent = on && j.rec ? `${Math.floor(j.rec_s / 60)}:${pad(Math.floor(j.rec_s % 60))}` : on ? "off" : "–";
   $("#vMicAgo").textContent = on ? "live" : mic.at ? `${Math.round((Date.now() - mic.at) / 1000)} s ago` : "–";
+  $("#vMicAgoK").textContent = mv.local ? "this phone's mic" : on ? "mic phone" : "mic";
   const b = $("#bRec");
   b.disabled = !on || !!sp.seq;
   b.textContent = on && j.rec ? "Stop recording at the mic" : "Start recording at the mic";
   b.classList.toggle("stop", on && !!j.rec);
-  const join = !on && !EMBED && !demoTimer;
-  $("#micJoin").hidden = !join;
-  if (join) showMicQr();
+  $("#localMic").hidden = !mv.local && on;
+  $("#micJoinBox").hidden = mv.local || !!demoTimer;
+  if (!mv.local && !on && !EMBED && !demoTimer) showMicQr();
   const parts = [];
   if (live.sensorAt) parts.push(`Detector level ${live.sensorDb} dBFS at ${clock(live.sensorAt)}, from its last check-in or alarm. It checks in once a minute.`);
   else parts.push("The detector's level arrives with its once-a-minute check-in and with every alarm.");
   if (on && j.rec) parts.push(`Recording at the mic since ${clock(j.rec_start)}.`);
-  else if (j && j.file && !j.rec) parts.push(`Last recording, ${esc(j.file)}, is on the mic phone: tap <b>Save recording</b> there.`);
+  else if (j && j.file && !j.rec) parts.push(mv.local ? `Last recording, ${esc(j.file)}: tap <b>Save recording</b> to keep it.` : `Last recording, ${esc(j.file)}, is on the mic phone: tap <b>Save recording</b> there.`);
   $("#micLine").innerHTML = parts.join(" ");
 }
 
@@ -988,8 +1007,8 @@ async function spToggleCal() {
 // The mic phone reads the background with the speaker off, then the calibration playing.
 async function spMeasure() {
   if (sp.seq || sp.measuring) return;
-  if (!micOnline()) { spError("No mic phone connected. Scan the code under Sound at the mic with the second phone, or type the readings from a sound meter."); return; }
-  if (!micCal()) { spError("The mic phone's meter isn't set yet. On that phone, enter a sound meter app's reading and tap Set."); return; }
+  if (!micOnline()) { spError("The mic isn't on. Tap Start this phone's mic under Sound at the mic, or type the readings from a sound meter."); return; }
+  if (!micCal()) { spError("The phone's meter isn't set yet. Set it under Sound at the mic (or on the mic phone, if you use one)."); return; }
   try { await spLoad(); } catch (e) { spError(e.message); return; }
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   keepAwake();
@@ -1220,7 +1239,7 @@ function renderAll() { renderControls(); renderRuns(); renderRange(); renderEven
 // A-weighting from its analogue poles (IEC 61672): a double high-pass at 20.6 Hz, single
 // high-passes at 107.7 and 737.9 Hz, a double low-pass at 12.2 kHz, normalised to 0 dB at 1 kHz.
 const MIC_OFFSET_KEY = "tw-mic-offset";
-const mv = { name: null, stream: null, ctx: null, an: null, buf: null, g1k: 1, sum: 0, n: 0, secs: [], offset: null, rec: null, chunks: [], recStart: null, file: null, session: null, client: null };
+const mv = { name: null, stream: null, ctx: null, an: null, buf: null, g1k: 1, sum: 0, n: 0, secs: [], offset: null, rec: null, chunks: [], recStart: null, file: null, session: null, client: null, local: false };
 
 function aWeighting(ctx) {
   const fs = ctx.sampleRate, q = 20 * Math.log10(0.5); // a biquad's Q is in dB for high- and low-pass
@@ -1237,7 +1256,7 @@ function aWeighting(ctx) {
 async function mvStart() {
   try {
     mv.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 } });
-  } catch (e) { $("#mvStatus").textContent = `The microphone isn't available (${e.message}). Allow it for this page and try again.`; return; }
+  } catch (e) { $(mv.local ? "#lmCalLine" : "#mvStatus").textContent = `The microphone isn't available (${e.message}). Allow it for this page and try again.`; $("#lmCalLine").hidden = !mv.local; return; }
   mv.ctx = new (window.AudioContext || window.webkitAudioContext)();
   if (mv.ctx.state === "suspended") await mv.ctx.resume();
   const w = aWeighting(mv.ctx);
@@ -1247,8 +1266,16 @@ async function mvStart() {
   setInterval(mvSample, 40); setInterval(mvTick, 1000);
   $("#mvStart").hidden = true; $("#mvSet").disabled = false;
   keepAwake();
-  mvConnect();
+  if (!mv.local) mvConnect();
   renderMv();
+}
+
+// The logger phone as its own mic: readings and recording commands stay on this page, no broker.
+function lmStart() {
+  if (mv.stream) return;
+  mv.local = true;
+  window.addEventListener("beforeunload", (e) => { if (mv.rec || mv.file) { e.preventDefault(); e.returnValue = ""; } });
+  mvStart().then(() => { if (!mv.stream) mv.local = false; renderMic(); });
 }
 
 function mvSample() {
@@ -1266,12 +1293,12 @@ function mvTick() {
   const dba = mv.offset != null ? Math.round((dbfs + mv.offset) * 10) / 10 : null;
   $("#mvLevel").textContent = dba != null ? dba.toFixed(1) : dbfs.toFixed(0);
   $("#mvLevelK").textContent = dba != null ? "dB(A) here" : "raw level here, not dB(A) until you set the meter below";
-  if (mv.client && mv.client.connected) {
-    mv.client.publish(`${micTopic(settings().gwId)}/state`, JSON.stringify({
-      t: Date.now(), dbfs: Math.round(dbfs * 10) / 10, dba, rec: !!mv.rec,
-      rec_start: mv.rec ? mv.recStart : null, rec_s: mv.rec ? (Date.now() - mv.recStart) / 1000 : 0, file: mv.rec ? mv.name : mv.file ? mv.file.name : null
-    }));
-  }
+  const st = JSON.stringify({
+    t: Date.now(), dbfs: Math.round(dbfs * 10) / 10, dba, rec: !!mv.rec,
+    rec_start: mv.rec ? mv.recStart : null, rec_s: mv.rec ? (Date.now() - mv.recStart) / 1000 : 0, file: mv.rec ? mv.name : mv.file ? mv.file.name : null
+  });
+  if (mv.local) handleMic(st);
+  else if (mv.client && mv.client.connected) mv.client.publish(`${micTopic(settings().gwId)}/state`, st);
   renderMv();
 }
 
@@ -1324,14 +1351,24 @@ async function mvSave() {
 }
 
 function mvSetMeter() {
-  const ref = num($("#mvRef").value);
-  if (ref == null || mv.secs.length < 3) { $("#mvCalLine").textContent = "Play a steady sound, wait 5 s, then enter what the meter app reads."; return; }
+  const ref = num($(mv.local ? "#lmRef" : "#mvRef").value);
+  if (ref == null || mv.secs.length < 3) { $(mv.local ? "#lmCalLine" : "#mvCalLine").textContent = "Play a steady sound, wait 5 s, then enter what the meter app reads."; return; }
   mv.offset = ref - energyMean(mv.secs.slice(-5));
   try { localStorage.setItem(MIC_OFFSET_KEY, String(mv.offset)); } catch (e) {}
   renderMv();
 }
 
 function renderMv() {
+  if (mv.local) {
+    $("#bLocalMic").hidden = true;
+    $("#lmMeter").hidden = false; $("#lmCalLine").hidden = false;
+    $("#lmCalLine").textContent = mv.offset != null
+      ? `Meter set: reading + ${mv.offset.toFixed(1)} dB. Set it again only on a different phone or browser.`
+      : "Once per phone, at home: read a steady sound, such as a fan, with a sound meter app on this phone (A-weighting). Come back here with the same sound on, wait 5 s, type that reading and tap Set.";
+    $("#lmSave").hidden = !mv.file && !mv.rec;
+    $("#lmSave").disabled = !mv.file;
+    return;
+  }
   const online = mv.client && mv.client.connected;
   if (mv.stream) $("#mvStatus").innerHTML = online ? `Connected to logger <code>${esc(settings().gwId)}</code>. Leave this phone by the mic.` : "Mic on. Connecting to the logger…";
   $("#mvCalLine").textContent = mv.offset != null
@@ -1372,6 +1409,10 @@ for (const id of ["#spLwa", "#spCalSpl", "#spBg", "#spList", "#spRepeat", "#spPl
 $("#spCal").onclick = spToggleCal;
 $("#spMeasure").onclick = spMeasure;
 $("#bRec").onclick = () => micRec(!mic.last.rec);
+$("#bLocalMic").onclick = lmStart;
+$("#lmSet").onclick = mvSetMeter;
+$("#lmSave").onclick = mvSave;
+try { const o = num(localStorage.getItem(MIC_OFFSET_KEY)); if (o != null) mv.offset = o; } catch (e) {}
 $("#spStart").onclick = spStart;
 $("#spStop").onclick = spFinish;
 $("#bSync").onclick = () => mark("sync");
