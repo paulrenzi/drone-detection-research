@@ -36,15 +36,15 @@ A speaker can't copy what 330 ft of real ground and wind does to the sound. A re
 <summary><span class="layer-title">Where everything goes</span><span class="layer-sub">No house WiFi needed: the gateway joins the logger phone's hotspot</span></summary>
 
 ```
-mic + detector, 0.5 m up
+mic + detector, 20 in up
         mic phone beside it: meter and recorder
         │
-        │  5 m, measured with a tape
+        │  16 ft, measured with a tape
         │
 chair:  speaker, facing the mic
         logger phone + gateway + its power bank
         │
-        │  20 m or more
+        │  65 ft or more
         │
 you, quiet, behind the speaker
 ```

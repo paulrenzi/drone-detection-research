@@ -36,7 +36,7 @@ What the ground actually looks like for Ukrainian infantry in 2024–2026, and w
 
 ## The drone kill zone
 
-- **It is kilometres deep, and growing.** Estimates vary by source and sector:
+- **It is miles deep, and growing.** Estimates vary by source and sector:
   - A sergeant of the 24th Brigade: the grey zone grew from 0.31–1.2 mi to about 3.1–4.3 mi ([Militarnyi](https://militarnyi.com/en/articles/the-kill-zone-of-modern-warfare-size-and-structure-control-and-means-of-destruction-survival-and-shifting-the-lines/)).
   - A National Guard spokesman: the most intense zone is 3.1–6.2 mi, with strikes reaching about 19 mi ([Euromaidan Press, Dec 2025](https://euromaidanpress.com/2025/12/24/kill-zones-everywhere-ukrainian-military-describes-new-combination-replacing-mass-assaults-across-main-fronts/)).
   - A ground-robot commander: even 9 miles out is a zone of extreme danger ([LRT](https://www.lrt.lt/en/news-in-english/19/2869171/inside-ukraine-s-kill-zone-you-can-be-killed-very-quickly-and-out-of-nowhere)).

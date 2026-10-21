@@ -143,7 +143,7 @@ The first integration target is **Anduril Lattice**, which the US Army has picke
 
 **Payoff** is scored separately, 1–5: how much the model would matter for protecting units in the field against small drones, including fibre-optic FPVs, if it works. A model can be easy and unimportant (phones in a rear area) or hard and decisive (the drone-laid tripwire). Read the two together.
 
-The single most important number is **cost per square mile covered = node cost × node density**. Node density is driven by detection range, which differs hugely by target. See [Range and cost-per-km² model]({{ site.baseurl }}{% link research/range-and-cost.md %}).
+The single most important number is **cost per square mile covered = node cost × node density**. Node density is driven by detection range, which differs hugely by target. See [Range and cost-per-square-mile model]({{ site.baseurl }}{% link research/range-and-cost.md %}).
 
 <p class="kicker">07 · Contributing</p>
 
