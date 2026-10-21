@@ -35,37 +35,41 @@ A speaker can't copy what 330 ft of real ground and wind does to the sound. A re
 <details class="layer" id="field-layout" markdown="block">
 <summary><span class="layer-title">Where everything goes</span><span class="layer-sub">One phone at the mic; no house WiFi needed: the gateway joins the phone's hotspot</span></summary>
 
-<figure class="field-layout" style="margin:12px 0 16px">
-<svg viewBox="0 0 680 300" width="100%" role="img" aria-labelledby="flTitle flDesc" style="max-width:680px;color:inherit;font-family:inherit">
+<figure class="field-layout" style="margin:12px 0 16px;max-width:420px">
+<svg viewBox="0 0 360 496" width="100%" role="img" aria-labelledby="flTitle flDesc" style="color:inherit;font-family:inherit">
 <title id="flTitle">Field layout for the Saturday test</title>
-<desc id="flDesc">Seen from above: the detector and mic 20 inches up in windscreens, with the phone beside them; a chair 16 feet away holding the Bluetooth speaker facing the mic, plus the gateway and its power bank; you standing quiet 65 feet or more behind the speaker. Not to scale.</desc>
+<desc id="flDesc">Seen from above: the detector and mic 20 inches up in a windscreen, with the phone beside it; a chair 16 feet away holding the Bluetooth speaker facing the mic, plus the gateway and its power bank; you standing quiet 65 feet or more behind the speaker. Not to scale.</desc>
 <defs><marker id="flArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#c2562c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
-<rect x="10" y="10" width="660" height="250" rx="12" fill="#6a9a3a" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.3" stroke-dasharray="4 4"/>
-<text x="26" y="34" font-size="13" fill="currentColor" fill-opacity="0.7">Grass, 16 ft or more from walls, cars and fences</text>
-<circle cx="110" cy="150" r="27" fill="#1d9e75" fill-opacity="0.18" stroke="#1d9e75"/>
-<text x="110" y="155" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor">Mic</text>
-<text x="110" y="198" font-size="13" text-anchor="middle" fill="currentColor">Detector + mic</text>
-<text x="110" y="215" font-size="13" text-anchor="middle" fill="currentColor">20 in up, windscreen</text>
-<rect x="91" y="66" width="38" height="56" rx="7" fill="#534ab7" fill-opacity="0.15" stroke="#534ab7"/>
-<text x="110" y="98" font-size="12" text-anchor="middle" fill="currentColor">Phone</text>
-<text x="140" y="80" font-size="13" fill="currentColor">The logger: plays,</text>
-<text x="140" y="97" font-size="13" fill="currentColor">measures, records</text>
-<rect x="300" y="118" width="96" height="64" rx="8" fill="#c2562c" fill-opacity="0.15" stroke="#c2562c"/>
-<text x="348" y="145" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor">Chair</text>
-<text x="348" y="165" font-size="13" text-anchor="middle" fill="currentColor">Speaker</text>
-<text x="348" y="202" font-size="13" text-anchor="middle" fill="currentColor">Gateway + power bank</text>
-<text x="348" y="219" font-size="13" text-anchor="middle" fill="currentColor">on the chair too</text>
-<line x1="296" y1="150" x2="143" y2="150" stroke="#c2562c" stroke-width="1.5" marker-end="url(#flArrow)"/>
-<text x="220" y="141" font-size="13" text-anchor="middle" fill="currentColor">16 ft, taped</text>
-<path d="M131 110 Q 220 62 302 126" fill="none" stroke="#534ab7" stroke-width="1.2" stroke-dasharray="3 3"/>
-<text x="232" y="66" font-size="12" text-anchor="middle" fill="currentColor" fill-opacity="0.8">Bluetooth + hotspot</text>
-<line x1="400" y1="150" x2="526" y2="150" stroke="currentColor" stroke-opacity="0.45" stroke-dasharray="2 4"/>
-<text x="463" y="141" font-size="13" text-anchor="middle" fill="currentColor">65 ft or more</text>
-<circle cx="568" cy="132" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/>
-<path d="M555 170 Q568 142 581 170" fill="none" stroke="currentColor" stroke-width="1.4"/>
-<text x="568" y="198" font-size="13" text-anchor="middle" fill="currentColor">You, quiet,</text>
-<text x="568" y="215" font-size="13" text-anchor="middle" fill="currentColor">behind the speaker</text>
-<text x="26" y="286" font-size="12" fill="currentColor" fill-opacity="0.7">Not to scale. For the radio walk afterwards, carry the gateway and the phone away together.</text>
+<rect x="6" y="6" width="348" height="440" rx="12" fill="#6a9a3a" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.3" stroke-dasharray="4 4"/>
+<text x="20" y="32" font-size="13" fill="currentColor" fill-opacity="0.7">Grass, 16 ft or more from walls and cars</text>
+<circle cx="80" cy="92" r="25" fill="#1d9e75" fill-opacity="0.18" stroke="#1d9e75"/>
+<text x="80" y="97" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor">Mic</text>
+<rect x="118" y="68" width="30" height="48" rx="6" fill="#534ab7" fill-opacity="0.15" stroke="#534ab7"/>
+<circle cx="133" cy="108" r="2.5" fill="#534ab7"/>
+<text x="162" y="76" font-size="13" font-weight="600" fill="currentColor">Detector + mic</text>
+<text x="162" y="93" font-size="13" fill="currentColor">20 in up, windscreen</text>
+<text x="162" y="110" font-size="13" fill="currentColor">Phone beside it: the</text>
+<text x="162" y="127" font-size="13" fill="currentColor">logger, meter, recorder</text>
+<line x1="80" y1="222" x2="80" y2="122" stroke="#c2562c" stroke-width="1.5" marker-end="url(#flArrow)"/>
+<text x="70" y="168" font-size="13" text-anchor="end" fill="currentColor">16 ft,</text>
+<text x="70" y="185" font-size="13" text-anchor="end" fill="currentColor">taped</text>
+<path d="M140 120 Q 190 172 132 226" fill="none" stroke="#534ab7" stroke-width="1.2" stroke-dasharray="3 3"/>
+<text x="186" y="168" font-size="12" fill="currentColor" fill-opacity="0.8">Bluetooth +</text>
+<text x="186" y="184" font-size="12" fill="currentColor" fill-opacity="0.8">hotspot, 16 ft</text>
+<rect x="30" y="226" width="100" height="56" rx="8" fill="#c2562c" fill-opacity="0.15" stroke="#c2562c"/>
+<text x="80" y="249" font-size="14" font-weight="600" text-anchor="middle" fill="currentColor">Chair</text>
+<text x="80" y="268" font-size="13" text-anchor="middle" fill="currentColor">Speaker</text>
+<text x="146" y="248" font-size="13" fill="currentColor">Speaker faces the mic</text>
+<text x="146" y="265" font-size="13" fill="currentColor">Gateway + power bank</text>
+<text x="146" y="282" font-size="13" fill="currentColor">on the chair too</text>
+<line x1="80" y1="286" x2="80" y2="372" stroke="currentColor" stroke-opacity="0.45" stroke-dasharray="2 4"/>
+<text x="94" y="334" font-size="13" fill="currentColor">65 ft or more</text>
+<circle cx="80" cy="390" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<path d="M66 428 Q80 398 94 428" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<text x="112" y="398" font-size="13" font-weight="600" fill="currentColor">You, quiet,</text>
+<text x="112" y="415" font-size="13" fill="currentColor">behind the speaker</text>
+<text x="8" y="468" font-size="12" fill="currentColor" fill-opacity="0.7">Not to scale. For the radio walk afterwards,</text>
+<text x="8" y="485" font-size="12" fill="currentColor" fill-opacity="0.7">carry the gateway and the phone away together.</text>
 </svg>
 </figure>
 
