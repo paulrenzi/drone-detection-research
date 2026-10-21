@@ -1,6 +1,6 @@
-title: Low-Cost Acoustic Drone Detection
+title: trip/wire
 description: Research notebook on sensor-network models for detecting and locating drones cheaply
-baseurl: "/drone-detection-research"
+baseurl: "/tripwire"
 url: "https://paulrenzi.github.io"
 remote_theme: just-the-docs/just-the-docs@v0.10.0
 plugins:
@@ -15,7 +15,7 @@ back_to_top_text: "Back to top"
 
 aux_links:
   "Repository":
-    - "https://github.com/paulrenzi/drone-detection-research"
+    - "https://github.com/paulrenzi/tripwire"
 
 footer_content: "Research notes compiled from public sources. Ratings are working judgements, not test results. Last full review 2026-10-15."
 
@@ -33,4 +33,5 @@ callouts:
 exclude:
   - README.md
   - docs/
+  - worker/
   - models/_template.md

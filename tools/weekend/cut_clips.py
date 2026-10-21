@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Cut a weekend-test recording into labelled 1 s clips, using the logger's CSVs.
+"""Cut a weekend-test recording into labelled 1 s clips, using the logger's session.
 
-The weekend logger (logger.html) writes runs.csv (one row per run, with type,
-distance, mic height, wind, start and stop times) and events.csv (every
-reading, plus the Sync clap and Mark presses). This script lines a recording
+The weekend logger (logger.html) saves each session online as it goes: one row
+per run (type, distance, mic height, wind, start and stop times) and every
+reading, plus the Sync clap and Mark presses. --session latest fetches the
+newest one; its CSV downloads (--runs, --events) still work too. This script lines a recording
 up with the logger's clock, cuts each run into clips, files them by label, and
 writes a manifest you can split by run for training.
 
@@ -24,7 +25,7 @@ Phone apps record .m4a; with ffmpeg on the PATH the script converts any input
 
 Standard library only. Example:
 
-  python cut_clips.py --runs S20261025-1003_runs.csv --events S20261025-1003_events.csv \\
+  python cut_clips.py --session latest \\
       --recording phone-0.5m.m4a --sync --tag mic05 --rate 16000 --out clips
 """
 
@@ -32,14 +33,17 @@ import argparse
 import array
 import csv
 import hashlib
+import json
 import os
 import shutil
 import subprocess
 import sys
 import tempfile
 import wave
+import urllib.request
 from datetime import datetime
 
+SESSIONS_URL = "https://tripwire-sessions.paulmichaelrenzi.workers.dev/sessions"
 LABELS = {"hover": None, "speaker": None, "pass": "drone_pass", "nodrone": "background"}
 MANIFEST_COLS = [
     "clip", "label", "session", "run_id", "fold", "tag", "recording", "offset_s", "clip_iso",
@@ -63,6 +67,19 @@ def iso(ms):
 def read_csv(path):
     with open(path, newline="", encoding="utf-8") as f:
         return list(csv.DictReader(f))
+
+
+def read_session(ref):
+    """runs and events from a saved session: 'latest', '<gateway>/<session>', a URL or a .json file."""
+    if os.path.exists(ref):
+        with open(ref, encoding="utf-8") as f:
+            s = json.load(f)
+    else:
+        url = ref if ref.startswith("http") else f"{SESSIONS_URL}/{ref}"
+        with urllib.request.urlopen(url, timeout=30) as r:
+            s = json.load(r)
+    print(f"session {s.get('session')} from gateway {s.get('gateway')}, saved {s.get('saved_at')}")
+    return s["runs"], s["events"]
 
 
 def to_wav(src, rate, workdir):
@@ -162,8 +179,10 @@ def label_for(run):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--runs", required=True, help="runs.csv from the logger")
-    ap.add_argument("--events", help="events.csv from the logger (needed for --sync and the batear_alarm column)")
+    src = ap.add_mutually_exclusive_group(required=True)
+    src.add_argument("--session", help="a saved session: latest, <gateway>/<session>, a URL or a .json file")
+    src.add_argument("--runs", help="runs.csv downloaded from the logger")
+    ap.add_argument("--events", help="events.csv, with --runs (needed for --sync and the batear_alarm column)")
     ap.add_argument("--recording", required=True, help="the audio file")
     when = ap.add_mutually_exclusive_group(required=True)
     when.add_argument("--start", help="wall-clock time the recording started (ISO 8601)")
@@ -180,8 +199,11 @@ def main(argv=None):
     args = ap.parse_args(argv)
     hop = args.hop or args.clip
 
-    runs = read_csv(args.runs)
-    events = read_csv(args.events) if args.events else []
+    if args.session:
+        runs, events = read_session(args.session)
+    else:
+        runs = read_csv(args.runs)
+        events = read_csv(args.events) if args.events else []
 
     with tempfile.TemporaryDirectory() as tmp:
         wav_path = to_wav(args.recording, args.rate, tmp)
@@ -189,9 +211,9 @@ def main(argv=None):
         if args.sync:
             syncs = sorted(float(e["t_ms"]) for e in events if e.get("kind") == "sync")
             if not syncs:
-                sys.exit("--sync needs --events with at least one Sync clap press")
+                sys.exit("--sync needs the session (or --events) with at least one Sync clap press")
             if not 1 <= args.sync_mark <= len(syncs):
-                sys.exit(f"--sync-mark {args.sync_mark}: events.csv has {len(syncs)} Sync clap press(es): "
+                sys.exit(f"--sync-mark {args.sync_mark}: the session has {len(syncs)} Sync clap press(es): "
                          + ", ".join(iso(s) for s in syncs))
             clap_s = find_clap(wav_path, args.sync_window)
             rec_start = syncs[args.sync_mark - 1] - clap_s * 1000.0

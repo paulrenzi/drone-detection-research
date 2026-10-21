@@ -1,6 +1,6 @@
-# Low-Cost Acoustic Drone Detection — research notebook
+# trip/wire — low-cost acoustic drone detection
 
-Published with GitHub Pages: https://paulrenzi.github.io/drone-detection-research/
+Published with GitHub Pages: https://paulrenzi.github.io/tripwire/
 
 - `index.md` — overview and feasibility matrix
 - `models/` — one page per sensor model (copy `models/_template.md` to add one)

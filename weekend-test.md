@@ -21,12 +21,12 @@ Do steps 1–3 at home the day before.
 3. **Check it works.** Turn on the hotspot and power both boards. The logger should show *gateway online*, and *last packet* should reset about once a minute as the detector checks in. Pair the speaker, then in the logger's *Speaker test* tap **Play calibration** next to the mic. You should see an alarm.
 4. **Lay out the field** ([where everything goes](#field-layout)). Put the detector and the second phone side by side, 0.5 m up, in windscreens. Put the speaker on a chair 5 m away, with the logger phone and gateway on the chair too. On the logger phone, turn on Do Not Disturb and set Auto-Lock to Never.
 5. **Calibrate the speaker.** Use the second phone as the sound meter at the mic ([how](#speaker-test)).
-6. **Start the sweep.** Start recording on the second phone, clap, and press **Sync clap**. Tap **Start sequence**, then walk 20 m behind the speaker and stay quiet for about 30 minutes.
-7. **Record 30 minutes of background.** Set *Type* to *No drone*, tap **Start run**, stay quiet, and tap **Stop run** after 30 minutes.
-8. **Walk the gateway away** with the logger phone, stopping at 100, 200 and 400 m and on. At each stop, set *Type* to *Radio walk*, enter the distance, tap **Start run**, and stop it once a packet arrives, about a minute. Turn back when none comes in two minutes.
-9. **Export** both CSVs before you leave.
+6. **Start the sweep.** Tap **Start sequence**, then walk 20 m behind the speaker and stay quiet for about an hour. The logger plays every distance (about 28 minutes), then records 30 minutes of background with the speaker off.
+7. **Walk the gateway away** with the logger phone, stopping at 100, 200 and 400 m and on. At each stop, set *Type* to *Radio walk*, enter the distance, tap **Start run**, and stop it once a packet arrives, about a minute. Turn back when none comes in two minutes.
 
-**The result** is the logger's *Range so far* table.
+**The result** is the logger's *Range so far* table. There's nothing to export: the logger saves every run online as it goes, so you can ask Claude to read the latest session from anywhere.
+
+**Optional, for training clips:** before step 6, start recording on the second phone beside the mic, then clap once next to it and tap **Sync clap** at the same moment. The clap lets the clip cutter line the recording up with the logger's clock.
 
 <p><a class="btn btn-primary" href="{{ site.baseurl }}/tools/weekend/logger.html">Open the logger</a> <a class="btn" href="{{ site.baseurl }}/tools/weekend/logger.html?demo=1">Try it with demo data</a></p>
 
@@ -68,7 +68,7 @@ you, quiet, behind the speaker
 3. Scan the flasher's QR code with the phone. It opens the logger with that gateway ID and connects.
 4. Power the gateway. The chip turns to *gateway online* when the board checks in. An iPhone only shows its hotspot while the Personal Hotspot screen is open, so keep it open until then.
 
-Readings pass through a free public broker, so anyone who guessed the ID could read them: fine for a test, not for anything sensitive. Keep the screen on, since readings that arrive while it's locked are lost.
+Readings pass through a free public broker, and the saved sessions can be read by anyone with the link: fine for a test, not for anything sensitive. Keep the screen on, since readings that arrive while it's locked are lost.
 
 With a laptop and a cable, use **Connect USB** instead. Phones can't read a USB board from a web page. Plugging in the detector as well adds its confidence score.
 
@@ -82,7 +82,7 @@ A free sound meter app on the second phone will do; set it to A-weighting. Calib
 
 1. **Set up.** Silent mode off. Speaker on a chair 5 m from the mic, facing it, with the logger phone beside it.
 2. **Calibrate.** In the logger's *Speaker test*, pick a sound and tap **Play calibration**. Use the volume buttons, on the phone or the speaker, until the meter at the mic reads 60–65 dB(A). Enter that reading, then the reading with the speaker off. Don't touch the volume again.
-3. **Start sequence.** The logger plays each distance for 60 s, three times over with 20 s of quiet between, and logs every play as a *Speaker* run. The default, 25 m to 300 m, takes about 28 minutes.
+3. **Start sequence.** The logger plays each distance for 60 s, three times over with 20 s of quiet between, and logs every play as a *Speaker* run. The default, 25 m to 300 m, takes about 28 minutes. Then it records 30 minutes of background as a *No drone* run, with the speaker off.
 
 **Why not louder:** near full volume a small speaker distorts, and distortion adds the harmonics the detector listens for. The loudest step needs only 42 dB(A) at the mic.
 
@@ -96,12 +96,12 @@ The sounds are a DJI Mini 4 Pro and a 5-inch FPV from [batear-datasets](https://
 |---|---|---|
 | Logger | One file that also works offline over USB | <a href="{{ site.baseurl }}/tools/weekend/logger.html" download>logger.html</a> |
 | Drone sounds | Built into the logger | <a href="{{ site.baseurl }}/tools/weekend/sounds/mini.mp3" download>mini.mp3</a> · <a href="{{ site.baseurl }}/tools/weekend/sounds/fpv.mp3" download>fpv.mp3</a> |
-| Clip cutter | Lines a recording up on the clap and cuts each run into labelled 1 s clips, noting whether Batear was alarming | <a href="{{ site.baseurl }}/tools/weekend/cut_clips.py" download>cut_clips.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_cut_clips.py" download>tests</a> |
+| Clip cutter | Fetches the saved session, lines a recording up on the clap and cuts each run into labelled 1 s clips, noting whether Batear was alarming | <a href="{{ site.baseurl }}/tools/weekend/cut_clips.py" download>cut_clips.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_cut_clips.py" download>tests</a> |
 
 Optional, afterwards (Python 3.11+, and [ffmpeg](https://ffmpeg.org/) for a phone's `.m4a`):
 
 ```bash
-python cut_clips.py --runs S20261025-1003_runs.csv --events S20261025-1003_events.csv --recording phone-0.5m.m4a --sync --tag mic05 --rate 16000 --out clips
+python cut_clips.py --session latest --recording phone-0.5m.m4a --sync --tag mic05 --rate 16000 --out clips
 ```
 
 Hold out whole runs for testing, never clips from a run you trained on.

@@ -1,0 +1,9 @@
+name = "tripwire-sessions"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+account_id = "83f33c67294ca2f2f0869b63c1663b0e"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "c0cd7fe973af4d7c9639432a92469c9c"

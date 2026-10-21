@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1f5f8b">
-<title>Weekend Test Logger</title>
+<title>trip/wire logger</title>
 <style>
 :root {
   --bg: #f6f5f1; --panel: #ffffff; --ink: #1b1d1f; --muted: #5d636a; --line: #d9d6cf;
@@ -107,13 +107,13 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
 <div class="ribbon">DEMO: made-up readings to show how the logger works. Not measurements.</div>
 <header>
   <div>
-    <h1>Weekend test logger</h1>
-    <div class="note hide-embed" style="margin:0"><a href="https://paulrenzi.github.io/drone-detection-research/weekend-test.html" target="_top">How to use it</a></div>
+    <h1>trip/wire logger</h1>
+    <div class="note hide-embed" style="margin:0"><a href="https://paulrenzi.github.io/tripwire/weekend-test.html" target="_top">How to use it</a></div>
   </div>
   <div class="row" id="ports"><span class="chip">Not connected</span></div>
 </header>
 
-<div class="banner" id="storeWarn">Browser storage is unavailable or full. Export your CSVs now: data on this page will not survive a reload.</div>
+<div class="banner" id="storeWarn">Browser storage is unavailable or full. Keep this page open until it says <i>saved online</i>: data on this page will not survive a reload.</div>
 
 <div class="layout">
   <div class="col">
@@ -190,6 +190,7 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
         <button class="grow" id="bMark" title="Closest approach, or anything worth a timestamp">Mark <kbd class="desk">M</kbd></button>
       </div>
       <div class="runline" id="runLine">No run in progress.</div>
+      <p class="note hide-embed" id="cloudLine" style="margin:6px 0 0"></p>
     </section>
 
     <details class="panel hide-embed" id="speakerPanel">
@@ -197,7 +198,7 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
       <ol class="steps">
         <li>Pair a Bluetooth speaker with this phone. Silent mode off, Do Not Disturb on, Auto-Lock off. Put the speaker on a chair 5 m from the mic, facing it, with this phone and the gateway beside it.</li>
         <li>Pick a sound, tap <b>Play calibration</b>, and use the volume buttons until a sound meter at the mic reads 60–65 dB(A). A free meter app on the second phone will do, before it starts recording. Then don't touch the volume again.</li>
-        <li>Enter the meter reading, and the reading with the speaker off. Tap <b>Start sequence</b> and walk 20 m behind the speaker. Each play is logged as a <i>Speaker</i> run.</li>
+        <li>Enter the meter reading, and the reading with the speaker off. Tap <b>Start sequence</b> and walk 20 m behind the speaker. Each play is logged as a <i>Speaker</i> run, then the logger records the background as a <i>No drone</i> run.</li>
       </ol>
       <div class="fields">
         <label class="span2">Sound
@@ -221,6 +222,7 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
         <label>Plays each <input id="spRepeat" type="number" inputmode="numeric" min="1" step="1" value="3"></label>
         <label>Play, s <input id="spPlay" type="number" inputmode="numeric" min="5" step="5" value="60"></label>
         <label>Gap, s <input id="spGap" type="number" inputmode="numeric" min="0" step="5" value="20"></label>
+        <label class="span3">Then record background, min <input id="spBgMin" type="number" inputmode="numeric" min="0" step="5" value="30"></label>
       </div>
       <div class="row">
         <button class="primary grow" id="spStart">Start sequence</button>
@@ -240,7 +242,7 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
 
 
     <details class="panel hide-embed">
-      <summary><h2>Runs and export</h2></summary>
+      <summary><h2>Runs</h2></summary>
       <div class="row" style="margin-bottom:8px">
         <button id="bRuns">runs.csv</button>
         <button id="bEvents">events.csv</button>
@@ -272,6 +274,8 @@ const SETTINGS_KEY = "tw-weekend-logger-settings";
 const MQTT_JS = "https://cdn.jsdelivr.net/npm/mqtt@5.14.1/dist/mqtt.min.js";
 const DEFAULT_BROKER = "wss://broker.hivemq.com:8884/mqtt";
 const RAW_KEEP = 20000, RAW_SAVE = 4000;
+const CLOUD = "https://tripwire-sessions.paulmichaelrenzi.workers.dev";
+const cloud = { live: false, dirty: false, busy: false, timer: null, savedAt: null, error: null };
 const $ = (s) => document.querySelector(s);
 
 let state = load() || freshState();
@@ -301,6 +305,35 @@ function save() {
       $("#storeWarn").classList.remove("show");
     } catch (e) { $("#storeWarn").classList.add("show"); }
   }, 1000);
+  if (cloud.live && state.session) { cloud.dirty = true; if (!cloud.timer) cloud.timer = setTimeout(upload, 15000); }
+}
+
+// ---- saved online, so the results can be read back without exporting anything ----
+async function upload() {
+  clearTimeout(cloud.timer); cloud.timer = null;
+  if (!cloud.live || !state.session || !cloud.dirty || cloud.busy) return;
+  cloud.dirty = false; cloud.busy = true;
+  const body = JSON.stringify({
+    session: state.session, gateway: settings().gwId, saved_at: isoLocal(Date.now()),
+    runs: state.runs.map((r) => Object.assign({}, r, summarize(r))), events: state.events, raw: state.raw.slice(-RAW_SAVE)
+  });
+  try {
+    const r = await fetch(`${CLOUD}/sessions/${encodeURIComponent(settings().gwId)}/${state.session}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    cloud.savedAt = Date.now(); cloud.error = null;
+  } catch (e) {
+    cloud.dirty = true; cloud.error = e.message;
+  }
+  cloud.busy = false;
+  if (cloud.dirty) cloud.timer = setTimeout(upload, 30000);
+  renderCloud();
+}
+function renderCloud() {
+  const el = $("#cloudLine");
+  if (!cloud.live) { el.textContent = ""; return; }
+  if (cloud.error) el.textContent = `Not saved online yet (${cloud.error}). Retrying every 30 s; it's safe on this phone meanwhile.`;
+  else if (cloud.savedAt) el.textContent = `Saved online at ${clock(cloud.savedAt)}${cloud.dirty ? ", newer readings to follow" : ""}. Nothing to export.`;
+  else el.textContent = "Runs save online as you go. Nothing to export.";
 }
 
 function settings() {
@@ -413,6 +446,7 @@ function stopRun() {
   current.end_ms = t; current.end_iso = isoLocal(t);
   current = null;
   renderControls(); renderRuns(); renderRange(); save();
+  upload();
 }
 
 function summarize(run) {
@@ -465,6 +499,7 @@ async function connectUsb() {
   } catch (e) { alert(`Could not open the port: ${e.message}. Close any other serial monitor using it.`); return; }
   entry.open = true;
   ports.push(entry);
+  goLive();
   renderPorts();
   $("#connectPanel").open = false;
   keepAwake();
@@ -509,6 +544,7 @@ async function connectWifi() {
   saveSettings(s);
   renderGwId();
   if (mqttClient) { mqttClient.end(true); mqttClient = null; }
+  goLive();
   try { if (!window.mqtt) await loadScript(MQTT_JS); } catch (e) { alert("Couldn't load the MQTT library. WiFi mode needs mobile data or internet."); return; }
   let entry = ports.find((p) => p.label === "wifi");
   if (!entry) { entry = { label: "wifi", role: "gateway", open: false, state: "connecting" }; ports.push(entry); }
@@ -537,6 +573,15 @@ async function connectWifi() {
   mqttClient.on("error", (e) => logRaw(`mqtt error: ${e.message}`, "wifi"));
   keepAwake();
 }
+
+function goLive() {
+  if (demoTimer) stopDemo();
+  if (state.events.some((e) => e.demo)) { if (current) stopRun(); state = freshState(); current = null; save(); renderAll(); }
+  cloud.live = true;
+  if (state.session) { cloud.dirty = true; upload(); }
+  renderCloud();
+}
+window.addEventListener("online", () => upload());
 
 async function keepAwake() {
   try { if ((!wakeLock || wakeLock.released) && navigator.wakeLock) wakeLock = await navigator.wakeLock.request("screen"); } catch (e) {}
@@ -701,7 +746,7 @@ function spPlan() {
   if (loud) throw new Error(`${loud.dist != null ? Math.round(loud.dist) + " m" : loud.level + " dB(A)"} needs ${(loud.level - cal).toFixed(1)} dB more than the calibration. Move the speaker closer or turn it up, then measure again.`);
   const items = [];
   for (let r = 0; r < repeat; r++) for (const s of steps) items.push(Object.assign({ gain: s.level - cal }, s));
-  return { cal, items, play, gap, warn, quiet: bg != null ? steps.filter((s) => s.level < bg).length : 0 };
+  return { cal, items, play, gap, warn, bgMin: Math.max(0, num($("#spBgMin").value) || 0), quiet: bg != null ? steps.filter((s) => s.level < bg).length : 0 };
 }
 
 async function spToggleCal() {
@@ -723,7 +768,15 @@ async function spStart() {
 function spStep() {
   const s = sp.seq;
   if (!s) return;
-  if (s.i >= s.plan.items.length) { spFinish(); return; }
+  if (s.i >= s.plan.items.length) {
+    if (s.phase === "bg" || !s.plan.bgMin) { spFinish(); return; }
+    $("#fType").value = "nodrone"; $("#fDist").value = ""; $("#fDrone").value = ""; $("#fNotes").value = "background, right after the speaker sweep";
+    startRun();
+    s.phase = "bg"; s.until = Date.now() + s.plan.bgMin * 60000;
+    s.timer = setTimeout(spFinish, s.plan.bgMin * 60000);
+    renderSp();
+    return;
+  }
   const it = s.plan.items[s.i], r1 = (v) => Math.round(v * 10) / 10;
   $("#fType").value = "speaker";
   $("#fDist").value = it.dist != null ? r1(it.dist) : "";
@@ -765,13 +818,15 @@ function renderSp() {
     const what = `${it.dist != null ? Math.round(it.dist) + " m, " : ""}${it.level.toFixed(1)} dB(A) at the mic`;
     el.innerHTML = s.phase === "play"
       ? `<b>Playing ${s.i + 1} of ${s.plan.items.length}</b> · ${what} · ${left} s left`
-      : `Quiet before play ${s.i + 1} of ${s.plan.items.length} · ${left} s`;
+      : s.phase === "bg"
+        ? `<b>Recording background</b>, speaker off · stay quiet · ${Math.ceil(left / 60)} min left`
+        : `Quiet before play ${s.i + 1} of ${s.plan.items.length} · ${left} s`;
     return;
   }
   if (sp.cal) { el.textContent = "Calibration playing. Read the meter at the mic, then stop it."; return; }
   try {
     const p = spPlan(), mins = Math.ceil(p.items.length * (p.play + p.gap) / 60);
-    el.textContent = `${p.items.length} plays, about ${mins} min. Calibration ${p.cal.toFixed(1)} dB(A) at the mic.${p.quiet ? ` ${p.quiet} level(s) are quieter than the background: expected at range.` : ""}${p.warn}`;
+    el.textContent = `${p.items.length} plays, about ${mins} min${p.bgMin ? `, then ${p.bgMin} min of background` : ""}. Calibration ${p.cal.toFixed(1)} dB(A) at the mic.${p.quiet ? ` ${p.quiet} level(s) are quieter than the background: expected at range.` : ""}${p.warn}`;
   } catch (e) { el.textContent = e.message; }
 }
 
@@ -910,7 +965,7 @@ $("#bStop").onclick = () => (sp.seq ? spFinish() : stopRun());
 $("#spSound").onchange = spSoundChanged;
 $("#spFile").onchange = () => { sp.buf = null; $("#spCalSpl").value = ""; renderSp(); };
 $("#spMode").onchange = spModeChanged;
-for (const id of ["#spLwa", "#spCalSpl", "#spBg", "#spList", "#spRepeat", "#spPlay", "#spGap"]) $(id).oninput = renderSp;
+for (const id of ["#spLwa", "#spCalSpl", "#spBg", "#spList", "#spRepeat", "#spPlay", "#spGap", "#spBgMin"]) $(id).oninput = renderSp;
 $("#spCal").onclick = spToggleCal;
 $("#spStart").onclick = spStart;
 $("#spStop").onclick = spFinish;
@@ -920,8 +975,9 @@ $("#bRuns").onclick = () => download(`${fileBase()}_runs.csv`, toCsv(RUN_COLS, s
 $("#bEvents").onclick = () => download(`${fileBase()}_events.csv`, toCsv(EV_COLS, state.events));
 $("#bRaw").onclick = () => download(`${fileBase()}_serial.txt`, state.raw.join("\n") + "\n", "text/plain");
 $("#bClear").onclick = () => {
-  if (!confirm("Start a new session? Export runs.csv and events.csv first: this clears them from the page.")) return;
+  if (!confirm(cloud.savedAt && !cloud.dirty ? "Start a new session? This one is saved online." : "Start a new session? This one hasn't finished saving online, and this clears it from the page.")) return;
   if (current) stopRun();
+  upload();
   state = freshState(); current = null; save();
   renderAll();
 };

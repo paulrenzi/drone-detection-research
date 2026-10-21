@@ -3,6 +3,7 @@
 import array
 import csv
 import io
+import json
 import math
 import os
 import random
@@ -97,6 +98,21 @@ class CutClips(unittest.TestCase):
         start = cut_clips.iso(T0)
         self.assertEqual(self.run_tool("--start", start), 0)
         self.assertAlmostEqual(float(self.manifest()[0]["offset_s"]), CLAP_S + 7, delta=0.01)
+
+    def test_saved_session_matches_csvs(self):
+        self.run_tool("--sync")
+        from_csv = self.manifest()
+        os.remove(os.path.join(self.out, "manifest.csv"))
+        with open(self.runs, newline="") as f:
+            runs = [{k: (float(v) if k.endswith("_ms") else (v or None)) for k, v in r.items()} for r in csv.DictReader(f)]
+        with open(self.events, newline="") as f:
+            events = [dict(r, t_ms=float(r["t_ms"])) for r in csv.DictReader(f)]
+        session = os.path.join(self.tmp.name, "session.json")
+        with open(session, "w") as f:
+            json.dump({"session": "S1", "gateway": "tw-test", "runs": runs, "events": events}, f)
+        with redirect_stdout(io.StringIO()):
+            self.assertEqual(cut_clips.main(["--session", session, "--recording", self.wav, "--out", self.out, "--sync"]), 0)
+        self.assertEqual([(r["clip"], r["batear_alarm"]) for r in self.manifest()], [(r["clip"], r["batear_alarm"]) for r in from_csv])
 
     def test_same_run_same_fold(self):
         self.run_tool("--sync")

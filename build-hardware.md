@@ -20,7 +20,7 @@ Printable designs for the [tripwire]({{ site.baseurl }}{% link models/tripwire.m
 Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
 {: .warning }
-> **Version 0 designs, never printed or flown.** Dimensions from datasheets are sourced; masses, flight times and impact figures are estimates from the models and labelled as such. Parts marked *measure* in [`cad/params.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/params.py) must be checked with calipers before printing.
+> **Version 0 designs, never printed or flown.** Dimensions from datasheets are sourced; masses, flight times and impact figures are estimates from the models and labelled as such. Parts marked *measure* in [`cad/params.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/params.py) must be checked with calipers before printing.
 
 1. TOC
 {:toc}
@@ -42,7 +42,7 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 ## The printer and the CAD
 
 - **Printer: Anycubic Vyper.** Build volume 245 × 245 × 260 mm, nozzle up to 260 °C, bed up to 110 °C. Officially it prints PLA, PETG, TPU, ABS and wood fill ([spec, via 3DSourced](https://www.3dsourced.com/3d-printer-reviews/anycubic-vyper-test-review-specs/)). It has no enclosure, so print in **PETG**: it tolerates sun and heat better than PLA and prints well without an enclosure (inference). Carbon-filled nylon and ASA, the usual next step for arms, warp without an enclosure and need a hardened nozzle. That is a second printer, needed only after the prototype stage.
-- **CAD: CadQuery,** text-based and in Python. Every model is a script in [`cad/`](https://github.com/paulrenzi/drone-detection-research/tree/main/cad) that reads its dimensions from one file, `cad/params.py`, so a change shows up as a readable diff. Each run writes STL (for slicing), STEP (for any other CAD tool) and the PNG renders on this page, and prints bed-fit checks, masses and the flight-time table. Install: `python -m venv cad-env` then `cad-env/Scripts/pip install cadquery`. Run `python v2.py`, `dart.py`, `harness_simple.py` or `quad.py` from `cad/`.
+- **CAD: CadQuery,** text-based and in Python. Every model is a script in [`cad/`](https://github.com/paulrenzi/tripwire/tree/main/cad) that reads its dimensions from one file, `cad/params.py`, so a change shows up as a readable diff. Each run writes STL (for slicing), STEP (for any other CAD tool) and the PNG renders on this page, and prints bed-fit checks, masses and the flight-time table. Install: `python -m venv cad-env` then `cad-env/Scripts/pip install cadquery`. Run `python v2.py`, `dart.py`, `harness_simple.py` or `quad.py` from `cad/`.
 
 ## 1. v3: three parts per dart
 
@@ -274,12 +274,12 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 
 | Model | Script | Printable outputs (STL and STEP) | Render |
 |---|---|---|---|
-| Dart | [`cad/dart.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/dart.py) | `dart_body`, `dart_cap`, `dart_hinge`, `dart_pod` | `dart-deployed.png`, `dart-stowed.png` |
-| **v3 dart** | [`cad/v3.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/v3.py) | `v3_dart_body`, `v3_dart_pod` (harness: v2's `v2_plate`, `v2_rotor`) | `v3-harness.png`, `v3-body.png`, `v3-dart.png` |
-| v2 dart and harness | [`cad/v2.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/v2.py) | `v2_dart_body`, `v2_dart_clip`, `v2_dart_pod`, `v2_plate`, `v2_rotor` | `v2-harness.png`, `v2-rotor.png`, `v2-dart.png` |
-| X500 harness v1 | [`cad/harness_simple.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/harness_simple.py) | `harness_simple_plate`, `dart_cap` (notched) | `harness-simple.png`, `harness-simple-latch.png` |
-| X500 harness v0 (fallback) | [`cad/harness.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/harness.py) | `harness_plate`, `harness_saddle`, `harness_release_block` | `harness-x500.png`, `harness-x500-close.png` |
-| TL-1 | [`cad/quad.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/quad.py) | `quad_hull`, `quad_arm`, `quad_leg` | `quad-tl1.png` |
-| Shared | [`cad/params.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/params.py), [`cad/render.py`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/render.py) | | |
+| Dart | [`cad/dart.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/dart.py) | `dart_body`, `dart_cap`, `dart_hinge`, `dart_pod` | `dart-deployed.png`, `dart-stowed.png` |
+| **v3 dart** | [`cad/v3.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/v3.py) | `v3_dart_body`, `v3_dart_pod` (harness: v2's `v2_plate`, `v2_rotor`) | `v3-harness.png`, `v3-body.png`, `v3-dart.png` |
+| v2 dart and harness | [`cad/v2.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/v2.py) | `v2_dart_body`, `v2_dart_clip`, `v2_dart_pod`, `v2_plate`, `v2_rotor` | `v2-harness.png`, `v2-rotor.png`, `v2-dart.png` |
+| X500 harness v1 | [`cad/harness_simple.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/harness_simple.py) | `harness_simple_plate`, `dart_cap` (notched) | `harness-simple.png`, `harness-simple-latch.png` |
+| X500 harness v0 (fallback) | [`cad/harness.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/harness.py) | `harness_plate`, `harness_saddle`, `harness_release_block` | `harness-x500.png`, `harness-x500-close.png` |
+| TL-1 | [`cad/quad.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/quad.py) | `quad_hull`, `quad_arm`, `quad_leg` | `quad-tl1.png` |
+| Shared | [`cad/params.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/params.py), [`cad/render.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/render.py) | | |
 
-STL and STEP files are in [`cad/out/`](https://github.com/paulrenzi/drone-detection-research/tree/main/cad/out).
+STL and STEP files are in [`cad/out/`](https://github.com/paulrenzi/tripwire/tree/main/cad/out).

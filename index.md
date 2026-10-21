@@ -101,4 +101,4 @@ This notebook started as a survey of eight ways to build a cheap acoustic sensor
 
 ## How to add to this
 
-Each page is a Markdown file in the [repository](https://github.com/paulrenzi/drone-detection-research). Record rating changes and new research in the [changelog]({{ site.baseurl }}{% link changelog.md %}).
+Each page is a Markdown file in the [repository](https://github.com/paulrenzi/tripwire). Record rating changes and new research in the [changelog]({{ site.baseurl }}{% link changelog.md %}).

@@ -12,7 +12,7 @@ Design and plan: `build-software.md` (the I1/I1a/I2/I3 specs) and `build-softwar
 
 | Repo | Path on the PC | What it holds |
 |---|---|---|
-| `drone-detection-research` (public, GitHub Pages) | `C:\Users\paulm\drone-detection-research`, branch **main** | research notes, the specs, this playbook, handoffs |
+| `tripwire` (public, GitHub Pages at paulrenzi.github.io/tripwire; was `drone-detection-research` until 2026-10-21, and the local folder keeps that name) | `C:\Users\paulm\drone-detection-research`, branch **main** | research notes, the specs, this playbook, handoffs, the flasher and logger, and the `worker/` that stores logger sessions |
 | `tripwire-firmware` (PRIVATE) | `C:\Users\paulm\tripwire-firmware` | Batear's firmware plus our `tw_codec` component and the nonce fix |
 | `tripwire-tools` (PRIVATE) | `C:\Users\paulm\tripwire-tools` | Python codec, shared test vectors, relay simulator, reports |
 | `tripwire-display` (PRIVATE) | `C:\Users\paulm\tripwire-display` | README only so far; will be one HTML file |
@@ -156,6 +156,17 @@ replaces these numbers when it exists.
   +7 to +19 points of delivery.
 
 ## 4. How to run and debug
+
+### Reading a Saturday test's results (from any session, phone included)
+
+The logger saves each session online as it goes, so nothing gets exported. No credential is needed:
+
+```bash
+curl -s https://tripwire-sessions.paulmichaelrenzi.workers.dev/sessions          # every session, newest first
+curl -s https://tripwire-sessions.paulmichaelrenzi.workers.dev/sessions/latest   # the newest, in full
+```
+
+A session is `{session, gateway, saved_at, runs, events, raw}`. Each run already carries its summary (`heard`, `first_alarm_s`, `packets`, `rssi_median`, and so on), and speaker runs carry `level_dba`, `gain_db` and `cal_dba`. The pass mark is heard at 100 m emulated; under 60 m is a fail. The Worker is `worker/` (KV namespace `tripwire-sessions`, deploy with `CLOUDFLARE_WORKER_DEPLOY_TOKEN`). Reads and writes are open, so it holds test data only.
 
 ### Python (on the PC)
 
