@@ -59,7 +59,7 @@ Which public projects each of the six programs on [Build: software]({{ site.base
 | Project | Licence | Role | Why |
 |---|---|---|---|
 | [pymavlink](https://github.com/ArduPilot/pymavlink) | LGPL-3.0 (generator and Python) | **Use** (as an imported library) | Writes the mission, reads DataFlash `.BIN` logs, finds each servo change and the GPS fix at that moment |
-| [Shapely](https://github.com/shapely/shapely) + pyproj | BSD-3 / MIT | **Use** | Splits a drawn line into drop points at exact metre spacing in a local projection |
+| [Shapely](https://github.com/shapely/shapely) + pyproj | BSD-3 / MIT | **Use** | Splits a drawn line into drop points at exact spacing in a local projection |
 | [ArduPilot](https://github.com/ArduPilot/ardupilot) SITL | GPL-3.0 | **Tool** | Flies every generated mission in simulation before a real sortie |
 | [MAVProxy](https://github.com/ArduPilot/MAVProxy), [QGroundControl](https://github.com/mavlink/qgroundcontrol) | GPL-3.0 | **Tool** | Load and check the mission. Unchanged |
 | [MAVSDK-Python](https://github.com/mavlink/MAVSDK-Python) | BSD-3 | **Skip for now** | A cleaner API, but pymavlink is still needed for logs, so one library is enough |

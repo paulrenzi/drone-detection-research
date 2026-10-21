@@ -9,13 +9,13 @@ nav_order: 1
 
 # The drone-laid acoustic tripwire
 
-Don't try to make a microphone hear farther. Drop cheap ones 2–4 km forward, so a front-line unit gets about a minute of warning of an incoming FPV instead of about ten seconds, including fibre-optic FPVs that emit no radio.
+Don't try to make a microphone hear farther. Drop cheap ones 1.2–2.5 mi forward, so a front-line unit gets about a minute of warning of an incoming FPV instead of about ten seconds, including fibre-optic FPVs that emit no radio.
 </div>
 
 <div class="stats">
-  <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a line 2 km out, against ~10 s from a ring near the unit (est.)</p></div>
+  <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a line 1.2 mi out, against ~10 s from a ring near the unit (est.)</p></div>
   <div class="stat"><p class="stat-num">$17–50</p><p class="stat-label">per throwaway listener (parts estimate)</p></div>
-  <div class="stat"><p class="stat-num">50–60 m</p><p class="stat-label">the only measured cheap-mic range; we plan on 100–300 m, unproven</p></div>
+  <div class="stat"><p class="stat-num">160–200 ft</p><p class="stat-label">the only measured cheap-mic range; we plan on 330–980 ft, unproven</p></div>
   <div class="stat"><p class="stat-num">3/5</p><p class="stat-label">feasibility: every part exists, the whole chain is untested</p></div>
 </div>
 
@@ -26,12 +26,12 @@ Don't try to make a microphone hear farther. Drop cheap ones 2–4 km forward, s
 
 ## Lay a line, listen quietly, report back, warn.
 
-1. **Lay a line.** A small drone with no pilot drops 3–4 throwaway listeners per flight across the enemy's approach, 2–4 km out. Two lines, a few hundred metres apart.
+1. **Lay a line.** A small drone with no pilot drops 3–4 throwaway listeners per flight across the enemy's approach, 1.2–2.5 mi out. Two lines, a few hundred yards apart.
 2. **Listen quietly.** Each listener sleeps until it hears something drone-like, and transmits nothing while it waits.
 3. **Report back.** A few-byte alert hops listener to listener to a listen-only receiver at the edge of the unit's tree line, wired back to the dugout, so the unit's position emits nothing.
-4. **Warn.** Warning time is distance ÷ drone speed. A line 2 km out gives about 50–65 seconds against an FPV; a ring of microphones 300 m out gives 8–10 (both estimates).
+4. **Warn.** Warning time is distance ÷ drone speed. A line 1.2 mi out gives about 50–65 seconds against an FPV; a ring of microphones 980 ft out gives 8–10 (both estimates).
 
-The idea is to buy warning with distance rather than with sensitivity. A better microphone gains tens of metres; laying the line forward gains kilometres.
+The idea is to buy warning with distance rather than with sensitivity. A better microphone gains tens of yards; laying the line forward gains miles.
 
 <p class="kicker">02 · Why it matters</p>
 
@@ -39,7 +39,7 @@ The idea is to buy warning with distance rather than with sensitivity. A better 
 
 - **Drones cause about 80% of casualties** at the front, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)). Units cope by not moving, and every trip out is exposure.
 - **Fibre-optic FPVs emit no radio**, so the radio detectors units carry miss them and jamming does nothing. In some sectors they are 30–50% or more of FPVs. A microphone hears them ([what troops have]({{ site.baseurl }}{% link research/frontline-kit.md %})).
-- **Acoustic detection works at scale, against a different target.** Ukraine's Sky Fortress hears Shaheds and cruise missiles over the rear with thousands of cheap pole-mounted sensors. Loud, low-pitched engines carry for kilometres; small electric FPVs don't. Against FPVs at the front, no acoustic system has an independent test yet.
+- **Acoustic detection works at scale, against a different target.** Ukraine's Sky Fortress hears Shaheds and cruise missiles over the rear with thousands of cheap pole-mounted sensors. Loud, low-pitched engines carry for miles; small electric FPVs don't. Against FPVs at the front, no acoustic system has an independent test yet.
 - **Our central guess is 1–4 of every 100 drone casualties averted**, almost all among people about to move ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). That is a guess, not a measurement.
 
 Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
@@ -88,8 +88,8 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 | Question | Why it decides the tripwire | Test | Status |
 |---|---|---|---|
 | **Can a line report back from under trees?** | A line that can't get its alerts home is useless | [T9]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back), ~$80 | Open ground probably works on published figures; under trees, unproven |
-| **How far does a mic at 0.5–1 m hear an FPV?** | Range sets listener spacing, so the cost of a line. Under about 40 m the idea stops making sense | [T11]({{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11), ~$50 | Only measured cheap-mic range is 50–60 m, on a consumer drone |
-| **Does a dropped dart land upright and working?** | Drone laying is what puts the line 2–4 km out | A weighted dummy dropped from the drone | Modelled, not printed or dropped |
+| **How far does a mic at 1.6–3.3 ft hear an FPV?** | Range sets listener spacing, so the cost of a line. Under about 130 ft the idea stops making sense | [T11]({{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11), ~$50 | Only measured cheap-mic range is 160–200 ft, on a consumer drone |
+| **Does a dropped dart land upright and working?** | Drone laying is what puts the line 1.2–2.5 mi out | A weighted dummy dropped from the drone | Modelled, not printed or dropped |
 
 Ratings are working judgements, not test results. [Build or scrap?]({{ site.baseurl }}{% link research/build-or-scrap.md %}) sets out what result would stop the project.
 

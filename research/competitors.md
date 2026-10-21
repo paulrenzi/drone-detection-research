@@ -14,7 +14,7 @@ nav_label: Competitors
 > - **Nobody has independent evidence** of hearing an FPV at a position. Every acoustic FPV range below is a maker's claim, except the lab and field studies, which used quieter consumer drones.
 > - **Zvook NW0 now has a public price: about $834–950 per sensor**, plus 15–18 W of power that the price doesn't include. **We are about 3–50x cheaper per sensor**: $17–50 per tripwire listener, about $125–300 per hand-placed node. We also need no mains or solar power. Cost per *position* depends on real range, which nobody has measured for either of us.
 > - **A ~$211 LoRa acoustic module is now listed** (DroneAlert). Our hand-placed node is not cheaper than it; our throwaway listener is about 4–12x cheaper. See [Build or scrap?]({{ site.baseurl }}{% link research/build-or-scrap.md %}).
-> - **The one measured cheap-microphone range is about 50–60 m** (consumer drone, windy field). Our planning figure of 100–300 m is unproven, and T11 decides it.
+> - **The one measured cheap-microphone range is about 160–200 ft** (consumer drone, windy field). Our planning figure of 330–980 ft is unproven, and T11 decides it.
 
 1. TOC
 {:toc}
@@ -26,21 +26,21 @@ Ranked by how much each matters to us: how directly it competes for the job, and
 | # | Who | Cost | What it achieves at a position | Evidence | What it means for us |
 |:-:|---|---|---|---|---|
 | 1 | **A soldier's own ears** | $0 | Hears a drone close in; troops already hide when they do | Lab and field studies on consumer drones only ([below](#what-is-actually-measured)) | **The baseline to beat.** On consumer drones it's weak; for FPVs in combat, unmeasured |
-| 2 | **Radio detector** (Chuyka 3.0) | **$584–701** each | Warns of radio-controlled FPVs up to 4 km (claimed). Blind to fibre-optic | Strong demand: the most-requested e-point item, per the maker | **Partner, and the price anchor.** We're the second box beside it |
-| 3 | **Zvook NW0** (Ukraine) | **$834–950** per sensor, plus a 15–18 W power supply. Zvook advises 400–600 m spacing, based on its own claimed range | Claimed 150–450 m, 360°, fibre-optic included. Needs 15–18 W from mains, 12–48 V DC or solar | Maker's claims only. On public sale | **The direct competitor.** Same price as a Chuyka, already on sale |
-| 3a | **DroneAlert** (Ukraine, sold by Flash Army) | **~$211** per module (9,500 UAH), gateway ~$56; 3-module kit ~$670 | Claimed 120 m radius with a bearing, up to 500 h on a 3.7 V battery, LoRa up to 10 km, IP55. Fibre-optic not mentioned | Seller's claims only. Out of stock, no maker named, no reviews ([Flash Army](https://flasharmy.com.ua/dronealert-lora-merezha-akustychnyi-modul-vyiavlennia-droniv)) | **Our architecture, already listed.** Our listener is ~4–12x cheaper; our hand-placed node is not. Buy a kit to test beside ours |
-| 4 | **RADD GLADIUS** (US) | Not published | Soldier-worn, about a week on a battery, alerts over a mesh to a squad leader and TAK | "100%" of drones in range, best about 500 m, at a US Army exercise: **maker's account** | **The second direct competitor**, with US Army access. One sensor per soldier, so no forward reach |
+| 2 | **Radio detector** (Chuyka 3.0) | **$584–701** each | Warns of radio-controlled FPVs up to 2.5 mi (claimed). Blind to fibre-optic | Strong demand: the most-requested e-point item, per the maker | **Partner, and the price anchor.** We're the second box beside it |
+| 3 | **Zvook NW0** (Ukraine) | **$834–950** per sensor, plus a 15–18 W power supply. Zvook advises 1,300–2,000 ft spacing, based on its own claimed range | Claimed 490–1,500 ft, 360°, fibre-optic included. Needs 15–18 W from mains, 12–48 V DC or solar | Maker's claims only. On public sale | **The direct competitor.** Same price as a Chuyka, already on sale |
+| 3a | **DroneAlert** (Ukraine, sold by Flash Army) | **~$211** per module (9,500 UAH), gateway ~$56; 3-module kit ~$670 | Claimed 390 ft radius with a bearing, up to 500 h on a 3.7 V battery, LoRa up to 6.2 mi, IP55. Fibre-optic not mentioned | Seller's claims only. Out of stock, no maker named, no reviews ([Flash Army](https://flasharmy.com.ua/dronealert-lora-merezha-akustychnyi-modul-vyiavlennia-droniv)) | **Our architecture, already listed.** Our listener is ~4–12x cheaper; our hand-placed node is not. Buy a kit to test beside ours |
+| 4 | **RADD GLADIUS** (US) | Not published | Soldier-worn, about a week on a battery, alerts over a mesh to a squad leader and TAK | "100%" of drones in range, best about 1,600 ft, at a US Army exercise: **maker's account** | **The second direct competitor**, with US Army access. One sensor per soldier, so no forward reach |
 | 5 | **Komodo "star"** (Denmark) | Not published | 8-mic sensor; the star variant **can be dropped by drone**, with shorter range | Maker says Shahed detections in Ukraine; no FPV figure | **The nearest thing to our tripwire.** Proof the idea isn't new, and a reason to move fast |
-| 6 | **Fibre catchers and nets** (Zvook "Shipshyna") | **~$3,470** per 500–600 m of perimeter | A timer-driven spinning barbed-wire unit snags and cuts the fibre. No warning | Maker's claims | **Competes for the same budget.** Sold alongside NW0, which can trigger it |
-| 7 | **Russian and Belarusian acoustic detectors** | Not published | Phone, helmet and dugout units at the position. Belarus's SKANER 2.1 claims 100–300 m against FPVs, fibre-optic included, 1.2 kg, 12 h ([Militarnyi, May 2026](https://militarnyi.com/uk/news/bilorus-predstavyla-akustychnyj-radar-skaner-2-1-dlya-vyyavlennya-fpv-droniv-na-optovolokni/)) | Claimed 140–250 m, 70–100 m in strong wind | **The other side uses the idea too.** The only published range-against-wind figures |
+| 6 | **Fibre catchers and nets** (Zvook "Shipshyna") | **~$3,470** per 1,600–2,000 ft of perimeter | A timer-driven spinning barbed-wire unit snags and cuts the fibre. No warning | Maker's claims | **Competes for the same budget.** Sold alongside NW0, which can trigger it |
+| 7 | **Russian and Belarusian acoustic detectors** | Not published | Phone, helmet and dugout units at the position. Belarus's SKANER 2.1 claims 330–980 ft against FPVs, fibre-optic included, 2.6 lb, 12 h ([Militarnyi, May 2026](https://militarnyi.com/uk/news/bilorus-predstavyla-akustychnyj-radar-skaner-2-1-dlya-vyyavlennya-fpv-droniv-na-optovolokni/)) | Claimed 460–820 ft, 230–330 ft in strong wind | **The other side uses the idea too.** The only published range-against-wind figures |
 | 8 | **Other new entrants** | ZVOOK Tracking ~$2,670; others not published | Arcani HARK (UK) for FPVs, Ukraine test planned May 2026 ([Janes](https://www.janes.com/osint-insights/defence-news/c4isr/arcani-plans-to-test-hark-acoustic-sensor-in-ukraine)); Neuron Soundware Sound Shield (Czechia), under 1 W, reported €100–150 production cost, for borders ([dev.ua](https://dev.ua/news/sound-shield-1781192277)) | Claims only; no results found | **The field is filling up.** Nobody sells forward lines |
 
 Everything else is either in the other market or out of reach for a platoon: see [Not our competitors](#not-our-competitors).
 
 **What the list says (inference):**
 - **Per sensor we are much cheaper than NW0.** An NW0 is $834–950, plus the power it needs. A tripwire listener is $17–50 (estimate) and a hand-placed node about $125–300 (a $1,500–2,500 kit of 8–12 nodes, local fusion included). That is roughly 3–50x less.
-- **Per position, nobody knows yet.** It depends on real range. Comparing NW0 at its claimed 450 m with us at our cautious measured range would make NW0 look cheaper; that is a best case against a worst case. At equal range we are cheaper per position too. T11 and any independent NW0 test decide the real figure.
-- **What NW0 and RADD can't do is reach forward.** NW0 needs 15–18 W and a link, so it lives at a post. RADD is worn. Neither is laid 2–4 km out, which is where a minute of warning comes from.
+- **Per position, nobody knows yet.** It depends on real range. Comparing NW0 at its claimed 1,500 ft with us at our cautious measured range would make NW0 look cheaper; that is a best case against a worst case. At equal range we are cheaper per position too. T11 and any independent NW0 test decide the real figure.
+- **What NW0 and RADD can't do is reach forward.** NW0 needs 15–18 W and a link, so it lives at a post. RADD is worn. Neither is laid 1.2–2.5 mi out, which is where a minute of warning comes from.
 - **Komodo's star variant shows that dropping sensors by drone works as a product idea.** It's sold for Shaheds and long range, not as cheap FPV lines.
 
 ## What is actually measured
@@ -49,25 +49,25 @@ Range decides warning time and how many sensors a line needs. Here is every figu
 
 | Source | Drone | Sensor | Range | Kind |
 |---|---|---|---|---|
-| Li et al., *Applied Sciences* 2020 | DJI Mavic Air hovering at 40 m, 52 dB background | **24 people listening** | At 150 m, 2 of 24 heard it faintly; at 250 m and beyond, nobody. All saw it first (50% at 307 m) | **Measured** |
-| Ghouli, *Acta Acustica* 2026 | DJI Phantom, coastal field | **8 cheap MEMS mics** (INMP441) on an ESP32-S3 | 91.6% accuracy to about 50 m; effective range about 60 m; 5–8% false positives | **Measured**, small test |
-| Jekateryńczuk & Piotrowski, *Sensors* 2025 | A speaker playing a 1 kHz tone, not a drone | Studio and shotgun mics | 69–94 m in low wind; 36–46 m in high wind | **Measured**, tone only |
-| VolAnti (open source) | Hovering quad, street with traffic | One cheap mic | 104 m | Author's test |
-| Kudriashov et al., *Sensors* 2020 | Phantom 4 and larger | 30-mic MEMS array | Tested to 380 m; about 150 m for small drones | **Measured**, expensive array |
-| Pobeditel (Russia), via TASS | Light FPV and Mavic at 50 m altitude | Phone mic | 140 m hovering, 250 m moving; 70–100 m in wind above 10 m/s | Maker's claim |
-| Zvook NW0 | FPV, fibre-optic included | Unknown | 150–450 m | Maker's claim |
-| ARes (Ukraine) | FPV | Phased array, ~$10k | 200–300 m | Maker's claim |
-| RADD GLADIUS | 6- and 8-rotor quads | Soldier-worn | Best about 500 m | Maker's account of a US Army exercise |
-| NATO ACT challenge, 2025 | 7–10 inch FPV, 3–4 kg | Any | **Requirement:** 300 m minimum, 500 m target, night and bad weather | What NATO asks for |
+| Li et al., *Applied Sciences* 2020 | DJI Mavic Air hovering at 130 ft, 52 dB background | **24 people listening** | At 490 ft, 2 of 24 heard it faintly; at 820 ft and beyond, nobody. All saw it first (50% at 1,000 ft) | **Measured** |
+| Ghouli, *Acta Acustica* 2026 | DJI Phantom, coastal field | **8 cheap MEMS mics** (INMP441) on an ESP32-S3 | 91.6% accuracy to about 160 ft; effective range about 200 ft; 5–8% false positives | **Measured**, small test |
+| Jekateryńczuk & Piotrowski, *Sensors* 2025 | A speaker playing a 1 kHz tone, not a drone | Studio and shotgun mics | 230–310 ft in low wind; 120–150 ft in high wind | **Measured**, tone only |
+| VolAnti (open source) | Hovering quad, street with traffic | One cheap mic | 340 ft | Author's test |
+| Kudriashov et al., *Sensors* 2020 | Phantom 4 and larger | 30-mic MEMS array | Tested to 1,200 ft; about 490 ft for small drones | **Measured**, expensive array |
+| Pobeditel (Russia), via TASS | Light FPV and Mavic at 160 ft altitude | Phone mic | 460 ft hovering, 820 ft moving; 230–330 ft in wind above 22 mph | Maker's claim |
+| Zvook NW0 | FPV, fibre-optic included | Unknown | 490–1,500 ft | Maker's claim |
+| ARes (Ukraine) | FPV | Phased array, ~$10k | 660–980 ft | Maker's claim |
+| RADD GLADIUS | 6- and 8-rotor quads | Soldier-worn | Best about 1,600 ft | Maker's account of a US Army exercise |
+| NATO ACT challenge, 2025 | 7–10 inch FPV, 6.6–8.8 lb | Any | **Requirement:** 980 ft minimum, 1,600 ft target, night and bad weather | What NATO asks for |
 
 **What this means:**
 - **No study has flown an FPV at distance.** Every measured result uses a consumer drone or a tone. FPVs are probably louder, but nobody has measured by how much (reports disagree on whether fibre-optic FPVs are louder).
-- **The soldier's ear is weaker than we feared** in quiet conditions: people heard a Mavic-class drone faintly at 150 m and not at all at 250 m. A cheap microphone heard a Phantom to about 60 m. At the position, ears and a cheap microphone may be roughly even. Forward placement is what beats the ear.
+- **The soldier's ear is weaker than we feared** in quiet conditions: people heard a Mavic-class drone faintly at 490 ft and not at all at 820 ft. A cheap microphone heard a Phantom to about 200 ft. At the position, ears and a cheap microphone may be roughly even. Forward placement is what beats the ear.
 - **Wind halves range** in every source that measured it.
 - **The ICMCIS 2026 paper by Zvook staff** used real front-line recordings, including FPVs, and reached an F1 score (accuracy balancing misses and false alarms) of 78.6–82.2%. It has no distance labels, so it says nothing about range. It does show real front-line noise is the hard part.
-- **A Brave1 trial** of about two dozen acoustic and optical makers against fibre-optic drones (Snake Island Institute, Third Army Corps, AB3.Tech) found acoustic range "up to several hundred meters" depending on system size. Wind and rain hurt it, and sounds like mowers, vehicles and voices overlap. No results by product were published.
+- **A Brave1 trial** of about two dozen acoustic and optical makers against fibre-optic drones (Snake Island Institute, Third Army Corps, AB3.Tech) found acoustic range of up to several hundred yards, depending on system size. Wind and rain hurt it, and sounds like mowers, vehicles and voices overlap. No results by product were published.
 
-So **T11, our own range test with a real FPV, is the most valuable test on the site.** If cheap listeners hear an FPV at only 50–60 m, a 3 km line needs about 30 of them, not 12 ([tripwire]({{ site.baseurl }}{% link models/tripwire.md %})).
+So **T11, our own range test with a real FPV, is the most valuable test on the site.** If cheap listeners hear an FPV at only 160–200 ft, a 1.9 mi line needs about 30 of them, not 12 ([tripwire]({{ site.baseurl }}{% link models/tripwire.md %})).
 
 ## Two markets, only one of them ours
 
@@ -75,7 +75,7 @@ So **T11, our own range test with a real FPV, is the most valuable test on the s
 
 | | Rear-area air defence | Protecting front-line positions |
 |---|---|---|
-| **Threat** | Shaheds and cruise missiles: loud, slow, flying across the country | FPVs, including fibre-optic: quiet, fast, final 1–2 km |
+| **Threat** | Shaheds and cruise missiles: loud, slow, flying across the country | FPVs, including fibre-optic: quiet, fast, final 0.6–1.2 mi |
 | **Acoustic players** | Sky Fortress, Zvook stations, FENEK, Komodo, ARes; city perimeters (Vidar, Soloma) | Zvook NW0, RADD, Russian equivalents |
 | **Evidence it works** | Yes: reported by US commanders and Ukrainian press, though never independently tested | **None found** |
 | **Who buys** | The state, cities, at scale | Units, volunteers, Brave1 Market |
@@ -90,18 +90,18 @@ So **T11, our own range test with a real FPV, is the most valuable test on the s
 - **What it is:** an acoustic FPV sensor for positions, frontline towns and logistics routes, announced January 2026 ([Militarnyi](https://militarnyi.com/en/news/ukraine-develops-acoustic-detector-for-fpv-drones/)).
 - **On sale** at MAMO, a Ukrainian online shop. Three versions are listed: Ethernet 37,550 UAH, LTE 40,196 UAH, LoRa 42,757 UAH, so about **$834–950** ([MAMO](https://mamo.com.ua/akustychnyj-sensor-zvook-nw0-lte-vyyavlennya-fpv-droniv-za-zvukom-iz-peredacheyu-danyh-po-lte/)).
 - **Claimed:**
-  - 150–450 m and 360°, fibre-optic FPVs included.
+  - 490–1,500 ft and 360°, fibre-optic FPVs included.
   - 15–18 W, from mains, 12–48 V DC or solar panels.
   - IP67 (dust-tight and waterproof).
   - An optional siren, plus a live map of tens to hundreds of sensors.
   - It integrates with EW and with fibre-catching barbed-wire units.
-- **Spacing:** Zvook advises 400–600 m between sensors.
+- **Spacing:** Zvook advises 1,300–2,000 ft between sensors.
 - **Not found:** an independent test, or any unit reported using it. Zvook's own vehicle sensor trial at NATO's BATT26 exercise "worked. Not perfectly", by Zvook's account.
-- **Plausibility (inference):** 150 m is in line with measured results. 450 m is above anything measured with a cheap sensor.
+- **Plausibility (inference):** 490 ft is in line with measured results. 1,500 ft is above anything measured with a cheap sensor.
 - **Where we differ:**
   - We run for weeks on a battery, not 15–18 W.
   - Our listeners are cheap enough to lose.
-  - We lay lines 2–4 km forward instead of placing sensors at the post.
+  - We lay lines 1.2–2.5 mi forward instead of placing sensors at the post.
   - Per sensor we cost roughly 3–50x less, and need no power supply.
 
 ### RADD GLADIUS — soldier-worn, US
@@ -111,28 +111,28 @@ So **T11, our own range test with a real FPV, is the most valuable test on the s
   - The prototype is tissue-box size. The goal is personal-radio size, about 20% lighter than a rifle magazine.
   - About a week on a battery.
   - Alerts go over a mesh to a node with the squad leader, and into TAK.
-- **Tested** at the US Army's EXTiC 26-01 exercise in New Mexico, with DIU and CENTCOM. The founders say it detected every drone that came in range, the farthest "pushing 500 meters". Targets were 6- and 8-rotor quads. No false-alarm figure or flight count is given, and the article is an "exclusive" based on the founders' account.
+- **Tested** at the US Army's EXTiC 26-01 exercise in New Mexico, with DIU and CENTCOM. The founders say it detected every drone that came in range, the farthest pushing 1,600 ft. Targets were 6- and 8-rotor quads. No false-alarm figure or flight count is given, and the article is an "exclusive" based on the founders' account.
 - **Not found:** a price or a customer. It's in talks for low-rate production.
 - **Where we differ:** one sensor per soldier gives no reach beyond the soldier. Lines laid forward give earlier warning. We could feed the same TAK picture.
 
 ### Komodo — the drone-dropped sensor already exists
 
 - **What it is:** an 8-microphone passive sensor from Bionic System Solutions (Denmark), developed with Danish Defence. It comes as a pole on a tripod or as a **"star" variant that drones can drop in remote places, with shorter range** ([Defence-Network, Aug 2025](https://defence-network.com/dalo-passives-c-uas-system-aus-daenemark/)).
-- **Claimed:** up to 5 km on drones. The maker says it's in use in Ukraine and detected two Shaheds in July 2025. It took part in NATO trial SET-348 in Denmark, with no published metrics ([Unmanned Airspace](https://www.unmannedairspace.info/counter-uas-systems-and-policies/komodo-acoustic-c-uas-tested-at-nato-trial-in-denmark/)).
+- **Claimed:** up to 3.1 mi on drones. The maker says it's in use in Ukraine and detected two Shaheds in July 2025. It took part in NATO trial SET-348 in Denmark, with no published metrics ([Unmanned Airspace](https://www.unmannedairspace.info/counter-uas-systems-and-policies/komodo-acoustic-c-uas-tested-at-nato-trial-in-denmark/)).
 - **Not found:** a price, power figures, or any FPV result.
 - **Where we differ:** Komodo sells a capable 8-mic sensor for Shaheds and artillery. We sell cheap single-mic listeners in lines, for FPVs. If Komodo built cheaper star variants for FPVs, it would compete head-on.
 
 ### Russian equivalents
 
-- **Pobeditel training centre:** a phone-based acoustic detector. It claims 140 m against a hovering FPV and 250 m against a moving one at 50 m altitude, falling to 70–100 m in wind above 10 m/s. It can't yet tell a Mavic from an FPV. Networked phones give a rough bearing ([CNews/TASS, Sep 2025](https://www.cnews.ru/news/top/2025-09-11_v_rossii_sozdali_detektor)).
+- **Pobeditel training centre:** a phone-based acoustic detector. It claims 460 ft against a hovering FPV and 820 ft against a moving one at 160 ft altitude, falling to 230–330 ft in wind above 22 mph. It can't yet tell a Mavic from an FPV. Networked phones give a rough bearing ([CNews/TASS, Sep 2025](https://www.cnews.ru/news/top/2025-09-11_v_rossii_sozdali_detektor)).
 - **Farvater "1K"** is helmet-worn, and **Malik** comes in dugout and body-armour versions. Both are prototypes with claimed ranges only.
 - **Why it matters:** the other side is building the same thing, and its published wind figures match the Western studies.
 
 ## Partners and the budget we compete for
 
-- **Radio detectors.** Chuyka 3.0 costs $701 with VAT, or $584 for defence buyers. It weighs up to 650 g and runs up to 6 h, with sound and light alerts ([BlueBird](https://blue-bird.tech/en/products/chuyka-3-0/)). Its maker calls it the most-requested item units buy with e-points ([Militarnyi, Jan 2026](https://militarnyi.com/uk/news/dron-detektor-chujka-3-0-zrobyly-dostupnym-za-e-baly/)). Units carry several kinds, and none hears fibre-optic drones. **We sell beside it.**
+- **Radio detectors.** Chuyka 3.0 costs $701 with VAT, or $584 for defence buyers. It weighs up to 1.4 lb and runs up to 6 h, with sound and light alerts ([BlueBird](https://blue-bird.tech/en/products/chuyka-3-0/)). Its maker calls it the most-requested item units buy with e-points ([Militarnyi, Jan 2026](https://militarnyi.com/uk/news/dron-detektor-chujka-3-0-zrobyly-dostupnym-za-e-baly/)). Units carry several kinds, and none hears fibre-optic drones. **We sell beside it.**
 - **Fibre catchers.** Zvook's Shipshyna kits cost 156,357–379,401 UAH ($3.5–8.4k). The top kit adds sensors and server control ([MAMO](https://mamo.com.ua/kompleks-shypshyna-zahyst-vid-optovolokonnyh-fpv-droniv-komplektacziya-a/)). Nets and cable traps are everywhere. They need no warning, so they compete for money, not for the job.
-- **Jammers we could cue: CERBAIR MEDUSA (France).** A radio and GNSS jammer for protected sites. It is built to be switched on automatically by an outside detector: today CERBAIR's own HYDRA radio detector, over Gigabit Ethernet, with "smart mode" jamming only the threatened band. MEDUSA 100 claims a 1 km average range and weighs 32 kg; MEDUSA 200 claims 2 km at 40 kg. It jams 2.4 and 5.8 GHz, GNSS and optionally 433/900 MHz at 35–140 W per band, runs on 10–32 V DC, and works by triggering the drone's own fail-safe ([spec sheet, 2020](https://comsecfl.com/wp-content/uploads/2022/04/Specsheet_Medusa.pdf), maker's claims). **What our network could add (inference):** an acoustic cue hears any drone, whatever its radio link, so it could switch a jammer on only when something is actually inbound. That cuts the time a jammer transmits and gives itself away, and could cover drones HYDRA can't hear on radio. **Limits:** jamming still does nothing to a fibre-optic FPV, and CERBAIR does not publish whether MEDUSA accepts a third party's cue. **A possible partner component**, not a competitor. **But jamming is losing ground at the front:** a brigade EW commander says "Jamming no longer works" ([Euromaidan Press, Jun 2025](https://euromaidanpress.com/2025/06/26/is-the-electronic-warfare-era-over-a-frontline-ew-officers-story-of-ukraines-drone-tug-of-war)), so this pairing is a fading benefit ([what troops have]({{ site.baseurl }}{% link research/frontline-kit.md %})).
+- **Jammers we could cue: CERBAIR MEDUSA (France).** A radio and GNSS jammer for protected sites. It is built to be switched on automatically by an outside detector: today CERBAIR's own HYDRA radio detector, over Gigabit Ethernet, with "smart mode" jamming only the threatened band. MEDUSA 100 claims a 0.6 mi average range and weighs 71 lb; MEDUSA 200 claims 1.2 mi at 88 lb. It jams 2.4 and 5.8 GHz, GNSS and optionally 433/900 MHz at 35–140 W per band, runs on 10–32 V DC, and works by triggering the drone's own fail-safe ([spec sheet, 2020](https://comsecfl.com/wp-content/uploads/2022/04/Specsheet_Medusa.pdf), maker's claims). **What our network could add (inference):** an acoustic cue hears any drone, whatever its radio link, so it could switch a jammer on only when something is actually inbound. That cuts the time a jammer transmits and gives itself away, and could cover drones HYDRA can't hear on radio. **Limits:** jamming still does nothing to a fibre-optic FPV, and CERBAIR does not publish whether MEDUSA accepts a third party's cue. **A possible partner component**, not a competitor. **But jamming is losing ground at the front:** a brigade EW commander says "Jamming no longer works" ([Euromaidan Press, Jun 2025](https://euromaidanpress.com/2025/06/26/is-the-electronic-warfare-era-over-a-frontline-ew-officers-story-of-ukraines-drone-tug-of-war)), so this pairing is a fading benefit ([what troops have]({{ site.baseurl }}{% link research/frontline-kit.md %})).
 - **How units buy.** Units earn e-points for confirmed hits and spend them on the Brave1 Market. Orders go through DOT-Chain Defence and arrive in about 10 days ([MoD](https://mod.gov.ua/en/news/how-the-military-can-obtain-equipment-through-dot-chain-defence-under-the-army-of-drones-bonus-program-step-by-step-guide)). Being listed isn't enough. One EW maker says only about 7% of Ukrainian EW listed there can be bought with e-points. Volunteer appeals fund single devices: one battalion asked for a Chuyka plus antenna at 35,200 UAH ([Mezha](https://mezha.ua/en/blogs/pidtrimayte-zbir-na-pristriy-rer-chuyka-3-0-dlya-zsu-306257/)).
 
 ## Not our competitors
@@ -142,9 +142,9 @@ They serve the rear, cost too much for a platoon, or don't hear fibre-optic dron
 | Who | What | Cost | Why not ours |
 |---|---|---|---|
 | Sky Fortress, Zvook stations, FENEK (Ukraine) | National acoustic networks | Sky Fortress $400–1,000 per sensor | Built for Shaheds and cruise missiles over the rear ([Defense One](https://www.defenseone.com/defense-systems/2024/07/ukraines-cheap-sensors-are-helping-troops-fight-waves-russian-drones/398204/)) |
-| Vidar Systems, Soloma (Ukraine) | City perimeters, e.g. Sumy | $230–575k for 32 km (Vidar); $466k for 56 sensors (Soloma) | City-scale; Soloma needs 1–2 weeks of retraining per site ([Tsukr, Jul 2026](https://cukr.city/city/2026/iak-vyiavyty-fpv-drony-na-optovolokni-v-sumakh/)) |
-| ARes (Ukraine) | Phased array for mobile fire groups and ground robots | ~$10k | Claimed FPV range 200–300 m; mainly Shaheds ([Oboronka](https://oboronka.mezha.ua/en/ares-sistema-dlya-viyavlennya-shahediv-fpv-droniv-306793/)) |
-| Squarehead, Microflown (Europe) | Premium acoustic arrays | High, through prime contractors | "Several hundred metres"; one big sensor, not many cheap ones |
+| Vidar Systems, Soloma (Ukraine) | City perimeters, e.g. Sumy | $230–575k for 20 mi (Vidar); $466k for 56 sensors (Soloma) | City-scale; Soloma needs 1–2 weeks of retraining per site ([Tsukr, Jul 2026](https://cukr.city/city/2026/iak-vyiavyty-fpv-drony-na-optovolokni-v-sumakh/)) |
+| ARes (Ukraine) | Phased array for mobile fire groups and ground robots | ~$10k | Claimed FPV range 660–980 ft; mainly Shaheds ([Oboronka](https://oboronka.mezha.ua/en/ares-sistema-dlya-viyavlennya-shahediv-fpv-droniv-306793/)) |
+| Squarehead, Microflown (Europe) | Premium acoustic arrays | High, through prime contractors | Several hundred yards; one big sensor, not many cheap ones |
 | Anduril WISP, Pulsar, Lattice | Infrared camera, RF, fusion | Six to seven figures per site | Not at the front; needs line of sight. **Lattice is a target to feed** |
 | Echodyne and other radars | Small radar | $40–160k | Emits, so the enemy can find it; needs line of sight |
 | Surtr (US) | Fusion software for acoustic and optical sensors | Not published | Tested by Brave1 ("good technological maturity"). **A possible partner** |
@@ -174,7 +174,7 @@ They serve the rear, cost too much for a platoon, or don't hear fibre-optic dron
 
 **On capability**, what neither NW0 nor RADD offers:
 1. **Weeks on a battery, no wire.** It can sit anywhere, including where nobody can run power.
-2. **Placed forward.** Lines 2–4 km out give about a minute of warning. A sensor at the post gives seconds: about what a sentry's ear gives if its range is near the measured figures, somewhat more if NW0's claimed 450 m holds (an inference).
+2. **Placed forward.** Lines 1.2–2.5 mi out give about a minute of warning. A sensor at the post gives seconds: about what a sentry's ear gives if its range is near the measured figures, somewhat more if NW0's claimed 1,500 ft holds (an inference).
 3. **Throwaway.** Losing a listener costs $17–50.
 4. **Passive at the unit:** nothing there transmits.
 
@@ -189,7 +189,7 @@ They serve the rear, cost too much for a platoon, or don't hear fibre-optic dron
 
 ## Risks to this positioning
 
-- **Short cheap-mic range.** The one measured cheap-microphone figure is about 50–60 m. If FPVs aren't much louder, lines need two to three times as many listeners. T11 decides.
+- **Short cheap-mic range.** The one measured cheap-microphone figure is about 160–200 ft. If FPVs aren't much louder, lines need two to three times as many listeners. T11 decides.
 - **NW0 is already on sale at a radio detector's price** (plus its power supply). If it works, units may not want a second acoustic product. Possible answers: we become NW0's forward layer, or we partner with Zvook.
 - **The architecture is no moat.** DroneAlert already sells LoRa acoustic modules on a battery at ~$211. If its price falls to listener level, only drone-laying, data and fielding set us apart.
 - **The radio link home gets jammed.** Common Russian jammers cover 100 MHz–1.1 GHz, and a LoRa-hunting prototype ("Tishina") is described ([Armada, Sep 2026](https://www.armadainternational.com/2026/09/russia-tishina-software-defined-jammer-electronic-warfare/)). Test T19 decides.

@@ -7,7 +7,7 @@ nav_order: 2
 # M2 — Phone-based sensor network
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | **5/5** | **3/5** | 5/5 | 3/5 | 3/5 | 5/5 |
 
@@ -24,7 +24,7 @@ nav_order: 2
 
 ## How it works
 
-- A smartphone (often used/refurbished Android) is connected to an external microphone on a ~2 m pole, with mains or solar power.
+- A smartphone (often used/refurbished Android) is connected to an external microphone on a ~6.6 ft pole, with mains or solar power.
 - An app detects target sounds and reports detections with the phone's GPS position over the cell network.
 - A central system fuses reports from many phones to estimate the drone's path and pushes it to mobile fire teams on tablets.
 

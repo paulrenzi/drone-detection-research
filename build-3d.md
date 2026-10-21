@@ -28,13 +28,13 @@ The [tripwire]({{ site.baseurl }}{% link index.md %}) depends on a drone carryin
 
 <div class="cad-viewer" data-src="{{ web }}dart.glb" data-manifest="{{ web }}manifest.json" data-model="dart"></div>
 
-A 6 × 500 mm fibreglass rod is the spike, the spine and the mast. Two printed parts sit on it. The **body**, near the tip, holds the 18650 cell in snap fingers and carries the hanger post the harness grips. The **pod**, on the top end, is a tray and a screwed lid. It holds the Heltec board, the microphone behind a side port, and the whip antenna. Two wires run along the rod from the cell to the pod.
+A 0.24 × 20 in fibreglass rod is the spike, the spine and the mast. Two printed parts sit on it. The **body**, near the tip, holds the 18650 cell in snap fingers and carries the hanger post the harness grips. The **pod**, on the top end, is a tray and a screwed lid. It holds the Heltec board, the microphone behind a side port, and the whip antenna. Two wires run along the rod from the cell to the pod.
 
 The model lies flat, the way it is carried. Exploded, the body slides off toward the tip and the pod slides off the rod end. The cell and the lid lift away, and the screws, inserts, seals and foam pads separate so each can be seen.
 
-- **Model mass: 158.2 g.** The cell is 45 g (datasheet maximum), the body 41.7 g, the rod 26.5 g, the pod tray and lid 29.8 g, the board 9 g, and screws, wire and seals the rest. Printed masses assume solid PETG at 100% infill. Nothing has been weighed.
-- **The hanger is at the model's balance point,** 266 mm from the tip and offset 6.5 mm toward the cell, because the cell sits beside the rod and not on it.
-- **Standing in soil,** the tip goes in 70 mm and the sound port is 470 mm above the ground. The whole dart is 644 mm from tip to whip.
+- **Model mass: 5.6 oz.** The cell is 1.6 oz (datasheet maximum), the body 1.5 oz, the rod 0.93 oz, the pod tray and lid 1.1 oz, the board 0.32 oz, and screws, wire and seals the rest. Printed masses assume solid PETG at 100% infill. Nothing has been weighed.
+- **The hanger is at the model's balance point,** 10.5 in from the tip and offset 0.26 in toward the cell, because the cell sits beside the rod and not on it.
+- **Standing in soil,** the tip goes in 2.8 in and the sound port is 19 in above the ground. The whole dart is 25 in from tip to whip.
 
 ## 2. The harness, loaded with four darts
 
@@ -44,22 +44,22 @@ One printed plate is zip-tied to the X500's two payload rails at four saddles. A
 
 The darts' weight bears on a ridge on the plate, faced with PTFE tape, not on the servo. A loose keeper washer above the rotor stops it lifting off. Exploded, the keeper lifts first, then the rotor and the servo horn. The servo drops below the plate and the four darts drop below that in two tiers.
 
-- **Model mass: 183.5 g without darts**: plate 131.7 g, rotor 38.6 g, servo and horn about 9 g (catalogue), plus fasteners and ties.
-- **Four darts plus the harness: 816.1 g.** That is the payload the X500 has to carry on top of its own battery and avionics. Whether it carries it well is a flight test, not a model result.
-- **The rotor's fit and the servo's torque are calculations.** With an assumed friction coefficient, the rotor's friction is about a fifth of the SG90's stall torque at rest, and nearly two-thirds of it at 3 g. Stall is not a torque a servo can hold continuously. The real breakaway torque has to be measured with the tape and all four darts loaded.
+- **Model mass: 6.5 oz without darts**: plate 4.6 oz, rotor 1.4 oz, servo and horn about 0.32 oz (catalogue), plus fasteners and ties.
+- **Four darts plus the harness: 1.8 lb.** That is the payload the X500 has to carry on top of its own battery and avionics. Whether it carries it well is a flight test, not a model result.
+- **The rotor's fit and the servo's torque are calculations.** With an assumed friction coefficient, the rotor's friction is about a fifth of the SG90's stall torque at rest, and nearly two-thirds of it at 3 g (three times gravity, a hard jolt). Stall is not a torque a servo can hold continuously. The real breakaway torque has to be measured with the tape and all four darts loaded.
 
 ## 3. On the drone
 
 <div class="cad-viewer" data-src="{{ web }}aircraft.glb" data-manifest="{{ web }}manifest.json" data-model="aircraft"></div>
 
-The Holybro X500 V2 is the manufacturer's own STEP model, simplified for the web. The translucent discs are the propellers' swept area, used for the clearance check, not blade models. Exploded, the whole payload lowers 400 mm clear of the airframe, then opens as in the harness view.
+The Holybro X500 V2 is the manufacturer's own STEP model, simplified for the web. The translucent discs are the propellers' swept area, used for the clearance check, not blade models. Exploded, the whole payload lowers 16 in clear of the airframe, then opens as in the harness view.
 
-- **In the carried state nothing overlaps:** darts, frame, rails, clamps, motors, prop discs, landing legs or each other, at the nominal dimensions. The lowest dart is 90 mm above the ground plane of the stock skids.
-- **The model checks a clear path out, not the fall.** It checks each dart sliding 90 mm straight down through its gap, and a nose-down rotation once a dart is 430 mm below the drone. It does not show that a real dart waits that long before it tips, or that it lands upright.
+- **In the carried state nothing overlaps:** darts, frame, rails, clamps, motors, prop discs, landing legs or each other, at the nominal dimensions. The lowest dart is 3.5 in above the ground plane of the stock skids.
+- **The model checks a clear path out, not the fall.** It checks each dart sliding 3.5 in straight down through its gap, and a nose-down rotation once a dart is 17 in below the drone. It does not show that a real dart waits that long before it tips, or that it lands upright.
 
 ## 4. Every part
 
-Masses are the model's estimates. A dash means no separate figure: the servo and its horn share one 9 g catalogue mass. **Bought** parts are the manufacturer's CAD where one exists and a datasheet build otherwise; **printed** parts are modelled from scratch.
+Masses are the model's estimates. A dash means no separate figure: the servo and its horn share one 0.32 oz catalogue mass. **Bought** parts are the manufacturer's CAD where one exists and a datasheet build otherwise; **printed** parts are modelled from scratch.
 
 **Per dart**
 
@@ -68,7 +68,7 @@ Masses are the model's estimates. A dash means no separate figure: the servo and
 | Body, with cell snaps and hanger | printed | 41.7 | modelled | Holds the cell and the rod, and carries the dart's weight through its hanger post |
 | Pod tray | printed | 21.8 | modelled | Holds the electronics, the rod socket and the microphone cavity |
 | Pod lid | printed | 8.1 | modelled | Closes the pod and holds the boards down through foam pads |
-| Fibreglass rod, 6 × 500 mm | bought | 26.5 | modelled to spec | Spike, spine and mast |
+| Fibreglass rod, 0.24 × 20 in | bought | 26.5 | modelled to spec | Spike, spine and mast |
 | Samsung INR18650-25R cell | bought | 45.0 | datasheet | Power |
 | Heltec WiFi LoRa 32 V3 | bought | 9.0 | manufacturer STEP, OLED added from the datasheet | Microcontroller and LoRa radio |
 | INMP441 microphone breakout | bought | 1.0 | chip from datasheet; breakout board *measure* | Listens through the side port |
@@ -93,7 +93,7 @@ Masses are the model's estimates. A dash means no separate figure: the servo and
 | Servo lead and plug | bought | 0.5 | modelled | Servo power and signal |
 | 4 rail zip ties | bought | 1.0 | HellermannTyton datasheet | Tie the saddles to the rails |
 | PTFE film on the bearing ridge | bought | 0.2 | 3M datasheet | Low-friction face for the rotor |
-| **Harness total** (with the servo's 9 g) | | **183.5** | | |
+| **Harness total** (with the servo's 0.32 oz) | | **183.5** | | |
 
 ## 5. What the model does and does not show
 
@@ -101,10 +101,10 @@ Masses are the model's estimates. A dash means no separate figure: the servo and
 
 **What it does not show:**
 
-- **That a dart lands upright.** The darts are carried flat. Nothing here models the fall, the turn nose-down, or 70 mm of rod going into real soil. This is the first test: print a dummy, weight it to 158 g, and drop it from the drone's release height again and again.
+- **That a dart lands upright.** The darts are carried flat. Nothing here models the fall, the turn nose-down, or 2.8 in of rod going into real soil. This is the first test: print a dummy, weight it to 5.6 oz, and drop it from the drone's release height again and again.
 - **That the microphone hears a drone through the pod.** The side port, film and cavity are built from TDK's sealing guidance, but they have never been recorded through.
 - **That the pod keeps water out.** It is a printed box with a cord seal. The seal's squeeze is calculated, not tested.
-- **That the X500 flies well with 816 g under it.**
+- **That the X500 flies well with 1.8 lb under it.**
 - **About 60 dimensions marked *measure*:** the microphone breakout, the antenna, the servo's spline and screw thread, and the print fits. They have to be checked with calipers on the bought parts and a printed fit coupon before the real print.
 - **The animation is an assembly diagram.** It slides rigid parts apart. It does not show screws turning, ties being cut, inserts being heated in, or the servo's real release sequence.
 

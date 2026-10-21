@@ -75,7 +75,7 @@ The ranges multiply the low ends together and the high ends together, so the tru
 |---|---|---|---|
 | **Shotgun, rifle, net-gun** | Enough: the drone is in range for about 1–4 s | Same | ≈0 |
 | **AI turret** | Enough to slew and track | Same | ≈0 |
-| **Cover at the position** | Enough if the dugout is a few metres away | Smoke and dispersal also become possible | small |
+| **Cover at the position** | Enough if the dugout is a few yards away | Smoke and dispersal also become possible | small |
 | **Holding a movement** (vehicle, resupply, walkers, evacuation) | Too late: they are already in the open | A go/no-go call before setting out. Russia's roadside drone "traffic lights" do this on roads ([Espreso, Dec 2024](https://global.espreso.tv/russia-ukraine-war-russia-installs-traffic-lights-to-counter-ukrainian-fpv-drones)) | **most of the chain above** |
 | **Cued jammer** (e.g. CERBAIR MEDUSA, [partners]({{ site.baseurl }}{% link research/competitors.md %}#partners-and-the-budget-we-compete-for)) | Switches on while the drone is already on its final approach | Switches on early and only when a drone is coming, so it transmits less. Also covers radio links its own detector misses | radio FPVs only, and fading: "Jamming no longer works", says a brigade EW commander; **none against fibre-optic** |
 | **Interceptor drone** | Can't launch and climb in time | Plausibly the minimum lead time (our inference; no source gives launch-to-intercept times against FPVs) | unknown |

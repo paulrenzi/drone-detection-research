@@ -219,6 +219,13 @@ async function setup(root) {
     });
     needsRender = true;
   }
+  // The models are drawn in millimetres and grams; the site reads in inches and ounces.
+  const oz = g => { const v = g / 28.3495; return v >= 16 ? `${(v / 16).toFixed(2)} lb` : `${v.toFixed(v < 1 ? 2 : 1)} oz`; };
+  const inch = mm => { const v = mm / 25.4; return `${v.toFixed(v < 1 ? 2 : v < 12 ? 1 : 0)} in`; };
+  const imperial = s => s
+    .replace(/(\d+(?:\.\d+)?)( ?(?:x|×) ?)(\d+(?:\.\d+)?) ?mm\b/g, (_, a, x, b) => `${inch(+a).slice(0, -3)}${x}${inch(+b)}`)
+    .replace(/(\d+(?:\.\d+)?) ?mm\b/g, (_, a) => inch(+a))
+    .replace(/(\d+(?:\.\d+)?) ?g\b/g, (_, a) => oz(+a));
   function pick(ev, click) {
     const r = renderer.domElement.getBoundingClientRect();
     ptr.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
@@ -230,15 +237,15 @@ async function setup(root) {
     if (!p) { tip.style.display = 'none'; return; }
     const name = (p.info && (p.info.display_name || p.info.display)) || p.node.name.replace(/_/g, ' ');
     const kind = p.info && (p.info.printed_or_bought || p.info.kind || (p.info.printed === true ? 'printed' : p.info.printed === false ? 'bought' : ''));
-    tip.textContent = kind ? `${name} · ${kind}` : name;
+    tip.textContent = imperial(kind ? `${name} · ${kind}` : name);
     tip.style.display = 'block';
     tip.style.left = (ev.clientX - r.left + 14) + 'px';
     tip.style.top = (ev.clientY - r.top + 14) + 'px';
     if (click && p.info) {
       const bits = [name];
-      if (p.info.mass_g != null) bits.push(`${(+p.info.mass_g).toFixed(1)} g`);
+      if (p.info.mass_g != null) bits.push(oz(+p.info.mass_g));
       const what = p.info.function || p.info.description;
-      info.textContent = bits.join(' · ') + (what ? ` — ${what}` : '');
+      info.textContent = imperial(bits.join(' · ') + (what ? ` — ${what}` : ''));
     }
   }
   renderer.domElement.addEventListener('pointermove', ev => { if (ev.buttons === 0) pick(ev, false); });

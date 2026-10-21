@@ -1,11 +1,11 @@
 ---
-title: Range and cost-per-km² model
+title: Range and cost-per-square-mile model
 parent: Research Notes
 nav_order: 2
 nav_tripwire: 4
 ---
 
-# Range and cost-per-km² model
+# Range and cost-per-square-mile model
 {: .no_toc }
 
 1. TOC
@@ -13,10 +13,10 @@ nav_tripwire: 4
 
 ## The metric that matters
 
-**Cost per km² = node cost × nodes per km².**
+**Cost per square mile = node cost × nodes per square mile.**
 Node density is set by how far a node can hear the target, and by the need for **at least three nodes** to hear it at once (for a position fix from bearings).
 
-A simple layout rule: on a triangular grid with spacing equal to the detection range *r*, most points are heard by ≥3 nodes. That grid needs about **1.15 / r² nodes per km²** (r in km).
+A simple layout rule: on a triangular grid with spacing equal to the detection range *r*, most points are heard by ≥3 nodes. That grid needs about **1.15 / r² nodes per square mile** (r in miles).
 
 ## Detection range by target (working estimates)
 
@@ -25,29 +25,29 @@ A simple layout rule: on a triangular grid with spacing equal to the detection r
 
 | Target | Sound source | Working range estimate |
 |---|---|---|
-| Shahed/Geran-class one-way attack drone | Piston engine, propeller — loud, tonal | 1–5 km |
-| Cruise missile at low altitude | Jet/turbofan | 1–5 km |
-| Large multirotor / Mavic-class | Electric motors, props | 200–500 m |
-| Small FPV quad | Electric, small props, high-pitched | 100–300 m |
-| Fibre-optic FPV | Same as FPV — no RF, so acoustic is one of few options | 100–300 m |
+| Shahed/Geran-class one-way attack drone | Piston engine, propeller — loud, tonal | 0.6–3.1 mi |
+| Cruise missile at low altitude | Jet/turbofan | 0.6–3.1 mi |
+| Large multirotor / Mavic-class | Electric motors, props | 660–1,600 ft |
+| Small FPV quad | Electric, small props, high-pitched | 330–980 ft |
+| Fibre-optic FPV | Same as FPV — no RF, so acoustic is one of few options | 330–980 ft |
 
-Squarehead's commercial array claims small-drone detection out to "several hundred metres", consistent with the middle rows.
+Squarehead's commercial array claims small-drone detection out to several hundred yards, consistent with the middle rows.
 
-The first published field number for a cheap node comes from the open-source [VolAnti]({{ site.baseurl }}{% link research/open-source-builds.md %}#volanti) unit: a hovering quad detected at **104.2 m** on a street with traffic, with expected range falling from 100–200 m in still air to 5–25 m in strong wind. That supports the low end of the small-quad rows and shows how much wind matters.
+The first published field number for a cheap node comes from the open-source [VolAnti]({{ site.baseurl }}{% link research/open-source-builds.md %}#volanti) unit: a hovering quad detected at **340 ft** on a street with traffic, with expected range falling from 330–660 ft in still air to 16–82 ft in strong wind. That supports the low end of the small-quad rows and shows how much wind matters.
 
 **Published measurements point lower still** ([full table]({{ site.baseurl }}{% link research/competitors.md %}#what-is-actually-measured)):
-- **Cheap MEMS array:** eight cheap MEMS microphones on an ESP32-S3 detected a DJI Phantom to about 50 m, with an effective range of about 60 m and 5–8% false positives (Ghouli, *Acta Acustica* 2026).
-- **Speaker tone:** studio and shotgun microphones heard a speaker tone set to a hovering drone's level at 69–94 m in low wind and 36–46 m in high wind (*Sensors* 2025).
-- **None of these used an FPV.** Treat 100–300 m for FPVs as unproven until T11.
+- **Cheap MEMS array:** eight cheap MEMS microphones on an ESP32-S3 detected a DJI Phantom to about 160 ft, with an effective range of about 200 ft and 5–8% false positives (Ghouli, *Acta Acustica* 2026).
+- **Speaker tone:** studio and shotgun microphones heard a speaker tone set to a hovering drone's level at 230–310 ft in low wind and 120–150 ft in high wind (*Sensors* 2025).
+- **None of these used an FPV.** Treat 330–980 ft for FPVs as unproven until T11.
 
 ## Worked examples
 
-| Range *r* | Nodes / km² | At $100 / node | At $450 / node (phone benchmark) |
+| Range *r* | Nodes / sq mi | At $100 / node | At $450 / node (phone benchmark) |
 |---|---|---|---|
-| 3 km | 0.13 | **$13 / km²** | $58 / km² |
-| 1 km | 1.15 | **$115 / km²** | $518 / km² |
-| 300 m | 12.8 | **$1,280 / km²** | $5,750 / km² |
-| 150 m | 51 | **$5,100 / km²** | $23,000 / km² |
+| 1.9 mi | 0.33 | **$33 / sq mi** | $150 / sq mi |
+| 0.6 mi | 3 | **$300 / sq mi** | $1,340 / sq mi |
+| 980 ft | 33 | **$3,310 / sq mi** | $14,900 / sq mi |
+| 490 ft | 132 | **$13,200 / sq mi** | $59,600 / sq mi |
 
 Takeaways:
 

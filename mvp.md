@@ -17,30 +17,30 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 
 ### Could a speaker stand in for the drone? {#speaker-reasoning}
 
-**For most distances, yes.** A speaker finds the detector's threshold cheaply and precisely. It can't copy what 100 m of real ground does to the sound, so a real flight at three distances checks it later, in layer 2.
+**For most distances, yes.** A speaker finds the detector's threshold cheaply and precisely. It can't copy what 330 ft of real ground does to the sound, so a real flight at three distances checks it later, in layer 2.
 
 <details class="layer" markdown="block">
 <summary><span class="layer-title">The reasoning</span><span class="layer-sub">Source level, spreading, what a speaker gets wrong</span></summary>
 
-**The arithmetic.** EASA lists the DJI Mini 4 Pro and Mini 5 Pro at a sound power of **81 dB(A)** ([EASA](https://www.easa.europa.eu/en/node/143951)). Spreading over a sphere, that is about 70 dB(A) at 1 m, 36 at 50 m, **30 at 100 m**, 24 at 200 m and 20 at 300 m (6 dB less each time the distance doubles). A quiet field is often 30–40 dB(A). So at 100 m a consumer drone is about as loud overall as the background, and detection depends on its rotor tones standing out in narrow bands. That fits the only measured cheap-mic range, 50–60 m. Air absorption hardly matters at these distances: under about 1 dB at 300 m below 1 kHz (ISO 9613-1, 20 °C, 70% humidity), rising to several dB above 2 kHz.
+**The arithmetic.** EASA lists the DJI Mini 4 Pro and Mini 5 Pro at a sound power of **81 dB(A)** ([EASA](https://www.easa.europa.eu/en/node/143951)). Spreading over a sphere, that is about 70 dB(A) at 3.3 ft, 36 at 160 ft, **30 at 330 ft**, 24 at 660 ft and 20 at 980 ft (6 dB less each time the distance doubles). A quiet field is often 30–40 dB(A). So at 330 ft a consumer drone is about as loud overall as the background, and detection depends on its rotor tones standing out in narrow bands. That fits the only measured cheap-mic range, 160–200 ft. Air absorption hardly matters at these distances: under about 1 dB at 980 ft below 1 kHz (ISO 9613-1, 68 °F, 70% humidity), rising to several dB above 2 kHz.
 
 **Two ways to use a speaker:**
 
 | | A. Speaker near the mic, turned down | B. Speaker at the real distance, on a pole |
 |---|---|---|
-| Set-up | Speaker 5 m from the mic. Play the drone clip quieter by 20·log₁₀(distance ÷ 5) dB: 26 dB for 100 m, 32 dB for 200 m | Speaker 3–10 m up at the real distance, playing at the drone's own level (about 70 dB(A) at 1 m for a Mini-class drone) |
+| Set-up | Speaker 16 ft from the mic. Play the drone clip quieter by 20·log₁₀(distance ÷ 16 ft) dB: 26 dB for 330 ft, 32 dB for 660 ft | Speaker 10–33 ft up at the real distance, playing at the drone's own level (about 70 dB(A) at 3.3 ft for a Mini-class drone) |
 | Captures | The detector's threshold against your real background noise, in 1 dB steps, as often as you like | Also the real ground, wind and trees along the path |
-| Misses | Everything along the path: ground interference near a 0.5 m mic, wind bending the sound (upwind can lose 10 dB or more), turbulence | The drone's height and motion, and its own directivity |
+| Misses | Everything along the path: ground interference near a 20 in mic, wind bending the sound (upwind can lose 10 dB or more), turbulence | The drone's height and motion, and its own directivity |
 | Needs | Any Bluetooth speaker, a basic sound level meter | A speaker that plays loud without distorting; FPV levels are unknown and probably much louder |
 
 **What makes it work:**
 - **Calibrate loud, then attenuate exactly.** Cheap sound meters can't read 20–30 dB(A). Measure the clip at the mic at a comfortable level, then make the quieter versions by digital gain, not by guessing with the volume knob.
-- **Know the source level.** Recordings online aren't level-calibrated. For a Mini-class drone, use EASA's 81 dB(A). For an FPV, borrow one for ten minutes and measure it at 5 m: no published measurement turned up.
+- **Know the source level.** Recordings online aren't level-calibrated. For a Mini-class drone, use EASA's 81 dB(A). For an FPV, borrow one for ten minutes and measure it at 16 ft: no published measurement turned up.
 - **Watch for distortion.** A speaker driven hard adds harmonics, and harmonics are what Batear's detector listens for, so distortion would flatter the result. Keep the speaker well below full volume, and compare the h2 and h3 values in the detector's log for the speaker and the real drone at the same level.
 - **Check the low end.** Small speakers lose output in the low hundreds of hertz, where consumer-drone rotor tones sit. Look at the clip's spectrum before trusting a small speaker.
 - **Log it as a speaker.** Use the logger's *Speaker* run type. Its results get their own line in the range table, and the clip cutter labels them `speaker_100m`, never mixed with real flights.
 
-**What it buys.** Each 6 dB of detector sensitivity doubles the range. A speaker can measure that threshold in an afternoon, without a pilot, airspace rules or an FPV. It can also run at night, in wind, and next to a road, and it builds training data at known levels. One real flight at 50, 100 and 150 m then shows whether the threshold-plus-spreading estimate holds over real ground. If it does, later tests can lean on the speaker. If not, the gap is the near-ground effect T11 exists to measure.
+**What it buys.** Each 6 dB of detector sensitivity doubles the range. A speaker can measure that threshold in an afternoon, without a pilot, airspace rules or an FPV. It can also run at night, in wind, and next to a road, and it builds training data at known levels. One real flight at 160, 330 and 490 ft then shows whether the threshold-plus-spreading estimate holds over real ground. If it does, later tests can lean on the speaker. If not, the gap is the near-ground effect T11 exists to measure.
 
 These are standard acoustics estimates, not measurements of our kit.
 </details>
@@ -50,8 +50,8 @@ These are standard acoustics estimates, not measurements of our kit.
 | Layer | Question | Spend | Total | Gate |
 |---|---|---|---|---|
 | [0](#layer-0) T18 | Where does a minute help most, and how would troops place a line? | $0 | $0 | None: sizes the payoff, shapes placement |
-| [1](#layer-1-the-radio-test-t9) T9 | Can a board at 0.5–1 m report back over 2–3 km, through trees? | ~$65–80 | ~$80 | T9's marks, or margins that predict them |
-| [2](#layer-2-hear-a-drone-from-near-the-ground-t11) T11 | How far does a mic at 0.5–1 m hear a drone? | ~$50 | ~$130 | ≥100 m (sets spacing, so cost per km) |
+| [1](#layer-1-the-radio-test-t9) T9 | Can a board at 1.6–3.3 ft report back over 1.2–1.9 mi, through trees? | ~$65–80 | ~$80 | T9's marks, or margins that predict them |
+| [2](#layer-2-hear-a-drone-from-near-the-ground-t11) T11 | How far does a mic at 1.6–3.3 ft hear a drone? | ~$50 | ~$130 | ≥330 ft (sets spacing, so cost per km) |
 | [3](#layer-3-the-edge-receiver-t17) T17 | Can the edge receiver hear the line without transmitting? | ~$90–130 | ~$250 | Layer 1's delivery, SDR sees nothing |
 | [4](#layer-4-battery-and-cold-t12) T12 | Does a listener last weeks, and in the cold? | ~$35–135 | ~$300–400 | ≥3 weeks, cold loss measured |
 | [5](#layer-5-the-mvp-a-six-listener-line) MVP | Does the whole chain work? | ~$250–350 | ~$600–750 | 18/20 crossings in 10 s, <1 false alarm/day, silent |
@@ -63,7 +63,7 @@ Assumed owned: laptop, phone, USB power banks, soldering iron.
 Earlier warning against a threat nothing else detects (fibre-optic FPVs), at lower cost, is worth having; that is not tested here. 5–10 interviews ([questions]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)) only tune the build: which moments matter most (sizes the [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %})), and how troops would place listeners and a receiver.
 
 <details class="layer" id="layer-1-the-radio-test-t9" markdown="block" open>
-<summary><span class="layer-title">Layer 1: radio test (T9), ~$80</span><span class="layer-sub">Board at 0.5–1 m to a raised receiver, 2–3 km, across open ground, forest and hedgerows</span></summary>
+<summary><span class="layer-title">Layer 1: radio test (T9), ~$80</span><span class="layer-sub">Board at 1.6–3.3 ft to a raised receiver, 1.2–1.9 mi, across open ground, forest and hedgerows</span></summary>
 
 **Why first:** it is the [deciding question]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-home), it needs no drone, and every later layer reuses the boards.
 
@@ -72,7 +72,7 @@ Earlier warning against a threat nothing else detects (fibre-optic FPVs), at low
 | **2 × LoRa board**, 915 MHz | **Bought:** Seeed XIAO ESP32S3 + Wio-SX1262 kit, [Rokland, $15.97 each](https://store.rokland.com/products/seeed-studio-xiao-esp32s3-wio-sx1262-kit-for-meshtastic-lora) | Heltec V3 2-pack, [Amazon, $44.98](https://www.amazon.com/dp/B0CW6151WJ); [Rokland, $29.97 each](https://store.rokland.com/products/heltec-wifi-lora-32v3); [Heltec direct, $17.90–19.90](https://heltec.org/project/wifi-lora-32-v3/) + China shipping; [RAK WisBlock kit, $34.97](https://store.rokland.com/products/rak-wireless-wisblock-meshtastic-starter-kit); [LILYGO T3S3, $72.99](https://www.tindie.com/products/yihang/915mhz-meshtastic-kit-t3s3-s3-sx1262/) |
 | **u.FL→SMA cable** (neither board has SMA) | Proxicast, [Amazon, $7.94](https://www.amazon.com/dp/B09GJGNPQX) | [Adafruit 851, $3.95](https://www.adafruit.com/product/851) |
 | **10 dB attenuator** (margin method) | MWRF, [Amazon, $12.49](https://www.amazon.com/dp/B07MRG9RDV) | [Inmet AHC-10, RF Parts, $15.91](https://www.rfparts.com/ahc-10.html); [L-com 20 dB, $92.09](https://www.l-com.com/coaxial-2w-20db-rf-fixed-attenuator-sma-male-to-sma-female-passivated-stainless-steel-body-up-to-6-ghz) |
-| **Mast**, 6–10 m | **Free:** upstairs window, roof edge, tree | Mifoci 23 ft, [Amazon, $59.99](https://www.amazon.com/dp/B0GYYL3S6C) (16 ft [$39.99](https://www.amazon.com/dp/B0GYXPXCNY)); [Spiderbeam 12 m HD, $109.99](https://moonrakeronline.com/us/spiderpole-12hd-telescopic-pole-12m-heavy-duty-fibreglass) |
+| **Mast**, 20–33 ft | **Free:** upstairs window, roof edge, tree | Mifoci 23 ft, [Amazon, $59.99](https://www.amazon.com/dp/B0GYYL3S6C) (16 ft [$39.99](https://www.amazon.com/dp/B0GYXPXCNY)); [Spiderbeam 39 ft HD, $109.99](https://moonrakeronline.com/us/spiderpole-12hd-telescopic-pole-12m-heavy-duty-fibreglass) |
 | **Antenna** (run D) | 915 MHz omni with u.FL lead, [Amazon, $16.95](https://www.amazon.com/dp/B0GSB5XKLF) | [8 dBi omni, Newegg Business, $16.99](https://www.neweggbusiness.com/p/9B-2VT-04FG-00029); [Rokland 5.8 dBi kit, $49.97](https://store.rokland.com/products/meshtastic-compatible-6-dbi-n-female-omni-outdoor-915-mhz-antenna-kit-with-6-10-or-15-cable-choice) |
 
 **Minimum:** 2 boards + cable, $53. With the attenuator, $65.
@@ -81,29 +81,29 @@ Earlier warning against a threat nothing else detects (fibre-optic FPVs), at low
 - **Quick walk:** Meshtastic [Range Test](https://meshtastic.org/docs/configuration/module/range-test/), region US. Logs `rangetest.csv` with GPS. It sends one packet every 15–60 s, so it finds where the link dies but can't count delivery.
 - **Counted points:** a [RadioLib](https://github.com/jgromes/RadioLib) ping sketch sending one packet every 1–2 s, 100 per point. It sets output power directly, which the margin method needs.
 
-**Margin method:** lets a woodlot stand in for 2 km of forest.
+**Margin method:** lets a woodlot stand in for 1.2 mi of forest.
 1. At each point, step power down 22 → 17 → 12 → 7 → 2 dBm, then add the attenuator, until delivery drops below 80%. The power you cut is the margin. Each spreading-factor step (SF12 → SF7) adds about 2.5 dB.
-2. Repeat 150, 300 and 600 m into forest. Margin lost per 100 m predicts where the link dies.
-3. This is an extrapolation ([Weissberger](https://en.wikipedia.org/wiki/Weissberger%27s_model)), so one real 2 km forest point is still needed.
+2. Repeat 150, 300 and 2,000 ft into forest. Margin lost per 330 ft predicts where the link dies.
+3. This is an extrapolation ([Weissberger](https://en.wikipedia.org/wiki/Weissberger%27s_model)), so one real 1.2 mi forest point is still needed.
 
 | Run | Place | Node | Receiver |
 |---|---|---|---|
-| A | Field or farm road | 0.5 m and 1 m | 6–10 m and 2 m |
-| B | Woodlot, node inside | 1 m | Edge, raised |
-| C | Same woods, node to node | 1 m, 100–300 m apart | — |
+| A | Field or farm road | 20 in and 3.3 ft | 20–33 ft and 6.6 ft |
+| B | Woodlot, node inside | 3.3 ft | Edge, raised |
+| C | Same woods, node to node | 3.3 ft, 330–980 ft apart | — |
 | E | Hedgerows (US stand-in for [windbreak belts]({{ site.baseurl }}{% link models/tripwire.md %}#a-windbreak-belt-is-not-a-forest)) | Across 1, 2, 3 belts | Raised, last belt |
 
 Run with leaves on now and leaves off in December.
 
-**Gate:** [T9's marks]({{ site.baseurl }}{% link research/open-questions.md %}#the-test-t9), e.g. 90% at 3 km open from a 1 m node, or 80% node to node at 200 m in forest. If open ground passes but forest fails, carry on with denser lines under trees or another way home.
+**Gate:** [T9's marks]({{ site.baseurl }}{% link research/open-questions.md %}#the-test-t9), e.g. 90% at 1.9 mi open from a 3.3 ft node, or 80% node to node at 660 ft in forest. If open ground passes but forest fails, carry on with denser lines under trees or another way home.
 **Not testable at home:** jamming (T19), which is illegal in the US. 915 MHz at legal power is licence-free.
 
 </details>
 
 <details class="layer" id="layer-2-hear-a-drone-from-near-the-ground-t11" markdown="block">
-<summary><span class="layer-title">Layer 2: hear a drone from the ground (T11), ~$50</span><span class="layer-sub">Mic range at 0.5–1 m sets spacing, and so the cost of a line</span></summary>
+<summary><span class="layer-title">Layer 2: hear a drone from the ground (T11), ~$50</span><span class="layer-sub">Mic range at 1.6–3.3 ft sets spacing, and so the cost of a line</span></summary>
 
-**Why:** the site assumes listeners every 200–300 m against FPVs, but the [only measured range]({{ site.baseurl }}{% link models/tripwire.md %}#warning-time-comes-from-distance) for cheap mics is 50–60 m. Kit: the [weekend kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector) with the mic lowered, running Batear on layer 1's boards.
+**Why:** the site assumes listeners every 660–980 ft against FPVs, but the [only measured range]({{ site.baseurl }}{% link models/tripwire.md %}#warning-time-comes-from-distance) for cheap mics is 160–200 ft. Kit: the [weekend kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector) with the mic lowered, running Batear on layer 1's boards.
 
 | Item | Buy | Alternatives |
 |---|---|---|
@@ -115,16 +115,16 @@ Run with leaves on now and leaves off in December.
 | **Drone** | **Borrow a 5–7 in FPV:** [AMA clubs](https://www.modelaircraft.org/club-finder), [MultiGP](https://www.multigp.com/chapters/) | [Potensic ATOM SE, $249.99](https://store.potensic.com/products/atom-se); DJI Mini 4K ~$299 (search); [DJI Neo, $169](https://store.dji.com/product/dji-neo), out of stock |
 | **Wind** | Phone weather app | Anemometer, [Amazon, $12.99](https://www.amazon.com/dp/B0D7Z43M9S) |
 
-**Run** ([weekend plan]({{ site.baseurl }}{% link research/open-source-builds.md %}#the-saturday-test), mic at 0.5 and 1 m)
-- Hover 60 s at 25, 50, 100, 150, 200 and 300 m, at two altitudes. Then fly straight passes.
+**Run** ([weekend plan]({{ site.baseurl }}{% link research/open-source-builds.md %}#the-saturday-test), mic at 20 in and 3.3 ft)
+- Hover 60 s at 80, 160, 330, 490, 660 and 980 ft, at two altitudes. Then fly straight passes.
 - Log wind on every run.
 - Record 30+ min with no drone: traffic, mowers, birds.
 - Repeat along a [tree line]({{ site.baseurl }}{% link research/field-conditions.md %}#where-infantry-actually-sit-tree-lines).
 - Fly under FAA TRUST or Part 107.
 
 **Gate (proposed):**
-- **Pass:** 9 of 10 passes heard at ≥100 m with a consumer drone, or ≥150 m with an FPV, in light wind. 200 m spacing holds.
-- **Fail, under 60 m:** a line needs 3–4× the listeners per km. Redo the [cost]({{ site.baseurl }}{% link models/tripwire.md %}#what-it-costs-estimates) first.
+- **Pass:** 9 of 10 passes heard at ≥330 ft with a consumer drone, or ≥490 ft with an FPV, in light wind. 660 ft spacing holds.
+- **Fail, under 200 ft:** a line needs 3–4× the listeners per km. Redo the [cost]({{ site.baseurl }}{% link models/tripwire.md %}#what-it-costs-estimates) first.
 
 </details>
 
@@ -138,16 +138,16 @@ Run with leaves on now and leaves off in December.
 | **3rd LoRa board** | Heltec V3, [Amazon, $34.99](https://www.amazon.com/dp/B0D1H1FN9Y) | [Rokland, $29.97](https://store.rokland.com/products/heltec-wifi-lora-32v3); as layer 1 |
 | **RS-485, edge** | MAX3485 (3.3 V) 5-pack, [Amazon, $8.99](https://www.amazon.com/dp/B0FTFXT876) | [SparkFun breakout, $12.50](https://www.sparkfun.com/sparkfun-transceiver-breakout-rs-485.html). Not the 5 V MAX485 |
 | **USB→RS-485, laptop** | FT232RL adapter, [Amazon, $16.31](https://www.amazon.com/dp/B081MB6PN2) | [Waveshare (B), ~$7.99](https://www.waveshare.com/product/iot-communication/wired-comm-converter/usb-to-rs485-b.htm) |
-| **Wire** | Old Ethernet cable (one pair) | 300 m run: burial Cat5e 1000 ft, [Amazon VIVO, $89.99](https://www.amazon.com/dp/B0092TJ4K2) or [TRUE CABLE, $228.99](https://www.amazon.com/dp/B01JAVNWOK) |
+| **Wire** | Old Ethernet cable (one pair) | 980 ft run: burial Cat5e 1000 ft, [Amazon VIVO, $89.99](https://www.amazon.com/dp/B0092TJ4K2) or [TRUE CABLE, $228.99](https://www.amazon.com/dp/B01JAVNWOK) |
 | **Directional antenna** | **DIY** wire Yagi on a wooden boom, a few dollars | 7 dBi Yagi, N-female, [Amazon, $24.99](https://www.amazon.com/dp/B0CPFT1V9L) (needs N→SMA); [Pasternack 9 dBi, $254.99](https://www.pasternack.com/single-antenna-880-960-mhz-9-dbi-gain-n-pe51ya1018-p.aspx) |
 | **Into the canopy** | Tennis ball + paracord | Throw line kit, [Amazon, $21.68](https://www.amazon.com/dp/B0DH2SV5XK) |
 | **SDR** | RTL-SDR Blog V3 + dipoles, [Amazon, $47.95](https://www.amazon.com/dp/B0BMKB3L47) | Dongle only, [Amazon, $37.95](https://www.amazon.com/dp/B0BMKZCKTF); Nooelec SMArt v5, [Amazon, $44.95](https://www.amazon.com/dp/B01HA642SW) |
 
 **Run**
-1. Raise the receive-only board 5–10 m at a woodlot edge and cable it in to a laptop.
+1. Raise the receive-only board 16–33 ft at a woodlot edge and cable it in to a laptop.
 2. Send from layer 1's passing points and log delivery.
 3. Watch 902–928 MHz on the SDR for 1 h, at the edge and at the laptop.
-4. Once the short run works, prove 300 m of cable. RS-485 is rated to ~1,200 m at low data rates.
+4. Once the short run works, prove 980 ft of cable. RS-485 is rated to ~3,900 ft at low data rates.
 
 **Gate (proposed):** delivery matches layer 1, the SDR sees **no transmission**, and alerts reach the laptop within 2 s. If the board emits anything in receive mode, fix the firmware first.
 
@@ -164,19 +164,19 @@ Run with leaves on now and leaves off in December.
 | **Cells** (not on Amazon) | [Molicel P28A, $5.99](https://www.18650batterystore.com/products/molicel-p28a) | [Samsung 30Q, $6.99](https://www.18650batterystore.com/products/samsung-30q); [Battery Junction P28A, ~$6.70](https://batteryjunction.com/molicel-inr18650-p28a) |
 | **Holder** | 2-pack with leads, [Amazon, $5.99](https://www.amazon.com/dp/B092TGQ7PB) | [SparkFun 1×18650, $1.25](https://www.sparkfun.com/battery-holder-1x18650-wire-leads.html) (backordered) |
 | **Plug** | Solder the V3's included SH1.25 lead to the holder | LiPo with "Micro JST 1.25" ([Rokland V3 page](https://store.rokland.com/products/heltec-wifi-lora-32v3)). Adafruit LiPos (JST-PH) don't fit |
-| **Freezer logger** | Inkbird IBS-TH2 Plus, [Amazon, $24.99](https://www.amazon.com/dp/B08TM67HJH) (only the probe goes in; the body is rated to −10 °C) | [GoveeLife R1, $39.99](https://us.govee.com/products/goveelife-smart-thermometer-r1) |
+| **Freezer logger** | Inkbird IBS-TH2 Plus, [Amazon, $24.99](https://www.amazon.com/dp/B08TM67HJH) (only the probe goes in; the body is rated to 14 °F) | [GoveeLife R1, $39.99](https://us.govee.com/products/goveelife-smart-thermometer-r1) |
 
 **Run**
 1. Measure the current asleep, listening and sending, then work out days per cell.
 2. Run one listener on a cell at room temperature until it dies, with a speaker playing a drone clip on a timer.
-3. Repeat in the freezer (−18 °C), with the board reporting its voltage and temperature as in the [cold fix]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost).
+3. Repeat in the freezer (0 °F), with the board reporting its voltage and temperature as in the [cold fix]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost).
 
 **Gate (proposed):** at least **3 weeks** at room temperature, with the cold loss measured. If it fails, recompute the running cost; a one-week listener may still pay.
 
 </details>
 
 <details class="layer" id="layer-5-the-mvp-a-six-listener-line" markdown="block">
-<summary><span class="layer-title">Layer 5: the MVP, six listeners, ~$250–350</span><span class="layer-sub">Hand-placed line 1–2 km out, the silent edge receiver, real drone crossings</span></summary>
+<summary><span class="layer-title">Layer 5: the MVP, six listeners, ~$250–350</span><span class="layer-sub">Hand-placed line 0.6–1.2 mi out, the silent edge receiver, real drone crossings</span></summary>
 
 **Proves:** drone crosses → listener hears → alert hops home → edge hears → screen in the trees shows it, in time.
 
@@ -185,14 +185,14 @@ Run with leaves on now and leaves off in December.
 | Heltec V3 | [Amazon 2-pack](https://www.amazon.com/dp/B0CW6151WJ), or [Heltec direct](https://heltec.org/project/wifi-lora-32-v3/) | $18–23 |
 | Mic + windscreen | Layer 2 packs | $4–5 |
 | Cell + holder | Layer 4 | $9 |
-| Box | uxcell IP65 100×68×50 mm, [Amazon, $15.69](https://www.amazon.com/dp/B07FKN8SZG); [Newegg Business, $10.99](https://www.neweggbusiness.com/p/9B-072-001K-007A7) | $11–16 |
+| Box | uxcell IP65 3.9×2.7×2 in, [Amazon, $15.69](https://www.amazon.com/dp/B07FKN8SZG); [Newegg Business, $10.99](https://www.neweggbusiness.com/p/9B-072-001K-007A7) | $11–16 |
 | Stake | Layer 2's 20-pack | $1–2 |
 | **Total** | | **$45–55** |
 
 Six listeners cost $270–330. Add four if layer 1's forest hops need tighter spacing.
 
 **Run**
-1. [Place by hand]({{ site.baseurl }}{% link models/tripwire.md %}#why-not-have-people-place-the-listeners) across a hedgerow gap, at layer 2's spacing, 1–2 km from the edge.
+1. [Place by hand]({{ site.baseurl }}{% link models/tripwire.md %}#why-not-have-people-place-the-listeners) across a hedgerow gap, at layer 2's spacing, 0.6–1.2 mi from the edge.
 2. Fly 20 crossings, varying height, time of day and wind, and GPS-log each one.
 3. Leave the line running a week (T5) to count false alarms.
 
@@ -234,13 +234,13 @@ A pass shows the idea works at small scale on US ground. It does not show it aga
 | 3 | RTL-SDR Blog V3 + dipole kit | [Amazon](https://www.amazon.com/dp/B0BMKB3L47) | $47.95 |
 | 3 | 915 MHz Yagi, 7 dBi (optional; DIY is a few dollars) | [Amazon](https://www.amazon.com/dp/B0CPFT1V9L) | $24.99 |
 | 3 | Throw line kit (optional; a tennis ball works) | [Amazon](https://www.amazon.com/dp/B0DH2SV5XK) | $21.68 |
-| 3 | Burial Cat5e, 1000 ft (300 m run only) | [Amazon](https://www.amazon.com/dp/B0092TJ4K2) | $89.99 |
+| 3 | Burial Cat5e, 1000 ft (980 ft run only) | [Amazon](https://www.amazon.com/dp/B0092TJ4K2) | $89.99 |
 | 4 | Nordic PPK2 current meter | [Adafruit](https://www.adafruit.com/product/5048) (Amazon $189.99) | $99.95 |
 | 4 | 18650 cells, Molicel P28A (not on Amazon) | [18650 Battery Store](https://www.18650batterystore.com/products/molicel-p28a) | $5.99 each |
 | 4 | 18650 holders with leads, 2-pack | [Amazon](https://www.amazon.com/dp/B092TGQ7PB) | $5.99 |
 | 4 | Inkbird IBS-TH2 Plus freezer logger | [Amazon](https://www.amazon.com/dp/B08TM67HJH) | $24.99 |
 | 5 | 2 more Heltec 2-packs (6 listeners in all) | [Amazon](https://www.amazon.com/dp/B0CW6151WJ) | $89.96 |
-| 5 | IP65 box 100×68×50 mm, uxcell | [Amazon](https://www.amazon.com/dp/B07FKN8SZG) | $15.69 each |
+| 5 | IP65 box 3.9×2.7×2 in, uxcell | [Amazon](https://www.amazon.com/dp/B07FKN8SZG) | $15.69 each |
 
 </details>
 

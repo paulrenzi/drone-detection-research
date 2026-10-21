@@ -7,7 +7,7 @@ nav_order: 99
 # MNN — Model name
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | **?/5** | **?/5** | ?/5 | ?/5 | ?/5 | ?/5 |
 

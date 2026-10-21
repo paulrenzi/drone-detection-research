@@ -22,7 +22,7 @@ A small array of microphones hears the same sound at slightly different times. W
 | SRP-PHAT | Scan directions, pick the loudest steered response | More robust with multiple sources |
 | MUSIC / subspace | Separate signal from noise directions | Sharper, more compute |
 
-- Bigger arrays → better bearing precision, but too large an array for high frequencies causes ambiguity (spatial aliasing). 10–20 cm suits drone frequencies.
+- Bigger arrays → better bearing precision, but too large an array for high frequencies causes ambiguity (spatial aliasing). 3.9–7.9 in suits drone frequencies.
 - Realistic bearing error for a cheap 4-mic array outdoors: **a few degrees to ~10°** (to be measured).
 - Bearing must be converted to *true north* with a compass and tilt sensor. Compass error adds directly to bearing error.
 
@@ -30,13 +30,13 @@ A small array of microphones hears the same sound at slightly different times. W
 
 Each node reports a bearing line. Where three or more lines cross is the target.
 
-- **Error grows with distance:** 5° of bearing error at 2 km ≈ 175 m sideways error from that node. Nodes viewing from different angles cut it down.
+- **Error grows with distance:** 5° of bearing error at 1.2 mi ≈ 570 ft sideways error from that node. Nodes viewing from different angles cut it down.
 - **Geometry matters:** nodes on one side of the target give long, thin error ellipses; surrounding the target gives tight fixes.
 - With elevation angles too, the network can estimate altitude.
 
 ## 3. Cross-check: time difference between nodes
 
-Nodes with GPS timing (PPS) can timestamp detections to well under a millisecond. Sound travels ~34 cm per ms, so arrival-time differences between nodes give an independent range check. Hard to use alone for continuous drone noise (see [M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %})), useful as a second opinion.
+Nodes with GPS timing (PPS) can timestamp detections to well under a millisecond. Sound travels ~13 in per ms, so arrival-time differences between nodes give an independent range check. Hard to use alone for continuous drone noise (see [M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %})), useful as a second opinion.
 
 ## 4. Tracking
 

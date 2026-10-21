@@ -39,20 +39,20 @@ Software is the comparatively easy part. The hard parts are **range** (how far a
 
 Counter-drone sensing has split into a few camps. Each one is good at something, and each has a blind spot.
 
-**What works.** Ukraine settled half the question. Cheap acoustic networks work in war **against Shaheds and cruise missiles over the rear**. Nobody has shown they work against FPVs at the front. The US Army's 2026 review says they do, but its sources are about Shaheds ([why that matters]({{ site.baseurl }}{% link research/competitors.md %}#two-markets-only-one-of-them-ours)). Sky Fortress runs about 14,000 phone-and-microphone sensors on poles at $400–1,000 each, roughly $5M for the whole network, and tracks Shaheds and cruise missiles with them. Zvook puts microcomputers on radio towers and is trialling a vehicle version with NATO. At the top end, Squarehead's Discovair and Microflown's AVISA show what premium acoustic arrays claim without line of sight: a few hundred metres against small drones. Soldiers already buy cheap radio detectors in numbers; BlueBird's Chuyka 3.0 costs $584–701 and picks up analog FPV video at up to 4 km. Anduril's WISP cameras and Lattice software sit at the expensive end and are becoming the US Army's backbone.
+**What works.** Ukraine settled half the question. Cheap acoustic networks work in war **against Shaheds and cruise missiles over the rear**. Nobody has shown they work against FPVs at the front. The US Army's 2026 review says they do, but its sources are about Shaheds ([why that matters]({{ site.baseurl }}{% link research/competitors.md %}#two-markets-only-one-of-them-ours)). Sky Fortress runs about 14,000 phone-and-microphone sensors on poles at $400–1,000 each, roughly $5M for the whole network, and tracks Shaheds and cruise missiles with them. Zvook puts microcomputers on radio towers and is trialling a vehicle version with NATO. At the top end, Squarehead's Discovair and Microflown's AVISA show what premium acoustic arrays claim without line of sight: a few hundred yards against small drones. Soldiers already buy cheap radio detectors in numbers; BlueBird's Chuyka 3.0 costs $584–701 and picks up analog FPV video at up to 2.5 mi. Anduril's WISP cameras and Lattice software sit at the expensive end and are becoming the US Army's backbone.
 
 **What falls short, and why.** The blind spots are exactly where drones are moving.
 
 - **Radio detectors** hear radio, not drones. Fibre-optic FPVs and pre-programmed drones are invisible to them, and they rarely give a position to put on a map.
 - **Radar** is accurate, but it transmits all the time, so it can be found and targeted. It also needs line of sight and costs $40k–160k a unit.
 - **Cameras**, even WISP, can't see a low drone behind trees, buildings or a ridge.
-- **Premium acoustic arrays** work, but they are single expensive sensors sold through prime contractors. Even they top out at a few hundred metres, so better hardware alone doesn't buy more range.
+- **Premium acoustic arrays** work, but they are single expensive sensors sold through prime contractors. Even they top out at a few hundred yards, so better hardware alone doesn't buy more range.
 - **Sky Fortress** is built for national coverage of loud engine drones over cellular networks, not for portable kits that units can carry against FPVs.
 
 **What the front tells us.** The evidence makes a strong case that the gap is real, and that it is where units are dying ([full review]({{ site.baseurl }}{% link research/problem-check.md %})):
 
 - **Drones cause about 80% of casualties**, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)).
-- **Troops survive mainly by not moving:** underground, under nets, hiding when they hear a drone, taking hours to cover a kilometre and going months without rotation (same source). That is coping, not protection.
+- **Troops survive mainly by not moving:** underground, under nets, hiding when they hear a drone, taking hours to cover half a mile and going months without rotation (same source). That is coping, not protection.
 - **The fastest-growing threat beats the detectors units carry.** Fibre-optic FPVs send no radio, so radio detectors miss them ([Kyiv Independent](https://kyivindependent.com/as-russias-fiber-optic-drones-flood-the-battlefield-ukraine-is-racing-to-catch-up/)); they are 30–50% or more of FPVs in some sectors.
 - **The expensive answer isn't there.** We found no reporting of Anduril's WISP at Ukraine's front ([its published use](https://dronexl.co/2026/08/06/anduril-wisp-washington-national-guard-drones-birds/) is US domestic security), and cameras can't see through tree lines anyway.
 - **Ukrainian builders are moving the same way.** Zvook announced an acoustic FPV sensor for front-line positions in January 2026 ([Militarnyi](https://militarnyi.com/en/news/ukraine-develops-acoustic-detector-for-fpv-drones/)). It's now on sale at about $834–950 per sensor, but there's no independent test or reported deployment. A US startup, RADD, is building a soldier-worn version, and Denmark's Komodo already sells a sensor that drones can drop.
@@ -63,7 +63,7 @@ Counter-drone sensing has split into a few camps. Each one is good at something,
 
 **The build path.** The [MVP path]({{ site.baseurl }}{% link mvp.md %}) takes the tripwire from an $80 radio test to a six-listener line in five gated layers, about $600–750 in all, with parts you can order today.
 
-**What failed outright.** Microphones on flying drones don't work: the listener's own rotors sit centimetres from the mic, and published measurements put the target 10–30 times quieter than the drone's own noise. Perching drones (land, stop the motors, listen) fix that, but landing reliably and keeping them powered is still research. Fibre-optic acoustic sensing turns a cable into a long line of microphones, but buried fibre hears airborne sound poorly and has only detected vehicles close to the cable. All three rated below 3 and are no longer on this site.
+**What failed outright.** Microphones on flying drones don't work: the listener's own rotors sit inches from the mic, and published measurements put the target 10–30 times quieter than the drone's own noise. Perching drones (land, stop the motors, listen) fix that, but landing reliably and keeping them powered is still research. Fibre-optic acoustic sensing turns a cable into a long line of microphones, but buried fibre hears airborne sound poorly and has only detected vehicles close to the cable. All three rated below 3 and are no longer on this site.
 
 ## The routes still open.
 
@@ -71,7 +71,7 @@ The gap nobody fills cheaply is **passive detection of drones that don't transmi
 
 1. **Purpose-built mic-array nodes at $60–120, mounted high** ([M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) on [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %}) placements). Many cheap nodes rather than one better sensor, each reporting a bearing rather than a bare alarm. This is the core.
 2. **Phones as a fast start** ([M2]({{ site.baseurl }}{% link models/m02-phone-network.md %})). Proven at scale by Sky Fortress. Trade unit quality for speed when coverage is needed this month.
-3. **Portable unit kits, and a [drone-laid tripwire]({{ site.baseurl }}{% link models/tripwire.md %}).** 8–12 nodes around a ~500 m perimeter for about $1,500–2,500, placed by hand or dropped by drone ([M7]({{ site.baseurl }}{% link models/m07-drone-deployed-nodes.md %})), with vehicle-mounted nodes ([M9]({{ site.baseurl }}{% link models/m09-mobile-nodes.md %})) for units on the move. This is the form factor Sky Fortress wasn't built for. Dropping cheap listeners 2–4 km forward turns ~10 seconds of warning into a minute or more. The listeners are consumables, so add an estimated $5–16k a year in re-lays ([running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)).
+3. **Portable unit kits, and a [drone-laid tripwire]({{ site.baseurl }}{% link models/tripwire.md %}).** 8–12 nodes around a ~1,600 ft perimeter for about $1,500–2,500, placed by hand or dropped by drone ([M7]({{ site.baseurl }}{% link models/m07-drone-deployed-nodes.md %})), with vehicle-mounted nodes ([M9]({{ site.baseurl }}{% link models/m09-mobile-nodes.md %})) for units on the move. This is the form factor Sky Fortress wasn't built for. Dropping cheap listeners 1.2–2.5 mi forward turns ~10 seconds of warning into a minute or more. The listeners are consumables, so add an estimated $5–16k a year in re-lays ([running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)).
 4. **Be the sensor, not the platform** ([M10]({{ site.baseurl }}{% link models/m10-hybrid-cueing.md %})). Feed tracks into Lattice, TAK and SAPIENT, and use acoustic bearings to point cameras and RF sensors at drones they would otherwise miss.
 
 The lasting advantage isn't the hardware, which anyone can copy. It's **training data** (real combat recordings and local false-alarm sounds) and integrations that are already in the field. Details and sources are in [Existing systems]({{ site.baseurl }}{% link research/existing-systems.md %}) and the [competitor analysis]({{ site.baseurl }}{% link research/competitors.md %}).
@@ -108,7 +108,7 @@ Each model gets two scores. **Feasible** runs from 1 (not feasible now) to 5 (pr
 | M10 | [Hybrid: acoustic + passive RF + camera cueing]({{ site.baseurl }}{% link models/m10-hybrid-cueing.md %}) | <span class="score score-hi">4</span> | <span class="score score-hi">4</span> | $100–2,000 / site | Phase 2 add-on |
 {: .matrix }
 
-Each model's page says what it works best against. Reference point: commercial acoustic arrays such as Squarehead **Discovair G2** (Norway) detect small drones at "several hundred metres" and are sold inside full counter-UAS systems at far higher prices. See [Existing systems]({{ site.baseurl }}{% link research/existing-systems.md %}).
+Each model's page says what it works best against. Reference point: commercial acoustic arrays such as Squarehead **Discovair G2** (Norway) detect small drones at several hundred yards and are sold inside full counter-UAS systems at far higher prices. See [Existing systems]({{ site.baseurl }}{% link research/existing-systems.md %}).
 
 <p class="kicker">05 · Positioning</p>
 
@@ -118,10 +118,10 @@ For front-line positions: *an acoustic alarm that hears the FPVs radio detectors
 
 **Who we compete with.** We don't compete with Sky Fortress, Anduril or radar: they serve the rear or aren't at the front. At a position, the bar is a **soldier's own ears**, and nobody has measured how early a sentry hears a fibre-optic FPV. The partner is the **radio detector** the unit already carries. The direct competitors are **Zvook's NW0**, on sale at about $834–950 per sensor but needing 15–18 W of power, and **RADD's GLADIUS**, a soldier-worn US sensor. Both are claims only. **Per sensor we are roughly 3–50x cheaper than NW0**: $17–50 per tripwire listener and about $125–300 per hand-placed node, with no power supply. Cost per position depends on real range, which nobody has measured for either. At the position, AI turrets now reaching units carry their own sensors, so forward warning is where we stand alone. A Ukrainian LoRa acoustic module (DroneAlert) is listed at about $211, so only our throwaway listener is clearly cheaper than the market. We also offer **weeks on a battery and lines laid forward**, which neither NW0 nor RADD does, and only distance gives a minute of warning ([build or scrap?]({{ site.baseurl }}{% link research/build-or-scrap.md %})). [The priority list]({{ site.baseurl }}{% link research/competitors.md %}#the-priority-list).
 
-**Be honest about range.** The only measured range for cheap microphones is about 50–60 m against a consumer drone. In a quiet field, people heard the same class of drone faintly at 150 m. No study has flown an FPV at distance ([what's measured]({{ site.baseurl }}{% link research/competitors.md %}#what-is-actually-measured)).
+**Be honest about range.** The only measured range for cheap microphones is about 160–200 ft against a consumer drone. In a quiet field, people heard the same class of drone faintly at 490 ft. No study has flown an FPV at distance ([what's measured]({{ site.baseurl }}{% link research/competitors.md %}#what-is-actually-measured)).
 
 Being passive sets us apart from radar, not from everyone: cameras such as Anduril's WISP are passive too. What sets us apart is **hearing what they can't see**: a small drone flying low behind trees, buildings or a ridge, including fibre-optic FPVs that give off no radio signal for a detector to catch.
-Against small quadcopters even premium arrays reach only a few hundred metres, so this is an **early-warning perimeter that cues cameras and other sensors**, At a position that gives seconds of warning; laid 2–4 km forward, about a minute. It is not wide-area coverage.
+Against small quadcopters even premium arrays reach only a few hundred yards, so this is an **early-warning perimeter that cues cameras and other sensors**, At a position that gives seconds of warning; laid 1.2–2.5 mi forward, about a minute. It is not wide-area coverage.
 
 The first integration target is **Anduril Lattice**, which the US Army has picked as its counter-drone backbone. A cheap passive sensor that feeds Lattice makes the expensive systems better instead of competing with them. See [Lattice integration]({{ site.baseurl }}{% link research/integration.md %}#anduril-lattice).
 
@@ -137,13 +137,13 @@ The first integration target is **Anduril Lattice**, which the US Army has picke
 | Axis | Question |
 |---|---|
 | **Technical readiness** | Can it be built with parts and methods that exist today? |
-| **Cost per km²** | What does it cost to cover an area, not just per unit? |
+| **Cost per sq mi** | What does it cost to cover an area, not just per unit? |
 | **Persistence** | Can it run unattended for weeks or months? |
 | **Deployability** | Can non-specialists put it out and keep it running at scale? |
 
 **Payoff** is scored separately, 1–5: how much the model would matter for protecting units in the field against small drones, including fibre-optic FPVs, if it works. A model can be easy and unimportant (phones in a rear area) or hard and decisive (the drone-laid tripwire). Read the two together.
 
-The single most important number is **cost per square kilometre covered = node cost × node density**. Node density is driven by detection range, which differs hugely by target. See [Range and cost-per-km² model]({{ site.baseurl }}{% link research/range-and-cost.md %}).
+The single most important number is **cost per square mile covered = node cost × node density**. Node density is driven by detection range, which differs hugely by target. See [Range and cost-per-km² model]({{ site.baseurl }}{% link research/range-and-cost.md %}).
 
 <p class="kicker">07 · Contributing</p>
 

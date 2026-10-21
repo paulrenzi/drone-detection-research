@@ -7,7 +7,7 @@ nav_order: 10
 # M10 — Hybrid: acoustic + passive RF + camera cueing
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | **4/5** | **4/5** | 4/5 | 3/5 | 4/5 | 3/5 |
 
@@ -48,7 +48,7 @@ The acoustic track **cues** the camera or RF sensor where to look; agreement bet
 ## Open questions
 
 - What's the false-alarm reduction when acoustic + camera must agree?
-- Cheapest camera that can confirm a small quad at 300–500 m.
+- Cheapest camera that can confirm a small quad at 980–1,600 ft.
 
 ## Rating history
 

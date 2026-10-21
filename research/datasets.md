@@ -21,7 +21,7 @@ nav_order: 5
 | **Sara Al-Emadi drone audio dataset** | Early drone audio corpus | **Academic and non-commercial use only** (the repo's licence, read 2026-10-19). Fine for benchmarking; a model trained on it can't ship in a sold product without permission | Baseline |
 | **FPV drone audio classification dataset** (Saarmets, 2026) | Public WAV recordings of FPV drones, about 660 MB ([GitHub](https://github.com/saarmets/fpv-drone-audio-classification-dataset)) | CC BY 4.0 | FPV positives, the target the tripwire cares about most; contents not yet audited |
 | **batear-datasets** | Mavic recordings, clips captured on Batear boards, and urban and rural negatives ([GitHub](https://github.com/batear-io/batear-datasets)) | MIT | Clips from the same chip and mic family as our listener |
-| **AcousticPrint** | 5 commercial drones recorded at ~20 m, 4 more from YouTube, plus vehicles, bees and speech as negatives | No licence stated; ask the authors before reuse | Open-set rejection of unknown sounds; see [Open-source projects]({{ site.baseurl }}{% link research/open-source-builds.md %}#acousticprint) |
+| **AcousticPrint** | 5 commercial drones recorded at ~66 ft, 4 more from YouTube, plus vehicles, bees and speech as negatives | No licence stated; ask the authors before reuse | Open-set rejection of unknown sounds; see [Open-source projects]({{ site.baseurl }}{% link research/open-source-builds.md %}#acousticprint) |
 | **Western Sydney 24-mic localization** | Multi-mic recordings with GPS flight logs | Research release | Testing bearings and triangulation offline |
 
 ## The real gap

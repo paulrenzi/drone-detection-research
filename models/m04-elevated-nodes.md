@@ -7,7 +7,7 @@ nav_order: 4
 # M4 — Elevated fixed nodes (towers, masts, rooftops)
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | **4/5** | **4/5** | 5/5 | 4/5 | 5/5 | 3/5 |
 
@@ -15,7 +15,7 @@ nav_order: 4
 
 **Best against:** everything — height helps for all targets
 
-**One-line verdict:** Not a separate sensor so much as *where to put M1*. Getting mics 10–30 m up is probably the cheapest range gain available.
+**One-line verdict:** Not a separate sensor so much as *where to put M1*. Getting mics 33–98 ft up is probably the cheapest range gain available.
 
 **Payoff:** Height is the cheapest range gain available, and range is the biggest weakness.
 
@@ -24,12 +24,12 @@ nav_order: 4
 
 ## How it works
 
-Mount nodes on telecom towers, power poles, water towers, grain silos, church steeples, tall rooftops or telescoping masts instead of 2 m poles.
+Mount nodes on telecom towers, power poles, water towers, grain silos, church steeples, tall rooftops or telescoping masts instead of 6.6 ft poles.
 
 ## Why height helps
 
 - **Less ground noise:** traffic, people and machinery are at ground level; height puts distance between them and the mic.
-- **Fewer obstacles:** buildings, trees and hills block and scatter sound. A low-flying drone behind a ridge may be inaudible at 2 m but audible at 20 m.
+- **Fewer obstacles:** buildings, trees and hills block and scatter sound. A low-flying drone behind a ridge may be inaudible at 6.6 ft but audible at 66 ft.
 - **Less ground absorption:** sound travelling close over soft ground and vegetation loses energy faster.
 - **Better radio range** for LoRa/mesh links at the same time.
 
@@ -39,7 +39,7 @@ Mount nodes on telecom towers, power poles, water towers, grain silos, church st
 ## Real-world evidence
 
 - **Zvook** (Ukraine, Lviv) mounts microcomputer-based acoustic sensors on **radio towers**.
-- Sky Fortress mounts on ~2 m (six-foot) poles — cheaper to install, but presumably a range trade-off.
+- Sky Fortress mounts on ~6.6 ft (six-foot) poles — cheaper to install, but presumably a range trade-off.
 
 ## Limits and risks
 
@@ -49,7 +49,7 @@ Mount nodes on telecom towers, power poles, water towers, grain silos, church st
 
 ## Open questions
 
-- Range gain at 2 m vs. 10 m vs. 30 m for the same target and wind — the single most useful field test after basic detection works.
+- Range gain at 6.6 ft vs. 33 ft vs. 98 ft for the same target and wind — the single most useful field test after basic detection works.
 - Can telecom operators host nodes at scale (as Drone Rada is discussing with Lithuanian operators)?
 
 ## Rating history

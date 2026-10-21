@@ -19,7 +19,7 @@ Line the audio up one of three ways:
   --start ISO    The wall-clock time the recording started, e.g.
                  2026-10-25T10:03:12.5-04:00 (no offset = this machine's local time).
 
-Labels: hover runs become drone_<distance>m, speaker runs speaker_<distance>m
+Labels: hover runs become drone_<distance>ft, speaker runs speaker_<distance>ft
 (kept apart, so emulated clips never pass for real flights), passes drone_pass,
 no-drone runs background. Radio walks and bench checks are skipped.
 
@@ -50,7 +50,7 @@ SESSIONS_URL = "https://tripwire-sessions.paulmichaelrenzi.workers.dev/sessions"
 LABELS = {"hover": None, "speaker": None, "pass": "drone_pass", "nodrone": "background"}
 MANIFEST_COLS = [
     "clip", "label", "session", "run_id", "fold", "tag", "recording", "offset_s", "clip_iso",
-    "type", "distance_m", "altitude_m", "mic_height_m", "wind", "drone", "batear_alarm",
+    "type", "distance_ft", "altitude_ft", "mic_height_in", "wind", "drone", "batear_alarm",
     "run_gw_alarms", "run_det_alarms",
 ]
 
@@ -169,14 +169,23 @@ def fold_of(session, run_id, folds):
     return int(hashlib.sha1(f"{session}/{run_id}".encode()).hexdigest(), 16) % folds
 
 
+def to_imperial(run):
+    """Sessions logged before 2026-10-21 were in metres."""
+    for old, new, per in (("distance_m", "distance_ft", 0.3048), ("altitude_m", "altitude_ft", 0.3048), ("mic_height_m", "mic_height_in", 0.0254)):
+        v = run.pop(old, None)
+        if new not in run and v not in (None, ""):
+            run[new] = round(float(v) / per)
+    return run
+
+
 def label_for(run):
     kind = run.get("type", "")
     if kind not in LABELS:
         return None
     if kind in ("hover", "speaker"):
         prefix = "drone" if kind == "hover" else "speaker"
-        d = run.get("distance_m", "")
-        return f"{prefix}_{float(d):g}m" if d else f"{prefix}_unknown"
+        d = run.get("distance_ft", "")
+        return f"{prefix}_{float(d):g}ft" if d else f"{prefix}_unknown"
     return LABELS[kind]
 
 
@@ -209,6 +218,7 @@ def main(argv=None):
     else:
         runs = read_csv(args.runs)
         events = read_csv(args.events) if args.events else []
+    runs = [to_imperial(r) for r in runs]
 
     with tempfile.TemporaryDirectory() as tmp:
         wav_path = to_wav(args.recording, args.rate, tmp)
@@ -283,8 +293,8 @@ def main(argv=None):
                             "fold": fold_of(run.get("session", ""), run["run_id"], args.folds),
                             "tag": args.tag, "recording": os.path.basename(args.recording),
                             "offset_s": f"{offset:.3f}", "clip_iso": iso(t), "type": run.get("type", ""),
-                            "distance_m": run.get("distance_m", ""), "altitude_m": run.get("altitude_m", ""),
-                            "mic_height_m": run.get("mic_height_m", ""), "wind": run.get("wind", ""),
+                            "distance_ft": run.get("distance_ft", ""), "altitude_ft": run.get("altitude_ft", ""),
+                            "mic_height_in": run.get("mic_height_in", ""), "wind": run.get("wind", ""),
                             "drone": run.get("drone", ""),
                             "batear_alarm": int(any(s <= mid < e for s, e in spans)),
                             "run_gw_alarms": run.get("gw_alarms", ""), "run_det_alarms": run.get("det_alarms", ""),

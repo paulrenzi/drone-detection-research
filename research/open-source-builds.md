@@ -19,7 +19,7 @@ Three public projects already cover parts of what this site proposes. Two are wo
 | **What it is** | Single-mic detector node + LoRa gateway | Four-mic detector unit with local alarm | Machine-learning code for drone identification |
 | **Hardware** | ESP32-S3 + one MEMS mic (ICS-43434 or INMP441) | ESP32-S3, four digital mics, own 4-layer PCB, printed case | Shotgun mic (RØDE NTG4) for recordings; runs on a PC |
 | **Detection** | FFT harmonic ladder | Propeller harmonic pattern | ML classifier that rejects unknown sounds |
-| **Range published** | None | **104.2 m** (one test, hovering quad) | n/a |
+| **Range published** | None | **340 ft** (one test, hovering quad) | n/a |
 | **Bearing / position** | No | No (mics are summed for gain) | No |
 | **Links** | LoRa star to gateway, or Ethernet/PoE; MQTT, Home Assistant | LoRa alerts between units | None |
 | **Licence** | **MIT** | Apache-2.0 firmware, CERN-OHL-W-2.0 hardware, CC BY-SA docs | **None stated** |
@@ -46,25 +46,25 @@ Three public projects already cover parts of what this site proposes. Two are wo
 
 **[volantitech.com](https://volantitech.com/)** · [github.com/agamrossen/VolAnti](https://github.com/agamrossen/VolAnti): an open-hardware acoustic detector designed and tested by Agam Rossen, an engineering student at the University of York. It is one person's project, not a company.
 
-**The unit:** a 91 mm square, four-layer board with four digital microphones sampled at 16 kHz, in a printed case, with a beeper, light, vibration motor and an e-paper screen that keeps the alert showing with the power off. Units send 18-byte LoRa alerts to each other. The full unit is listed at **£50–80**, a breadboard version at **£35–45**. It looks for the evenly spaced harmonics of propellers, so it works on fibre-optic drones.
+**The unit:** a 3.6 in square, four-layer board with four digital microphones sampled at 16 kHz, in a printed case, with a beeper, light, vibration motor and an e-paper screen that keeps the alert showing with the power off. Units send 18-byte LoRa alerts to each other. The full unit is listed at **£50–80**, a breadboard version at **£35–45**. It looks for the evenly spaced harmonics of propellers, so it works on fibre-optic drones.
 
-**Why it matters to us: it publishes real range numbers.** One unit detected a hovering four-motor airframe at **104.2 m** on a street with traffic, without alarming on the cars. Its expected range by wind:
+**Why it matters to us: it publishes real range numbers.** One unit detected a hovering four-motor airframe at **340 ft** on a street with traffic, without alarming on the cars. Its expected range by wind:
 
 | Wind | Expected range |
 |---|---|
-| Still air, under 2 m/s | 100–200 m |
-| Light breeze | 50–120 m |
-| Breezy | 15–50 m |
-| Strong, upwind, over 8 m/s | 5–25 m |
+| Still air, under 4 mph | 330–660 ft |
+| Light breeze | 160–390 ft |
+| Breezy | 49–160 ft |
+| Strong, upwind, over 18 mph | 16–82 ft |
 
-That backs the low end of our [100–300 m working estimate]({{ site.baseurl }}{% link research/range-and-cost.md %}) for small quads and shows how hard wind cuts it. For the tripwire it means node spacing may need to be **closer than 200–300 m** in windy country, or nodes need better windscreens and height.
+That backs the low end of our [330–980 ft working estimate]({{ site.baseurl }}{% link research/range-and-cost.md %}) for small quads and shows how hard wind cuts it. For the tripwire it means node spacing may need to be **closer than 660–980 ft** in windy country, or nodes need better windscreens and height.
 
 Nine units were built and sent to an unnamed site in September 2026.
 
 **What we'd take:**
 
 - Its **range-versus-wind table** as a starting point for our own measurements.
-- Its **four-mic board** as a sensitivity trick: summing four mics gives about 6 dB for free. It is **not** a bearing board. The author tried beamforming and found that at 79 mm across it buys nothing, because the array is a tenth of a wavelength at rotor frequencies. Bearings need mics spread much wider, as in [M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}).
+- Its **four-mic board** as a sensitivity trick: summing four mics gives about 6 dB for free. It is **not** a bearing board. The author tried beamforming and found that at 3.1 in across it buys nothing, because the array is a tenth of a wavelength at rotor frequencies. Bearings need mics spread much wider, as in [M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}).
 - Its printed enclosure and local alarm ideas for hand-placed rings.
 
 **Cautions:** the author's own disclaimer says it is not a life-safety product, has had no certification, and that the firmware, written in a month, is the least mature part, with false alarms indoors on some music and fan-like noise. The hardware licence (CERN-OHL-W) asks that changes to the board design be shared under the same licence, which matters if we sell a modified board. The author also says VolAnti was never made for or with any military and will never include countermeasures; the licences still allow reuse, but any military use of a derived design should credit it and keep its name off.
@@ -73,7 +73,7 @@ Nine units were built and sent to an unnamed site in September 2026.
 
 **[github.com/AcousticPrint/AcousticPrint](https://github.com/AcousticPrint/AcousticPrint)**: research code from an academic team (Kolamunna, Li, Dahanayake, Seneviratne, Thilakaratne, Zomaya, Seneviratne) that builds acoustic "signatures" for drone classes and flags sounds that match **no known class** as outliers.
 
-**Data:** recordings of five commercial drones (Parrot Bebop 2, DJI Mavic Pro, Phantom 4, Spark, Matrice 100) flown about 20 m up, plus clips of four more from YouTube, and non-drone sounds (road vehicles, bees, speech, quiet background), with amplitude and time-stretch augmentation.
+**Data:** recordings of five commercial drones (Parrot Bebop 2, DJI Mavic Pro, Phantom 4, Spark, Matrice 100) flown about 66 ft up, plus clips of four more from YouTube, and non-drone sounds (road vehicles, bees, speech, quiet background), with amplitude and time-stretch augmentation.
 
 **What we'd take:** the **open-set idea**. In the field most sounds are neither a known drone nor silence, and a classifier that can say "I don't know this sound" is the right shape for keeping false alarms down. The non-drone recordings are also useful negatives.
 
@@ -127,10 +127,10 @@ The two LoRa kits are already bought ([Rokland, $15.97 each](https://store.rokla
 The steps are on one page: [the Saturday test]({{ site.baseurl }}{% link weekend-test.md %}). Two details it links back here for:
 
 1. **Mic wiring.** Solder headers onto the detector board if it has none. Wire one INMP441: VDD to 3V3, GND to GND, SCK to D3, WS to D4, SD to D5, L/R to GND. Those are GPIO 4, 5 and 6, the same pins Batear uses on a Heltec ([Batear hardware](https://github.com/batear-io/batear/blob/main/docs/hardware.md)).
-2. **Training a model afterwards.** Cut the recordings into 1-second clips with the test's clip cutter. Split train and test **by flight, not by clip**: clips from the same minute nearly match, and mixing them makes any model look far better than it is. A model is worth keeping only if it beats Batear's own alarms at 100 m or more, with fewer false alarms per hour.
+2. **Training a model afterwards.** Cut the recordings into 1-second clips with the test's clip cutter. Split train and test **by flight, not by clip**: clips from the same minute nearly match, and mixing them makes any model look far better than it is. A model is worth keeping only if it beats Batear's own alarms at 330 ft or more, with fewer false alarms per hour.
 
 {: .note }
-> **Fly legally.** In the US, recreational pilots must pass the free online TRUST test and fly in permitted airspace (check B4UFLY or a similar app), under 400 ft and within sight. Drones under 250 g flown for fun don't need registering; heavier ones do. Recording drone sound in a field needs no permit, but keep cameras off neighbours' property.
+> **Fly legally.** In the US, recreational pilots must pass the free online TRUST test and fly in permitted airspace (check B4UFLY or a similar app), under 400 ft and within sight. Drones under 8.8 oz flown for fun don't need registering; heavier ones do. Recording drone sound in a field needs no permit, but keep cameras off neighbours' property.
 
 ## Sources
 

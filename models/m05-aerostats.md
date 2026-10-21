@@ -7,7 +7,7 @@ nav_order: 5
 # M5 — Tethered aerostats and balloons
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | **3/5** | **2/5** | 4/5 | 2/5 | 3/5 | 2/5 |
 
@@ -24,7 +24,7 @@ nav_order: 5
 
 ## How it works
 
-A helium balloon or aerostat on a tether lifts a mic array (and often a radio relay and camera) to 50–500 m. Power and data can run up the tether. It hears over hills and buildings that block ground nodes.
+A helium balloon or aerostat on a tether lifts a mic array (and often a radio relay and camera) to 160–1,600 ft. Power and data can run up the tether. It hears over hills and buildings that block ground nodes.
 
 ## Real-world evidence
 

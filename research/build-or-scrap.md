@@ -21,42 +21,42 @@ A review of whether the case for our model holds, after a fresh sweep of competi
 
 ## Why the forward line holds
 
-**Warning time is distance divided by speed.** No microphone changes that. Take an FPV at about 100 km/h (28 m/s; an assumption, and FPVs fly slower and faster), and take off 1–2 s to classify the sound:
+**Warning time is distance divided by speed.** No microphone changes that. Take an FPV at about 62 mph (63 mph; an assumption, and FPVs fly slower and faster), and take off 1–2 s to classify the sound:
 
 | Sensor | Where it sits | Range it relies on | Warning (estimate) |
 |---|---|---|---|
-| A sentry's ear | At the position | ~150 m (Mavic-class, quiet field, measured) | ~4 s |
-| DroneAlert module | At the position | 120 m (seller's claim) | ~3 s |
-| Zvook NW0 | At the position | 450 m (maker's claim, best case) | ~14 s |
-| **Our listener line** | **2–4 km forward** | **Only needs to hear the drone cross the line** | **~70–140 s** |
+| A sentry's ear | At the position | ~490 ft (Mavic-class, quiet field, measured) | ~4 s |
+| DroneAlert module | At the position | 390 ft (seller's claim) | ~3 s |
+| Zvook NW0 | At the position | 1,500 ft (maker's claim, best case) | ~14 s |
+| **Our listener line** | **1.2–2.5 mi forward** | **Only needs to hear the drone cross the line** | **~70–140 s** |
 
 Every sensor at the position gives seconds, even on its maker's best figure. Only distance gives a minute. **A listener's range sets how many listeners a line needs, not how much warning it gives.** That makes the tripwire the part of the case least exposed to the range question.
 
 ## What it costs at equal range
 
-Earlier comparisons gave competitors their claimed ranges. Here every row uses the **same range**, so the comparison is fair. A 3 km line, one sensor per detection range (as the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) plans it). Arithmetic on listed prices; the ranges are unmeasured for everyone.
+Earlier comparisons gave competitors their claimed ranges. Here every row uses the **same range**, so the comparison is fair. A 1.9 mi line, one sensor per detection range (as the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) plans it). Arithmetic on listed prices; the ranges are unmeasured for everyone.
 
-| If every sensor hears an FPV at… | Sensors per 3 km | Our listeners ($17–50) | DroneAlert ($211) | Zvook NW0 ($834–950, plus power) |
+| If every sensor hears an FPV at… | Sensors per 1.9 mi | Our listeners ($17–50) | DroneAlert ($211) | Zvook NW0 ($834–950, plus power) |
 |---|---|---|---|---|
-| 250 m | 12 | $200–600 | ~$2,500 | ~$10–11k |
-| 100 m | 30 | $510–1,500 | ~$6,300 | ~$25–29k |
-| 50 m | 60 | $1,020–3,000 | ~$12,700 | ~$50–57k |
+| 820 ft | 12 | $200–600 | ~$2,500 | ~$10–11k |
+| 330 ft | 30 | $510–1,500 | ~$6,300 | ~$25–29k |
+| 160 ft | 60 | $1,020–3,000 | ~$12,700 | ~$50–57k |
 
 **At equal range we are about 4–12x cheaper than DroneAlert and about 17–56x cheaper than NW0.** Add the yearly re-lay cost for a consumable line ([estimate]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)). A line of 60 listeners re-laid often could cost more than a radio detector bought once.
 
-**How far does a cheap microphone hear an FPV?** Still nobody knows. We found no measured FPV sound level and no controlled FPV range test anywhere. A first-principles estimate (sound falling off with distance, air absorption, rural background noise) puts a single cheap microphone at about **100 m in wind and 150–250 m in calm, quiet air**. That assumes an FPV is 85–95 dB(A) at 1 m, which is louder than a Phantom because its props spin about 3x faster at the tips. The same model gives 30–100 m for a Phantom, which brackets the measured 50–60 m, so the model is in the right range. **Plan on 20–30 listeners per 3 km line, not 12**, until T11 measures it.
+**How far does a cheap microphone hear an FPV?** Still nobody knows. We found no measured FPV sound level and no controlled FPV range test anywhere. A first-principles estimate (sound falling off with distance, air absorption, rural background noise) puts a single cheap microphone at about **330 ft in wind and 490–820 ft in calm, quiet air**. That assumes an FPV is 85–95 dB(A) at 3.3 ft, which is louder than a Phantom because its props spin about 3x faster at the tips. The same model gives 98–330 ft for a Phantom, which brackets the measured 160–200 ft, so the model is in the right range. **Plan on 20–30 listeners per 1.9 mi line, not 12**, until T11 measures it.
 
 ## What changed in the market
 
 - **A cheap LoRa acoustic module exists.** DroneAlert, sold by Flash Army (Ukraine), is listed at 9,500 UAH (~$211) per module, with a 2,500 UAH gateway. The seller claims:
-  - a 120 m detection radius and a bearing;
+  - a 390 ft detection radius and a bearing;
   - up to 500 hours on a 3.7 V battery;
-  - LoRa up to 10 km;
+  - LoRa up to 6.2 mi;
   - IP55.
   
   It's out of stock, names no maker, has no reviews and doesn't mention fibre-optic FPVs ([Flash Army](https://flasharmy.com.ua/dronealert-lora-merezha-akustychnyi-modul-vyiavlennia-droniv), news item Jun 2026). **It has our architecture.** Our listener is still 4–12x cheaper, but the architecture is no moat.
 - **Other new entrants, all claims only:**
-  - **SKANER 2.1** (Belarus): 100–300 m against FPVs, fibre-optic included; 1.2 kg; 12 h ([Militarnyi, May 2026](https://militarnyi.com/uk/news/bilorus-predstavyla-akustychnyj-radar-skaner-2-1-dlya-vyyavlennya-fpv-droniv-na-optovolokni/)).
+  - **SKANER 2.1** (Belarus): 330–980 ft against FPVs, fibre-optic included; 2.6 lb; 12 h ([Militarnyi, May 2026](https://militarnyi.com/uk/news/bilorus-predstavyla-akustychnyj-radar-skaner-2-1-dlya-vyyavlennya-fpv-droniv-na-optovolokni/)).
   - **Arcani HARK** (UK): aimed at FPVs, with a Ukraine test planned for May 2026 and no result found ([Janes, Apr 2026](https://www.janes.com/osint-insights/defence-news/c4isr/arcani-plans-to-test-hark-acoustic-sensor-in-ukraine)).
   - **Neuron Soundware Sound Shield** (Czechia): under 1 W per sensor, at a reported €100–150 production cost, for borders ([dev.ua, Jun 2026](https://dev.ua/news/sound-shield-1781192277)).
   - **ZVOOK Tracking**: a bearing-capable array at about $2,670 ([Flash Army](https://flasharmy.com.ua/sensor-zvook-tracking)).
@@ -96,7 +96,7 @@ Listeners that sit quiet are hard to find. **The receiver at the unit and any re
 
 ### 3. The real range is very short (T11)
 
-Below about 50 m, a 3 km line needs 60 or more listeners and each re-lay takes 15–20 drone sorties. The cost per line still beats every competitor at equal range, but the re-lay workload may not be worth it to a unit. **The idea stops making sense below roughly 40 m** (an inference from the table above). The estimate says 100 m or more is likely, which keeps this the least likely of the three to kill the idea.
+Below about 160 ft, a 1.9 mi line needs 60 or more listeners and each re-lay takes 15–20 drone sorties. The cost per line still beats every competitor at equal range, but the re-lay workload may not be worth it to a unit. **The idea stops making sense below roughly 130 ft** (an inference from the table above). The estimate says 330 ft or more is likely, which keeps this the least likely of the three to kill the idea.
 
 ## What not to claim any more
 

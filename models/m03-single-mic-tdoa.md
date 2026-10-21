@@ -7,7 +7,7 @@ nav_order: 3
 # M3 — Single-mic nodes + time-difference of arrival
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | **3/5** | **3/5** | 3/5 | 4/5 | 4/5 | 3/5 |
 
@@ -27,7 +27,7 @@ nav_order: 3
 - Each node has **one microphone**, GPS, and a radio. No direction finding on the node.
 - Nodes timestamp sound features very precisely using the **GPS timing pulse (PPS)**.
 - The server compares *when* each node heard the same sound. The time differences define hyperbolas; where they cross is the source (multilateration, like how gunshot-detection systems work).
-- Sound travels ~34 cm per millisecond, so ~1 ms timing error ≈ 0.3 m of path difference — GPS timing (≪1 ms) is good enough.
+- Sound travels ~13 in per millisecond, so ~1 ms timing error ≈ 12 in of path difference — GPS timing (≪1 ms) is good enough.
 
 ## Strengths
 
@@ -36,11 +36,11 @@ nav_order: 3
 
 ## Limits and risks
 
-- Needs the **same sound** matched across nodes kilometres apart. A drone's sound is continuous, not a sharp bang like a gunshot, so the match must use cross-correlation of streamed features — **more data to send** and more server work.
+- Needs the **same sound** matched across nodes miles apart. A drone's sound is continuous, not a sharp bang like a gunshot, so the match must use cross-correlation of streamed features — **more data to send** and more server work.
 - Nodes far apart hear the drone through different wind, echoes and Doppler, which smears the timing.
 - Needs at least 3–4 nodes hearing simultaneously; with weak targets that's rare.
 - Bandwidth: LoRa can't carry correlation snippets from many nodes during a mass raid.
-- **GPS jamming removes the timing pulse** this model depends on, and front-line jamming reaches 20–25 km ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)). Positions can be surveyed once, but clocks drift without it. Radio ranging to a central anchor, suggested by a reader, is too coarse for positions here: the best published outdoor figure we found is an average error under 10 m after correction ([Müller et al., 2021](https://digitalcollection.zhaw.ch/bitstream/11475/22769/3/2021_Mueller-etal_Outdoor-ranging-and-positioning-based-on-LoRa-modulation.pdf)), and 10 m is about 30 ms of sound travel. A time beacon from a surveyed anchor is the more promising half; its accuracy is unmeasured. See [T16]({{ site.baseurl }}{% link research/open-questions.md %}#t16-positions-and-clocks-without-gps).
+- **GPS jamming removes the timing pulse** this model depends on, and front-line jamming reaches 12–16 mi ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)). Positions can be surveyed once, but clocks drift without it. Radio ranging to a central anchor, suggested by a reader, is too coarse for positions here: the best published outdoor figure we found is an average error under 33 ft after correction ([Müller et al., 2021](https://digitalcollection.zhaw.ch/bitstream/11475/22769/3/2021_Mueller-etal_Outdoor-ranging-and-positioning-based-on-LoRa-modulation.pdf)), and 33 ft is about 30 ms of sound travel. A time beacon from a surveyed anchor is the more promising half; its accuracy is unmeasured. See [T16]({{ site.baseurl }}{% link research/open-questions.md %}#t16-positions-and-clocks-without-gps).
 
 ## Open questions
 

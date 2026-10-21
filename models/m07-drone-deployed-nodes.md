@@ -7,7 +7,7 @@ nav_order: 7
 # M7 — Drone-deployed ground nodes
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | **3/5** | **4/5** | 3/5 | 3/5 | 4/5 | 4/5 |
 
@@ -20,7 +20,7 @@ nav_order: 7
 **Payoff:** The delivery method behind the drone-laid tripwire.
 
 {: .note }
-> The strongest use of this model is the [drone-laid tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): throwaway listeners dropped in lines 2–4 km forward of a unit for a minute or more of warning.
+> The strongest use of this model is the [drone-laid tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): throwaway listeners dropped in lines 1.2–2.5 mi forward of a unit for a minute or more of warning.
 
 1. TOC
 {:toc}

@@ -7,7 +7,7 @@ nav_order: 9
 # M9 — Vehicle and soldier-mounted mobile nodes
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |
+| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | **3/5** | **3/5** | 3/5 | 3/5 | 4/5 | 4/5 |
 
@@ -41,7 +41,7 @@ nav_order: 9
 
 ## Open questions
 
-- Detection range while moving at 30–60 km/h vs. stationary.
+- Detection range while moving at 19–37 mph vs. stationary.
 - Can engine noise be cancelled using a reference mic near the engine?
 
 ## Rating history

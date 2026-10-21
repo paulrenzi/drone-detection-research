@@ -14,7 +14,7 @@ nav_order: 1
 
 | System | Origin | Hardware | Scale | Cost per sensor | Notes |
 |---|---|---|---|---|---|
-| **Sky Fortress** | Ukraine | Phone + mic on ~2 m pole; central fusion; tablets for fire teams | ~10k sensors (2024–25), ~14k by July 2025 | $400–1,000 | Whole network ~$5M. Fuses radar data. Lithuania contracted a pilot. |
+| **Sky Fortress** | Ukraine | Phone + mic on ~6.6 ft pole; central fusion; tablets for fire teams | ~10k sensors (2024–25), ~14k by July 2025 | $400–1,000 | Whole network ~$5M. Fuses radar data. Lithuania contracted a pilot. |
 | **Zvook** | Ukraine (Lviv) | Microcomputers on radio towers | Not disclosed | Not disclosed | Started as civilian volunteer project. Vehicle version tested at NATO BATT26 with Latvia. |
 | **Drone Rada** (Mainline) | Lithuania | Volunteers' Android phones near windows | Target 10,000 participants (June 2026) | ~$0 to operator | Crowd-sourced; privacy-focused, minimal data. |
 
@@ -22,7 +22,7 @@ nav_order: 1
 
 | Product | Origin | Claim | Notes |
 |---|---|---|---|
-| **Discovair G2** (Squarehead Technology) | Norway | Detects and tracks small drones "up to several hundred metres", no line-of-sight needed | Large patented mic array; sold inside DroneShield and Hensoldt XPELLER counter-UAS systems. |
+| **Discovair G2** (Squarehead Technology) | Norway | Detects and tracks small drones up to several hundred yards, no line-of-sight needed | Large patented mic array; sold inside DroneShield and Hensoldt XPELLER counter-UAS systems. |
 | Roke acoustic detection | UK | Array-based drone detection | Research/product line from a UK defence firm. |
 
 {: .note }

@@ -44,14 +44,14 @@ class CutClips(unittest.TestCase):
         write_wav(self.wav, 60)
         sync = T0 + CLAP_S * 1000
         run = lambda rid, kind, a, b, dist: {
-            "session": "S1", "run_id": rid, "type": kind, "distance_m": dist, "mic_height_m": "0.5",
+            "session": "S1", "run_id": rid, "type": kind, "distance_ft": dist, "mic_height_in": "20",
             "start_ms": sync + a * 1000, "end_ms": sync + b * 1000, "gw_alarms": "1", "det_alarms": "0"}
         self.runs = os.path.join(d, "runs.csv")
-        write_csv(self.runs, ["session", "run_id", "type", "distance_m", "mic_height_m", "start_ms", "end_ms", "gw_alarms", "det_alarms"], [
-            run("R01", "hover", 5, 25, "100"),
+        write_csv(self.runs, ["session", "run_id", "type", "distance_ft", "mic_height_in", "start_ms", "end_ms", "gw_alarms", "det_alarms"], [
+            run("R01", "hover", 5, 25, "330"),
             run("R02", "nodrone", 30, 50, ""),
-            run("R03", "radio", 50, 55, "300"),
-            run("R04", "speaker", 52, 58, "200"),
+            run("R03", "radio", 50, 55, "1000"),
+            run("R04", "speaker", 52, 58, "650"),
         ])
         self.events = os.path.join(d, "events.csv")
         ev = lambda t, src, kind, rid="": {"session": "S1", "run_id": rid, "t_ms": t, "source": src, "kind": kind}
@@ -82,13 +82,13 @@ class CutClips(unittest.TestCase):
         by = {}
         for r in rows:
             by.setdefault(r["label"], []).append(r)
-        self.assertEqual(set(by), {"drone_100m", "background", "speaker_200m"})  # the radio walk is skipped
-        self.assertEqual(len(by["speaker_200m"]), 2)  # 6 s run, 2 s trimmed each end
-        self.assertEqual(len(by["drone_100m"]), 16)  # 20 s run, 2 s trimmed each end
+        self.assertEqual(set(by), {"drone_330ft", "background", "speaker_650ft"})  # the radio walk is skipped
+        self.assertEqual(len(by["speaker_650ft"]), 2)  # 6 s run, 2 s trimmed each end
+        self.assertEqual(len(by["drone_330ft"]), 16)  # 20 s run, 2 s trimmed each end
         self.assertEqual(len(by["background"]), 16)
-        alarmed = [r for r in by["drone_100m"] if r["batear_alarm"] == "1"]
+        alarmed = [r for r in by["drone_330ft"] if r["batear_alarm"] == "1"]
         self.assertEqual(len(alarmed), 5)  # alarm from 10 s to 15 s into the hover
-        first = by["drone_100m"][0]
+        first = by["drone_330ft"][0]
         self.assertAlmostEqual(float(first["offset_s"]), CLAP_S + 7, delta=0.01)
         self.assertTrue(os.path.exists(os.path.join(self.out, first["clip"])))
         with wave.open(os.path.join(self.out, first["clip"])) as w:
@@ -121,6 +121,10 @@ class CutClips(unittest.TestCase):
         with redirect_stdout(io.StringIO()):
             self.assertEqual(cut_clips.main(["--session", session, "--recording", self.wav, "--out", self.out, "--sync"]), 0)
         self.assertEqual([(r["clip"], r["batear_alarm"]) for r in self.manifest()], [(r["clip"], r["batear_alarm"]) for r in from_csv])
+
+    def test_old_metre_session_is_converted(self):
+        self.assertEqual(cut_clips.label_for(cut_clips.to_imperial({"type": "hover", "distance_m": "100", "mic_height_m": "0.5"})), "drone_328ft")
+        self.assertEqual(cut_clips.to_imperial({"mic_height_m": "0.5"})["mic_height_in"], 20)
 
     def test_same_run_same_fold(self):
         self.run_tool("--sync")
