@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f5f8b">
 <title>Weekend Test Logger</title>
 <style>
 :root {
@@ -21,149 +22,212 @@
   --accent: #6aa8d8; --accent-ink: #0e1113; --alarm: #ef6b62; --ok: #7cc47f; --warn: #e0b050; --chip: #2a2e32;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
-main { max-width: 1100px; margin: 0 auto; padding: 16px; }
-header { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
-h1 { font-size: 22px; margin: 0; }
-h2 { font-size: 15px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1100px; margin: 0 auto; padding: 12px 16px calc(24px + env(safe-area-inset-bottom)); }
+header { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+h1 { font-size: 20px; margin: 0; }
+h2 { font-size: 13px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 a { color: var(--accent); }
-.sub { color: var(--muted); font-size: 13px; }
-.grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 12px; }
-.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px; min-width: 0; }
-.full { grid-column: 1 / -1; }
+.layout { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+.col { display: grid; gap: 12px; min-width: 0; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; min-width: 0; }
 .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-button { font: inherit; border: 1px solid var(--line); background: var(--chip); color: var(--ink); border-radius: 6px; padding: 7px 12px; cursor: pointer; }
+button { font: inherit; border: 1px solid var(--line); background: var(--chip); color: var(--ink); border-radius: 8px; padding: 10px 14px; cursor: pointer; min-height: 44px; }
 button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+button.stop { background: var(--alarm); color: #fff; border-color: var(--alarm); }
 button.danger { color: var(--alarm); }
 button:disabled { opacity: .45; cursor: default; }
+button.grow { flex: 1 1 0; }
 label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); }
-input, select { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; min-width: 0; }
-.fields { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px; }
-.fields .wide { grid-column: span 2; }
-.chip { display: inline-block; background: var(--chip); border-radius: 999px; padding: 2px 10px; font-size: 12px; }
-.chip.ok { color: var(--ok); } .chip.warn { color: var(--warn); } .chip.bad { color: var(--alarm); }
-.status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-.big { border: 1px solid var(--line); border-radius: 8px; padding: 10px; text-align: center; }
-.big .v { font: 600 26px/1.1 var(--mono); }
-.big .k { font-size: 12px; color: var(--muted); }
-#alarmBox.on { background: var(--alarm); color: #fff; border-color: var(--alarm); }
-#alarmBox.on .k { color: #fff; }
+input, select { font: inherit; font-size: 16px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-width: 0; width: 100%; }
+input[type=checkbox] { width: auto; }
+.fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
+.fields .span2 { grid-column: span 2; }
+.fields .span3 { grid-column: 1 / -1; }
+.chip { display: inline-block; background: var(--chip); border-radius: 999px; padding: 3px 10px; font-size: 12px; }
+.chip.ok { color: var(--ok); } .chip.bad { color: var(--alarm); } .chip.demo { color: var(--warn); }
+.alarm { border-radius: 10px; padding: 16px; text-align: center; border: 1px solid var(--line); background: var(--panel); }
+.alarm .v { font: 700 30px/1.1 var(--mono); }
+.alarm .k { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.alarm.on { background: var(--alarm); border-color: var(--alarm); color: #fff; }
+.alarm.on .k { color: #fff; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
+.stat { border: 1px solid var(--line); border-radius: 8px; padding: 8px 4px; text-align: center; background: var(--panel); }
+.stat .v { font: 600 20px/1.1 var(--mono); }
+.stat .k { font-size: 11px; color: var(--muted); }
 .runline { margin-top: 10px; font-size: 14px; }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
-th, td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th, td { text-align: left; padding: 6px; border-bottom: 1px solid var(--line); white-space: nowrap; }
 th { color: var(--muted); font-weight: 600; }
-.scroll { overflow-x: auto; max-height: 340px; overflow-y: auto; }
-.mono { font-family: var(--mono); font-size: 12px; }
-pre { margin: 0; font: 12px/1.4 var(--mono); white-space: pre-wrap; word-break: break-all; max-height: 260px; overflow: auto; }
+.scroll { overflow-x: auto; max-height: 320px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+pre { margin: 0; font: 12px/1.4 var(--mono); white-space: pre-wrap; word-break: break-all; max-height: 240px; overflow: auto; }
 .note { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
-.banner { border-left: 4px solid var(--warn); background: var(--panel); padding: 8px 12px; margin-bottom: 12px; font-size: 14px; display: none; }
+.banner { border-left: 4px solid var(--warn); background: var(--panel); padding: 8px 12px; margin-bottom: 10px; font-size: 14px; display: none; border-radius: 6px; }
 .banner.show { display: block; }
+details.panel > summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+details.panel > summary::-webkit-details-marker { display: none; }
+details.panel > summary h2 { margin: 0; }
+details.panel > summary::after { content: "+"; color: var(--muted); font-size: 18px; }
+details.panel[open] > summary::after { content: "–"; }
+details.panel[open] > summary { margin-bottom: 10px; }
+.sources { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.source { border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+.source b { display: block; margin-bottom: 4px; }
+.source ol { margin: 6px 0; padding-left: 18px; font-size: 13px; }
+.source code { font: 12px var(--mono); background: var(--chip); padding: 1px 4px; border-radius: 4px; word-break: break-all; }
 kbd { font: 11px var(--mono); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; }
+.ribbon { display: none; background: var(--warn); color: #fff; font-size: 12px; font-weight: 600; text-align: center; padding: 4px; border-radius: 6px; margin-bottom: 8px; }
+body.demo .ribbon { display: block; }
+.desk { }
+body.embed main { padding: 10px; }
+body.embed .hide-embed { display: none !important; }
 @media (max-width: 760px) {
-  .grid { grid-template-columns: 1fr; }
+  .layout { grid-template-columns: 1fr; }
+  .sources { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .status { grid-template-columns: 1fr 1fr; }
+  .fields .span2 { grid-column: 1 / -1; }
+  .desk { display: none; }
+}
+@media (min-width: 600px) {
+  body.embed .layout { grid-template-columns: 1fr 1fr; }
+}
+body.embed #readingsPanel .scroll { max-height: 190px; }
+@media (min-width: 600px) {
 }
 </style>
 </head>
 <body>
 <main>
+<div class="ribbon">DEMO: made-up readings to show how the logger works. Not measurements.</div>
 <header>
   <div>
     <h1>Weekend test logger</h1>
-    <div class="sub">Reads a Batear gateway (and optionally the detector) over USB, tags every reading with the run it belongs to, and exports CSV. <a href="https://paulrenzi.github.io/drone-detection-research/mvp.html#weekend-downloads">How to use it</a></div>
+    <div class="note hide-embed" style="margin:0"><a href="https://paulrenzi.github.io/drone-detection-research/mvp.html#weekend-test" target="_top">How to use it</a></div>
   </div>
-  <div class="row" id="ports"><span class="chip">No board connected</span></div>
+  <div class="row" id="ports"><span class="chip">Not connected</span></div>
 </header>
 
-<div class="banner" id="noSerial">This browser has no Web Serial. Use Chrome or Edge on a laptop. Demo mode still works.</div>
 <div class="banner" id="storeWarn">Browser storage is unavailable or full. Export your CSVs now: data on this page will not survive a reload.</div>
 
-<div class="grid">
-  <section class="panel">
-    <h2>Run</h2>
-    <div class="fields">
-      <label>Type
-        <select id="fType">
-          <option value="hover">Hover (60 s)</option>
-          <option value="pass">Straight pass</option>
-          <option value="nodrone">No drone (background)</option>
-          <option value="radio">Radio walk</option>
-          <option value="bench">Bench check</option>
-        </select>
-      </label>
-      <label>Distance, m <input id="fDist" type="number" min="0" step="5" value="25"></label>
-      <label>Drone altitude, m <input id="fAlt" type="number" min="0" step="5" value="30"></label>
-      <label>Mic height, m <input id="fMic" type="number" min="0" step="0.5" value="0.5"></label>
-      <label>Wind, m/s <input id="fWind" type="text" placeholder="e.g. 2, gusts 4"></label>
-      <label>Drone <input id="fDrone" type="text" placeholder="e.g. Mini 4K"></label>
-      <label class="wide">Notes <input id="fNotes" type="text" placeholder="tree line, mower nearby, windscreen on"></label>
-    </div>
-    <div class="row">
-      <button class="primary" id="bStart">Start run</button>
-      <button id="bStop" disabled>Stop run</button>
-      <button id="bSync" title="Press as you clap next to the recorders">Sync clap <kbd>S</kbd></button>
-      <button id="bMark" title="Drone overhead, closest approach, anything worth a timestamp">Mark <kbd>M</kbd></button>
-    </div>
-    <div class="runline" id="runLine">No run in progress.</div>
-    <p class="note">Clap next to every recorder while pressing <b>Sync clap</b> once each time you start recording. The clip script lines the audio up on that clap.</p>
-  </section>
+<div class="layout">
+  <div class="col">
+    <details class="panel hide-embed" id="connectPanel" open>
+      <summary><h2>Connect</h2></summary>
+      <div class="sources">
+        <div class="source">
+          <b>WiFi, from a phone</b>
+          <ol>
+            <li>Turn on your phone's hotspot. On iPhone, switch on <i>Maximize Compatibility</i>: the board only sees 2.4 GHz.</li>
+            <li>In the <a href="https://docs.batear.io/flasher/" target="_blank" rel="noopener">Batear flasher</a>, gateway settings: your hotspot's name and password, MQTT URL <code>mqtt://broker.hivemq.com:1883</code>, Gateway Device ID <code id="gwIdShow"></code>.</li>
+            <li>Tap <b>Connect over WiFi</b>.</li>
+          </ol>
+          <div class="fields" style="grid-template-columns:1fr 1fr;margin:8px 0">
+            <label>Gateway ID <input id="fGwId" type="text" spellcheck="false" autocomplete="off"></label>
+            <label>Broker <input id="fBroker" type="text" spellcheck="false" autocomplete="off"></label>
+          </div>
+          <button class="primary" id="bWifi" style="width:100%">Connect over WiFi</button>
+        </div>
+        <div class="source">
+          <b>USB cable, from a laptop</b>
+          <ol>
+            <li>Chrome or Edge on a laptop. Phones can't read a USB board from a web page yet.</li>
+            <li>Plug the gateway in, tap <b>Connect USB</b>, pick its port. Tap again to add the detector, which adds its confidence score.</li>
+          </ol>
+          <div class="row" style="margin:8px 0">
+            <label style="flex:1">Baud <select id="fBaud"><option>115200</option><option>921600</option><option>460800</option></select></label>
+          </div>
+          <button class="primary" id="bConnect" style="width:100%">Connect USB</button>
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button id="bDemo">Try demo</button>
+        <label style="flex-direction:row;align-items:center;gap:6px"><input type="checkbox" id="fBeep"> Beep on alarm (off while recording)</label>
+      </div>
+      <p class="note">WiFi mode sends readings through a free public broker, so anyone who guessed the gateway ID could read them. Fine for a backyard test, not for anything sensitive. Keep this page open with the screen on: readings that arrive while the phone is locked are lost.</p>
+    </details>
+    <section>
+      <div class="alarm" id="alarmBox"><div class="v" id="vAlarm">quiet</div><div class="k" id="vAlarmSub">Batear alarm</div></div>
+      <div class="stats">
+        <div class="stat"><div class="v" id="vRssi">–</div><div class="k">RSSI dBm</div></div>
+        <div class="stat"><div class="v" id="vSnr">–</div><div class="k">SNR dB</div></div>
+        <div class="stat"><div class="v" id="vConf">–</div><div class="k">confidence</div></div>
+        <div class="stat"><div class="v" id="vAgo">–</div><div class="k">last packet</div></div>
+      </div>
+    </section>
 
-  <section class="panel">
-    <h2>Live</h2>
-    <div class="status">
-      <div class="big" id="alarmBox"><div class="v" id="vAlarm">quiet</div><div class="k">Batear alarm</div></div>
-      <div class="big"><div class="v" id="vRssi">–</div><div class="k">last RSSI, dBm</div></div>
-      <div class="big"><div class="v" id="vSnr">–</div><div class="k">last SNR, dB</div></div>
-      <div class="big"><div class="v" id="vConf">–</div><div class="k">detector confidence</div></div>
-      <div class="big"><div class="v" id="vPkts">0</div><div class="k">packets this run</div></div>
-      <div class="big"><div class="v" id="vAgo">–</div><div class="k">since last packet</div></div>
-    </div>
-    <div class="row" style="margin-top:10px">
-      <button class="primary" id="bConnect">Connect board</button>
-      <label style="flex-direction:row;align-items:center;gap:6px">Baud
-        <select id="fBaud"><option>115200</option><option>921600</option><option>460800</option></select>
-      </label>
-      <button id="bDemo">Demo</button>
-      <label style="flex-direction:row;align-items:center;gap:6px"><input type="checkbox" id="fBeep"> Beep on alarm</label>
-    </div>
-    <p class="note">Connect the gateway first; click again to add the detector. Leave the beep off while recording: it would end up in the audio.</p>
-  </section>
+    <section class="panel">
+      <h2>Run</h2>
+      <div class="fields hide-embed">
+        <label class="span3">Type
+          <select id="fType">
+            <option value="hover">Hover, 60 s</option>
+            <option value="pass">Straight pass</option>
+            <option value="nodrone">No drone (background)</option>
+            <option value="radio">Radio walk</option>
+            <option value="bench">Bench check</option>
+          </select>
+        </label>
+        <label>Distance m <input id="fDist" type="number" inputmode="decimal" min="0" step="5" value="25"></label>
+        <label>Drone height m <input id="fAlt" type="number" inputmode="decimal" min="0" step="5" value="30"></label>
+        <label>Mic height m <input id="fMic" type="number" inputmode="decimal" min="0" step="0.5" value="0.5"></label>
+        <label>Wind m/s <input id="fWind" type="text" placeholder="2, gusts 4"></label>
+        <label class="span2">Drone or speaker <input id="fDrone" type="text" placeholder="Mini 4K"></label>
+        <label class="span3">Notes <input id="fNotes" type="text" placeholder="tree line, mower nearby"></label>
+      </div>
+      <div class="row hide-embed">
+        <button class="primary grow" id="bStart">Start run</button>
+        <button class="stop grow" id="bStop" disabled>Stop run</button>
+      </div>
+      <div class="row hide-embed" style="margin-top:8px">
+        <button class="grow" id="bSync" title="Press as you clap next to the recorders">Sync clap <kbd class="desk">S</kbd></button>
+        <button class="grow" id="bMark" title="Closest approach, or anything worth a timestamp">Mark <kbd class="desk">M</kbd></button>
+      </div>
+      <div class="runline" id="runLine">No run in progress.</div>
+    </section>
+  </div>
 
-  <section class="panel full">
-    <h2>Range so far</h2>
-    <div class="scroll"><table id="tRange"><thead></thead><tbody></tbody></table></div>
-    <p class="note" id="verdict"></p>
-  </section>
+  <div class="col">
+    <section class="panel">
+      <h2>Range so far</h2>
+      <div class="scroll"><table id="tRange"><thead></thead><tbody></tbody></table></div>
+      <p class="note" id="verdict"></p>
+    </section>
 
-  <section class="panel full">
-    <div class="row" style="justify-content:space-between;margin-bottom:8px">
-      <h2 style="margin:0">Runs</h2>
-      <div class="row">
+
+    <details class="panel hide-embed">
+      <summary><h2>Runs and export</h2></summary>
+      <div class="row" style="margin-bottom:8px">
         <button id="bRuns">runs.csv</button>
         <button id="bEvents">events.csv</button>
         <button id="bRaw">raw log</button>
         <button class="danger" id="bClear">New session</button>
       </div>
-    </div>
-    <div class="scroll"><table id="tRuns"><thead></thead><tbody></tbody></table></div>
-  </section>
+      <div class="scroll"><table id="tRuns"><thead></thead><tbody></tbody></table></div>
+    </details>
 
-  <section class="panel">
-    <h2>Readings</h2>
-    <div class="scroll"><table id="tEvents"><thead></thead><tbody></tbody></table></div>
-  </section>
+    <details class="panel" id="readingsPanel">
+      <summary><h2>Readings</h2></summary>
+      <div class="scroll"><table id="tEvents"><thead></thead><tbody></tbody></table></div>
+    </details>
 
-  <section class="panel">
-    <h2>Serial</h2>
-    <pre id="raw"></pre>
-  </section>
+    <details class="panel hide-embed">
+      <summary><h2>Raw log</h2></summary>
+      <pre id="raw"></pre>
+    </details>
+  </div>
 </div>
 </main>
 
 <script>
 "use strict";
-const STORE_KEY = "tw-weekend-logger-v1";
+const params = new URLSearchParams(location.search);
+const EMBED = params.has("embed");
+const STORE_KEY = EMBED ? null : "tw-weekend-logger-v1";
+const SETTINGS_KEY = "tw-weekend-logger-settings";
+const MQTT_JS = "https://cdn.jsdelivr.net/npm/mqtt@5.14.1/dist/mqtt.min.js";
+const DEFAULT_BROKER = "wss://broker.hivemq.com:8884/mqtt";
 const RAW_KEEP = 20000, RAW_SAVE = 4000;
 const $ = (s) => document.querySelector(s);
 
@@ -171,11 +235,12 @@ let state = load() || freshState();
 let current = state.runs.find((r) => r.end_ms == null) || null;
 const ports = [];
 const live = { gwAlarm: new Map(), detAlarm: false, lastPkt: null, rssi: null, snr: null, conf: null };
-let demoTimer = null, saveTimer = null, wakeLock = null, audioCtx = null;
+let demoTimer = null, scriptTimer = null, saveTimer = null, wakeLock = null, audioCtx = null, mqttClient = null;
 
 function freshState() { return { session: null, runs: [], events: [], raw: [] }; }
 
 function load() {
+  if (!STORE_KEY) return null;
   try {
     const s = JSON.parse(localStorage.getItem(STORE_KEY));
     if (s && Array.isArray(s.runs) && Array.isArray(s.events)) { s.raw = s.raw || []; return s; }
@@ -184,6 +249,7 @@ function load() {
 }
 
 function save() {
+  if (!STORE_KEY) return;
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     try {
@@ -193,6 +259,14 @@ function save() {
     } catch (e) { $("#storeWarn").classList.add("show"); }
   }, 1000);
 }
+
+function settings() {
+  let s = {};
+  try { s = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch (e) {}
+  if (!s.gwId) { s.gwId = "tw-" + Math.random().toString(36).slice(2, 8); saveSettings(s); }
+  return Object.assign({ broker: DEFAULT_BROKER }, s);
+}
+function saveSettings(s) { try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); } catch (e) {} }
 
 function pad(n, w = 2) { return String(n).padStart(w, "0"); }
 function isoLocal(ms) {
@@ -228,20 +302,36 @@ function parse(line) {
   return null;
 }
 
+function logRaw(text, portLabel) {
+  state.raw.push(`${isoLocal(Date.now())} [${portLabel}] ${text}`);
+  if (state.raw.length > RAW_KEEP) state.raw.splice(0, state.raw.length - RAW_KEEP);
+  renderRaw();
+}
+
 function ingest(line, portLabel, demo) {
   line = line.replace(ANSI, "").replace(/\r/g, "");
   if (!line.trim()) return;
-  const t = Date.now();
-  state.raw.push(`${isoLocal(t)} [${portLabel}] ${line}`);
-  if (state.raw.length > RAW_KEEP) state.raw.splice(0, state.raw.length - RAW_KEEP);
+  logRaw(line, portLabel);
   const p = parse(line);
   if (p) {
     const port = ports.find((x) => x.label === portLabel);
     if (port && !port.role) { port.role = p.source; renderPorts(); }
-    addEvent(Object.assign({ port: portLabel, demo: demo ? 1 : 0, raw: line }, p), t);
+    addEvent(Object.assign({ port: portLabel, demo: demo ? 1 : 0, raw: line }, p));
   }
-  renderRaw();
   save();
+}
+
+// The gateway's MQTT JSON (Batear mqtt_task): event, detector_id, rssi, snr, rms_db, f0_bin, seq, battery_v
+function ingestMqtt(topic, text) {
+  logRaw(`${topic} ${text}`, "wifi");
+  let j;
+  try { j = JSON.parse(text); } catch (e) { return; }
+  const kind = j.event === "alarm" ? "alarm" : j.event === "clear" ? "clear" : j.event === "heartbeat" ? "heartbeat" : "other";
+  addEvent({
+    port: "wifi", source: "gateway", kind, dev: Number(j.detector_id).toString(16).toUpperCase().padStart(2, "0"),
+    seq: j.seq, f0bin: j.f0_bin, rms_db: j.rms_db, rssi: j.rssi, snr: j.snr,
+    vbat_mv: j.battery_v != null ? Math.round(j.battery_v * 1000) : null, demo: 0, raw: text
+  });
 }
 
 function addEvent(ev, t = Date.now()) {
@@ -270,6 +360,7 @@ function startRun() {
   };
   state.runs.push(current);
   addEvent({ source: "mark", kind: "run_start" }, t);
+  keepAwake();
   renderControls();
 }
 function stopRun() {
@@ -316,12 +407,15 @@ function mark(kind) {
 }
 function flash(sel) { const b = $(sel); b.classList.add("primary"); setTimeout(() => b.classList.remove("primary"), 250); }
 
-// ---- serial ----
-async function connect() {
-  if (!("serial" in navigator)) { $("#noSerial").classList.add("show"); return; }
+// ---- USB serial ----
+async function connectUsb() {
+  if (!("serial" in navigator)) {
+    alert("This browser can't read USB serial. Use Chrome or Edge on a laptop, or connect over WiFi.");
+    return;
+  }
   let port;
   try { port = await navigator.serial.requestPort(); } catch (e) { return; }
-  const entry = { port, label: `board${ports.length + 1}`, role: null, open: false };
+  const entry = { port, label: `usb${ports.filter((p) => p.port).length + 1}`, role: null, open: false };
   try {
     await port.open({ baudRate: +$("#fBaud").value, bufferSize: 65536 });
     try { await port.setSignals({ dataTerminalReady: false, requestToSend: false }); } catch (e) {}
@@ -329,6 +423,7 @@ async function connect() {
   entry.open = true;
   ports.push(entry);
   renderPorts();
+  $("#connectPanel").open = false;
   keepAwake();
   readLoop(entry);
 }
@@ -338,7 +433,6 @@ async function readLoop(entry) {
   const decoder = new TextDecoder();
   while (entry.port.readable && entry.open) {
     const reader = entry.port.readable.getReader();
-    entry.reader = reader;
     try {
       for (;;) {
         const { value, done } = await reader.read();
@@ -349,21 +443,62 @@ async function readLoop(entry) {
         if (buf.length > 4096) { ingest(buf, entry.label, false); buf = ""; }
       }
     } catch (e) {
-      state.raw.push(`${isoLocal(Date.now())} [${entry.label}] -- read error: ${e.message}`);
+      logRaw(`-- read error: ${e.message}`, entry.label);
     } finally { reader.releaseLock(); }
   }
   entry.open = false;
   renderPorts();
 }
 
-navigator.serial && navigator.serial.addEventListener("disconnect", (ev) => {
+if ("serial" in navigator) navigator.serial.addEventListener("disconnect", (ev) => {
   const p = ports.find((x) => x.port === ev.target);
   if (p) { p.open = false; renderPorts(); addEvent({ source: "mark", kind: "disconnect", port: p.label }); }
 });
 
-async function keepAwake() {
-  try { if (!wakeLock && navigator.wakeLock) wakeLock = await navigator.wakeLock.request("screen"); } catch (e) {}
+// ---- WiFi: the gateway publishes to an MQTT broker; we subscribe over WebSocket ----
+function loadScript(src) {
+  return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("could not load " + src)); document.head.appendChild(s); });
 }
+async function connectWifi() {
+  const s = settings();
+  s.gwId = $("#fGwId").value.trim() || s.gwId;
+  s.broker = $("#fBroker").value.trim() || DEFAULT_BROKER;
+  saveSettings(s);
+  renderGwId();
+  if (mqttClient) { mqttClient.end(true); mqttClient = null; }
+  try { if (!window.mqtt) await loadScript(MQTT_JS); } catch (e) { alert("Couldn't load the MQTT library. WiFi mode needs mobile data or internet."); return; }
+  let entry = ports.find((p) => p.label === "wifi");
+  if (!entry) { entry = { label: "wifi", role: "gateway", open: false, state: "connecting" }; ports.push(entry); }
+  entry.state = "connecting"; renderPorts();
+  const base = `batear/nodes/${s.gwId}`;
+  mqttClient = window.mqtt.connect(s.broker, { clientId: "twlog-" + Math.random().toString(16).slice(2, 10), reconnectPeriod: 3000, connectTimeout: 10000, clean: true });
+  mqttClient.on("connect", () => {
+    entry.open = true; entry.state = "broker ok, waiting for gateway"; renderPorts();
+    $("#connectPanel").open = false;
+    mqttClient.subscribe([`${base}/det/+/status`, `${base}/availability`], { qos: 0 });
+    logRaw(`connected to ${s.broker}, listening on ${base}`, "wifi");
+  });
+  mqttClient.on("message", (topic, payload, packet) => {
+    const text = new TextDecoder().decode(payload);
+    if (topic.endsWith("/availability")) {
+      entry.state = text === "online" ? "gateway online" : "gateway offline"; renderPorts();
+      logRaw(`${topic} ${text}${packet.retain ? " (retained)" : ""}`, "wifi");
+      return;
+    }
+    if (packet.retain) { logRaw(`${topic} (last reading before you connected, ignored) ${text}`, "wifi"); return; }
+    entry.state = "gateway online";
+    ingestMqtt(topic, text);
+    renderPorts();
+  });
+  mqttClient.on("offline", () => { entry.open = false; entry.state = "offline, retrying"; renderPorts(); });
+  mqttClient.on("error", (e) => logRaw(`mqtt error: ${e.message}`, "wifi"));
+  keepAwake();
+}
+
+async function keepAwake() {
+  try { if ((!wakeLock || wakeLock.released) && navigator.wakeLock) wakeLock = await navigator.wakeLock.request("screen"); } catch (e) {}
+}
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && (current || ports.length)) keepAwake(); });
 
 function beep() {
   if (!$("#fBeep").checked) return;
@@ -375,24 +510,24 @@ function beep() {
   } catch (e) {}
 }
 
-// ---- demo: fake gateway and detector output ----
-function toggleDemo() {
-  if (demoTimer) { clearInterval(demoTimer); demoTimer = null; $("#bDemo").textContent = "Demo"; ports.splice(ports.findIndex((p) => p.label === "demo"), 1); renderPorts(); return; }
+// ---- demo: fake gateway and detector output, labelled as demo everywhere ----
+function startDemo(tickMs = 1500) {
+  if (demoTimer) return;
+  document.body.classList.add("demo");
   ports.push({ label: "demo", role: "demo", open: true });
   renderPorts();
   $("#bDemo").textContent = "Stop demo";
   let seq = 1, alarm = false, boot = 0;
   demoTimer = setInterval(() => {
-    boot += 1500;
+    boot += tickMs;
     const dist = num($("#fDist").value) || 50;
-    const pHear = Math.max(0.03, Math.min(0.9, 1.4 - dist / 120));
+    const pHear = Math.max(0.02, Math.min(0.9, 1.5 - dist / 90));
     const rssi = Math.round(-60 - 20 * Math.log10(Math.max(dist, 1)) + (Math.random() * 8 - 4));
     const snr = (Math.max(-15, 12 - dist / 25 + Math.random() * 3)).toFixed(1);
     const emit = (label) => ingest(`I (${boot}) gw: dev=0x01 ${label} seq=${seq++} f0bin=${label === "heartbeat" ? 0 : 14} rms=${Math.round(40 - dist / 10)}dB RSSI=${rssi} SNR=${snr}  vbat=3912mV fw=0.3.0 up=12min heap=180kB txfail=0 fl=0x00`, "demo", true);
-    if (!alarm && Math.random() < pHear * 0.4) {
+    if (!alarm && Math.random() < pHear * 0.45) {
       alarm = true;
-      const conf = (0.55 + Math.random() * 0.4).toFixed(2);
-      ingest(`W (${boot}) audio: ALARM #${seq}: f0=${(180 + Math.random() * 40).toFixed(1)} Hz conf=${conf} rms=0.01234`, "demo", true);
+      ingest(`W (${boot}) audio: ALARM #${seq}: f0=${(180 + Math.random() * 40).toFixed(1)} Hz conf=${(0.55 + Math.random() * 0.4).toFixed(2)} rms=0.01234`, "demo", true);
       emit("!! ALARM !!");
     } else if (alarm && Math.random() < 0.35) {
       alarm = false;
@@ -400,8 +535,30 @@ function toggleDemo() {
       emit("CLEAR");
     } else if (alarm) {
       ingest(`I (${boot}) audio: cal: f0=192.3 Hz h2=0.61 h3=0.40 snr=9.1 nf=1.2e-05 conf_ema=${(0.6 + Math.random() * 0.3).toFixed(2)} rms=0.01200`, "demo", true);
-    } else if (Math.random() < 0.15) emit("heartbeat");
-  }, 1500);
+    } else if (Math.random() < 0.12) emit("heartbeat");
+  }, tickMs);
+}
+function stopDemo() {
+  clearInterval(demoTimer); demoTimer = null; clearTimeout(scriptTimer);
+  document.body.classList.remove("demo");
+  const i = ports.findIndex((p) => p.label === "demo"); if (i >= 0) ports.splice(i, 1);
+  $("#bDemo").textContent = "Try demo";
+  renderPorts();
+}
+// Embedded on the site: walk hover runs out through the weekend distances, again and again.
+function scriptedDemo() {
+  const plan = [25, 50, 75, 100, 150, 200];
+  let i = 0;
+  const next = () => {
+    if (current) stopRun();
+    if (i > 0 && i % (plan.length * 3) === 0) { state = freshState(); renderAll(); }
+    $("#fType").value = "hover"; $("#fDist").value = plan[i % plan.length]; $("#fWind").value = "2"; $("#fDrone").value = "demo";
+    i++;
+    startRun();
+    scriptTimer = setTimeout(next, 9000);
+  };
+  startDemo(900);
+  next();
 }
 
 // ---- export ----
@@ -426,34 +583,37 @@ function renderControls() {
 }
 function renderPorts() {
   const el = $("#ports");
-  if (!ports.length) { el.innerHTML = '<span class="chip">No board connected</span>'; return; }
-  el.innerHTML = ports.map((p) => `<span class="chip ${p.open ? "ok" : "bad"}">${p.label}${p.role ? " · " + p.role : ""}${p.open ? "" : " · disconnected"}</span>`).join("");
+  if (!ports.length) { el.innerHTML = '<span class="chip">Not connected</span>'; return; }
+  el.innerHTML = ports.map((p) => {
+    const cls = p.label === "demo" ? "demo" : p.open ? "ok" : "bad";
+    const txt = p.label === "demo" ? "demo data" : p.label === "wifi" ? `wifi · ${p.state || ""}` : `${p.label}${p.role ? " · " + p.role : ""}${p.open ? "" : " · disconnected"}`;
+    return `<span class="chip ${cls}">${esc(txt)}</span>`;
+  }).join(" ");
 }
 function renderLive() {
   const anyAlarm = live.gwAlarm.size > 0 || live.detAlarm;
   $("#alarmBox").classList.toggle("on", anyAlarm);
-  $("#vAlarm").textContent = live.gwAlarm.size ? `ALARM ${[...live.gwAlarm.keys()].join(",")}` : live.detAlarm ? "ALARM (det)" : "quiet";
+  $("#vAlarm").textContent = live.gwAlarm.size ? `ALARM ${[...live.gwAlarm.keys()].join(",")}` : live.detAlarm ? "ALARM" : "quiet";
+  $("#vAlarmSub").textContent = live.gwAlarm.size ? "Batear alarm, detector id" : live.detAlarm ? "Batear alarm (detector)" : "Batear alarm";
   $("#vRssi").textContent = live.rssi ?? "–";
   $("#vSnr").textContent = live.snr ?? "–";
   $("#vConf").textContent = live.conf != null ? live.conf.toFixed(2) : "–";
   $("#vAgo").textContent = live.lastPkt ? `${Math.round((Date.now() - live.lastPkt) / 1000)} s` : "–";
   if (current) {
     const s = summarize(current);
-    $("#vPkts").textContent = s.packets;
-    $("#runLine").innerHTML = `<b>${current.run_id}</b> · ${current.type} · ${current.distance_m ?? "?"} m · running ${Math.round(s.duration_s)} s · ${s.heard ? `heard, first alarm at ${s.first_alarm_s} s` : "not heard yet"}`;
+    $("#runLine").innerHTML = `<b>${current.run_id}</b> · ${esc(current.type)} · ${current.distance_m ?? "?"} m · ${Math.round(s.duration_s)} s · ${s.packets} packets · ${s.heard ? `heard, first alarm at ${s.first_alarm_s} s` : "not heard yet"}`;
   } else {
-    $("#vPkts").textContent = "–";
     $("#runLine").textContent = state.runs.length ? `No run in progress. ${state.runs.length} run(s) in session ${state.session}.` : "No run in progress.";
   }
 }
 function setTable(id, cols, rows) {
   const t = $(id);
   t.tHead.innerHTML = `<tr>${cols.map((c) => `<th>${c[1]}</th>`).join("")}</tr>`;
-  t.tBodies[0].innerHTML = rows.map((r) => `<tr>${cols.map((c) => `<td class="${c[2] || ""}">${esc(r[c[0]])}</td>`).join("")}</tr>`).join("");
+  t.tBodies[0].innerHTML = rows.map((r) => `<tr>${cols.map((c) => `<td>${esc(r[c[0]])}</td>`).join("")}</tr>`).join("");
 }
-function esc(v) { return v == null ? "" : String(v).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c])); }
+function esc(v) { return v == null ? "" : String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 function renderRuns() {
-  const rows = [...state.runs].reverse().map((r) => Object.assign({}, r, summarize(r), { start: clock(r.start_ms), heardTxt: summarize(r).heard ? "yes" : "no" }));
+  const rows = [...state.runs].reverse().map((r) => { const s = summarize(r); return Object.assign({}, r, s, { start: clock(r.start_ms), heardTxt: s.heard ? "yes" : "no" }); });
   setTable("#tRuns", [["run_id", "Run"], ["start", "Start"], ["type", "Type"], ["distance_m", "Dist m"], ["altitude_m", "Alt m"], ["mic_height_m", "Mic m"], ["wind", "Wind"],
     ["duration_s", "Secs"], ["heardTxt", "Heard"], ["first_alarm_s", "1st alarm s"], ["gw_alarms", "GW alarms"], ["det_alarms", "Det alarms"],
     ["packets", "Packets"], ["rssi_median", "RSSI med"], ["snr_median", "SNR med"], ["max_conf", "Max conf"], ["notes", "Notes"]], rows);
@@ -468,33 +628,40 @@ function renderRange() {
     g.runs++; g.heard += s.heard; if (s.first_alarm_s != null) g.firsts.push(s.first_alarm_s);
     g.pk += s.packets; if (s.rssi_median != null) g.rssi.push(s.rssi_median); if (s.snr_median != null) g.snr.push(s.snr_median);
   }
-  const rows = [...groups.values()].sort((a, b) => a.type.localeCompare(b.type) || (a.distance_m ?? 0) - (b.distance_m ?? 0)).map((g) => ({
-    type: g.type, distance_m: g.distance_m, mic_height_m: g.mic_height_m, runs: g.runs,
-    heardTxt: g.type === "radio" ? "" : `${g.heard} of ${g.runs}`, first: median(g.firsts), packets: g.pk, rssi: median(g.rssi), snr: median(g.snr)
+  const all = [...groups.values()];
+  const rows = all.sort((a, b) => a.type.localeCompare(b.type) || (a.distance_m ?? 0) - (b.distance_m ?? 0)).map((g) => ({
+    type: g.type, distance_m: g.distance_m, mic_height_m: g.mic_height_m,
+    heardTxt: g.type === "radio" ? "" : `${g.heard} of ${g.runs}`, first: median(g.firsts), packets: g.pk, rssi: median(g.rssi)
   }));
-  setTable("#tRange", [["type", "Type"], ["distance_m", "Distance m"], ["mic_height_m", "Mic m"], ["runs", "Runs"], ["heardTxt", "Heard"], ["first", "Median 1st alarm s"],
-    ["packets", "Packets"], ["rssi", "RSSI med"], ["snr", "SNR med"]], rows);
-  const acoustic = [...groups.values()].filter((g) => g.type !== "radio");
+  setTable("#tRange", [["type", "Type"], ["distance_m", "Dist m"], ["mic_height_m", "Mic m"], ["heardTxt", "Heard"], ["first", "1st alarm s"], ["packets", "Packets"], ["rssi", "RSSI"]], rows);
+  const acoustic = all.filter((g) => g.type !== "radio");
   const solid = acoustic.filter((g) => g.runs >= 3 && g.heard / g.runs >= 0.9).map((g) => g.distance_m ?? 0);
-  const radio = [...groups.values()].filter((g) => g.type === "radio" && g.pk > 0).map((g) => g.distance_m ?? 0);
+  const radio = all.filter((g) => g.type === "radio" && g.pk > 0).map((g) => g.distance_m ?? 0);
   const parts = [];
-  if (acoustic.length) parts.push(solid.length ? `Farthest distance heard in at least 90% of runs (3 or more runs): <b>${Math.max(...solid)} m</b>. The weekend pass is 100 m with a consumer drone, 150 m with an FPV.` : "No distance yet has 3 or more runs with at least 90% heard.");
-  if (radio.length) parts.push(`Farthest radio walk point with packets received: <b>${Math.max(...radio)} m</b>.`);
-  $("#verdict").innerHTML = parts.join(" ") || "Finish hover, pass or radio-walk runs to fill this table.";
+  if (acoustic.length) parts.push(solid.length ? `Heard in 90% of runs out to <b>${Math.max(...solid)} m</b> (3 or more runs each). Pass: 100 m with a consumer drone, 150 m with an FPV.` : "No distance yet has 3 or more runs with 90% heard.");
+  if (radio.length) parts.push(`Radio: packets received out to <b>${Math.max(...radio)} m</b>.`);
+  $("#verdict").innerHTML = parts.join(" ") || "Finish a hover, pass or radio-walk run to fill this table.";
 }
 function renderEvents() {
-  const rows = state.events.slice(-200).reverse().map((e) => Object.assign({ time: clock(e.t_ms), what: `${e.source} ${e.kind}${e.dev ? " dev " + e.dev : ""}` }, e));
-  setTable("#tEvents", [["time", "Time"], ["run_id", "Run"], ["what", "Reading"], ["rssi", "RSSI"], ["snr", "SNR"], ["conf", "Conf"], ["rms_db", "rms dB"]], rows);
+  const rows = state.events.filter((e) => e.source !== "detector" || e.kind !== "cal").slice(-200).reverse()
+    .map((e) => Object.assign({ time: clock(e.t_ms), what: `${e.source} ${e.kind}${e.dev ? " " + e.dev : ""}` }, e));
+  setTable("#tEvents", [["time", "Time"], ["run_id", "Run"], ["what", "Reading"], ["rssi", "RSSI"], ["snr", "SNR"], ["conf", "Conf"]], rows);
 }
 let rawPending = false;
 function renderRaw() {
   if (rawPending) return; rawPending = true;
   requestAnimationFrame(() => { rawPending = false; const el = $("#raw"); el.textContent = state.raw.slice(-150).join("\n"); el.scrollTop = el.scrollHeight; });
 }
+function renderGwId() {
+  const s = settings();
+  $("#fGwId").value = s.gwId; $("#fBroker").value = s.broker; $("#gwIdShow").textContent = s.gwId;
+}
+function renderAll() { renderControls(); renderRuns(); renderRange(); renderEvents(); renderRaw(); renderPorts(); }
 
 // ---- wiring ----
-$("#bConnect").onclick = connect;
-$("#bDemo").onclick = toggleDemo;
+$("#bConnect").onclick = connectUsb;
+$("#bWifi").onclick = connectWifi;
+$("#bDemo").onclick = () => (demoTimer ? stopDemo() : startDemo());
 $("#bStart").onclick = startRun;
 $("#bStop").onclick = stopRun;
 $("#bSync").onclick = () => mark("sync");
@@ -506,16 +673,21 @@ $("#bClear").onclick = () => {
   if (!confirm("Start a new session? Export runs.csv and events.csv first: this clears them from the page.")) return;
   if (current) stopRun();
   state = freshState(); current = null; save();
-  renderControls(); renderRuns(); renderRange(); renderEvents(); renderRaw();
+  renderAll();
 };
 document.addEventListener("keydown", (e) => {
   if (e.target.matches("input, select, textarea") || e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key === "s" || e.key === "S") mark("sync");
   if (e.key === "m" || e.key === "M") mark("mark");
 });
-if (!("serial" in navigator)) $("#noSerial").classList.add("show");
 setInterval(renderLive, 1000);
-renderControls(); renderRuns(); renderRange(); renderEvents(); renderRaw();
+renderGwId();
+renderAll();
+if (EMBED) {
+  document.body.classList.add("embed");
+  $("#readingsPanel").open = true;
+  scriptedDemo();
+} else if (params.has("demo")) startDemo();
 </script>
 </body>
 </html>

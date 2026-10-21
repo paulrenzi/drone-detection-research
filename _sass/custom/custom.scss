@@ -449,6 +449,20 @@ body.ou {
   }
 }
 
+// Weekend logger demo, embedded from tools/weekend/logger.html?embed=1
+.logger-demo {
+  display: block;
+  width: 100%;
+  height: 700px;
+  margin: 16px 0 12px;
+  border: 1px solid $ou-ink;
+  background: #f6f5f1;
+}
+
+@media (max-width: 640px) {
+  .logger-demo { height: 1020px; }
+}
+
 // Stat strip
 .stats {
   display: grid;

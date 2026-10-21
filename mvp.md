@@ -13,46 +13,107 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 
 ## Start here: the weekend test {#weekend-test}
 
-The cheapest first look at the two questions that decide the tripwire: **how far a mic near the ground hears a drone** (T11) and **how far a board near the ground can send an alert** (a first taste of T9). It is layers 1 and 2 at their cheapest, run over one weekend.
+**One weekend, about $80–90, two questions:** how far a mic half a metre off the ground hears a drone (T11), and how far a board near the ground can send an alert (a first look at T9).
 
-| Step | What it involves |
-|---|---|
-| **Kit** | 2 Heltec V3 LoRa boards running [Batear](https://github.com/batear-io/batear), 3 INMP441 mics, fur windscreens, breadboard and jumpers. Phones as recorders |
-| **Cost** | **~$80–90** with a borrowed drone, tripods and power banks; ~$360–480 buying everything |
-| **Friday, 2 h** | Solder and wire one mic, flash detector and gateway from Batear's web flasher, play a drone clip at 0.5 m and see the alarm arrive |
-| **Saturday, 3–4 h** | Mic at listener height (0.5 and 1 m) in a windscreen. Hover 60 s at 25, 50, 100, 150, 200 and 300 m, at two altitudes, then straight passes. Log wind each run. Record 30+ minutes with no drone. Walk the gateway away until alerts stop |
-| **Sunday, laptop** | Cut and label 1 s clips by distance, split by flight (not by clip), train a small model, compare with Batear's alarms |
-| **Pass** | Heard at **≥100 m** with a consumer drone (≥150 m with an FPV) in light wind, plus a first radio range in your terrain |
-| **Fail** | Under about 60 m, a line needs 3–4× the listeners per km; under about 40 m the idea stops making sense |
+<div class="stats">
+  <div class="stat"><p class="stat-num">$80–90</p><p class="stat-label">with a borrowed drone; ~$360–480 buying everything</p></div>
+  <div class="stat"><p class="stat-num">2 days</p><p class="stat-label">Friday evening setup, Saturday in a field, Sunday on a laptop</p></div>
+  <div class="stat"><p class="stat-num">60 m</p><p class="stat-label">fail: under this, a line needs 3–4× the listeners</p></div>
+  <div class="stat"><p class="stat-num">100 m</p><p class="stat-label">pass: heard at 100 m (consumer drone) or 150 m (FPV)</p></div>
+</div>
 
-Parts with photos, buying advice and the full plan: [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector). Fly legally: in the US, pass the free TRUST test and check the airspace.
+1. **Friday, 2 hours.** Wire a mic to one Heltec board. Flash one board as *detector* and one as *gateway* from the [Batear web flasher](https://docs.batear.io/flasher/). Play a drone clip at the mic and watch the alarm reach the logger.
+2. **Saturday, 3–4 hours.** Mic at 0.5 m and 1 m in a windscreen. Hover 60 s at 25, 50, 100, 150, 200 and 300 m, then fly straight passes. Record 30 minutes with no drone. Walk the gateway away until packets stop.
+3. **Sunday, laptop.** Cut the recordings into labelled 1-second clips, train a small model, and see whether it beats Batear's own alarms.
 
-### Weekend test downloads {#weekend-downloads}
+Kit, photos and buying advice: [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector). In the US, pass the free TRUST test and check the airspace before flying.
 
-The weekend test runs Batear's own firmware, unchanged. Our tripwire firmware isn't needed until layer 3. What we add is a way to log the readings and turn the audio into training clips.
+### The logger {#weekend-logger}
 
-| File | What it does | Get it |
+Every reading lands here, tagged with the run it belongs to. Below it is running on **made-up demo data**, stepping out through the weekend's distances.
+
+<iframe class="logger-demo" src="{{ site.baseurl }}/tools/weekend/logger.html?embed=1" title="Weekend logger, running on demo data" loading="lazy"></iframe>
+
+<p><a class="btn btn-primary" href="{{ site.baseurl }}/tools/weekend/logger.html">Open the logger on your phone</a> <a class="btn" href="{{ site.baseurl }}/tools/weekend/logger.html?demo=1">Try it with demo data</a></p>
+
+On the day, a phone reads the gateway over WiFi, and a laptop can read it over a USB cable. Either way the page exports `runs.csv` and `events.csv` for Sunday.
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">Set up the phone (WiFi)</span><span class="layer-sub">Any phone. The gateway joins your hotspot and the page reads it through a public MQTT broker</span></summary>
+
+1. Turn on your phone's hotspot. On an iPhone, switch on **Maximize Compatibility**: the board only sees 2.4 GHz.
+2. Open the logger on the phone. Under **Connect** it shows a gateway ID such as `tw-k3f9x2`.
+3. When you flash the gateway, fill in the Batear flasher's gateway settings:
+   - Wi-Fi SSID and password: your hotspot's
+   - MQTT broker URL: `mqtt://broker.hivemq.com:1883`
+   - Gateway Device ID: the logger's ID
+4. Tap **Connect over WiFi**. The chip turns to *gateway online* when the board checks in.
+
+This needs mobile data, so you need a cell signal in the field. Readings pass through a free public broker, so anyone who guessed the ID could read them: fine for a backyard test, not for anything sensitive. Keep the screen on. The page asks the phone to stay awake, and readings that arrive while it's locked are lost.
+
+Phones can't read a USB board from a web page: iPhones never could, and Chrome on Android is only starting to. With a laptop and a cable, use **Connect USB** instead. Plugging in the detector as well adds its confidence score.
+</details>
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">Run the day with it</span><span class="layer-sub">Sync, start, fly, stop, export</span></summary>
+
+1. **Each time a recorder starts:** clap next to it and press **Sync clap** at the same moment. Sunday's script lines the audio up on that clap.
+2. **Each run:** set type, distance, drone height, mic height and wind, press **Start run**, fly, press **Stop run**. Background recordings are type *No drone*.
+3. **Radio walk:** the gateway only gets a packet when the detector alarms, clears, or sends its 30-minute heartbeat. Loop a drone clip from a phone beside the detector so it keeps alarming, carry the gateway out, and log a *Radio walk* run at each stop.
+4. **Range so far** shows, for each distance, how many runs were heard. Leave **Beep on alarm** off while recording.
+5. **Export** both CSVs before you leave the field. The page keeps them, but only in that browser.
+</details>
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">Downloads</span><span class="layer-sub">Firmware, the logger, and the Sunday clip cutter</span></summary>
+
+| File | What it's for | Get it |
 |---|---|---|
-| **Batear firmware** | Detector (mic + LoRa) and gateway (LoRa + screen) for the two Heltec V3 boards | [Batear web flasher](https://docs.batear.io/flasher/), Chrome or Edge, USB-C |
-| **Weekend logger** | One web page that reads the gateway (and the detector, if it's plugged in too) over USB. You tag each run with its distance, height and wind; it records every alarm with RSSI, SNR and confidence, tallies a range table, and exports `runs.csv`, `events.csv` and the raw serial log | <a href="{{ site.baseurl }}/tools/weekend/logger.html">Open the logger</a> · <a href="{{ site.baseurl }}/tools/weekend/logger.html" download>Download logger.html</a> |
-| **Clip cutter** | `cut_clips.py`: lines a phone or XIAO recording up with the logger's clock, cuts each run into labelled 1 s clips (`drone_100m`, `drone_pass`, `background`), and writes a manifest with Batear's alarm state per clip and a run-level fold for splitting | <a href="{{ site.baseurl }}/tools/weekend/cut_clips.py" download>Download cut_clips.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_cut_clips.py" download>tests</a> |
+| Batear firmware | Detector and gateway, unchanged. Our own firmware isn't needed until layer 3 | [Web flasher](https://docs.batear.io/flasher/) |
+| Logger | The page above, as one file that works offline over USB | <a href="{{ site.baseurl }}/tools/weekend/logger.html" download>logger.html</a> |
+| Clip cutter | Lines a recording up on the clap and cuts each run into labelled 1 s clips: `drone_100m`, `drone_pass`, `background`. The manifest records whether Batear was alarming during each clip: the baseline a model has to beat | <a href="{{ site.baseurl }}/tools/weekend/cut_clips.py" download>cut_clips.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_cut_clips.py" download>tests</a> |
 
-**Using them**
-1. **Friday.** Flash one board as detector and one as gateway. Plug the gateway into the laptop, open the logger in Chrome, click **Connect board**, and pick its port. Play a drone clip at the mic: the gateway's screen and the logger should both show the alarm. Click **Demo** first if you want to try the page without boards.
-2. **Saturday, each recorder.** Start recording, clap next to it, and press **Sync clap** (or <kbd>S</kbd>) at the same moment.
-3. **Saturday, each run.** Set type, distance, drone height, mic height and wind, press **Start run**, fly the hover or pass, press **Stop run**. Record no-drone runs as type *No drone*. The range table fills in as you go and shows the farthest distance heard in at least 90% of runs.
-4. **Radio walk.** The gateway only hears a packet when the detector alarms, clears, or sends its 30-minute heartbeat. Loop a drone clip from a phone beside the detector so it keeps alarming, then carry the gateway and laptop out. Log a *Radio walk* run at each stop; the table shows packets, RSSI and SNR by distance.
-5. **Export** `runs.csv` and `events.csv` at the end of each session. The page also keeps them in the browser, but only on that laptop.
-6. **Sunday.** For each recording (Python 3.11+, plus [ffmpeg](https://ffmpeg.org/) for phone `.m4a` files):
+Sunday, for each recording (Python 3.11+, and [ffmpeg](https://ffmpeg.org/) for a phone's `.m4a`):
 
 ```bash
 python cut_clips.py --runs S20261025-1003_runs.csv --events S20261025-1003_events.csv --recording phone-0.5m.m4a --sync --tag mic05 --rate 16000 --out clips
 ```
 
-Train on whole folds, never on clips from the same run as the test set. The `batear_alarm` column is the baseline your model has to beat.
+Hold out whole runs for testing, never clips from a run you trained on.
+</details>
 
 {: .note }
-> Both tools were tested in demo mode and on synthetic audio (WAV and `.m4a`), not yet against real boards. The logger reads the lines Batear's gateway and detector print over USB at 115200 baud; if a Batear update changes that format, the logger stops recognising readings, though the raw log still records everything. Leave **Beep on alarm** off while recording, or the beep ends up in the audio.
+> The tools have been tested on demo data, synthetic audio (WAV and `.m4a`), and messages shaped like the gateway's sent through the public broker. They have not been tried against a real board. The logger reads the lines and messages Batear prints today; if a Batear update changes them, the raw log still keeps everything.
+
+### Could a speaker stand in for the drone? {#speaker-test}
+
+**Partly, and it should do most of the work.** A speaker can find the detector's threshold precisely and cheaply. It can't reproduce what happens to sound travelling 100 m or more across real ground, and that propagation is what T11 is really asking about. So: use the speaker for the threshold sweep, then fly a real drone at two or three distances to check it.
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">The reasoning, and how to run it</span><span class="layer-sub">Source level, spreading, what a speaker gets wrong</span></summary>
+
+**The arithmetic.** EASA lists the DJI Mini 4 Pro and Mini 5 Pro at a sound power of **81 dB(A)** ([EASA](https://www.easa.europa.eu/en/node/143951)). Spreading over a sphere, that is about 70 dB(A) at 1 m, 36 at 50 m, **30 at 100 m**, 24 at 200 m and 20 at 300 m (6 dB less each time the distance doubles). A quiet field is often 30–40 dB(A). So at 100 m a consumer drone is about as loud overall as the background, and detection depends on its rotor tones standing out in narrow bands. That fits the only measured cheap-mic range, 50–60 m. Air absorption hardly matters at these distances: under about 1 dB at 300 m below 1 kHz (ISO 9613-1, 20 °C, 70% humidity), rising to several dB above 2 kHz.
+
+**Two ways to use a speaker:**
+
+| | A. Speaker near the mic, turned down | B. Speaker at the real distance, on a pole |
+|---|---|---|
+| Set-up | Speaker 5 m from the mic. Play the drone clip quieter by 20·log₁₀(distance ÷ 5) dB: 26 dB for 100 m, 32 dB for 200 m | Speaker 3–10 m up at the real distance, playing at the drone's own level (about 70 dB(A) at 1 m for a Mini-class drone) |
+| Captures | The detector's threshold against your real background noise, in 1 dB steps, as often as you like | Also the real ground, wind and trees along the path |
+| Misses | Everything along the path: ground interference near a 0.5 m mic, wind bending the sound (upwind can lose 10 dB or more), turbulence | The drone's height and motion, and its own directivity |
+| Needs | Any Bluetooth speaker, a basic sound level meter | A speaker that plays loud without distorting; FPV levels are unknown and probably much louder |
+
+**What makes it work:**
+- **Calibrate loud, then attenuate exactly.** Cheap sound meters can't read 20–30 dB(A). Measure the clip at the mic at a comfortable level, then make the quieter versions by digital gain, not by guessing with the volume knob.
+- **Know the source level.** Recordings online aren't level-calibrated. For a Mini-class drone, use EASA's 81 dB(A). For an FPV, borrow one for ten minutes and measure it at 5 m: no published measurement turned up.
+- **Watch for distortion.** A speaker driven hard adds harmonics, and harmonics are what Batear's detector listens for, so distortion would flatter the result. Keep the speaker well below full volume, and compare the h2 and h3 values in the detector's log for the speaker and the real drone at the same level.
+- **Check the low end.** Small speakers lose output in the low hundreds of hertz, where consumer-drone rotor tones sit. Look at the clip's spectrum before trusting a small speaker.
+- **Log it as a speaker.** Put "speaker" in the logger's *Drone or speaker* field, so Sunday's clips aren't mixed up with real flights.
+
+**What it buys.** Each 6 dB of detector sensitivity doubles the range. A speaker can measure that threshold in an afternoon, without a pilot, airspace rules or an FPV. It can also run at night, in wind, and next to a road, and it builds training data at known levels. One real flight at 50, 100 and 150 m then shows whether the threshold-plus-spreading estimate holds over real ground. If it does, later tests can lean on the speaker. If not, the gap is the near-ground effect T11 exists to measure.
+
+These are standard acoustics estimates, not measurements of our kit.
+</details>
 
 ## The five layers to the MVP
 
