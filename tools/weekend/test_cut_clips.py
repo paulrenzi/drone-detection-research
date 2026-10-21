@@ -99,6 +99,14 @@ class CutClips(unittest.TestCase):
         self.assertEqual(self.run_tool("--start", start), 0)
         self.assertAlmostEqual(float(self.manifest()[0]["offset_s"]), CLAP_S + 7, delta=0.01)
 
+    def test_mic_phone_start_matches_sync(self):
+        with open(self.events, newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+        rows.append({"session": "S1", "run_id": "", "t_ms": T0 + 500, "source": "mic", "kind": "rec_start", "mic_t_ms": T0})
+        write_csv(self.events, ["session", "run_id", "t_ms", "source", "kind", "mic_t_ms"], rows)
+        self.assertEqual(self.run_tool("--mic"), 0)
+        self.assertAlmostEqual(float(self.manifest()[0]["offset_s"]), CLAP_S + 7, delta=0.01)
+
     def test_saved_session_matches_csvs(self):
         self.run_tool("--sync")
         from_csv = self.manifest()

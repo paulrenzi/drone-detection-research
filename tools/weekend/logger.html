@@ -98,8 +98,15 @@ body.embed .hide-embed { display: none !important; }
   body.embed .layout { grid-template-columns: 1fr 1fr; }
 }
 body.embed #readingsPanel .scroll { max-height: 190px; }
-@media (min-width: 600px) {
-}
+.micjoin { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+.micjoin p { flex: 1; min-width: 180px; margin: 0; font-size: 14px; }
+#micQr { background: #fff; padding: 8px; border-radius: 8px; line-height: 0; }
+.stat .v.uncal { color: var(--warn); }
+body.micmode .layout, body.micmode #ports { display: none !important; }
+#micView .alarm .v { font-size: 56px; }
+#micView { display: grid; gap: 12px; max-width: 520px; margin: 0 auto; }
+.inline { display: flex; gap: 8px; align-items: end; }
+.inline label { flex: 1; }
 </style>
 </head>
 <body>
@@ -161,6 +168,24 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
       </div>
     </section>
 
+    <section class="panel" id="micPanel">
+      <h2>Sound at the mic</h2>
+      <div class="stats" style="margin-top:0">
+        <div class="stat"><div class="v" id="vMic">–</div><div class="k" id="vMicK">mic phone, dB(A)</div></div>
+        <div class="stat"><div class="v" id="vSensor">–</div><div class="k">detector, dBFS</div></div>
+        <div class="stat"><div class="v" id="vRec">–</div><div class="k">recording</div></div>
+        <div class="stat"><div class="v" id="vMicAgo">–</div><div class="k">mic phone</div></div>
+      </div>
+      <div class="row hide-embed" style="margin-top:8px">
+        <button class="grow" id="bRec" disabled>Start recording at the mic</button>
+      </div>
+      <div class="micjoin hide-embed" id="micJoin" hidden>
+        <div id="micQr"></div>
+        <p><b>Scan this with the second phone</b> and put it beside the mic. It becomes the sound meter and the recorder, and this page runs it. Or open <a id="micLink" href="#">this link</a> on it.</p>
+      </div>
+      <p class="note" id="micLine"></p>
+    </section>
+
     <section class="panel">
       <h2>Run</h2>
       <div class="fields hide-embed">
@@ -197,8 +222,9 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
       <summary><h2>Speaker test</h2></summary>
       <ol class="steps">
         <li>Pair a Bluetooth speaker with this phone. Silent mode off, Do Not Disturb on, Auto-Lock off. Put the speaker on a chair 5 m from the mic, facing it, with this phone and the gateway beside it.</li>
-        <li>Pick a sound, tap <b>Play calibration</b>, and use the volume buttons until a sound meter at the mic reads 60–65 dB(A). A free meter app on the second phone will do, before it starts recording. Then don't touch the volume again.</li>
-        <li>Enter the meter reading, and the reading with the speaker off. Tap <b>Start sequence</b> and walk 20 m behind the speaker. Each play is logged as a <i>Speaker</i> run, then the logger records the background as a <i>No drone</i> run.</li>
+        <li>Pick a sound, tap <b>Play calibration</b>, and use the volume buttons until <i>Sound at the mic</i> reads 60–65 dB(A). Then don't touch the volume again.</li>
+        <li>Tap <b>Measure at the mic</b>. The mic phone reads 10 s with the speaker off, then 10 s of calibration, and fills both readings in. Without a mic phone, type them from any sound meter.</li>
+        <li>Tap <b>Start sequence</b> and walk 20 m behind the speaker. The mic phone starts recording, each play is logged as a <i>Speaker</i> run, then the logger records the background as a <i>No drone</i> run and stops the recording.</li>
       </ol>
       <div class="fields">
         <label class="span2">Sound
@@ -211,7 +237,10 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
         <label>Loudness, dB(A) <input id="spLwa" type="number" inputmode="decimal" step="1"></label>
         <label class="span3" id="spFileRow" hidden>Recording <input id="spFile" type="file" accept="audio/*"></label>
       </div>
-      <button class="grow" id="spCal" style="width:100%">Play calibration</button>
+      <div class="row">
+        <button class="grow" id="spCal">Play calibration</button>
+        <button class="grow" id="spMeasure">Measure at the mic</button>
+      </div>
       <div class="fields" style="margin-top:12px">
         <label>Meter, playing <input id="spCalSpl" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
         <label>Meter, speaker off <input id="spBg" type="number" inputmode="decimal" step="0.5" placeholder="38"></label>
@@ -263,15 +292,37 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
     </details>
   </div>
 </div>
+
+<div id="micView" hidden>
+  <div class="alarm"><div class="v" id="mvLevel">–</div><div class="k" id="mvLevelK">dB(A) here</div></div>
+  <section class="panel">
+    <h2>Mic phone</h2>
+    <p id="mvStatus" style="margin-top:0">Put this phone beside the mic, at the same height, in a windscreen. Tap <b>Start the mic</b> and allow the microphone. The logger then reads this phone and starts and stops its recording.</p>
+    <button class="primary" id="mvStart" style="width:100%">Start the mic</button>
+    <div class="inline" style="margin-top:12px">
+      <label>Set this phone's meter: a meter app beside it reads, dB(A) <input id="mvRef" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
+      <button id="mvSet" disabled>Set</button>
+    </div>
+    <p class="note" id="mvCalLine"></p>
+    <div class="row" style="margin-top:12px">
+      <button class="grow" id="mvRec" disabled>Start recording</button>
+      <button class="grow" id="mvSave" disabled>Save recording</button>
+    </div>
+    <p class="note" id="mvRecLine"></p>
+    <p class="note">Keep this page open with the screen on: a locked phone stops the mic. Silent mode and Do Not Disturb on, so nothing plays or rings into the recording.</p>
+  </section>
+</div>
 </main>
 
 <script>
 "use strict";
 const params = new URLSearchParams(location.search);
 const EMBED = params.has("embed");
+const MIC_MODE = params.get("role") === "mic";
 const STORE_KEY = EMBED ? null : "tw-weekend-logger-v1";
 const SETTINGS_KEY = "tw-weekend-logger-settings";
 const MQTT_JS = "https://cdn.jsdelivr.net/npm/mqtt@5.14.1/dist/mqtt.min.js";
+const QR_JS = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
 const DEFAULT_BROKER = "wss://broker.hivemq.com:8884/mqtt";
 const RAW_KEEP = 20000, RAW_SAVE = 4000;
 const CLOUD = "https://tripwire-sessions.paulmichaelrenzi.workers.dev";
@@ -281,7 +332,7 @@ const $ = (s) => document.querySelector(s);
 let state = load() || freshState();
 let current = state.runs.find((r) => r.end_ms == null) || null;
 const ports = [];
-const live = { gwAlarm: new Map(), detAlarm: false, lastPkt: null, rssi: null, snr: null, conf: null };
+const live = { gwAlarm: new Map(), detAlarm: false, lastPkt: null, rssi: null, snr: null, conf: null, sensorDb: null, sensorAt: null };
 let demoTimer = null, scriptTimer = null, saveTimer = null, wakeLock = null, audioCtx = null, mqttClient = null;
 
 function freshState() { return { session: null, runs: [], events: [], raw: [] }; }
@@ -415,6 +466,7 @@ function addEvent(ev, t = Date.now()) {
   ev.t_ms = t; ev.t_iso = isoLocal(t); ev.session = state.session; ev.run_id = current ? current.run_id : "";
   state.events.push(ev);
   if (ev.source === "gateway" && ev.rssi != null) { live.lastPkt = t; live.rssi = ev.rssi; live.snr = ev.snr; }
+  if (ev.source === "gateway" && ev.rms_db > 0) { live.sensorDb = ev.rms_db - 96; live.sensorAt = t; }
   if (ev.source === "gateway" && ev.kind === "alarm") { live.gwAlarm.set(ev.dev, true); beep(); }
   if (ev.source === "gateway" && ev.kind === "clear") live.gwAlarm.delete(ev.dev);
   if (ev.source === "detector" && (ev.kind === "alarm" || ev.kind === "cal")) { live.detAlarm = true; live.conf = ev.conf; }
@@ -465,6 +517,8 @@ function summarize(run) {
     return total / 1000;
   };
   const confs = evs.filter((e) => e.conf != null).map((e) => e.conf);
+  const micDb = evs.filter((e) => e.source === "mic" && e.kind === "level" && e.dba != null).map((e) => e.dba);
+  const detDb = evs.filter((e) => e.source === "gateway" && e.rms_db > 0).map((e) => e.rms_db - 96);
   return {
     duration_s: Math.round((end - run.start_ms) / 100) / 10,
     gw_alarms: alarms("gateway").length, det_alarms: alarms("detector").length,
@@ -474,7 +528,8 @@ function summarize(run) {
     packets: gw.length, bad_packets: evs.filter((e) => e.kind === "bad_packet").length,
     rssi_median: median(gw.map((e) => e.rssi)), snr_median: median(gw.map((e) => e.snr)),
     rssi_min: gw.length ? Math.min(...gw.map((e) => e.rssi)) : null,
-    max_conf: confs.length ? Math.max(...confs) : null
+    max_conf: confs.length ? Math.max(...confs) : null,
+    mic_dba: micDb.length ? Math.round(energyMean(micDb) * 10) / 10 : null, det_dbfs: median(detDb)
   };
 }
 
@@ -503,6 +558,7 @@ async function connectUsb() {
   renderPorts();
   $("#connectPanel").open = false;
   keepAwake();
+  micListen();
   readLoop(entry);
 }
 
@@ -554,11 +610,12 @@ async function connectWifi() {
   mqttClient.on("connect", () => {
     entry.open = true; entry.state = "broker ok, waiting for gateway"; renderPorts();
     $("#connectPanel").open = false;
-    mqttClient.subscribe([`${base}/det/+/status`, `${base}/availability`], { qos: 0 });
+    mqttClient.subscribe([`${base}/det/+/status`, `${base}/availability`, `${micTopic(s.gwId)}/state`], { qos: 0 });
     logRaw(`connected to ${s.broker}, listening on ${base}`, "wifi");
   });
   mqttClient.on("message", (topic, payload, packet) => {
     const text = new TextDecoder().decode(payload);
+    if (topic.endsWith("/mic/state")) { handleMic(text); return; }
     if (topic.endsWith("/availability")) {
       entry.state = text === "online" ? "gateway online" : "gateway offline"; renderPorts();
       logRaw(`${topic} ${text}${packet.retain ? " (retained)" : ""}`, "wifi");
@@ -624,6 +681,9 @@ function startDemo(tickMs = 1500) {
     } else if (alarm) {
       ingest(`I (${boot}) audio: cal: f0=192.3 Hz h2=0.61 h3=0.40 snr=9.1 nf=1.2e-05 conf_ema=${(0.6 + Math.random() * 0.3).toFixed(2)} rms=0.01200`, "demo", true);
     } else if (Math.random() < 0.12) emit("heartbeat");
+    const lvl = sp.cal ? 62 : current && current.level_dba != null ? current.level_dba : current && ["hover", "pass"].includes(current.type) ? 70 - 20 * Math.log10(Math.max(dist, 1)) : null;
+    const dba = 10 * Math.log10(10 ** (38 / 10) + (lvl != null ? 10 ** (lvl / 10) : 0)) + Math.random() * 2 - 1;
+    handleMic(JSON.stringify({ t: Date.now(), dba: Math.round(dba * 10) / 10, dbfs: Math.round(dba - 100), rec: false }), true);
   }, tickMs);
 }
 function stopDemo() {
@@ -649,6 +709,94 @@ function scriptedDemo() {
   next();
 }
 
+// ---- the mic phone: a second copy of this page beside the mic, as the sound meter and recorder ----
+// It publishes one reading a second on tripwire/<gw>/mic/state and takes commands on .../cmd.
+const micTopic = (gw) => `tripwire/${gw}/mic`;
+const mic = { last: null, at: null, levels: [], bySeq: false, qrFor: null };
+const micOnline = () => mic.at != null && Date.now() - mic.at < 5000;
+const micCal = () => micOnline() && mic.last.dba != null;
+const energyMean = (dbs) => 10 * Math.log10(dbs.reduce((a, v) => a + 10 ** (v / 10), 0) / dbs.length);
+
+function handleMic(text, demo) {
+  let j;
+  try { j = JSON.parse(text); } catch (e) { return; }
+  const t = Date.now(), was = mic.last;
+  mic.last = j; mic.at = t;
+  if (j.dba != null) { mic.levels.push([t, j.dba]); if (mic.levels.length > 120) mic.levels.shift(); }
+  ensureSession(t);
+  const base = { session: state.session, run_id: current ? current.run_id : "", port: "mic", source: "mic", demo: demo ? 1 : 0 };
+  if (j.dba != null || j.dbfs != null) state.events.push(Object.assign({ t_ms: t, t_iso: isoLocal(t), kind: "level", dba: j.dba, dbfs: j.dbfs }, base));
+  if (j.rec && j.rec_start && !state.events.some((e) => e.kind === "rec_start" && e.mic_t_ms === j.rec_start))
+    addEvent(Object.assign({}, base, { kind: "rec_start", mic_t_ms: j.rec_start, file: j.file }), t);
+  else if (was && was.rec && !j.rec) addEvent(Object.assign({}, base, { kind: "rec_stop", mic_t_ms: j.t, file: was.file }), t);
+  else { save(); renderLive(); }
+}
+
+function micSend(cmd) {
+  if (!mqttClient || !mqttClient.connected) return false;
+  mqttClient.publish(`${micTopic(settings().gwId)}/cmd`, JSON.stringify(Object.assign({ t: Date.now() }, cmd)));
+  return true;
+}
+function micRec(on) {
+  if (!micOnline()) return false;
+  ensureSession(Date.now());
+  return micSend(on ? { cmd: "rec_start", session: state.session } : { cmd: "rec_stop" });
+}
+
+// Over USB there is no broker connection yet; open one just for the mic phone.
+async function micListen() {
+  if (mqttClient || EMBED) return;
+  try { if (!window.mqtt) await loadScript(MQTT_JS); } catch (e) { return; }
+  const s = settings();
+  mqttClient = window.mqtt.connect(s.broker, { clientId: "twlog-" + Math.random().toString(16).slice(2, 10), reconnectPeriod: 3000, connectTimeout: 10000, clean: true });
+  mqttClient.on("connect", () => mqttClient.subscribe(`${micTopic(s.gwId)}/state`, { qos: 0 }));
+  mqttClient.on("message", (topic, payload) => { if (topic.endsWith("/mic/state")) handleMic(new TextDecoder().decode(payload)); });
+}
+
+// Average the mic phone's readings over the next few seconds, allowing for the broker's delay.
+function micAverage(seconds) {
+  const t0 = Date.now() + 1000;
+  return new Promise((res, rej) => setTimeout(() => {
+    const v = mic.levels.filter(([t]) => t >= t0 && t <= t0 + seconds * 1000).map((x) => x[1]);
+    if (v.length < seconds / 2) rej(new Error("The mic phone stopped sending readings. Check it's on the page with the screen on."));
+    else res(energyMean(v));
+  }, seconds * 1000 + 1500));
+}
+
+async function showMicQr() {
+  const gw = settings().gwId, url = new URL(`logger.html?role=mic&gw=${encodeURIComponent(gw)}`, location.href).href;
+  $("#micLink").href = url;
+  if (mic.qrFor === gw) return;
+  try { if (!window.QRCode) await loadScript(QR_JS); } catch (e) { return; }
+  $("#micQr").innerHTML = "";
+  new window.QRCode($("#micQr"), { text: url, width: 132, height: 132, correctLevel: window.QRCode.CorrectLevel.M });
+  mic.qrFor = gw;
+}
+
+function renderMic() {
+  const on = micOnline(), j = mic.last;
+  const v = $("#vMic");
+  v.classList.toggle("uncal", on && j.dba == null);
+  v.textContent = on ? (j.dba != null ? j.dba.toFixed(1) : j.dbfs.toFixed(0)) : "–";
+  $("#vMicK").textContent = on && j.dba == null ? "mic phone, dBFS: set its meter" : "mic phone, dB(A)";
+  $("#vSensor").textContent = live.sensorDb ?? "–";
+  $("#vRec").textContent = on && j.rec ? `${Math.floor(j.rec_s / 60)}:${pad(Math.floor(j.rec_s % 60))}` : on ? "off" : "–";
+  $("#vMicAgo").textContent = on ? "live" : mic.at ? `${Math.round((Date.now() - mic.at) / 1000)} s ago` : "–";
+  const b = $("#bRec");
+  b.disabled = !on || !!sp.seq;
+  b.textContent = on && j.rec ? "Stop recording at the mic" : "Start recording at the mic";
+  b.classList.toggle("stop", on && !!j.rec);
+  const join = !on && !EMBED && !demoTimer;
+  $("#micJoin").hidden = !join;
+  if (join) showMicQr();
+  const parts = [];
+  if (live.sensorAt) parts.push(`Detector level ${live.sensorDb} dBFS at ${clock(live.sensorAt)}, from its last check-in or alarm. It checks in once a minute.`);
+  else parts.push("The detector's level arrives with its once-a-minute check-in and with every alarm.");
+  if (on && j.rec) parts.push(`Recording at the mic since ${clock(j.rec_start)}.`);
+  else if (j && j.file && !j.rec) parts.push(`Last recording, ${esc(j.file)}, is on the mic phone: tap <b>Save recording</b> there.`);
+  $("#micLine").innerHTML = parts.join(" ");
+}
+
 // ---- speaker test: play a drone sound at the level it would reach the mic from a chosen distance ----
 // Level at the mic, free field: L(x) = LWA - 11 - 20*log10(x). Each play's gain is L(x) minus the calibration reading.
 const SOUNDS = {
@@ -659,7 +807,7 @@ const SOUNDS = {
   own: { url: null, name: "own recording", lwa: null,
     note: "Use a steady recording of the drone hovering, without wind noise. Enter its loudness to step by distance." }
 };
-const sp = { ctx: null, buf: null, key: null, cal: null, seq: null };
+const sp = { ctx: null, buf: null, key: null, cal: null, seq: null, measuring: null };
 
 function spCtx() {
   if (!sp.ctx) {
@@ -750,10 +898,37 @@ function spPlan() {
 }
 
 async function spToggleCal() {
+  if (sp.measuring) return;
   if (sp.cal) { sp.cal.stop(); sp.cal = null; renderSp(); return; }
   try { await spLoad(); } catch (e) { spError(e.message); return; }
   sp.cal = spPlayNow(0, 0);
   keepAwake(); renderSp();
+}
+
+// The mic phone reads the background with the speaker off, then the calibration playing.
+async function spMeasure() {
+  if (sp.seq || sp.measuring) return;
+  if (!micOnline()) { spError("No mic phone connected. Scan the code under Sound at the mic with the second phone, or type the readings from a sound meter."); return; }
+  if (!micCal()) { spError("The mic phone's meter isn't set yet. On that phone, enter a sound meter app's reading and tap Set."); return; }
+  try { await spLoad(); } catch (e) { spError(e.message); return; }
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  keepAwake();
+  try {
+    if (sp.cal) { sp.cal.stop(); sp.cal = null; }
+    sp.measuring = "bg"; renderSp();
+    await wait(1500);
+    const bg = await micAverage(10);
+    sp.measuring = "cal"; sp.cal = spPlayNow(0, 0); renderSp();
+    await wait(2000);
+    const cal = await micAverage(10);
+    $("#spBg").value = bg.toFixed(1); $("#spCalSpl").value = cal.toFixed(1);
+    addEvent({ source: "mic", kind: "measured", port: "mic", dba: Math.round(cal * 10) / 10, bg_dba: Math.round(bg * 10) / 10, sound: sp.key });
+  } catch (e) { spError(e.message); }
+  finally {
+    if (sp.cal) { sp.cal.stop(); sp.cal = null; }
+    sp.measuring = null;
+  }
+  renderSp();
 }
 
 async function spStart() {
@@ -761,7 +936,8 @@ async function spStart() {
   let plan;
   try { await spLoad(); plan = spPlan(); } catch (e) { spError(e.message); return; }
   if (sp.cal) { sp.cal.stop(); sp.cal = null; }
-  sp.seq = { i: 0, plan, timer: null, handle: null, phase: "", until: 0 };
+  sp.seq = { i: 0, plan, timer: null, handle: null, phase: "", until: 0, rec: false };
+  if (micOnline() && !mic.last.rec) sp.seq.rec = micRec(true);
   keepAwake(); spStep();
 }
 
@@ -801,6 +977,7 @@ function spFinish() {
   clearTimeout(s.timer);
   if (s.handle) s.handle.stop();
   if (current) stopRun();
+  if (s.rec) micRec(false);
   sp.seq = null;
   renderControls();
 }
@@ -809,7 +986,7 @@ function spError(msg) { const el = $("#spStatus"); el.textContent = msg; el.clas
 
 function renderSp() {
   const el = $("#spStatus"), s = sp.seq;
-  $("#spStart").disabled = !!s; $("#spStop").disabled = !s; $("#spCal").disabled = !!s;
+  $("#spStart").disabled = !!s || !!sp.measuring; $("#spStop").disabled = !s; $("#spCal").disabled = !!s || !!sp.measuring; $("#spMeasure").disabled = !!s || !!sp.measuring;
   $("#spCal").textContent = sp.cal ? "Stop calibration" : "Play calibration";
   $("#spCal").classList.toggle("primary", !!sp.cal);
   el.classList.remove("err");
@@ -823,7 +1000,8 @@ function renderSp() {
         : `Quiet before play ${s.i + 1} of ${s.plan.items.length} · ${left} s`;
     return;
   }
-  if (sp.cal) { el.textContent = "Calibration playing. Read the meter at the mic, then stop it."; return; }
+  if (sp.measuring) { el.innerHTML = sp.measuring === "bg" ? "<b>Measuring the background</b>, speaker off · stay quiet · 10 s" : "<b>Measuring the calibration</b> at the mic · 10 s"; return; }
+  if (sp.cal) { el.textContent = micCal() ? `Calibration playing: ${mic.last.dba.toFixed(1)} dB(A) at the mic. Aim for 60–65, then stop it or tap Measure at the mic.` : "Calibration playing. Read the meter at the mic, then stop it."; return; }
   try {
     const p = spPlan(), mins = Math.ceil(p.items.length * (p.play + p.gap) / 60);
     el.textContent = `${p.items.length} plays, about ${mins} min${p.bgMin ? `, then ${p.bgMin} min of background` : ""}. Calibration ${p.cal.toFixed(1)} dB(A) at the mic.${p.quiet ? ` ${p.quiet} level(s) are quieter than the background: expected at range.` : ""}${p.warn}`;
@@ -853,8 +1031,8 @@ function spModeChanged() {
 // ---- export ----
 const RUN_COLS = ["session", "run_id", "type", "distance_m", "altitude_m", "mic_height_m", "wind", "drone", "notes", "start_iso", "end_iso", "start_ms", "end_ms",
   "duration_s", "heard", "first_alarm_s", "gw_alarms", "det_alarms", "gw_alarm_s", "det_alarm_s", "packets", "bad_packets", "rssi_median", "rssi_min", "snr_median", "max_conf",
-  "level_dba", "gain_db", "cal_dba"];
-const EV_COLS = ["session", "run_id", "t_iso", "t_ms", "port", "source", "kind", "dev", "seq", "rms_db", "f0bin", "f0_hz", "conf", "rssi", "snr", "vbat_mv", "demo", "raw"];
+  "level_dba", "gain_db", "cal_dba", "mic_dba", "det_dbfs"];
+const EV_COLS = ["session", "run_id", "t_iso", "t_ms", "port", "source", "kind", "dev", "seq", "rms_db", "f0bin", "f0_hz", "conf", "rssi", "snr", "vbat_mv", "dba", "dbfs", "mic_t_ms", "file", "demo", "raw"];
 function csvCell(v) { if (v == null) return ""; const s = String(v); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; }
 function toCsv(cols, rows) { return [cols.join(","), ...rows.map((r) => cols.map((c) => csvCell(r[c])).join(","))].join("\n") + "\n"; }
 function download(name, text, type = "text/csv") {
@@ -890,6 +1068,7 @@ function renderLive() {
   $("#vSnr").textContent = live.snr ?? "–";
   $("#vConf").textContent = live.conf != null ? live.conf.toFixed(2) : "–";
   $("#vAgo").textContent = live.lastPkt ? `${Math.round((Date.now() - live.lastPkt) / 1000)} s` : "–";
+  renderMic();
   if (current) {
     const s = summarize(current);
     $("#runLine").innerHTML = `<b>${current.run_id}</b> · ${esc(current.type)} · ${current.distance_m ?? "?"} m · ${Math.round(s.duration_s)} s · ${s.packets} packets · ${s.heard ? `heard, first alarm at ${s.first_alarm_s} s` : "not heard yet"}`;
@@ -907,7 +1086,7 @@ function renderRuns() {
   const rows = [...state.runs].reverse().map((r) => { const s = summarize(r); return Object.assign({}, r, s, { start: clock(r.start_ms), heardTxt: s.heard ? "yes" : "no" }); });
   setTable("#tRuns", [["run_id", "Run"], ["start", "Start"], ["type", "Type"], ["distance_m", "Dist m"], ["altitude_m", "Alt m"], ["mic_height_m", "Mic m"], ["wind", "Wind"],
     ["duration_s", "Secs"], ["heardTxt", "Heard"], ["first_alarm_s", "1st alarm s"], ["gw_alarms", "GW alarms"], ["det_alarms", "Det alarms"],
-    ["packets", "Packets"], ["rssi_median", "RSSI med"], ["snr_median", "SNR med"], ["max_conf", "Max conf"], ["notes", "Notes"]], rows);
+    ["packets", "Packets"], ["rssi_median", "RSSI med"], ["snr_median", "SNR med"], ["max_conf", "Max conf"], ["level_dba", "Aimed dB(A)"], ["mic_dba", "Mic dB(A)"], ["det_dbfs", "Det dBFS"], ["notes", "Notes"]], rows);
 }
 function renderRange() {
   const groups = new Map();
@@ -915,17 +1094,18 @@ function renderRange() {
     if (r.end_ms == null || !["hover", "pass", "speaker", "radio"].includes(r.type)) continue;
     const level = r.type === "speaker" ? r.level_dba ?? null : null;
     const key = `${r.type}|${r.distance_m}|${r.type === "radio" ? "" : r.mic_height_m}|${level}`;
-    if (!groups.has(key)) groups.set(key, { type: r.type, distance_m: r.distance_m, level, mic_height_m: r.type === "radio" ? "" : r.mic_height_m, runs: 0, heard: 0, firsts: [], pk: 0, rssi: [], snr: [] });
+    if (!groups.has(key)) groups.set(key, { type: r.type, distance_m: r.distance_m, level, mic_height_m: r.type === "radio" ? "" : r.mic_height_m, runs: 0, heard: 0, firsts: [], pk: 0, rssi: [], snr: [], mic: [] });
     const g = groups.get(key), s = summarize(r);
     g.runs++; g.heard += s.heard; if (s.first_alarm_s != null) g.firsts.push(s.first_alarm_s);
     g.pk += s.packets; if (s.rssi_median != null) g.rssi.push(s.rssi_median); if (s.snr_median != null) g.snr.push(s.snr_median);
+    if (s.mic_dba != null) g.mic.push(s.mic_dba);
   }
   const all = [...groups.values()];
   const rows = all.sort((a, b) => a.type.localeCompare(b.type) || (a.distance_m ?? 0) - (b.distance_m ?? 0) || (b.level ?? 0) - (a.level ?? 0)).map((g) => ({
     type: g.type, distance_m: g.distance_m, level: g.level, mic_height_m: g.mic_height_m,
-    heardTxt: g.type === "radio" ? "" : `${g.heard} of ${g.runs}`, first: median(g.firsts), packets: g.pk, rssi: median(g.rssi)
+    heardTxt: g.type === "radio" ? "" : `${g.heard} of ${g.runs}`, first: median(g.firsts), packets: g.pk, rssi: median(g.rssi), mic: median(g.mic)
   }));
-  setTable("#tRange", [["type", "Type"], ["distance_m", "Dist m"], ["level", "dB(A)"], ["mic_height_m", "Mic m"], ["heardTxt", "Heard"], ["first", "1st alarm s"], ["packets", "Packets"], ["rssi", "RSSI"]], rows);
+  setTable("#tRange", [["type", "Type"], ["distance_m", "Dist m"], ["level", "dB(A)"], ["mic", "Measured"], ["mic_height_m", "Mic m"], ["heardTxt", "Heard"], ["first", "1st alarm s"], ["packets", "Packets"], ["rssi", "RSSI"]], rows);
   const solidGroups = (gs) => gs.filter((g) => g.runs >= 3 && g.heard / g.runs >= 0.9);
   const solidOut = (gs) => solidGroups(gs).map((g) => g.distance_m ?? 0);
   const acoustic = all.filter((g) => g.type === "hover" || g.type === "pass");
@@ -941,7 +1121,7 @@ function renderRange() {
   $("#verdict").innerHTML = parts.join(" ") || "Finish a hover, pass, speaker or radio-walk run to fill this table.";
 }
 function renderEvents() {
-  const rows = state.events.filter((e) => e.source !== "detector" || e.kind !== "cal").slice(-200).reverse()
+  const rows = state.events.filter((e) => (e.source !== "detector" || e.kind !== "cal") && e.kind !== "level").slice(-200).reverse()
     .map((e) => Object.assign({ time: clock(e.t_ms), what: `${e.source} ${e.kind}${e.dev ? " " + e.dev : ""}` }, e));
   setTable("#tEvents", [["time", "Time"], ["run_id", "Run"], ["what", "Reading"], ["rssi", "RSSI"], ["snr", "SNR"], ["conf", "Conf"]], rows);
 }
@@ -956,6 +1136,149 @@ function renderGwId() {
 }
 function renderAll() { renderControls(); renderRuns(); renderRange(); renderEvents(); renderRaw(); renderPorts(); }
 
+// ---- mic mode (?role=mic): this phone sits beside the mic and is the meter and recorder ----
+// A-weighting from its analogue poles (IEC 61672): a double high-pass at 20.6 Hz, single
+// high-passes at 107.7 and 737.9 Hz, a double low-pass at 12.2 kHz, normalised to 0 dB at 1 kHz.
+const MIC_OFFSET_KEY = "tw-mic-offset";
+const mv = { name: null, stream: null, ctx: null, an: null, buf: null, g1k: 1, sum: 0, n: 0, secs: [], offset: null, rec: null, chunks: [], recStart: null, file: null, session: null, client: null };
+
+function aWeighting(ctx) {
+  const fs = ctx.sampleRate, q = 20 * Math.log10(0.5); // a biquad's Q is in dB for high- and low-pass
+  const biquad = (type, f) => { const n = ctx.createBiquadFilter(); n.type = type; n.frequency.value = f; n.Q.value = q; return n; };
+  const hp1 = (f) => { const K = Math.tan(Math.PI * f / fs); return ctx.createIIRFilter([1 / (1 + K), -1 / (1 + K)], [1, (K - 1) / (K + 1)]); };
+  const nodes = [biquad("highpass", 20.6), hp1(107.7), hp1(737.9), biquad("lowpass", 12194)];
+  for (let i = 0; i < nodes.length - 1; i++) nodes[i].connect(nodes[i + 1]);
+  const f = new Float32Array([1000]), m = new Float32Array(1), ph = new Float32Array(1);
+  let g = 1;
+  for (const n of nodes) { n.getFrequencyResponse(f, m, ph); g *= m[0]; }
+  return { input: nodes[0], output: nodes[nodes.length - 1], g1k: g };
+}
+
+async function mvStart() {
+  try {
+    mv.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 } });
+  } catch (e) { $("#mvStatus").textContent = `The microphone isn't available (${e.message}). Allow it for this page and try again.`; return; }
+  mv.ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (mv.ctx.state === "suspended") await mv.ctx.resume();
+  const w = aWeighting(mv.ctx);
+  mv.ctx.createMediaStreamSource(mv.stream).connect(w.input);
+  mv.an = mv.ctx.createAnalyser(); mv.an.fftSize = 2048; w.output.connect(mv.an);
+  mv.buf = new Float32Array(mv.an.fftSize); mv.g1k = w.g1k;
+  setInterval(mvSample, 40); setInterval(mvTick, 1000);
+  $("#mvStart").hidden = true; $("#mvSet").disabled = false;
+  keepAwake();
+  mvConnect();
+  renderMv();
+}
+
+function mvSample() {
+  mv.an.getFloatTimeDomainData(mv.buf);
+  let e = 0;
+  for (let i = 0; i < mv.buf.length; i++) e += mv.buf[i] * mv.buf[i];
+  mv.sum += e / mv.buf.length / (mv.g1k * mv.g1k); mv.n++;
+}
+
+function mvTick() {
+  const dbfs = mv.n ? Math.max(-120, 10 * Math.log10(mv.sum / mv.n || 1e-12)) : null;
+  mv.sum = 0; mv.n = 0;
+  if (dbfs == null) return;
+  mv.secs.push(dbfs); if (mv.secs.length > 10) mv.secs.shift();
+  const dba = mv.offset != null ? Math.round((dbfs + mv.offset) * 10) / 10 : null;
+  $("#mvLevel").textContent = dba != null ? dba.toFixed(1) : dbfs.toFixed(0);
+  $("#mvLevelK").textContent = dba != null ? "dB(A) here" : "dBFS(A) here, until you set the meter";
+  if (mv.client && mv.client.connected) {
+    mv.client.publish(`${micTopic(settings().gwId)}/state`, JSON.stringify({
+      t: Date.now(), dbfs: Math.round(dbfs * 10) / 10, dba, rec: !!mv.rec,
+      rec_start: mv.rec ? mv.recStart : null, rec_s: mv.rec ? (Date.now() - mv.recStart) / 1000 : 0, file: mv.rec ? mv.name : mv.file ? mv.file.name : null
+    }));
+  }
+  renderMv();
+}
+
+async function mvConnect() {
+  try { if (!window.mqtt) await loadScript(MQTT_JS); } catch (e) { $("#mvStatus").textContent = "Couldn't load the MQTT library. This phone needs mobile data or WiFi."; return; }
+  const s = settings();
+  mv.client = window.mqtt.connect(s.broker, { clientId: "twmic-" + Math.random().toString(16).slice(2, 10), reconnectPeriod: 3000, connectTimeout: 10000, clean: true });
+  mv.client.on("connect", () => { mv.client.subscribe(`${micTopic(s.gwId)}/cmd`, { qos: 0 }); renderMv(); });
+  mv.client.on("offline", renderMv);
+  mv.client.on("message", (topic, payload) => {
+    let j;
+    try { j = JSON.parse(new TextDecoder().decode(payload)); } catch (e) { return; }
+    if (j.cmd === "rec_start") mvRecStart(j.session);
+    if (j.cmd === "rec_stop") mvRecStop();
+  });
+}
+
+function mvRecStart(session) {
+  if (mv.rec || !mv.stream) return;
+  const type = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"].find((t) => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || "";
+  const opts = Object.assign({ audioBitsPerSecond: 96000 }, type ? { mimeType: type } : {});
+  let r;
+  try { r = new MediaRecorder(mv.stream, opts); } catch (e) { $("#mvRecLine").textContent = `This browser can't record (${e.message}).`; return; }
+  mv.chunks = []; mv.session = session || state.session || "mic";
+  const mime0 = r.mimeType || type || "audio/webm";
+  mv.name = `${mv.session}-mic.${/mp4/.test(mime0) ? "m4a" : "webm"}`;
+  r.ondataavailable = (e) => { if (e.data.size) mv.chunks.push(e.data); };
+  r.onstop = () => {
+    const mime = r.mimeType || type || "audio/webm";
+    mv.file = new File([new Blob(mv.chunks, { type: mime })], mv.name, { type: mime });
+    mv.chunks = []; renderMv();
+  };
+  r.start(10000);
+  mv.rec = r; mv.recStart = Date.now(); mv.file = null;
+  keepAwake(); renderMv();
+}
+function mvRecStop() {
+  if (!mv.rec) return;
+  const r = mv.rec; mv.rec = null;
+  r.stop(); renderMv();
+}
+async function mvSave() {
+  if (!mv.file) return;
+  try {
+    if (navigator.canShare && navigator.canShare({ files: [mv.file] })) { await navigator.share({ files: [mv.file], title: mv.file.name }); return; }
+  } catch (e) { if (e.name === "AbortError") return; }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(mv.file); a.download = mv.file.name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+function mvSetMeter() {
+  const ref = num($("#mvRef").value);
+  if (ref == null || mv.secs.length < 3) { $("#mvCalLine").textContent = "Play a steady sound, wait 5 s, then enter what the meter app reads."; return; }
+  mv.offset = ref - energyMean(mv.secs.slice(-5));
+  try { localStorage.setItem(MIC_OFFSET_KEY, String(mv.offset)); } catch (e) {}
+  renderMv();
+}
+
+function renderMv() {
+  const online = mv.client && mv.client.connected;
+  if (mv.stream) $("#mvStatus").innerHTML = online ? `Connected to logger <code>${esc(settings().gwId)}</code>. Leave this phone by the mic.` : "Mic on. Connecting to the logger…";
+  $("#mvCalLine").textContent = mv.offset != null
+    ? `Meter set: reading + ${mv.offset.toFixed(1)} dB. Set it again only on a different phone or browser.`
+    : "Once per phone: play a steady sound, hold another phone with a sound meter app right beside this one, and enter its reading. Phone mics differ by several dB, and each 6 dB doubles or halves the emulated distance.";
+  $("#mvRec").disabled = !mv.stream;
+  $("#mvRec").textContent = mv.rec ? "Stop recording" : "Start recording";
+  $("#mvRec").classList.toggle("stop", !!mv.rec);
+  $("#mvSave").disabled = !mv.file;
+  $("#mvRecLine").textContent = mv.rec ? `Recording since ${clock(mv.recStart)}, ${Math.round((Date.now() - mv.recStart) / 1000)} s.` : mv.file ? `${mv.file.name}, ${(mv.file.size / 1e6).toFixed(1)} MB. Save it before closing this page.` : "The logger starts and stops the recording with the speaker sequence.";
+}
+
+function startMicMode() {
+  document.body.classList.add("micmode");
+  document.title = "trip/wire mic";
+  $("h1").textContent = "trip/wire mic";
+  $("#micView").hidden = false;
+  try { const o = num(localStorage.getItem(MIC_OFFSET_KEY)); if (o != null) mv.offset = o; } catch (e) {}
+  $("#mvStart").onclick = mvStart;
+  $("#mvSet").onclick = mvSetMeter;
+  $("#mvRec").onclick = () => (mv.rec ? mvRecStop() : mvRecStart(null));
+  $("#mvSave").onclick = mvSave;
+  window.addEventListener("beforeunload", (e) => { if (mv.rec || mv.file) { e.preventDefault(); e.returnValue = ""; } });
+  if (!params.get("gw")) $("#mvStatus").textContent = "Open this page from the QR code in the logger, so it knows which logger to join.";
+  renderMv();
+}
+
 // ---- wiring ----
 $("#bConnect").onclick = connectUsb;
 $("#bWifi").onclick = connectWifi;
@@ -967,6 +1290,8 @@ $("#spFile").onchange = () => { sp.buf = null; $("#spCalSpl").value = ""; render
 $("#spMode").onchange = spModeChanged;
 for (const id of ["#spLwa", "#spCalSpl", "#spBg", "#spList", "#spRepeat", "#spPlay", "#spGap", "#spBgMin"]) $(id).oninput = renderSp;
 $("#spCal").onclick = spToggleCal;
+$("#spMeasure").onclick = spMeasure;
+$("#bRec").onclick = () => micRec(!mic.last.rec);
 $("#spStart").onclick = spStart;
 $("#spStop").onclick = spFinish;
 $("#bSync").onclick = () => mark("sync");
@@ -986,16 +1311,17 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "s" || e.key === "S") mark("sync");
   if (e.key === "m" || e.key === "M") mark("mark");
 });
-setInterval(() => { renderLive(); if (sp.seq) renderSp(); }, 1000);
+setInterval(() => { renderLive(); if (sp.seq || sp.cal || sp.measuring) renderSp(); }, 1000);
 const gwParam = params.get("gw");
 if (!EMBED && gwParam && /^[\w-]{3,40}$/.test(gwParam)) {
   const s = settings(); s.gwId = gwParam; saveSettings(s);
-  history.replaceState(null, "", location.pathname);
+  if (!MIC_MODE) history.replaceState(null, "", location.pathname);
 }
 renderGwId();
 spSoundChanged();
 renderAll();
-if (EMBED) {
+if (MIC_MODE) startMicMode();
+else if (EMBED) {
   document.body.classList.add("embed");
   $("#readingsPanel").open = true;
   scriptedDemo();

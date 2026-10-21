@@ -8,8 +8,11 @@ newest one; its CSV downloads (--runs, --events) still work too. This script lin
 up with the logger's clock, cuts each run into clips, files them by label, and
 writes a manifest you can split by run for training.
 
-Line the audio up one of two ways:
+Line the audio up one of three ways:
 
+  --mic          The logger's mic phone made the recording. The session holds
+                 the moment it started recording, by that phone's clock
+                 (within a few tenths of a second of the logger's).
   --sync         Clap next to the recorder while pressing Sync clap. The script
                  finds the loudest transient near the start of the recording and
                  pins it to that press. Needs --events.
@@ -26,7 +29,7 @@ Phone apps record .m4a; with ffmpeg on the PATH the script converts any input
 Standard library only. Example:
 
   python cut_clips.py --session latest \\
-      --recording phone-0.5m.m4a --sync --tag mic05 --rate 16000 --out clips
+      --recording S20261025-1003-mic.m4a --mic --tag mic05 --rate 16000 --out clips
 """
 
 import argparse
@@ -187,6 +190,8 @@ def main(argv=None):
     when = ap.add_mutually_exclusive_group(required=True)
     when.add_argument("--start", help="wall-clock time the recording started (ISO 8601)")
     when.add_argument("--sync", action="store_true", help="align on a Sync clap")
+    when.add_argument("--mic", action="store_true", help="the logger's mic phone made the recording: use the start it logged")
+    ap.add_argument("--mic-take", type=int, default=0, help="with --mic, which recording, counting from 1 (default: the only one)")
     ap.add_argument("--sync-mark", type=int, default=1, help="which Sync clap press, counting from 1 (default 1)")
     ap.add_argument("--sync-window", type=float, default=120.0, help="seconds at the start to search for the clap")
     ap.add_argument("--out", default="clips", help="output folder (default clips)")
@@ -218,6 +223,16 @@ def main(argv=None):
             clap_s = find_clap(wav_path, args.sync_window)
             rec_start = syncs[args.sync_mark - 1] - clap_s * 1000.0
             print(f"clap found {clap_s:.3f} s into the recording; recording started {iso(rec_start)}")
+        elif args.mic:
+            starts = [e for e in events if e.get("source") == "mic" and e.get("kind") == "rec_start"]
+            if not starts:
+                sys.exit("--mic: the session has no mic phone recording")
+            if args.mic_take == 0 and len(starts) > 1:
+                sys.exit(f"--mic: the session has {len(starts)} mic phone recordings; pick one with --mic-take: "
+                         + ", ".join(iso(float(e['mic_t_ms'])) for e in starts))
+            take = starts[(args.mic_take or 1) - 1] if 1 <= (args.mic_take or 1) <= len(starts) else sys.exit(f"--mic-take: there are {len(starts)}")
+            rec_start = float(take["mic_t_ms"])
+            print(f"mic phone recording started {iso(rec_start)}")
         else:
             rec_start = parse_time(args.start)
 
