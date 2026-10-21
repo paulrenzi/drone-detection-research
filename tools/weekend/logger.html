@@ -107,6 +107,15 @@ body.micmode .layout, body.micmode #ports { display: none !important; }
 #micView { display: grid; gap: 12px; max-width: 520px; margin: 0 auto; }
 .inline { display: flex; gap: 8px; align-items: end; }
 .inline label { flex: 1; }
+.guide h3 { font-size: 15px; margin: 14px 0 6px; }
+.guide dl { margin: 0; font-size: 14px; }
+.guide dt { font-weight: 600; margin-top: 8px; }
+.guide dd { margin: 2px 0 0; color: var(--muted); }
+.guide table.ref { width: auto; margin: 6px 0 0; font-size: 13px; }
+.guide table.ref td { padding: 2px 10px 2px 0; border: 0; white-space: normal; }
+.guide table.ref td:first-child { font: 600 13px var(--mono); color: var(--ink); }
+body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
+#guide { margin-top: 12px; }
 </style>
 </head>
 <body>
@@ -161,9 +170,9 @@ body.micmode .layout, body.micmode #ports { display: none !important; }
     <section>
       <div class="alarm" id="alarmBox"><div class="v" id="vAlarm">quiet</div><div class="k" id="vAlarmSub">Batear alarm</div></div>
       <div class="stats">
-        <div class="stat"><div class="v" id="vRssi">–</div><div class="k">RSSI dBm</div></div>
-        <div class="stat"><div class="v" id="vSnr">–</div><div class="k">SNR dB</div></div>
-        <div class="stat"><div class="v" id="vConf">–</div><div class="k">confidence</div></div>
+        <div class="stat"><div class="v" id="vRssi">–</div><div class="k">radio signal, dBm</div></div>
+        <div class="stat"><div class="v" id="vSnr">–</div><div class="k">radio clarity, dB</div></div>
+        <div class="stat"><div class="v" id="vConf">–</div><div class="k">detector sure, 0–1</div></div>
         <div class="stat"><div class="v" id="vAgo">–</div><div class="k">last packet</div></div>
       </div>
     </section>
@@ -171,8 +180,8 @@ body.micmode .layout, body.micmode #ports { display: none !important; }
     <section class="panel" id="micPanel">
       <h2>Sound at the mic</h2>
       <div class="stats" style="margin-top:0">
-        <div class="stat"><div class="v" id="vMic">–</div><div class="k" id="vMicK">mic phone, dB(A)</div></div>
-        <div class="stat"><div class="v" id="vSensor">–</div><div class="k">detector, dBFS</div></div>
+        <div class="stat"><div class="v" id="vMic">–</div><div class="k" id="vMicK">loudness at mic, dB(A)</div></div>
+        <div class="stat"><div class="v" id="vSensor">–</div><div class="k">detector hears, dBFS</div></div>
         <div class="stat"><div class="v" id="vRec">–</div><div class="k">recording</div></div>
         <div class="stat"><div class="v" id="vMicAgo">–</div><div class="k">mic phone</div></div>
       </div>
@@ -184,6 +193,7 @@ body.micmode .layout, body.micmode #ports { display: none !important; }
         <p><b>Scan this with the second phone</b> and put it beside the mic. It becomes the sound meter and the recorder, and this page runs it. Or open <a id="micLink" href="#">this link</a> on it.</p>
       </div>
       <p class="note" id="micLine"></p>
+      <p class="note hide-embed"><a href="#guide" class="toguide">What do these numbers mean?</a></p>
     </section>
 
     <section class="panel">
@@ -234,7 +244,7 @@ body.micmode .layout, body.micmode #ports { display: none !important; }
             <option value="own">Your own recording…</option>
           </select>
         </label>
-        <label>Loudness, dB(A) <input id="spLwa" type="number" inputmode="decimal" step="1"></label>
+        <label>Drone loudness, dB(A) <input id="spLwa" type="number" inputmode="decimal" step="1"></label>
         <label class="span3" id="spFileRow" hidden>Recording <input id="spFile" type="file" accept="audio/*"></label>
       </div>
       <div class="row">
@@ -259,6 +269,7 @@ body.micmode .layout, body.micmode #ports { display: none !important; }
       </div>
       <div class="runline" id="spStatus"></div>
       <p class="note" id="spSource"></p>
+      <p class="note"><a href="#guide" class="toguide">What do these numbers mean?</a></p>
     </details>
   </div>
 
@@ -310,8 +321,68 @@ body.micmode .layout, body.micmode #ports { display: none !important; }
     </div>
     <p class="note" id="mvRecLine"></p>
     <p class="note">Keep this page open with the screen on: a locked phone stops the mic. Silent mode and Do Not Disturb on, so nothing plays or rings into the recording.</p>
+    <p class="note"><a href="#guide" class="toguide">What do these numbers mean?</a></p>
   </section>
 </div>
+
+<details class="panel hide-embed guide" id="guide">
+  <summary><h2>What the numbers mean</h2></summary>
+  <h3>Sound</h3>
+  <dl>
+    <dt>dB, decibels</dt>
+    <dd>The scale for how loud something is. It counts in steps, not amounts: 10 dB more sounds about twice as loud, and 6 dB less is what you get each time you double your distance from the sound.</dd>
+    <dt>dB(A)</dt>
+    <dd>Loudness the way a sound meter reads it, weighted like your ears, which hear deep rumble and very high hiss less. This is the <i>loudness at mic</i> number. For a feel of it:
+      <table class="ref"><tbody>
+        <tr><td>30</td><td>a quiet bedroom at night</td></tr>
+        <tr><td>40</td><td>a quiet room, a library</td></tr>
+        <tr><td>50</td><td>a quiet office, light rain</td></tr>
+        <tr><td>60</td><td>talking, 1 m away</td></tr>
+        <tr><td>70</td><td>a vacuum cleaner</td></tr>
+        <tr><td>80</td><td>a busy street, kerbside</td></tr>
+      </tbody></table>
+    </dd>
+    <dt>dBFS, the raw level</dt>
+    <dd>How loud the sound is inside a microphone's own recording, where 0 is the loudest it can record. So it is always negative: about −90 is near silence and −20 is loud. Two devices give different dBFS for the same sound, so it only tells you if a sound got louder or quieter for that one device. The detector reports dBFS: <i>detector hears</i>.</dd>
+    <dt>Setting the meter</dt>
+    <dd>Turns the mic phone's raw level into dB(A). Phone mics differ by several dB, so once per phone you play a steady sound, hold a second phone running a sound meter app beside it, and type in that app's reading. Until then the logger shows the raw level in orange.</dd>
+    <dt>Background</dt>
+    <dd>The level with nothing playing: wind, birds, traffic. A drone has to rise above it to be heard, so a quiet day makes for a longer range.</dd>
+  </dl>
+  <h3>The speaker test</h3>
+  <dl>
+    <dt>Drone loudness</dt>
+    <dd>The total sound a drone gives off, from its official noise rating. The logger uses it to work out how loud that drone would be at the mic from each distance.</dd>
+    <dt>Emulated distance</dt>
+    <dd>Instead of flying a drone 200 m away, the speaker plays its recording quietly enough to sound like it at the mic. Each doubling of distance is 6 dB quieter.</dd>
+    <dt>Calibration</dt>
+    <dd>A steady sound at the speaker's full test volume. Its reading at the mic is the starting point the logger turns down from for each distance.</dd>
+    <dt>Aimed, measured, detector</dt>
+    <dd>In the tables, <i>Aimed</i> is the level the logger tried to play at the mic, <i>Measured</i> is what the mic phone heard, and <i>Detector</i> is what the detector heard, in its own raw level. If aimed and measured are far apart, that play didn't stand in for the distance it claims.</dd>
+  </dl>
+  <h3>Radio and detection</h3>
+  <dl>
+    <dt>Alarm, Batear</dt>
+    <dd>The detector's software, Batear, decides "drone" and raises an alarm, which the listener sends by radio.</dd>
+    <dt>Detector sure, 0–1</dt>
+    <dd>How sure the detector is that the sound is a drone. Only shown when the detector is plugged in by USB.</dd>
+    <dt>Gateway</dt>
+    <dd>The board that receives the listeners' radio messages and passes them to this page.</dd>
+    <dt>Packet</dt>
+    <dd>One radio message from a listener: an alarm, or a check-in once a minute that says it's alive and how loud it is there.</dd>
+    <dt>Radio signal, dBm</dt>
+    <dd>How strong the listener's radio message was when it arrived (RSSI). Closer to zero is stronger: −40 is very strong, −100 is fine, and about −120 is the limit.</dd>
+    <dt>Radio clarity, dB</dt>
+    <dd>How far the message stood above radio noise (SNR). LoRa radio still works below zero, down to about −15.</dd>
+  </dl>
+  <h3>Try it at a desk, with no boards</h3>
+  <ol class="steps">
+    <li>Open this logger on a computer with speakers. Open <i>Speaker test</i> above and pick a sound.</li>
+    <li>Scan the code in <i>Sound at the mic</i> with a phone, tap <b>Start the mic</b> on the phone and allow the microphone.</li>
+    <li>Put the phone 1–2 m from a speaker and tap <b>Play calibration</b> here. <i>Loudness at mic</i> should jump within a couple of seconds.</li>
+    <li>Tap <b>Measure at the mic</b>, then try <b>Start recording at the mic</b> and stop it. The detector numbers stay empty without a board.</li>
+  </ol>
+</details>
 </main>
 
 <script>
@@ -778,7 +849,7 @@ function renderMic() {
   const v = $("#vMic");
   v.classList.toggle("uncal", on && j.dba == null);
   v.textContent = on ? (j.dba != null ? j.dba.toFixed(1) : j.dbfs.toFixed(0)) : "–";
-  $("#vMicK").textContent = on && j.dba == null ? "mic phone, dBFS: set its meter" : "mic phone, dB(A)";
+  $("#vMicK").textContent = on && j.dba == null ? "raw level: set the phone's meter" : "loudness at mic, dB(A)";
   $("#vSensor").textContent = live.sensorDb ?? "–";
   $("#vRec").textContent = on && j.rec ? `${Math.floor(j.rec_s / 60)}:${pad(Math.floor(j.rec_s % 60))}` : on ? "off" : "–";
   $("#vMicAgo").textContent = on ? "live" : mic.at ? `${Math.round((Date.now() - mic.at) / 1000)} s ago` : "–";
@@ -1086,7 +1157,7 @@ function renderRuns() {
   const rows = [...state.runs].reverse().map((r) => { const s = summarize(r); return Object.assign({}, r, s, { start: clock(r.start_ms), heardTxt: s.heard ? "yes" : "no" }); });
   setTable("#tRuns", [["run_id", "Run"], ["start", "Start"], ["type", "Type"], ["distance_m", "Dist m"], ["altitude_m", "Alt m"], ["mic_height_m", "Mic m"], ["wind", "Wind"],
     ["duration_s", "Secs"], ["heardTxt", "Heard"], ["first_alarm_s", "1st alarm s"], ["gw_alarms", "GW alarms"], ["det_alarms", "Det alarms"],
-    ["packets", "Packets"], ["rssi_median", "RSSI med"], ["snr_median", "SNR med"], ["max_conf", "Max conf"], ["level_dba", "Aimed dB(A)"], ["mic_dba", "Mic dB(A)"], ["det_dbfs", "Det dBFS"], ["notes", "Notes"]], rows);
+    ["packets", "Packets"], ["rssi_median", "RSSI med"], ["snr_median", "SNR med"], ["max_conf", "Max conf"], ["level_dba", "Aimed dB(A)"], ["mic_dba", "Mic dB(A)"], ["det_dbfs", "Detector dBFS"], ["notes", "Notes"]], rows);
 }
 function renderRange() {
   const groups = new Map();
@@ -1185,7 +1256,7 @@ function mvTick() {
   mv.secs.push(dbfs); if (mv.secs.length > 10) mv.secs.shift();
   const dba = mv.offset != null ? Math.round((dbfs + mv.offset) * 10) / 10 : null;
   $("#mvLevel").textContent = dba != null ? dba.toFixed(1) : dbfs.toFixed(0);
-  $("#mvLevelK").textContent = dba != null ? "dB(A) here" : "dBFS(A) here, until you set the meter";
+  $("#mvLevelK").textContent = dba != null ? "dB(A) here" : "raw level here, not dB(A) until you set the meter below";
   if (mv.client && mv.client.connected) {
     mv.client.publish(`${micTopic(settings().gwId)}/state`, JSON.stringify({
       t: Date.now(), dbfs: Math.round(dbfs * 10) / 10, dba, rec: !!mv.rec,
@@ -1327,6 +1398,12 @@ else if (EMBED) {
   scriptedDemo();
 } else if (params.has("demo")) startDemo();
 else if (gwParam) connectWifi();
+else micListen(); // the mic phone works with no board connected
+document.querySelectorAll(".toguide").forEach((a) => a.onclick = (e) => {
+  e.preventDefault();
+  $("#guide").open = true;
+  $("#guide").scrollIntoView({ behavior: "smooth", block: "start" });
+});
 </script>
 </body>
 </html>
