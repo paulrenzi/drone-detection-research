@@ -24,12 +24,12 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 
 1. **Flash two Heltec boards** from the [Batear web flasher](https://docs.batear.io/flasher/): one *detector*, one *gateway*. Give the gateway your phone's hotspot ([how](#phone-setup)).
 2. **Wire a mic** to the detector ([pins]({{ site.baseurl }}{% link research/open-source-builds.md %}#the-saturday-test)).
-3. **Open the logger** on your phone and connect. Play a drone clip at the mic. You should see an alarm.
+3. **Open the logger** on your phone and connect. Pair a Bluetooth speaker, and in the logger's *Speaker test* tap **Play calibration** next to the mic. You should see an alarm.
 4. **In the field,** put the detector and a recording phone side by side, 0.5 m up, in windscreens. Clap and press **Sync clap**.
-5. **Speaker sweep.** Play the speaker files from 5 m. Log each as a *Speaker* run ([how](#speaker-test)). Skip this without a laptop and sound meter.
+5. **Speaker sweep.** Put the speaker 5 m from the mic. Calibrate it once with a sound meter, then tap **Start sequence**. The logger plays each distance and logs the runs ([how](#speaker-test)).
 6. **Fly.** Take off beside the mic. Hover 60 s at 50, 100 and 150 m. Log each as a *Hover* run.
 7. **Record 30 minutes with no drone.** Log it as *No drone*.
-8. **Walk the gateway away** until packets stop, with a phone looping the drone clip at the detector. Log each stop as a *Radio walk*.
+8. **Walk the gateway away** until packets stop, with a second phone playing the logger's calibration sound beside the detector. Log each stop as a *Radio walk*.
 9. **Export** both CSVs before you leave.
 
 **The result** is the logger's *Range so far* table: heard at 100 m passes, under 60 m fails.
@@ -63,13 +63,13 @@ The gateway only hears from the detector when it alarms, clears, or sends its 30
 </details>
 
 <details class="layer" id="weekend-downloads" markdown="block">
-<summary><span class="layer-title">Downloads</span><span class="layer-sub">Firmware, the logger, the speaker files and the clip cutter</span></summary>
+<summary><span class="layer-title">Downloads</span><span class="layer-sub">Firmware, the logger, its drone sounds and the clip cutter</span></summary>
 
 | File | What it's for | Get it |
 |---|---|---|
 | Batear firmware | Detector and gateway, unchanged. Our own firmware isn't needed until layer 3 | [Web flasher](https://docs.batear.io/flasher/) |
 | Logger | The page above, as one file that works offline over USB | <a href="{{ site.baseurl }}/tools/weekend/logger.html" download>logger.html</a> |
-| Speaker files | `make_playback.py`: turns one drone recording and one meter reading into a 60 s file per distance for the [speaker test](#speaker-test) | <a href="{{ site.baseurl }}/tools/weekend/make_playback.py" download>make_playback.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_make_playback.py" download>tests</a> |
+| Drone sounds | Built into the logger: a DJI Mini 4 Pro and a 5-inch FPV from [batear-datasets](https://github.com/batear-io/batear-datasets) (MIT) | <a href="{{ site.baseurl }}/tools/weekend/sounds/mini.mp3" download>mini.mp3</a> · <a href="{{ site.baseurl }}/tools/weekend/sounds/fpv.mp3" download>fpv.mp3</a> |
 | Clip cutter | Lines a recording up on the clap and cuts each run into labelled 1 s clips: `drone_100m`, `drone_pass`, `background`. The manifest records whether Batear was alarming during each clip: the baseline a model has to beat | <a href="{{ site.baseurl }}/tools/weekend/cut_clips.py" download>cut_clips.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_cut_clips.py" download>tests</a> |
 
 Afterwards, to make training clips from each recording (Python 3.11+, and [ffmpeg](https://ffmpeg.org/) for a phone's `.m4a`):
@@ -115,27 +115,21 @@ These are standard acoustics estimates, not measurements of our kit.
 </details>
 
 <details class="layer" markdown="block">
-<summary><span class="layer-title">Run the speaker test</span><span class="layer-sub">make_playback.py writes one file per distance, level-matched to a single meter reading</span></summary>
+<summary><span class="layer-title">Run the speaker test</span><span class="layer-sub">All in the logger: one meter reading, then it plays and logs every distance</span></summary>
 
-You need a steady recording of the drone hovering, a Bluetooth speaker 5 m from the mic, and a sound level meter. Set the meter to A-weighting, slow, and read it at the mic.
+You need a Bluetooth speaker paired with the phone and a sound meter. A free meter app on a second phone will do; set it to A-weighting.
 
-1. **Make the calibration file**, play it, and measure it. Then turn the speaker off and measure the background too. Don't touch the volume from here on.
+1. **Set up.** Phone volume all the way up, silent mode off. Speaker on a chair 5 m from the mic, facing it.
+2. **Calibrate.** In the logger's *Speaker test*, pick a sound and tap **Play calibration**. Turn the speaker's own volume until the meter at the mic reads 65–75 dB(A). Enter that reading, then the reading with the speaker off. Don't touch either volume again.
+3. **Start sequence.** The logger plays each distance for 60 s, three times over with 20 s of quiet between plays, and logs every play as a *Speaker* run. The default is 25 m to 300 m, which takes about 28 minutes.
 
-   ```bash
-   python make_playback.py --clip mini-hover.wav --out playback --cal-only
-   ```
+**What the logger does for you:**
+- **Sets each level.** It works out what the drone would sound like at the mic from each distance, and plays the sound that much quieter than the calibration. For 100 m, that's 40 dB below a 70 dB(A) calibration.
+- **Uses the known loudness.** The Mini 4 Pro uses EASA's 81 dB(A). No FPV loudness has been published, so the FPV steps by level at the mic instead.
+- **Your own recording works too.** Pick *Your own recording* and enter its loudness to step by distance.
+- **Refuses levels it can't play.** If a step would need the speaker louder than the calibration, it says so before starting. Move the speaker closer or turn it up, and calibrate again.
+- **Expects quiet levels.** Levels below the background are expected at range: that's what the test measures.
 
-2. **Write the distance files** from those two readings. `--source-lwa 81` is the Mini 4 Pro's EASA figure; for a drone you measured yourself, use your reading at 5 m, e.g. `--source-spl 56 --source-distance 5`.
-
-   ```bash
-   python make_playback.py --clip mini-hover.wav --out playback --cal-spl 66 --cal-background 38 --source-lwa 81 --distances 25,50,75,100,150,200,300
-   ```
-
-   Each file is 60 s of the clip, looped, turned down by the exact amount for its distance: 36 dB below the calibration for 100 m in this example. `playlist.csv` lists file, distance, level and gain. For a threshold sweep, use `--levels 40,38,36,34,32,30,28,26` instead: one file per level at the mic, each named with the distance it stands for.
-
-3. **Play each file** and log it in the logger as a *Speaker* run at that distance. Three runs per distance give the range table enough to call it.
-
-If a distance needs the speaker louder than the calibration, the script refuses: turn up, move closer, and measure again. Levels below the background are expected at range; that's the regime being tested.
 </details>
 
 ## The five layers to the MVP

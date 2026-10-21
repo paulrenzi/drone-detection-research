@@ -76,6 +76,10 @@ details.panel[open] > summary { margin-bottom: 10px; }
 .source b { display: block; margin-bottom: 4px; }
 .source ol { margin: 6px 0; padding-left: 18px; font-size: 13px; }
 .source code { font: 12px var(--mono); background: var(--chip); padding: 1px 4px; border-radius: 4px; word-break: break-all; }
+[hidden] { display: none !important; }
+.steps { margin: 0 0 12px; padding-left: 20px; font-size: 14px; }
+.steps li { margin-bottom: 4px; }
+.runline.err { color: var(--alarm); }
 kbd { font: 11px var(--mono); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; }
 .ribbon { display: none; background: var(--warn); color: #fff; font-size: 12px; font-weight: 600; text-align: center; padding: 4px; border-radius: 6px; margin-bottom: 8px; }
 body.demo .ribbon { display: block; }
@@ -187,6 +191,44 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
       </div>
       <div class="runline" id="runLine">No run in progress.</div>
     </section>
+
+    <details class="panel hide-embed" id="speakerPanel">
+      <summary><h2>Speaker test</h2></summary>
+      <ol class="steps">
+        <li>Pair a Bluetooth speaker with this phone. Phone volume all the way up, silent mode off. Put the speaker on a chair about 5 m from the mic, facing it.</li>
+        <li>Pick a sound, tap <b>Play calibration</b>, and set the speaker's own volume so a sound meter at the mic reads 65–75 dB(A). A free meter app on a second phone will do. Then don't touch either volume again.</li>
+        <li>Enter the meter reading, and the reading with the speaker off. Tap <b>Start sequence</b>. Each play is logged as a <i>Speaker</i> run.</li>
+      </ol>
+      <div class="fields">
+        <label class="span2">Sound
+          <select id="spSound">
+            <option value="mini">DJI Mini 4 Pro</option>
+            <option value="fpv">5-inch FPV, flying</option>
+            <option value="own">Your own recording…</option>
+          </select>
+        </label>
+        <label>Loudness, dB(A) <input id="spLwa" type="number" inputmode="decimal" step="1"></label>
+        <label class="span3" id="spFileRow" hidden>Recording <input id="spFile" type="file" accept="audio/*"></label>
+      </div>
+      <button class="grow" id="spCal" style="width:100%">Play calibration</button>
+      <div class="fields" style="margin-top:12px">
+        <label>Meter, playing <input id="spCalSpl" type="number" inputmode="decimal" step="0.5" placeholder="70"></label>
+        <label>Meter, speaker off <input id="spBg" type="number" inputmode="decimal" step="0.5" placeholder="38"></label>
+        <label>Step by
+          <select id="spMode"><option value="distance">Distance, m</option><option value="level">Level at mic, dB(A)</option></select>
+        </label>
+        <label class="span2"><span id="spListLabel">Distances, m</span> <input id="spList" type="text" inputmode="decimal" value="25, 50, 75, 100, 150, 200, 300"></label>
+        <label>Plays each <input id="spRepeat" type="number" inputmode="numeric" min="1" step="1" value="3"></label>
+        <label>Play, s <input id="spPlay" type="number" inputmode="numeric" min="5" step="5" value="60"></label>
+        <label>Gap, s <input id="spGap" type="number" inputmode="numeric" min="0" step="5" value="20"></label>
+      </div>
+      <div class="row">
+        <button class="primary grow" id="spStart">Start sequence</button>
+        <button class="stop grow" id="spStop" disabled>Stop</button>
+      </div>
+      <div class="runline" id="spStatus"></div>
+      <p class="note" id="spSource"></p>
+    </details>
   </div>
 
   <div class="col">
@@ -562,9 +604,200 @@ function scriptedDemo() {
   next();
 }
 
+// ---- speaker test: play a drone sound at the level it would reach the mic from a chosen distance ----
+// Level at the mic, free field: L(x) = LWA - 11 - 20*log10(x). Each play's gain is L(x) minus the calibration reading.
+const SOUNDS = {
+  mini: { url: "sounds/mini.mp3", name: "DJI Mini 4 Pro", lwa: 81,
+    note: "Recorded 5–13 m from a Mini 4 Pro flying low (batear-datasets, MIT). Loudness 81 dB(A) is EASA's sound power for the Mini 4 Pro." },
+  fpv: { url: "sounds/fpv.mp3", name: "5-inch FPV", lwa: null,
+    note: "A 5-inch FPV in flight (batear-datasets, MIT), distance not recorded. No FPV loudness has been published: step by level at the mic, or enter one you measured." },
+  own: { url: null, name: "own recording", lwa: null,
+    note: "Use a steady recording of the drone hovering, without wind noise. Enter its loudness to step by distance." }
+};
+const sp = { ctx: null, buf: null, key: null, cal: null, seq: null };
+
+function spCtx() {
+  if (!sp.ctx) {
+    try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {} // iPhone: play even in silent mode
+    sp.ctx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (sp.ctx.state === "suspended") sp.ctx.resume();
+  return sp.ctx;
+}
+
+// Normalise to -1 dBFS peak, trim codec padding, and crossfade the tail into the head so the buffer loops without a click.
+function makeLoop(ctx, b, fade = 0.5) {
+  const trim = Math.floor(0.05 * b.sampleRate);
+  const F = Math.min(Math.floor(fade * b.sampleRate), Math.floor((b.length - 2 * trim) / 4));
+  const n = b.length - 2 * trim - F;
+  if (n < b.sampleRate) throw new Error("the recording is too short: it needs at least 2 s");
+  let peak = 0;
+  for (let c = 0; c < b.numberOfChannels; c++) { const d = b.getChannelData(c); for (let i = 0; i < d.length; i++) peak = Math.max(peak, Math.abs(d[i])); }
+  if (!peak) throw new Error("the recording is silent");
+  const k = 10 ** (-1 / 20) / peak, out = ctx.createBuffer(1, n, b.sampleRate), dst = out.getChannelData(0);
+  for (let c = 0; c < b.numberOfChannels; c++) {
+    const src = b.getChannelData(c);
+    for (let i = 0; i < n; i++) dst[i] += src[trim + i] * k / b.numberOfChannels;
+    for (let i = 0; i < F; i++) { const g = (i / F) * Math.PI / 2; dst[i] += (src[trim + i] * (Math.sin(g) - 1) + src[trim + n + i] * Math.cos(g)) * k / b.numberOfChannels; }
+  }
+  return out;
+}
+
+async function spLoad() {
+  const key = $("#spSound").value;
+  if (sp.buf && sp.key === key) return;
+  const ctx = spCtx();
+  let data;
+  if (key === "own") {
+    const f = $("#spFile").files[0];
+    if (!f) throw new Error("Choose a recording first.");
+    data = await f.arrayBuffer();
+  } else {
+    const r = await fetch(SOUNDS[key].url);
+    if (!r.ok) throw new Error(`Couldn't load the sound (HTTP ${r.status}).`);
+    data = await r.arrayBuffer();
+  }
+  const b = await new Promise((res, rej) => ctx.decodeAudioData(data, res, (e) => rej(new Error("This browser can't decode that recording."))));
+  sp.buf = makeLoop(ctx, b); sp.key = key;
+}
+
+function spPlayNow(gainDb, seconds) {
+  const ctx = spCtx(), src = ctx.createBufferSource(), g = ctx.createGain();
+  src.buffer = sp.buf; src.loop = true; src.connect(g); g.connect(ctx.destination);
+  const t = ctx.currentTime, lin = 10 ** (gainDb / 20), r = 0.5;
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(lin, t + r);
+  src.start(t);
+  if (seconds) { g.gain.setValueAtTime(lin, t + seconds - r); g.gain.linearRampToValueAtTime(0, t + seconds); src.stop(t + seconds + 0.05); }
+  return {
+    stop() {
+      const now = ctx.currentTime;
+      g.gain.cancelScheduledValues(now); g.gain.setValueAtTime(g.gain.value, now); g.gain.linearRampToValueAtTime(0, now + 0.1);
+      try { src.stop(now + 0.15); } catch (e) {}
+    }
+  };
+}
+
+function spPlan() {
+  const calSpl = num($("#spCalSpl").value), bg = num($("#spBg").value), lwa = num($("#spLwa").value);
+  const mode = $("#spMode").value, repeat = Math.max(1, Math.round(num($("#spRepeat").value) || 1));
+  const play = Math.max(5, num($("#spPlay").value) || 60), gap = Math.max(0, num($("#spGap").value) ?? 20);
+  const list = $("#spList").value.split(/[,\s]+/).map(num).filter((v) => v != null);
+  if (calSpl == null) throw new Error("Play calibration, then enter the meter reading at the mic.");
+  let cal = calSpl, warn = "";
+  if (bg != null) {
+    const diff = calSpl - bg;
+    if (diff < 3) throw new Error(`Calibration is only ${diff.toFixed(1)} dB above the background. Turn the speaker up and measure again.`);
+    if (diff < 10) warn = ` Calibration is only ${diff.toFixed(1)} dB above the background, so it's less certain.`;
+    cal = 10 * Math.log10(10 ** (calSpl / 10) - 10 ** (bg / 10));
+  }
+  if (!list.length) throw new Error(mode === "distance" ? "Enter at least one distance." : "Enter at least one level.");
+  if (mode === "distance" && lwa == null) throw new Error("This sound has no known loudness. Step by level at the mic, or enter a loudness.");
+  const steps = list.map((v) => {
+    if (mode === "distance") { if (v <= 0) throw new Error("Distances must be above zero."); return { dist: v, level: lwa - 11 - 20 * Math.log10(v) }; }
+    return { dist: lwa != null ? 10 ** ((lwa - 11 - v) / 20) : null, level: v };
+  }).sort((a, b) => b.level - a.level);
+  const loud = steps.find((s) => s.level > cal);
+  if (loud) throw new Error(`${loud.dist != null ? Math.round(loud.dist) + " m" : loud.level + " dB(A)"} needs ${(loud.level - cal).toFixed(1)} dB more than the calibration. Move the speaker closer or turn it up, then measure again.`);
+  const items = [];
+  for (let r = 0; r < repeat; r++) for (const s of steps) items.push(Object.assign({ gain: s.level - cal }, s));
+  return { cal, items, play, gap, warn, quiet: bg != null ? steps.filter((s) => s.level < bg).length : 0 };
+}
+
+async function spToggleCal() {
+  if (sp.cal) { sp.cal.stop(); sp.cal = null; renderSp(); return; }
+  try { await spLoad(); } catch (e) { spError(e.message); return; }
+  sp.cal = spPlayNow(0, 0);
+  keepAwake(); renderSp();
+}
+
+async function spStart() {
+  if (current) { spError("Stop the current run first."); return; }
+  let plan;
+  try { await spLoad(); plan = spPlan(); } catch (e) { spError(e.message); return; }
+  if (sp.cal) { sp.cal.stop(); sp.cal = null; }
+  sp.seq = { i: 0, plan, timer: null, handle: null, phase: "", until: 0 };
+  keepAwake(); spStep();
+}
+
+function spStep() {
+  const s = sp.seq;
+  if (!s) return;
+  if (s.i >= s.plan.items.length) { spFinish(); return; }
+  const it = s.plan.items[s.i], r1 = (v) => Math.round(v * 10) / 10;
+  $("#fType").value = "speaker";
+  $("#fDist").value = it.dist != null ? r1(it.dist) : "";
+  $("#fDrone").value = `speaker: ${SOUNDS[sp.key].name}`;
+  $("#fNotes").value = `${it.level.toFixed(1)} dB(A) at the mic, gain ${it.gain.toFixed(1)} dB`;
+  startRun();
+  Object.assign(current, { level_dba: r1(it.level), gain_db: r1(it.gain), cal_dba: r1(s.plan.cal) });
+  s.handle = spPlayNow(it.gain, s.plan.play);
+  s.phase = "play"; s.until = Date.now() + s.plan.play * 1000;
+  s.timer = setTimeout(() => {
+    stopRun();
+    s.i++; s.phase = "gap"; s.until = Date.now() + s.plan.gap * 1000;
+    s.timer = setTimeout(spStep, s.plan.gap * 1000);
+    renderSp();
+  }, s.plan.play * 1000);
+  renderSp();
+}
+
+function spFinish() {
+  const s = sp.seq;
+  if (!s) return;
+  clearTimeout(s.timer);
+  if (s.handle) s.handle.stop();
+  if (current) stopRun();
+  sp.seq = null;
+  renderControls();
+}
+
+function spError(msg) { const el = $("#spStatus"); el.textContent = msg; el.classList.add("err"); }
+
+function renderSp() {
+  const el = $("#spStatus"), s = sp.seq;
+  $("#spStart").disabled = !!s; $("#spStop").disabled = !s; $("#spCal").disabled = !!s;
+  $("#spCal").textContent = sp.cal ? "Stop calibration" : "Play calibration";
+  $("#spCal").classList.toggle("primary", !!sp.cal);
+  el.classList.remove("err");
+  if (s) {
+    const it = s.plan.items[Math.min(s.i, s.plan.items.length - 1)], left = Math.max(0, Math.round((s.until - Date.now()) / 1000));
+    const what = `${it.dist != null ? Math.round(it.dist) + " m, " : ""}${it.level.toFixed(1)} dB(A) at the mic`;
+    el.innerHTML = s.phase === "play"
+      ? `<b>Playing ${s.i + 1} of ${s.plan.items.length}</b> · ${what} · ${left} s left`
+      : `Quiet before play ${s.i + 1} of ${s.plan.items.length} · ${left} s`;
+    return;
+  }
+  if (sp.cal) { el.textContent = "Calibration playing. Read the meter at the mic, then stop it."; return; }
+  try {
+    const p = spPlan(), mins = Math.ceil(p.items.length * (p.play + p.gap) / 60);
+    el.textContent = `${p.items.length} plays, about ${mins} min. Calibration ${p.cal.toFixed(1)} dB(A) at the mic.${p.quiet ? ` ${p.quiet} level(s) are quieter than the background: expected at range.` : ""}${p.warn}`;
+  } catch (e) { el.textContent = e.message; }
+}
+
+function spSoundChanged() {
+  const key = $("#spSound").value;
+  if (sp.cal) { sp.cal.stop(); sp.cal = null; }
+  sp.buf = null;
+  $("#spFileRow").hidden = key !== "own";
+  $("#spLwa").value = SOUNDS[key].lwa ?? "";
+  $("#spLwa").placeholder = SOUNDS[key].lwa == null ? "unknown" : "";
+  $("#spCalSpl").value = "";
+  $("#spMode").value = SOUNDS[key].lwa == null ? "level" : "distance";
+  spModeChanged();
+  $("#spSource").textContent = SOUNDS[key].note;
+}
+function spModeChanged() {
+  const level = $("#spMode").value === "level";
+  $("#spListLabel").textContent = level ? "Levels at the mic, dB(A)" : "Distances, m";
+  if (level && /^25, 50/.test($("#spList").value)) $("#spList").value = "44, 40, 36, 33, 30, 27, 24, 21";
+  if (!level && /^44, 40/.test($("#spList").value)) $("#spList").value = "25, 50, 75, 100, 150, 200, 300";
+  renderSp();
+}
+
 // ---- export ----
 const RUN_COLS = ["session", "run_id", "type", "distance_m", "altitude_m", "mic_height_m", "wind", "drone", "notes", "start_iso", "end_iso", "start_ms", "end_ms",
-  "duration_s", "heard", "first_alarm_s", "gw_alarms", "det_alarms", "gw_alarm_s", "det_alarm_s", "packets", "bad_packets", "rssi_median", "rssi_min", "snr_median", "max_conf"];
+  "duration_s", "heard", "first_alarm_s", "gw_alarms", "det_alarms", "gw_alarm_s", "det_alarm_s", "packets", "bad_packets", "rssi_median", "rssi_min", "snr_median", "max_conf",
+  "level_dba", "gain_db", "cal_dba"];
 const EV_COLS = ["session", "run_id", "t_iso", "t_ms", "port", "source", "kind", "dev", "seq", "rms_db", "f0bin", "f0_hz", "conf", "rssi", "snr", "vbat_mv", "demo", "raw"];
 function csvCell(v) { if (v == null) return ""; const s = String(v); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; }
 function toCsv(cols, rows) { return [cols.join(","), ...rows.map((r) => cols.map((c) => csvCell(r[c])).join(","))].join("\n") + "\n"; }
@@ -578,9 +811,10 @@ const fileBase = () => state.session || "weekend";
 
 // ---- rendering ----
 function renderControls() {
-  $("#bStart").disabled = !!current; $("#bStop").disabled = !current;
-  for (const id of ["#fType", "#fDist", "#fAlt", "#fMic", "#fWind", "#fDrone", "#fNotes"]) $(id).disabled = !!current;
-  renderLive();
+  $("#bStart").disabled = !!current || !!sp.seq; $("#bStop").disabled = !current && !sp.seq;
+  $("#bStop").textContent = sp.seq ? "Stop sequence" : "Stop run";
+  for (const id of ["#fType", "#fDist", "#fAlt", "#fMic", "#fWind", "#fDrone", "#fNotes"]) $(id).disabled = !!current || !!sp.seq;
+  renderLive(); renderSp();
 }
 function renderPorts() {
   const el = $("#ports");
@@ -623,26 +857,30 @@ function renderRange() {
   const groups = new Map();
   for (const r of state.runs) {
     if (r.end_ms == null || !["hover", "pass", "speaker", "radio"].includes(r.type)) continue;
-    const key = `${r.type}|${r.distance_m}|${r.type === "radio" ? "" : r.mic_height_m}`;
-    if (!groups.has(key)) groups.set(key, { type: r.type, distance_m: r.distance_m, mic_height_m: r.type === "radio" ? "" : r.mic_height_m, runs: 0, heard: 0, firsts: [], pk: 0, rssi: [], snr: [] });
+    const level = r.type === "speaker" ? r.level_dba ?? null : null;
+    const key = `${r.type}|${r.distance_m}|${r.type === "radio" ? "" : r.mic_height_m}|${level}`;
+    if (!groups.has(key)) groups.set(key, { type: r.type, distance_m: r.distance_m, level, mic_height_m: r.type === "radio" ? "" : r.mic_height_m, runs: 0, heard: 0, firsts: [], pk: 0, rssi: [], snr: [] });
     const g = groups.get(key), s = summarize(r);
     g.runs++; g.heard += s.heard; if (s.first_alarm_s != null) g.firsts.push(s.first_alarm_s);
     g.pk += s.packets; if (s.rssi_median != null) g.rssi.push(s.rssi_median); if (s.snr_median != null) g.snr.push(s.snr_median);
   }
   const all = [...groups.values()];
-  const rows = all.sort((a, b) => a.type.localeCompare(b.type) || (a.distance_m ?? 0) - (b.distance_m ?? 0)).map((g) => ({
-    type: g.type, distance_m: g.distance_m, mic_height_m: g.mic_height_m,
+  const rows = all.sort((a, b) => a.type.localeCompare(b.type) || (a.distance_m ?? 0) - (b.distance_m ?? 0) || (b.level ?? 0) - (a.level ?? 0)).map((g) => ({
+    type: g.type, distance_m: g.distance_m, level: g.level, mic_height_m: g.mic_height_m,
     heardTxt: g.type === "radio" ? "" : `${g.heard} of ${g.runs}`, first: median(g.firsts), packets: g.pk, rssi: median(g.rssi)
   }));
-  setTable("#tRange", [["type", "Type"], ["distance_m", "Dist m"], ["mic_height_m", "Mic m"], ["heardTxt", "Heard"], ["first", "1st alarm s"], ["packets", "Packets"], ["rssi", "RSSI"]], rows);
-  const solidOut = (gs) => gs.filter((g) => g.runs >= 3 && g.heard / g.runs >= 0.9).map((g) => g.distance_m ?? 0);
+  setTable("#tRange", [["type", "Type"], ["distance_m", "Dist m"], ["level", "dB(A)"], ["mic_height_m", "Mic m"], ["heardTxt", "Heard"], ["first", "1st alarm s"], ["packets", "Packets"], ["rssi", "RSSI"]], rows);
+  const solidGroups = (gs) => gs.filter((g) => g.runs >= 3 && g.heard / g.runs >= 0.9);
+  const solidOut = (gs) => solidGroups(gs).map((g) => g.distance_m ?? 0);
   const acoustic = all.filter((g) => g.type === "hover" || g.type === "pass");
-  const speaker = all.filter((g) => g.type === "speaker");
-  const solid = solidOut(acoustic), solidSpk = solidOut(speaker);
+  const speaker = all.filter((g) => g.type === "speaker" && g.distance_m != null);
+  const speakerLvl = all.filter((g) => g.type === "speaker" && g.distance_m == null);
+  const solid = solidOut(acoustic), solidSpk = solidOut(speaker), solidLvl = solidGroups(speakerLvl).map((g) => g.level);
   const radio = all.filter((g) => g.type === "radio" && g.pk > 0).map((g) => g.distance_m ?? 0);
   const parts = [];
   if (acoustic.length) parts.push(solid.length ? `Heard in 90% of runs out to <b>${Math.max(...solid)} m</b> (3 or more runs each). Pass: 100 m with a consumer drone, 150 m with an FPV.` : "No distance yet has 3 or more runs with 90% heard.");
   if (speaker.length) parts.push(solidSpk.length ? `Speaker: heard in 90% of runs out to <b>${Math.max(...solidSpk)} m</b> emulated. Confirm with a real flight before counting it.` : "Speaker: no emulated distance yet has 3 or more runs with 90% heard.");
+  if (speakerLvl.length) parts.push(solidLvl.length ? `Speaker: heard in 90% of runs down to <b>${Math.min(...solidLvl)} dB(A)</b> at the mic.` : "Speaker: no level yet has 3 or more runs with 90% heard.");
   if (radio.length) parts.push(`Radio: packets received out to <b>${Math.max(...radio)} m</b>.`);
   $("#verdict").innerHTML = parts.join(" ") || "Finish a hover, pass, speaker or radio-walk run to fill this table.";
 }
@@ -667,7 +905,14 @@ $("#bConnect").onclick = connectUsb;
 $("#bWifi").onclick = connectWifi;
 $("#bDemo").onclick = () => (demoTimer ? stopDemo() : startDemo());
 $("#bStart").onclick = startRun;
-$("#bStop").onclick = stopRun;
+$("#bStop").onclick = () => (sp.seq ? spFinish() : stopRun());
+$("#spSound").onchange = spSoundChanged;
+$("#spFile").onchange = () => { sp.buf = null; $("#spCalSpl").value = ""; renderSp(); };
+$("#spMode").onchange = spModeChanged;
+for (const id of ["#spLwa", "#spCalSpl", "#spBg", "#spList", "#spRepeat", "#spPlay", "#spGap"]) $(id).oninput = renderSp;
+$("#spCal").onclick = spToggleCal;
+$("#spStart").onclick = spStart;
+$("#spStop").onclick = spFinish;
 $("#bSync").onclick = () => mark("sync");
 $("#bMark").onclick = () => mark("mark");
 $("#bRuns").onclick = () => download(`${fileBase()}_runs.csv`, toCsv(RUN_COLS, state.runs.map((r) => Object.assign({}, r, summarize(r)))));
@@ -684,8 +929,9 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "s" || e.key === "S") mark("sync");
   if (e.key === "m" || e.key === "M") mark("mark");
 });
-setInterval(renderLive, 1000);
+setInterval(() => { renderLive(); if (sp.seq) renderSp(); }, 1000);
 renderGwId();
+spSoundChanged();
 renderAll();
 if (EMBED) {
   document.body.classList.add("embed");
