@@ -39,7 +39,8 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 <summary><span class="layer-title">Where everything goes</span><span class="layer-sub">No house WiFi needed: the gateway joins the logger phone's hotspot</span></summary>
 
 ```
-detector + mic, 0.5 m up   ── second phone beside it, recording
+mic + detector, 0.5 m up
+        second phone beside it, recording
         │
         │  5 m, measured with a tape
         │
