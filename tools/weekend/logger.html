@@ -187,9 +187,16 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
         <div class="stat"><div class="v" id="vRec">–</div><div class="k">recording</div></div>
         <div class="stat"><div class="v" id="vMicAgo">–</div><div class="k" id="vMicAgoK">mic</div></div>
       </div>
+      <details class="hide-embed" id="micJoinBox" style="margin-top:8px" open>
+        <summary>Set up the mic phone</summary>
+        <div class="micjoin" id="micJoin">
+          <div id="micQr"></div>
+          <p>The test uses two phones. <b>The mic phone</b> stays beside the mic: it measures and records the sound there and plays the speaker. <b>This phone</b> is the logger and the hotspot, and goes wherever the gateway goes. <b>Scan this with the mic phone</b>, or open <a id="micLink" href="#">this link</a> on it.</p>
+        </div>
+      </details>
       <div class="hide-embed" id="localMic" style="margin-top:8px">
-        <button class="primary" id="bLocalMic" style="width:100%">Start this phone's mic</button>
-        <p class="note">Put this phone beside the mic, at the same height. It measures and records the sound there, and plays to the speaker by Bluetooth.</p>
+        <button id="bLocalMic" style="width:100%">Only one phone: use this phone's mic</button>
+        <p class="note">Then this phone has to stay at the mic and play the speaker, and the gateway has to stay within 30 ft of it, so you can't take the gateway away while the speaker plays.</p>
         <div class="inline" id="lmMeter" style="margin-top:10px" hidden>
           <label>Set this phone's meter, dB(A) <input id="lmRef" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
           <button id="lmSet">Set</button>
@@ -201,13 +208,6 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
         <button class="grow" id="lmSave" disabled hidden>Save recording</button>
       </div>
       <p class="note" id="micLine"></p>
-      <details class="hide-embed" id="micJoinBox" style="margin-top:8px">
-        <summary>Or use a second phone as the mic</summary>
-        <div class="micjoin" id="micJoin">
-          <div id="micQr"></div>
-          <p>Only if this phone's speaker test sounds thin, like a phone call, once its mic is on. <b>Scan this with the second phone</b> and put it beside the mic instead. Or open <a id="micLink" href="#">this link</a> on it.</p>
-        </div>
-      </details>
       <p class="note hide-embed"><a href="#guide" class="toguide">What do these numbers mean?</a></p>
     </section>
 
@@ -244,20 +244,20 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
     </section>
 
     <details class="panel hide-embed" id="watchBox">
-      <summary><h2>Watch from a second phone</h2></summary>
+      <summary><h2>Let someone else watch</h2></summary>
       <div class="micjoin">
         <div id="watchQr"></div>
-        <p>Leave this phone by the mic and <b>scan this with the phone you carry</b>, or open <a id="watchLink" href="#">this link</a> on it. It shows the alarm, the sound at the mic, the sequence and the range table as they happen, from as far away as you like. Both phones need mobile data or WiFi. It only watches: start and stop everything on this phone.</p>
+        <p>Anyone can follow the test from another phone or a computer, from anywhere: <b>scan this</b>, or open <a id="watchLink" href="#">this link</a> there. It shows the alarm, the sound at the mic, the sequence and the range table as they happen. It only watches: start and stop everything on this phone.</p>
       </div>
     </details>
 
     <details class="panel hide-embed" id="speakerPanel">
       <summary><h2>Speaker test</h2></summary>
       <ol class="steps">
-        <li>Pair a Bluetooth speaker with this phone. Silent mode off, Do Not Disturb on, Auto-Lock off. Put the speaker on a chair 16 ft from the mic, facing it, with the gateway beside it. Keep this phone beside the mic, with its mic on (<i>Sound at the mic</i>).</li>
-        <li>Pick a sound, tap <b>Play calibration</b>, and use the volume buttons until <i>Sound at the mic</i> reads 60–65 dB(A). Then don't touch the volume again.</li>
-        <li>Tap <b>Measure at the mic</b>. The phone reads 10 s with the speaker off, then 10 s of calibration, and fills both readings in. Or type them from any sound meter.</li>
-        <li>Tap <b>Start sequence</b> and walk 65 ft behind the speaker. You have 60 s before the first play. The phone then starts recording, plays each distance once (each is logged as a <i>Speaker</i> run), records the background as a <i>No drone</i> run and stops the recording, about 10 minutes in all. To see it happen from there, scan <i>Watch from a second phone</i> first.</li>
+        <li>Pair the Bluetooth speaker with the mic phone, and put the speaker on a chair 16 ft from the mic, facing it. The mic phone plays it: this phone only gives the orders, so it can be anywhere with a signal.</li>
+        <li>Pick a sound, tap <b>Play calibration</b>, and use the volume buttons on the mic phone or the speaker until <i>Sound at the mic</i> reads 60–65 dB(A). Then don't touch the volume again.</li>
+        <li>Tap <b>Measure at the mic</b>. The mic phone reads 10 s with the speaker off, then 10 s of calibration, and both readings fill in. Or type them from any sound meter.</li>
+        <li>Tap <b>Start sequence</b> and walk away with this phone and the gateway. You have 60 s before the first play. The mic phone then starts recording, plays each distance once (each is logged here as a <i>Speaker</i> run), records the background as a <i>No drone</i> run and stops the recording, about 10 minutes in all. It carries on by itself if this phone loses signal.</li>
       </ol>
       <div class="fields">
         <label class="span2">Sound
@@ -332,7 +332,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
   <div class="alarm"><div class="v" id="mvLevel">–</div><div class="k" id="mvLevelK">dB(A) here</div></div>
   <section class="panel">
     <h2>Mic phone</h2>
-    <p id="mvStatus" style="margin-top:0">Put this phone beside the mic, at the same height, in a windscreen. Tap <b>Start the mic</b> and allow the microphone. The logger then reads this phone and starts and stops its recording.</p>
+    <p id="mvStatus" style="margin-top:0">Put this phone beside the mic, at the same height. Tap <b>Start the mic</b> and allow the microphone. The logger phone then reads this phone, and starts and stops its recording and the speaker.</p>
     <button class="primary" id="mvStart" style="width:100%">Start the mic</button>
     <div class="inline" style="margin-top:12px">
       <label>Set this phone's meter: a meter app beside it reads, dB(A) <input id="mvRef" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
@@ -344,7 +344,13 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
       <button class="grow" id="mvSave" disabled>Save recording</button>
     </div>
     <p class="note" id="mvRecLine"></p>
-    <p class="note">Keep this page open with the screen on: a locked phone stops the mic. Silent mode and Do Not Disturb on, so nothing plays or rings into the recording.</p>
+  </section>
+  <section class="panel">
+    <h2>Speaker</h2>
+    <div class="runline" id="mvSpLine"></div>
+    <p class="note">Pair the Bluetooth speaker with this phone, not the logger phone. Silent mode off. The logger phone tells this phone what to play and when.</p>
+    <label style="margin-top:8px">Your own recording, only if the logger is set to it <input id="mvFile" type="file" accept="audio/*"></label>
+    <p class="note">Keep this page open with the screen on: a locked phone stops the mic and the speaker. Do Not Disturb on, so nothing rings into the recording.</p>
     <p class="note"><a href="#guide" class="toguide">What do these numbers mean?</a></p>
   </section>
 </div>
@@ -424,7 +430,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
   <ol class="steps">
     <li>Open this logger on a computer with speakers. Open <i>Speaker test</i> above and pick a sound.</li>
     <li>Scan the code in <i>Sound at the mic</i> with a phone, tap <b>Start the mic</b> on the phone and allow the microphone.</li>
-    <li>Put the phone 3–6 ft from a speaker and tap <b>Play calibration</b> here. <i>Loudness at mic</i> should jump within a couple of seconds.</li>
+    <li>Tap <b>Play calibration</b> here. The phone plays it, from its own speaker or one paired to it, and <i>Loudness at mic</i> should jump within a couple of seconds.</li>
     <li>Tap <b>Measure at the mic</b>, then try <b>Start recording at the mic</b> and stop it. The detector numbers stay empty without a board.</li>
   </ol>
 </details>
@@ -1035,13 +1041,24 @@ function makeLoop(ctx, b, fade = 0.5) {
   return out;
 }
 
+// With a mic phone online, it plays the speaker and this phone only sends orders, so this phone can go with the gateway.
+const spRemote = () => !MIC_MODE && micOnline() && !mv.local;
+function spRemoteCal() {
+  micSend({ cmd: "cal", sound: sp.key });
+  return { stop() { micSend({ cmd: "sp_stop" }); } };
+}
+
 async function spLoad() {
   const key = $("#spSound").value;
+  if (spRemote()) {
+    if (key === "own" && !mic.last.own) throw new Error("Choose the recording on the mic phone, under Your own recording.");
+    sp.key = key; return;
+  }
   if (sp.buf && sp.key === key) return;
   const ctx = spCtx();
   let data;
   if (key === "own") {
-    const f = $("#spFile").files[0];
+    const f = $(MIC_MODE ? "#mvFile" : "#spFile").files[0];
     if (!f) throw new Error("Choose a recording first.");
     data = await f.arrayBuffer();
   } else {
@@ -1101,7 +1118,7 @@ async function spToggleCal() {
   if (sp.measuring) return;
   if (sp.cal) { sp.cal.stop(); sp.cal = null; renderSp(); return; }
   try { await spLoad(); } catch (e) { spError(e.message); return; }
-  sp.cal = spPlayNow(0, 0);
+  sp.cal = spRemote() ? spRemoteCal() : spPlayNow(0, 0);
   keepAwake(); renderSp();
 }
 
@@ -1111,15 +1128,15 @@ async function spMeasure() {
   if (!micOnline()) { spError("The mic isn't on. Tap Start this phone's mic under Sound at the mic, or type the readings from a sound meter."); return; }
   if (!micCal()) { spError("The phone's meter isn't set yet. Set it under Sound at the mic (or on the mic phone, if you use one)."); return; }
   try { await spLoad(); } catch (e) { spError(e.message); return; }
-  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms)), remote = spRemote();
   keepAwake();
   try {
     if (sp.cal) { sp.cal.stop(); sp.cal = null; }
     sp.measuring = "bg"; renderSp();
-    await wait(1500);
+    await wait(remote ? 2500 : 1500);
     const bg = await micAverage(10);
-    sp.measuring = "cal"; sp.cal = spPlayNow(0, 0); renderSp();
-    await wait(2000);
+    sp.measuring = "cal"; sp.cal = remote ? spRemoteCal() : spPlayNow(0, 0); renderSp();
+    await wait(remote ? 3500 : 2000);
     const cal = await micAverage(10);
     $("#spBg").value = bg.toFixed(1); $("#spCalSpl").value = cal.toFixed(1);
     addEvent({ source: "mic", kind: "measured", port: "mic", dba: Math.round(cal * 10) / 10, bg_dba: Math.round(bg * 10) / 10, sound: sp.key });
@@ -1136,9 +1153,15 @@ async function spStart() {
   let plan;
   try { await spLoad(); plan = spPlan(); } catch (e) { spError(e.message); return; }
   if (sp.cal) { sp.cal.stop(); sp.cal = null; }
-  sp.seq = { i: 0, plan, timer: null, handle: null, phase: "", until: 0, rec: false };
+  sp.seq = { i: 0, plan, timer: null, handle: null, phase: "", until: 0, rec: false, remote: spRemote(), sent: Date.now() };
   keepAwake();
-  const go = () => { if (micOnline() && !mic.last.rec) sp.seq.rec = micRec(true); spStep(); };
+  // The mic phone gets the whole plan at once and runs it on its own clock, recording included, so it carries on if this phone loses signal.
+  if (sp.seq.remote) {
+    ensureSession(Date.now());
+    micSend({ cmd: "seq", session: state.session, sound: sp.key, delay_ms: plan.wait * 1000, play: plan.play, gap: plan.gap, bg_min: plan.bgMin,
+      items: plan.items.map((it) => ({ gain: Math.round(it.gain * 10) / 10, dist: it.dist != null ? Math.round(it.dist) : null, level: Math.round(it.level * 10) / 10 })) });
+  }
+  const go = () => { if (!sp.seq.remote && micOnline() && !mic.last.rec) sp.seq.rec = micRec(true); spStep(); };
   if (!plan.wait) { go(); return; }
   sp.seq.phase = "wait"; sp.seq.until = Date.now() + plan.wait * 1000;
   sp.seq.timer = setTimeout(go, plan.wait * 1000);
@@ -1164,7 +1187,7 @@ function spStep() {
   $("#fNotes").value = `${it.level.toFixed(1)} dB(A) at the mic, gain ${it.gain.toFixed(1)} dB`;
   startRun();
   Object.assign(current, { level_dba: r1(it.level), gain_db: r1(it.gain), cal_dba: r1(s.plan.cal) });
-  s.handle = spPlayNow(it.gain, s.plan.play);
+  s.handle = s.remote ? null : spPlayNow(it.gain, s.plan.play);
   s.phase = "play"; s.until = Date.now() + s.plan.play * 1000;
   s.timer = setTimeout(() => {
     stopRun();
@@ -1180,6 +1203,7 @@ function spFinish() {
   if (!s) return;
   clearTimeout(s.timer);
   if (s.handle) s.handle.stop();
+  if (s.remote) micSend({ cmd: "sp_stop" });
   if (current) stopRun();
   if (s.rec) micRec(false);
   sp.seq = null;
@@ -1197,16 +1221,21 @@ function renderSp() {
   if (s) {
     const it = s.plan.items[Math.min(s.i, s.plan.items.length - 1)], left = Math.max(0, Math.round((s.until - Date.now()) / 1000));
     const what = `${it.dist != null ? Math.round(it.dist) + " ft, " : ""}${it.level.toFixed(1)} dB(A) at the mic`;
-    el.innerHTML = s.phase === "wait"
+    const far = !s.remote ? ""
+      : !micOnline() ? " · <b>no word from the mic phone</b>; it carries on by itself"
+      : !mic.last.sp && Date.now() - s.sent > 6000 ? " · <b>the mic phone isn't running the sequence</b>: check it" : "";
+    el.innerHTML = (s.phase === "wait"
       ? `<b>Walk away now</b> · first play in ${left} s`
       : s.phase === "play"
       ? `<b>Playing ${s.i + 1} of ${s.plan.items.length}</b> · ${what} · ${left} s left`
       : s.phase === "bg"
         ? `<b>Recording background</b>, speaker off · stay quiet · ${Math.ceil(left / 60)} min left`
-        : `Quiet before play ${s.i + 1} of ${s.plan.items.length} · ${left} s`;
+        : s.i >= s.plan.items.length ? `Last play done · ${left} s`
+        : `Quiet before play ${s.i + 1} of ${s.plan.items.length} · ${left} s`) + far;
     return;
   }
   if (sp.measuring) { el.innerHTML = sp.measuring === "bg" ? "<b>Measuring the background</b>, speaker off · stay quiet · 10 s" : "<b>Measuring the calibration</b> at the mic · 10 s"; return; }
+  if (sp.cal && spRemote() && !mic.last.cal) { el.textContent = "Asking the mic phone to play the calibration…"; return; }
   if (sp.cal) { el.textContent = micCal() ? `Calibration playing: ${mic.last.dba.toFixed(1)} dB(A) at the mic. Aim for 60–65, then stop it or tap Measure at the mic.` : "Calibration playing. Read the meter at the mic, then stop it."; return; }
   try {
     const p = spPlan(), mins = Math.ceil((p.wait + p.items.length * (p.play + p.gap)) / 60 + p.bgMin);
@@ -1361,6 +1390,7 @@ function aWeighting(ctx) {
 }
 
 async function mvStart() {
+  if (MIC_MODE) spCtx(); // unlock playback with this tap, so the logger can start the speaker later
   try {
     mv.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 } });
   } catch (e) { $(mv.local ? "#lmCalLine" : "#mvStatus").textContent = `The microphone isn't available (${e.message}). Allow it for this page and try again.`; $("#lmCalLine").hidden = !mv.local; return; }
@@ -1373,7 +1403,7 @@ async function mvStart() {
   setInterval(mvSample, 40); setInterval(mvTick, 1000);
   $("#mvStart").hidden = true; $("#mvSet").disabled = false;
   keepAwake();
-  if (!mv.local) mvConnect();
+  if (!mv.local) { mvConnect(); mvUseSound("mini").catch(() => {}); }
   renderMv();
 }
 
@@ -1402,7 +1432,8 @@ function mvTick() {
   $("#mvLevelK").textContent = dba != null ? "dB(A) here" : "raw level here, not dB(A) until you set the meter below";
   const st = JSON.stringify({
     t: Date.now(), dbfs: Math.round(dbfs * 10) / 10, dba, rec: !!mv.rec,
-    rec_start: mv.rec ? mv.recStart : null, rec_s: mv.rec ? (Date.now() - mv.recStart) / 1000 : 0, file: mv.rec ? mv.name : mv.file ? mv.file.name : null
+    rec_start: mv.rec ? mv.recStart : null, rec_s: mv.rec ? (Date.now() - mv.recStart) / 1000 : 0, file: mv.rec ? mv.name : mv.file ? mv.file.name : null,
+    cal: !!mvs.cal, sp: mvs.seq ? { phase: mvs.seq.phase, i: mvs.seq.i } : null, own: MIC_MODE && $("#mvFile").files[0] ? $("#mvFile").files[0].name : null
   });
   if (mv.local) handleMic(st);
   else if (mv.client && mv.client.connected) mv.client.publish(`${micTopic(settings().gwId)}/state`, st);
@@ -1420,7 +1451,48 @@ async function mvConnect() {
     try { j = JSON.parse(new TextDecoder().decode(payload)); } catch (e) { return; }
     if (j.cmd === "rec_start") mvRecStart(j.session);
     if (j.cmd === "rec_stop") mvRecStop();
+    if (j.cmd === "cal") mvCal(j.sound);
+    if (j.cmd === "seq") mvSeq(j);
+    if (j.cmd === "sp_stop") mvSpStop();
   });
+}
+
+// The speaker, played from this phone on the logger's orders. A sequence runs on this phone's own clock once it arrives.
+const mvs = { cal: null, seq: null, err: "" };
+async function mvUseSound(key) {
+  if (!SOUNDS[key]) throw new Error("The logger asked for a sound this page doesn't know. Reload both pages.");
+  $("#spSound").value = key;
+  await spLoad();
+}
+function mvSpStop() {
+  if (mvs.cal) { mvs.cal.stop(); mvs.cal = null; }
+  const q = mvs.seq;
+  if (q) { q.timers.forEach(clearTimeout); if (q.handle) q.handle.stop(); if (q.rec) mvRecStop(); mvs.seq = null; }
+  renderMv();
+}
+async function mvCal(key) {
+  mvSpStop();
+  try { await mvUseSound(key); } catch (e) { mvs.err = e.message; renderMv(); return; }
+  mvs.err = ""; mvs.cal = spPlayNow(0, 0); renderMv();
+}
+async function mvSeq(j) {
+  mvSpStop();
+  const t0 = Date.now() + Math.max(0, Math.min(600000, num(j.delay_ms) || 0));
+  const play = Math.max(5, Math.min(600, num(j.play) || 30)), gap = Math.max(0, Math.min(600, num(j.gap) || 0)), bgMin = Math.max(0, Math.min(60, num(j.bg_min) || 0));
+  const items = (Array.isArray(j.items) ? j.items : []).slice(0, 100).map((it) => ({ gain: Math.min(0, num(it.gain) ?? -60), dist: num(it.dist), level: num(it.level) }));
+  try { await mvUseSound(j.sound); } catch (e) { mvs.err = e.message; renderMv(); return; }
+  mvs.err = "";
+  const q = mvs.seq = { t0, items, play, gap, timers: [], handle: null, rec: false, i: 0, phase: "wait", until: t0 };
+  const at = (t, f) => q.timers.push(setTimeout(f, Math.max(0, t - Date.now())));
+  const cyc = (play + gap) * 1000, end = t0 + items.length * cyc;
+  at(t0, () => { if (!mv.rec) { mvRecStart(j.session); q.rec = !!mv.rec; } });
+  items.forEach((it, k) => at(t0 + k * cyc, () => {
+    Object.assign(q, { i: k, phase: "play", until: Date.now() + play * 1000, handle: spPlayNow(it.gain, play) });
+    at(q.until, () => Object.assign(q, { phase: "gap", until: Date.now() + gap * 1000 }));
+  }));
+  at(end, () => Object.assign(q, { phase: "bg", until: end + bgMin * 60000 }));
+  at(end + bgMin * 60000, () => { if (q.rec) mvRecStop(); q.rec = false; mvs.seq = null; renderMv(); });
+  renderMv();
 }
 
 function mvRecStart(session) {
@@ -1485,6 +1557,14 @@ function renderMv() {
   $("#mvRec").textContent = mv.rec ? "Stop recording" : "Start recording";
   $("#mvRec").classList.toggle("stop", !!mv.rec);
   $("#mvSave").disabled = !mv.file;
+  const q = mvs.seq, left = q ? Math.max(0, Math.round((q.until - Date.now()) / 1000)) : 0, it = q && q.items[q.i];
+  $("#mvSpLine").innerHTML = mvs.err ? esc(mvs.err)
+    : q ? (q.phase === "wait" ? `<b>Sequence starting</b> · first play in ${left} s`
+      : q.phase === "play" ? `<b>Playing ${q.i + 1} of ${q.items.length}</b>${it.dist != null ? ` · ${it.dist} ft` : ""} · ${left} s left`
+      : q.phase === "gap" ? (q.i + 1 < q.items.length ? `Quiet before play ${q.i + 2} of ${q.items.length} · ${left} s` : `Last play done · ${left} s`)
+      : `<b>Recording background</b>, speaker off · ${Math.ceil(left / 60)} min left`)
+    : mvs.cal ? "<b>Calibration playing.</b> Set the volume on this phone or the speaker until the logger reads 60–65 dB(A)."
+    : mv.stream ? "Ready. The logger phone starts the speaker." : "Tap <b>Start the mic</b> first; that also lets this phone play the speaker.";
   $("#mvRecLine").textContent = mv.rec ? `Recording since ${clock(mv.recStart)}, ${Math.round((Date.now() - mv.recStart) / 1000)} s.` : mv.file ? `${mv.file.name}, ${(mv.file.size / 1e6).toFixed(1)} MB. Save it before closing this page.` : "The logger starts and stops the recording with the speaker sequence.";
 }
 
@@ -1498,6 +1578,7 @@ function startMicMode() {
   $("#mvSet").onclick = mvSetMeter;
   $("#mvRec").onclick = () => (mv.rec ? mvRecStop() : mvRecStart(null));
   $("#mvSave").onclick = mvSave;
+  $("#mvFile").onchange = () => { if (sp.key === "own") sp.buf = null; };
   window.addEventListener("beforeunload", (e) => { if (mv.rec || mv.file) { e.preventDefault(); e.returnValue = ""; } });
   if (!params.get("gw")) $("#mvStatus").textContent = "Open this page from the QR code in the logger, so it knows which logger to join.";
   renderMv();
