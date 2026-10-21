@@ -1,6 +1,7 @@
 ---
 title: "Build: software"
 nav_order: 1.7
+nav_tripwire: 7
 ---
 
 # Build: software, from listener to dugout

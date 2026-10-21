@@ -1,10 +1,9 @@
 ---
-title: "Use case — Drone-laid tripwire"
-parent: Sensor Models
-nav_order: 0
+title: "The full design"
+nav_tripwire: 1
 ---
 
-# Use case — Drone-laid tripwire
+# The tripwire: full design
 {: .no_toc }
 
 | Feasibility | Payoff | Technical readiness | Cost per km² | Persistence | Deployability |

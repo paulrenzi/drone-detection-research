@@ -23,18 +23,39 @@ layout: table_wrappers
 
     <div class="ou-body">
       <nav id="ou-nav" class="ou-nav" aria-label="Site">
-        <a href="{{ '/' | relative_url }}" class="ou-nav-link ou-nav-top{% if page.url == '/' %} is-active{% endif %}">Overview</a>
-        {% assign sections = "Sensor Models,Research Notes" | split: "," %}
-        {% for section in sections %}
-          {% assign section_page = site.pages | where: "title", section | first %}
-          <a href="{{ section_page.url | relative_url }}" class="ou-nav-label{% if page.url == section_page.url %} is-active{% endif %}">{{ section | upcase }}</a>
-          {% assign kids = site.pages | where: "parent", section | sort: "nav_order", "last" %}
-          {% for p in kids %}
+        {% assign primary = site.pages | where_exp: "p", "p.nav_primary" | sort: "nav_primary" %}
+        <p class="ou-nav-label ou-nav-head">THE TRIPWIRE</p>
+        <a href="{{ '/' | relative_url }}" class="ou-nav-link ou-nav-top{% if page.url == '/' %} is-active{% endif %}"><span class="ou-nav-num">01</span>Overview</a>
+        {% for p in primary %}
+          <a href="{{ p.url | relative_url }}" class="ou-nav-link ou-nav-top{% if p.url == page.url %} is-active{% endif %}"><span class="ou-nav-num">0{{ forloop.index | plus: 1 }}</span>{{ p.nav_label | default: p.title }}</a>
+        {% endfor %}
+
+        {% assign detail = site.pages | where_exp: "p", "p.nav_tripwire" | sort: "nav_tripwire" %}
+        <p class="ou-nav-label">TRIPWIRE DETAIL</p>
+        {% for p in detail %}
+          <a href="{{ p.url | relative_url }}" class="ou-nav-link{% if p.url == page.url %} is-active{% endif %}">{{ p.title }}</a>
+        {% endfor %}
+
+        {% assign models_page = site.pages | where: "title", "Sensor Models" | first %}
+        {% assign research_page = site.pages | where: "title", "Research Notes" | first %}
+        {% assign other_models = site.pages | where: "parent", "Sensor Models" | sort: "nav_order", "last" %}
+        {% assign other_notes = site.pages | where: "parent", "Research Notes" | where_exp: "p", "p.nav_tripwire == nil" | sort: "nav_order", "last" %}
+        <details class="ou-nav-more"{% if page.parent == "Sensor Models" or page.url == models_page.url %} open{% endif %}>
+          <summary>Other sensor models</summary>
+          <a href="{{ models_page.url | relative_url }}" class="ou-nav-link{% if page.url == models_page.url %} is-active{% endif %}">All models compared</a>
+          {% for p in other_models %}
             <a href="{{ p.url | relative_url }}" class="ou-nav-link{% if p.url == page.url %} is-active{% endif %}">{{ p.title }}</a>
           {% endfor %}
-        {% endfor %}
+        </details>
+        <details class="ou-nav-more"{% if page.parent == "Research Notes" and page.nav_tripwire == nil %} open{% elsif page.url == research_page.url %} open{% endif %}>
+          <summary>More research notes</summary>
+          <a href="{{ research_page.url | relative_url }}" class="ou-nav-link{% if page.url == research_page.url %} is-active{% endif %}">All research notes</a>
+          {% for p in other_notes %}
+            <a href="{{ p.url | relative_url }}" class="ou-nav-link{% if p.url == page.url %} is-active{% endif %}">{{ p.title }}</a>
+          {% endfor %}
+        </details>
         {% assign changelog = site.pages | where: "title", "Changelog" | first %}
-        <a href="{{ changelog.url | relative_url }}" class="ou-nav-link ou-nav-top{% if page.url == changelog.url %} is-active{% endif %}">Changelog</a>
+        <a href="{{ changelog.url | relative_url }}" class="ou-nav-link ou-nav-small{% if page.url == changelog.url %} is-active{% endif %}">Changelog</a>
       </nav>
 
       <div class="ou-main">

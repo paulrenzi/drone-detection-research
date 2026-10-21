@@ -45,13 +45,14 @@ async function setup(root) {
   stage.append(status, tip);
 
   const bar = el('div', 'cad-bar');
+  const bPlay = el('button', 'cad-btn', 'Play');
   const bAsm = el('button', 'cad-btn is-on', 'Assembled');
   const bExp = el('button', 'cad-btn', 'Exploded');
   const slider = el('input', 'cad-slider');
   Object.assign(slider, { type: 'range', min: 0, max: 1000, value: 0 });
   slider.setAttribute('aria-label', 'Explode amount');
   const bReset = el('button', 'cad-btn', 'Reset view');
-  bar.append(bAsm, bExp, slider, bReset);
+  bar.append(bPlay, bAsm, bExp, slider, bReset);
   const info = el('div', 'cad-info', 'Drag to rotate, scroll or pinch to zoom, right-drag to pan. Point at a part to name it.');
   root.append(stage, bar, info);
 
@@ -111,7 +112,7 @@ async function setup(root) {
     modelExp.visible = false;
     scene.add(modelExp);
   } else {
-    bAsm.remove(); bExp.remove(); slider.remove();
+    bPlay.remove(); bAsm.remove(); bExp.remove(); slider.remove();
   }
 
   function setExplode(t) {
@@ -159,21 +160,34 @@ async function setup(root) {
   }
 
 
-  let anim = null;
-  function animateTo(target) {
-    const from = slider.value / 1000, start = performance.now(), ms = 900;
+  let anim = null, playing = false, playTimer = 0;
+  function animateTo(target, ms = 900, done = null) {
+    const from = slider.value / 1000, start = performance.now();
     anim = now => {
       const k = Math.min(1, (now - start) / ms);
       const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
       const t = from + (target - from) * e;
       slider.value = Math.round(t * 1000);
       setExplode(t);
-      if (k >= 1) anim = null;
+      if (k >= 1) { anim = null; if (done) done(); }
     };
   }
-  bAsm.onclick = () => animateTo(0);
-  bExp.onclick = () => animateTo(1);
-  slider.oninput = () => { anim = null; setExplode(slider.value / 1000); };
+  // Play: loop between assembled and exploded, holding each state for a moment.
+  function cycle() {
+    if (!playing) return;
+    animateTo(slider.value / 1000 < 0.5 ? 1 : 0, 2200, () => { playTimer = setTimeout(cycle, 1400); });
+  }
+  function setPlaying(on) {
+    playing = on;
+    clearTimeout(playTimer);
+    bPlay.textContent = on ? 'Pause' : 'Play';
+    bPlay.classList.toggle('is-on', on);
+    if (on) cycle();
+  }
+  bPlay.onclick = () => setPlaying(!playing);
+  bAsm.onclick = () => { setPlaying(false); animateTo(0); };
+  bExp.onclick = () => { setPlaying(false); animateTo(1); };
+  slider.oninput = () => { setPlaying(false); anim = null; setExplode(slider.value / 1000); };
   bReset.onclick = resetView;
 
   // Name the part under the pointer: walk up to the nearest node the manifest knows,
@@ -243,6 +257,7 @@ async function setup(root) {
   new ResizeObserver(resize).observe(stage);
   resize();
   resetView();
+  if ((mixer || modelExp) && !matchMedia('(prefers-reduced-motion: reduce)').matches) setPlaying(true);
   renderer.setAnimationLoop(now => {
     if (!visible) return;
     if (anim) anim(now);

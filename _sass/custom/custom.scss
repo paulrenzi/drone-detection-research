@@ -207,6 +207,59 @@ body.ou {
   margin-top: 26px;
 }
 
+.ou-nav-head {
+  margin-top: 0;
+}
+
+.ou-nav-num {
+  display: inline-block;
+  width: 26px;
+  font-family: $ou-mono;
+  font-size: 11px;
+  color: $ou-accent;
+}
+
+.ou-nav-top + .ou-nav-top {
+  margin-top: 2px;
+}
+
+.ou-nav-link.is-active .ou-nav-num {
+  color: #fff;
+}
+
+.ou-nav-more {
+  margin-top: 18px;
+  border-top: 1px solid $ou-rule;
+  padding-top: 10px;
+
+  summary {
+    cursor: pointer;
+    padding: 4px 12px;
+    font-family: $ou-mono;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $ou-body;
+
+    &:hover {
+      color: $ou-ink;
+    }
+  }
+
+  .ou-nav-link {
+    font-size: 12px;
+    padding: 4px 12px 4px 22px;
+  }
+}
+
+.ou-nav-small {
+  margin-top: 18px;
+  border-top: 1px solid $ou-rule;
+  padding-top: 12px;
+  font-size: 12px;
+}
+
 .ou-main {
   flex: 999 1 560px;
   min-width: 0;
@@ -331,6 +384,69 @@ body.ou {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.5px;
+}
+
+// Assessment cards on the overview
+.assess {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 20px 0 8px;
+  border: 1px solid $ou-ink;
+}
+
+.ou .main-content a.assess-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 18px 20px;
+  background: #fff;
+  border-right: 1px solid $ou-ink;
+  border-bottom: 1px solid $ou-ink;
+  color: $ou-body;
+  text-decoration: none;
+
+  &:nth-child(2n) { border-right: 0; }
+  &:nth-last-child(-n+2) { border-bottom: 0; }
+
+  &:hover {
+    background: $ou-ground;
+  }
+}
+
+.assess-num {
+  font-family: $ou-mono;
+  font-size: 12px;
+  font-weight: 700;
+  color: $ou-accent;
+}
+
+.assess-title {
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: $ou-ink;
+}
+
+.assess-q {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: $ou-ink;
+}
+
+.assess-body {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .assess { grid-template-columns: 1fr; }
+  .ou .main-content a.assess-card {
+    border-right: 0;
+    &:nth-last-child(-n+2) { border-bottom: 1px solid $ou-ink; }
+    &:last-child { border-bottom: 0; }
+  }
 }
 
 // Stat strip

@@ -1,12 +1,12 @@
 ---
-title: "Build: 3D models"
-nav_order: 1.65
+title: "3D models and downloads"
+nav_primary: 2
 ---
 
-# Build: 3D models of the dart and the harness
+# 3D models and downloads
 {: .no_toc }
 
-Rotate each model, zoom in, and slide it apart to see every part. Point at a part to name it; click it for its mass and what it does.
+The [tripwire]({{ site.baseurl }}{% link index.md %}) depends on a drone carrying listeners forward and dropping them so they stand up and listen. These are the models of that hardware: one listener (the **dart**), the **harness** that holds and releases four of them, and both on a Holybro X500. Each model plays its assembly on its own: press **Pause** to stop it, then rotate, zoom, or drag the slider to take it apart by hand. Point at a part to name it; click it for its mass and what it does. Every printed part is [downloadable](#6-downloads) as STL and STEP.
 
 {: .warning }
 > **A computer model, not a tested design.** Nothing here has been printed, assembled, dropped or flown. The bought parts are the manufacturers' own CAD where it exists (the X500 frame, the Heltec board), and every other dimension comes from a datasheet or is flagged *measure*. Masses are computed from the model's geometry. The open question is whether a dart released sideways from the drone turns nose-down and sticks in soil with the microphone working, and no model answers it. A weighted dummy dropped from the drone does.
@@ -108,7 +108,26 @@ Masses are the model's estimates. A dash means no separate figure: the servo and
 - **About 60 dimensions marked *measure*:** the microphone breakout, the antenna, the servo's spline and screw thread, and the print fits. They have to be checked with calipers on the bought parts and a printed fit coupon before the real print.
 - **The animation is an assembly diagram.** It slides rigid parts apart. It does not show screws turning, ties being cut, inserts being heated in, or the servo's real release sequence.
 
-## Files
+## 6. Downloads
+
+<p><a class="cad-btn cad-download" href="{{ site.baseurl }}/cad/gpt61/out/print-kit.zip" download>Download the print kit (.zip, 0.7 MB)</a></p>
+
+The print kit holds all six STL files, the print settings ([`print_manifest.json`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/gpt61/out/print_manifest.json)), the design notes, the mass table and the 74 checks. **Print the fit coupon first** and check it against the bought parts with calipers: about 60 dimensions are still marked *measure*.
+
+| Printed part | Mass (g) | Print | Edit |
+|---|--:|---|---|
+| Dart body | 41.7 | <a href="{{ site.baseurl }}/cad/gpt61/out/body.stl" download>body.stl</a> | <a href="{{ site.baseurl }}/cad/gpt61/out/body.step" download>body.step</a> |
+| Pod tray | 21.8 | <a href="{{ site.baseurl }}/cad/gpt61/out/pod_shell.stl" download>pod_shell.stl</a> | <a href="{{ site.baseurl }}/cad/gpt61/out/pod_shell.step" download>pod_shell.step</a> |
+| Pod lid | 8.1 | <a href="{{ site.baseurl }}/cad/gpt61/out/pod_lid.stl" download>pod_lid.stl</a> | <a href="{{ site.baseurl }}/cad/gpt61/out/pod_lid.step" download>pod_lid.step</a> |
+| Harness plate | 131.7 | <a href="{{ site.baseurl }}/cad/gpt61/out/plate.stl" download>plate.stl</a> | <a href="{{ site.baseurl }}/cad/gpt61/out/plate.step" download>plate.step</a> |
+| Release rotor | 38.6 | <a href="{{ site.baseurl }}/cad/gpt61/out/rotor.stl" download>rotor.stl</a> | <a href="{{ site.baseurl }}/cad/gpt61/out/rotor.step" download>rotor.step</a> |
+| Fit coupon (print first) | – | <a href="{{ site.baseurl }}/cad/gpt61/out/fit_coupon.stl" download>fit_coupon.stl</a> | <a href="{{ site.baseurl }}/cad/gpt61/out/fit_coupon.step" download>fit_coupon.step</a> |
+
+**Bought parts** as STEP, for checking fits: <a href="{{ site.baseurl }}/cad/gpt61/out/bought_heltec_v3.step" download>Heltec V3</a> (35 MB), <a href="{{ site.baseurl }}/cad/gpt61/out/bought_SG90.step" download>SG90 servo</a>, <a href="{{ site.baseurl }}/cad/gpt61/out/bought_inmp441.step" download>INMP441</a>, <a href="{{ site.baseurl }}/cad/gpt61/out/bought_18650.step" download>18650 cell</a>, <a href="{{ site.baseurl }}/cad/gpt61/out/bought_rod.step" download>rod</a>. The X500 frame is Holybro's own STEP, too large to host here.
+
+**The 3D models on this page**, as glTF with the explode animation: <a href="{{ site.baseurl }}/cad/gpt61/web/dart.glb" download>dart.glb</a> (3.6 MB), <a href="{{ site.baseurl }}/cad/gpt61/web/harness.glb" download>harness.glb</a> (4.5 MB), <a href="{{ site.baseurl }}/cad/gpt61/web/aircraft.glb" download>aircraft.glb</a> (19 MB). Any glTF viewer opens them.
+
+### Sources and provenance
 
 - **Viewer models:** [`dart.glb`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/gpt61/web/dart.glb) (3.6 MB), [`harness.glb`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/gpt61/web/harness.glb) (4.5 MB) and [`aircraft.glb`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/gpt61/web/aircraft.glb) (19 MB). Each is one file with an `explode` animation. Every part is a named node, with no errors or warnings from the Khronos glTF validator. The drone and the board are simplified for the web, so measure from the STEP files, not these.
 - **Part data:** [`manifest.json`](https://github.com/paulrenzi/drone-detection-research/blob/main/cad/gpt61/web/manifest.json) lists every node's name, source, mass and what it does, plus the open uncertainties.

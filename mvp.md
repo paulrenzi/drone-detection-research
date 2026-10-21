@@ -1,15 +1,33 @@
 ---
-title: MVP path
-nav_order: 1.5
+title: Weekend test and MVP
+nav_primary: 4
 ---
 
-# The MVP path: $80 radio test to a working line
+# Weekend test and MVP: $80 to a working line
 {: .no_toc }
 
 The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five cheap layers. Each answers one question, and its gate decides whether to buy the next. **MVP = layer 5:** six hand-placed listeners hear a real drone and alert a screen in a tree line, while the receiving end transmits nothing.
 
 {: .warning }
 > **A plan, not a result: no layer has been run yet.** Gates marked *proposed* are ours; T9's are the site's. Links were loaded 2026-10-15. Items that wouldn't load are search terms.
+
+## Start here: the weekend test {#weekend-test}
+
+The cheapest first look at the two questions that decide the tripwire: **how far a mic near the ground hears a drone** (T11) and **how far a board near the ground can send an alert** (a first taste of T9). It is layers 1 and 2 at their cheapest, run over one weekend.
+
+| | |
+|---|---|
+| **Kit** | 2 Heltec V3 LoRa boards running [Batear](https://github.com/batear-io/batear), 3 INMP441 mics, fur windscreens, breadboard and jumpers. Phones as recorders |
+| **Cost** | **~$80–90** with a borrowed drone, tripods and power banks; ~$360–480 buying everything |
+| **Friday, 2 h** | Solder and wire one mic, flash detector and gateway from Batear's web flasher, play a drone clip at 0.5 m and see the alarm arrive |
+| **Saturday, 3–4 h** | Mic at listener height (0.5 and 1 m) in a windscreen. Hover 60 s at 25, 50, 100, 150, 200 and 300 m, at two altitudes, then straight passes. Log wind each run. Record 30+ minutes with no drone. Walk the gateway away until alerts stop |
+| **Sunday, laptop** | Cut and label 1 s clips by distance, split by flight (not by clip), train a small model, compare with Batear's alarms |
+| **Pass** | Heard at **≥100 m** with a consumer drone (≥150 m with an FPV) in light wind, plus a first radio range in your terrain |
+| **Fail** | Under about 60 m, a line needs 3–4× the listeners per km; under about 40 m the idea stops making sense |
+
+Parts with photos, buying advice and the full plan: [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector). Fly legally: in the US, pass the free TRUST test and check the airspace.
+
+## The five layers to the MVP
 
 | Layer | Question | Spend | Total | Gate |
 |---|---|---|---|---|

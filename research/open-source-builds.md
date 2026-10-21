@@ -81,7 +81,7 @@ Nine units were built and sent to an unnamed site in September 2026.
 
 ## What this means for the project
 
-- **The single detector node is largely solved in the open.** Two independent projects detect drones on an ESP32-S3 for well under $100. Hardware is not the moat, as the [overview]({{ site.baseurl }}{% link index.md %}) already argues.
+- **The single detector node is largely solved in the open.** Two independent projects detect drones on an ESP32-S3 for well under $100. Hardware is not the moat, as the [wider-field overview]({{ site.baseurl }}{% link research/landscape.md %}) already argues.
 - **What nobody has published** is what this site is about: bearings from cheap nodes, fusing many nodes into a track, relaying from forward lines, output to TAK and Lattice, and real combat recordings.
 - **Fastest path to a prototype:** start tripwire nodes from Batear's MIT firmware, measure range against VolAnti's published numbers, and add open-set rejection along AcousticPrint's lines on our own data.
 - These projects are also **free alternatives** a buyer could find. Anything we sell has to do clearly more than they do.

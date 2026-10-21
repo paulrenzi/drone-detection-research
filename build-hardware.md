@@ -1,6 +1,7 @@
 ---
 title: "Build: hardware"
 nav_order: 1.6
+nav_tripwire: 6
 ---
 
 # Build: hardware, the dart, the harness and a printed carrier

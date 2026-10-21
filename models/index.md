@@ -7,9 +7,12 @@ permalink: /models/
 
 # Sensor Models
 
+{: .note }
+> **The notebook now centres on one use case, the [drone-laid tripwire]({{ site.baseurl }}{% link index.md %}).** The models below are the survey it came out of. They are kept for reference and are not being developed.
+
 Each page describes one way of deploying listeners, with a feasibility rating, an estimated cost, how it works, what limits it, and the open questions that would change the rating.
 
-The [overview matrix]({{ site.baseurl }}{% link index.md %}#eight-ways-to-build-the-network) compares them side by side.
+The [overview matrix]({{ site.baseurl }}{% link research/landscape.md %}#eight-ways-to-build-the-network) compares them side by side.
 
 ## Recommended combination (current view)
 

@@ -2,6 +2,7 @@
 title: Build or scrap?
 parent: Research Notes
 nav_order: 0.1
+nav_tripwire: 2
 ---
 
 # Build or scrap?

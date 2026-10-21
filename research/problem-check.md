@@ -2,6 +2,7 @@
 title: Is the problem worth solving?
 parent: Research Notes
 nav_order: 0.25
+nav_tripwire: 3
 ---
 
 # Is the problem worth solving?

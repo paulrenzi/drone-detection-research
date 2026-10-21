@@ -1,6 +1,7 @@
 ---
 title: "Build: software plan"
 nav_order: 1.75
+nav_tripwire: 8
 ---
 
 # Build: software plan, and the open-source parts to build it from

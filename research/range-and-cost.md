@@ -2,6 +2,7 @@
 title: Range and cost-per-km² model
 parent: Research Notes
 nav_order: 2
+nav_tripwire: 4
 ---
 
 # Range and cost-per-km² model

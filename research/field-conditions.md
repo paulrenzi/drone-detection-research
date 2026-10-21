@@ -2,6 +2,7 @@
 title: Front-line conditions in Ukraine
 parent: Research Notes
 nav_order: 0.5
+nav_tripwire: 5
 ---
 
 # Front-line conditions in Ukraine

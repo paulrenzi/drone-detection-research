@@ -1,13 +1,13 @@
 ---
-title: Competitor analysis and positioning
-parent: Research Notes
-nav_order: 0
+title: Competitors to the tripwire
+nav_primary: 3
+nav_label: Competitors
 ---
 
-# Competitor analysis and positioning
+# Competitors to the tripwire
 {: .no_toc }
 
-**The job:** warn a **front-line position** of incoming FPVs, especially fibre-optic ones that radio detectors can't hear. This page ranks everything that competes for that job, or for the same budget, by **what it costs against what it's shown to achieve**. Reviewed 2026-10-15.
+**The job the [tripwire]({{ site.baseurl }}{% link index.md %}) does:** warn a **front-line position** of incoming FPVs, especially fibre-optic ones that radio detectors can't hear. This page ranks everything that competes for that job, or for the same budget, by **what it costs against what it's shown to achieve**. Reviewed 2026-10-15.
 
 {: .important }
 > **The short version.**
