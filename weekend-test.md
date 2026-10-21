@@ -16,9 +16,9 @@ nav_primary: 4
 
 Do steps 1–3 at home the day before.
 
-1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* with the hotspot of the phone you'll carry, the *logger phone* ([how](#phone-setup)). This replaces the Meshtastic firmware they came with. Then scan the flasher's QR code with the logger phone. It opens the logger, which runs the whole test.
+1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* with the hotspot of the phone you'll carry, the *logger phone* ([how](#phone-setup)). This replaces the Meshtastic firmware they came with. Then scan the flasher's QR code with the logger phone. It opens the *trip/wire logger* screen, which runs the whole test ([what each phone shows](#screens)).
 2. **Wire the mic** to the detector: SCK to D3, WS to D4, SD to D5, L/R to GND, VDD to 3V3, GND to GND.
-3. **Check it works, and set the mic phone's meter.** Turn on the logger phone's hotspot and power the gateway from its power bank. Leave the detector plugged into the laptop: it's the reference meter for this step ([how](#phone-meter)). The logger phone should show *gateway online*, and *last packet* should reset about once a minute as the detector checks in. On the laptop, open the logger from the flasher's link, tap **Connect USB** and pick the detector. Scan the code under *Set up the mic phone* with the other phone and tap **Start the mic** on it. Pair the speaker with the mic phone, tap **Play calibration** on the laptop, then tap **Set the mic phone's meter from the detector**. You should see an alarm, and the speaker should sound full, not thin like a phone call ([why](#phone-meter)).
+3. **Check it works, and set the mic phone's meter.** Turn on the logger phone's hotspot and power the gateway from its power bank. Leave the detector plugged into the laptop: it's the reference meter for this step ([how](#phone-meter)). The logger phone should show *gateway online*, and *last packet* should reset about once a minute as the detector checks in. On the laptop, open the logger from the flasher's link, tap **Connect USB** and pick the detector. Scan the code under *Set up the mic phone* with the other phone: it opens the *trip/wire mic* screen. Tap **Start the mic** on it. Pair the speaker with the mic phone, tap **Play calibration** on the laptop, then tap **Set the mic phone's meter from the detector**. You should see an alarm, and the speaker should sound full, not thin like a phone call ([why](#phone-meter)).
 4. **Lay out the field** ([where everything goes](#field-layout)). The test has two ends. The *sound end* stays put: the detector 20 in up in its windscreen, the mic phone right beside it at the same height, and the speaker on a chair 16 ft away, facing the mic. The *receiving end* is you, carrying the logger phone and the gateway with its power bank. On both phones, turn on Do Not Disturb and set Auto-Lock to Never.
 5. **Calibrate the speaker** from the logger: set the volume on the mic phone or the speaker until *Sound at the mic* reads 60–65 dB(A), then tap **Measure at the mic** ([how](#speaker-test)).
 6. **Start the sweep.** Tap **Start sequence**, then walk 65 ft or more behind the speaker with the logger phone and the gateway, and stay quiet for about 21 minutes. You have 60 s before the first play; you'll hear it start. The mic phone records at the mic, plays each distance three times (about 16 minutes), records 4 minutes of background with the speaker off, and stops the recording. The logger shows the countdown, the sound at the mic and each alarm as it arrives. Then walk back and tap **Save recording** on the mic phone.
@@ -29,6 +29,22 @@ Do steps 1–3 at home the day before.
 <p><a class="btn btn-primary" href="{{ site.baseurl }}/tools/weekend/logger.html">Open the logger</a></p>
 
 A speaker can't copy what 330 ft of real ground and wind does to the sound. A real flight checks that later, in [layer 2]({{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11).
+
+## What each phone shows {#screens}
+
+The logger is one web page that opens as two different screens. The code you scan decides which, and the title at the top says which one you're on.
+
+<div style="display:flex;flex-wrap:wrap;gap:16px;margin:12px 0 16px">
+<figure style="margin:0;flex:1 1 220px;max-width:280px"><img src="{{ site.baseurl }}/assets/images/weekend/logger-view.png" alt="The trip/wire logger screen on a phone: a connection chip under the title, the alarm box reading quiet, radio signal, radio clarity, detector sure and last packet, then Sound at the mic showing the mic phone live and the code to set up the mic phone" width="280" style="border:1px solid rgba(128,128,128,.4);border-radius:8px"><figcaption class="note"><b>trip/wire logger</b>, on the logger phone. Scrolling down: <i>Run</i>, <i>Speaker test</i>, <i>Range so far</i>.</figcaption></figure>
+<figure style="margin:0;flex:1 1 220px;max-width:280px"><img src="{{ site.baseurl }}/assets/images/weekend/mic-view.png" alt="The trip/wire mic screen on a phone: one big sound level, a Mic phone panel saying it is connected to the logger, recording buttons, and a Speaker panel saying the logger phone starts the speaker" width="280" style="border:1px solid rgba(128,128,128,.4);border-radius:8px"><figcaption class="note"><b>trip/wire mic</b>, on the mic phone. It reads a raw level until its meter is set (step 3), then dB(A).</figcaption></figure>
+</div>
+
+- **The logger phone, at the receiving end, shows *trip/wire logger*.** Scanning the flasher's code opens it. It's the control panel: the alarm, the radio, *Sound at the mic*, the runs, the speaker sequence and *Range so far*. Every tap in the steps happens here unless the step names another device.
+- **The mic phone, at the sound end, shows *trip/wire mic*.** Scanning the code under *Set up the mic phone* in the logger opens it. You touch it twice: **Start the mic** at setup, and **Save recording** at the end. In between the logger runs it, starting and stopping the recording and the speaker, and its big number is the sound at the mic.
+- **The gateway has no screen.** It shows on the logger as the chip under the title, which reads *gateway online*, and as *last packet* resetting about once a minute.
+- **The laptop opens *trip/wire logger* too**, for step 3 at home only. Plugged into the detector by USB, it also shows *detector mic, dB(A)* and the button that sets the mic phone's meter. It stays home on the day.
+
+Anyone else can follow along on a third, watch-only screen, *trip/wire watch*, from *Let someone else watch* in the logger.
 
 ## Details
 
