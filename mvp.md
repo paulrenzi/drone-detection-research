@@ -15,7 +15,7 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 
 The cheapest first look at the two questions that decide the tripwire: **how far a mic near the ground hears a drone** (T11) and **how far a board near the ground can send an alert** (a first taste of T9). It is layers 1 and 2 at their cheapest, run over one weekend.
 
-| | |
+| Step | What it involves |
 |---|---|
 | **Kit** | 2 Heltec V3 LoRa boards running [Batear](https://github.com/batear-io/batear), 3 INMP441 mics, fur windscreens, breadboard and jumpers. Phones as recorders |
 | **Cost** | **~$80–90** with a borrowed drone, tripods and power banks; ~$360–480 buying everything |
