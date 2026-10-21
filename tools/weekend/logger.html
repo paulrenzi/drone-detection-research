@@ -187,6 +187,13 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
         <div class="stat"><div class="v" id="vRec">–</div><div class="k">recording</div></div>
         <div class="stat"><div class="v" id="vMicAgo">–</div><div class="k" id="vMicAgoK">mic</div></div>
       </div>
+      <div class="hide-embed" id="detMeter" style="margin-top:8px" hidden>
+        <div class="inline">
+          <div class="stat" style="flex:1"><div class="v" id="vDetA">–</div><div class="k">detector mic, dB(A)</div></div>
+          <button id="bSetFromDet" disabled>Set the mic phone's meter from the detector</button>
+        </div>
+        <p class="note" id="detMeterLine"></p>
+      </div>
       <details class="hide-embed" id="micJoinBox" style="margin-top:8px" open>
         <summary>Set up the mic phone</summary>
         <div class="micjoin" id="micJoin">
@@ -198,7 +205,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
         <button id="bLocalMic" style="width:100%">Only one phone: use this phone's mic</button>
         <p class="note">Then this phone has to stay at the mic and play the speaker, and the gateway has to stay within 30 ft of it, so you can't take the gateway away while the speaker plays.</p>
         <div class="inline" id="lmMeter" style="margin-top:10px" hidden>
-          <label>Set this phone's meter, dB(A) <input id="lmRef" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
+          <label>Or type a reading, dB(A) <input id="lmRef" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
           <button id="lmSet">Set</button>
         </div>
         <p class="note" id="lmCalLine" hidden></p>
@@ -335,7 +342,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
     <p id="mvStatus" style="margin-top:0">Put this phone beside the mic, at the same height. Tap <b>Start the mic</b> and allow the microphone. The logger phone then reads this phone, and starts and stops its recording and the speaker.</p>
     <button class="primary" id="mvStart" style="width:100%">Start the mic</button>
     <div class="inline" style="margin-top:12px">
-      <label>Set this phone's meter: a meter app beside it reads, dB(A) <input id="mvRef" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
+      <label>Or type a reading, dB(A) <input id="mvRef" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
       <button id="mvSet" disabled>Set</button>
     </div>
     <p class="note" id="mvCalLine"></p>
@@ -396,7 +403,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
     <dt>dBFS, the raw level</dt>
     <dd>How loud the sound is inside a microphone's own recording, where 0 is the loudest it can record. So it is always negative: about −90 is near silence and −20 is loud. Two devices give different dBFS for the same sound, so it only tells you if a sound got louder or quieter for that one device. The detector reports dBFS: <i>detector hears</i>.</dd>
     <dt>Setting the meter</dt>
-    <dd>Turns the phone's raw level into dB(A). Phone mics differ by several dB, so once per phone you read a loud, steady sound, such as pink noise at 70–80 dB(A), with NIOSH SLM on an iPhone (this one, or one held right beside it), then type that reading in here while the same sound plays. Until then the logger shows the raw level in orange.</dd>
+    <dd>Turns the phone's raw level into dB(A). Phone mics differ by several dB, so once per phone, at home, the phone is set against the detector's own mic, whose sensitivity is rated to 1 dB. With the detector on USB to a laptop running the logger, the phone beside the detector's mic and the calibration playing, tap <b>Set the mic phone's meter from the detector</b>. Until then the logger shows the raw level in orange.</dd>
     <dt>Background</dt>
     <dd>The level with nothing playing: wind, birds, traffic. A drone has to rise above it to be heard, so a quiet day makes for a longer range.</dd>
   </dl>
@@ -455,7 +462,7 @@ const $ = (s) => document.querySelector(s);
 let state = load() || freshState();
 let current = state.runs.find((r) => r.end_ms == null) || null;
 const ports = [];
-const live = { gwAlarm: new Map(), detAlarm: false, lastPkt: null, rssi: null, snr: null, conf: null, sensorDb: null, sensorAt: null };
+const live = { gwAlarm: new Map(), detAlarm: false, lastPkt: null, rssi: null, snr: null, conf: null, sensorDb: null, sensorAt: null, detA: [], detGate: null };
 let demoTimer = null, scriptTimer = null, saveTimer = null, wakeLock = null, audioCtx = null, mqttClient = null;
 
 // Sessions saved before 2026-10-21 were in metres.
@@ -545,6 +552,7 @@ const RE_GW_BAD = /\bgw: (decrypt FAILED|REPLAY|nonce sender)/;
 const RE_DET_ALARM = /\baudio: ALARM #(\d+): f0=([\d.]+) Hz conf=([\d.]+)/;
 const RE_DET_CLEAR = /\baudio: CLEAR/;
 const RE_DET_CAL = /\baudio: cal: f0=([\d.]+) Hz .*conf_ema=([\d.]+)/;
+const RE_DET_LEVEL = /\baudio: level: LAeq=([\d.]+) dBA LZeq=([\d.]+) dB rms=(-?[\d.]+) dBFS gate=(-?[\d.]+) dBFS/;
 
 function parse(line) {
   let m;
@@ -570,6 +578,8 @@ function ingest(line, portLabel, demo) {
   line = line.replace(ANSI, "").replace(/\r/g, "");
   if (!line.trim()) return;
   logRaw(line, portLabel);
+  const lv = RE_DET_LEVEL.exec(line);
+  if (lv) { detLevel(portLabel, +lv[1], +lv[3], +lv[4]); return; }
   const p = parse(line);
   if (p) {
     const port = ports.find((x) => x.label === portLabel);
@@ -999,6 +1009,48 @@ function renderMic() {
   if (on && j.rec) parts.push(`Recording at the mic since ${clock(j.rec_start)}.`);
   else if (j && j.file && !j.rec) parts.push(mv.local ? `Last recording, ${esc(j.file)}: tap <b>Save recording</b> to keep it.` : `Last recording, ${esc(j.file)}, is on the mic phone: tap <b>Save recording</b> there.`);
   $("#micLine").innerHTML = parts.join(" ");
+}
+
+// ---- the detector as the reference meter: over USB it logs its A-weighted level once a second ----
+// Its mic's sensitivity is rated to 1 dB, so it sets the mic phone's meter without an outside meter app.
+const DET_SET_MIN = 55, DET_SET_SPREAD = 1.5;
+let detSetAt = 0;
+function detLevel(portLabel, dba, dbfs, gate) {
+  const port = ports.find((x) => x.label === portLabel);
+  if (port && !port.role) { port.role = "detector"; renderPorts(); }
+  live.detA.push([Date.now(), dba]); if (live.detA.length > 30) live.detA.shift();
+  live.detGate = dbfs >= gate;
+  renderDetMeter();
+}
+const detRecent = (s) => live.detA.filter(([t]) => Date.now() - t <= s * 1000).map((x) => x[1]);
+function detSetCheck() {
+  const v = detRecent(6);
+  if (v.length < 5) return { err: "Waiting for 5 s of readings from the detector." };
+  const spread = Math.max(...v) - Math.min(...v), ref = energyMean(v.slice(-5));
+  if (!micOnline()) return { ref, err: "The mic phone isn't on. Scan the code below with it and tap Start the mic." };
+  if (ref < DET_SET_MIN) return { ref, err: `Play the calibration and turn it up until the detector reads 60–75 dB(A). At ${ref.toFixed(1)} the room's own noise counts too much.` };
+  if (spread > DET_SET_SPREAD) return { ref, err: `The sound is changing by ${spread.toFixed(1)} dB. Keep it steady: the calibration only, no talking.` };
+  return { ref };
+}
+function setFromDetector() {
+  const c = detSetCheck();
+  if (c.err) { $("#detMeterLine").textContent = c.err; return; }
+  if (mv.local) mvSetMeterTo(c.ref, "the detector");
+  else micSend({ cmd: "setref", dba: Math.round(c.ref * 10) / 10 });
+  detSetAt = Date.now();
+  $("#detMeterLine").textContent = `Sent ${c.ref.toFixed(1)} dB(A). In a few seconds the mic phone should read within 1 dB of the detector.`;
+}
+function renderDetMeter() {
+  const v = detRecent(3), on = v.length > 0;
+  $("#detMeter").hidden = !on || EMBED;
+  if (!on) return;
+  $("#vDetA").textContent = v[v.length - 1].toFixed(1);
+  const c = detSetCheck();
+  $("#bSetFromDet").disabled = !!c.err;
+  if (Date.now() - detSetAt < 8000) return;
+  const phone = micOnline() && mic.last.dba != null ? mic.last.dba : null;
+  $("#detMeterLine").textContent = (live.detGate === false ? "The detector reads this as silence, below its gate, so it can't alarm. " : "")
+    + (c.err ? c.err : phone != null ? `Mic phone ${phone.toFixed(1)} dB(A), ${(phone - v[v.length - 1]).toFixed(1)} dB from the detector. Tap Set to match them.` : "Ready: tap Set to set the mic phone's meter from the detector.");
 }
 
 // ---- speaker test: play a drone sound at the level it would reach the mic from a chosen distance ----
@@ -1454,6 +1506,7 @@ async function mvConnect() {
     if (j.cmd === "cal") mvCal(j.sound);
     if (j.cmd === "seq") mvSeq(j);
     if (j.cmd === "sp_stop") mvSpStop();
+    if (j.cmd === "setref") mvSetMeterTo(num(j.dba), "the detector");
   });
 }
 
@@ -1529,10 +1582,11 @@ async function mvSave() {
   document.body.appendChild(a); a.click(); a.remove();
 }
 
-function mvSetMeter() {
-  const ref = num($(mv.local ? "#lmRef" : "#mvRef").value);
-  if (ref == null || mv.secs.length < 3) { $(mv.local ? "#lmCalLine" : "#mvCalLine").textContent = "Play a steady sound, wait 5 s, then enter what the meter app reads."; return; }
+function mvSetMeter() { mvSetMeterTo(num($(mv.local ? "#lmRef" : "#mvRef").value), null); }
+function mvSetMeterTo(ref, from) {
+  if (ref == null || mv.secs.length < 5) { $(mv.local ? "#lmCalLine" : "#mvCalLine").textContent = "Start the mic, play a steady sound, wait 5 s, then set the meter."; return; }
   mv.offset = ref - energyMean(mv.secs.slice(-5));
+  mv.offsetFrom = from;
   try { localStorage.setItem(MIC_OFFSET_KEY, String(mv.offset)); } catch (e) {}
   renderMv();
 }
@@ -1542,8 +1596,8 @@ function renderMv() {
     $("#bLocalMic").hidden = true;
     $("#lmMeter").hidden = false; $("#lmCalLine").hidden = false;
     $("#lmCalLine").textContent = mv.offset != null
-      ? `Meter set: reading + ${mv.offset.toFixed(1)} dB. Set it again only on a different phone or browser.`
-      : "Once per phone, at home: play pink noise loud enough that NIOSH SLM on an iPhone (this one, or one right beside it, A-weighting) reads 70–80 dB(A). Come back here with the same sound on, wait 5 s, type that reading and tap Set.";
+      ? `Meter set${mv.offsetFrom ? ` from ${mv.offsetFrom}` : ""}: reading + ${mv.offset.toFixed(1)} dB. Set it again only on a different phone or browser.`
+      : "Once per phone, at home: plug the detector into this laptop by USB and Connect USB, hold the phone beside the detector's mic, play the calibration and tap Set the mic phone's meter from the detector.";
     $("#lmSave").hidden = !mv.file && !mv.rec;
     $("#lmSave").disabled = !mv.file;
     return;
@@ -1551,8 +1605,8 @@ function renderMv() {
   const online = mv.client && mv.client.connected;
   if (mv.stream) $("#mvStatus").innerHTML = online ? `Connected to logger <code>${esc(settings().gwId)}</code>. Leave this phone by the mic.` : "Mic on. Connecting to the logger…";
   $("#mvCalLine").textContent = mv.offset != null
-    ? `Meter set: reading + ${mv.offset.toFixed(1)} dB. Set it again only on a different phone or browser.`
-    : "Once per phone: play pink noise loud enough that NIOSH SLM reads 70–80 dB(A) on an iPhone held right beside this one, and enter its reading. Phone mics differ by several dB, and each 6 dB doubles or halves the emulated distance.";
+    ? `Meter set${mv.offsetFrom ? ` from ${mv.offsetFrom}` : ""}: reading + ${mv.offset.toFixed(1)} dB. Set it again only on a different phone or browser.`
+    : "Once per phone, at home: hold this phone beside the detector's mic, with the detector on USB to a laptop running the logger. Play the calibration and tap Set the mic phone's meter from the detector on the laptop. Phone mics differ by several dB, and each 6 dB doubles or halves the emulated distance.";
   $("#mvRec").disabled = !mv.stream;
   $("#mvRec").textContent = mv.rec ? "Stop recording" : "Start recording";
   $("#mvRec").classList.toggle("stop", !!mv.rec);
@@ -1599,6 +1653,7 @@ $("#spMeasure").onclick = spMeasure;
 $("#bRec").onclick = () => micRec(!mic.last.rec);
 $("#bLocalMic").onclick = lmStart;
 $("#lmSet").onclick = mvSetMeter;
+$("#bSetFromDet").onclick = setFromDetector;
 $("#lmSave").onclick = mvSave;
 try { const o = num(localStorage.getItem(MIC_OFFSET_KEY)); if (o != null) mv.offset = o; } catch (e) {}
 $("#spStart").onclick = spStart;
@@ -1620,7 +1675,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "s" || e.key === "S") mark("sync");
   if (e.key === "m" || e.key === "M") mark("mark");
 });
-setInterval(() => { renderLive(); if (sp.seq || sp.cal || sp.measuring) renderSp(); publishWatch(); }, 1000);
+setInterval(() => { renderLive(); renderDetMeter(); if (sp.seq || sp.cal || sp.measuring) renderSp(); publishWatch(); }, 1000);
 $("#watchBox").ontoggle = () => { if ($("#watchBox").open) showWatchQr(); };
 const gwParam = params.get("gw");
 if (!EMBED && gwParam && /^[\w-]{3,40}$/.test(gwParam)) {
