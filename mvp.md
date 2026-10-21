@@ -13,11 +13,11 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 
 ## Start with the Saturday test {#weekend-test}
 
-**One day, about $80–90:** how far a mic near the ground hears a drone, and how far its alarm travels. The steps are on their own page: [the Saturday test]({{ site.baseurl }}{% link weekend-test.md %}).
+**One day, about $80–90, with a speaker and no drone:** how far a mic near the ground hears a drone, and how far its alarm travels. The steps are on their own page: [the Saturday test]({{ site.baseurl }}{% link weekend-test.md %}).
 
 ### Could a speaker stand in for the drone? {#speaker-reasoning}
 
-**For most distances, yes.** A speaker finds the detector's threshold cheaply and precisely. It can't copy what 100 m of real ground does to the sound, so the Saturday test still flies the drone at three distances to check it.
+**For most distances, yes.** A speaker finds the detector's threshold cheaply and precisely. It can't copy what 100 m of real ground does to the sound, so a real flight at three distances checks it later, in layer 2.
 
 <details class="layer" markdown="block">
 <summary><span class="layer-title">The reasoning</span><span class="layer-sub">Source level, spreading, what a speaker gets wrong</span></summary>

@@ -124,7 +124,7 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
           <b>WiFi, from a phone</b>
           <ol>
             <li>Turn on your phone's hotspot. On iPhone, switch on <i>Maximize Compatibility</i>: the board only sees 2.4 GHz.</li>
-            <li>In <a href="../flasher/" target="_blank" rel="noopener">the flasher</a>, flash the gateway with your hotspot's name and password and Gateway ID <code id="gwIdShow"></code>. On a Heltec, use the <a href="https://docs.batear.io/flasher/" target="_blank" rel="noopener">Batear flasher</a> with MQTT URL <code>mqtt://broker.hivemq.com:1883</code>.</li>
+            <li>In <a href="../flasher/" target="_blank" rel="noopener">the flasher</a>, flash the gateway with your hotspot's name and password, then scan its QR code with this phone. That sets Gateway ID <code id="gwIdShow"></code> here and connects. On a Heltec, use the <a href="https://docs.batear.io/flasher/" target="_blank" rel="noopener">Batear flasher</a> with MQTT URL <code>mqtt://broker.hivemq.com:1883</code>.</li>
             <li>Tap <b>Connect over WiFi</b>.</li>
           </ol>
           <div class="fields" style="grid-template-columns:1fr 1fr;margin:8px 0">
@@ -166,12 +166,12 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
       <div class="fields hide-embed">
         <label class="span3">Type
           <select id="fType">
-            <option value="hover">Hover, 60 s</option>
-            <option value="pass">Straight pass</option>
-            <option value="speaker">Speaker, emulated distance</option>
             <option value="nodrone">No drone (background)</option>
             <option value="radio">Radio walk</option>
+            <option value="speaker">Speaker, emulated distance</option>
             <option value="bench">Bench check</option>
+            <option value="hover">Hover, 60 s (real drone)</option>
+            <option value="pass">Straight pass (real drone)</option>
           </select>
         </label>
         <label>Distance m <input id="fDist" type="number" inputmode="decimal" min="0" step="5" value="25"></label>
@@ -880,7 +880,7 @@ function renderRange() {
   const radio = all.filter((g) => g.type === "radio" && g.pk > 0).map((g) => g.distance_m ?? 0);
   const parts = [];
   if (acoustic.length) parts.push(solid.length ? `Heard in 90% of runs out to <b>${Math.max(...solid)} m</b> (3 or more runs each). Pass: 100 m with a consumer drone, 150 m with an FPV.` : "No distance yet has 3 or more runs with 90% heard.");
-  if (speaker.length) parts.push(solidSpk.length ? `Speaker: heard in 90% of runs out to <b>${Math.max(...solidSpk)} m</b> emulated. Confirm with a real flight before counting it.` : "Speaker: no emulated distance yet has 3 or more runs with 90% heard.");
+  if (speaker.length) parts.push(solidSpk.length ? `Speaker: heard in 90% of runs out to <b>${Math.max(...solidSpk)} m</b> emulated. Pass: 100 m. A real flight later checks what the ground does.` : "Speaker: no emulated distance yet has 3 or more runs with 90% heard.");
   if (speakerLvl.length) parts.push(solidLvl.length ? `Speaker: heard in 90% of runs down to <b>${Math.min(...solidLvl)} dB(A)</b> at the mic.` : "Speaker: no level yet has 3 or more runs with 90% heard.");
   if (radio.length) parts.push(`Radio: packets received out to <b>${Math.max(...radio)} m</b>.`);
   $("#verdict").innerHTML = parts.join(" ") || "Finish a hover, pass, speaker or radio-walk run to fill this table.";
@@ -931,6 +931,11 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "m" || e.key === "M") mark("mark");
 });
 setInterval(() => { renderLive(); if (sp.seq) renderSp(); }, 1000);
+const gwParam = params.get("gw");
+if (!EMBED && gwParam && /^[\w-]{3,40}$/.test(gwParam)) {
+  const s = settings(); s.gwId = gwParam; saveSettings(s);
+  history.replaceState(null, "", location.pathname);
+}
 renderGwId();
 spSoundChanged();
 renderAll();
@@ -939,6 +944,7 @@ if (EMBED) {
   $("#readingsPanel").open = true;
   scriptedDemo();
 } else if (params.has("demo")) startDemo();
+else if (gwParam) connectWifi();
 </script>
 </body>
 </html>

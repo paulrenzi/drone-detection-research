@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#1f5f8b">
 <title>Board Flasher</title>
 <script type="module" src="https://unpkg.com/esp-web-tools@10.2.1/dist/web/install-button.js?module"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root {
   --bg: #f6f5f1; --panel: #ffffff; --ink: #1b1d1f; --muted: #5d636a; --line: #d9d6cf;
@@ -47,6 +48,9 @@ summary { cursor: pointer; color: var(--accent); }
 .pins { width: 100%; border-collapse: collapse; font-size: 14px; margin: 8px 0; }
 .pins td, .pins th { border-bottom: 1px solid var(--line); padding: 5px 6px; text-align: left; }
 footer { font-size: 13px; color: var(--muted); }
+.qr { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+#qr { background: #fff; padding: 8px; border-radius: 8px; line-height: 0; }
+.qr p { flex: 1; min-width: 180px; margin: 0; }
 </style>
 </head>
 <body>
@@ -73,11 +77,15 @@ footer { font-size: 13px; color: var(--muted); }
   <label>Hotspot name<input id="ssid" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
   <label>Hotspot password<input id="pass" type="password" autocomplete="off"></label>
   <label>Gateway ID<input id="gwId" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
-  <p class="hint">Use the ID your logger shows under <em>Connect</em>. If you've opened the <a href="../weekend/logger.html">logger</a> in this browser, it's already filled in. The board only sees 2.4 GHz, so on an iPhone switch on <strong>Maximize Compatibility</strong>.</p>
+  <p class="hint">Made up for you; change it only to match a logger you've already set up. The board only sees 2.4 GHz, so on an iPhone switch on <strong>Maximize Compatibility</strong>.</p>
   <p id="gwWarn" class="warn show">Fill in the hotspot name and gateway ID first.</p>
   <esp-web-install-button id="btnGw">
     <button slot="activate" id="gwBtn" disabled>Install gateway</button>
   </esp-web-install-button>
+  <div class="qr">
+    <div id="qr"></div>
+    <p><strong>Then scan this with the logger phone.</strong> It opens the logger with this gateway ID and connects. Or open <a id="qrLink" href="../weekend/logger.html">this link</a> on the phone.</p>
+  </div>
 </div>
 
 <div class="panel">
@@ -125,7 +133,17 @@ if (!/^[0-9a-fA-F]{32}$/.test(netKey || "")) { netKey = generateRandomKey(16); w
 $("#keyShow").textContent = netKey;
 
 const logger = read(LOGGER_KEY) || {};
-if (logger.gwId) $("#gwId").value = logger.gwId;
+if (!logger.gwId) { logger.gwId = "tw-" + Math.random().toString(36).slice(2, 8); write(LOGGER_KEY, logger); }
+$("#gwId").value = logger.gwId;
+
+let qr = null;
+function showQr(gwId) {
+  const url = new URL(`../weekend/logger.html?gw=${encodeURIComponent(gwId)}`, location.href).href;
+  $("#qrLink").href = url;
+  if (!window.QRCode) return;
+  if (!qr) qr = new QRCode($("#qr"), { text: url, width: 148, height: 148, correctLevel: QRCode.CorrectLevel.M });
+  else qr.makeCode(url);
+}
 
 const cache = {};
 async function firmware(role) {
@@ -168,6 +186,7 @@ function prepGateway() {
   const ready = ssid !== "" && gwId !== "";
   $("#gwWarn").classList.toggle("show", !ready);
   $("#gwBtn").disabled = true;
+  if (gwId) showQr(gwId);
   clearTimeout(gwTimer);
   if (!ready) return;
   gwTimer = setTimeout(async () => {

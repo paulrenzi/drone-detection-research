@@ -6,30 +6,31 @@ nav_primary: 4
 # The Saturday test
 {: .no_toc }
 
-**One day, about $80–90.** How far does a mic half a metre off the ground hear a drone, and how far can its alarm travel by radio?
+**One day, about $80–90, and no drone.** How far does a mic half a metre off the ground hear a drone, and how far can its alarm travel by radio? A Bluetooth speaker plays a recorded drone at the level it would reach the mic from 25 to 300 m.
 
 **Pass:** heard at 100 m. **Fail:** under 60 m.
 
-**You need:** the two XIAO ESP32S3 + Wio-SX1262 kits with their antennas, a USB-C data cable, a laptop with Chrome, an INMP441 mic, a Bluetooth speaker, two phones, a power bank, a tape measure and a drone ([kit and prices]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector)).
+**You need:** the two XIAO ESP32S3 + Wio-SX1262 kits with their antennas, a USB-C data cable, a laptop with Chrome, an INMP441 mic with jumper wires (its pins need soldering), two fur windscreens, a Bluetooth speaker, two phones, two power banks and a tape measure ([kit and prices]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector)).
 
 ## The steps
 
-1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* with your phone's hotspot ([how](#phone-setup)). This replaces the Meshtastic firmware they came with.
+Do steps 1–3 at home the day before.
+
+1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* with your phone's hotspot ([how](#phone-setup)). This replaces the Meshtastic firmware they came with. Then scan the flasher's QR code with the logger phone.
 2. **Wire the mic** to the detector: SCK to D3, WS to D4, SD to D5, L/R to GND, VDD to 3V3, GND to GND.
-3. **Open the logger** on your phone and connect. Pair the speaker, and in the logger's *Speaker test* tap **Play calibration** next to the mic. You should see an alarm.
+3. **Check it works.** Turn on the hotspot and power both boards. The logger should show *gateway online*, and *last packet* should reset about once a minute as the detector checks in. Pair the speaker, then in the logger's *Speaker test* tap **Play calibration** next to the mic. You should see an alarm.
 4. **Lay out the field** ([where everything goes](#field-layout)). Put the detector and the second phone side by side, 0.5 m up, in windscreens. Put the speaker on a chair 5 m away, with the logger phone and gateway on the chair too. On the logger phone, turn on Do Not Disturb and set Auto-Lock to Never.
 5. **Calibrate the speaker.** Use the second phone as the sound meter at the mic ([how](#speaker-test)).
 6. **Start the sweep.** Start recording on the second phone, clap, and press **Sync clap**. Tap **Start sequence**, then walk 20 m behind the speaker and stay quiet for about 30 minutes.
-7. **Fly.** Take off beside the mic. Hover 60 s at 50, 100 and 150 m. Log each as a *Hover* run, with the gateway in your pocket.
-8. **Record 30 minutes with no drone.** Log it as *No drone*.
-9. **Walk the gateway away** until packets stop, with the second phone playing the logger's calibration sound beside the detector. Log each stop as a *Radio walk*.
-10. **Export** both CSVs before you leave.
+7. **Record 30 minutes of background.** Set *Type* to *No drone*, tap **Start run**, stay quiet, and tap **Stop run** after 30 minutes.
+8. **Walk the gateway away** with the logger phone, stopping at 100, 200 and 400 m and on. At each stop, set *Type* to *Radio walk*, enter the distance, tap **Start run**, and stop it once a packet arrives, about a minute. Turn back when none comes in two minutes.
+9. **Export** both CSVs before you leave.
 
 **The result** is the logger's *Range so far* table.
 
 <p><a class="btn btn-primary" href="{{ site.baseurl }}/tools/weekend/logger.html">Open the logger</a> <a class="btn" href="{{ site.baseurl }}/tools/weekend/logger.html?demo=1">Try it with demo data</a></p>
 
-In the US, pass the free TRUST test and check the airspace before flying.
+A speaker can't copy what 100 m of real ground and wind does to the sound. A real flight checks that later, in [layer 2]({{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11).
 
 ## Details
 
@@ -43,13 +44,14 @@ mic + detector, 0.5 m up
         │  5 m, measured with a tape
         │
 chair:  speaker, facing the mic
-        logger phone + gateway + power bank
+        logger phone + gateway + its power bank
         │
         │  20 m or more
         │
 you, quiet, behind the speaker
 ```
 
+- **Each board gets its own power bank,** since they sit 5 m apart. If *last packet* stops resetting, the detector's power bank may have switched itself off: some do when a board draws too little. Use another one.
 - **Keep the gateway within a few metres of the logger phone** all day. It reaches the logger through the phone's hotspot. The detector reaches the gateway by LoRa, which goes hundreds of metres.
 - **Keep the logger phone beside the speaker.** Bluetooth only reaches about 10 m, less through a body or a bag. The sequence runs on its own, so nobody needs to hold the phone.
 - **Stay 5 m or more from walls, cars and fences,** on grass. A hard surface behind the mic adds up to 3 dB and flatters the result.
@@ -62,15 +64,15 @@ you, quiet, behind the speaker
 <summary><span class="layer-title">Set up the phone</span><span class="layer-sub">The gateway joins your hotspot and the logger reads it through a public MQTT broker</span></summary>
 
 1. Turn on your phone's hotspot. On an iPhone, switch on **Maximize Compatibility**: the board only sees 2.4 GHz.
-2. Open the logger on the phone. Under **Connect** it shows a gateway ID such as `tw-k3f9x2`.
-3. In [the flasher]({{ site.baseurl }}/tools/flasher/), enter the hotspot's name and password and that gateway ID. It fills in the broker for you. Flash both boards from the same computer, since they need the same network key.
-4. Tap **Connect over WiFi**. The chip turns to *gateway online* when the board checks in.
+2. In [the flasher]({{ site.baseurl }}/tools/flasher/), enter the hotspot's name and password. It makes up a gateway ID and fills in the broker for you. Flash both boards from the same computer, since they need the same network key.
+3. Scan the flasher's QR code with the phone. It opens the logger with that gateway ID and connects.
+4. Power the gateway. The chip turns to *gateway online* when the board checks in. An iPhone only shows its hotspot while the Personal Hotspot screen is open, so keep it open until then.
 
 Readings pass through a free public broker, so anyone who guessed the ID could read them: fine for a test, not for anything sensitive. Keep the screen on, since readings that arrive while it's locked are lost.
 
 With a laptop and a cable, use **Connect USB** instead. Phones can't read a USB board from a web page. Plugging in the detector as well adds its confidence score.
 
-The gateway only hears from the detector when it alarms, clears, or sends its 30-minute heartbeat. That's why the radio walk needs a drone sound playing at the detector. Leave **Beep on alarm** off while recording.
+The gateway hears from the detector when it alarms, when it clears, and once a minute in between. That once-a-minute check-in is what the radio walk counts. Leave **Beep on alarm** off while recording.
 </details>
 
 <details class="layer" id="speaker-test" markdown="block">
