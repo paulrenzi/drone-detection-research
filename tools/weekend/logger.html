@@ -164,6 +164,7 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
           <select id="fType">
             <option value="hover">Hover, 60 s</option>
             <option value="pass">Straight pass</option>
+            <option value="speaker">Speaker, emulated distance</option>
             <option value="nodrone">No drone (background)</option>
             <option value="radio">Radio walk</option>
             <option value="bench">Bench check</option>
@@ -173,7 +174,7 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
         <label>Drone height m <input id="fAlt" type="number" inputmode="decimal" min="0" step="5" value="30"></label>
         <label>Mic height m <input id="fMic" type="number" inputmode="decimal" min="0" step="0.5" value="0.5"></label>
         <label>Wind m/s <input id="fWind" type="text" placeholder="2, gusts 4"></label>
-        <label class="span2">Drone or speaker <input id="fDrone" type="text" placeholder="Mini 4K"></label>
+        <label class="span2">Drone or speaker <input id="fDrone" type="text" placeholder="Mini 4K, or speaker file"></label>
         <label class="span3">Notes <input id="fNotes" type="text" placeholder="tree line, mower nearby"></label>
       </div>
       <div class="row hide-embed">
@@ -621,7 +622,7 @@ function renderRuns() {
 function renderRange() {
   const groups = new Map();
   for (const r of state.runs) {
-    if (r.end_ms == null || !["hover", "pass", "radio"].includes(r.type)) continue;
+    if (r.end_ms == null || !["hover", "pass", "speaker", "radio"].includes(r.type)) continue;
     const key = `${r.type}|${r.distance_m}|${r.type === "radio" ? "" : r.mic_height_m}`;
     if (!groups.has(key)) groups.set(key, { type: r.type, distance_m: r.distance_m, mic_height_m: r.type === "radio" ? "" : r.mic_height_m, runs: 0, heard: 0, firsts: [], pk: 0, rssi: [], snr: [] });
     const g = groups.get(key), s = summarize(r);
@@ -634,13 +635,16 @@ function renderRange() {
     heardTxt: g.type === "radio" ? "" : `${g.heard} of ${g.runs}`, first: median(g.firsts), packets: g.pk, rssi: median(g.rssi)
   }));
   setTable("#tRange", [["type", "Type"], ["distance_m", "Dist m"], ["mic_height_m", "Mic m"], ["heardTxt", "Heard"], ["first", "1st alarm s"], ["packets", "Packets"], ["rssi", "RSSI"]], rows);
-  const acoustic = all.filter((g) => g.type !== "radio");
-  const solid = acoustic.filter((g) => g.runs >= 3 && g.heard / g.runs >= 0.9).map((g) => g.distance_m ?? 0);
+  const solidOut = (gs) => gs.filter((g) => g.runs >= 3 && g.heard / g.runs >= 0.9).map((g) => g.distance_m ?? 0);
+  const acoustic = all.filter((g) => g.type === "hover" || g.type === "pass");
+  const speaker = all.filter((g) => g.type === "speaker");
+  const solid = solidOut(acoustic), solidSpk = solidOut(speaker);
   const radio = all.filter((g) => g.type === "radio" && g.pk > 0).map((g) => g.distance_m ?? 0);
   const parts = [];
   if (acoustic.length) parts.push(solid.length ? `Heard in 90% of runs out to <b>${Math.max(...solid)} m</b> (3 or more runs each). Pass: 100 m with a consumer drone, 150 m with an FPV.` : "No distance yet has 3 or more runs with 90% heard.");
+  if (speaker.length) parts.push(solidSpk.length ? `Speaker: heard in 90% of runs out to <b>${Math.max(...solidSpk)} m</b> emulated. Confirm with a real flight before counting it.` : "Speaker: no emulated distance yet has 3 or more runs with 90% heard.");
   if (radio.length) parts.push(`Radio: packets received out to <b>${Math.max(...radio)} m</b>.`);
-  $("#verdict").innerHTML = parts.join(" ") || "Finish a hover, pass or radio-walk run to fill this table.";
+  $("#verdict").innerHTML = parts.join(" ") || "Finish a hover, pass, speaker or radio-walk run to fill this table.";
 }
 function renderEvents() {
   const rows = state.events.filter((e) => e.source !== "detector" || e.kind !== "cal").slice(-200).reverse()

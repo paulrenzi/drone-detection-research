@@ -15,8 +15,9 @@ Line the audio up one of two ways:
   --start ISO    The wall-clock time the recording started, e.g.
                  2026-10-25T10:03:12.5-04:00 (no offset = this machine's local time).
 
-Labels: hover runs become drone_<distance>m, passes drone_pass, no-drone runs
-background. Radio walks and bench checks are skipped.
+Labels: hover runs become drone_<distance>m, speaker runs speaker_<distance>m
+(kept apart, so emulated clips never pass for real flights), passes drone_pass,
+no-drone runs background. Radio walks and bench checks are skipped.
 
 Phone apps record .m4a; with ffmpeg on the PATH the script converts any input
 (and --rate resamples). Without ffmpeg, give it a PCM .wav.
@@ -39,7 +40,7 @@ import tempfile
 import wave
 from datetime import datetime
 
-LABELS = {"hover": None, "pass": "drone_pass", "nodrone": "background"}
+LABELS = {"hover": None, "speaker": None, "pass": "drone_pass", "nodrone": "background"}
 MANIFEST_COLS = [
     "clip", "label", "session", "run_id", "fold", "tag", "recording", "offset_s", "clip_iso",
     "type", "distance_m", "altitude_m", "mic_height_m", "wind", "drone", "batear_alarm",
@@ -152,9 +153,10 @@ def label_for(run):
     kind = run.get("type", "")
     if kind not in LABELS:
         return None
-    if kind == "hover":
+    if kind in ("hover", "speaker"):
+        prefix = "drone" if kind == "hover" else "speaker"
         d = run.get("distance_m", "")
-        return f"drone_{float(d):g}m" if d else "drone_unknown"
+        return f"{prefix}_{float(d):g}m" if d else f"{prefix}_unknown"
     return LABELS[kind]
 
 

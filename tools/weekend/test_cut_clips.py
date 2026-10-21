@@ -50,6 +50,7 @@ class CutClips(unittest.TestCase):
             run("R01", "hover", 5, 25, "100"),
             run("R02", "nodrone", 30, 50, ""),
             run("R03", "radio", 50, 55, "300"),
+            run("R04", "speaker", 52, 58, "200"),
         ])
         self.events = os.path.join(d, "events.csv")
         ev = lambda t, src, kind, rid="": {"session": "S1", "run_id": rid, "t_ms": t, "source": src, "kind": kind}
@@ -80,7 +81,8 @@ class CutClips(unittest.TestCase):
         by = {}
         for r in rows:
             by.setdefault(r["label"], []).append(r)
-        self.assertEqual(set(by), {"drone_100m", "background"})  # the radio walk is skipped
+        self.assertEqual(set(by), {"drone_100m", "background", "speaker_200m"})  # the radio walk is skipped
+        self.assertEqual(len(by["speaker_200m"]), 2)  # 6 s run, 2 s trimmed each end
         self.assertEqual(len(by["drone_100m"]), 16)  # 20 s run, 2 s trimmed each end
         self.assertEqual(len(by["background"]), 16)
         alarmed = [r for r in by["drone_100m"] if r["batear_alarm"] == "1"]
@@ -99,7 +101,7 @@ class CutClips(unittest.TestCase):
     def test_same_run_same_fold(self):
         self.run_tool("--sync")
         folds = {(r["run_id"], r["fold"]) for r in self.manifest()}
-        self.assertEqual(len(folds), 2)
+        self.assertEqual(len(folds), 3)
 
 
 if __name__ == "__main__":

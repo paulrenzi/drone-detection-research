@@ -71,6 +71,7 @@ Phones can't read a USB board from a web page: iPhones never could, and Chrome o
 |---|---|---|
 | Batear firmware | Detector and gateway, unchanged. Our own firmware isn't needed until layer 3 | [Web flasher](https://docs.batear.io/flasher/) |
 | Logger | The page above, as one file that works offline over USB | <a href="{{ site.baseurl }}/tools/weekend/logger.html" download>logger.html</a> |
+| Speaker files | `make_playback.py`: turns one drone recording and one meter reading into a 60 s file per distance for the [speaker test](#speaker-test) | <a href="{{ site.baseurl }}/tools/weekend/make_playback.py" download>make_playback.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_make_playback.py" download>tests</a> |
 | Clip cutter | Lines a recording up on the clap and cuts each run into labelled 1 s clips: `drone_100m`, `drone_pass`, `background`. The manifest records whether Batear was alarming during each clip: the baseline a model has to beat | <a href="{{ site.baseurl }}/tools/weekend/cut_clips.py" download>cut_clips.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_cut_clips.py" download>tests</a> |
 
 Sunday, for each recording (Python 3.11+, and [ffmpeg](https://ffmpeg.org/) for a phone's `.m4a`):
@@ -83,7 +84,7 @@ Hold out whole runs for testing, never clips from a run you trained on.
 </details>
 
 {: .note }
-> The tools have been tested on demo data, synthetic audio (WAV and `.m4a`), and messages shaped like the gateway's sent through the public broker. They have not been tried against a real board. The logger reads the lines and messages Batear prints today; if a Batear update changes them, the raw log still keeps everything.
+> The tools have been tested on demo data, synthetic audio (WAV and `.m4a`; the speaker files' levels are checked to 0.15 dB), and messages shaped like the gateway's sent through the public broker. They have not been tried against a real board. The logger reads the lines and messages Batear prints today; if a Batear update changes them, the raw log still keeps everything.
 
 ### Could a speaker stand in for the drone? {#speaker-test}
 
@@ -108,11 +109,35 @@ Hold out whole runs for testing, never clips from a run you trained on.
 - **Know the source level.** Recordings online aren't level-calibrated. For a Mini-class drone, use EASA's 81 dB(A). For an FPV, borrow one for ten minutes and measure it at 5 m: no published measurement turned up.
 - **Watch for distortion.** A speaker driven hard adds harmonics, and harmonics are what Batear's detector listens for, so distortion would flatter the result. Keep the speaker well below full volume, and compare the h2 and h3 values in the detector's log for the speaker and the real drone at the same level.
 - **Check the low end.** Small speakers lose output in the low hundreds of hertz, where consumer-drone rotor tones sit. Look at the clip's spectrum before trusting a small speaker.
-- **Log it as a speaker.** Put "speaker" in the logger's *Drone or speaker* field, so Sunday's clips aren't mixed up with real flights.
+- **Log it as a speaker.** Use the logger's *Speaker* run type. Its results get their own line in the range table, and Sunday's clips come out as `speaker_100m`, never mixed with real flights.
 
 **What it buys.** Each 6 dB of detector sensitivity doubles the range. A speaker can measure that threshold in an afternoon, without a pilot, airspace rules or an FPV. It can also run at night, in wind, and next to a road, and it builds training data at known levels. One real flight at 50, 100 and 150 m then shows whether the threshold-plus-spreading estimate holds over real ground. If it does, later tests can lean on the speaker. If not, the gap is the near-ground effect T11 exists to measure.
 
 These are standard acoustics estimates, not measurements of our kit.
+</details>
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">Run the speaker test</span><span class="layer-sub">make_playback.py writes one file per distance, level-matched to a single meter reading</span></summary>
+
+You need a steady recording of the drone hovering, a Bluetooth speaker 5 m from the mic, and a sound level meter. Set the meter to A-weighting, slow, and read it at the mic.
+
+1. **Make the calibration file**, play it, and measure it. Then turn the speaker off and measure the background too. Don't touch the volume from here on.
+
+   ```bash
+   python make_playback.py --clip mini-hover.wav --out playback --cal-only
+   ```
+
+2. **Write the distance files** from those two readings. `--source-lwa 81` is the Mini 4 Pro's EASA figure; for a drone you measured yourself, use your reading at 5 m, e.g. `--source-spl 56 --source-distance 5`.
+
+   ```bash
+   python make_playback.py --clip mini-hover.wav --out playback --cal-spl 66 --cal-background 38 --source-lwa 81 --distances 25,50,75,100,150,200,300
+   ```
+
+   Each file is 60 s of the clip, looped, turned down by the exact amount for its distance: 36 dB below the calibration for 100 m in this example. `playlist.csv` lists file, distance, level and gain. For a threshold sweep, use `--levels 40,38,36,34,32,30,28,26` instead: one file per level at the mic, each named with the distance it stands for.
+
+3. **Play each file** and log it in the logger as a *Speaker* run at that distance. Three runs per distance give the range table enough to call it.
+
+If a distance needs the speaker louder than the calibration, the script refuses: turn up, move closer, and measure again. Levels below the background are expected at range; that's the regime being tested.
 </details>
 
 ## The five layers to the MVP
