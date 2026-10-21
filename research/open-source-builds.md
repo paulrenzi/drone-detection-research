@@ -122,30 +122,12 @@ Buy the Heltec boards, mics and windscreens from Amazon on Thursday so they arri
 
 **Record with phones this weekend.** It is the honest shortcut. Use a recorder app that saves uncompressed WAV and lets you turn off noise reduction, and put a fur windscreen on each phone. When the T-ETH-Lite arrives, repeat a short session through the MEMS mic and check whether the model still works on it.
 
-### A weekend plan
+### The Saturday test
 
-**Friday evening, about 2 hours**
+The steps are on one page: [the Saturday test]({{ site.baseurl }}{% link mvp.md %}#weekend-test). Two details it links back here for:
 
-1. Solder headers onto the Heltec boards. Wire one INMP441 to the detector board: VDD to 3.3V, GND to GND, SCK to GPIO4, WS to GPIO5, SD to GPIO6, L/R to GND ([Batear hardware](https://github.com/batear-io/batear/blob/main/docs/hardware.md)).
-2. Flash one board as detector and one as gateway with Batear's [web flasher](https://docs.batear.io/flasher/) in Chrome or Edge.
-3. Play a drone clip from a phone half a metre away and watch the alarm reach the gateway.
-4. Download a public dataset from the [Training data]({{ site.baseurl }}{% link research/datasets.md %}) page and train a first drone / no-drone model, so the pipeline works before Saturday's data arrives.
-
-**Saturday, in the field, 3–4 hours**
-
-1. Find open ground where flying is legal. Put the Batear detector and a phone on stands at 1–2 m, side by side, both in windscreens. Take off right next to them, so the app's distance from home is the distance from the mic.
-2. Hover for 60 seconds each at **25, 50, 100, 150 and 200 m**, at two altitudes, then fly straight passes. At each step, write down whether Batear alarmed, plus wind speed (a weather app is fine). This is your first range-versus-wind data point to set beside [VolAnti's]({{ site.baseurl }}{% link research/open-source-builds.md %}#volanti).
-3. Record **at least 30 minutes with no drone up:** traffic, a mower, wind, birds, people talking, a generator, any aircraft. Negatives are as valuable as drone clips.
-4. Walk the gateway away from the detector until alerts stop. That is a first taste of the tripwire's deciding question, [T9]({{ site.baseurl }}{% link research/open-questions.md %}).
-
-**Sunday, at the laptop**
-
-1. Cut recordings into 1-second clips and label them by distance from the flight notes.
-2. Split train and test **by session or flight, not by clip.** Clips cut from the same minute of audio nearly match, and mixing them across the split makes any model look far better than it is.
-3. Train a small model and measure it on the held-out flight and the held-out negatives: detection rate at each distance, and false alarms per hour of negatives.
-4. Compare it with Batear's alarms from Saturday at the same distances.
-
-**What counts as success:** a classifier that beats Batear's harmonic detector at 100 m or more with fewer false alarms per hour; a first range figure at a known wind speed; and a first LoRa range figure in your terrain.
+1. **Mic wiring.** Solder headers onto the Heltec boards. Wire one INMP441 to the detector board: VDD to 3.3V, GND to GND, SCK to GPIO4, WS to GPIO5, SD to GPIO6, L/R to GND ([Batear hardware](https://github.com/batear-io/batear/blob/main/docs/hardware.md)).
+2. **Training a model afterwards.** Cut the recordings into 1-second clips with the test's clip cutter. Split train and test **by flight, not by clip**: clips from the same minute nearly match, and mixing them makes any model look far better than it is. A model is worth keeping only if it beats Batear's own alarms at 100 m or more, with fewer false alarms per hour.
 
 {: .note }
 > **Fly legally.** In the US, recreational pilots must pass the free online TRUST test and fly in permitted airspace (check B4UFLY or a similar app), under 400 ft and within sight. Drones under 250 g flown for fun don't need registering; heavier ones do. Recording drone sound in a field needs no permit, but keep cameras off neighbours' property.

@@ -274,7 +274,7 @@ Each step answers one question before money goes into the next. They match the [
 
 {% include kit-parts.html %}
 
-Buying advice and a full weekend plan: [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector).
+Buying advice: [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector). The steps: [the Saturday test]({{ site.baseurl }}{% link mvp.md %}#weekend-test).
 
 </details>
 
