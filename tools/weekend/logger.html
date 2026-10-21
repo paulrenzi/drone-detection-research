@@ -100,11 +100,13 @@ body.embed .hide-embed { display: none !important; }
 body.embed #readingsPanel .scroll { max-height: 190px; }
 .micjoin { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
 .micjoin p { flex: 1; min-width: 180px; margin: 0; font-size: 14px; }
-#micQr { background: #fff; padding: 8px; border-radius: 8px; line-height: 0; }
+#micQr, #watchQr { background: #fff; padding: 8px; border-radius: 8px; line-height: 0; }
 .stat .v.uncal { color: var(--warn); }
-body.micmode .layout, body.micmode #ports { display: none !important; }
+body.micmode .layout, body.micmode #ports, body.watchmode .layout, body.watchmode #ports { display: none !important; }
 #micView .alarm .v { font-size: 56px; }
-#micView { display: grid; gap: 12px; max-width: 520px; margin: 0 auto; }
+#watchView .alarm .v { font-size: 40px; }
+#micView, #watchView { display: grid; gap: 12px; max-width: 520px; margin: 0 auto; }
+#wStatus.err { color: var(--alarm); font-weight: 600; }
 .inline { display: flex; gap: 8px; align-items: end; }
 .inline label { flex: 1; }
 .guide h3 { font-size: 15px; margin: 14px 0 6px; }
@@ -114,7 +116,7 @@ body.micmode .layout, body.micmode #ports { display: none !important; }
 .guide table.ref { width: auto; margin: 6px 0 0; font-size: 13px; }
 .guide table.ref td { padding: 2px 10px 2px 0; border: 0; white-space: normal; }
 .guide table.ref td:first-child { font: 600 13px var(--mono); color: var(--ink); }
-body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
+body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto 0; }
 #guide { margin-top: 12px; }
 </style>
 </head>
@@ -241,13 +243,21 @@ body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
       <p class="note hide-embed" id="cloudLine" style="margin:6px 0 0"></p>
     </section>
 
+    <details class="panel hide-embed" id="watchBox">
+      <summary><h2>Watch from a second phone</h2></summary>
+      <div class="micjoin">
+        <div id="watchQr"></div>
+        <p>Leave this phone by the mic and <b>scan this with the phone you carry</b>, or open <a id="watchLink" href="#">this link</a> on it. It shows the alarm, the sound at the mic, the sequence and the range table as they happen, from as far away as you like. Both phones need mobile data or WiFi. It only watches: start and stop everything on this phone.</p>
+      </div>
+    </details>
+
     <details class="panel hide-embed" id="speakerPanel">
       <summary><h2>Speaker test</h2></summary>
       <ol class="steps">
         <li>Pair a Bluetooth speaker with this phone. Silent mode off, Do Not Disturb on, Auto-Lock off. Put the speaker on a chair 16 ft from the mic, facing it, with the gateway beside it. Keep this phone beside the mic, with its mic on (<i>Sound at the mic</i>).</li>
         <li>Pick a sound, tap <b>Play calibration</b>, and use the volume buttons until <i>Sound at the mic</i> reads 60–65 dB(A). Then don't touch the volume again.</li>
         <li>Tap <b>Measure at the mic</b>. The phone reads 10 s with the speaker off, then 10 s of calibration, and fills both readings in. Or type them from any sound meter.</li>
-        <li>Tap <b>Start sequence</b> and walk 65 ft behind the speaker. You have 60 s before the first play. The phone then starts recording, plays each distance once (each is logged as a <i>Speaker</i> run), records the background as a <i>No drone</i> run and stops the recording, about 10 minutes in all.</li>
+        <li>Tap <b>Start sequence</b> and walk 65 ft behind the speaker. You have 60 s before the first play. The phone then starts recording, plays each distance once (each is logged as a <i>Speaker</i> run), records the background as a <i>No drone</i> run and stops the recording, about 10 minutes in all. To see it happen from there, scan <i>Watch from a second phone</i> first.</li>
       </ol>
       <div class="fields">
         <label class="span2">Sound
@@ -339,6 +349,27 @@ body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
   </section>
 </div>
 
+<div id="watchView" hidden>
+  <div class="alarm" id="wAlarmBox"><div class="v" id="wAlarm">–</div><div class="k" id="wAlarmSub">Batear alarm</div></div>
+  <section class="panel">
+    <p class="note" id="wStatus" style="margin-top:0">Connecting…</p>
+    <div class="runline" id="wSeq"></div>
+    <div class="stats">
+      <div class="stat"><div class="v" id="wMic">–</div><div class="k" id="wMicK">loudness at mic, dB(A)</div></div>
+      <div class="stat"><div class="v" id="wConf">–</div><div class="k">detector sure, 0–1</div></div>
+      <div class="stat"><div class="v" id="wRssi">–</div><div class="k">radio signal, dBm</div></div>
+      <div class="stat"><div class="v" id="wAgo">–</div><div class="k">last packet</div></div>
+    </div>
+    <div class="runline" id="wRun"></div>
+  </section>
+  <section class="panel">
+    <h2>Range so far</h2>
+    <div class="scroll"><table id="wRange"><thead></thead><tbody></tbody></table></div>
+    <p class="note" id="wVerdict"></p>
+    <p class="note">This phone only watches. Keep its screen on, and the logger's too: a locked logger stops sending. <a href="#guide" class="toguide">What do these numbers mean?</a></p>
+  </section>
+</div>
+
 <details class="panel hide-embed guide" id="guide">
   <summary><h2>What the numbers mean</h2></summary>
   <h3>Sound</h3>
@@ -404,6 +435,7 @@ body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
 const params = new URLSearchParams(location.search);
 const EMBED = params.has("embed");
 const MIC_MODE = params.get("role") === "mic";
+const WATCH_MODE = params.get("role") === "watch";
 const STORE_KEY = EMBED ? null : "tw-weekend-logger-v1";
 const SETTINGS_KEY = "tw-weekend-logger-settings";
 const MQTT_JS = "https://cdn.jsdelivr.net/npm/mqtt@5.14.1/dist/mqtt.min.js";
@@ -736,7 +768,7 @@ window.addEventListener("online", () => upload());
 async function keepAwake() {
   try { if ((!wakeLock || wakeLock.released) && navigator.wakeLock) wakeLock = await navigator.wakeLock.request("screen"); } catch (e) {}
 }
-document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && (current || ports.length)) keepAwake(); });
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && (current || ports.length || WATCH_MODE)) keepAwake(); });
 
 function beep() {
   if (!$("#fBeep").checked) return;
@@ -869,6 +901,73 @@ async function showMicQr() {
   $("#micQr").innerHTML = "";
   new window.QRCode($("#micQr"), { text: url, width: 132, height: 132, correctLevel: window.QRCode.CorrectLevel.M });
   mic.qrFor = gw;
+}
+
+// ---- watching from a second phone (?role=watch): the logger publishes what it shows, once a second ----
+// Plain text and table cells only, never HTML: anyone can publish to a public broker topic.
+const watchTopic = (gw) => `tripwire/${gw}/watch`;
+const watch = { last: null, at: null, qrFor: null };
+
+function publishWatch() {
+  if (MIC_MODE || WATCH_MODE || EMBED || !mqttClient || !mqttClient.connected) return;
+  const txt = (id) => $(id).textContent;
+  mqttClient.publish(watchTopic(settings().gwId), JSON.stringify({
+    t: Date.now(), demo: !!demoTimer, on: $("#alarmBox").classList.contains("on"), alarm: txt("#vAlarm"), alarmSub: txt("#vAlarmSub"),
+    mic: txt("#vMic"), micK: txt("#vMicK"), conf: txt("#vConf"), rssi: txt("#vRssi"), ago: txt("#vAgo"),
+    seq: sp.seq || sp.cal || sp.measuring ? txt("#spStatus") : "", run: txt("#runLine"),
+    range: [...$("#tRange").rows].map((r) => [...r.cells].map((c) => c.textContent)), verdict: txt("#verdict")
+  }));
+}
+
+async function showWatchQr() {
+  const gw = settings().gwId, url = new URL(`logger.html?role=watch&gw=${encodeURIComponent(gw)}`, location.href).href;
+  $("#watchLink").href = url;
+  if (watch.qrFor === gw) return;
+  try { if (!window.QRCode) await loadScript(QR_JS); } catch (e) { return; }
+  $("#watchQr").innerHTML = "";
+  new window.QRCode($("#watchQr"), { text: url, width: 132, height: 132, correctLevel: window.QRCode.CorrectLevel.M });
+  watch.qrFor = gw;
+}
+
+async function startWatchMode() {
+  document.body.classList.add("watchmode");
+  document.title = "trip/wire watch";
+  $("h1").textContent = "trip/wire watch";
+  $("#watchView").hidden = false;
+  const gw = params.get("gw");
+  if (!gw || !/^[\w-]{3,40}$/.test(gw)) { $("#wStatus").textContent = "Open this page from the QR code in the logger, so it knows which logger to watch."; return; }
+  keepAwake();
+  try { if (!window.mqtt) await loadScript(MQTT_JS); } catch (e) { $("#wStatus").textContent = "Couldn't load the MQTT library. This phone needs mobile data or WiFi."; return; }
+  const c = window.mqtt.connect(settings().broker, { clientId: "twwatch-" + Math.random().toString(16).slice(2, 10), reconnectPeriod: 3000, connectTimeout: 10000, clean: true });
+  c.on("connect", () => c.subscribe(watchTopic(gw), { qos: 0 }));
+  c.on("message", (topic, payload) => {
+    try { watch.last = JSON.parse(new TextDecoder().decode(payload)); watch.at = Date.now(); } catch (e) { return; }
+    renderWatch();
+  });
+  watch.client = c;
+  setInterval(renderWatch, 1000);
+  renderWatch();
+}
+
+function renderWatch() {
+  const j = watch.last, age = watch.at ? Math.round((Date.now() - watch.at) / 1000) : null, st = $("#wStatus");
+  const fresh = age != null && age < 5;
+  st.classList.toggle("err", age != null && !fresh);
+  st.textContent = !watch.client || !watch.client.connected ? "Connecting…"
+    : age == null ? "Connected. Waiting for the logger: open it on the phone by the mic, with its screen on."
+    : fresh ? `Live from logger ${params.get("gw")}${j.demo ? ", demo data" : ""}.`
+    : `No update for ${age} s. The logger phone may be locked or out of signal; these numbers are from ${clock(watch.at)}.`;
+  if (!j) return;
+  $("#wAlarmBox").classList.toggle("on", !!j.on && fresh);
+  $("#wAlarm").textContent = j.alarm; $("#wAlarmSub").textContent = j.alarmSub;
+  $("#wMic").textContent = j.mic; $("#wMicK").textContent = j.micK;
+  $("#wConf").textContent = j.conf; $("#wRssi").textContent = j.rssi; $("#wAgo").textContent = j.ago;
+  $("#wSeq").textContent = j.seq || "No speaker sequence running.";
+  $("#wRun").textContent = j.run;
+  const rows = Array.isArray(j.range) ? j.range : [], t = $("#wRange");
+  t.tHead.innerHTML = rows.length ? `<tr>${rows[0].map((c) => `<th>${esc(c)}</th>`).join("")}</tr>` : "";
+  t.tBodies[0].innerHTML = rows.slice(1).map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join("")}</tr>`).join("");
+  $("#wVerdict").textContent = j.verdict;
 }
 
 function renderMic() {
@@ -1440,16 +1539,18 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "s" || e.key === "S") mark("sync");
   if (e.key === "m" || e.key === "M") mark("mark");
 });
-setInterval(() => { renderLive(); if (sp.seq || sp.cal || sp.measuring) renderSp(); }, 1000);
+setInterval(() => { renderLive(); if (sp.seq || sp.cal || sp.measuring) renderSp(); publishWatch(); }, 1000);
+$("#watchBox").ontoggle = () => { if ($("#watchBox").open) showWatchQr(); };
 const gwParam = params.get("gw");
 if (!EMBED && gwParam && /^[\w-]{3,40}$/.test(gwParam)) {
   const s = settings(); s.gwId = gwParam; saveSettings(s);
-  if (!MIC_MODE) history.replaceState(null, "", location.pathname);
+  if (!MIC_MODE && !WATCH_MODE) history.replaceState(null, "", location.pathname);
 }
 renderGwId();
 spSoundChanged();
 renderAll();
 if (MIC_MODE) startMicMode();
+else if (WATCH_MODE) startWatchMode();
 else if (EMBED) {
   document.body.classList.add("embed");
   $("#readingsPanel").open = true;
