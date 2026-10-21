@@ -25,14 +25,39 @@ The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five ch
 1. **Flash two Heltec boards** from the [Batear web flasher](https://docs.batear.io/flasher/): one *detector*, one *gateway*. Give the gateway your phone's hotspot ([how](#phone-setup)).
 2. **Wire a mic** to the detector ([pins]({{ site.baseurl }}{% link research/open-source-builds.md %}#the-saturday-test)).
 3. **Open the logger** on your phone and connect. Pair a Bluetooth speaker, and in the logger's *Speaker test* tap **Play calibration** next to the mic. You should see an alarm.
-4. **In the field,** put the detector and a recording phone side by side, 0.5 m up, in windscreens. Clap and press **Sync clap**.
-5. **Speaker sweep.** Put the speaker 5 m from the mic. Calibrate it once with a sound meter, then tap **Start sequence**. The logger plays each distance and logs the runs ([how](#speaker-test)).
-6. **Fly.** Take off beside the mic. Hover 60 s at 50, 100 and 150 m. Log each as a *Hover* run.
-7. **Record 30 minutes with no drone.** Log it as *No drone*.
-8. **Walk the gateway away** until packets stop, with a second phone playing the logger's calibration sound beside the detector. Log each stop as a *Radio walk*.
-9. **Export** both CSVs before you leave.
+4. **Lay out the field** ([where everything goes](#field-layout)). Detector and a second phone side by side, 0.5 m up, in windscreens. Speaker on a chair 5 m away, with the logger phone and gateway on the chair too. On the logger phone, turn on Do Not Disturb and set Auto-Lock to Never.
+5. **Calibrate the speaker.** Use the second phone as the sound meter at the mic ([how](#speaker-test)).
+6. **Start the sweep.** Start recording on the second phone, clap, and press **Sync clap**. Tap **Start sequence**, then walk 20 m behind the speaker and stay quiet for about 30 minutes.
+7. **Fly.** Take off beside the mic. Hover 60 s at 50, 100 and 150 m. Log each as a *Hover* run, with the gateway in your pocket.
+8. **Record 30 minutes with no drone.** Log it as *No drone*.
+9. **Walk the gateway away** until packets stop, with the second phone playing the logger's calibration sound beside the detector. Log each stop as a *Radio walk*.
+10. **Export** both CSVs before you leave.
 
 **The result** is the logger's *Range so far* table: heard at 100 m passes, under 60 m fails.
+
+<details class="layer" id="field-layout" markdown="block">
+<summary><span class="layer-title">Where everything goes</span><span class="layer-sub">No house WiFi needed: the gateway joins the logger phone's hotspot</span></summary>
+
+```
+detector + mic, 0.5 m up   ── second phone beside it, recording
+        │
+        │  5 m, measured with a tape
+        │
+chair:  speaker, facing the mic
+        logger phone + gateway + power bank
+        │
+        │  20 m or more
+        │
+you, quiet, behind the speaker
+```
+
+- **Keep the gateway within a few metres of the logger phone** all day. It reaches the logger through the phone's hotspot. The detector reaches the gateway by LoRa, which goes hundreds of metres.
+- **Keep the logger phone beside the speaker.** Bluetooth only reaches about 10 m, less through a body or a bag. The sequence runs on its own, so nobody needs to hold the phone.
+- **Stay 5 m or more from walls, cars and fences,** on grass. A hard surface behind the mic adds up to 3 dB and flatters the result.
+- **Check for a cell signal** where you set up. The hotspot needs mobile data. Without it, use a laptop and the USB cable.
+- **Do Not Disturb matters.** A notification plays through the speaker at test volume and gets logged as drone sound, and a call stops the audio. Airplane mode won't work, because the hotspot needs data.
+- **Flash the gateway with the hotspot, not your home WiFi.** Otherwise it works in the garden and goes silent in the field. On an iPhone, switch on **Maximize Compatibility**: the board only sees 2.4 GHz.
+</details>
 
 Kit and buying advice: [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector). In the US, pass the free TRUST test and check the airspace before flying.
 
@@ -86,7 +111,7 @@ Hold out whole runs for testing, never clips from a run you trained on.
 
 ### Could a speaker stand in for the drone? {#speaker-test}
 
-**For most distances, yes.** A speaker finds the detector's threshold cheaply and precisely. It can't copy what 100 m of real ground does to the sound, so step 6 still flies the drone at three distances to check it.
+**For most distances, yes.** A speaker finds the detector's threshold cheaply and precisely. It can't copy what 100 m of real ground does to the sound, so step 7 still flies the drone at three distances to check it.
 
 <details class="layer" markdown="block">
 <summary><span class="layer-title">The reasoning, and how to run it</span><span class="layer-sub">Source level, spreading, what a speaker gets wrong</span></summary>
@@ -117,14 +142,16 @@ These are standard acoustics estimates, not measurements of our kit.
 <details class="layer" markdown="block">
 <summary><span class="layer-title">Run the speaker test</span><span class="layer-sub">All in the logger: one meter reading, then it plays and logs every distance</span></summary>
 
-You need a Bluetooth speaker paired with the phone and a sound meter. A free meter app on a second phone will do; set it to A-weighting.
+You need a Bluetooth speaker paired with the logger phone and a sound meter. A free meter app on the second phone will do; set it to A-weighting. Calibrate before that phone starts recording, since it can't do both at once.
 
-1. **Set up.** Phone volume all the way up, silent mode off. Speaker on a chair 5 m from the mic, facing it.
-2. **Calibrate.** In the logger's *Speaker test*, pick a sound and tap **Play calibration**. Turn the speaker's own volume until the meter at the mic reads 65–75 dB(A). Enter that reading, then the reading with the speaker off. Don't touch either volume again.
+1. **Set up.** Silent mode off. Speaker on a chair 5 m from the mic, facing it, with the logger phone beside it ([layout](#field-layout)).
+2. **Calibrate.** In the logger's *Speaker test*, pick a sound and tap **Play calibration**. Use the volume buttons, on the phone or the speaker, until the meter at the mic reads 60–65 dB(A). On many phones the two are one control. Enter that reading, then the reading with the speaker off. Don't touch the volume again.
 3. **Start sequence.** The logger plays each distance for 60 s, three times over with 20 s of quiet between plays, and logs every play as a *Speaker* run. The default is 25 m to 300 m, which takes about 28 minutes.
 
+**Why 60–65 dB(A), not louder:** that's already about 75–80 dB at 1 m, near the top of a small speaker. A speaker near full volume distorts, and distortion adds the harmonics the detector listens for. The loudest default step needs only 42 dB(A) at the mic, so 60 dB(A) leaves room to spare.
+
 **What the logger does for you:**
-- **Sets each level.** It works out what the drone would sound like at the mic from each distance, and plays the sound that much quieter than the calibration. For 100 m, that's 40 dB below a 70 dB(A) calibration.
+- **Sets each level.** It works out what the drone would sound like at the mic from each distance, and plays the sound that much quieter than the calibration. For 100 m, that's 32 dB below a 62 dB(A) calibration.
 - **Uses the known loudness.** The Mini 4 Pro uses EASA's 81 dB(A). No FPV loudness has been published, so the FPV steps by level at the mic instead.
 - **Your own recording works too.** Pick *Your own recording* and enter its loudness to step by distance.
 - **Refuses levels it can't play.** If a step would need the speaker louder than the calibration, it says so before starting. Move the speaker closer or turn it up, and calibrate again.

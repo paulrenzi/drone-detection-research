@@ -195,9 +195,9 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
     <details class="panel hide-embed" id="speakerPanel">
       <summary><h2>Speaker test</h2></summary>
       <ol class="steps">
-        <li>Pair a Bluetooth speaker with this phone. Phone volume all the way up, silent mode off. Put the speaker on a chair about 5 m from the mic, facing it.</li>
-        <li>Pick a sound, tap <b>Play calibration</b>, and set the speaker's own volume so a sound meter at the mic reads 65–75 dB(A). A free meter app on a second phone will do. Then don't touch either volume again.</li>
-        <li>Enter the meter reading, and the reading with the speaker off. Tap <b>Start sequence</b>. Each play is logged as a <i>Speaker</i> run.</li>
+        <li>Pair a Bluetooth speaker with this phone. Silent mode off, Do Not Disturb on, Auto-Lock off. Put the speaker on a chair 5 m from the mic, facing it, with this phone and the gateway beside it.</li>
+        <li>Pick a sound, tap <b>Play calibration</b>, and use the volume buttons until a sound meter at the mic reads 60–65 dB(A). A free meter app on the second phone will do, before it starts recording. Then don't touch the volume again.</li>
+        <li>Enter the meter reading, and the reading with the speaker off. Tap <b>Start sequence</b> and walk 20 m behind the speaker. Each play is logged as a <i>Speaker</i> run.</li>
       </ol>
       <div class="fields">
         <label class="span2">Sound
@@ -212,7 +212,7 @@ body.embed #readingsPanel .scroll { max-height: 190px; }
       </div>
       <button class="grow" id="spCal" style="width:100%">Play calibration</button>
       <div class="fields" style="margin-top:12px">
-        <label>Meter, playing <input id="spCalSpl" type="number" inputmode="decimal" step="0.5" placeholder="70"></label>
+        <label>Meter, playing <input id="spCalSpl" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
         <label>Meter, speaker off <input id="spBg" type="number" inputmode="decimal" step="0.5" placeholder="38"></label>
         <label>Step by
           <select id="spMode"><option value="distance">Distance, m</option><option value="level">Level at mic, dB(A)</option></select>
@@ -690,6 +690,7 @@ function spPlan() {
     if (diff < 10) warn = ` Calibration is only ${diff.toFixed(1)} dB above the background, so it's less certain.`;
     cal = 10 * Math.log10(10 ** (calSpl / 10) - 10 ** (bg / 10));
   }
+  if (calSpl > 70) warn += ` ${calSpl} dB(A) at 5 m is near the top of a small speaker and may distort. 60–65 is enough.`;
   if (!list.length) throw new Error(mode === "distance" ? "Enter at least one distance." : "Enter at least one level.");
   if (mode === "distance" && lwa == null) throw new Error("This sound has no known loudness. Step by level at the mic, or enter a loudness.");
   const steps = list.map((v) => {
