@@ -26,7 +26,7 @@ Do steps 1–3 at home the day before.
 
 **The result** is the logger's *Range so far* table: for each distance, whether the detector heard it, the level the mic phone measured, and the detector's own level. There's nothing to export: the logger saves every run online as it goes, so you can ask Claude to read the latest session from anywhere. The mic phone's recording is for [training clips](#weekend-downloads).
 
-<p><a class="btn btn-primary" href="{{ site.baseurl }}/tools/weekend/logger.html">Open the logger</a> <a class="btn" href="{{ site.baseurl }}/tools/weekend/logger.html?demo=1">Try it with demo data</a></p>
+<p><a class="btn btn-primary" href="{{ site.baseurl }}/tools/weekend/logger.html">Open the logger</a></p>
 
 A speaker can't copy what 330 ft of real ground and wind does to the sound. A real flight checks that later, in [layer 2]({{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11).
 
@@ -117,6 +117,3 @@ python cut_clips.py --session latest --recording S20261025-1003-mic.m4a --mic --
 
 Hold out whole runs for testing, never clips from a run you trained on.
 </details>
-
-{: .note }
-> The tools are tested on demo data and synthetic audio, not yet on a real board.
