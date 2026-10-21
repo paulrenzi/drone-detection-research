@@ -20,7 +20,7 @@ Don't try to make a microphone hear farther. Drop cheap ones 2–4 km forward, s
 </div>
 
 {: .warning }
-> **Nothing here has been built or field-tested yet.** Ranges, costs and warning times are estimates from published sources, labelled as such. The tests that would settle them are cheap, and listed under [Weekend test and MVP]({{ site.baseurl }}{% link mvp.md %}).
+> **Nothing here has been built or field-tested yet.** Ranges, costs and warning times are estimates from published sources, labelled as such. The tests that would settle them are cheap, and listed under the [Saturday test]({{ site.baseurl }}{% link weekend-test.md %}) and the [MVP path]({{ site.baseurl }}{% link mvp.md %}).
 
 <p class="kicker">01 · The idea</p>
 
@@ -61,11 +61,17 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 <span class="assess-q">Who else warns a position of FPVs, and at what cost?</span>
 <span class="assess-body">Zvook NW0 at $834–950 a sensor, RADD, Komodo's drone-dropped sensor, DroneAlert. All claims, no independent FPV range.</span>
 </a>
-<a class="assess-card" href="{{ site.baseurl }}{% link mvp.md %}">
+<a class="assess-card" href="{{ site.baseurl }}{% link weekend-test.md %}">
 <span class="assess-num">04</span>
-<span class="assess-title">Weekend test and MVP</span>
-<span class="assess-q">How far does a mic near the ground hear a drone, and can a line report home?</span>
-<span class="assess-body">An $80–90 weekend kit, then five gated layers to a six-listener line for about $600–750 in total.</span>
+<span class="assess-title">Saturday test</span>
+<span class="assess-q">How far does a mic near the ground hear a drone?</span>
+<span class="assess-body">One day and an $80–90 kit, in ten numbered steps. A phone and a Bluetooth speaker do most of the distances.</span>
+</a>
+<a class="assess-card" href="{{ site.baseurl }}{% link mvp.md %}">
+<span class="assess-num">05</span>
+<span class="assess-title">MVP path</span>
+<span class="assess-q">Can a line of listeners report home without being found?</span>
+<span class="assess-body">Five gated layers to a six-listener line, about $600–750 in total.</span>
 </a>
 <a class="assess-card" href="{{ site.baseurl }}{% link models/tripwire.md %}">
 <span class="assess-num">+</span>

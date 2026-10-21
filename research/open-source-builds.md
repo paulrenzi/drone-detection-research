@@ -124,7 +124,7 @@ Buy the Heltec boards, mics and windscreens from Amazon on Thursday so they arri
 
 ### The Saturday test
 
-The steps are on one page: [the Saturday test]({{ site.baseurl }}{% link mvp.md %}#weekend-test). Two details it links back here for:
+The steps are on one page: [the Saturday test]({{ site.baseurl }}{% link weekend-test.md %}). Two details it links back here for:
 
 1. **Mic wiring.** Solder headers onto the Heltec boards. Wire one INMP441 to the detector board: VDD to 3.3V, GND to GND, SCK to GPIO4, WS to GPIO5, SD to GPIO6, L/R to GND ([Batear hardware](https://github.com/batear-io/batear/blob/main/docs/hardware.md)).
 2. **Training a model afterwards.** Cut the recordings into 1-second clips with the test's clip cutter. Split train and test **by flight, not by clip**: clips from the same minute nearly match, and mixing them makes any model look far better than it is. A model is worth keeping only if it beats Batear's own alarms at 100 m or more, with fewer false alarms per hour.
