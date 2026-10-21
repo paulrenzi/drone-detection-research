@@ -247,7 +247,7 @@ body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
         <li>Pair a Bluetooth speaker with this phone. Silent mode off, Do Not Disturb on, Auto-Lock off. Put the speaker on a chair 16 ft from the mic, facing it, with the gateway beside it. Keep this phone beside the mic, with its mic on (<i>Sound at the mic</i>).</li>
         <li>Pick a sound, tap <b>Play calibration</b>, and use the volume buttons until <i>Sound at the mic</i> reads 60–65 dB(A). Then don't touch the volume again.</li>
         <li>Tap <b>Measure at the mic</b>. The phone reads 10 s with the speaker off, then 10 s of calibration, and fills both readings in. Or type them from any sound meter.</li>
-        <li>Tap <b>Start sequence</b> and walk 65 ft behind the speaker. The phone starts recording, each play is logged as a <i>Speaker</i> run, then the logger records the background as a <i>No drone</i> run and stops the recording.</li>
+        <li>Tap <b>Start sequence</b> and walk 65 ft behind the speaker. You have 60 s before the first play. The phone then starts recording, plays each distance once (each is logged as a <i>Speaker</i> run), records the background as a <i>No drone</i> run and stops the recording, about 10 minutes in all.</li>
       </ol>
       <div class="fields">
         <label class="span2">Sound
@@ -271,10 +271,11 @@ body.micmode #guide { max-width: 520px; margin: 12px auto 0; }
           <select id="spMode"><option value="distance">Distance, ft</option><option value="level">Level at mic, dB(A)</option></select>
         </label>
         <label class="span2"><span id="spListLabel">Distances, ft</span> <input id="spList" type="text" inputmode="decimal" value="80, 160, 250, 330, 500, 650, 1000"></label>
-        <label>Plays each <input id="spRepeat" type="number" inputmode="numeric" min="1" step="1" value="3"></label>
-        <label>Play, s <input id="spPlay" type="number" inputmode="numeric" min="5" step="5" value="60"></label>
-        <label>Gap, s <input id="spGap" type="number" inputmode="numeric" min="0" step="5" value="20"></label>
-        <label class="span3">Then record background, min <input id="spBgMin" type="number" inputmode="numeric" min="0" step="5" value="30"></label>
+        <label>Plays each <input id="spRepeat" type="number" inputmode="numeric" min="1" step="1" value="1"></label>
+        <label>Play, s <input id="spPlay" type="number" inputmode="numeric" min="5" step="5" value="30"></label>
+        <label>Gap, s <input id="spGap" type="number" inputmode="numeric" min="0" step="5" value="10"></label>
+        <label>Walk away, s <input id="spWait" type="number" inputmode="numeric" min="0" step="10" value="60"></label>
+        <label class="span2">Then record background, min <input id="spBgMin" type="number" inputmode="numeric" min="0" step="1" value="4"></label>
       </div>
       <div class="row">
         <button class="primary grow" id="spStart">Start sequence</button>
@@ -993,7 +994,8 @@ function spPlan() {
   if (loud) throw new Error(`${loud.dist != null ? Math.round(loud.dist) + " ft" : loud.level + " dB(A)"} needs ${(loud.level - cal).toFixed(1)} dB more than the calibration. Move the speaker closer or turn it up, then measure again.`);
   const items = [];
   for (let r = 0; r < repeat; r++) for (const s of steps) items.push(Object.assign({ gain: s.level - cal }, s));
-  return { cal, items, play, gap, warn, bgMin: Math.max(0, num($("#spBgMin").value) || 0), quiet: bg != null ? steps.filter((s) => s.level < bg).length : 0 };
+  const wait = Math.max(0, num($("#spWait").value) ?? 60);
+  return { cal, items, play, gap, wait, warn, bgMin: Math.max(0, num($("#spBgMin").value) || 0), quiet: bg != null ? steps.filter((s) => s.level < bg).length : 0 };
 }
 
 async function spToggleCal() {
@@ -1036,8 +1038,12 @@ async function spStart() {
   try { await spLoad(); plan = spPlan(); } catch (e) { spError(e.message); return; }
   if (sp.cal) { sp.cal.stop(); sp.cal = null; }
   sp.seq = { i: 0, plan, timer: null, handle: null, phase: "", until: 0, rec: false };
-  if (micOnline() && !mic.last.rec) sp.seq.rec = micRec(true);
-  keepAwake(); spStep();
+  keepAwake();
+  const go = () => { if (micOnline() && !mic.last.rec) sp.seq.rec = micRec(true); spStep(); };
+  if (!plan.wait) { go(); return; }
+  sp.seq.phase = "wait"; sp.seq.until = Date.now() + plan.wait * 1000;
+  sp.seq.timer = setTimeout(go, plan.wait * 1000);
+  renderSp();
 }
 
 function spStep() {
@@ -1092,7 +1098,9 @@ function renderSp() {
   if (s) {
     const it = s.plan.items[Math.min(s.i, s.plan.items.length - 1)], left = Math.max(0, Math.round((s.until - Date.now()) / 1000));
     const what = `${it.dist != null ? Math.round(it.dist) + " ft, " : ""}${it.level.toFixed(1)} dB(A) at the mic`;
-    el.innerHTML = s.phase === "play"
+    el.innerHTML = s.phase === "wait"
+      ? `<b>Walk away now</b> · first play in ${left} s`
+      : s.phase === "play"
       ? `<b>Playing ${s.i + 1} of ${s.plan.items.length}</b> · ${what} · ${left} s left`
       : s.phase === "bg"
         ? `<b>Recording background</b>, speaker off · stay quiet · ${Math.ceil(left / 60)} min left`
@@ -1102,8 +1110,8 @@ function renderSp() {
   if (sp.measuring) { el.innerHTML = sp.measuring === "bg" ? "<b>Measuring the background</b>, speaker off · stay quiet · 10 s" : "<b>Measuring the calibration</b> at the mic · 10 s"; return; }
   if (sp.cal) { el.textContent = micCal() ? `Calibration playing: ${mic.last.dba.toFixed(1)} dB(A) at the mic. Aim for 60–65, then stop it or tap Measure at the mic.` : "Calibration playing. Read the meter at the mic, then stop it."; return; }
   try {
-    const p = spPlan(), mins = Math.ceil(p.items.length * (p.play + p.gap) / 60);
-    el.textContent = `${p.items.length} plays, about ${mins} min${p.bgMin ? `, then ${p.bgMin} min of background` : ""}. Calibration ${p.cal.toFixed(1)} dB(A) at the mic.${p.quiet ? ` ${p.quiet} level(s) are quieter than the background: expected at range.` : ""}${p.warn}`;
+    const p = spPlan(), mins = Math.ceil((p.wait + p.items.length * (p.play + p.gap)) / 60 + p.bgMin);
+    el.textContent = `${p.wait ? `${p.wait} s to walk away, then ` : ""}${p.items.length} plays${p.bgMin ? ` and ${p.bgMin} min of background` : ""}: about ${mins} min in all. Calibration ${p.cal.toFixed(1)} dB(A) at the mic.${p.quiet ? ` ${p.quiet} level(s) are quieter than the background: expected at range.` : ""}${p.warn}`;
   } catch (e) { el.textContent = e.message; }
 }
 
@@ -1405,7 +1413,7 @@ $("#bStop").onclick = () => (sp.seq ? spFinish() : stopRun());
 $("#spSound").onchange = spSoundChanged;
 $("#spFile").onchange = () => { sp.buf = null; $("#spCalSpl").value = ""; renderSp(); };
 $("#spMode").onchange = spModeChanged;
-for (const id of ["#spLwa", "#spCalSpl", "#spBg", "#spList", "#spRepeat", "#spPlay", "#spGap", "#spBgMin"]) $(id).oninput = renderSp;
+for (const id of ["#spLwa", "#spCalSpl", "#spBg", "#spList", "#spRepeat", "#spPlay", "#spGap", "#spWait", "#spBgMin"]) $(id).oninput = renderSp;
 $("#spCal").onclick = spToggleCal;
 $("#spMeasure").onclick = spMeasure;
 $("#bRec").onclick = () => micRec(!mic.last.rec);
