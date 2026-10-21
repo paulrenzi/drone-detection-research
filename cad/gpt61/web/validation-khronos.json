@@ -7,7 +7,7 @@
       "uri": "dart.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-16T23:47:57.519Z",
+      "validatedAt": "2026-10-21T20:11:47.569Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -24,18 +24,18 @@
             "pointer": "/buffers/0",
             "mimeType": "application/gltf-buffer",
             "storage": "glb",
-            "byteLength": 3587184
+            "byteLength": 3168516
           }
         ],
         "animationCount": 1,
-        "materialCount": 14,
+        "materialCount": 12,
         "hasMorphTargets": false,
         "hasSkins": false,
         "hasTextures": false,
         "hasDefaultScene": true,
-        "drawCallCount": 39,
-        "totalVertexCount": 119029,
-        "totalTriangleCount": 116996,
+        "drawCallCount": 45,
+        "totalVertexCount": 103419,
+        "totalTriangleCount": 108686,
         "maxUVs": 0,
         "maxInfluences": 0,
         "maxAttributes": 2
@@ -45,7 +45,7 @@
       "uri": "harness.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-16T23:47:57.610Z",
+      "validatedAt": "2026-10-21T20:11:47.660Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -62,18 +62,18 @@
             "pointer": "/buffers/0",
             "mimeType": "application/gltf-buffer",
             "storage": "glb",
-            "byteLength": 4373496
+            "byteLength": 3972324
           }
         ],
         "animationCount": 1,
-        "materialCount": 18,
+        "materialCount": 16,
         "hasMorphTargets": false,
         "hasSkins": false,
         "hasTextures": false,
         "hasDefaultScene": true,
-        "drawCallCount": 66,
-        "totalVertexCount": 141742,
-        "totalTriangleCount": 138404,
+        "drawCallCount": 72,
+        "totalVertexCount": 126132,
+        "totalTriangleCount": 130094,
         "maxUVs": 0,
         "maxInfluences": 0,
         "maxAttributes": 2
@@ -83,7 +83,7 @@
       "uri": "aircraft.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-16T23:47:57.949Z",
+      "validatedAt": "2026-10-21T20:11:48.003Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -100,18 +100,56 @@
             "pointer": "/buffers/0",
             "mimeType": "application/gltf-buffer",
             "storage": "glb",
-            "byteLength": 18950608
+            "byteLength": 18548836
           }
         ],
         "animationCount": 1,
-        "materialCount": 20,
+        "materialCount": 18,
         "hasMorphTargets": false,
         "hasSkins": false,
         "hasTextures": false,
         "hasDefaultScene": true,
-        "drawCallCount": 310,
-        "totalVertexCount": 630143,
-        "totalTriangleCount": 614148,
+        "drawCallCount": 316,
+        "totalVertexCount": 614508,
+        "totalTriangleCount": 605838,
+        "maxUVs": 0,
+        "maxInfluences": 0,
+        "maxAttributes": 2
+      }
+    },
+    "stake": {
+      "uri": "stake.glb",
+      "mimeType": "model/gltf-binary",
+      "validatorVersion": "2.0.0-dev.3.10",
+      "validatedAt": "2026-10-21T20:11:48.060Z",
+      "issues": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 0,
+        "numHints": 0,
+        "messages": [],
+        "truncated": false
+      },
+      "info": {
+        "version": "2.0",
+        "generator": "gpt61/web_export.py; original CAD in millimetres, web in metres",
+        "resources": [
+          {
+            "pointer": "/buffers/0",
+            "mimeType": "application/gltf-buffer",
+            "storage": "glb",
+            "byteLength": 3162888
+          }
+        ],
+        "animationCount": 1,
+        "materialCount": 12,
+        "hasMorphTargets": false,
+        "hasSkins": false,
+        "hasTextures": false,
+        "hasDefaultScene": true,
+        "drawCallCount": 47,
+        "totalVertexCount": 103584,
+        "totalTriangleCount": 108546,
         "maxUVs": 0,
         "maxInfluences": 0,
         "maxAttributes": 2

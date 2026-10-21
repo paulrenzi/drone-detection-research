@@ -3,7 +3,7 @@
 S1 Holybro official frame STEP, downloaded by fetch_sources.py (unscaled).
 S2 Holybro X500MotorSpec.png, same product page; T1045II diameter stated 260 mm.
 S3 TowerPro https://torqpro.com/product/sg90-digital/ and its dimensional drawing.
-S4 Heltec V3 datasheet Rev1.1 pp10,14 and official V3.7 STEP in sources/.
+S4 Seeed XIAO and Wio-SX1262 OEM STEP archives; sources/xiao-manifest.json.
 S5 Samsung INR18650-25R specification in sources/samsung-25r.pdf section 3.
 S6 TDK INMP441 datasheet, outline page20; official product page.
 S7 HellermannTyton T18R-PA66W-BK 111-01711 official dimension table.
@@ -60,18 +60,19 @@ class Measurements:
     mic_pad_row_span: float = 11.0     # MEASURE: generic breakout pad centres
     mic_pad_pitch: float = 4.5         # MEASURE: generic breakout pad pitch
     mic_mass: float = 1.0             # MEASURE: complete soldered breakout
-    board_mass: float = 9.0           # MEASURE: populated board + OLED, no headers
-    oled_w: float = 18.56             # S4 p14 outer display width
-    oled_l: float = 33.28             # S4 p14 outer module length; active glass27.28
-    oled_z: float = 3.6               # MEASURE: airgap/connector stack above PCB
-    oled_t: float = 1.6               # MEASURE: glass/metal stack
-    oled_active_l: float = 21.74       # MEASURE: cosmetic128x64 active area, not a housing fit
-    oled_active_w: float = 10.86       # MEASURE: active area width
-    whip_l: float = 82.0              # MEASURE: old concept length, actual antenna not identified
-    whip_d: float = 1.6               # MEASURE: flexible insulated whip envelope
-    whip_base_d: float = 4.0          # MEASURE: boot at pod exit
-    whip_boot_l: float = 8.0           # MEASURE: boot length
-    whip_mass: float = 1.2            # MEASURE: whip and U.FL pigtail
+    xiao_mass: float = 2.2            # MEASURE populated XIAO, no headers
+    wio_mass: float = 1.8             # MEASURE populated extension, no headers
+    stack_spacing: float = 7.5        # MEASURE XIAO CAD datum to Wio PCB bottom
+    fpc_l: float = 100.0              # MEASURE kit FPC LoRa antenna, not a whip
+    fpc_w: float = 10.0               # MEASURE kit antenna batch
+    fpc_t: float = .30                # MEASURE laminate envelope
+    fpc_mass: float = .8              # MEASURE FPC, coax and U.FL
+    wifi_l: float = 20.0              # MEASURE supplied WiFi/BLE FPC
+    wifi_w: float = 6.0               # MEASURE supplied WiFi/BLE FPC
+    wifi_mass: float = .35            # MEASURE FPC and coax
+    stake_d: float = 10.0             # MEASURE single stake OD parameter, 8..13mm
+    stake_burial: float = 100.0        # D hand insertion, set mic using actual soil
+    ballast_density: float = 7.85     # MEASURE solid steel; weigh actual fill
     petg_density: float = 1.27         # MEASURE: filament density, modeled solid PETG
     petg_modulus: float = 1600.0       # MPa engineering estimate; printed coupon needed
     printed_allowable_strain: float = .015 # D conservative screening limit, not material certification
@@ -89,13 +90,13 @@ BODY_X0=70.0                         # fixed concept soil stop
 WALL=1.6                             # D 4 lines at .4 nozzle; .2 layers
 SNAP_T=1.2; SNAP_L=18.0; SNAP_H=6.8    # D axial cantilevers, 3 lines thick
 SNAP_MOUTH=16.8                      # D two relaxed retention lip edges
-POD_X0=480.0; POD_X1=562.0             # D socket overlaps last20 of rod; rear bosses clear PCB
-POD_W=36.0; POD_BOTTOM=-5.2; POD_SEAM=16.0
-POD_BOARD_X=504.0                     # D USB end near lower end, PCB top at554.7
-POD_BOARD_Z=2.2                       # D board z after placement
-MIC_X=540.0; MIC_Z=6.0                # D side-facing sound port
+POD_X0=480.0; POD_TRAY_X0=536.0; POD_X1=582.0
+POD_W=32.0; POD_BOTTOM=-.8; POD_SEAM=17.0
+POD_BOARD_X=550.0; POD_BOARD_Z=3.0     # S4 PCB datum, USB points +X
+MIC_X=570.0; MIC_Z=8.0; MIC_Y=-14.0  # D mic500mm above soil
+FPC_X0=584.0; FPC_Z=POD_SEAM+2.0
 INSERT_HOLE=3.2; INSERT_OD=3.6; INSERT_L=4.0 # Ruthex RX-M2x4 manufacturer CAD
-POD_SCREWS=((485.5,-13),(485.5,13),(558.0,-13),(558.0,13))
+POD_SCREWS=((540.0,-11),(540.0,11),(576.0,11)) # D leave mic corner clear
 PLATE_T=3.2; PLATE_R=83.0              # D plate deck printed on back face
 BEARING_RI=48.0; BEARING_RO=51.0; BEARING_Z=12.0
 BEARING_FILM_T=.09                    # S8 3M5490 TDS total thickness; verify tape sample
@@ -120,6 +121,6 @@ def measure_dict():return asdict(M)
 
 def power_wire_paths():
     # D: terminal tabs -> strain-relieved external gutter -> rod -> pod gland.
-    positive=[(CELL_X0+M.cell_l+.15,CELL_Y,11.6),(146.5,CELL_Y,11.6),(153,4.3,4.8),(478,4.3,4.8),(483,7.3,4.5),(492,8.5,4.5),(499,8,3),(505,3.8,-.8)]
-    negative=[(CELL_X0-.18,CELL_Y,11.6),(75,22.5,11.6),(75,29,4.6),(148,29,4.6),(153,5.7,4.8),(478,5.7,4.8),(483,7.3,4.5),(492,8.5,4.5),(499,8,3),(505,5.0,-.8)]
+    positive=[(CELL_X0+M.cell_l+.15,CELL_Y,11.6),(146.5,CELL_Y,11.6),(151,4.3,4.8),(478,4.3,4.8),(485,3,4.8),(510,3,4.8),(536,3,2),(558,3,2),(560.8,4.7,2.2),(560.8,4.7,2.7)]
+    negative=[(CELL_X0-.18,CELL_Y,11.6),(75,22.5,11.6),(75,29,4.6),(148,29,4.6),(153,5.7,4.8),(478,5.7,4.8),(485,5,4.8),(510,5,4.8),(536,5,2),(559,6.5,2),(563.3,6.5,2),(563.3,4.7,2.7)]
     return [positive,negative]

@@ -1,27 +1,25 @@
-# First-print mechanical package
+# XIAO listener mechanical prototype
 
-Start with [REVIEW.html](REVIEW.html) for the render gallery and [DESIGN.md](DESIGN.md) for sources, fits, masses, open measurements, print settings and assembly.
+Open [REVIEW.html](REVIEW.html) for the current render gallery and [DESIGN.md](DESIGN.md) for sources, dimensions, masses, print settings and assembly. The listener uses the owned Seeed XIAO ESP32S3 + Wio-SX1262 kit, INMP441 breakout, one18650 cell and6 x500 mm fibreglass rod. The mic port is500 mm above soil.
 
-`out/` holds print-oriented STL files, design-datum STEP parts, all three full-aircraft assembly states, bought-part CAD and generated check/mass reports. The generic mic breakout, exact servo/board revisions, antenna and printed fits remain measurement items; this package has not been physically printed, dropped or flown.
+Included: the one-servo four-dart X500 harness, adjustable8–13 mm stake adapter and cell holder, and an inert dummy with four ballast portions matching the model's mass and XYZ balance. Nothing has been printed, dropped or flown. Antenna envelopes, B2B spacing, actual weights and manufacturing fits remain MEASURE.
 
-Rebuild from the repository root:
+Run from the repository root using the CAD interpreter:
 
 ```powershell
+& 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/fetch_sources.py
+& 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/fetch_xiao.py
 & 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/build.py
 & 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/validate_exports.py
-& 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/document.py
-```
-
-All scripts write only here. `fetch_sources.py` downloads the original reference files and records their hashes. CAD source geometry is preserved in `sources/`; `cache/`, `tmp/` and the optional local PDF-reader dependency are generated working files.
-
-## Exploded views and web models
-
-Run from the repository root with the same CAD interpreter:
-
-```powershell
 & 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/web_export.py
+& 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/document.py
+& 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/record_visual_review.py --reviewed
+& 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/validate_package.py
+& 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/package.py
 ```
 
-[web/manifest.json](web/manifest.json) describes [dart.glb](web/dart.glb), [harness.glb](web/harness.glb) and [aircraft.glb](web/aircraft.glb), including named parts, model mass estimates, geometry sources, colours and unresolved measurements. Each model contains an eight-second `explode` translation animation: time zero is assembled and time eight is exploded. Units are metres, Y up; the dart lies along +X in its carried orientation. The loaded models keep every dart part addressable and share meshes to reduce download size.
+Inspect every newly generated PNG before running `record_visual_review.py --reviewed`; it records your inspection and cannot inspect images itself. All writes stay here. `parameters.py`, `printed.py`, `purchased.py` and `variants.py` are geometry/mass sources. Cache flags are documented in DESIGN.md.
 
-The five new `renders/*_exploded*.png` images include whole-model views and pod/harness details. [DESIGN.md](DESIGN.md#exploded-views-and-web-export) explains the service axes and the presentation limits. [web/README.md](web/README.md) describes the files for the website author. Validation reports are in `web/`; the original geometry and everything in `out/` remain unchanged. `--render-only` repeats the PNG renders, and `--no-render` repeats the exports and checks. The script uses local Node/npm to install the Khronos validator under `tmp/` if needed; `--no-install` disables that installation.
+`out/` contains12 printed STEP/STL pairs, current assembly STEP files, bought-part references, print manifest, mass tables, checks, independent export validation and print-kit.zip. STLs are onZ0 in their intended Vyper orientations. Recommended infill is intentionally100%, including the plate; lightening pockets and tower voids are CAD geometry.
+
+`web/` contains dart.glb, harness.glb, aircraft.glb and stake.glb with an8-second `explode` clip, metres andY up. Named nodes and source/mass/uncertainty facts are in [web/manifest.json](web/manifest.json). The stake clip lifts the retained pod from its adapter. These are presentation animations, not physical release simulations. Validators check binary/accessor round trips, trimesh loading, endpoint overlaps and Khronos glTF compliance.

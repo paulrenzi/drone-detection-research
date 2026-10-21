@@ -1,8 +1,8 @@
 {
-  "created_utc": "2026-10-16T02:32:59.378817+00:00",
+  "created_utc": "2026-10-21T20:16:07.834545+00:00",
   "cadquery": "2.8.0",
   "vtk": "9.6.2",
-  "geometry_checks": 74,
+  "geometry_checks": 140,
   "failed": [],
   "printed_exports_verified": [
     {
@@ -12,12 +12,12 @@
       "step_solids": 1,
       "stl_triangles": 14594,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 32795.56355158128,
-      "stl_volume_mm3": 32797.73340605873,
-      "relative_volume_error": 6.616304897567388e-05,
+      "cad_volume_mm3": 32269.722724812345,
+      "stl_volume_mm3": 32272.109050236864,
+      "relative_volume_error": 7.394936252997351e-05,
       "stl_bounds": [
-        -103.36695098876953,
-        103.36695098876953,
+        -97.71927642822266,
+        97.71927642822266,
         -18.649999618530273,
         18.649999618530273,
         1.0000000116860974e-07,
@@ -29,18 +29,18 @@
       "passed": true,
       "step_valid": true,
       "step_solids": 1,
-      "stl_triangles": 13512,
+      "stl_triangles": 16506,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 17124.415292142334,
-      "stl_volume_mm3": 17122.861830396814,
-      "relative_volume_error": 9.071619199940894e-05,
+      "cad_volume_mm3": 14945.061569386096,
+      "stl_volume_mm3": 14945.336503970042,
+      "relative_volume_error": 1.839635003637824e-05,
       "stl_bounds": [
-        -41.75,
-        41.75,
-        -20.700000762939453,
-        20.700000762939453,
-        0.0,
-        21.200000762939453
+        -51.0,
+        51.0,
+        -18.700000762939453,
+        18.700000762939453,
+        1.0000000116860974e-07,
+        17.799999237060547
       ]
     },
     {
@@ -48,18 +48,37 @@
       "passed": true,
       "step_valid": true,
       "step_solids": 1,
-      "stl_triangles": 7796,
+      "stl_triangles": 5688,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 6334.935293002034,
-      "stl_volume_mm3": 6334.89979748119,
-      "relative_volume_error": 5.603138659247565e-06,
+      "cad_volume_mm3": 4493.746241041107,
+      "stl_volume_mm3": 4493.725613301791,
+      "relative_volume_error": 4.590321351015437e-06,
       "stl_bounds": [
-        -41.0,
-        41.0,
-        -18.0,
-        18.0,
+        -75.0,
+        75.0,
+        -16.0,
+        16.0,
         0.0,
-        13.5
+        5.900000095367432
+      ]
+    },
+    {
+      "part": "usb_cap",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 1340,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 721.0339983722137,
+      "stl_volume_mm3": 721.0231709683542,
+      "relative_volume_error": 1.5016495593721858e-05,
+      "stl_bounds": [
+        -8.199999809265137,
+        8.199999809265137,
+        -10.699999809265137,
+        10.699999809265137,
+        -3.9900408128743957e-16,
+        3.4000000953674316
       ]
     },
     {
@@ -118,10 +137,105 @@
         0.0,
         10.800000190734863
       ]
+    },
+    {
+      "part": "stake_adapter",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 1352,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 10535.147869980685,
+      "stl_volume_mm3": 10535.31466687746,
+      "relative_volume_error": 1.5832421038068976e-05,
+      "stl_bounds": [
+        -22.0,
+        22.0,
+        -21.0,
+        21.0,
+        0.0,
+        17.0
+      ]
+    },
+    {
+      "part": "stake_cell_holder",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 10858,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 24051.91761714479,
+      "stl_volume_mm3": 24053.515968918724,
+      "relative_volume_error": 6.645423451782912e-05,
+      "stl_bounds": [
+        -40.25,
+        40.25,
+        -35.29999923706055,
+        35.29999923706055,
+        1.0000000116860974e-07,
+        19.100000381469727
+      ]
+    },
+    {
+      "part": "dummy_body",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 10598,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 39706.56178600212,
+      "stl_volume_mm3": 39708.16287163434,
+      "relative_volume_error": 4.032294815265841e-05,
+      "stl_bounds": [
+        -97.71927642822266,
+        97.71927642822266,
+        -18.649999618530273,
+        18.649999618530273,
+        1.0000000116860974e-07,
+        53.20000076293945
+      ]
+    },
+    {
+      "part": "dummy_lid",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 1292,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 3209.037167544046,
+      "stl_volume_mm3": 3209.033796923057,
+      "relative_volume_error": 1.0503527423535459e-06,
+      "stl_bounds": [
+        -38.5,
+        38.5,
+        -10.5,
+        10.5,
+        -2.44514986117369e-16,
+        2.0
+      ]
+    },
+    {
+      "part": "dummy_head_insert",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 1340,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 1474.1639647148709,
+      "stl_volume_mm3": 1474.1646131333569,
+      "relative_volume_error": 4.3985506463352533e-07,
+      "stl_bounds": [
+        -11.5,
+        11.5,
+        -8.899999618530273,
+        8.899999618530273,
+        0.0,
+        7.0
+      ]
     }
   ],
-  "dart_g": 158.16324123209918,
-  "harness_g": 183.47897683038832,
+  "dart_g": 147.93074419497574,
+  "harness_g": 183.4789768303886,
   "scope": "cad/gpt61 only; no commit/push; no physical qualification",
   "files": [
     {
@@ -131,18 +245,33 @@
     },
     {
       "path": "build.py",
-      "bytes": 19277,
-      "sha256": "c3d5a2d95326a76781f9ea769ebb6deb784d0ab81b50a5ce4f04f69784fa14d8"
+      "bytes": 21767,
+      "sha256": "72e5a0df48de4e296769be12e3fb0d7a1527f2d1e49eeb81cc72986659379316"
+    },
+    {
+      "path": "clean_obsolete.py",
+      "bytes": 664,
+      "sha256": "2fee101c53252898c3982b48094d7a17a47db91358c01ec2ca0886c88f66b24a"
     },
     {
       "path": "document.py",
-      "bytes": 34081,
-      "sha256": "5a46ed05733f39cf96b66c753c091eade918b3fb51575256d187302ffa62a8c2"
+      "bytes": 32507,
+      "sha256": "a609647162bd963f4162bab386c57d7c5fe4dd9dd2703d973d412b4ba151dbeb"
+    },
+    {
+      "path": "exploded.py",
+      "bytes": 21074,
+      "sha256": "0684bbe482dc179e5027bb4576c3a1ee294294ec962bc0ef1c3b94fbad9ff9ef"
     },
     {
       "path": "fetch_sources.py",
-      "bytes": 2071,
-      "sha256": "29e12cb8a980c7c278907424332fdafd450ca8e6c986e6d17fada7db0e6ab24b"
+      "bytes": 1750,
+      "sha256": "e5d7aef7184c6a84ad15fe2d7b5bb1dfd1924c02b764c5daa40d35d9e903f808"
+    },
+    {
+      "path": "fetch_xiao.py",
+      "bytes": 2024,
+      "sha256": "00064ee3c92ee826efbc0b5ed85ce01fe1b5631113ddb5fe89deaceb7d39d1df"
     },
     {
       "path": "geometry.py",
@@ -156,23 +285,53 @@
     },
     {
       "path": "package.py",
-      "bytes": 1344,
-      "sha256": "87be42748b1832828bd8050b53e823995d9a8b672e4723132de8e850e7e6fc15"
+      "bytes": 1524,
+      "sha256": "60d72c72ab0a119029cb104592c698a5190dd6f33c1719dac3fa6a72b9e12df3"
     },
     {
       "path": "parameters.py",
-      "bytes": 8830,
-      "sha256": "316f20736fab0704b577fbbff4ac190072759dd8923538bf6dc8cfd50f178b2c"
+      "bytes": 8954,
+      "sha256": "c7535ba04f61179cdc2b227cd994374f87dfccd605db8b6db9734b050504f433"
     },
     {
       "path": "printed.py",
-      "bytes": 15823,
-      "sha256": "6b7e5d4d4c02c51c891ad13fb01fba0ca245faa203002f27a85573793a73754a"
+      "bytes": 18456,
+      "sha256": "5367078474909634be65d802b73676db6fe5b605e127690f974e1d8ec0387650"
+    },
+    {
+      "path": "probe_xiao.py",
+      "bytes": 1241,
+      "sha256": "c8e94eb4794ffd09710e192ac98df7b3fcdeea2c0b8759d7f65f6be6eff66fb5"
     },
     {
       "path": "purchased.py",
-      "bytes": 13504,
-      "sha256": "92d36393973cfff1062d6ecb7145f4587c4928124cf826fb61b4953e65d97f0e"
+      "bytes": 14190,
+      "sha256": "6a3f0fc1e2fd595da60e96903b7a5de910ac52cc33674497b63bc4689cb1e08b"
+    },
+    {
+      "path": "record_visual_review.py",
+      "bytes": 1916,
+      "sha256": "d73ed4ec454e905cf40a18f983313e2243290203d54f684f23bd556e6b870e45"
+    },
+    {
+      "path": "refresh_reports.py",
+      "bytes": 929,
+      "sha256": "88e463b15ba273499640fe67b565589916a72e282fa0c03cffb3a77d44ab0121"
+    },
+    {
+      "path": "refresh_stake_prints.py",
+      "bytes": 1540,
+      "sha256": "ce1b70f4339d651eab1eec0afd949c67e0625fbac579e94c6fec18812e7fcbca"
+    },
+    {
+      "path": "refresh_stake_wiring.py",
+      "bytes": 1467,
+      "sha256": "d20647c6d21b28408fa1081dfb84b42752afb9a938f32304a0fd7853d08fffc0"
+    },
+    {
+      "path": "render_details.py",
+      "bytes": 839,
+      "sha256": "ca1b52935a5056b143cfb9818e9349d08c9abaa5d68dacc455f16daabc17fb57"
     },
     {
       "path": "render_local.py",
@@ -185,34 +344,59 @@
       "sha256": "a0f8f4d131d7563c8c48392160c235ab32e8caf213501002dc845d9b2f7fefdf"
     },
     {
+      "path": "stake_web.py",
+      "bytes": 2277,
+      "sha256": "cd60be5bfe3aa9ba68d066ed03ec5a648ea4278e26f7699fe4a70621e9cce1a2"
+    },
+    {
+      "path": "validate_archive.py",
+      "bytes": 944,
+      "sha256": "5acfa39c0b462747ef5e947df9ff8cff78801b2d75e68c7bb1e70fc32fc842e2"
+    },
+    {
       "path": "validate_exports.py",
       "bytes": 1875,
       "sha256": "64b1b1eed7d4954ba9a95bc3fff05a7674f061b41ba1b4679c455a8a771294af"
     },
     {
+      "path": "validate_package.py",
+      "bytes": 2906,
+      "sha256": "4d7a532affe156f6aa5a59b988e96b7b02fc9e4e7a94499d29d5c3842bbccab9"
+    },
+    {
+      "path": "variants.py",
+      "bytes": 9395,
+      "sha256": "c3c0fc4c8320d08f7f78ff9c5b1b8181353d4c2657c8b2496a4f65ccb8918b3e"
+    },
+    {
       "path": "verify.py",
-      "bytes": 12407,
-      "sha256": "eab408b9e616e6d581e89c9f7c186f187890a222795b0c46589882643e8fd56b"
+      "bytes": 16997,
+      "sha256": "cb183d33eb60d689d0f1dae82f6e916c637c9835a8af0ce68d4c72c0d4a049d8"
+    },
+    {
+      "path": "web_export.py",
+      "bytes": 31967,
+      "sha256": "60e4039cd1421a4739a957ec1f944b6dbacb9a260e4d79382a92637f6b5eb64c"
+    },
+    {
+      "path": "renders/aircraft_exploded.png",
+      "bytes": 215371,
+      "sha256": "551a2c87dbe3c65987a5065d5ad15ce2f409917c8c279ef62dceeea1b88ff1ac"
     },
     {
       "path": "renders/assembly_carried.png",
-      "bytes": 170579,
-      "sha256": "51a6d70e212b3f1f9dc5cf6e709a8c09353f95044cc1b577788fae281a4c0737"
+      "bytes": 168898,
+      "sha256": "b9021570a2df07df70b51e96c034fe98b3dc892697be3696172676fd58bebb7c"
     },
     {
       "path": "renders/assembly_mid_release.png",
-      "bytes": 160746,
-      "sha256": "04598727b275d4667a8415ba74adbde79b974f26890e5a06771e65adb0451990"
+      "bytes": 160475,
+      "sha256": "23df70a3d4e5e9458fb01e73640b674cc371f0c9dd7ae04fdfddc2fdb0950bb6"
     },
     {
       "path": "renders/assembly_stood.png",
-      "bytes": 104504,
-      "sha256": "7f19d11fbccd174e2e4f2662bac5014b6638019d5cacfd078791e16de7e06ee3"
-    },
-    {
-      "path": "renders/bought_heltec.png",
-      "bytes": 68101,
-      "sha256": "6b9ad44e6f7fb316d3f034540c9b7dfbb45beee734efdeb017e7c576f1ac6c41"
+      "bytes": 104917,
+      "sha256": "b1c1597d6e9725d24e14bdb1193a3f927c6731c1ceec2003737a07525bbd9ddc"
     },
     {
       "path": "renders/bought_servo.png",
@@ -220,19 +404,74 @@
       "sha256": "e05fb02f275a511785c1df6577df1241f9560923caf844aa08f5797299116c2c"
     },
     {
+      "path": "renders/bought_xiao_wio.png",
+      "bytes": 72092,
+      "sha256": "3e554d528c33914a1855b9171eaa7e9ef5604489048b80c730636ae9aa155390"
+    },
+    {
+      "path": "renders/dart_exploded.png",
+      "bytes": 68478,
+      "sha256": "b52ade15019776ce72ad8c1a3e45344e972e660d062aa7d32a884f89e347bb76"
+    },
+    {
+      "path": "renders/dart_exploded_pod.png",
+      "bytes": 86996,
+      "sha256": "91f8c71b6d1f7ef7958e415d3c2b6ead21f78907373491d2c774601dd94f6595"
+    },
+    {
       "path": "renders/dart_stood.png",
-      "bytes": 25257,
-      "sha256": "2febcb70a6a4bbb34e6774edaa3dcd4385ba538f4273def27519610731fbe0db"
+      "bytes": 24751,
+      "sha256": "5bec7b57e3826fd70112e1fe399713f5ca3906e81cbe6fd119fc6fd84c17f774"
+    },
+    {
+      "path": "renders/dummy_assembled.png",
+      "bytes": 25802,
+      "sha256": "83dd249f291bc6a94796b03d9c5d8bde2a770145b22bd6025f3579d37585985d"
+    },
+    {
+      "path": "renders/dummy_ballast_detail.png",
+      "bytes": 41877,
+      "sha256": "c6f886d4199b8476739afd29da54281b100ba50b538b8ef65744056d3502dee7"
+    },
+    {
+      "path": "renders/harness_exploded.png",
+      "bytes": 131777,
+      "sha256": "4cf97a45cd113070e60e4539448fbdb7d393170797fa433d1faf4386beeb70dd"
+    },
+    {
+      "path": "renders/harness_exploded_detail.png",
+      "bytes": 92997,
+      "sha256": "ca6547bdd049be2c865b1d5544908e4055eb7ec7d302529c5ae7368cff8df80d"
     },
     {
       "path": "renders/pod_exploded.png",
-      "bytes": 54098,
-      "sha256": "72c162b4aff69875f07f337bfb010c537443c48842391a66dff8c8b1d75a6225"
+      "bytes": 38417,
+      "sha256": "7301d9023d52b26da28dfa053666bf07ee993753a3c450eb890aa6379f25089d"
+    },
+    {
+      "path": "renders/pod_usb_access.png",
+      "bytes": 41909,
+      "sha256": "d7298d083d59b069ec139b89d1b4661563fb3e4e03a3185976a0bf34186b6768"
     },
     {
       "path": "renders/print_body.png",
-      "bytes": 41967,
-      "sha256": "3266b52d1b466bbae33c830d8b35ae423e80ba81ee00866f88a47b3080015b9d"
+      "bytes": 43158,
+      "sha256": "ea1db41210684cc726e7726f88eee1b2e846fd3242bf9a86ec3127aa7e7051e1"
+    },
+    {
+      "path": "renders/print_dummy_body.png",
+      "bytes": 37101,
+      "sha256": "b65b032026996f0f5b045735c0d1fb0681a7533f455a9d2e93ab2771934637cb"
+    },
+    {
+      "path": "renders/print_dummy_head_insert.png",
+      "bytes": 32429,
+      "sha256": "607e861f068011078756745c3dc81c6025cae0cd8c0d2867871c76f4ee55914d"
+    },
+    {
+      "path": "renders/print_dummy_lid.png",
+      "bytes": 25776,
+      "sha256": "cde2184c2d2e15269d27b57af7fa4a753876c975251992e9e94be2057ea819cd"
     },
     {
       "path": "renders/print_fit_coupon.png",
@@ -246,13 +485,13 @@
     },
     {
       "path": "renders/print_pod_lid.png",
-      "bytes": 33987,
-      "sha256": "8ae888166d18a94d54caffd1e073a286be95affc9bedfc453d1eab1c42d3c6a7"
+      "bytes": 27076,
+      "sha256": "43d8a512147e8dc4db3252cb263224e13276dc85aab8e32e2484f11700ffa8c1"
     },
     {
       "path": "renders/print_pod_shell.png",
-      "bytes": 45647,
-      "sha256": "03a676c69d4e274465c203a9096390166411466e552e6f56b032a5891cea26d3"
+      "bytes": 38984,
+      "sha256": "58063722cfa9dd380a2ffdb3e637ed94051fa5a6ac4335b2cd5bb1ea67c8a594"
     },
     {
       "path": "renders/print_rotor.png",
@@ -260,14 +499,29 @@
       "sha256": "c7daf1f44bc7c284270d527ca8f4e22122d139fd5bfcf61acefba81ec171d798"
     },
     {
+      "path": "renders/print_stake_adapter.png",
+      "bytes": 38440,
+      "sha256": "4394f827e57f7dd006e90f71c614cd99239fb417d9a39ad6186060d39ef98bf6"
+    },
+    {
+      "path": "renders/print_stake_cell_holder.png",
+      "bytes": 47495,
+      "sha256": "987821ab3f66a52c7685fc08c5189ff6423d96d727e8d8c35eadf339285e9526"
+    },
+    {
+      "path": "renders/print_usb_cap.png",
+      "bytes": 33454,
+      "sha256": "a53c9cc2fc0217d2fb2e8841c3d4c44d1cef30f91dbc2a92216a9ce812b2d61e"
+    },
+    {
       "path": "renders/release_detail.png",
-      "bytes": 63355,
-      "sha256": "4c36fbaf1a4e3ca923e0e601d347c804e239622feb13c2ef265fb070a67cccd6"
+      "bytes": 63409,
+      "sha256": "03416912f2fe01e1a46bafc5b9d45aed6bd7aeab50a43b9434c14c0514f21e57"
     },
     {
       "path": "renders/section_body.png",
-      "bytes": 35148,
-      "sha256": "db0bff7592f97907401aef4335010d138491642d54dfbe05ad6ce066e0ee648a"
+      "bytes": 35166,
+      "sha256": "f15ba573d51caff2ef0e6571bb94bcf01fff86c6c641f09b19e9c74753f43dca"
     },
     {
       "path": "renders/section_body_snap.png",
@@ -276,13 +530,38 @@
     },
     {
       "path": "renders/section_pod.png",
-      "bytes": 47968,
-      "sha256": "d11c822c408e89a9e4fbef9e8f2700712ea782510a9716ab03bafc93311324f0"
+      "bytes": 43813,
+      "sha256": "a94b652c38064bcc44e02543088b96c03436d007cd6c62442940b12d57c3d009"
+    },
+    {
+      "path": "renders/stake_assembled.png",
+      "bytes": 27378,
+      "sha256": "99fff387b3a4c4b0df90efb17701e6bec497a8f5c80292407f4ef4311e668b01"
+    },
+    {
+      "path": "renders/stake_clamp_detail.png",
+      "bytes": 63054,
+      "sha256": "efc0b580551d839e0a7299394904858be03e14bb80833535ce726f3ccae15148"
     },
     {
       "path": "out/body.stl",
       "bytes": 729834,
-      "sha256": "49870c67e131f5c853360ee0627dd51066e362c9fbda77a9535ccef604deb509"
+      "sha256": "95de07af8b96742ca5d143c1a11fc70d9a8319eb15984f98c5d71060de0b521e"
+    },
+    {
+      "path": "out/dummy_body.stl",
+      "bytes": 529984,
+      "sha256": "ff83da5100149abf535fd9a4557d4e879387710d4ccc8b765b70ec95f3c3186f"
+    },
+    {
+      "path": "out/dummy_head_insert.stl",
+      "bytes": 67084,
+      "sha256": "5002b66ecfddc20215374ab21456df56decbaa074d734c6757f13b6345188e16"
+    },
+    {
+      "path": "out/dummy_lid.stl",
+      "bytes": 64684,
+      "sha256": "ef9f5e0c0b9439215366e77db3c3e8cbce4dd277b6d104e20179b24bf21bdb7e"
     },
     {
       "path": "out/fit_coupon.stl",
@@ -296,18 +575,33 @@
     },
     {
       "path": "out/pod_lid.stl",
-      "bytes": 389884,
-      "sha256": "d5b23775cec662f1cc630a4237b80245a4223e9fcd7e90e6948218a2aeaef813"
+      "bytes": 284484,
+      "sha256": "ba27bb01369a460c13f0733796e70aa4e2ffe5460f77c2b29ea38890679804ac"
     },
     {
       "path": "out/pod_shell.stl",
-      "bytes": 675684,
-      "sha256": "54d647941e6b79b14f4821b141c0819875da88c1721d1d4eba9a933618a17b8f"
+      "bytes": 825484,
+      "sha256": "78ff027fd7fc096056e20608b08db486a286014e86107a877c6dc047d533b5aa"
     },
     {
       "path": "out/rotor.stl",
       "bytes": 205284,
       "sha256": "500680ed698ca593f1c46f4e457443630886650da0f727d2b8063b1c3ce4a222"
+    },
+    {
+      "path": "out/stake_adapter.stl",
+      "bytes": 67684,
+      "sha256": "261e0b58f562536e89a1179e70e542c006d396099aa95ebc3e60371a6656cabc"
+    },
+    {
+      "path": "out/stake_cell_holder.stl",
+      "bytes": 543034,
+      "sha256": "7168042760357e386992f3ffa263c56b4bad883497faf88aeaafb44edb1b407e"
+    },
+    {
+      "path": "out/usb_cap.stl",
+      "bytes": 67084,
+      "sha256": "cc93fffec1aed228179a9a48d6486f1e3111e331d01b3c05348d6b6f4617f04f"
     }
   ]
 }

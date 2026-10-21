@@ -91,86 +91,142 @@ def body(hanger,hanger_y=0.):
     return s.clean()
 
 def pod_shell():
-    L=POD_X1-POD_X0
-    # Tray is open on +Z with four screw bosses. Floors and walls are explicit.
-    s=rounded(L,POD_W,POD_SEAM-POD_BOTTOM,5,at=((POD_X0+POD_X1)/2,0,POD_BOTTOM))
-    cavity=rounded(L-2*WALL,POD_W-2*WALL,POD_SEAM-POD_BOTTOM+2,3.4,
-        at=((POD_X0+POD_X1)/2,0,POD_BOTTOM+WALL))
-    s=s.cut(cavity)
-    # Captured rod socket ends at x500, so it cannot share space with the PCB.
-    sock=rounded(23,11.4,11.2,2,at=(490,0,POD_BOTTOM+1.2))
-    sock=sock.cut(teardrop_x(478,22.2,(M.rod_d+.15)/2,0,ROD_Z))
-    s=s.fuse(sock)
-    # Entrance hole and chamfer through lower end wall.
+    # Compact 44x32 tray, with a narrow closed socket neck to put mic at500mm.
+    L=POD_X1-POD_TRAY_X0;cx=(POD_TRAY_X0+POD_X1)/2
+    s=rounded(L,POD_W,POD_SEAM-POD_BOTTOM,4,at=(cx,0,POD_BOTTOM))
+    s=s.cut(rounded(L-2*WALL,POD_W-2*WALL,20,2.4,at=(cx,0,POD_BOTTOM+WALL)))
+    neck=rounded(POD_TRAY_X0-POD_X0+3,13.6,12.8,2,at=((POD_X0+POD_TRAY_X0+3)/2,0,POD_BOTTOM))
+    neck=neck.cut(teardrop_x(479,21.2,(M.rod_d+.15)/2,0,ROD_Z))
+    # Hollow riser after rod stop; accessible wire duct, 45degree bore roof.
+    neck=neck.cut(teardrop_x(500,40,3.6,0,ROD_Z))
+    s=s.fuse(neck)
     s=s.cut(teardrop_x(479,21.1,(M.rod_d+.15)/2,0,ROD_Z))
     s=s.cut(cone(3.75,3.075,1.4,(480,0,ROD_Z),(1,0,0)))
-    # Widened top land retains .7mm on both sides of the gasket groove.
-    rim=rounded(L,POD_W,2,5,at=((POD_X0+POD_X1)/2,0,POD_SEAM-2))
-    rim=rim.cut(rounded(L-5,POD_W-5,2.3,2.5,at=((POD_X0+POD_X1)/2,0,POD_SEAM-2.1)))
+    rim=rounded(L,POD_W,2,4,at=(cx,0,POD_SEAM-2))
+    rim=rim.cut(rounded(L-5,POD_W-5,2.3,1.5,at=(cx,0,POD_SEAM-2.1)))
     s=s.fuse(rim)
-    # Silicone cord groove on the perimeter sealing land; true endless path.
-    # 1.5 x .9 gland: 1.2mm cord has 84% gland fill at25% squeeze.
-    groove=rounded(L-1.0,POD_W-1.0,.9,4.5,at=((POD_X0+POD_X1)/2,0,POD_SEAM-.9))
-    groove=groove.cut(rounded(L-4.0,POD_W-4.0,1.1,3.0,at=((POD_X0+POD_X1)/2,0,POD_SEAM-1.0)))
+    groove=rounded(L-1,POD_W-1,.9,3.5,at=(cx,0,POD_SEAM-.9))
+    groove=groove.cut(rounded(L-4,POD_W-4,1.1,2,at=(cx,0,POD_SEAM-1)))
     for x,y in POD_SCREWS:
-        boss=cyl(3.5,POD_SEAM-(POD_BOTTOM+WALL),(x,y,POD_BOTTOM+WALL))
+        boss=cyl(3.3,POD_SEAM-POD_BOTTOM-WALL,(x,y,POD_BOTTOM+WALL))
         boss=boss.cut(cyl(INSERT_HOLE/2,5.2,(x,y,POD_SEAM-5.2)))
-        boss=boss.cut(cone(INSERT_HOLE/2,1.85,.5,(x,y,POD_SEAM-.5)))
+        boss=boss.cut(cone(1.6,1.85,.5,(x,y,POD_SEAM-.5)))
         s=s.fuse(boss)
-    # Paired floor ribs support long PCB edges at component-free underside
-    # strips; clear all vendor components rather than guessing standoff holes.
-    for x in (513,548):
-        for y in (-11.7,11.7):
-            foot=rounded(5,1.5,4.67,.5,at=(x,y,POD_BOTTOM+WALL))
-            s=s.fuse(foot)
-    # Locating fences outside 25.4 board; lid compression pads hold it down.
-    for y in (-13.3,13.3):
-        for x in (515,536):s=s.fuse(rounded(8,1.2,7,.45,at=(x,y,POD_BOTTOM+WALL)))
-    # The bottom-port mic faces -Y. A formed cavity and membrane under the
-    # integral 45-degree rain hood connect to the PCB sound hole.
-    s=s.cut(cyl(2,6,(MIC_X,-20,MIC_Z),(0,1,0)))
-    # Membrane counterbore on inside face, backed by a .8 mm cavity.
-    s=s.cut(cyl(4.3,.65,(MIC_X,-16.4,MIC_Z),(0,-1,0)))
-    # Pocket for microphone PCB and soft closed-cell gasket at the inside wall.
+    # Supports contact the XIAO underside edge only; no castellated pins fitted.
+    for x in (555,565):
+        for y in (-8.3,8.3):s=s.fuse(rounded(3,1,1.95,.35,at=(x,y,.8)))
+    for y in (-9.7,9.7):
+        for x in (554,566):s=s.fuse(rounded(4,1,3.6,.35,at=(x,y,.8)))
+    # Five direct soldered I2S wires stay in the clear side aisle.
+    s=s.cut(cyl(2,5,(MIC_X,-18,MIC_Z),(0,1,0)))
+    s=s.cut(cyl(4.3,.65,(MIC_X,-14.6,MIC_Z),(0,-1,0)))
     for dx in (-M.mic_board_l/2-.8,M.mic_board_l/2+.8):
-        rail=box(1.2,3.6,M.mic_board_w+1.4,at=(MIC_X+dx,-14.7,MIC_Z-M.mic_board_w/2-.5))
-        s=s.fuse(rail)
-    # Hood grows out of the -Y wall. Upwards when dart stands = +X.
+        s=s.fuse(box(1.2,3.6,M.mic_board_w+1.4,at=(MIC_X+dx,-13.7,MIC_Z-M.mic_board_w/2-.5)))
     hood=cq.Workplane('XY').workplane(offset=MIC_Z-5.5).polyline([
-        (MIC_X+4,-17.4),(MIC_X+10,-17.4),(MIC_X+10,-23.4),(MIC_X+8.4,-23.4),(MIC_X+4,-19)]).close().extrude(11).val()
+        (MIC_X+4,-15.4),(MIC_X+10,-15.4),(MIC_X+10,-21.4),(MIC_X+8.4,-21.4),(MIC_X+4,-17)]).close().extrude(11).val()
     s=s.fuse(hood)
-    # Dedicated 2-wire feedthrough next to rod. Pot with removable silicone,
-    # anchor the wires internally, and seal rod separately with an RTV bead.
-    s=s.cut(teardrop_x(479,7,1.9,7.3,4.5))
-    for x in (489,496):
-        anchor=box(2,5,6.6,at=(x,8.5,POD_BOTTOM+WALL)).cut(box(3,3,1.4,at=(x,8.5,.3)))
+    for x in (489,525):
+        anchor=box(3,5,5,at=(x,4.5,.8)).cut(box(4,3,1.6,at=(x,4.5,2)))
         s=s.fuse(anchor)
-    # Antenna hole in upper axial wall, moulded boot sealed with silicone.
-    s=s.cut(cyl((M.whip_base_d+.4)/2,4,(POD_X1-3,0,7),(1,0,0)))
+    # Removable end cap exposes USB and both buttons to a pin from +X.
+    opening=rounded(14,19,5,1.2).rotate((0,0,0),(0,1,0),90)
+    b=opening.BoundingBox()
+    opening=opening.translate((POD_X1-2-b.xmin,0,8.5-(b.zmin+b.zmax)/2))
+    s=s.cut(opening)
+    # LoRa coax gland sits above microphone, clear of removable service cap.
+    s=s.cut(cyl(1.1,5,(577,-11.5,14.4),(1,0,0)))
     for path in power_wire_paths():s=s.cut(pipe_path(path,.82))
     return s.cut(groove).clean()
 
 def pod_lid():
-    L=POD_X1-POD_X0
-    s=rounded(L,POD_W,2.0,5,at=((POD_X0+POD_X1)/2,0,POD_SEAM))
-    # 0.30 mm radial clearance lip, interrupted at bosses and mic position.
-    lip=rounded(L-5.6,POD_W-5.6,1.4,2.2,at=((POD_X0+POD_X1)/2,0,POD_SEAM-1.4))
-    lip=lip.cut(rounded(L-8.0,POD_W-8.0,1.6,1.0,at=((POD_X0+POD_X1)/2,0,POD_SEAM-1.5)))
-    for x,y in POD_SCREWS:lip=lip.cut(cyl(3.85,3,(x,y,POD_SEAM-2)))
+    L=POD_X1-POD_TRAY_X0;cx=(POD_TRAY_X0+POD_X1)/2
+    s=rounded(L,POD_W,2,4,at=(cx,0,POD_SEAM))
+    lip=rounded(L-5.6,POD_W-5.6,1.4,1.2,at=(cx,0,POD_SEAM-1.4))
+    lip=lip.cut(rounded(L-8,POD_W-8,1.6,.6,at=(cx,0,POD_SEAM-1.5)))
+    for x,y in POD_SCREWS:lip=lip.cut(cyl(3.65,3,(x,y,POD_SEAM-2)))
     lip=lip.cut(box(24,8,3,at=(MIC_X,-15,POD_SEAM-2)))
+    lip=lip.cut(box(7,22,3,at=(579,0,POD_SEAM-2)))
     s=s.fuse(lip)
     for x,y in POD_SCREWS:
         s=s.cut(cyl(1.2,5,(x,y,POD_SEAM-2)))
-        s=s.cut(cyl(2.1,1.0,(x,y,POD_SEAM+1.0)))
-    # Four narrow pressure fingers touch compliant foam on PCB edge strips.
-    # These do not bear on the OLED or the electronics.
-    for x in (513,548):
-        for y in (-11.65,11.65):
-            s=s.fuse(rounded(4,1.5,11.5,.5,at=(x,y,4.5)))
-    # Lid tab presses breakout into silicone mic seal, with soft pad fitted.
-    s=s.fuse(rounded(7,2.0,4.0,.6,at=(MIC_X,-13.0,12)))
-    # Crisp perimeter chamfer protects exposed edges and helps assembly.
-    return chamfer(s,'>Z',.35).clean()
+        s=s.cut(cyl(2.1,1,(x,y,POD_SEAM+1)))
+    # Wio PCB-edge foam pads at z12.1..13.1; no pressure on RF can.
+    for x in (557,565):
+        for y in (-8.3,8.3):s=s.fuse(rounded(3,1,3.9,.35,at=(x,y,13.1)))
+    s=s.fuse(rounded(5,1.5,1.5,.4,at=(MIC_X,-12.7,15.5)))
+    # Integral light FPC backer: no metal whip, no SMA fitting, no OLED window.
+    support=rounded(FPC_X0+M.fpc_l+2-572, max(12,M.fpc_w+2),1.2,1,at=((572+FPC_X0+M.fpc_l+2)/2,0,17.8))
+    for x in (590,FPC_X0+M.fpc_l-8):
+        for y in (-4,4):support=support.cut(box(3,1.4,3,at=(x,y,17)))
+    s=s.fuse(support)
+    return s.clean()
+
+def usb_cap():
+    # End-access cover with shallow locating skirt; seal with removable RTV.
+    outer=rounded(16.4,21.4,1.6,1.8)
+    skirt=rounded(13.4,18.4,1.8,1.0,at=(0,0,-1.8))
+    skirt=skirt.cut(rounded(10.2,15.2,2, .7,at=(0,0,-1.9)))
+    s=outer.fuse(skirt)
+    s=s.rotate((0,0,0),(0,1,0),90)
+    b=s.BoundingBox()
+    return s.translate((POD_X1,0,8.5-(b.zmin+b.zmax)/2))
+
+def stake_adapter():
+    # Two 90deg V saddles take any8..13mm stake using independent zip ties.
+    # Datums match dart: stand_transform puts microphone at500mm, adapter at430.
+    s=rounded(44,35,5,2,at=(502,15,-4))
+    for x in (489,515):
+        block=box(8,18,13,at=(x,26,0))
+        v=cq.Workplane('YZ',origin=(x-5,0,0)).polyline([(17,14),(26,5),(35,14)]).close().extrude(10).val()
+        block=block.cut(v)
+        for y in (17.8,34.2):block=block.cut(box(3.2,3.2,8,at=(x,y,-5)))
+        s=s.fuse(block)
+    mount=rounded(24,14,9,1.6,at=(492,0,-4))
+    mount=mount.cut(teardrop_x(479,26,3.2,0,ROD_Z))
+    s=s.fuse(mount)
+    # Separate6mm fibreglass offcut is held here and in the unchanged pod socket.
+    for x in (486,497):s=s.cut(box(3.2,17,2.2,at=(x,0,-1)))
+    s=s.translate((-32,0,0))
+    s=s.cut(box(60,16,18,at=(509,0,-2)))
+    for x in (457,483):
+        s=s.cut(box(3.2,44,1.4,at=(x,26,-4)))
+        s=s.cut(box(3.2,3.2,9,at=(x,14.5,-4)))
+    s=s.cut(box(3.2,46,1.4,at=(490,13,-2))) # separate pod-retention tie
+    return s.clean()
+
+def stake_cell_holder():
+    # Reuse exactly the qualified-by-geometry snap cradle; no hanger/spine tail.
+    s=body(180,5).intersect(box(81,44,25,at=(110,15,0)))
+    s=s.fuse(rounded(62,39,3,2,at=(110,43,0)))
+    for x in (84,136):
+        block=box(8,18,13,at=(x,56,0))
+        v=cq.Workplane('YZ',origin=(x-5,0,0)).polyline([(47,14),(56,5),(65,14)]).close().extrude(10).val()
+        s=s.fuse(block.cut(v))
+        s=s.cut(box(3.2,44,1.4,at=(x,56,-.2)))
+        s=s.cut(box(3.2,3.2,4,at=(x,44.5,-.2)))
+    return s.clean()
+
+def dummy_body(hanger,hanger_y):
+    # Real body's exterior/hanger retained; closed ballast cartridge replaces cell.
+    s=body(hanger,hanger_y)
+    s=s.cut(box(78,34,25,at=(111,22.5,1.5)))
+    cartridge=rounded(70,20,18.6,2,at=(111,CELL_Y,1.4))
+    s=s.fuse(cartridge)
+    # Two independent axial ballast stations set both mass and longitudinal CG.
+    for x in (92,130):s=s.cut(rounded(24,15,16.4,1.5,at=(x,CELL_Y,3.6)))
+    # Screw-retained common lid, captiveM2 nuts reached from below.
+    for x in (77,145):
+        s=s.fuse(cyl(4,8.4,(x,CELL_Y,11.6)))
+        s=s.cut(cyl(1.1,11,(x,CELL_Y,10.6)))
+        trap=cq.Workplane('XY').workplane(offset=16.4).center(x,CELL_Y).polygon(6,M2_TRAP_CIRC).extrude(1.8).val()
+        s=s.cut(trap)
+        s=s.cut(box(4.3,14,1.8,at=(x,22,16.4))) # side-load captive nut
+    return s.clean()
+
+def dummy_lid():
+    s=rounded(77,21,2,2,at=(111,CELL_Y,20))
+    for x in (77,145):s=s.cut(cyl(1.2,4,(x,CELL_Y,19)))
+    return s.clean()
 
 def head_positions():
     a=math.degrees(math.asin(22/HEAD_R))
@@ -287,3 +343,8 @@ def fit_coupon():
         b=b.cut(box(12,.8,4,at=(x,0,8)))
         blocks.append(b)
     return union(*blocks,box(55,2,1.2,at=(22.5,-5,0)))
+
+def dummy_head_insert():
+    s=rounded(23,17.8,7,1,at=(560,0,3))
+    for x in (554,566):s=s.cut(rounded(8,15,6, .8,at=(x,0,4.2)))
+    return s.clean()

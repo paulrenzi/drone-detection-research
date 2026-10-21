@@ -54,7 +54,8 @@ def make_parts(p):
     for n, desc, function in (
         ('body', 'Printed body with integral cell snaps and hanger', 'Supports the cell and rod and transfers the carried load through its integral hanger.'),
         ('pod_shell', 'Printed electronics tray', 'Holds the electronics and provides the rod socket and microphone cavity.'),
-        ('pod_lid', 'Printed service lid', 'Closes the pod and gently retains the boards through compliant pads.')):
+        ('pod_lid', 'Printed service lid and FPC backer', 'Closes the pod and supports the external kit FPC antenna.'),
+        ('usb_cap','Printed USB and button service cap','Covers the removable USB and pin access opening.')):
         add(n, [raw[n]], desc, 'printed', {'type':'modelled', 'reference':'printed.py; DESIGN.md'}, function,
             uncertainties=['PETG density and printed fit are unmeasured.',
                            'Snaps, ribs, channels and hanger are integral geometry, not separate parts.'])
@@ -67,22 +68,22 @@ def make_parts(p):
         {'type':'datasheet', 'reference':'S5; purchased.py cell(); terminal and insulator details reconstructed'},
         'Supplies electrical energy to the listener.', 'Samsung25R_cell',
         uncertainties=['45 g is the datasheet maximum, not a measured cell mass.', 'Terminal and insulator details are MEASURE envelopes.'])
-    add('heltec_v3', p['board'], 'Heltec WiFi LoRa 32 V3 with OLED', 'bought',
-        {'type':'manufacturer STEP and datasheet', 'reference':'S4; heltec-v3.7.step plus reconstructed OLED stack'},
-        'Provides the listener microcontroller and LoRa radio with its fitted display.', 'Heltec_with_OLED',
-        uncertainties=['9 g is unmeasured.', 'Verify purchased revision; OLED height and thickness are unmeasured.',
-                       'Vendor components and header plating remain together as one board part.'])
+    for prefix,name,label,key in [('xiao_','xiao_esp32s3','Seeed XIAO ESP32S3','XIAO_ESP32S3'),('wio_','wio_sx1262','Seeed Wio-SX1262 extension','Wio_SX1262')]:
+        add(name,[r for r in p['board'] if r[0].startswith(prefix)],label,'bought',
+            {'type':'manufacturer STEP and modelled mate','reference':'S4; sources/xiao-manifest.json; native unscaled Seeed OEM solids'},
+            'Provides the listener processor and battery charger.' if prefix=='xiao_' else 'Provides the SX1262 LoRa radio through the kit board-to-board connector.',key,
+            uncertainties=['Populated mass is MEASURE; stack mating spacing and missing XIAO mating connector require measurement.','No display or firmware status window; source CAD can retain inactive component bodies.'])
     add('inmp441', p['mic'], 'INMP441 microphone breakout', 'bought',
         {'type':'datasheet and modelled', 'reference':'S6 bare IC outline; generic breakout reconstructed in purchased.py'},
         'Senses sound through the side-facing bottom-port acoustic cavity.', 'INMP441_breakout',
-        uncertainties=['Breakout outline, port, thickness and 1 g mass are unmeasured.', 'Internal microphone jumpers are not modelled.'])
-    ant = [raw[n] for n in ('whip','whip_boot','RF_pigtail')]
-    add('antenna', ant, 'Whip, boot and U.FL pigtail', 'bought',
-        {'type':'modelled', 'reference':'parameters.py MEASURE whip envelope; no identified manufacturer antenna'},
-        'Connects the radio to an external whip antenna.', 'whip_and_pigtail',
-        uncertainties=['Antenna identity, 82 mm whip envelope and 1.2 g mass are unmeasured.', 'Cable disconnection and flexing are not simulated.'])
+        uncertainties=['Breakout outline, port, thickness and 1 g mass are unmeasured.', 'Five short mic wires are modelled; solder-pad labels and wire dress require verification.'])
+    for names,name,label,key in [(('lora_FPC','RF_pigtail'),'antenna','Kit LoRa FPC and U.FL coax','LoRa_FPC_and_coax'),(('wifi_FPC','wifi_coax'),'wifi_antenna','Kit WiFi/BLE FPC and coax','WiFi_FPC_and_coax')]:
+        add(name,[raw[n] for n in names],label,'bought',
+            {'type':'modelled; kit identity from manufacturer','reference':'S4 kit product page identifies included FPC; dimensions unsourced MEASURE'},
+            'Radiates LoRa from the top backer.' if name=='antenna' else 'Connects the XIAO WiFi/BLE U.FL to its separate wall-mounted FPC.',key,
+            uncertainties=['Exact supplied antenna geometry and mass must be measured.','Cable unplugging and deformation are not simulated.'])
     for n, s, c in p['hardware']:
-        if n in ('whip','whip_boot','RF_pigtail'):
+        if n in ('lora_FPC','RF_pigtail','wifi_FPC','wifi_coax'):
             continue
         source = {'type':'modelled', 'reference':'purchased.py; DESIGN.md BOM'}
         u = ['Material-density mass estimate; actual item has not been weighed.']
@@ -98,6 +99,9 @@ def make_parts(p):
         elif n.startswith('nickel'):
             display, fun = 'Factory-welded cell tab '+n.split('_')[-1], 'Provides a welded electrical connection at a cell terminal.'
             u += ['Offset for identification only; removing a factory weld is not routine service.']
+        elif n.startswith('mic_wire'):
+            display, fun = n.replace('_',' '), 'Connects INMP441 to the named XIAO I2S or supply pad with a short wire.'
+            u += ['Wire dress and solder-pad positions require verification.']
         elif n.startswith('power_wire'):
             display, fun = 'Insulated power wire '+n[-1], 'Routes one battery connection through the protected gutters to the pod.'
             u += ['Rigid displayed route; unplugging, soldering and flexible extraction are not simulated.']
@@ -199,7 +203,11 @@ def dart_offset(n):
     x=65
     if n=='pod_shell':return (x,0,0),ramp(2,3.3)
     if n=='pod_lid':return (x,0,125),None
-    if n=='heltec_v3':return (x,0,49),None
+    if n=='xiao_esp32s3':return (x,0,49),None
+    if n=='wio_sx1262':return (x,0,72),None
+    if n=='usb_cap':return (x+45,0,0),ramp(1,1.9)
+    if n=='wifi_antenna':return (x,55,20),None
+    if n.startswith('mic_wire'):return (x,-100,32+16*['D3_BCLK','D4_WS','D5_SD','3V3','GND'].index(n[9:])),ramp(3.4,5.0)
     if n=='inmp441':return (x,-70,0),None
     if n=='antenna':return (210,0,0),ramp(1,1.9)
     if n.startswith('pod_M2'):return (x,0,160),None
@@ -247,7 +255,7 @@ def dart_motion(n,t):
     zstage=ramp(3.4,5.0)
     if n=='pod_lid':zstage=ramp(3.4,4.2)
     elif n.startswith('pod_M2'):zstage=ramp(3.3,3.7)
-    elif n=='heltec_v3':zstage=ramp(4.4,5.4)
+    elif n in ('xiao_esp32s3','wio_sx1262'):zstage=ramp(4.4,5.4)
     elif n.startswith('board_retention') or n=='perimeter_silicone_seal':zstage=ramp(4.2,4.7)
     elif n.startswith('pod_insert'):zstage=ramp(5.4,6.3)
     elif n=='cell_18650' or n.startswith('nickel_tab'):zstage=ramp(3.4,4.4)

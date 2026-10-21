@@ -2,39 +2,55 @@
   {
     "part": "body",
     "quantity": 4,
+    "kit": "four-dart",
     "step": "body.step",
     "stl": "body.stl",
     "print_bbox_mm": [
-      206.73389721398965,
+      195.4385576041457,
       37.300000100000005,
-      53.20000010000002
+      53.200000100000004
     ]
   },
   {
     "part": "pod_shell",
     "quantity": 4,
+    "kit": "four-dart",
     "step": "pod_shell.step",
     "stl": "pod_shell.stl",
     "print_bbox_mm": [
-      83.5000001,
-      41.4,
-      21.200000100000004
+      102.00000020000398,
+      37.4,
+      17.800000200000003
     ]
   },
   {
     "part": "pod_lid",
     "quantity": 4,
+    "kit": "four-dart",
     "step": "pod_lid.step",
     "stl": "pod_lid.stl",
     "print_bbox_mm": [
-      82.00000000000003,
-      36.0,
-      13.500000000000009
+      150.0,
+      32.0,
+      5.900000000000006
+    ]
+  },
+  {
+    "part": "usb_cap",
+    "quantity": 4,
+    "kit": "four-dart",
+    "step": "usb_cap.step",
+    "stl": "usb_cap.stl",
+    "print_bbox_mm": [
+      16.4,
+      21.4,
+      3.4000000000000035
     ]
   },
   {
     "part": "plate",
     "quantity": 1,
+    "kit": "four-dart",
     "step": "plate.step",
     "stl": "plate.stl",
     "print_bbox_mm": [
@@ -46,6 +62,7 @@
   {
     "part": "rotor",
     "quantity": 1,
+    "kit": "four-dart",
     "step": "rotor.step",
     "stl": "rotor.stl",
     "print_bbox_mm": [
@@ -57,12 +74,73 @@
   {
     "part": "fit_coupon",
     "quantity": 1,
+    "kit": "optional prototype/tool",
     "step": "fit_coupon.step",
     "stl": "fit_coupon.stl",
     "print_bbox_mm": [
       55.0,
       11.6,
       10.8
+    ]
+  },
+  {
+    "part": "stake_adapter",
+    "quantity": 1,
+    "kit": "optional prototype/tool",
+    "step": "stake_adapter.step",
+    "stl": "stake_adapter.stl",
+    "print_bbox_mm": [
+      44.0,
+      42.0,
+      17.000000000000004
+    ]
+  },
+  {
+    "part": "stake_cell_holder",
+    "quantity": 1,
+    "kit": "optional prototype/tool",
+    "step": "stake_cell_holder.step",
+    "stl": "stake_cell_holder.stl",
+    "print_bbox_mm": [
+      80.50000010000001,
+      70.6000001,
+      19.100000100000003
+    ]
+  },
+  {
+    "part": "dummy_body",
+    "quantity": 1,
+    "kit": "optional prototype/tool",
+    "step": "dummy_body.step",
+    "stl": "dummy_body.stl",
+    "print_bbox_mm": [
+      195.4385576041457,
+      37.300000100000005,
+      53.200000100000004
+    ]
+  },
+  {
+    "part": "dummy_lid",
+    "quantity": 1,
+    "kit": "optional prototype/tool",
+    "step": "dummy_lid.step",
+    "stl": "dummy_lid.stl",
+    "print_bbox_mm": [
+      77.0,
+      21.0,
+      2.0000000000000044
+    ]
+  },
+  {
+    "part": "dummy_head_insert",
+    "quantity": 1,
+    "kit": "optional prototype/tool",
+    "step": "dummy_head_insert.step",
+    "stl": "dummy_head_insert.stl",
+    "print_bbox_mm": [
+      23.0,
+      17.8,
+      7.0
     ]
   }
 ]

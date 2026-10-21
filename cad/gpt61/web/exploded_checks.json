@@ -2,8 +2,8 @@
   "dart": {
     "pass_": true,
     "threshold_mm3": 0.02,
-    "groups": 30,
-    "pairs": 435,
+    "groups": 36,
+    "pairs": 630,
     "exact_boolean_candidates": 0,
     "collisions": [],
     "scope": "Final exploded endpoint, exact original B-reps, AABB pruning; retained subassembly internal contacts excluded.",
@@ -25,6 +25,16 @@
     "groups": 31,
     "pairs": 465,
     "exact_boolean_candidates": 11,
+    "collisions": [],
+    "scope": "Final exploded endpoint, exact original B-reps, AABB pruning; retained subassembly internal contacts excluded.",
+    "motion_scope": "Staged presentation, not a continuous collision-free service path or dynamic release simulation."
+  },
+  "stake": {
+    "pass_": true,
+    "threshold_mm3": 0.02,
+    "groups": 2,
+    "pairs": 1,
+    "exact_boolean_candidates": 1,
     "collisions": [],
     "scope": "Final exploded endpoint, exact original B-reps, AABB pruning; retained subassembly internal contacts excluded.",
     "motion_scope": "Staged presentation, not a continuous collision-free service path or dynamic release simulation."

@@ -15,7 +15,7 @@ Printable designs for the [tripwire]({{ site.baseurl }}{% link models/tripwire.m
 - **A fully printed carrier quad (TL-1):** built round the X500's electronics.
 
 {: .note }
-> **A newer, detailed model of the dart and harness** is on [Build: 3D models]({{ site.baseurl }}{% link build-3d.md %}): built by GPT-6.1 from manufacturer CAD and datasheets, with a 3D viewer and exploded views. It keeps this page's concept. The renders below are the earlier hand-built models.
+> **A newer, detailed model of the dart and harness** is on [Build: 3D models]({{ site.baseurl }}{% link build-3d.md %}): built by GPT-6.1 from manufacturer CAD and datasheets, with a 3D viewer and exploded views. It is built round the Seeed XIAO ESP32S3 + Wio-SX1262 kit we bought, and adds a hand-placed stake mount and a weighted drop-test dummy. It keeps this page's concept. The renders below are the earlier hand-built models.
 
 Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
@@ -102,7 +102,7 @@ v3 keeps v2's plate, rotor and servo as they are; only the dart changed. v2's da
 
 - **Body:** slides on from the tip and holds the 18650 low, next to the rod, 2.8 in back from the point. A zip tie through the back closes the cell bay. Soil stops at the body, so at most 2.8 in of rod goes in.
 - **Clip:** slides on and is glued where the dart balances, about 10 in from the tip (model). It is the hanger: a post with a round head.
-- **Head pod:** a thin printed shell on the rod's top end, holding the Heltec upright, with the mic under foam and the whip out of the top.
+- **Head pod:** a thin printed shell on the rod's top end, holding the board upright (a Heltec V3 in this design; the [3D model]({{ site.baseurl }}{% link build-3d.md %}) uses the XIAO kit), with the mic under foam and the whip out of the top.
 
 **The harness is one plate, one rotor and one servo.**
 

@@ -32,6 +32,9 @@ def verify(p):
     payload_force=4*p['dart_mass']*9.81/1000
     torque=.12*payload_force*(BEARING_RO+BEARING_RI)/2000
     check('bearing_friction_screen',torque*3<1.8*.0980665,assumed_mu=.12,static_torque_Nm=torque,three_g_torque_Nm=3*torque,SG90_4v8_stall_Nm=1.8*.0980665,scope='engineering estimate with PTFE tape, no measured friction or servo current')
+    hm=json.loads((ROOT/'out/mass_properties.json').read_text())['harness_total_g']
+    tie_force=(4*p['dart_mass']+hm)*9.81/1000*3/4
+    check('four_rail_ties_load_screen',tie_force<80,force_per_tie_3g_N=tie_force,S7_catalog_min_loop_strength_N=80,scope='Equal sharing assumed; printed saddle strength and dynamic unequal loading untested')
     # Rigid local fits: deliberate press fit and heat-set interference are
     # reported separately and are not silently counted as free clearances.
     cell=compound(s for _,s,_ in __import__('purchased').cell())
@@ -40,12 +43,22 @@ def verify(p):
     for name,a,b in [
         ('cell_to_body',cell,p['body']),('PCB_to_shell',board,p['pod_shell']),
         ('PCB_to_lid',board,p['pod_lid']),('mic_to_shell',mic,p['pod_shell']),
-        ('mic_to_lid',mic,p['pod_lid']),('shell_to_lid',p['pod_shell'],p['pod_lid'])]:
+        ('mic_to_lid',mic,p['pod_lid']),('shell_to_lid',p['pod_shell'],p['pod_lid']),
+        ('cap_to_shell',p['usb_cap'],p['pod_shell']),('cap_to_lid',p['usb_cap'],p['pod_lid']),
+        ('dummy_lid_to_body',p['dummy_lid'],p['dummy_body']),
+        ('dummy_insert_to_shell',p['dummy_head_insert'],p['pod_shell'])]:
         v=overlap(a,b);check(name,v<.02,interference_mm3=v)
     for n,s,c in p['hardware']:
-        if not n.startswith('power_wire'):continue
+        if not n.startswith(('power_wire','mic_wire')):continue
         for part in ('body','pod_shell','pod_lid'):
             v=overlap(s,p[part]);check(n+'_to_'+part,v<.02,interference_mm3=v)
+    wires=[(n,s) for n,s,c in p['hardware'] if n.startswith(('mic_wire','power_wire')) or n in ('RF_pigtail','wifi_coax')]
+    wire_collisions=[]
+    for i,(n,a) in enumerate(wires):
+        for other,b in wires[i+1:]:
+            v=overlap(a,b)
+            if v>.02:wire_collisions.append([n,other,v])
+    check('separate_insulated_wire_routes',not wire_collisions,collisions=wire_collisions,scope='Nominal rigid wire routes, excluding solder-to-pad contacts')
     press=overlap(__import__('purchased').rod(),p['body'])
     check('rod_press_lands_declared',press>0 and press<30,intentional_interference_mm3=press,land_bore_mm=M.rod_fit_bore,rod_mm=M.rod_d,main_bore_mm=M.rod_d+.35)
     # Plate, servo and rotor check at every 2-degree sample across 0..64.
@@ -90,8 +103,7 @@ def verify(p):
     # prune expensive boolean checks. Deliberate sealing/tie contacts excluded.
     # Exterior collision geometry. The pod is conservatively filled solid;
     # buried electronic detail was checked above and cannot affect frame fit.
-    pod_envelope=rounded(POD_X1-POD_X0+1.5,41.4,18-POD_BOTTOM,5,at=((POD_X0+POD_X1-1.5)/2,-2.7,POD_BOTTOM))
-    dart=compound([p['body'],pod_envelope,__import__('purchased').rod(),cell,cyl(M.whip_d/2,M.whip_l,(POD_X1,0,7),(1,0,0)),cyl(M.whip_base_d/2,8,(POD_X1-4,0,7),(1,0,0))])
+    dart=compound([p[n] for n in ('body','pod_shell','pod_lid','usb_cap')]+[__import__('purchased').rod(),cell]+[s for n,s,c in p['hardware'] if n in ('lora_FPC','RF_pigtail')])
     carried=[carried_transform(dart,i,p['hanger_xy']) for i in range(4)]
     records=[]
     def against(a,rows,label):
@@ -152,13 +164,62 @@ def verify(p):
     # Stood state body stop at ground, 70mm rod penetration, all electronics
     # above ground. The rod/soil intersection is the only intended one.
     ground=box(1000,1000,100,at=(0,0,-100))
-    for name in ('body','pod_shell','pod_lid'):
+    for name in ('body','pod_shell','pod_lid','usb_cap'):
         s=stood_transform(p[name]);v=overlap(s,ground)
         check('stood_'+name+'_ground',v<.02,interference_mm3=v,lowest_height_mm=s.BoundingBox().zmin)
     stood=stood_transform(dart).translate((650,0,0))
     parked=compound([s.moved(cq.Location(cq.Vector(0,0,-GROUND_Z))) for n,s,c in p['drone']]+[a.moved(cq.Location(cq.Vector(0,0,-GROUND_Z))) for a in carried[1:]])
-    lb=min(aabb_distance(a,b) for a in stood.Solids() for b in parked.Solids())
+    # The entire stood listener is outside the entire parked vehicle AABB;
+    # this conservative bound proves separation without an expensive all-pairs
+    # solids traversal through the detailed OEM compound.
+    lb=aabb_distance(stood,parked)
     check('stood_full_aircraft_scene',lb>1.,clearance_lower_bound_mm=lb,listener_offset_mm=[650,0,0],stock_skid_ground_z_mm=0,scope='end-state review layout; intentional70mm tip-soil penetration')
+    from variants import dummy_report, dummy_rows, stake_local_rows
+    dr=dummy_report(p)
+    check('dummy_mass_and_3D_balance',abs(dr['total_g']-p['dart_mass'])<.001 and max(abs(v) for v in dr['cg_error_mm'])<.001 and dr['all_pockets_fit'],mass_g=dr['total_g'],ballast_g=dr['ballast_total_g'],cg_error_mm=dr['cg_error_mm'],pockets_fit=dr['all_pockets_fit'])
+    for b in dr['ballast']:
+        L,W,H=b['equivalent_solid_steel_bbox_mm'];x,y,z=b['centroid_mm']
+        shape=box(L,W,H,at=(x,y,z-H/2))
+        v=overlap(shape,p['dummy_body'] if b['name'].startswith('body') else p['dummy_head_insert'])
+        check('ballast_'+b['name']+'_clearance',v<.02,interference_mm3=v,steel_mass_g=b['mass_g'])
+    # Cap removed: actual insertion corridor from beyond pod end to USB mouth.
+    usb=box(18,11,6.2,at=(581,0,2.5))
+    v=overlap(usb,p['pod_shell'])+overlap(usb,p['pod_lid'])
+    check('USB_plug_access',v<.02,interference_mm3=v,plug_envelope_mm=[12,11,6.2],scope='MEASURE actual cable overmould; end cap removed')
+    # Pin enters through removable service opening, diagonally downward onto
+    # either button; starts beyond Wio end so upper PCB cannot block it.
+    for y in (-5.93,5.93):
+        probe=pipe_path([(584,y,16),(570.8,y,5.0)],.35)
+        obstacles=[p['pod_shell'],p['pod_lid']]+[s for n,s,c in p['board'] if n.startswith('wio_')]
+        v=sum(overlap(probe,s) for s in obstacles)
+        check('BOOT_RESET_pin_access_'+str(y),v<.02,interference_mm3=v,pin_d_mm=.7,scope='Cap removed; verify button identity/travel on purchased revision')
+    check('mic_ground_height',abs(MIC_X-BODY_X0-500)<.01,height_mm=MIC_X-BODY_X0)
+    # V saddles are diameter-independent. A circle seated on both45deg faces
+    # raises its axis by radius*sqrt(2); evaluate both range endpoints and nominal.
+    for d in (8.,M.stake_d,13.):
+        z=5+d/math.sqrt(2)
+        stake=cyl(d/2,70,(440,26,z),(1,0,0))
+        v=overlap(stake,p['stake_adapter'])
+        check('stake_range_'+str(d),v<.02,interference_mm3=v,axis_height_mm=z,diameter_mm=d)
+        holder=p['stake_cell_holder'].translate((200,-30,0))
+        low=cyl(d/2,80,(270,26,z),(1,0,0))
+        v=overlap(low,holder)
+        check('stake_cell_holder_range_'+str(d),v<.02,interference_mm3=v,diameter_mm=d)
+    sr=stake_local_rows(p);sd={n:s for n,s,c in sr}
+    for n in ('stake_power_wire_0','stake_power_wire_1'):
+        for target in ('stake_adapter','stake_cell_holder','pod_shell','pod_lid'):
+            v=overlap(sd[n],sd[target]);check(n+'_to_'+target,v<.02,interference_mm3=v)
+    v=overlap(sd['stake_power_wire_0'],sd['stake_power_wire_1'])
+    check('stake_separate_power_wires',v<.02,interference_mm3=v)
+    for a,b in [('stake_adapter','pod_shell'),('stake_adapter','pod_socket_rod_offcut')]:
+        v=overlap(sd[a],sd[b]);check(a+'_to_'+b,v<.02,interference_mm3=v)
+    for n,s,co in sr:
+        if not n.startswith(('stake_clamp_tie','stake_cell_tie','stake_pod_retaining')):continue
+        target=sd['stake_cell_holder'] if n.startswith('stake_cell') else sd['stake_adapter']
+        v=overlap(s,target)+overlap(s,sd['garden_stake'])
+        if n.startswith('stake_pod_retaining'):v+=overlap(s,p['pod_shell'])
+        check(n+'_clearance',v<.02,interference_mm3=v)
+    check('stake_mic_height',abs(MIC_X-BODY_X0-500)<.01,mic_height_mm=500,stake_length_mm=1219.2,burial_nominal_mm=M.stake_burial,scope='Slide adapter until mic is500mm above actual ground, independently of insertion depth')
     data=dict(checks=checks,failed=failures,rigid_interferences=records,release_contact=area,measure_parameters=measure_dict(),clearance_distances='Vehicle distances are conservative axis-aligned bounding-box lower bounds; a zero lower bound is NOT a measured zero gap. Interference results use actual B-rep boolean volumes after broad-phase pruning.',discrete_sampling='0.5deg contact; 2deg rotor-neck; 5mm extraction; 5deg prescribed pitch',limitations=['No aerodynamic or self-righting simulation','No print, proof load, water, shake, cycling or flight test','MEASURE parameters remain nominal assumptions','Intentional press-fit, heat-set and elastomer contacts are excluded from clearance pass claims'])
     (ROOT/'out'/'checks.json').write_text(json.dumps(data,indent=2)+'\n')
     (ROOT/'out'/'checks.md').write_text('# Generated geometry checks\n\n'+ '\n'.join(f'- {"PASS" if r["pass_"] else "FAIL"}: {r["check"]} - '+json.dumps({k:v for k,v in r.items() if k not in ('check','pass_')}) for r in checks)+'\n')

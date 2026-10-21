@@ -30,7 +30,7 @@ WEB=ROOT/'web'
 TMP=ROOT/'tmp'
 MESH_CACHE=TMP/'web-meshes'
 TIMES=np.array(sorted(set([0.,DURATION]+[round(i*.1,3) for i in range(81)])),dtype='<f4')
-VERSION='web-mesh-4'
+VERSION='web-xiao-2'
 
 
 def sha(path):
@@ -61,7 +61,8 @@ def polydata(vertices,faces):
 
 
 def mesh_part(part):
-    fingerprint=hashlib.sha256((VERSION+part.name+(':oem3000' if part.family=='drone' else '')+sha(ROOT/'cache/model.json')).encode()).hexdigest()[:20]
+    sources=''.join(sha(ROOT/n) for n in ('parameters.py','printed.py','purchased.py','variants.py','stake_web.py'))
+    fingerprint=hashlib.sha256((VERSION+part.name+(':oem3000' if part.family=='drone' else '')+sha(ROOT/'cache/model.json')+sources).encode()).hexdigest()[:20]
     path=MESH_CACHE/(fingerprint+'.npz')
     if path.exists():
         z=np.load(path);count=int(z['count'])
@@ -86,19 +87,28 @@ def mesh_part(part):
         v=np.vstack(vs);f=np.vstack(fs)
         # Remove only zero-area tessellation artefacts; original CAD is intact.
         ok=np.linalg.norm(np.cross(v[f[:,1]]-v[f[:,0]],v[f[:,2]]-v[f[:,0]]),axis=1)>1e-12
-        pd=polydata(v,f[ok])
+        # Tessellation can leave unused vertices after degenerate faces are
+        # removed. They have no surface normal and must not enter a glTF mesh.
+        used,remap=np.unique(f[ok].ravel(),return_inverse=True)
+        pd=polydata(v[used],remap.reshape(-1,3))
         # Manufacturer detail can dwarf the frame silhouette. VTK is already
         # installed in the CAD environment; no geometry replacement is used.
-        cap=3000 if part.family=='drone' else 14000 if part.name=='heltec_v3' else None
+        cap=3000 if part.family=='drone' else 14000 if part.name in ('xiao_esp32s3','wio_sx1262') else None
         if cap and pd.GetNumberOfCells()>cap:
             dec=vtk.vtkQuadricDecimation();dec.SetInputData(pd)
             dec.SetTargetReduction(1-cap/pd.GetNumberOfCells());dec.VolumePreservationOn();dec.Update();pd=dec.GetOutput()
+        pv=vtk_to_numpy(pd.GetPoints().GetData())
+        pf=vtk_to_numpy(pd.GetPolys().GetConnectivityArray()).reshape(-1,3)
+        good=np.linalg.norm(np.cross(pv[pf[:,1]]-pv[pf[:,0]],pv[pf[:,2]]-pv[pf[:,0]]),axis=1)>1e-12
+        used,remap=np.unique(pf[good].ravel(),return_inverse=True)
+        pd=polydata(pv[used],remap.reshape(-1,3))
         normal=vtk.vtkPolyDataNormals();normal.SetInputData(pd);normal.SetFeatureAngle(40)
         normal.SplittingOn();normal.ConsistencyOn();normal.ComputePointNormalsOn();normal.ComputeCellNormalsOff();normal.Update()
         result=normal.GetOutput()
         v=vtk_to_numpy(result.GetPoints().GetData()).astype(float)
         f=vtk_to_numpy(result.GetPolys().GetConnectivityArray()).reshape(-1,3).copy()
         n=vtk_to_numpy(result.GetPointData().GetNormals()).astype(float)
+        assert np.all(np.linalg.norm(n,axis=1)>1e-8),('Zero web normal',part.name)
         n/=np.maximum(np.linalg.norm(n,axis=1,keepdims=True),1e-20)
         primitives.append(dict(vertices=(v-center).astype('<f4'),normals=n.astype('<f4'),faces=f.astype('<u4'),color=col))
     total=sum(len(c['faces']) for c in primitives)
@@ -154,7 +164,9 @@ class GLB:
         for c in mesh['primitives']:
             v=y_up(c['vertices']).astype('<f4');n=y_up(c['normals'],False).astype('<f4')
             # Re-normalize after float32 conversion for strict glTF validation.
-            n/=np.linalg.norm(n,axis=1,keepdims=True)
+            lengths=np.linalg.norm(n,axis=1,keepdims=True)
+            assert np.all(lengths>1e-8),('Zero glTF normal',part.name)
+            n/=lengths
             idx=c['faces'].astype('<u2' if len(v)<=65535 else '<u4').ravel()
             prim.append(dict(attributes=dict(POSITION=self.accessor(v,'VEC3',34962),NORMAL=self.accessor(n,'VEC3',34962)),indices=self.accessor(idx,'SCALAR',34963),material=self.material(c['color'],part),mode=4))
         mi=len(self.doc['meshes']);self.doc['meshes'].append(dict(name=part.name,primitives=prim));self.meshes[key]=mi
@@ -287,6 +299,7 @@ def camera_render(inst,meshes,path,title,subtitle,az=-65,el=28,size=(2000,1200),
     ren=vtk.vtkRenderer();ren.SetBackground(.957,.966,.972)
     ren.SetViewport(0,0,1,1-125/size[1]);ren.SetUseDepthPeeling(1);ren.SetMaximumNumberOfPeels(100)
     anchors={};allpts=[]
+    datum=json.loads((ROOT/'cache/model.json').read_text())
     for item in inst:
         if selected and not selected(item):continue
         part=item['part'];m=meshes[part.family+':'+part.name]
@@ -295,9 +308,9 @@ def camera_render(inst,meshes,path,title,subtitle,az=-65,el=28,size=(2000,1200),
         # Leader lines terminate on actual material, rather than the empty
         # centre of an annulus or the centre of a tall part's bounding box.
         anchor_points={'plate':(0,-49.5,5), 'rotor':(46,0,15.2),
-                       'body':(265.7338971139896,6.46769473213635,35),
-                       'pod_lid':(521,0,17.6),'pod_shell':(521,-17.8,2),
-                       'perimeter_silicone_seal':(480.9,0,15.55),
+                       'body':(datum['hanger'],datum['hanger_y'],35),
+                       'pod_lid':(558,0,18.5),'pod_shell':(558,-15.2,5),
+                       'perimeter_silicone_seal':(536.9,0,16.55),
                        'PTFE_bearing_film':(0,-49.5,11.96),
                        'power_wire_1':(300,5.7,4.8)}
         if part.name in anchor_points:
@@ -362,12 +375,12 @@ def render_all(scenes,meshes):
     camera_render(scenes['dart'],meshes,render/'dart_exploded.png',
                   'Exploded listener - complete modelled parts',
                   'Body withdraws toward tip; pod withdraws from rod end; cell and lid open upward. Integral snaps stay on body.',
-                  az=-80,el=27,size=(2200,1200),labels=[('body','Body + integral snaps / hanger',(.025,.77)),('rod','Solid 500 mm rod',(.35,.80)),('cell_18650','18650 cell',(.04,.31)),('pod_shell','Pod tray',(.66,.78)),('antenna','Whip + boot + U.FL lead',(.81,.57)),('power_wire_1','Both power wires',(.37,.29))])
+                  az=-80,el=27,size=(2200,1200),labels=[('body','Body + integral snaps / hanger',(.025,.77)),('rod','Solid 500 mm rod',(.35,.80)),('cell_18650','18650 cell',(.04,.31)),('pod_shell','Pod tray',(.66,.78)),('antenna','Kit LoRa FPC + U.FL lead',(.81,.57)),('power_wire_1','Both power wires',(.37,.29))])
     camera_render(scenes['dart'],meshes,render/'dart_exploded_pod.png',
                   'Exploded pod - electronics, seal and fasteners',
-                  'Detailed Heltec V3 / OLED and generic INMP441 breakout; mass, fit, sealing and acoustic response remain unmeasured.',
-                  selected=lambda i:i['part'].name.startswith(('pod_','mic_','board_retention','perimeter')) or i['part'].name in ('heltec_v3','inmp441'),
-                  az=-58,el=25,size=(1700,1500),labels=[('pod_M2x6_0','Four M2 x 6 screws',(.02,.16)),('pod_lid','Service lid + pressure fingers',(.40,.25)),('perimeter_silicone_seal','Silicone perimeter cord',(.67,.39)),('board_retention_foam_548_11.65','Four foam pads',(.68,.49)),('heltec_v3','Heltec V3 + OLED',(.62,.59)),('pod_insert_3','Four heat-set inserts',(.66,.68)),('pod_shell','Tray + ribs / channels',(.65,.83)),('inmp441','INMP441 breakout',(.02,.70)),('mic_waterproof_film','Soft film',(.06,.83)),('mic_silicone_cavity_seal','Cavity seal',(.02,.77))])
+                  'Seeed XIAO + Wio stack; generic INMP441; USB service cap. Antenna envelope, stack fit and masses remain MEASURE.',
+                  selected=lambda i:(i['part'].name.startswith(('pod_','mic_','board_retention','perimeter')) and not i['part'].name.startswith('mic_wire')) or i['part'].name in ('xiao_esp32s3','wio_sx1262','inmp441','usb_cap'),
+                  az=-58,el=25,size=(1700,1500),labels=[('pod_M2x6_0','Three M2 x 6 screws',(.02,.16)),('pod_lid','Service lid + pressure fingers',(.40,.25)),('perimeter_silicone_seal','Silicone perimeter cord',(.67,.39)),('board_retention_foam_565_8.3','Four foam pads',(.68,.49)),('wio_sx1262','Wio-SX1262 extension',(.65,.54)),('xiao_esp32s3','XIAO ESP32S3',(.65,.64)),('pod_insert_2','Three heat-set inserts',(.66,.68)),('pod_shell','Tray + ribs / channels',(.65,.83)),('inmp441','INMP441 breakout',(.02,.70)),('mic_waterproof_film','Soft film',(.06,.83)),('mic_silicone_cavity_seal','Cavity seal',(.02,.77))])
     camera_render(scenes['harness'],meshes,render/'harness_exploded.png',
                   'Exploded harness - four complete listeners',
                   'Keeper lifts first, then rotor / horn; darts move down after the retained head support is removed.',
@@ -389,13 +402,15 @@ def main():
     start=time.time();before=protected_snapshot();print('Loading original B-reps',flush=True)
     p=load_cache();dart,harness,drone,mass=make_parts(p)
     scenes={name:instances(name,dart,harness,drone,p) for name in ('dart','harness','aircraft')}
+    from stake_web import make_stake_scene
+    stake, scenes['stake']=make_stake_scene(p,dart,mass)
     if args.render_only:
-        meshes={part.family+':'+part.name:mesh_part(part) for part in dart+harness+drone}
+        meshes={part.family+':'+part.name:mesh_part(part) for part in dart+harness+drone+stake}
         render_all(scenes,meshes);assert before==protected_snapshot();return
     checks={name:verify_exploded(name,inst) for name,inst in scenes.items()}
     (WEB/'exploded_checks.json').write_text(json.dumps(checks,indent=2)+'\n')
     assert all(c['pass_'] for c in checks.values()),'Exploded endpoint overlap; inspect web/exploded_checks.json'
-    meshes={part.family+':'+part.name:mesh_part(part) for part in dart+harness+drone}
+    meshes={part.family+':'+part.name:mesh_part(part) for part in dart+harness+drone+stake}
     models={};readback={}
     for name,inst in scenes.items():
         # Sensible shared harness datum; dart origin at the middle of its length.
@@ -409,10 +424,10 @@ def main():
     after=protected_snapshot();assert before==after,'Protected CAD input/output changed'
     (WEB/'provenance.json').write_text(json.dumps(dict(unchanged=True,files=before),indent=2)+'\n')
     manifest=dict(schema_version=1,units='metres',up_axis='Y',animation=dict(name='explode',duration_seconds=DURATION,interpolation='LINEAR',use='Clamp and scrub the clip; do not loop if the final exploded view should remain visible.'),
-                  models=models,mass_groups=dict(antenna=dict(mass_g=1.2,basis='Unmeasured estimate, includes whip, boot and pigtail.'),SG90_with_stock_horn=dict(mass_g=9.0,basis='S3 catalog mass; individual servo/horn masses unmeasured.')),
-                  modelled_mass_totals_g=dict(dart=mass['dart_total_g'],harness_without_darts=mass['harness_total_g'],four_dart_payload=mass['carried_payload_g'],aircraft=None),
+                  models=models,mass_groups=dict(antenna=dict(mass_g=.8,basis='MEASURE kit LoRa FPC and coax.'),SG90_with_stock_horn=dict(mass_g=9.0,basis='S3 catalog mass; individual servo/horn masses unmeasured.')),
+                  modelled_mass_totals_g=dict(dart=mass['dart_total_g'],harness_without_darts=mass['harness_total_g'],four_dart_payload=mass['carried_payload_g'],stake=mass['stake']['total_g'],aircraft=None),
                   mass_report='../out/mass_properties.json',source_register='../DESIGN.md',source_download_register='../sources/manifest.json',
-                  limitations=['Geometry, dimensions, full-resolution exports and original mass properties are unchanged.',
+                  limitations=['XIAO revision: geometry and mass reports regenerated before this web export.',
                                'All masses are model estimates or catalog figures; no physical parts were weighed.',
                                'Per-part mass is null where only a purchased-assembly mass is available; never infer a mass from tessellated volume.',
                                'Dart nodes retain the original physical parts; populated board components and cell terminal details are grouped as purchased assemblies.',
@@ -420,11 +435,11 @@ def main():
                                'Propeller swept slabs are translucent clearance proxies, not actual propeller blade geometry or mass.',
                                'Rigid presentation translations show assembly axes and service order, not thread rotation, flexible deformation, a collision-free continuous path or a flight release.',
                                'Closed ties must be cut, soldered/welded connections disconnected as appropriate, and heat-set inserts heated; their displaced depictions are identification layouts.',
-                               'Integral snap fingers, ribs and channels belong to their printed part; unresolved microphone jumpers, battery connector detail, RTV, insulation and preload foam were not newly invented.',
+                               'Integral snap fingers, ribs and channels belong to their printed part; five short INMP441 wires are included. RTV, solder and final wire dress remain assembly allowances.',
                                'Factory-welded nickel tabs stay attached in actual service; lateral tab offsets only distinguish the depicted items.',
                                'No physical print, drop, acoustic, waterproofing, radio or flight qualification is implied.'],
                   web_tessellation=dict(printed_linear_tolerance_mm=.10,printed_angular_tolerance_rad=.18,other_linear_tolerance_mm=.20,other_angular_tolerance_rad=.40,oem_aircraft_linear_tolerance_mm=.40,oem_aircraft_angular_tolerance_rad=.65,
-                                        heltec_max_triangles_per_colour=14000,aircraft_max_triangles_per_source_solid=3000,method='Original B-rep tessellation; VTK quadric decimation only when OEM cap exceeded; shared dart meshes; no textures or compression extensions.'),
+                                        electronics_max_triangles_per_colour=14000,aircraft_max_triangles_per_source_solid=3000,method='Original B-rep tessellation; VTK quadric decimation only when OEM cap exceeded; shared dart meshes; no textures or compression extensions.'),
                   validation=dict(readback='validation-readback.json',khronos='validation-khronos.json',exploded='exploded_checks.json',protected_files='provenance.json'),
                   renders=['../renders/'+n for n in ('dart_exploded.png','dart_exploded_pod.png','harness_exploded.png','harness_exploded_detail.png','aircraft_exploded.png')])
     (WEB/'manifest.json').write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')

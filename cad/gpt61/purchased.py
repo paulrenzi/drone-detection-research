@@ -31,30 +31,28 @@ def cell():
     washer=cyl(M.cell_insulator_d/2,M.cell_insulator_t,(CELL_X0+M.cell_l-M.cell_terminal_h-.02,CELL_Y,CELL_Z),(1,0,0)).cut(cyl(M.cell_terminal_d/2+.1,.4,(CELL_X0+M.cell_l-.5,CELL_Y,CELL_Z),(1,0,0)))
     return [('cell_wrap',can,'cell'),('positive_terminal',positive,'metal'),('positive_insulator',washer,'white')]
 
-def heltec():
-    # S4 detailed V3.7 manufacturer STEP: PCB and all connector/chip placements.
-    # It omits the OLED glass; add it using the V3 physical drawing and MEASURE
-    # module thickness/height. Original non-exact CAD remains as reference only.
-    s=cached_asset('heltec-v3.7')
+def xiao_stack():
+    # S4 native unscaled OEM solids, rotated into +X longitudinal, +Z up.
+    # XIAO OEM PCB x=-8.673341..12.281659, y=-.25..1, z=-15.0014..2.7786.
+    raw=cq.Shape.importBrep(str(ROOT/'sources/xiao-oem.brep'))
     rows=[]
-    for i,a in enumerate(s.Solids()):
-        if a.Volume()<.003:continue  # omit decal/zero-volume silkscreen solids only
-        col='board' if i==0 else 'metal' if i in (2,171) else 'oled'
-        rows.append((f'heltec_cad_{i:03}',a.translate((POD_BOARD_X,0,POD_BOARD_Z)),col))
-    # Both 18-way header rows exist as plated through holes in vendor PCB.
-    # The supplied long male strips are left unsoldered for this enclosure.
-    # Gold rings show that interface explicitly; .025mm plating is cosmetic.
-    for side in (-1,1):
-        for j in range(18):
-            x=POD_BOARD_X+j*2.54
-            ring=cyl(.85,.04,(x,side*11.43,POD_BOARD_Z+.01)).cut(cyl(.51,.08,(x,side*11.43,POD_BOARD_Z)))
-            rows.append((f'header_pad_{side}_{j}',ring,'gold'))
-    oled=rounded(M.oled_l,M.oled_w,M.oled_t,.65,at=(POD_BOARD_X+33.56,0,POD_BOARD_Z+M.oled_z))
-    rows.append(('oled_glass',oled,'oled'))
-    active=box(M.oled_active_l,M.oled_active_w,.05,at=(POD_BOARD_X+33.56,0,POD_BOARD_Z+M.oled_z+M.oled_t)) # MEASURE active area
-    rows.append(('oled_active',active,(.15,.33,.40)))
-    # Two adhesive foam strips below the glass represent its real spacer.
-    for y in (-7,7):rows.append((f'oled_spacer_{y}',box(28,2,1.4,at=(POD_BOARD_X+33.56,y,POD_BOARD_Z+M.oled_z-1.4)),'gasket'))
+    for i,a in enumerate(raw.Solids()):
+        a=a.rotate((0,0,0),(1,0,0),90).translate((POD_BOARD_X+8.6733413144,-6.1113999554,POD_BOARD_Z))
+        rows.append((f'xiao_oem_{i:02}',a,'board' if i==36 else 'metal' if i in (18,24,35) else 'wire'))
+    raw=cq.Shape.importBrep(str(ROOT/'sources/wio-oem.brep'))
+    for i,a in enumerate(raw.Solids()):
+        a=a.rotate((0,0,0),(0,0,1),-90).translate((POD_BOARD_X+131.802298,114.40156,POD_BOARD_Z+M.stack_spacing))
+        rows.append((f'wio_oem_{i:02}',a,'board' if i==8 else 'metal' if i in (4,5,6) else 'wire'))
+    # Missing XIAO mating connector reconstructed from Wio footprint. MEASURE.
+    rows.append(('xiao_B2B_mate',rounded(3.3,8.6,3.0,.3,at=(551.9,-2.16,4.0)),'wire'))
+    # Gold castellated edge pads from21x17.8mm XIAO pitch2.54, cosmetic only.
+    for y in (-8.1,8.1):
+        for i in range(7):
+            rows.append((f'xiao_castellation_{y}_{i}',cyl(.7,.04,(552.7+i*2.54,y,4.0)),'gold'))
+    # Bottom-view image in OEM archive identifies BAT +/- pads; reconstructed
+    # pad centres are MEASURE, not inferred from the schematic as exact CAD.
+    for label,x in (('plus',560.8),('minus',563.3)):
+        rows.append(('xiao_BAT_'+label,box(1.8,2.4,.04,at=(x,4.7,2.71)),'gold'))
     return rows
 
 def microphone():
@@ -76,7 +74,7 @@ def microphone():
             pad=cyl(.8,.05,(x,z,-.02)).cut(cyl(.45,.15,(x,z,-.05)))
             parts.append((f'mic_pad_{x}_{z}',pad,'gold'))
     # This rotation maps local +Z thickness to +Y (interior).
-    return [(n,s.rotate((0,0,0),(1,0,0),-90).translate((MIC_X,-15.8,MIC_Z)),c) for n,s,c in parts]
+    return [(n,s.rotate((0,0,0),(1,0,0),-90).translate((MIC_X,MIC_Y,MIC_Z)),c) for n,s,c in parts]
 
 def m2_insert(x,y,z):
     # Actual Ruthex manufacturer CAD is used instead of a featureless cylinder.
@@ -98,29 +96,37 @@ def dart_hardware():
     for i,(x,y) in enumerate(POD_SCREWS):
         parts.append((f'pod_insert_{i}',m2_insert(x,y,POD_SEAM-4.1),'gold'))
         parts.append((f'pod_M2x6_{i}',screw(2,6,(x,y,POD_SEAM-5),head=3.8,head_h=2.0),'metal'))
-    # Closed1.2mm cord in1.5 wide x.9 deep gland ->25% squeeze,84% fill.
-    # Rectangular-equivalent compressed section .9x1.26 conserves cord area.
-    L=POD_X1-POD_X0
-    g=rounded(L-1.24,POD_W-1.24,.9,4.38,at=((POD_X0+POD_X1)/2,0,POD_SEAM-.9))
-    g=g.cut(rounded(L-3.76,POD_W-3.76,1.1,3.12,at=((POD_X0+POD_X1)/2,0,POD_SEAM-1)))
+    L=POD_X1-POD_TRAY_X0;cx=(POD_TRAY_X0+POD_X1)/2
+    g=rounded(L-1.24,POD_W-1.24,.9,3.38,at=(cx,0,POD_SEAM-.9))
+    g=g.cut(rounded(L-3.76,POD_W-3.76,1.1,2.12,at=(cx,0,POD_SEAM-1)))
     parts.append(('perimeter_silicone_seal',g,'gasket'))
-    # TDK AN1124 soft membrane with cavity: .05mm silicone prototype film,
-    # diameter8, supported outside central4mm cavity; acoustic response to test.
-    parts.append(('mic_waterproof_film',cyl(4.0,.05,(MIC_X,-16.65,MIC_Z),(0,1,0)),'gasket'))
-    micseal=cyl(3.8,.8,(MIC_X,-16.6,MIC_Z),(0,1,0)).cut(cyl(2,.9,(MIC_X,-16.65,MIC_Z),(0,1,0)))
-    parts.append(('mic_silicone_cavity_seal',micseal,'gasket'))
-    # Compression pads only on PCB edge strips, outside OLED span.
-    for x in (513,548):
-        for y in (-11.65,11.65):parts.append((f'board_retention_foam_{x}_{y}',box(4,1.5,2.25,at=(x,y,2.25)),'gasket'))
+    parts.append(('mic_waterproof_film',cyl(4,.05,(MIC_X,-14.85,MIC_Z),(0,1,0)),'gasket'))
+    seal=cyl(3.8,.8,(MIC_X,-14.8,MIC_Z),(0,1,0)).cut(cyl(2,.9,(MIC_X,-14.85,MIC_Z),(0,1,0)))
+    parts.append(('mic_silicone_cavity_seal',seal,'gasket'))
+    for x in (557,565):
+        for y in (-8.3,8.3):parts.append((f'board_retention_foam_{x}_{y}',box(3,1,1,at=(x,y,12.1)),'gasket'))
     # Factory spot-welded nickel tabs, not soldering iron on the cell can.
     for x in (CELL_X0-.18,CELL_X0+M.cell_l):
         tab=box(.15,5,9,at=(x,CELL_Y,7.2))
         parts.append((f'nickel_tab_{x}',tab,'metal'))
-    # Whip, axial boot, and lead to the actual U.FL area on vendor board.
-    parts.append(('whip',cyl(M.whip_d/2,M.whip_l,(POD_X1,0,7),(1,0,0)),'wire'))
-    parts.append(('whip_boot',cyl(M.whip_base_d/2,M.whip_boot_l,(POD_X1-M.whip_boot_l/2,0,7),(1,0,0)),'wire'))
-    # Actual U.FL of V3.7 is at top of PCB; curved pigtail avoids OLED.
-    parts.append(('RF_pigtail',pipe_path([(550.5,0,3.2),(554,3,4.3),(554,3,7),(POD_X1,0,7)],.565),'wire'))
+    # S4 kit page identifies FPC, but publishes no antenna drawing: MEASURE.
+    parts.append(('lora_FPC',rounded(M.fpc_l,M.fpc_w,M.fpc_t,.8,at=(FPC_X0+M.fpc_l/2,0,FPC_Z)),'wire'))
+    parts.append(('RF_pigtail',pipe_path([(552, -3.5,13.3),(552,-10.7,14.4),(577,-11.5,14.4),(584,-11.5,14.4),(586,0,FPC_Z)],.565),'wire'))
+    # WiFi/BLE FPC on clear +Y wall, remote from LoRa FPC. Dimensions MEASURE.
+    wifi=rounded(M.wifi_l,M.wifi_w,.3,.7).rotate((0,0,0),(1,0,0),90).translate((555,14.1,8))
+    parts.append(('wifi_FPC',wifi,'wire'))
+    parts.append(('wifi_coax',pipe_path([(551.7,4.7,5.1),(551.7,7,8),(549,11.5,10),(550,13.8,7)],.4),'wire'))
+    # D3/BCLK, D4/WS, D5/SD,3V3,GND; five short wires, not pin headers.
+    for i,(pin,x,y) in enumerate([('D3_BCLK',560.32,8.1),('D4_WS',557.78,8.1),('D5_SD',555.24,8.1),('3V3',562.86,-8.1),('GND',565.40,-8.1)]):
+        end=[(564.5,-13,3.5),(564.5,-13,8),(564.5,-13,12.5),(575.5,-13,3.5),(575.5,-13,8)][i]
+        aisle=-10.8;level=[3.5,8,12.5,5.5,10][i]
+        path=[(x,y,4.1)]
+        if y>0:
+            yy=11+i*.85;xx=545+i*1.1
+            path += [(x,yy,level),(xx,yy,level),(xx,aisle,level)]
+        else:path += [(x,aisle,level)]
+        path += [(end[0],aisle,level),(end[0],aisle,end[2]),end] if level!=end[2] else [(end[0],aisle,level),end]
+        parts.append((f'mic_wire_{pin}',pipe_path(path,.36),'red' if pin=='3V3' else 'wire'))
     # Two insulated 28AWG power wires in the gutter and alongside rod. Short
     # local service loops modeled; mass calculation includes bought connector.
     for i,points in enumerate(power_wire_paths()):

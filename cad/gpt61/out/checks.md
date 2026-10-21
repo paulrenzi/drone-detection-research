@@ -1,33 +1,66 @@
 # Generated geometry checks
 
-- PASS: body_solid - {"valid": true, "solids": 1, "volume_mm3": 32795.56371530752}
-- PASS: body_bed - {"bbox_mm": [206.73389721398965, 37.300000100000005, 53.20000010000002], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: pod_shell_solid - {"valid": true, "solids": 1, "volume_mm3": 17124.415105298136}
-- PASS: pod_shell_bed - {"bbox_mm": [83.5000001, 41.4, 21.200000100000004], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: pod_lid_solid - {"valid": true, "solids": 1, "volume_mm3": 6334.935293002187}
-- PASS: pod_lid_bed - {"bbox_mm": [82.00000000000003, 36.0, 13.500000000000009], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: plate_solid - {"valid": true, "solids": 1, "volume_mm3": 103683.19756902335}
-- PASS: plate_bed - {"bbox_mm": [177.0, 164.66632928440472, 76.20000019999999], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: rotor_solid - {"valid": true, "solids": 1, "volume_mm3": 30410.991532145108}
-- PASS: rotor_bed - {"bbox_mm": [129.29904772779176, 129.8, 6.000000000000011], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: fit_coupon_solid - {"valid": true, "solids": 1, "volume_mm3": 3537.2234658533307}
+- PASS: body_solid - {"valid": true, "solids": 1, "volume_mm3": 32269.722880566318}
+- PASS: body_bed - {"bbox_mm": [195.438557604146, 37.300000100000005, 53.200000100000004], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: pod_shell_solid - {"valid": true, "solids": 1, "volume_mm3": 14945.057696989386}
+- PASS: pod_shell_bed - {"bbox_mm": [102.00000020000398, 37.400000000000006, 17.800000200000003], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: pod_lid_solid - {"valid": true, "solids": 1, "volume_mm3": 4493.746241041024}
+- PASS: pod_lid_bed - {"bbox_mm": [150.0, 32.0, 5.900000000000006], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: usb_cap_solid - {"valid": true, "solids": 1, "volume_mm3": 721.0339983722076}
+- PASS: usb_cap_bed - {"bbox_mm": [16.4, 21.4, 3.400000000000003], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: plate_solid - {"valid": true, "solids": 1, "volume_mm3": 103683.19756902361}
+- PASS: plate_bed - {"bbox_mm": [177.0, 164.6663292844048, 76.20000020000002], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: rotor_solid - {"valid": true, "solids": 1, "volume_mm3": 30410.991532145075}
+- PASS: rotor_bed - {"bbox_mm": [129.29904772779173, 129.8, 6.000000000000011], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: fit_coupon_solid - {"valid": true, "solids": 1, "volume_mm3": 3537.223465853332}
 - PASS: fit_coupon_bed - {"bbox_mm": [55.0, 11.6, 10.8], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: balance_fixed_point - {"hanger_mm": 265.7338971139896, "cg_mm": [265.72794768688186, 6.469517472530669, 8.21611061118542], "mass_g": 158.16324123209918}
+- PASS: stake_adapter_solid - {"valid": true, "solids": 1, "volume_mm3": 10535.14786998049}
+- PASS: stake_adapter_bed - {"bbox_mm": [44.0, 42.0, 17.000000000000004], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: stake_cell_holder_solid - {"valid": true, "solids": 1, "volume_mm3": 24051.917649055526}
+- PASS: stake_cell_holder_bed - {"bbox_mm": [80.50000010000001, 70.6000001, 19.100000100000003], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: dummy_body_solid - {"valid": true, "solids": 1, "volume_mm3": 39706.56179134687}
+- PASS: dummy_body_bed - {"bbox_mm": [195.438557604146, 37.300000100000005, 53.200000100000004], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: dummy_lid_solid - {"valid": true, "solids": 1, "volume_mm3": 3209.037167544041}
+- PASS: dummy_lid_bed - {"bbox_mm": [77.0, 21.0, 2.0000000000000044], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: dummy_head_insert_solid - {"valid": true, "solids": 1, "volume_mm3": 1474.1639647148718}
+- PASS: dummy_head_insert_bed - {"bbox_mm": [23.0, 17.8, 7.0], "bed_mm": [245.0, 245.0, 260.0]}
+- PASS: balance_fixed_point - {"hanger_mm": 254.4385575041457, "cg_mm": [254.43385051830592, 7.086717221274974, 9.02556412225324], "mass_g": 147.93074419497574}
 - PASS: snap_flexure_screen - {"per_arm_deflection_mm": 0.8999999999999986, "nominal_surface_strain": 0.004999999999999991, "root_factor": 2.0, "factored_strain": 0.009999999999999983, "screen_allowable": 0.015, "per_arm_tip_force_N": 0.7253333333333319, "four_arm_force_N": 2.9013333333333278, "method": "linear axial cantilever, F=3EI delta/L^3; conservative tip load"}
-- PASS: hanger_tension_screen - {"stress_3g_MPa": 0.23706417490590237, "assumed_print_allowable_MPa": 8, "method": "axial neck area, layer-strength coupon required"}
-- PASS: bearing_friction_screen - {"assumed_mu": 0.12, "static_torque_Nm": 0.036865573980528574, "three_g_torque_Nm": 0.11059672194158572, "SG90_4v8_stall_Nm": 0.1765197, "scope": "engineering estimate with PTFE tape, no measured friction or servo current"}
+- PASS: hanger_tension_screen - {"stress_3g_MPa": 0.2217271190360556, "assumed_print_allowable_MPa": 8, "method": "axial neck area, layer-strength coupon required"}
+- PASS: bearing_friction_screen - {"assumed_mu": 0.12, "static_torque_Nm": 0.034480526269132436, "three_g_torque_Nm": 0.10344157880739731, "SG90_4v8_stall_Nm": 0.1765197, "scope": "engineering estimate with PTFE tape, no measured friction or servo current"}
+- PASS: four_rail_ties_load_screen - {"force_per_tie_3g_N": 5.70354837368772, "S7_catalog_min_loop_strength_N": 80, "scope": "Equal sharing assumed; printed saddle strength and dynamic unequal loading untested"}
 - PASS: cell_to_body - {"interference_mm3": 0.0}
 - PASS: PCB_to_shell - {"interference_mm3": 0.0}
 - PASS: PCB_to_lid - {"interference_mm3": 0.0}
 - PASS: mic_to_shell - {"interference_mm3": 0.0}
 - PASS: mic_to_lid - {"interference_mm3": 0.0}
 - PASS: shell_to_lid - {"interference_mm3": 0.0}
+- PASS: cap_to_shell - {"interference_mm3": 0.0}
+- PASS: cap_to_lid - {"interference_mm3": 0.0}
+- PASS: dummy_lid_to_body - {"interference_mm3": 0.0}
+- PASS: dummy_insert_to_shell - {"interference_mm3": 0.0}
+- PASS: mic_wire_D3_BCLK_to_body - {"interference_mm3": 0.0}
+- PASS: mic_wire_D3_BCLK_to_pod_shell - {"interference_mm3": 0.0}
+- PASS: mic_wire_D3_BCLK_to_pod_lid - {"interference_mm3": 0.0}
+- PASS: mic_wire_D4_WS_to_body - {"interference_mm3": 0.0}
+- PASS: mic_wire_D4_WS_to_pod_shell - {"interference_mm3": 0.0}
+- PASS: mic_wire_D4_WS_to_pod_lid - {"interference_mm3": 0.0}
+- PASS: mic_wire_D5_SD_to_body - {"interference_mm3": 0.0}
+- PASS: mic_wire_D5_SD_to_pod_shell - {"interference_mm3": 0.0}
+- PASS: mic_wire_D5_SD_to_pod_lid - {"interference_mm3": 0.0}
+- PASS: mic_wire_3V3_to_body - {"interference_mm3": 0.0}
+- PASS: mic_wire_3V3_to_pod_shell - {"interference_mm3": 0.0}
+- PASS: mic_wire_3V3_to_pod_lid - {"interference_mm3": 0.0}
+- PASS: mic_wire_GND_to_body - {"interference_mm3": 0.0}
+- PASS: mic_wire_GND_to_pod_shell - {"interference_mm3": 0.0}
+- PASS: mic_wire_GND_to_pod_lid - {"interference_mm3": 0.0}
 - PASS: power_wire_0_to_body - {"interference_mm3": 0.0}
 - PASS: power_wire_0_to_pod_shell - {"interference_mm3": 0.0}
 - PASS: power_wire_0_to_pod_lid - {"interference_mm3": 0.0}
 - PASS: power_wire_1_to_body - {"interference_mm3": 0.0}
 - PASS: power_wire_1_to_pod_shell - {"interference_mm3": 0.0}
 - PASS: power_wire_1_to_pod_lid - {"interference_mm3": 0.0}
+- PASS: separate_insulated_wire_routes - {"collisions": [], "scope": "Nominal rigid wire routes, excluding solder-to-pad contacts"}
 - PASS: rod_press_lands_declared - {"intentional_interference_mm3": 4.378204164032724, "land_bore_mm": 5.95, "rod_mm": 6.0, "main_bore_mm": 6.35}
 - PASS: servo_case_to_plate - {"interference_mm3": 0.0}
 - PASS: servo_case_to_rotor - {"interference_mm3": 0.0}
@@ -42,35 +75,68 @@
 - PASS: dart4_release - {"initial_mm2": 26.725850868571815, "previous_detent_mm2": 26.72585086857179, "minimum_before_previous_detent_mm2": 26.725850868571676, "at_release_mm2": 0.0, "release_deg": 64.0, "full_clear_window_deg": [59.0, 64.0]}
 - PASS: rotor_body_sweep - {"max_interference_mm3": 0.0, "worst_angle_dart": [], "sampled_step_deg": 2}
 - PASS: harness_to_OEM_drone - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "x500_landing_gear_002"}
-- PASS: carried_dart1_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.399999999999974, "nearest": "x500_frame_203"}
-- PASS: carried_dart1_landing_gear - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 1.9263859386617455, "nearest": "x500_landing_gear_003"}
-- PASS: carried_dart1_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.59999999999998, "nearest": "prop_swept_0"}
+- PASS: carried_dart1_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.399999999999984, "nearest": "x500_frame_203"}
+- PASS: carried_dart1_landing_gear - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 2.5445196981024836, "nearest": "x500_landing_gear_003"}
+- PASS: carried_dart1_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.60095874215625, "nearest": "prop_swept_3"}
 - PASS: carried_dart1_harness - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "plate"}
-- PASS: carried_dart1_ground - {"clearance_mm": 90.2764334894}
-- PASS: carried_dart2_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.399999999999974, "nearest": "x500_frame_203"}
+- PASS: carried_dart1_ground - {"clearance_mm": 94.67643338940002}
+- PASS: carried_dart2_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.399999999999984, "nearest": "x500_frame_203"}
 - PASS: carried_dart2_landing_gear - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "x500_landing_gear_003"}
-- PASS: carried_dart2_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.59999999999998, "nearest": "prop_swept_0"}
+- PASS: carried_dart2_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.6, "nearest": "prop_swept_0"}
 - PASS: carried_dart2_harness - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "plate"}
-- PASS: carried_dart2_ground - {"clearance_mm": 90.2764334894}
-- PASS: darts_1_2_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 2.6999998999999804}
-- PASS: carried_dart3_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.399999999999974, "nearest": "x500_frame_203"}
+- PASS: carried_dart2_ground - {"clearance_mm": 94.67643338940002}
+- PASS: darts_1_2_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 2.5999999999999943}
+- PASS: carried_dart3_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.399999999999984, "nearest": "x500_frame_203"}
 - PASS: carried_dart3_landing_gear - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "x500_landing_gear_019"}
-- PASS: carried_dart3_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.59999999999998, "nearest": "prop_swept_1"}
+- PASS: carried_dart3_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.6, "nearest": "prop_swept_1"}
 - PASS: carried_dart3_harness - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "plate"}
-- PASS: carried_dart3_ground - {"clearance_mm": 90.2764334894}
-- PASS: darts_1_3_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 6.699999900000005}
-- PASS: darts_2_3_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 42.599999999999994}
-- PASS: carried_dart4_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.4169272606206, "nearest": "x500_frame_203"}
+- PASS: carried_dart3_ground - {"clearance_mm": 94.67643338940002}
+- PASS: darts_1_3_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 6.600000000000001}
+- PASS: darts_2_3_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 46.599999999999994}
+- PASS: carried_dart4_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.455100131711255, "nearest": "x500_frame_203"}
 - PASS: carried_dart4_landing_gear - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "x500_landing_gear_019"}
-- PASS: carried_dart4_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.59999999999998, "nearest": "prop_swept_1"}
+- PASS: carried_dart4_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.6, "nearest": "prop_swept_1"}
 - PASS: carried_dart4_harness - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "plate"}
-- PASS: carried_dart4_ground - {"clearance_mm": 90.2764334894}
-- PASS: darts_1_4_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 42.599999999999994}
-- PASS: darts_2_4_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 82.59999999999998}
-- PASS: darts_3_4_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 2.6999998999999804}
+- PASS: carried_dart4_ground - {"clearance_mm": 94.67643338940002}
+- PASS: darts_1_4_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 46.599999999999994}
+- PASS: darts_2_4_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 86.6}
+- PASS: darts_3_4_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 2.5999999999999943}
 - PASS: vertical_extraction_sweep - {"max_interference_mm3": 0.0, "worst_dart_drop_part": null, "drop_samples_mm": [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90], "min_leg_clearance_mm": 0.0}
-- PASS: post_extraction_pitch_sweep - {"max_interference_mm3": 0.0, "worst": null, "pitch_step_deg": 5, "vertical_translation_before_pitch_mm": 430, "aircraft_height_above_stock_ground_mm": 1500, "ground_clearance_mm": 907.9586469865958, "scope": "prescribed path only, no fall dynamics or aerodynamic claim"}
+- PASS: post_extraction_pitch_sweep - {"max_interference_mm3": 0.0, "worst": null, "pitch_step_deg": 5, "vertical_translation_before_pitch_mm": 430, "aircraft_height_above_stock_ground_mm": 1500, "ground_clearance_mm": 920.0634401075075, "scope": "prescribed path only, no fall dynamics or aerodynamic claim"}
 - PASS: stood_body_ground - {"interference_mm3": 0.0, "lowest_height_mm": -1.0000000532907051e-07}
-- PASS: stood_pod_shell_ground - {"interference_mm3": 0.0, "lowest_height_mm": 408.4999999}
-- PASS: stood_pod_lid_ground - {"interference_mm3": 0.0, "lowest_height_mm": 410.0}
-- PASS: stood_full_aircraft_scene - {"clearance_lower_bound_mm": 195.51871363043637, "listener_offset_mm": [650, 0, 0], "stock_skid_ground_z_mm": 0, "scope": "end-state review layout; intentional70mm tip-soil penetration"}
+- PASS: stood_pod_shell_ground - {"interference_mm3": 0.0, "lowest_height_mm": 409.999999899996}
+- PASS: stood_pod_lid_ground - {"interference_mm3": 0.0, "lowest_height_mm": 466.0}
+- PASS: stood_usb_cap_ground - {"interference_mm3": 0.0, "lowest_height_mm": 510.20000000000005}
+- PASS: stood_full_aircraft_scene - {"clearance_lower_bound_mm": 132.11007741660785, "listener_offset_mm": [650, 0, 0], "stock_skid_ground_z_mm": 0, "scope": "end-state review layout; intentional70mm tip-soil penetration"}
+- PASS: dummy_mass_and_3D_balance - {"mass_g": 147.93074419497574, "ballast_g": 36.8233221424516, "cg_error_mm": [0.0, 0.0, 0.0], "pockets_fit": true}
+- PASS: ballast_body_front_clearance - {"interference_mm3": 0.0, "steel_mass_g": 11.62897736153684}
+- PASS: ballast_body_rear_clearance - {"interference_mm3": 0.0, "steel_mass_g": 20.252124441690032}
+- PASS: ballast_head_front_clearance - {"interference_mm3": 0.0, "steel_mass_g": 2.4711101696123645}
+- PASS: ballast_head_rear_clearance - {"interference_mm3": 0.0, "steel_mass_g": 2.4711101696123645}
+- PASS: USB_plug_access - {"interference_mm3": 0.0, "plug_envelope_mm": [12, 11, 6.2], "scope": "MEASURE actual cable overmould; end cap removed"}
+- PASS: BOOT_RESET_pin_access_-5.93 - {"interference_mm3": 0.0, "pin_d_mm": 0.7, "scope": "Cap removed; verify button identity/travel on purchased revision"}
+- PASS: BOOT_RESET_pin_access_5.93 - {"interference_mm3": 0.0, "pin_d_mm": 0.7, "scope": "Cap removed; verify button identity/travel on purchased revision"}
+- PASS: mic_ground_height - {"height_mm": 500.0}
+- PASS: stake_range_8.0 - {"interference_mm3": 0.0, "axis_height_mm": 10.65685424949238, "diameter_mm": 8.0}
+- PASS: stake_cell_holder_range_8.0 - {"interference_mm3": 0.0, "diameter_mm": 8.0}
+- PASS: stake_range_10.0 - {"interference_mm3": 0.0, "axis_height_mm": 12.071067811865476, "diameter_mm": 10.0}
+- PASS: stake_cell_holder_range_10.0 - {"interference_mm3": 0.0, "diameter_mm": 10.0}
+- PASS: stake_range_13.0 - {"interference_mm3": 0.0, "axis_height_mm": 14.192388155425117, "diameter_mm": 13.0}
+- PASS: stake_cell_holder_range_13.0 - {"interference_mm3": 0.0, "diameter_mm": 13.0}
+- PASS: stake_power_wire_0_to_stake_adapter - {"interference_mm3": 0.0}
+- PASS: stake_power_wire_0_to_stake_cell_holder - {"interference_mm3": 0.0}
+- PASS: stake_power_wire_0_to_pod_shell - {"interference_mm3": 0.0}
+- PASS: stake_power_wire_0_to_pod_lid - {"interference_mm3": 0.0}
+- PASS: stake_power_wire_1_to_stake_adapter - {"interference_mm3": 0.0}
+- PASS: stake_power_wire_1_to_stake_cell_holder - {"interference_mm3": 0.0}
+- PASS: stake_power_wire_1_to_pod_shell - {"interference_mm3": 0.0}
+- PASS: stake_power_wire_1_to_pod_lid - {"interference_mm3": 0.0}
+- PASS: stake_separate_power_wires - {"interference_mm3": 0.0}
+- PASS: stake_adapter_to_pod_shell - {"interference_mm3": 0.0}
+- PASS: stake_adapter_to_pod_socket_rod_offcut - {"interference_mm3": 0.0}
+- PASS: stake_clamp_tie_457_clearance - {"interference_mm3": 0.0}
+- PASS: stake_clamp_tie_483_clearance - {"interference_mm3": 0.0}
+- PASS: stake_cell_tie_284_clearance - {"interference_mm3": 0.0}
+- PASS: stake_cell_tie_336_clearance - {"interference_mm3": 0.0}
+- PASS: stake_pod_retaining_tie_clearance - {"interference_mm3": 0.0}
+- PASS: stake_mic_height - {"mic_height_mm": 500, "stake_length_mm": 1219.2, "burial_nominal_mm": 100.0, "scope": "Slide adapter until mic is500mm above actual ground, independently of insertion depth"}

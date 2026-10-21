@@ -1,221 +1,121 @@
-"""Generate the review package documentation from the measured CAD outputs."""
+"""Generate current XIAO design notes and a gallery from authoritative reports."""
 from pathlib import Path
-import json, html
+import json,html,re
 from parameters import *
-ROOT=Path(__file__).resolve().parent
-out=ROOT/'out'
-mass=json.loads((out/'mass_properties.json').read_text())
-checks=json.loads((out/'checks.json').read_text())
-manifest=json.loads((out/'print_manifest.json').read_text())
-
-def table(headers,rows):
-    return '| '+' | '.join(headers)+' |\n| '+' | '.join('---' for _ in headers)+' |\n'+''.join('| '+' | '.join(str(x) for x in row)+' |\n' for row in rows)
-
-def item(name):return next(r for r in checks['checks'] if r['check']==name)
-
+R=Path(__file__).resolve().parent;O=R/'out'
+m=json.loads((O/'mass_properties.json').read_text());c=json.loads((O/'checks.json').read_text())
+old=json.loads((R/'sources/legacy-mass-properties.json').read_text())
+pm=json.loads((O/'print_manifest.json').read_text())
+def table(head,rows):return '| '+' | '.join(head)+' |\n| '+' | '.join('---' for _ in head)+' |\n'+''.join('| '+' | '.join(str(v) for v in row)+' |\n' for row in rows)
+def massrow(n,group='dart'):return next(r for r in m[group] if r['name']==n)
+def check(n):return next(r for r in c['checks'] if r['check']==n)
 sources=[
-('S1','Holybro X500 V2 official frame STEP and product/assembly drawing','https://holybro.com/collections/multicopter-kit/products/px4-development-kit-x500-v2','Unscaled 2022-07-19 manufacturer CAD. Centre plates, tubes, motor assemblies, clamps, battery and companion platforms, stock legs, hardware. Rail axes 60mm apart; rail OD9.4 in CAD versus catalog10. Use10mm clearance. Coincident duplicate solids removed, logged in cache/model.json.'),
-('S2','Holybro AIR2216II motor/prop drawing','https://cdn.shopify.com/s/files/1/0604/5905/7341/files/X500MotorSpec.png?v=1678791632','Motor outer geometry comes from S1. Drawing gives motor OD27.7 and body31; 1045 swept diameter is conservatively260mm per the drawing, rather than254mm nominal10in.'),
-('S3','TowerPro SG90 Digital manufacturer page/drawing','https://towerpro.com.tw/product/sg90-7/','Drawing A30.3, B22.7, C27, D12.2, E32.3, F17mm; nominal9g and 1.8kg.cm stall at4.8V. Stepped case and seams reconstructed from manufacturer photo, not a block. Undimensioned spline, tabs and supplied horn remain MEASURE.'),
-('S4','Heltec V3 datasheet Rev1.1 and manufacturer 3D directory','https://s.heltec.cn/download/WiFi_LoRa_32_V3/3D/','Detailed HTIT-WB32LAF_V3.7(3).step used for populated PCB/USB-C/U.FL/buttons/connectors. Source has no OLED: add33.28x18.56 module from Rev1.1 p14, stack height/thickness MEASURE. Datasheet PCB envelope50.2x25.5x10.2; V3.7 STEP PCB is51.689x25.4, including end shape. No scaling. Verify exact purchased revision. Older non-exact STEP was inspected and rejected as a primary geometry source.'),
-('S5','Samsung INR18650-25R specification, manufacturer-authored PDF mirror','https://files.dcpower.eu/datasheets/samsung/INR18650-25R-datasheet.pdf','Diameter18.33+/-0.07; length64.85+/-0.15mm; mass45g maximum. Positive terminal/insulator detail is a MEASURE envelope. Use an unprotected flat-top 25R with factory welded leads; protected/button-top cells will not fit.'),
-('S6','TDK INMP441 product and DS-INMP441-00 Rev1.1 Fig16','https://product.tdk.com/en/search/sw_piezo/mic/mems-mic/info?part_no=INMP441','Bare package4.72x3.76x1.00; bottom port0.25mm and1.07mm from right edge. Package offset1.29 aligns its port to breakout hole. Generic14x16mm breakout is not standardized: its outline, thickness, mass and PCB port are MEASURE.'),
-('S6a','TDK application note AN1124, sealing bottom-port microphones','https://invensense.tdk.com/wp-content/uploads/2015/02/Recommendations-for-Sealing-InvenSense-Bottom-Port.pdf','Basis for soft membrane with an air cavity; modeled0.8mm cavity and0.05mm prototype silicone film. Dimensions/material response are design assumptions requiring acoustic and water tests, not a claimed IP rating.'),
-('S7','HellermannTyton UV-stabilized T18R 111-01711','https://www.hellermanntyton.com.br/produtos/abracadeiras-com-serrilhado-interno/t18r/111-01711','100x2.5mm strap,1.0mm thick, head4.8x4.45x3.7;80N minimum catalog strength. Fitted closed loops and trimmed heads are modeled at their installed locations.'),
-('S8','3M5490 PTFE film tape technical data','https://multimedia.3m.com/mws/media/2522949O/3m-ptfe-extruded-film-tape-5490.pdf?fn=3M-PTFE-Extruded-Film-Tape-5490.pdf','0.09mm total thickness; low-friction bearing strip on the printed ridge. Numerical friction coefficient0.12 is an engineering assumption, not a3M published value.'),
-('S9','Ruthex RX-M2x4 manufacturer product/CAD','https://www.ruthex.de/products/ruthex-gewindeeinsatz-m2-70-stuck-rx-m2x4-messing-gewindebuchsen','Actual knurled STEP used. OD3.6 x4.0mm;3.2mm pilot/5.2mm depth. Four per pod. Fit pilot on filament coupon before heat setting.'),
-('S10','M2 hex nut dimensional table, manufacturer Accu','https://www.accu.co.uk/hexagon-nuts/655596-HPN-M2-PCN','DIN934/ISO4032 envelope:4mm across flats,1.6mm height. The CAD uses metal hardware density; this linked variant demonstrates the shared dimensional standard, not the selected nut material.'),
+ ('S1','Holybro X500 V2 official frame CAD and assembly','https://holybro.com/collections/multicopter-kit/products/px4-development-kit-x500-v2','Unscaled OEM STEP: centre plates, arms, motors, skids, payload rails and clamps; duplicate solids removed, original indices retained. Rail spacing60 mm, CAD OD9.4 mm; design clearance uses catalog10 mm.'),
+ ('S2','Holybro motor and prop drawing','https://cdn.shopify.com/s/files/1/0604/5905/7341/files/X500MotorSpec.png?v=1678791632','Conservative260 mm prop swept diameter; fitted plane and4 mm slab thickness remain MEASURE. Translucent swept discs are clearance volumes, not propeller blades.'),
+ ('S3','TowerPro SG90 drawing','https://towerpro.com.tw/product/sg90-7/','22.7 x12.2 x27 mm case,32.3 mm tab span,9 g catalog mass and1.8 kg.cm stall torque. Horn, spline, mounting holes and exact batch remain MEASURE.'),
+ ('S4','Seeed kit wiki: both OEM STEP archives, schematic and XIAO DXF','https://wiki.seeedstudio.com/xiao_esp32s3_&_wio_SX1262_kit_for_meshtastic/','Native XIAO ESP32S3 STEP and Wio-SX1262-for-XIAO STEP used without scaling. B2B kit connection, USB flashing and underside battery-pad connection are documented here. sources/xiao-manifest.json records exact download URLs and SHA256.'),
+ ('S4a','Seeed XIAO ESP32S3 dimensions and pin map','https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/','21 x17.8 mm PCB nominal; D3=GPIO4, D4=GPIO5, D5=GPIO6. Native STEP includes USB-C, BOOT/RESET and WiFi U.FL. Archive top/bottom images identify BAT pads and castellated pins.'),
+ ('S4b','Seeed bare kit SKU102010611 and included FPC antenna','https://www.seeedstudio.com/Wio-SX1262-with-XIAO-ESP32S3-p-5982.html','Manufacturer identifies separate WiFi and LoRa antennas and included FPC. No dimensioned antenna drawing was found. Both antenna envelopes, masses and coax lengths are MEASURE. The kit FPC is not the optional195 mm SMA antenna.'),
+ ('S4c','Wio-SX1262 radio-module datasheet','https://files.seeedstudio.com/products/SenseCAP/Wio_SX1262/Wio-SX1262_Module_Datasheet.pdf','Bare radio module11.6 x11 x2.95 mm is NOT the complete extension board. Extension outline comes from its kit-specific OEM STEP, not this module envelope.'),
+ ('S4d','Rokland XIAO ESP32S3 + Wio-SX1262 kit','https://store.rokland.com/products/seeed-studio-xiao-esp32s3-wio-sx1262-kit-for-meshtastic-lora','Retailer identifies SKU102010611 and links the same kit-specific Seeed Wio STEP and schematic. It supplies no additional antenna dimensional drawing; confirm the actual shipped antenna batch.'),
+ ('S5','Samsung INR18650-25R manufacturer specification mirror','https://files.dcpower.eu/datasheets/samsung/INR18650-25R-datasheet.pdf','18.33 +/-0.07 mm diameter,64.85 +/-0.15 mm length,45 g maximum. Keep flat-top cell and existing cradle. Terminal/insulator details and actual mass MEASURE.'),
+ ('S6','TDK INMP441 outline','https://product.tdk.com/en/search/sw_piezo/mic/mems-mic/info?part_no=INMP441','Bare IC4.72 x3.76 x1 mm, bottom port0.25 mm. Generic breakout14 x16 x1 mm and its hole/pads/mass remain MEASURE.'),
+ ('S6a','TDK AN1124 microphone sealing guidance','https://invensense.tdk.com/wp-content/uploads/2015/02/Recommendations-for-Sealing-InvenSense-Bottom-Port.pdf','Prototype soft film and0.8 mm acoustic cavity are design assumptions; acoustic transfer and water resistance untested.'),
+ ('S7','HellermannTyton T18R UV-stable tie','https://www.hellermanntyton.com.br/produtos/abracadeiras-com-serrilhado-interno/t18r/111-01711','100 x2.5 x1 mm strap,80 N catalog minimum loop strength; installed closed loops reconstructed.'),
+ ('S8','3M5490 PTFE film tape','https://multimedia.3m.com/mws/media/2522949O/3m-ptfe-extruded-film-tape-5490.pdf','0.09 mm total thickness. Friction coefficient0.12 is an engineering assumption, not a manufacturer specification.'),
+ ('S9','Ruthex RX-M2x4 insert CAD','https://www.ruthex.de/products/ruthex-gewindeeinsatz-m2-70-stuck-rx-m2x4-messing-gewindebuchsen','Actual knurled manufacturer STEP.3.6 mm OD,4 mm long;3.2 mm pilot and5.2 mm pocket are design fit choices.'),
+ ('S10','M2 hex nut dimensions','https://www.accu.co.uk/hexagon-nuts/655596-HPN-M2-PCN','DIN934 envelope4 mm across flats x1.6 mm height; metal nuts modelled. Dummy traps have side-loading slots.'),
 ]
-
-doc=f'''# Tripwire listener and X500 release harness - first-print mechanical package
-
-Built in CadQuery2.8.0, millimetres. All work and all downloaded references are inside this directory. No commit or push was made.
-
-**Model estimate: {mass['dart_total_g']:.1f}g per dart; {mass['harness_total_g']:.1f}g harness; {mass['carried_payload_g']:.1f}g total four-dart payload.** The integral hanger is {mass['hanger_x_mm']:.2f}mm from the tip and {mass['hanger_y_mm']:.2f}mm to the cell side of the rod. The assembly is {POD_X1+M.whip_l:.0f}mm tip-to-whip. Sound port height is {MIC_X-BODY_X0:.0f}mm above soil at full70mm penetration.
-
-This is a checked geometric prototype, not a printed, drop-qualified, waterproof or flight-qualified assembly. Source uncertainty is retained explicitly. The generic microphone breakout, servo variant, actual antenna, filament fit and installed aircraft must be measured before releasing a print for use.
-
-## Deliverables and reproduction
-
-- [REVIEW.html](REVIEW.html) is the local visual index. [renders/](renders/) contains the final CAD renders.
-- [out/](out/) contains six printed-part STEP/STL pairs, the three full-aircraft states, a separate stood dart, bought-part references, machine-readable mass/check reports and export validation.
-- STEP files retain design datums. STL files are already rotated and translated into their print orientation, resting atZ0. Do not auto-rotate them onto a different face.
-- Five functional printed designs: body, pod shell, pod lid, harness plate, rotor. A sixth design is the disposable rod-fit coupon. A four-dart kit uses4 bodies,4 shells,4 lids,1 plate,1 rotor. This is14 functional pieces, plus one coupon.
-- The large STEP files retain manufacturer electronic and aircraft detail. Shared listener subassemblies are instanced in the full system exports.
-
-From the repository root in PowerShell:
-
-```powershell
-& 'C:\\Users\\paulm\\.venvs\\cad\\Scripts\\python.exe' cad/gpt61/fetch_sources.py
-& 'C:\\Users\\paulm\\.venvs\\cad\\Scripts\\python.exe' cad/gpt61/build.py
-& 'C:\\Users\\paulm\\.venvs\\cad\\Scripts\\python.exe' cad/gpt61/validate_exports.py
-& 'C:\\Users\\paulm\\.venvs\\cad\\Scripts\\python.exe' cad/gpt61/document.py
-```
-
-`build.py --render-only`, `--verify-only`, `--exports-only` use the generated cache. `--geometry-only --no-render` rebuilds and checks without exporting. Remove only this directory's `cache/` if you replace an OEM reference asset; the immutable aircraft cache otherwise accelerates rebuilds. `parameters.py` holds source dimensions and the central MEASURE block. `printed.py` and `purchased.py` construct the actual B-reps; rendered pixels and meshes are never the geometry source.
-
-## Source register
-
-'''
-for code,title,url,note in sources:doc+=f'- **{code}: [{title}]({url}).** {note}\n'
-doc+='''
-Downloaded files, original URLs, byte sizes and SHA256 hashes are in [sources/manifest.json](sources/manifest.json). Source STEP files are preserved. `sources/heltec-v3-datasheet.pdf-drawing.png`, `sources/inmp441-outline.png` and the TowerPro images are the drawing/photo review evidence. There is no manufacturer CAD for the selected generic mic module or the unspecified82mm antenna; those are deliberately parameterized reconstructions. Source documents retain their original ownership/licensing.
-
-## Four-listener kit BOM
-
-| Bought item | Kit quantity / size |
-| --- | --- |
-| Solid fibreglass rod | 4 x6mm x500mm |
-| Samsung25R flat-top18650 with factory welded insulated leads | 4 |
-| Heltec WiFi LoRa32 V3 board and OLED, tall headers left off | 4, verify purchased revision |
-| INMP441 breakout | 4, verify the14x16mm nominal outline and port |
-| Whip/U.FL pigtail | 4, verify82mm whip envelope and4mm boot |
-| Genuine positional SG90 and supplied double horn | 1 |
-| Ruthex RX-M2x4 heat-set inserts | 16 |
-| M2x6 socket cap screws,3.8mm head diameter,2mm head height | 18:16 pod,2 servo mounting |
-| M2x10 threaded drive studs | 2, adjust projection to the modeled stack |
-| M2 hex nuts,4mm AF x1.6mm high | 6:4 drive-stud clamp nuts,2 captive servo nuts |
-| Longer output-spline screw | 1 x10mm under-head, nominalM1.6; match the actual servo thread |
-| Keeper spacer | 1,3mm OD x1.8mm ID x4.2mm long; adapt ID to measured screw |
-| Keeper washer | 1,10mm OD x1.85mm ID x0.4mm thick |
-| T18R UV-stabilized zip ties | 16:4 rails,4 body strain relief,8 along rods |
-| Silicone perimeter cord | 1.2mm diameter, about220mm per pod plus joining allowance |
-| Soft silicone sound film and cavity seals | 4 films,8mm diameter x0.05mm;4 annular seals,7.6mm OD x4mm ID x0.8mm |
-| PCB foam pads | 16 small edge pads; additional removable mic preload pad |
-| 3M5490 PTFE film | One annular strip,R48.3..50.7mm,0.09mm total thickness |
-| Power wire, mic jumpers, battery connector, terminal insulation, removable neutral-cure RTV | Quantity to dress the modeled routes;28AWG power wire nominal1.05mm OD |
-
-The stock X500 hardware is retained. Printed quantities are4 bodies,4 shells,4 lids,1 plate,1 rotor, and one optional fit coupon.
-
-## Changes required to make the fixed concept assemble
-
-1. Split the closed pod into a tray and screw lid. A closed one-piece shell cannot accept, wire and later service this populated board. Four heat-set M2 inserts, a locating lip, removable silicone cord, rod/cable RTV seals and a membrane-covered sound cavity make it serviceable. No USB or display opening breaks the seal; open the lid for service.
-2. Move the board after the rod end: the20mm socket occupies480..500mm, the PCB starts around502.4mm, and the far insert bosses move beyond the actual PCB corners. The pod ends at562mm; the82mm assumed whip gives644mm overall. The old564mm figure described the pod end, not the complete dart plus whip.
-3. Replace an unrelieved long C-shell snap with four independently relieved18mm axial beams. The saddle carries the cell; two end walls carry axial impact load; fingers have real lead-in and retention faces. Relief under the beams allows bending. The final cell cavity is recut through all support ribs so none enter the cell.
-4. Align the integral hanger with BOTH longitudinal and lateral model CG. The battery is beside the spine, so a hanger over the rod axis would produce a roll moment. Tapered lateral and longitudinal gussets spread the offset hanger load into the rod sleeve. The balance is solved again from the complete model, including negative-terminal wiring.
-5. Add a protected negative-lead gutter beside the cell, retention bridges, a two-wire spine gutter and a tie bridge. Both cell terminals now have continuous modeled routes to the pod; wires are not simply shown starting at the rear terminal. The500mm rod remains one solid part.
-6. Lower the harness under the existing battery carrier. Rail-axis to deck is72mm. Rear saddles are atX=-85; forward ones atX=60, in clear rail regions between vendor clamps/platforms. The forward towers lean outward near the rotor, then back to the rails above it. Two open plate-edge notches clear the splayed stock landing legs. The stock frame and stock legs are retained.
-7. Position the four heads at radius68mm, with transverse positions+22,+62,-22,-62mm. Matching slots pass the entire13mm head and the tapered stem. The inner pair releases first, on opposite sides, followed by the outer pair, at16,32,48,64degrees. The slots are recut after adding tower beams so no beam silently refills them.
-8. The bearing ridge, with0.09mm PTFE film, supports the rotor directly. A concentric sliding pilot handles lateral guidance. The original bought horn drives two M2 round pins into axial-clearance holes; upper nuts have actual hex envelopes and clearance counterbores. Servo mount nuts are captive in measured across-flats traps. The shaft does not set the bearing height.
-9. Add a loose axial keeper: a measured-thread replacement servo screw, a4.2mm bought spacer and a10mm washer sit0.4mm above the rotor. This prevents bounce-out while leaving the static dart weight on the ridge. Undo the screw to service the rotor. Output-screw thread is a mandatory MEASURE item.
-10. Print plate flat and rotor top-face-down. The case tabs meet the underside of the3.2mm deck, and the bearing height rises to12mm. No downward mounting bosses suspend the plate above its print bed. The body needs local support under its round hanger flange and four elevated snap beams. Its offset hanger station is widened below the gussets, and the aft gusset ends inside the foundation. The pod tray needs small accessible supports below the exterior hood/socket lip and the two short interior mic-guide ledges. Lid, plate, rotor and coupon need none in their listed orientations.
-
-## Key fits and mechanics
-
-'''
-doc+=table(['Feature','Nominal dimensions / allowance'],[
-('Rod','6x500mm;12mm sharpened end; body begins70mm from tip'),
-('Rod sleeve','6.35mm teardrop clearance bore; three4mm press lands at5.95mm;0.8mm compliance slit;1mm entry lead-in'),
-('Cell cradle',f'{M.cell_d+.5:.2f}mm saddle ID;1.6mm wall;16.8mm throat;1.2mm beam thickness;18mm active length;6.8mm height'),
-('Pod',f'480..562mm;36mm body width; hood increases installed width to41.4mm;1.6mm walls;2mm lid; minimum floor1.6mm'),
-('Seam','1.5mm groove width,0.9mm depth;1.2mm silicone cord,25% squeeze and84% gland fill;0.30mm radial locating-lip clearance'),
-('Mic','Bottom port looks sideways, atX540mm;4mm acoustic aperture;0.8mm cavity behind0.05mm film; upper rain hood drains downward'),
-('Hanger','5mm neck,13mm round head,3.2mm flange; flat underside bears on rotor; stem14x9mm'),
-('Plate / slots','3.2mm plate,83mm radius;20.4x15.4mm radiused head slots;12mm bearing plane'),
-('Rotor','64.9mm radius,3.2mm web,6mm overall hub; four20degree release gaps, cut radially56..66.9mm'),
-('Pilot','32mm OD;32.5mm mating ID:0.25mm radial sliding clearance;0.10mm roof clearance'),
-('Bearing','R48..51mm printed ridge;0.3mm edge chamfers; filmR48.3..50.7mm; rotor contactZ12mm'),
-('Horn dogs','Two M2 pins18mm apart;2.44mm drive holes;5.2mm nut-clearance counterbores; upper-nut roof clearance0.35mm'),
-('Rail saddles','10.6mm seat bore for catalog10mm rail;60mm rail centre spacing;3.1x3.2mm tie tunnels'),
-('M2 nut traps','4.3mm across flats for4.0mm ISO4032/DIN934 nuts; CadQuery polygon diameter converted correctly'),
-('Inserts','Ruthex3.6x4.0;3.2mm pilot,5.2mm depth; bossOD7mm'),
-])
-snap=item('snap_flexure_screen');friction=item('bearing_friction_screen')
-doc+=f'''
-The beam screen uses maximum cell diameter18.40mm, a throat0.20mm undersize, and symmetrical bending: **{snap['per_arm_deflection_mm']:.2f}mm per arm**. `epsilon=3*t*delta/(2*L^2)` gives{100*snap['nominal_surface_strain']:.2f}% nominal strain; a2x root factor gives{100*snap['factored_strain']:.2f}% against the1.5% assumed screening limit. WithE=1600MPa, the four-arm tip-force estimate is{snap['four_arm_force_N']:.2f}N. This is a static elastic screen, not impact-retention or fatigue proof. PETG print direction, root relief, creep and actual filament must be tested. No mold-release draft is applied to functional FDM fits; the towers taper and entry ramps/chamfers provide the useful lead-ins.
-
-At3g, the5mm hanger neck screens at{item('hanger_tension_screen')['stress_3g_MPa']:.3f}MPa axial stress against an assumed8MPa printed allowance. At rest each head has about26.73mm2 of rim support. The friction estimate with assumedmu=0.12 is{friction['static_torque_Nm']:.3f}N.m static and{friction['three_g_torque_Nm']:.3f}N.m at3g, versus0.177N.m rated SG90 stall. Stall is not a continuous operating rating: measure breakaway torque/current with the actual tape and full load. PTFE film is part of this fit and load-path stack.
-
-## Mass and balance
-
-All prototype printed parts use **100% infill**, four perimeter lines and six top/bottom layers. Thin walls are solid. Printed mass is real modeled material volume times1.27g/cm3, without an arbitrary whole-part60% multiplier. Material densities and assembly mass overrides are in the machine-readable report. The cell uses its45g datasheet maximum; PCB9g, mic1g, antenna1.2g and rod density remain MEASURE estimates. The electronic CAD centroid is a spatial proxy, not a component-by-component measured weight distribution. Adhesive/RTV, small solder and field dirt add unquantified mass; reweigh the built dart and update the parameters before fixing the production hanger.
-
-'''
-rows=[]
-for n in ('body','pod_shell','pod_lid'):
-    r=next(x for x in mass['dart'] if x['name']==n);rows.append([n,f"{r['mass_g']:.2f}",f"{r['volume_mm3']/1000:.3f}",f"{r['centroid_mm'][0]:.2f}"])
-for n in ('plate','rotor'):
-    r=next(x for x in mass['harness'] if x['name']==n);rows.append([n,f"{r['mass_g']:.2f}",f"{r['volume_mm3']/1000:.3f}",f"{r['centroid_mm'][0]:.2f}"])
-rows.append(['fit coupon','4.49','3.537','not carried'])
-doc+=table(['Printed design','Mass g','Material cm3','Centroid X mm, design datum'],rows)
-doc+=f'''
-Full individual bought-part and consumable masses and XYZ centroids: [out/mass_properties.csv](out/mass_properties.csv), [out/mass_properties.json](out/mass_properties.json). This includes all screws, actual insert volumes, nickel tabs, cell wiring, cord/film, rod ties, stock horn, drive hardware, keeper and rail ties.
-
-- Dart total: **{mass['dart_total_g']:.2f}g**. Model CG: **({mass['dart_cg_mm'][0]:.2f}, {mass['dart_cg_mm'][1]:.2f}, {mass['dart_cg_mm'][2]:.2f})mm**, tip/rod/print datum.
-- Hanger axis: X{mass['hanger_x_mm']:.2f}, Y{mass['hanger_y_mm']:.2f}mm. Longitudinal solve residual{mass['balance_residual_mm']:.4f}mm. Tolerance is not a claim about the real article; measured part weights control the actual balance.
-- Harness complete: **{mass['harness_total_g']:.2f}g**, CG({', '.join(f'{x:.2f}' for x in mass['harness_cg_mm'])})mm in harness coordinates.
-- Four darts plus harness: **{mass['carried_payload_g']:.2f}g**. This excludes the existing aircraft, flight battery and avionics. No flight-time, useful payload or stability qualification is inferred.
-
-## Assembly checks and limits
-
-{sum(r['pass_'] for r in checks['checks'])}/{len(checks['checks'])} generated checks pass. Full data: [out/checks.json](out/checks.json) and [out/checks.md](out/checks.md). Printed STEP round-trip and STL manifold/volume evidence is in [out/export_validation.json](out/export_validation.json).
-
-The actual B-reps are intersected after broad-phase pruning. Buried PCB/mic/cell/lid/wire fits are checked separately. External aircraft checks conservatively fill the pod envelope, including its hood. The intentionally interfering rod press lands and heat-set inserts, solder/threads and compressed seals are declared separately. Aircraft distance numbers in the report are **axis-aligned bounding-box lower bounds**, not precise gap measurements; a zero lower bound with zero interference does not mean a zero real gap.
-
-'''
-doc+=table(['Case','Scope / result'],[
-('Carried','All four darts versus frame/rails/clamps, motors,260mm prop swept slabs, stock legs, harness and one another. Modelled solids have no unwanted overlap at the nominal parameters.'),
-('Ground, carried',f"Lowest dart envelope is{item('carried_dart1_ground')['clearance_mm']:.2f}mm above the stock-skid ground plane. The printed harness also remains above it. Prop swept-slab separation has a conservative123.6mm lower bound at the nominal fitted prop plane."),
-('Rotor / release','Head contact sampled every0.5deg across0..64deg. Each dart has full support through its preceding detent, and no footprint at its release detent. Neck/body-to-rotor checked every2deg.'),
-('Extraction','Each dart translated0..90mm down in5mm samples, with its matching rotor gap aligned; checked against the complete aircraft and harness. This includes the head passing the plate.'),
-('Pitch after separation','A prescribed0..90deg nose-down path in5deg samples is checked only AFTER430mm downward separation. The aircraft is lifted1500mm above its stock ground datum for this clearance case. This demonstrates a possible clear geometric path, not the actual fall/rotation timing.'),
-('Mid-release rendering',f"Rotor16deg; first dart70mm down, three retained;{item('carried_dart1_ground')['clearance_mm']-70:.2f}mm remaining ground clearance at the stock-skid datum. This is an explicit assembly state, not a dynamic simulation."),
-('Stood','70mm tip penetration, body nose on ground and electronics above ground. Full assembly_stood also includes the aircraft on its stock skids with three listeners and the upright listener650mm beside it; this separation is a review layout, not a deployment spacing recommendation.'),
-])
-doc+='''
-Release order is dart1 at16, dart3 at32, dart2 at48, dart4 at64degrees. Full clearance windows are approximately11..21,27..37,43..53,59..69degrees; the sampled sweep ends at64, so the final report clips the last window there. A head begins losing area during the commanded transition before its target stop. It is not claimed to remain supported until the exact mathematical detent. Keep calibrated position error below2degrees for prototype bench work and determine actual positions under load.
-
-The continuous interval between samples, flexible prop motion, airflow-induced bowing, frame compliance, acceleration, line snagging, inversion, actual self-righting, impact, soil penetration and acoustic/radio performance have not been simulated or tested. In particular, no model establishes that this dart naturally waits430mm before rotating. Test that trajectory physically with inert mass dummies before any flight release. The rod must be free of splinters and the printed hanger must survive the required proof load. An actual installed aircraft/servo/board measurement supersedes nominal CAD.
-
-## MEASURE register
-
-Every uncertain fit/property used as a model input is a single field in the `Measurements` dataclass in `parameters.py`. Some have sourced nominal dimensions but still need incoming-part verification. The generic breakout and actual whip are the largest unresolved purchased-item identities. No manufacturer datasheet was found for a standardized14x16mm INMP441 breakout or the old82mm whip estimate. Do not substitute the bare microphone IC dimensions for a breakout, and do not assume a50mm Heltec antenna has an82mm envelope.
-
-'''
-doc+=table(['Parameter','Current nominal'],[(n,v) for n,v in measure_dict().items()])
-doc+='''
-Also verify these installed interfaces: X500 rail OD/60mm spacing and the exact clamp/platform arrangement against S1; unobstructed saddle zones atX=-85/+60; prop actual diameter/plane;1.2mm silicone cord; gasket compression;3.2mm insert pilot after printing; tape thickness; and total hardware/RTV/solder mass. If these differ, update the corresponding parameter/design choice and rerun the geometry checks. Cosmetic reconstructions are not manufacturing drawings for the bought parts.
-
-## Print settings
-
-PETG; dry filament;0.4mm nozzle;0.20mm layer;0.42mm line width if your slicer permits, four perimeters; six top/bottom layers;100% infill. Use the filament maker's temperature range (typical prototype starting point235C nozzle/80C bed, then tune). External walls30mm/s, first layer20mm/s, modest cooling after the first layers. Deburr sliding/contact faces; keep brim out of functional holes. PETG creep and layer adhesion need the physical checks below.
-
-'''
-print_rows=[]
-for row in manifest:
-    n=row['part'];dims=' x '.join(f'{x:.1f}' for x in row['print_bbox_mm'])
-    orient={'body':'Flat sole down; cradle and post up','pod_shell':'Floor down; open side up','pod_lid':'Outside face down; lip and fingers up','plate':'Flat deck underside down; towers up','rotor':'Top face down; hub/pockets up','fit_coupon':'Linked block bases down'}[n]
-    support='Local support under hanger flange and four snap beams. Allow supports on the model;0.20mm top/bottom Z gaps, one interface layer. Clear0.7mm beam reliefs; block rod-bore supports.' if n=='body' else 'Small local supports below exterior rain hood/socket lip and two short interior mic-guide ledges; remove before electronics installation.' if n=='pod_shell' else 'None; small designed bridges/teardrop roofs only.'
-    print_rows.append([n,row['quantity'],dims,orient,support])
-doc+=table(['Part','Kit qty','STL bounds mm','Orientation','Support'],print_rows)
-doc+='''
-All oriented bounds fit the245x245x260mm Vyper. The coupon's5.9/6.0/6.1/6.2mm bores increase inX order. Print it first in the same material/profile. Choose the light interference fit that does not split or excessively stress the rod, and set `rod_fit_bore` accordingly. Do not force a500mm rod through an uncalibrated long press fit. The closed sections have a45degree teardrop roof and the compliance slot opens above the round contact area.
-
-## Assembly sequence
-
-1. Identify and measure the exact bought servo, cell, rod, board revision, microphone breakout and antenna. Check the rail zones with the aircraft unpowered and props removed. Print the rod-fit coupon and one cell cradle/body first. Tune the fit parameters if necessary.
-2. Print the14 kit pieces in the supplied STL orientations. Remove the local flange and snap-beam supports and the pod's hood/socket/guide supports, deburr ramps/holes, inspect beam roots and test each finger independently. Clear every0.7mm relief beneath a snap beam with a thin blade from its open outer edge; no support may remain to lock the beam to the saddle. Dry-fit the cell with an inert18.33mm dummy first. Keep cell sleeves and nickel leads away from sharp print edges.
-3. Heat-set four RX-M2x4 inserts into each shell using a depth stop. Leave the sealing land flat and avoid pushing into the floor. Clean and test the groove. Put the silicone film over the sound port on the inside, with the0.8mm soft cavity seal in front of the mic PCB. Slide the breakout into its guides, sound hole facing the membrane/side hood. Use a removable foam pad under the lid tab to preload the board gently. Do not cover the acoustic cavity with rigid glue.
-4. Seat the headerless Heltec PCB on its four edge pads, USB toward the rod socket, components/OLED facing the lid. Leave the supplied tall18-way pin headers unsoldered; the plated rows are present and modeled. Connect short flexible mic wires to header pads; route them in the open side volume outside the OLED/fingers, verify lid closure with no pinched wires, and retain with removable silicone. The package models the long power wires explicitly; internal mic jumpers must be dressed during assembly and are not individually resolved in CAD.
-5. Use a factory spot-welded/prewired flat-top25R, with insulated terminal tabs. Thread its negative lead through the external gutter/bridges and positive lead through the rear strain relief. Snap the cell downward past all four lips. It must seat on the saddle and against the end-wall pads without permanent beam deformation. Insulate exposed tabs with heat-shrink/removable neutral-cure silicone. Do not solder directly to the cell can.
-6. Slide the body onto the unsharpened rod end until its nose is70mm from the tip. The sleeve's press lands carry the fit; confirm pull-off resistance. Sharpen the last12mm without cutting the500mm overall length. Route both power wires in the side gutter and along the rod with the two modeled small ties; fit the body strain-relief tie around the sleeve atX163mm. The second molded bridge is an additional RTV/strain-relief anchor. Trim tie tails flush.
-7. Fit the shell over the last20mm of rod. Seat to the socket stop; add a removable neutral-cure RTV bead around the rod entry, wire gland and whip boot. Anchor the power service loop at the two molded internal tie/RTV saddles. Connect the board's battery plug and U.FL lead without loading the tiny connector. The antenna boot, not U.FL, should carry cable strain.
-8. Fit the1.2mm silicone cord in the perimeter groove; join its ends with compatible silicone outside the acoustic cavity. Add the four small compliant PCB-edge pads. Close the lid and tighten four M2x6 socket cap screws gradually by hand, checking uniform seal squeeze and no PCB/OLED contact. Verify mic airflow/acoustic response and water ingress separately; the hood alone does not seal the microphone, and FDM walls are not inherently watertight.
-9. Weigh one complete dart and measure its balance inX andY. Enter measured masses/properties, rerun and compare to the integral post. A meaningful change requires a revised body print; do not pretend the calculated0.01mm solver residual is real balance precision.
-10. Press the two M2 nuts into the plate's top-accessible traps. Mount the SG90 from underneath with two M2x6 screws through its tabs. Ensure the actual case and shaft height match the parameters. Apply the0.09mm PTFE strip only to the flat crown of the bearing ridge; keep adhesive and steps out of the sliding pilot.
-11. Fit the original double horn to the servo spline. Ream the two measured holes to accept M2 round drive studs18mm apart; lock each with an M2 nut above and below the horn. Adjust upper nuts to the modeled height. Place the rotor on the ridge with dogs in its two holes; verify axial/radial freedom and that the upper nuts clear the counterbores through the full0..64degree sweep.
-12. Fit the bought4.2mm spacer,10mm keeper washer and the longer screw with exactly the measured servo thread. The spacer clamps the horn; keeper underside is0.4mm above the rotor. Confirm the washer does not press the rotor onto the servo. Route the servo lead through its feedthrough and fixed top gutter. Drive from the specified Pixhawk AUX1 signal, with a suitable regulated4.8-5V servo supply and common ground. Calibrate angle/pulse stops on the bench; no generic PWM numbers are supplied as if universal.
-13. Zip-tie the four saddles to the two payload rails using the modeled T18R locations. Use two stations per rail, not one tie for the entire harness. The saddle seats and braces carry the normal load. Confirm the complete assembly clears actual clamps, skids, battery, wiring and props.
-14. Load in reverse sequence:64degrees last dart,48 third,32 second,16 first, then return0. Use inert masses first. With all four loaded, verify free rotation, no axial servo load, individual release in each16degree command, full head passage, and positive retention between stops. Bench-cycle, shake, proof-load and perform controlled dummy drop/soil tests before qualification. Record actual rotation timing, battery retention, layer cracking and rod insertion depth.
-
-## Visual QA
-
-Every final PNG was inspected after generation. Sections are boolean cuts viewed from the cut side; the pod exploded view exposes the insert bosses, supports and lid fingers. Each print render includes a build surface and uses the exact supplied STL orientation. The single stood view includes a thin cutaway soil slab so the70mm buried tip remains visible. The full stood scene includes the actual aircraft and a thick ground solid. Early reference/iteration images are archived with the sources, separate from the final gallery.
-'''
-(ROOT/'DESIGN.md').write_text(doc,encoding='utf-8')
-
-gallery=[('assembly_carried.png','Carried on X500'),('assembly_mid_release.png','Mid-release'),('assembly_stood.png','Full stood state'),('release_detail.png','Release mechanism'),('dart_stood.png','One listener standing'),('section_body.png','Body longitudinal section'),('section_body_snap.png','Cell snap section'),('section_pod.png','Pod section'),('pod_exploded.png','Pod service assembly')]+[(f'print_{n}.png',f'Print: {n}') for n in ('body','pod_shell','pod_lid','plate','rotor','fit_coupon')]+[('bought_heltec.png','Manufacturer-based Heltec'),('bought_servo.png','SG90, stock horn and keeper')]
-cards=''.join(f'<figure><a href="renders/{f}"><img src="renders/{f}" alt="{html.escape(t)}" loading="lazy"></a><figcaption>{html.escape(t)}</figcaption></figure>' for f,t in gallery)
-page=f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tripwire mechanical review</title><style>body{{font:16px/1.5 system-ui;background:#edf2f4;color:#203442;margin:0}}header{{background:#173340;color:white;padding:3rem 6vw}}main{{max-width:1500px;margin:auto;padding:2rem}}h1{{font-size:2.1rem;margin:.2em 0}}.meta{{opacity:.85}}nav a{{display:inline-block;color:#153b50;background:#fff;padding:.5em 1em;margin:.5em;border-radius:4px}}.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(480px,1fr));gap:1.3rem}}figure{{margin:0;background:white;border-radius:7px;overflow:hidden}}img{{width:100%;height:440px;object-fit:contain;background:#f4f7f9}}figcaption{{padding:1rem;font-weight:600}}@media(max-width:600px){{.grid{{display:block}}figure{{margin-bottom:1rem}}img{{height:auto}}}}</style><header><div class="meta">CADQUERY / FIRST-PRINT PROTOTYPE</div><h1>Tripwire listener and X500 release harness</h1><p>{mass['dart_total_g']:.1f}g per listener &middot; {mass['harness_total_g']:.1f}g harness &middot; {POD_X1+M.whip_l:.0f}mm overall</p><p class="meta">Sourced bought-part CAD, real wall sections, snaps, seals, load path and FDM fits. Measurements and physical qualification remain open.</p><nav><a href="DESIGN.md">Design and assembly</a><a href="out/">CAD exports</a><a href="out/checks.md">Geometry checks</a><a href="out/mass_properties.csv">Mass table</a></nav></header><main><div class="grid">{cards}</div></main></html>'''
-(ROOT/'REVIEW.html').write_text(page,encoding='utf-8')
-print('Wrote DESIGN.md and REVIEW.html')
+support={
+ 'body':('Flat sole down; post and snaps up','Local only: hanger flange and four snap beams. Clear the flexure reliefs.'),
+ 'pod_shell':('Tray floor/neck flat down, opening up','Local only: rain hood, socket lip and mic guide ledges. Block teardrop ducts.'),
+ 'pod_lid':('Outside face and FPC backer together on bed','None. Backer top is coplanar with lid outside face.'),
+ 'usb_cap':('Outside flange face down, skirt up','None.'),
+ 'plate':('Deck underside down, four towers up','None; hollow towers and tie bridges are designed in CAD.'),
+ 'rotor':('Head-support face down, hub up','None.'),
+ 'fit_coupon':('Four linked block bases down','None; bores5.9/6.0/6.1/6.2 mm increase inX.'),
+ 'stake_adapter':('Flat bracket base down; V saddles up','None; small tie-channel bridges; offcut saddle is open.'),
+ 'stake_cell_holder':('Flat cradle sole down, snap arms up','Local only under snap beams, as on body.'),
+ 'dummy_body':('Flat sole down, pockets up','Local only under hanger flange; nut slots bridge4.3 mm.'),
+ 'dummy_lid':('Outside face down','None.'),
+ 'dummy_head_insert':('Floor down, ballast pockets up','None.'),
+}
+compare=[('Dart, g',old['dart_total_g'],m['dart_total_g']),('Harness, g',old['harness_total_g'],m['harness_total_g']),('Four darts + harness, g',old['carried_payload_g'],m['carried_payload_g']),('Hanger from tip, mm',old['hanger_x_mm'],m['hanger_x_mm'])]
+compare.insert(0,('Populated processor/radio boards, g',next(r['mass_g'] for r in old['dart'] if r['name']=='Heltec_with_OLED'),M.xiao_mass+M.wio_mass))
+compare.insert(1,('Printed pod shell/lid/cap, g',sum(r['mass_g'] for r in old['dart'] if r['name'] in ('pod_shell','pod_lid')),sum(r['mass_g'] for r in m['dart'] if r['name'] in ('pod_shell','pod_lid','usb_cap'))))
+doc='# XIAO listener and X500 release harness: first-print revision\n\n'
+doc+='## Changes from the Heltec version\n\n'
+doc+='The incorrect Heltec/OLED package has been replaced throughout the current assemblies, renders and web models by the owned Seeed XIAO ESP32S3 + Wio-SX1262 kit. The original brief and downloaded legacy sources are retained as history. Old model outputs have been removed.\n\n'
+doc+=table(['Model estimate','Old Heltec package','New XIAO package'],[(n,f'{a:.2f}',f'{b:.2f}') for n,a,b in compare])
+doc+='\nPer the firmware brief, the listener reports alive by radio once per minute. That heartbeat replaces a visual status indication. Native OEM CAD may retain inactive onboard component bodies; no added LED, display or battery-divider circuit is fitted. A smaller cell could reduce nose mass, but its runtime and impact retention need testing; the specified18650 remains in the real listener models.\n'
+doc+='\nThe electronics tray is now46 x32 mm rather than82 x36 mm, with a narrow socket neck that preserves the500 mm rod and raises the sound port to500 mm above soil (previously470 mm). There is no display window, added status LED or voltage-divider part. A removable end cap exposes USB-C and pin access to both BOOT/RESET buttons. Three lid screws replace four; the kit LoRa FPC sits on a light integral top backer. Five mic wires and direct underside BAT connections replace the old board wiring. A stake adapter, separate18650 stake cradle and an inert ballasted dummy are included.\n\n'
+doc+='**Nothing has been printed, drop-tested or flown.** These are nominal geometry and mass estimates, not measured hardware qualification. The actual kit stack spacing, microphone breakout, antenna dimensions, printed fits and filament properties still require measurement. No self-righting, soil penetration, waterproofing, acoustic or radio range result is claimed.\n\n'
+doc+='## Files and reproduction\n\n[REVIEW.html](REVIEW.html) indexes all current renders. `out/` contains twelve printed STEP/STL pairs, current bought-part CAD, carried/mid-release/stood aircraft assemblies, a stood dart, stake and dummy assemblies, mass/check reports, print manifest and `print-kit.zip`. All STLs are already placed onZ0 in the intended Vyper print orientation; STEP files retain assembly datums. Eighteen functional printed pieces make four real darts and one harness; the coupon, stake and dummy parts are optional alternatives/tools.\n\n'
+doc+='```powershell\n'
+for script in ['fetch_sources.py','fetch_xiao.py','build.py','validate_exports.py','web_export.py','document.py','record_visual_review.py --reviewed','validate_package.py','package.py']:
+ doc+=f"& 'C:\\Users\\paulm\\.venvs\\cad\\Scripts\\python.exe' cad/gpt61/{script}\n"
+doc+='```\n\nInspect every newly generated PNG before running `record_visual_review.py --reviewed`; that command records an explicit inspection attestation and cannot perform visual review itself. All scripts write only in this package. `build.py --render-only`, `--exports-only` and `--verify-only` reuse its generated cache. Rebuild normally after any dimension/mass/source change. `sources/manifest.json` and `sources/xiao-manifest.json` retain source URLs, sizes and hashes.\n\n'
+doc+='## Primary source register\n\n'
+for key,title,url,details in sources:doc+=f'- **{key}: [{title}]({url}).** {details}\n'
+doc+='\nNative CAD inspection reports are `sources/xiao-cad-inspection.json` and `sources/wio-cad-inspection.json`. XIAO PCB envelope in its original model is20.955 x17.780 mm; USB projection makes the full length22.482 mm. Wio extension PCB envelope is21.440 x17.780 x1.6 mm, including its outline tab; its supplied model spans7.3 mm vertically including the underside connector. Neither CAD has been scaled to make the nominal21 mm dimension fit. The source XIAO model lacks a resolved mating B2B connector, so its envelope is reconstructed and flagged MEASURE.\n\n'
+doc+='## Pod, wiring and service\n\nThe46 x32 mm rounded tray has1.6 mm walls and floor,17 mm seam height and2 mm lid. Its narrow13.6 mm socket neck extends fromX480 to539; the rod enters20 mm and stops atX500. The hollow riser carries the two power wires from the rod to the shorter electronics tray, which begins atX536. This axial neck is needed because a500 mm rod buried70 mm ends only430 mm above soil, while the mic must be at500 mm. Reducing tray length without this offset would lower the microphone.\n\n'
+doc+='The XIAO rests on four underside edge supports. The Wio extension plugs into the kit B2B connector above it; the model places Wio PCB bottom atZ10.5, with an11.55 mm overall stack envelope. The7.5 mm mating offset is MEASURE; verify it before printing. Lid fingers compress four1 mm foam pads against Wio PCB edges, away from the RF can. No soldered tall pin headers are fitted. Locating fences have about0.3 mm clearance outside the XIAO edges.\n\n'
+doc+='The mic board stands along the negativeY wall, with its bottom port atX570,Z8. Its actual port is500 mm above the body soil stop. A4 mm cavity,0.8 mm annular silicone spacer and0.05 mm soft prototype film connect it to the side opening under an integral45degree rain hood. Breakout dimensions and pad/hole placement are MEASURE. Do not assume the waterproof/acoustic performance of this untested membrane.\n\n'
+doc+=table(['INMP441 connection','XIAO pad','GPIO'],[('SCK / BCLK','D3','4'),('WS / LRCLK','D4','5'),('SD / data','D5','6'),('VDD','3V3','Supply'),('GND and L/R select','GND','Ground')])
+doc+='\nFive short insulated wires are modelled; the microphone L/R select is a local solder bridge to ground, not a sixth long wire. Wire dress and exact solder points remain MEASURE. The long cell pair runs in the original body gutter and along the rod, enters the socket neck through relieved ducts and terminates at the XIAO underside BAT+/BAT- pads. Sourced bottom-view images identify these pads; their small copper envelopes/centres are reconstructed. The XIAO charger does not provide a mechanical battery connector. Use factory-welded insulated cell leads, never solder directly to the can. Verify the actual cell protection arrangement; charger presence alone does not establish pack protection.\n\n'
+doc+='The kit LoRa FPC has an explicitly unmeasured100 x10 x0.3 mm nominal envelope; its separate U.FL coax exits a2.2 mm gland above the microphone. A1.2 mm PETG backer extends from the lid, with small tape/tie slots; its outer face is coplanar with the lid so both print flat together. The socket neck floor is also coplanar with the tray base; its teardrop duct has at least1.7 mm roof thickness. Strain-relieve the coax before it reaches U.FL, and seal the gland with removable neutral-cure silicone. The separate WiFi/BLE FPC is on the positiveY wall. Do not replace these with the optional195 mm SMA antenna without recomputing mass, balance and clearance. The default overall dart length is686 mm; the larger figure than the old644 mm package comes from the deliberately provisional FPC envelope.\n\n'
+doc+='A19 x14 mm end opening gives access to USB-C and a0.7 mm pin path to either button with the printed cap removed. The cap has0.3 mm skirt clearance and a1.2 mm overlapping flange. Seal its perimeter with a removable thin silicone bead or weather tape; it is a prototype service closure, not a tested IP seal. The full pod lid need not be removed to flash. Cable overmould envelope11 x6.2 mm is MEASURE. The lid perimeter has a1.5 x0.9 mm gland for1.2 mm cord (25% nominal compression); three RX-M2x4 inserts and M2x6 screws clamp it. RTV, solder and service tape are not resolved as exact solids or weighed consumables.\n\n'
+doc+='## Body, balance and harness\n\nThe body retains the specified6 x500 mm fibreglass spine,70 mm nose/soil stop, flat-top18650 open snap cradle, axial sleeve, integral post and wire gutters. Three short5.95 mm nominal press lands sit in a6.35 mm relieved teardrop bore; the coupon determines the actual fit. Four1.2 mm thick,18 mm long cantilevers retain the cell through a16.8 mm throat with lead-in ramps. Axial end walls take impact load rather than the flexible latch tips. The rod tip is a12 mm cone with a0.6 mm blunt point for the nominal CAD envelope.\n\n'
+doc+=f"The mass solver moves the post and its sleeve until its X/Y axis agrees with the recomputed dart centre of mass. The nominal CG is **({', '.join(f'{v:.3f}' for v in m['dart_cg_mm'])}) mm**; the hanger is **X{m['hanger_x_mm']:.3f}, Y{m['hanger_y_mm']:.3f} mm** from the tip/rod datum. Residual X error is{m['balance_residual_mm']:.5f} mm. This numerical residual is not a real assembly tolerance; weighed stock and printed mass control actual balance.\n\n"
+doc+='The smaller head lowers the modelled load. The existing harness geometry is retained after rechecking all four moved darts:83 mm deck radius,3.2 mm deck,48..51 mm bearing ridge,64.9 mm rotor radius,3.2 mm rotor web and20degree release gaps. Slots are20.4 x15.4 mm for13 mm heads and5 mm necks. The pilot has0.25 mm radial clearance. Payload rail centres are60 mm apart; saddles use10.6 mm seats and four T18R ties. Tall towers are explicitly hollow CAD geometry, not a density multiplier.\n\n'
+doc+='The load path remains head -> rotor rim -> PTFE-covered bearing ridge -> plate -> saddles/rails. The SG90 stock horn drives two18 mm-spaced M2 studs with axial slip; a keeper washer has0.4 mm running gap and does not clamp the rotor onto the servo shaft. The model checks the case, horn, nuts, pilot and rotor throughout the release sequence. Dart1 releases at16degrees, dart3 at32, dart2 at48 and dart4 at64. Servo travel, torque under friction, creep and shock remain physical qualification items.\n\n'
+doc+='## Masses and print settings\n\n**Recommended prototype infill is100% for every printed part, including the plate.** This is intentional: load-carrying skins/ribs and small fit features should be solid for the first test; large lightening pockets and tower cores are already removed in CAD. The plate estimate is its actual model volume times1.27 g/cm3 PETG, with no hidden35% or other infill multiplier. A lighter slicer profile would require a fresh sliced/printed mass and structural assessment. No slicer has been run and no part has been weighed; actual extrusion width, perimeter overlap, holes and filament density will change the result.\n\n'
+printed_rows=[r for r in m['dart']+m['harness'] if r['name'] in ('body','pod_shell','pod_lid','usb_cap','plate','rotor')]+m['auxiliary_printed']
+doc+=table(['Printed design','Mass g at100%','CAD volume cm3'],[(r['name'],f"{r['mass_g']:.3f}",f"{r['volume_mm3']/1000:.3f}") for r in printed_rows])
+doc+='\n'+table(['Assembly','Nominal g'],[('One real dart',f"{m['dart_total_g']:.3f}"),('Harness including servo/hardware/ties',f"{m['harness_total_g']:.3f}"),('Four real darts + harness',f"{m['carried_payload_g']:.3f}"),('Inert dummy with ballast',f"{m['dummy']['total_g']:.3f}")])
+doc+=f"\nComplete stake installation, including the full1219.2 mm nominal10 mm stake and18650: **{m['stake']['total_g']:.3f} g**. Stake density and all small-stock masses are unmeasured; this total is separate from flight payload.\n"
+doc+='\nFull per-component grams, volumes, assumptions and XYZ centroids are in [out/mass_properties.csv](out/mass_properties.csv) and [out/mass_properties.json](out/mass_properties.json), including auxiliary printed and dummy parts. Board masses2.2 g XIAO/1.8 g Wio,1 g mic,0.8 g LoRa antenna and0.35 g WiFi antenna are unmeasured estimates; the45 g cell figure is a datasheet maximum. Hardware uses nominal material density and shape centroids. Solder, final adhesive, tape and small protection/connector additions require a weighed allowance before qualification.\n\n'
+doc+='Four-dart kit bought hardware:\n\n'+table(['Item','Quantity'],[('6 x500 mm fibreglass rods','4'),('XIAO ESP32S3 + Wio-SX1262 kits, with both FPC antennas','4'),('INMP441 breakouts','4'),('Flat-top18650 cells with factory-welded insulated leads','4'),('SG90 positional servo and supplied double horn','1'),('RX-M2x4 heat-set inserts','12'),('M2x6 pod screws + servo tab screws','12 +2'),('M2 drive studs, nominal10 mm; nuts for drive and servo','2 studs;6 nuts'),('Measured-thread keeper screw, spacer and washer','1 each'),('T18R ties: body/rod + rails','12 +4'),('1.2 mm cord, mic film/cavity seals and foam pads','4 pod sets'),('PTFE bearing film','1 annular strip'),('Power pair and5 short mic wires','4 wired sets')])+'\nStake option adds one40 mm fibreglass offcut and five installation ties; it reuses one complete pod and one cell. Dummy option adds two M2x8 screws, two M2 nuts and the four weighed ballast portions. `out/kits.json` lists printed quantities separately for each option.\n\n'
+doc+='Use the Anycubic Vyper245 x245 x260 mm, dry PETG,0.4 mm nozzle,0.20 mm layers, four perimeters, six top/bottom layers and100% infill. Start within the filament manufacturer temperature range (typically235C nozzle/80C bed), then tune adhesion and fit. Use slow external walls and first layer; do not let supports lock snap reliefs or fill teardrop ducts. All supplied orientations fit the bed.\n\n'
+doc+=table(['Part','Kit/optional qty','STL bounds mm','Orientation','Supports'],[(r['part'],r['quantity'], ' x '.join(f'{v:.1f}' for v in r['print_bbox_mm']),*support[r['part']]) for r in pm])
+doc+='\n## Hand-placed stake adapter\n\nUse a48 in (1219.2 mm) fibreglass garden/driveway stake. `Measurements.stake_d` is the single unmeasured OD parameter, default10 mm. Two90degree V saddles with independent zip ties accept8..13 mm without reprinting; the circle axis rises as radius*sqrt(2), and all three nominal/end-point sizes are intersected against the clamp. No nominal10 mm closed bore is being passed off as an adjustable clamp. A short5.8..6 mm fibreglass offcut (40 mm long) joins the adapter sleeve to the same pod socket; the external bracket stays clear of the pod neck.\n\n'
+doc+='Place the pod midway up the stake, not on its1.2 m top. Insert the stake by hand, then slide/tie the adapter until the actual mic port is500 mm above the actual soil. The depicted burial is100 mm only; insertion depth does not determine port height. A separate retaining tie goes around the pod neck and stake through its own adapter tunnel; the offcut is a locator, not a friction-only restraint. Two additional ties hold the separate printed18650 snap cradle lower down (five stake-installation ties total). This retains the owned cell and direct BAT wiring rather than assuming a USB power bank stays awake at the listener load. The stake battery holder is an optional replacement for the flying body, not extra flight mass. Its cell/cable configuration is shown in stake_assembled.step and stake.glb.\n\n'
+doc+='## Inert drop-test dummy\n\nThe dummy uses the same6 x500 mm rod, hanger location, pod shell/lid/service cap and external FPC backer. A closed twin-pocket ballast cassette replaces the cell cradle inside the dummy body; there is no cell, microphone or electronic stack. A small two-pocket printed head insert replaces the boards. The external backer is retained for approximate shape, while the flexible FPC itself is omitted; matching mass/CG does not match exact aerodynamic flexibility or inertia. Two M2x8 screws and side-loaded M2 captive nuts close the body ballast lid. Foam and adhesive retain the four weighed ballast portions; include their mass within the listed target portions.\n\n'
+d=m['dummy']
+doc+=f"Empty dummy assembly estimate: **{d['baseline_mass_g']:.3f} g**. Add **{d['ballast_total_g']:.3f} g** total steel ballast to target **{d['total_g']:.3f} g** and CG **({', '.join(f'{v:.3f}' for v in d['cg_mm'])}) mm**. All three model moment residuals are below0.001 mm.\n\n"
+doc+=table(['Pocket','Weighed steel + fixative g','Required centre XYZ mm','Equivalent solid-steel block mm'],[(b['name'],f"{b['mass_g']:.3f}",', '.join(f'{v:.3f}' for v in b['centroid_mm']),' x '.join(f'{v:.3f}' for v in b['equivalent_solid_steel_bbox_mm'])) for b in d['ballast']])
+doc+='\nSteel density7.85 g/cm3 sets only the equivalent CAD blocks. Steel nuts, washers or shot can be used if their combined weighed mass and packed centre match the table. Locate each portion with foam spacers; immobilise it so impact cannot move the balance. Avoid loose shot. Pocket clearance and positive capacity are checked from the model. Weigh the actual empty print, solve again with measured values, and compare to the actual real dart target; the numerical nominal match alone is insufficient. Use the dummy for controlled bench release and soil drops to determine whether it turns nose-down, when rotation begins, whether it sticks and whether the snaps/post/rod survive. No model result demonstrates these behaviours.\n\n'
+doc+='## Checks, limits and assembly\n\n'
+doc+=f"Current run: **{len(c['checks'])-len(c['failed'])}/{len(c['checks'])} checks pass**. [checks.md](out/checks.md) and [checks.json](out/checks.json) retain every value and scope; STEP/STL round trips and topology are in [export_validation.json](out/export_validation.json).\n\n"
+doc+='Local board/mic/lid/cap/wire/ballast fits use actual B-rep intersection volumes with a0.02 mm3 threshold. Rod press lands, inserts, threads/solder and compressed soft seals have declared intended contact. Frame/prop/leg/ground checks use current exterior parts including the long FPC backer. Vehicle distance numbers are conservative AABB lower bounds; zero does not mean a measured zero gap. Rotor/head contact uses0.5degree samples, rotor/body sweep2degree, extraction0..90 mm in5 mm steps, and prescribed later pitch0..90degrees in5degree steps. These are discrete geometric checks, not a continuous or aerodynamic proof.\n\n'
+doc+=table(['State','Scope'],[('Carried','Four changed darts against frame/rails,260 mm prop sweeps, skids, harness, ground and each other.'),('Mid-release','Rotor16degrees; dart1 translated70 mm down, three carried. Included in extraction sweep.'),('After extraction','Pitch begins only after430 mm downward translation with aircraft1500 mm above stock ground. No claim that real fall timing follows this path.'),('Stood','70 mm rod penetration, body soil stop atZ0, microphone500 mm up. Parked aircraft and three carried darts are offset650 mm from the stood dart for end-state review.'),('Stake','Adapter at8/10/13 mm stock diameters; mic500 mm above soil; separate cell holder.'),('Dummy','Mass and all three moments matched; all four ballast blocks fit their pockets.')])
+doc+='\nAssembly order:\n\n'
+steps=[
+ 'Measure the actual XIAO/Wio stack, kit FPC antennas, mic breakout, servo, cell and rod. Confirm the aircraft rail/clamp arrangement against the OEM model. Print the fit coupon and tune rod_fit_bore before the long body.',
+ 'Print in supplied STL orientations. Remove local supports and deburr; verify every snap flexes independently and the cell wrap cannot touch a sharp edge. Dry-fit with an inert cell-sized gauge.',
+ 'Heat-set three M2 inserts per pod. Seat the mic film and annular seal, install the breakout with port facing the hood and add its soft preload pad. Do not fill the acoustic cavity with rigid adhesive.',
+ 'Solder BAT wires to underside pads before installing the XIAO. Connect INMP441 to D3/D4/D5/3V3/GND and bridge L/R to ground for the selected channel. Keep headers off; inspect solder for shorts. Plug in Wio via B2B and connect the correct LoRa and WiFi U.FLs.',
+ 'Seat the stack on edge supports, dress all five short wires and route cell leads through the neck/gutter strain reliefs. Fit the supplied FPC to the backer without creasing its feed. Seal gland/rod entry with removable neutral-cure silicone.',
+ 'Slide body until its nose is70 mm from the sharpened tip. Snap the factory-wired flat-top18650 into the retained cradle; insulate terminals, fit strain relief/body tie and two rod ties. Press the pod onto the final20 mm of rod.',
+ 'Fit perimeter cord and foam pads, close the lid with three M2x6 screws and install/seal the USB cap. Remove only the cap for flashing; use a pin for BOOT/RESET if needed. Check actual plug/pin reach before final sealing.',
+ 'Weigh and balance a completed dart. Update the model if the real balance differs materially from the integral hanger; source estimates are not permission to ignore that difference.',
+ 'Mount SG90 below the plate using two M2 nuts/screws. Fit stock horn, two round M2 drive studs and locking nuts, PTFE bearing film, rotor and loose axial keeper. Match replacement screw thread to the actual servo; never clamp payload load into its shaft.',
+ 'Tie four saddles to the rails. Route servo cable through the fixed gutter; use Pixhawk AUX1 signal, regulated servo supply and common ground. Calibrate0/16/32/48/64degree positions with inert loads. Load in reverse release order.',
+ 'For stake use, fit a40 mm offcut between adapter and pod, tie V saddles to the stake, set the actual mic height to500 mm, and fit the lower cell holder and insulated leads.',
+ 'For dummy use, fit/immobilise each weighed ballast portion, side-load the two nuts, screw the body lid down and retain head weights under the pod lid. Confirm actual total mass and balance before release tests.',
+ 'Record bench cycling, proof load, vibration, water/acoustic tests and controlled dummy drops before any field release qualification. The present package has completed none of these physical tests.',
+]
+for i,step in enumerate(steps,1):doc+=f'{i}. {step}\n'
+doc+='\n## Open MEASURE inputs\n\nThe central Measurements dataclass includes sourced stock nominals requiring incoming inspection as well as fully unmeasured estimates. Highest-priority unknowns are B2B spacing, exact kit antenna envelopes/weights, microphone breakout/port, BAT pad location, wire dress, cell/rod/filament mass and printed friction/fit. The garden stake OD is one parameter; clamp geometry spans8..13 mm.\n\n'
+doc+=table(['Parameter','Nominal input'],list(measure_dict().items()))
+doc+='\n## Exploded web models and visual review\n\n`web_export.py` writes dart, harness, aircraft and stake GLBs in metres withY up, using named physical-part nodes and an8-second `explode` clip. Dart/harness/aircraft views expose the populated board stack, mic, cap, lid, seals, wiring and hardware; aircraft first lowers its loaded harness400 mm. The stake clip withdraws the retained pod subassembly100 mm from the offcut. This is an illustration: disconnect wires, cut disposable ties and unscrew hardware in actual service. Motion does not simulate threads, flexures, cables, falls or continuous collision-free disassembly.\n\n'
+doc+='The current mass report supplies per-node mass estimates and source/uncertainty facts in `web/manifest.json`. Servo/horn share the9 g catalog mass; aircraft solid masses remain null. `validation-readback.json` checks every sampled animation translation and loads each GLB with trimesh; `validation-khronos.json` holds Khronos results. `exploded_checks.json` checks independent endpoint subassemblies for overlap. Full-resolution STEP/STL files remain the manufacturing geometry.\n\n'
+doc+='Every final PNG is listed in REVIEW.html. Visual inspection covers all assembled, sectioned, exploded and print orientations; a per-file review receipt is stored in `out/visual_review.json` after inspection. No visual claim replaces a physical fit test.\n'
+doc=re.sub(r'\b(now|than|the|preserves|to|separate|nominal|at|about|from|with|one|four|two|three|full|into|by|below|above|is|original|actual|all|use|per|includes|diameter|only|around|and|before|after|ends|begins|every)(?=\d)',r'\1 ',doc)
+for a,b in [('onZ0','on Z0'),('withY up','with Y up'),('positiveY','positive Y'),('negativeY','negative Y'),('negativeY','negative Y'),('along +X','along +X')]:doc=doc.replace(a,b)
+(R/'DESIGN.md').write_text(doc,encoding='utf-8')
+images=sorted((R/'renders').glob('*.png'))
+gallery=''.join(f'<figure><a href="renders/{html.escape(p.name)}"><img loading="lazy" src="renders/{html.escape(p.name)}" alt="{html.escape(p.stem.replace("_"," "))}"></a><figcaption>{html.escape(p.stem.replace("_"," "))}</figcaption></figure>' for p in images)
+page=f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>XIAO listener CAD review</title><style>body{{font:16px system-ui;margin:0;background:#edf2f5;color:#193443}}header{{padding:30px 5%;background:#102d3b;color:white}}a{{color:#08738c}}header a{{color:#9de7ee}}main{{max-width:1600px;margin:auto;padding:24px}}.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:20px}}figure{{margin:0;background:white;border-radius:10px;overflow:hidden}}img{{width:100%;height:430px;object-fit:contain}}figcaption{{padding:14px;font-weight:600}}.note{{padding:18px;background:#fff9e6;margin-bottom:24px}}@media(max-width:500px){{.grid{{display:block}}figure{{margin-bottom:18px}}}}</style><header><h1>XIAO listener · prototype mechanical review</h1><p>{m['dart_total_g']:.2f} g/dart · hanger{m['hanger_x_mm']:.2f} mm from tip · {m['harness_total_g']:.2f} g harness · {m['carried_payload_g']:.2f} g four-dart payload</p><a href="DESIGN.md">Design, sources and assembly</a> · <a href="out/checks.md">Geometry checks</a> · <a href="out/print-kit.zip">Print kit</a> · <a href="web/manifest.json">Web models</a></header><main><div class="note">Seeed XIAO ESP32S3 + Wio-SX1262. Mic500 mm above soil. Stake adapter and inert ballast dummy included. Nominal CAD only: nothing printed, dropped or flown; antenna/stack/fit measurements remain open.</div><div class="grid">{gallery}</div></main></html>'''
+(R/'REVIEW.html').write_text(page,encoding='utf-8')
+print('DESIGN.md and REVIEW.html generated;',len(images),'current renders')

@@ -29,21 +29,23 @@ def mass_item(name,shape,density=None,mass=None,basis=''):
 
 def mass_dart(body,parts):
     rows=[mass_item('body',body,M.petg_density,basis='100% infill, 4 walls, solid PETG')]
-    for name in ('pod_shell','pod_lid'):
+    for name in ('pod_shell','pod_lid','usb_cap'):
         rows.append(mass_item(name,parts[name],M.petg_density,basis='100% infill, thin walls solid'))
     rows.append(mass_item('fibreglass_rod',buy.rod(),M.rod_density,basis='MEASURE composite density'))
     cs=compound(s for _,s,_ in buy.cell())
     rows.append(mass_item('Samsung25R_cell',cs,mass=M.cell_mass,basis='Samsung max45g, MEASURE actual'))
-    hs=compound(s for _,s,_ in parts['board'])
-    rows.append(mass_item('Heltec_with_OLED',hs,mass=M.board_mass,basis='MEASURE9g; OEM CAD spatial distribution proxy'))
+    for prefix,label,grams in [('xiao_','XIAO_ESP32S3',M.xiao_mass),('wio_','Wio_SX1262',M.wio_mass)]:
+        hs=compound(s for n,s,_ in parts['board'] if n.startswith(prefix))
+        rows.append(mass_item(label,hs,mass=grams,basis='MEASURE populated board mass; OEM geometric centroid proxy'))
     mic=compound(s for _,s,_ in parts['mic'])
     rows.append(mass_item('INMP441_breakout',mic,mass=M.mic_mass,basis='MEASURE1g; geometric centroid'))
     for n,s,c in parts['hardware']:
-        if n in ('whip','whip_boot','RF_pigtail'):continue
-        rho=8.5 if 'insert' in n else 7.85 if 'M2' in n else 8.9 if 'nickel' in n else .15 if 'foam' in n else 1.10 if 'seal' in n or 'film' in n else 1.45 if 'power_wire' in n else 1.14
+        if n in ('lora_FPC','RF_pigtail','wifi_FPC','wifi_coax'):continue
+        rho=8.5 if 'insert' in n else 7.85 if 'M2' in n else 8.9 if 'nickel' in n else .15 if 'foam' in n else 1.10 if 'seal' in n or 'film' in n else 1.45 if 'wire' in n else 1.14
         rows.append(mass_item(n,s,rho,basis='material-density model; wire1.45 composite, foam.15, silicone1.10'))
-    whip=compound(s for n,s,c in parts['hardware'] if n in ('whip','whip_boot','RF_pigtail'))
-    rows.append(mass_item('whip_and_pigtail',whip,mass=M.whip_mass,basis='MEASURE1.2g; envelope centroid'))
+    for names,label,grams in [(('lora_FPC','RF_pigtail'),'LoRa_FPC_and_coax',M.fpc_mass),(('wifi_FPC','wifi_coax'),'WiFi_FPC_and_coax',M.wifi_mass)]:
+        ant=compound(s for n,s,c in parts['hardware'] if n in names)
+        rows.append(mass_item(label,ant,mass=grams,basis='MEASURE kit antenna and coax; unsourced dimensions'))
     return rows
 
 def resultant(rows):
@@ -52,9 +54,9 @@ def resultant(rows):
 
 def make_model():
     parts={}
-    for n,f in (('pod_shell',pr.pod_shell),('pod_lid',pr.pod_lid),('plate',pr.plate),('rotor',pr.rotor),('fit_coupon',pr.fit_coupon)):
+    for n,f in (('pod_shell',pr.pod_shell),('pod_lid',pr.pod_lid),('usb_cap',pr.usb_cap),('stake_adapter',pr.stake_adapter),('stake_cell_holder',pr.stake_cell_holder),('dummy_lid',pr.dummy_lid),('dummy_head_insert',pr.dummy_head_insert),('plate',pr.plate),('rotor',pr.rotor),('fit_coupon',pr.fit_coupon)):
         log('model',n);parts[n]=f()
-    parts['board']=buy.heltec();parts['mic']=buy.microphone();parts['hardware']=buy.dart_hardware()
+    parts['board']=buy.xiao_stack();parts['mic']=buy.microphone();parts['hardware']=buy.dart_hardware()
     # Fixed point: moving the integral hanger also moves its mass and sleeve.
     h=267.;hy=6.
     iterations=[]
@@ -65,6 +67,7 @@ def make_model():
         if max(abs(cg[0]-h),abs(cg[1]-hy))<.015:break
         h,hy=cg[:2]
     parts['body']=b;parts['hanger']=h;parts['hanger_y']=hy;parts['hanger_xy']=[h,hy,cg[2]];parts['dart_mass']=m;parts['dart_cg']=cg;parts['mass_rows']=rows;parts['balance_iterations']=iterations
+    parts['dummy_body']=pr.dummy_body(h,hy)
     parts['servo']=buy.sg90()
     film=cyl(BEARING_RO-.3,BEARING_FILM_T,(0,0,BEARING_Z-BEARING_FILM_T)).cut(cyl(BEARING_RI+.3,BEARING_FILM_T+1,(0,0,BEARING_Z-BEARING_FILM_T-.1)))
     parts['bearing_film']=[('PTFE_bearing_film',film,'white')]
@@ -82,7 +85,7 @@ def make_model():
     return parts
 
 def dart_rows(parts):
-    return [('body',parts['body'],'body'),('pod_shell',parts['pod_shell'],'pod'),('pod_lid',parts['pod_lid'],'lid'),('rod',buy.rod(),'rod')]+buy.cell()+parts['board']+parts['mic']+parts['hardware']
+    return [('body',parts['body'],'body'),('pod_shell',parts['pod_shell'],'pod'),('pod_lid',parts['pod_lid'],'lid'),('usb_cap',parts['usb_cap'],'lid'),('rod',buy.rod(),'rod')]+buy.cell()+parts['board']+parts['mic']+parts['hardware']
 
 def carried_transform(s,i,hanger,drop=0,pitch=0):
     h,hy,cz=hanger
@@ -126,12 +129,13 @@ def stood_scene(parts):
     return rows
 
 def print_transform(n,s):
-    if n=='pod_lid':s=s.rotate((0,0,0),(1,0,0),180)
+    if n=='usb_cap':s=s.rotate((0,0,0),(0,1,0),90)
+    elif n in ('pod_lid','dummy_lid'):s=s.rotate((0,0,0),(1,0,0),180)
     elif n=='rotor':s=s.rotate((0,0,0),(1,0,0),180)
     b=s.BoundingBox()
     return s.translate((-(b.xmin+b.xmax)/2,-(b.ymin+b.ymax)/2,-b.zmin))
 
-PRINT_NAMES=('body','pod_shell','pod_lid','plate','rotor','fit_coupon')
+PRINT_NAMES=('body','pod_shell','pod_lid','usb_cap','plate','rotor','fit_coupon','stake_adapter','stake_cell_holder','dummy_body','dummy_lid','dummy_head_insert')
 
 def cache(parts):
     serial={}
@@ -197,9 +201,9 @@ def export_all(parts):
             # STEP retains assembly datum, STL is already in print orientation.
             obj=s if ext=='step' else print_transform(n,s)
             cq.exporters.export(obj,str(OUT/(n+'.'+ext)),tolerance=.05,angularTolerance=.12)
-        manifest.append(dict(part=n,quantity=4 if n in ('body','pod_shell','pod_lid') else 1,step=n+'.step',stl=n+'.stl',print_bbox_mm=[print_transform(n,s).BoundingBox().xlen,print_transform(n,s).BoundingBox().ylen,print_transform(n,s).BoundingBox().zlen]))
+        manifest.append(dict(part=n,quantity=4 if n in ('body','pod_shell','pod_lid','usb_cap') else 1, kit='four-dart' if n in ('body','pod_shell','pod_lid','usb_cap','plate','rotor') else 'optional prototype/tool',step=n+'.step',stl=n+'.stl',print_bbox_mm=[print_transform(n,s).BoundingBox().xlen,print_transform(n,s).BoundingBox().ylen,print_transform(n,s).BoundingBox().zlen]))
     log('export bought parts')
-    assembly(parts['board'],'Heltec_V3_reference',OUT/'bought_heltec_v3.step')
+    assembly(parts['board'],'XIAO_ESP32S3_Wio_SX1262',OUT/'bought_xiao_wio_stack.step')
     assembly(parts['mic'],'INMP441_breakout',OUT/'bought_inmp441.step')
     assembly(parts['servo'],'SG90_with_horn',OUT/'bought_SG90.step')
     assembly(buy.cell(),'Samsung25R',OUT/'bought_18650.step')
@@ -212,7 +216,12 @@ def export_all(parts):
     stand=[(n,stood_transform(s),c) for n,s,c in dart_rows(parts)]
     assembly(stand,'Dart_in_soil',OUT/'dart_stood.step')
     system_assembly(parts,'stood',OUT/'assembly_stood.step')
+    from variants import stake_rows, dummy_rows
+    assembly(stake_rows(parts),'Stake_listener',OUT/'stake_assembled.step')
+    assembly(dummy_rows(parts),'Inert_drop_dummy',OUT/'dummy_assembled.step')
     (OUT/'print_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    from variants import write_kit_manifest
+    write_kit_manifest()
 
 def mass_report(parts):
     rows=parts['mass_rows']
@@ -225,11 +234,19 @@ def mass_report(parts):
         harness.append(mass_item(n,s,2.2 if 'PTFE' in n else 1.14 if n.startswith('rail_zip') else 1.45 if 'lead' in n else 1.2 if 'plug' in n else 7.85,basis='modeled hardware density'))
     hm,hc=resultant(harness)
     data=dict(dart=rows,dart_total_g=parts['dart_mass'],dart_cg_mm=parts['dart_cg'],hanger_x_mm=parts['hanger'],hanger_y_mm=parts['hanger_y'],balance_residual_mm=parts['dart_cg'][0]-parts['hanger'],harness=harness,harness_total_g=hm,harness_cg_mm=hc,carried_payload_g=hm+4*parts['dart_mass'],infill='100% in all prototype parts; four 0.4mm walls and six top/bottom layers; no global density multiplier',balance_iterations=parts['balance_iterations'])
+    data['auxiliary_printed']=[mass_item(n,parts[n],M.petg_density,basis='100% infill solid PETG') for n in PRINT_NAMES if n not in ('body','pod_shell','pod_lid','usb_cap','plate','rotor')]
+    from variants import dummy_report
+    data['dummy']=dummy_report(parts)
+    from variants import stake_mass_report
+    data['stake']=stake_mass_report(parts)
     (OUT/'mass_properties.json').write_text(json.dumps(data,indent=2)+'\n')
     with (OUT/'mass_properties.csv').open('w',newline='') as f:
         writer=csv.writer(f);writer.writerow(['assembly','part','mass_g','centroid_x_mm','centroid_y_mm','centroid_z_mm','CAD_volume_mm3','basis'])
         for group,it in [('dart',rows),('harness',harness)]:
             for r in it:writer.writerow([group,r['name'],r['mass_g'],*r['centroid_mm'],r['volume_mm3'],r['basis']])
+        for group,it in [('auxiliary_printed',data['auxiliary_printed']),('dummy_baseline',data['dummy']['baseline_parts']),('stake',data['stake']['parts'])]:
+            for r in it:writer.writerow([group,r['name'],r['mass_g'],*r['centroid_mm'],r['volume_mm3'],r['basis']])
+        for r in data['dummy']['ballast']:writer.writerow(['dummy_ballast',r['name'],r['mass_g'],*r['centroid_mm'],'','Weighed steel portion, include fixative'])
     return data
 
 def render_all(parts):
@@ -238,7 +255,7 @@ def render_all(parts):
         # Opaque pod exteriors hide electronics in the full-aircraft views.
         # Skipping buried objects changes no visible surfaces and keeps QA fast.
         if name.startswith('assembly_') or name=='dart_stood.png':
-            hidden=('heltec','oled','header_pad','mic_pcb','INMP441','mic_pad','pod_insert','pod_M2','perimeter','mic_water','mic_silicone','retention_foam','RF_pigtail')
+            hidden=('xiao_oem','wio_oem','xiao_castellation','mic_pcb','INMP441','mic_pad','pod_insert','pod_M2','perimeter','mic_water','mic_silicone','retention_foam','RF_pigtail')
             rows=[r for r in rows if not any(k in r[0] for k in hidden)]
         render([(s,c,.16) if n.startswith('prop_swept') else (s,c) for n,s,c in rows],RENDERS/name,title,subtitle,**kw)
     rend(scene(parts),'assembly_carried.png','Four listeners on the Holybro X500 V2','Manufacturer frame CAD | 260 mm prop sweeps | carried state',az=-56,el=17,size=(1800,1200))
@@ -255,7 +272,7 @@ def render_all(parts):
     rend(close,'release_detail.png','Rim, heads, bearing ridge and SG90 drive','The four heads pass through clearance slots; the inner bearing ring carries the vertical load',az=-62,el=55,size=(1500,1100))
     stand=[(n,stood_transform(s),c) for n,s,c in dart_rows(parts)]
     soil=box(155,155,12,at=(0,0,-12))
-    rend(stand+[('ground',soil,'soil')],'dart_stood.png','Listener seated to its soil stop',f'{POD_X1+M.whip_l:.0f} mm overall | mic {MIC_X-BODY_X0:.0f} mm above soil | tip buried 70 mm',az=-135,el=8,size=(850,1600))
+    rend(stand+[('ground',soil,'soil')],'dart_stood.png','Listener seated to its soil stop',f'{FPC_X0+M.fpc_l+2:.0f} mm overall | mic {MIC_X-BODY_X0:.0f} mm above soil | tip buried 70 mm',az=-135,el=8,size=(850,1600))
     # A real half-space boolean section along cell/rod length, with the cell
     # omitted in one view so that the floor/wall/press-fit features are legible.
     bodyrows=[('body',parts['body'],'body'),('rod',buy.rod(),'rod')]+buy.cell()
@@ -268,21 +285,27 @@ def render_all(parts):
     rend([(n,s.intersect(slab),c) for n,s,c in bodyrows],'section_body_snap.png','Cell retention - transverse detail','16.8 mm throat | 18 mm cantilever | lead-in ramp and undercut | cell rests in a 1.6 mm saddle',az=-12,el=12,size=(1200,950))
     # Pod section across the front side, retaining the board and membrane.
     podrows=[('pod_shell',parts['pod_shell'],'pod'),('pod_lid',parts['pod_lid'],'lid')]+parts['board']+parts['mic']+[r for r in parts['hardware'] if 'pod_' in r[0] or 'mic_' in r[0] or 'perimeter' in r[0]]
-    half=box(100,40,40,at=(520,-20,-10))
-    rend([(n,s.intersect(half),c) for n,s,c in podrows],'section_pod.png','Pod longitudinal section - serviceable electronics','Silicone cord seal, heat-set bosses, edge supports, OLED and side-facing bottom-port microphone',az=70,el=22,size=(1600,1100))
+    half=box(160,40,40,at=(550,-20,-10))
+    rend([(n,s.intersect(half),c) for n,s,c in podrows],'section_pod.png','Pod longitudinal section - serviceable electronics','Silicone cord seal, heat-set bosses, edge supports, XIAO + Wio stack and side-facing microphone',az=70,el=22,size=(1600,1100))
     # Exploded service assembly exposes the features hidden in the section.
     exploded=[('pod_shell',parts['pod_shell'],'pod')]+parts['board']+parts['mic']
     exploded.append(('pod_lid',parts['pod_lid'].translate((0,0,32)),'lid'))
-    rend(exploded,'pod_exploded.png','Pod service assembly','Four M2x6 screws and heat-set inserts | lid pads retain PCB | weather membrane behind rain hood',az=-60,el=32,size=(1600,1150))
+    rend(exploded,'pod_exploded.png','Pod service assembly','Three M2x6 screws and heat-set inserts | lid pads retain PCB | weather membrane behind rain hood',az=-60,el=32,size=(1600,1150))
     for n in PRINT_NAMES:
         s=print_transform(n,parts[n]);bb=s.BoundingBox();bed=box(bb.xlen+12,bb.ylen+12,.6,at=(0,0,-.6))
         sub=f'{bb.xlen:.1f} x {bb.ylen:.1f} x {bb.zlen:.1f} mm | PETG, 0.4 mm nozzle, 0.2 mm layers, 100% infill'
         if n=='body':sub+=' | local support: hanger flange + 4 snap beams'
+        elif n=='dummy_body':sub+=' | local support: hanger flange'
+        elif n=='stake_cell_holder':sub+=' | local support: snap beams'
         elif n=='pod_shell':sub+=' | local support: hood, socket lip, mic-guide ledges'
         else:sub+=' | no supports'
         rend([(n,s,'body' if n in ('body','fit_coupon') else 'pod' if 'pod' in n else 'plate' if n=='plate' else 'rotor'),('build_surface',bed,'white')],f'print_{n}.png',f'Print orientation - {n.replace("_"," ")}',sub,az=-65,el=30,size=(1600,1000))
     # Bought-part board detail is colored to expose real vendor components.
-    rend(parts['board'],'bought_heltec.png','Heltec WiFi LoRa 32 V3 - mechanical reference','Official V3.7 populated PCB + OLED stack | two 18-way header pad rows left unpopulated',az=-58,el=35,size=(1500,1000))
+    rend(parts['board'],'bought_xiao_wio.png','Seeed XIAO ESP32S3 + Wio-SX1262','Unscaled Seeed STEP solids | board-to-board mate spacing MEASURE | headers not fitted',az=-58,el=35,size=(1500,1000))
+    from variants import render_variants
+    render_variants(parts)
+    from render_details import service_detail
+    service_detail(parts)
     rend(parts['servo'],'bought_servo.png','TowerPro SG90 and supplied double horn','Case, tabs, grooves on the output spline, fixing nuts and two axial sliding drive pins',az=-65,el=28,size=(1300,1100))
 
 def main():
@@ -295,9 +318,9 @@ def main():
         verify(parts);return
     if not args.render_only:
         cache(parts);mass_report(parts)
-        if not args.geometry_only:export_all(parts)
         from verify import verify
         verify(parts)
+        if not args.geometry_only:export_all(parts)
     if not args.no_render:render_all(parts)
     log('DONE',round(time.time()-start,1),'seconds; dart',round(parts['dart_mass'],2),'g; hanger',round(parts['hanger'],2),'mm')
 

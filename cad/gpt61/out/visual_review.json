@@ -1,175 +1,172 @@
 {
-  "reviewed_utc": "2026-10-16T02:32:59.169253+00:00",
-  "images": [
-    {
-      "file": "assembly_carried.png",
-      "pixels": [
-        1800,
-        1200
-      ],
-      "sha256": "51a6d70e212b3f1f9dc5cf6e709a8c09353f95044cc1b577788fae281a4c0737",
-      "reviewed": true,
-      "note": "Full X500, four horizontally carried listeners, stock legs and prop sweeps visible."
+  "reviewed_utc": "2026-10-21T20:14:26.721442+00:00",
+  "method": "Assistant visually inspected every final PNG using view_image; corrections regenerated and re-inspected.",
+  "scope": "CAD imagery only; no physical print, acoustic, radio, drop or flight qualification",
+  "renders": {
+    "aircraft_exploded.png": {
+      "inspected": true,
+      "sha256": "551a2c87dbe3c65987a5065d5ad15ce2f409917c8c279ef62dceeea1b88ff1ac",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "assembly_mid_release.png",
-      "pixels": [
-        1800,
-        1200
-      ],
-      "sha256": "04598727b275d4667a8415ba74adbde79b974f26890e5a06771e65adb0451990",
-      "reviewed": true,
-      "note": "First listener separated70mm, other three retained."
+    "assembly_carried.png": {
+      "inspected": true,
+      "sha256": "b9021570a2df07df70b51e96c034fe98b3dc892697be3696172676fd58bebb7c",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "assembly_stood.png",
-      "pixels": [
-        1900,
-        1200
-      ],
-      "sha256": "7f19d11fbccd174e2e4f2662bac5014b6638019d5cacfd078791e16de7e06ee3",
-      "reviewed": true,
-      "note": "Aircraft and three listeners on stock skid ground; fourth stands in soil."
+    "assembly_mid_release.png": {
+      "inspected": true,
+      "sha256": "23df70a3d4e5e9458fb01e73640b674cc371f0c9dd7ae04fdfddc2fdb0950bb6",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "bought_heltec.png",
-      "pixels": [
-        1500,
-        1000
-      ],
-      "sha256": "6b9ad44e6f7fb316d3f034540c9b7dfbb45beee734efdeb017e7c576f1ac6c41",
-      "reviewed": true,
-      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    "assembly_stood.png": {
+      "inspected": true,
+      "sha256": "b1c1597d6e9725d24e14bdb1193a3f927c6731c1ceec2003737a07525bbd9ddc",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "bought_servo.png",
-      "pixels": [
-        1300,
-        1100
-      ],
+    "bought_servo.png": {
+      "inspected": true,
       "sha256": "e05fb02f275a511785c1df6577df1241f9560923caf844aa08f5797299116c2c",
-      "reviewed": true,
-      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "dart_stood.png",
-      "pixels": [
-        850,
-        1600
-      ],
-      "sha256": "2febcb70a6a4bbb34e6774edaa3dcd4385ba538f4273def27519610731fbe0db",
-      "reviewed": true,
-      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    "bought_xiao_wio.png": {
+      "inspected": true,
+      "sha256": "3e554d528c33914a1855b9171eaa7e9ef5604489048b80c730636ae9aa155390",
+      "note": "Native Seeed board geometry; unmeasured B2B mating spacing labelled."
     },
-    {
-      "file": "pod_exploded.png",
-      "pixels": [
-        1600,
-        1150
-      ],
-      "sha256": "72c162b4aff69875f07f337bfb010c537443c48842391a66dff8c8b1d75a6225",
-      "reviewed": true,
-      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    "dart_exploded.png": {
+      "inspected": true,
+      "sha256": "b52ade15019776ce72ad8c1a3e45344e972e660d062aa7d32a884f89e347bb76",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "print_body.png",
-      "pixels": [
-        1600,
-        1000
-      ],
-      "sha256": "3266b52d1b466bbae33c830d8b35ae423e80ba81ee00866f88a47b3080015b9d",
-      "reviewed": true,
-      "note": "Widened hanger foundation and shortened aft gusset supported by base; local snap/flange supports specified."
+    "dart_exploded_pod.png": {
+      "inspected": true,
+      "sha256": "91f8c71b6d1f7ef7958e415d3c2b6ead21f78907373491d2c774601dd94f6595",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "print_fit_coupon.png",
-      "pixels": [
-        1600,
-        1000
-      ],
+    "dart_stood.png": {
+      "inspected": true,
+      "sha256": "5bec7b57e3826fd70112e1fe399713f5ca3906e81cbe6fd119fc6fd84c17f774",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "dummy_assembled.png": {
+      "inspected": true,
+      "sha256": "83dd249f291bc6a94796b03d9c5d8bde2a770145b22bd6025f3579d37585985d",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "dummy_ballast_detail.png": {
+      "inspected": true,
+      "sha256": "c6f886d4199b8476739afd29da54281b100ba50b538b8ef65744056d3502dee7",
+      "note": "Two retained body ballast pockets visible; remaining two head portions documented."
+    },
+    "harness_exploded.png": {
+      "inspected": true,
+      "sha256": "4cf97a45cd113070e60e4539448fbdb7d393170797fa433d1faf4386beeb70dd",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "harness_exploded_detail.png": {
+      "inspected": true,
+      "sha256": "ca6547bdd049be2c865b1d5544908e4055eb7ec7d302529c5ae7368cff8df80d",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "pod_exploded.png": {
+      "inspected": true,
+      "sha256": "7301d9023d52b26da28dfa053666bf07ee993753a3c450eb890aa6379f25089d",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "pod_usb_access.png": {
+      "inspected": true,
+      "sha256": "d7298d083d59b069ec139b89d1b4661563fb3e4e03a3185976a0bf34186b6768",
+      "note": "End cap set aside, USB visible; lid retained and FPC backer explicitly cropped."
+    },
+    "print_body.png": {
+      "inspected": true,
+      "sha256": "ea1db41210684cc726e7726f88eee1b2e846fd3242bf9a86ec3127aa7e7051e1",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "print_dummy_body.png": {
+      "inspected": true,
+      "sha256": "b65b032026996f0f5b045735c0d1fb0681a7533f455a9d2e93ab2771934637cb",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "print_dummy_head_insert.png": {
+      "inspected": true,
+      "sha256": "607e861f068011078756745c3dc81c6025cae0cd8c0d2867871c76f4ee55914d",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "print_dummy_lid.png": {
+      "inspected": true,
+      "sha256": "cde2184c2d2e15269d27b57af7fa4a753876c975251992e9e94be2057ea819cd",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "print_fit_coupon.png": {
+      "inspected": true,
       "sha256": "52e9914163c54aca3c23a5317bd8ee7631e2b65eaa53af581694bf57052619d7",
-      "reviewed": true,
-      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "print_plate.png",
-      "pixels": [
-        1600,
-        1000
-      ],
+    "print_plate.png": {
+      "inspected": true,
       "sha256": "1d9db6f77a26947c41ddc1623dc5b9041407f7877c96c49095e476030a15dd1b",
-      "reviewed": true,
-      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "print_pod_lid.png",
-      "pixels": [
-        1600,
-        1000
-      ],
-      "sha256": "8ae888166d18a94d54caffd1e073a286be95affc9bedfc453d1eab1c42d3c6a7",
-      "reviewed": true,
-      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    "print_pod_lid.png": {
+      "inspected": true,
+      "sha256": "43d8a512147e8dc4db3252cb263224e13276dc85aab8e32e2484f11700ffa8c1",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "print_pod_shell.png",
-      "pixels": [
-        1600,
-        1000
-      ],
-      "sha256": "03a676c69d4e274465c203a9096390166411466e552e6f56b032a5891cea26d3",
-      "reviewed": true,
-      "note": "Open electronics tray and seal land visible; local hood, entry and guide supports specified."
+    "print_pod_shell.png": {
+      "inspected": true,
+      "sha256": "58063722cfa9dd380a2ffdb3e637ed94051fa5a6ac4335b2cd5bb1ea67c8a594",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "print_rotor.png",
-      "pixels": [
-        1600,
-        1000
-      ],
+    "print_rotor.png": {
+      "inspected": true,
       "sha256": "c7daf1f44bc7c284270d527ca8f4e22122d139fd5bfcf61acefba81ec171d798",
-      "reviewed": true,
-      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "release_detail.png",
-      "pixels": [
-        1500,
-        1100
-      ],
-      "sha256": "4c36fbaf1a4e3ca923e0e601d347c804e239622feb13c2ef265fb070a67cccd6",
-      "reviewed": true,
-      "note": "Inspected final CAD view for framing, feature clarity, print orientation and obvious geometric errors."
+    "print_stake_adapter.png": {
+      "inspected": true,
+      "sha256": "4394f827e57f7dd006e90f71c614cd99239fb417d9a39ad6186060d39ef98bf6",
+      "note": "Reoriented flat after visual review; removes unsupported sideways V-saddle projections."
     },
-    {
-      "file": "section_body.png",
-      "pixels": [
-        1600,
-        900
-      ],
-      "sha256": "db0bff7592f97907401aef4335010d138491642d54dfbe05ad6ce066e0ee648a",
-      "reviewed": true,
-      "note": "Cell omitted to expose saddle, beam reliefs and end stops."
+    "print_stake_cell_holder.png": {
+      "inspected": true,
+      "sha256": "987821ab3f66a52c7685fc08c5189ff6423d96d727e8d8c35eadf339285e9526",
+      "note": "Flat coplanar base and cradle floor; snap beams require local support."
     },
-    {
-      "file": "section_body_snap.png",
-      "pixels": [
-        1200,
-        950
-      ],
+    "print_usb_cap.png": {
+      "inspected": true,
+      "sha256": "a53c9cc2fc0217d2fb2e8841c3d4c44d1cef30f91dbc2a92216a9ce812b2d61e",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "release_detail.png": {
+      "inspected": true,
+      "sha256": "03416912f2fe01e1a46bafc5b9d45aed6bd7aeab50a43b9434c14c0514f21e57",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "section_body.png": {
+      "inspected": true,
+      "sha256": "f15ba573d51caff2ef0e6571bb94bcf01fff86c6c641f09b19e9c74753f43dca",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "section_body_snap.png": {
+      "inspected": true,
       "sha256": "f8dbbc15e66e8061bdfa0f8f79578bc2af7c9e2b2cf5aa95eef63f577541ab20",
-      "reviewed": true,
-      "note": "Rod bore, cell clearance, lips and separate deflecting beams visible."
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
-    {
-      "file": "section_pod.png",
-      "pixels": [
-        1600,
-        1100
-      ],
-      "sha256": "d11c822c408e89a9e4fbef9e8f2700712ea782510a9716ab03bafc93311324f0",
-      "reviewed": true,
-      "note": "Real boolean section exposes PCB/OLED stack, rod socket, lid supports and side microphone."
+    "section_pod.png": {
+      "inspected": true,
+      "sha256": "a94b652c38064bcc44e02543088b96c03436d007cd6c62442940b12d57c3d009",
+      "note": "Boolean half-section exposes both boards and socket duct; no display."
+    },
+    "stake_assembled.png": {
+      "inspected": true,
+      "sha256": "99fff387b3a4c4b0df90efb17701e6bec497a8f5c80292407f4ef4311e668b01",
+      "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
+    },
+    "stake_clamp_detail.png": {
+      "inspected": true,
+      "sha256": "efc0b580551d839e0a7299394904858be03e14bb80833535ce726f3ccae15148",
+      "note": "Two stake ties plus separate pod-neck retaining tie; locator offcut visible."
     }
-  ]
+  }
 }

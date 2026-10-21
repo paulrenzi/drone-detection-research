@@ -1,0 +1,9 @@
+{
+  "pass_": true,
+  "file": "print-kit.zip",
+  "size_bytes": 2412287,
+  "sha256": "d9f0cf9c5137c4a7a314966e595523454c22355853edb651cde848e41e1da2f3",
+  "entries": 32,
+  "printed_STEP_STL_pairs": 12,
+  "scope": "Archive CRC and byte-for-byte comparison with current validated parts, DESIGN.md and kit quantities"
+}

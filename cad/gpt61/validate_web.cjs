@@ -4,7 +4,7 @@ const path = require('path');
 const validator = require('./tmp/web-validator/node_modules/gltf-validator');
 (async () => {
   const reports = {available: true, validator: 'Khronos glTF Validator', version: validator.version(), models: {}};
-  for (const name of ['dart', 'harness', 'aircraft']) {
+  for (const name of ['dart', 'harness', 'aircraft', 'stake']) {
     const file = path.join(__dirname, 'web', name + '.glb');
     const report = await validator.validateBytes(new Uint8Array(fs.readFileSync(file)), {uri: name + '.glb', maxIssues: 2000});
     reports.models[name] = report;
