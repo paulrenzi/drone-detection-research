@@ -27,6 +27,33 @@ The cheapest first look at the two questions that decide the tripwire: **how far
 
 Parts with photos, buying advice and the full plan: [weekend test kit]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector). Fly legally: in the US, pass the free TRUST test and check the airspace.
 
+### Weekend test downloads {#weekend-downloads}
+
+The weekend test runs Batear's own firmware, unchanged. Our tripwire firmware isn't needed until layer 3. What we add is a way to log the readings and turn the audio into training clips.
+
+| File | What it does | Get it |
+|---|---|---|
+| **Batear firmware** | Detector (mic + LoRa) and gateway (LoRa + screen) for the two Heltec V3 boards | [Batear web flasher](https://docs.batear.io/flasher/), Chrome or Edge, USB-C |
+| **Weekend logger** | One web page that reads the gateway (and the detector, if it's plugged in too) over USB. You tag each run with its distance, height and wind; it records every alarm with RSSI, SNR and confidence, tallies a range table, and exports `runs.csv`, `events.csv` and the raw serial log | <a href="{{ site.baseurl }}/tools/weekend/logger.html">Open the logger</a> · <a href="{{ site.baseurl }}/tools/weekend/logger.html" download>Download logger.html</a> |
+| **Clip cutter** | `cut_clips.py`: lines a phone or XIAO recording up with the logger's clock, cuts each run into labelled 1 s clips (`drone_100m`, `drone_pass`, `background`), and writes a manifest with Batear's alarm state per clip and a run-level fold for splitting | <a href="{{ site.baseurl }}/tools/weekend/cut_clips.py" download>Download cut_clips.py</a> · <a href="{{ site.baseurl }}/tools/weekend/test_cut_clips.py" download>tests</a> |
+
+**Using them**
+1. **Friday.** Flash one board as detector and one as gateway. Plug the gateway into the laptop, open the logger in Chrome, click **Connect board**, and pick its port. Play a drone clip at the mic: the gateway's screen and the logger should both show the alarm. Click **Demo** first if you want to try the page without boards.
+2. **Saturday, each recorder.** Start recording, clap next to it, and press **Sync clap** (or <kbd>S</kbd>) at the same moment.
+3. **Saturday, each run.** Set type, distance, drone height, mic height and wind, press **Start run**, fly the hover or pass, press **Stop run**. Record no-drone runs as type *No drone*. The range table fills in as you go and shows the farthest distance heard in at least 90% of runs.
+4. **Radio walk.** The gateway only hears a packet when the detector alarms, clears, or sends its 30-minute heartbeat. Loop a drone clip from a phone beside the detector so it keeps alarming, then carry the gateway and laptop out. Log a *Radio walk* run at each stop; the table shows packets, RSSI and SNR by distance.
+5. **Export** `runs.csv` and `events.csv` at the end of each session. The page also keeps them in the browser, but only on that laptop.
+6. **Sunday.** For each recording (Python 3.11+, plus [ffmpeg](https://ffmpeg.org/) for phone `.m4a` files):
+
+```bash
+python cut_clips.py --runs S20261025-1003_runs.csv --events S20261025-1003_events.csv --recording phone-0.5m.m4a --sync --tag mic05 --rate 16000 --out clips
+```
+
+Train on whole folds, never on clips from the same run as the test set. The `batear_alarm` column is the baseline your model has to beat.
+
+{: .note }
+> Both tools were tested in demo mode and on synthetic audio (WAV and `.m4a`), not yet against real boards. The logger reads the lines Batear's gateway and detector print over USB at 115200 baud; if a Batear update changes that format, the logger stops recognising readings, though the raw log still records everything. Leave **Beep on alarm** off while recording, or the beep ends up in the audio.
+
 ## The five layers to the MVP
 
 | Layer | Question | Spend | Total | Gate |
