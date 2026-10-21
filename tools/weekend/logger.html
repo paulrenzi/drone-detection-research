@@ -73,7 +73,7 @@ details.panel[open] > summary::after { content: "–"; }
 details.panel[open] > summary { margin-bottom: 10px; }
 .sources { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .source { border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
-.source b { display: block; margin-bottom: 4px; }
+.source > b { display: block; margin-bottom: 4px; }
 .source ol { margin: 6px 0; padding-left: 18px; font-size: 13px; }
 .source code { font: 12px var(--mono); background: var(--chip); padding: 1px 4px; border-radius: 4px; word-break: break-all; }
 [hidden] { display: none !important; }
@@ -100,7 +100,12 @@ body.embed .hide-embed { display: none !important; }
 body.embed #readingsPanel .scroll { max-height: 190px; }
 .micjoin { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
 .micjoin p { flex: 1; min-width: 180px; margin: 0; font-size: 14px; }
-#micQr, #watchQr { background: #fff; padding: 8px; border-radius: 8px; line-height: 0; }
+#rolePick { display: grid; gap: 12px; max-width: 520px; margin: 0 auto; }
+.roles, .found-list { display: grid; gap: 8px; }
+button.role, button.found { display: flex; flex-direction: column; gap: 2px; width: 100%; text-align: left; padding: 12px 14px; }
+button.role b { font-size: 17px; }
+button.role span, button.found span { font-size: 13px; color: var(--muted); }
+body.picking .layout, body.picking #ports, body.picking #guide { display: none !important; }
 .stat .v.uncal { color: var(--warn); }
 body.micmode .layout, body.micmode #ports, body.watchmode .layout, body.watchmode #ports { display: none !important; }
 #micView .alarm .v { font-size: 56px; }
@@ -126,10 +131,22 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
 <header>
   <div>
     <h1>trip/wire logger</h1>
-    <div class="note hide-embed" style="margin:0"><a href="https://paulrenzi.github.io/tripwire/weekend-test.html" target="_top">How to use it</a></div>
+    <div class="note hide-embed" style="margin:0"><a href="https://paulrenzi.github.io/tripwire/weekend-test.html" target="_top">How to use it</a><span id="roleLinkWrap" hidden> · <a href="#" id="roleLink">Change phone</a></span></div>
   </div>
   <div class="row" id="ports"><span class="chip">Not connected</span></div>
 </header>
+
+<div id="rolePick" hidden>
+  <section class="panel">
+    <h2>Which phone is this?</h2>
+    <p class="note" style="margin:0 0 10px">Open this page on both phones and pick one on each. They find the gateway and each other by themselves: nothing to scan or type.</p>
+    <div class="roles">
+      <button class="role" data-role="logger"><b>Logger phone</b><span>Its hotspot runs the gateway. You carry both and run the test from here.</span></button>
+      <button class="role" data-role="mic"><b>Mic phone</b><span>Stays beside the mic. Measures and records the sound there, and plays the speaker.</span></button>
+      <button class="role" data-role="watch"><b>Just watching</b><span>Follow a test from anywhere. Changes nothing.</span></button>
+    </div>
+  </section>
+</div>
 
 <div class="banner" id="storeWarn">Browser storage is unavailable or full. Keep this page open until it says <i>saved online</i>: data on this page will not survive a reload.</div>
 
@@ -142,11 +159,11 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
           <b>WiFi, from a phone</b>
           <ol>
             <li>Turn on your phone's hotspot. On iPhone, switch on <i>Maximize Compatibility</i>: the board only sees 2.4 GHz.</li>
-            <li>In <a href="../flasher/" target="_blank" rel="noopener">the flasher</a>, flash the gateway with your hotspot's name and password, then scan its QR code with this phone. That sets Gateway ID <code id="gwIdShow"></code> here and connects. On a Heltec, use the <a href="https://docs.batear.io/flasher/" target="_blank" rel="noopener">Batear flasher</a> with MQTT URL <code>mqtt://broker.hivemq.com:1883</code>.</li>
-            <li>Tap <b>Connect over WiFi</b>.</li>
+            <li>Power the gateway, flashed with this hotspot in <a href="../flasher/" target="_blank" rel="noopener">the flasher</a>. About 30 s later it shows up below: tap it.</li>
           </ol>
+          <div id="gwFound" class="found-list" hidden></div>
           <div class="fields" style="grid-template-columns:1fr 1fr;margin:8px 0">
-            <label>Gateway ID <input id="fGwId" type="text" spellcheck="false" autocomplete="off"></label>
+            <label>Or type the gateway ID <input id="fGwId" type="text" spellcheck="false" autocomplete="off"></label>
             <label>Broker <input id="fBroker" type="text" spellcheck="false" autocomplete="off"></label>
           </div>
           <button class="primary" id="bWifi" style="width:100%">Connect over WiFi</button>
@@ -197,8 +214,8 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
       <details class="hide-embed" id="micJoinBox" style="margin-top:8px" open>
         <summary>Set up the mic phone</summary>
         <div class="micjoin" id="micJoin">
-          <div id="micQr"></div>
-          <p>The test uses two phones. <b>The mic phone</b> stays beside the mic: it measures and records the sound there and plays the speaker. <b>This phone</b> is the logger and the hotspot, and goes wherever the gateway goes. <b>Scan this with the mic phone</b>, or open <a id="micLink" href="#">this link</a> on it.</p>
+          <p>The test uses two phones. <b>The mic phone</b> stays beside the mic: it measures and records the sound there and plays the speaker. <b>This phone</b> is the logger and the hotspot, and goes wherever the gateway goes. On the mic phone, open this page, tap <b>Mic phone</b>, then tap <b>Logger <span class="gwName"></span></b>.</p>
+          <button class="shareLink">Send the link to the other phone</button>
         </div>
       </details>
       <div class="hide-embed" id="localMic" style="margin-top:8px">
@@ -253,8 +270,8 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
     <details class="panel hide-embed" id="watchBox">
       <summary><h2>Let someone else watch</h2></summary>
       <div class="micjoin">
-        <div id="watchQr"></div>
-        <p>Anyone can follow the test from another phone or a computer, from anywhere: <b>scan this</b>, or open <a id="watchLink" href="#">this link</a> there. It shows the alarm, the sound at the mic, the sequence and the range table as they happen. It only watches: start and stop everything on this phone.</p>
+        <p>Anyone can follow the test from another phone or a computer, from anywhere: open this page there, tap <b>Just watching</b>, then tap <b>Logger <span class="gwName"></span></b>. It shows the alarm, the sound at the mic, the sequence and the range table as they happen. It only watches: start and stop everything on this phone.</p>
+        <button class="shareLink">Send the link</button>
       </div>
     </details>
 
@@ -341,6 +358,8 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
     <h2>Mic phone</h2>
     <p id="mvStatus" style="margin-top:0">Put this phone beside the mic, at the same height. Tap <b>Start the mic</b> and allow the microphone. The logger phone then reads this phone, and starts and stops its recording and the speaker.</p>
     <button class="primary" id="mvStart" style="width:100%">Start the mic</button>
+    <div id="mvFound" class="found-list" hidden></div>
+    <button id="mvRefind" style="width:100%" hidden>Find the logger again</button>
     <div class="inline" style="margin-top:12px">
       <label>Or type a reading, dB(A) <input id="mvRef" type="number" inputmode="decimal" step="0.5" placeholder="62"></label>
       <button id="mvSet" disabled>Set</button>
@@ -366,6 +385,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
   <div class="alarm" id="wAlarmBox"><div class="v" id="wAlarm">–</div><div class="k" id="wAlarmSub">Batear alarm</div></div>
   <section class="panel">
     <p class="note" id="wStatus" style="margin-top:0">Connecting…</p>
+    <div id="wFound" class="found-list" hidden></div>
     <div class="runline" id="wSeq"></div>
     <div class="stats">
       <div class="stat"><div class="v" id="wMic">–</div><div class="k" id="wMicK">loudness at mic, dB(A)</div></div>
@@ -436,7 +456,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
   <h3>Try it at a desk, with no boards</h3>
   <ol class="steps">
     <li>Open this logger on a computer with speakers. Open <i>Speaker test</i> above and pick a sound.</li>
-    <li>Scan the code in <i>Sound at the mic</i> with a phone, tap <b>Start the mic</b> on the phone and allow the microphone.</li>
+    <li>Open this page on a phone, tap <b>Mic phone</b>, then tap this logger, and allow the microphone.</li>
     <li>Tap <b>Play calibration</b> here. The phone plays it, from its own speaker or one paired to it, and <i>Loudness at mic</i> should jump within a couple of seconds.</li>
     <li>Tap <b>Measure at the mic</b>, then try <b>Start recording at the mic</b> and stop it. The detector numbers stay empty without a board.</li>
   </ol>
@@ -447,12 +467,11 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
 "use strict";
 const params = new URLSearchParams(location.search);
 const EMBED = params.has("embed");
-const MIC_MODE = params.get("role") === "mic";
-const WATCH_MODE = params.get("role") === "watch";
+let MIC_MODE = params.get("role") === "mic";
+let WATCH_MODE = params.get("role") === "watch";
 const STORE_KEY = EMBED ? null : "tw-weekend-logger-v1";
 const SETTINGS_KEY = "tw-weekend-logger-settings";
 const MQTT_JS = "https://cdn.jsdelivr.net/npm/mqtt@5.14.1/dist/mqtt.min.js";
-const QR_JS = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
 const DEFAULT_BROKER = "wss://broker.hivemq.com:8884/mqtt";
 const RAW_KEEP = 20000, RAW_SAVE = 4000;
 const CLOUD = "https://tripwire-sessions.paulmichaelrenzi.workers.dev";
@@ -735,12 +754,17 @@ function loadScript(src) {
   return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("could not load " + src)); document.head.appendChild(s); });
 }
 async function connectWifi() {
-  const s = settings();
+  const s = settings(), oldGw = s.gwId;
+  if (gwFinder) { gwFinder.stop(); $("#gwFound").hidden = true; }
   s.gwId = $("#fGwId").value.trim() || s.gwId;
+  s.lastGw = s.gwId;
+  // A mic phone already joined under the old ID follows this logger to the new one.
+  const moved = s.gwId !== oldGw && micOnline() && mqttClient && mqttClient.connected;
+  if (moved) mqttClient.publish(`${micTopic(oldGw)}/cmd`, JSON.stringify({ t: Date.now(), cmd: "move", gw: s.gwId }));
   s.broker = $("#fBroker").value.trim() || DEFAULT_BROKER;
   saveSettings(s);
   renderGwId();
-  if (mqttClient) { mqttClient.end(true); mqttClient = null; }
+  if (mqttClient) { mqttClient.end(!moved); mqttClient = null; }
   goLive();
   try { if (!window.mqtt) await loadScript(MQTT_JS); } catch (e) { alert("Couldn't load the MQTT library. WiFi mode needs mobile data or internet."); return; }
   let entry = ports.find((p) => p.label === "wifi");
@@ -853,7 +877,7 @@ function scriptedDemo() {
 // ---- the mic phone: a second copy of this page beside the mic, as the sound meter and recorder ----
 // It publishes one reading a second on tripwire/<gw>/mic/state and takes commands on .../cmd.
 const micTopic = (gw) => `tripwire/${gw}/mic`;
-const mic = { last: null, at: null, levels: [], bySeq: false, qrFor: null };
+const mic = { last: null, at: null, levels: [], bySeq: false };
 const micOnline = () => mic.at != null && Date.now() - mic.at < 5000;
 const micCal = () => micOnline() && mic.last.dba != null;
 const energyMean = (dbs) => 10 * Math.log10(dbs.reduce((a, v) => a + 10 ** (v / 10), 0) / dbs.length);
@@ -909,49 +933,95 @@ function micAverage(seconds) {
   }, seconds * 1000 + 1500));
 }
 
-async function showMicQr() {
-  const gw = settings().gwId, url = new URL(`logger.html?role=mic&gw=${encodeURIComponent(gw)}`, location.href).href;
-  $("#micLink").href = url;
-  if (mic.qrFor === gw) return;
-  try { if (!window.QRCode) await loadScript(QR_JS); } catch (e) { return; }
-  $("#micQr").innerHTML = "";
-  new window.QRCode($("#micQr"), { text: url, width: 132, height: 132, correctLevel: window.QRCode.CorrectLevel.M });
-  mic.qrFor = gw;
+// ---- finding each other on the broker, so there is no code to scan ----
+// The gateway keeps a retained "online" on batear/nodes/<id>/availability, and every logger announces
+// itself on tripwire/<id>/watch once a second. A phone lists what it hears and joins with one tap.
+let gwFinder = null;
+function finder(kind, sel, onPick) {
+  const f = { seen: new Map(), client: null, stopped: false, timer: null, html: "" }, box = $(sel);
+  f.stop = () => { f.stopped = true; clearInterval(f.timer); if (f.client) f.client.end(true); };
+  box.hidden = false;
+  const render = () => {
+    if (f.stopped) return;
+    const now = Date.now(), rows = [];
+    for (const [id, x] of f.seen) {
+      const heardAgo = x.heard ? Math.round((now - x.heard) / 1000) : null;
+      if (kind === "logger" ? now - x.at > 10000 : !x.online && (heardAgo == null || heardAgo > 180)) continue;
+      const last = kind === "gateway" && id === settings().lastGw ? " · used last time" : "";
+      rows.push([id, (kind === "logger" ? x.conn || "connected" : heardAgo != null ? `detector heard ${heardAgo < 5 ? "just now" : heardAgo + " s ago"}` : "says online, no detector heard yet") + last, x.heard || 0]);
+    }
+    rows.sort((a, b) => b[2] - a[2]); // a gateway passing on a detector right now goes first
+    const head = !f.client || !f.client.connected ? "Connecting…"
+      : rows.length ? (kind === "gateway" ? "Tap your gateway. Its ID is the one in the flasher." : "Tap your logger. Its name is under Set up the mic phone, on the logger.")
+      : kind === "gateway" ? "Looking for your gateway. Turn on this phone's hotspot and power the gateway: it shows up here about 30 s later."
+      : "Looking for the logger. Open this page on the logger phone and tap Logger phone first.";
+    const html = `<p class="note" style="margin:0">${esc(head)}</p>` + rows.map(([id, note]) =>
+      `<button class="found" data-id="${esc(id)}"><b>${kind === "gateway" ? "Gateway" : "Logger"} ${esc(id)}</b><span>${esc(note)}</span></button>`).join("");
+    if (html === f.html) return; // redraw only on change, so a button never vanishes under a finger
+    f.html = html; box.innerHTML = html;
+    box.querySelectorAll("button.found").forEach((b) => b.onclick = () => { f.stop(); box.hidden = true; onPick(b.dataset.id); });
+  };
+  (async () => {
+    try { if (!window.mqtt) await loadScript(MQTT_JS); } catch (e) { box.textContent = "Couldn't load the MQTT library. This phone needs mobile data or WiFi."; return; }
+    if (f.stopped) return;
+    const c = f.client = window.mqtt.connect(settings().broker, { clientId: "twfind-" + Math.random().toString(16).slice(2, 10), reconnectPeriod: 3000, connectTimeout: 10000, clean: true });
+    c.on("connect", () => { c.subscribe(kind === "gateway" ? ["batear/nodes/+/availability", "batear/nodes/+/det/+/status"] : ["tripwire/+/watch"], { qos: 0 }); render(); });
+    c.on("message", (topic, payload, packet) => {
+      const parts = topic.split("/"), id = kind === "gateway" ? parts[2] : parts[1];
+      if (!/^tw-[\w-]{2,37}$/.test(id)) return; // only IDs our flasher and logger make, not other people's boards
+      const text = new TextDecoder().decode(payload), x = f.seen.get(id) || { at: 0, online: false, heard: 0, conn: "" };
+      if (kind === "gateway") {
+        if (topic.endsWith("/availability")) x.online = text === "online";
+        else if (!packet.retain) x.heard = Date.now();
+      } else {
+        let j;
+        try { j = JSON.parse(text); } catch (e) { return; }
+        if (j.demo) return;
+        x.at = Date.now(); x.conn = typeof j.conn === "string" ? j.conn.slice(0, 80) : "";
+      }
+      f.seen.set(id, x); render();
+    });
+  })();
+  f.timer = setInterval(render, 1000);
+  render();
+  return f;
+}
+
+async function shareLink(b) {
+  const url = new URL(location.pathname, location.href).href;
+  try { if (navigator.share) { await navigator.share({ title: "trip/wire logger", url }); return; } } catch (e) { if (e.name === "AbortError") return; }
+  try { await navigator.clipboard.writeText(url); b.textContent = "Link copied"; } catch (e) { b.textContent = url; }
 }
 
 // ---- watching from a second phone (?role=watch): the logger publishes what it shows, once a second ----
 // Plain text and table cells only, never HTML: anyone can publish to a public broker topic.
 const watchTopic = (gw) => `tripwire/${gw}/watch`;
-const watch = { last: null, at: null, qrFor: null };
+const watch = { last: null, at: null, gw: null };
 
 function publishWatch() {
   if (MIC_MODE || WATCH_MODE || EMBED || !mqttClient || !mqttClient.connected) return;
   const txt = (id) => $(id).textContent;
   mqttClient.publish(watchTopic(settings().gwId), JSON.stringify({
-    t: Date.now(), demo: !!demoTimer, on: $("#alarmBox").classList.contains("on"), alarm: txt("#vAlarm"), alarmSub: txt("#vAlarmSub"),
+    t: Date.now(), demo: !!demoTimer, conn: ports.length ? txt("#ports") : "no gateway yet", on: $("#alarmBox").classList.contains("on"), alarm: txt("#vAlarm"), alarmSub: txt("#vAlarmSub"),
     mic: txt("#vMic"), micK: txt("#vMicK"), conf: txt("#vConf"), rssi: txt("#vRssi"), ago: txt("#vAgo"),
     seq: sp.seq || sp.cal || sp.measuring ? txt("#spStatus") : "", run: txt("#runLine"),
     range: [...$("#tRange").rows].map((r) => [...r.cells].map((c) => c.textContent)), verdict: txt("#verdict")
   }));
 }
 
-async function showWatchQr() {
-  const gw = settings().gwId, url = new URL(`logger.html?role=watch&gw=${encodeURIComponent(gw)}`, location.href).href;
-  $("#watchLink").href = url;
-  if (watch.qrFor === gw) return;
-  try { if (!window.QRCode) await loadScript(QR_JS); } catch (e) { return; }
-  $("#watchQr").innerHTML = "";
-  new window.QRCode($("#watchQr"), { text: url, width: 132, height: 132, correctLevel: window.QRCode.CorrectLevel.M });
-  watch.qrFor = gw;
-}
-
-async function startWatchMode() {
+function startWatchMode() {
+  WATCH_MODE = true;
   document.body.classList.add("watchmode");
   document.title = "trip/wire watch";
   $("h1").textContent = "trip/wire watch";
   $("#watchView").hidden = false;
   const gw = params.get("gw");
-  if (!gw || !/^[\w-]{3,40}$/.test(gw)) { $("#wStatus").textContent = "Open this page from the QR code in the logger, so it knows which logger to watch."; return; }
+  if (gw && /^[\w-]{3,40}$/.test(gw)) watchConnect(gw);
+  else { $("#wStatus").textContent = "Which logger? It shows up here while its page is open."; finder("logger", "#wFound", watchConnect); }
+}
+
+async function watchConnect(gw) {
+  watch.gw = gw;
   keepAwake();
   try { if (!window.mqtt) await loadScript(MQTT_JS); } catch (e) { $("#wStatus").textContent = "Couldn't load the MQTT library. This phone needs mobile data or WiFi."; return; }
   const c = window.mqtt.connect(settings().broker, { clientId: "twwatch-" + Math.random().toString(16).slice(2, 10), reconnectPeriod: 3000, connectTimeout: 10000, clean: true });
@@ -970,8 +1040,8 @@ function renderWatch() {
   const fresh = age != null && age < 5;
   st.classList.toggle("err", age != null && !fresh);
   st.textContent = !watch.client || !watch.client.connected ? "Connecting…"
-    : age == null ? "Connected. Waiting for the logger: open it on the phone by the mic, with its screen on."
-    : fresh ? `Live from logger ${params.get("gw")}${j.demo ? ", demo data" : ""}.`
+    : age == null ? "Connected. Waiting for the logger: keep it open on the logger phone, with its screen on."
+    : fresh ? `Live from logger ${watch.gw}${j.demo ? ", demo data" : ""}.`
     : `No update for ${age} s. The logger phone may be locked or out of signal; these numbers are from ${clock(watch.at)}.`;
   if (!j) return;
   $("#wAlarmBox").classList.toggle("on", !!j.on && fresh);
@@ -1002,7 +1072,6 @@ function renderMic() {
   b.classList.toggle("stop", on && !!j.rec);
   $("#localMic").hidden = !mv.local && on;
   $("#micJoinBox").hidden = mv.local || !!demoTimer;
-  if (!mv.local && !on && !EMBED && !demoTimer) showMicQr();
   const parts = [];
   if (live.sensorAt) parts.push(`Detector level ${live.sensorDb} dBFS at ${clock(live.sensorAt)}, from its last check-in or alarm. It checks in once a minute.`);
   else parts.push("The detector's level arrives with its once-a-minute check-in and with every alarm.");
@@ -1027,7 +1096,7 @@ function detSetCheck() {
   const v = detRecent(6);
   if (v.length < 5) return { err: "Waiting for 5 s of readings from the detector." };
   const spread = Math.max(...v) - Math.min(...v), ref = energyMean(v.slice(-5));
-  if (!micOnline()) return { ref, err: "The mic phone isn't on. Scan the code below with it and tap Start the mic." };
+  if (!micOnline()) return { ref, err: "The mic phone isn't on. Open this page on it, tap Mic phone, then this logger." };
   if (ref < DET_SET_MIN) return { ref, err: `Play the calibration and turn it up until the detector reads 60–75 dB(A). At ${ref.toFixed(1)} the room's own noise counts too much.` };
   if (spread > DET_SET_SPREAD) return { ref, err: `The sound is changing by ${spread.toFixed(1)} dB. Keep it steady: the calibration only, no talking.` };
   return { ref };
@@ -1419,7 +1488,8 @@ function renderRaw() {
 }
 function renderGwId() {
   const s = settings();
-  $("#fGwId").value = s.gwId; $("#fBroker").value = s.broker; $("#gwIdShow").textContent = s.gwId;
+  $("#fGwId").value = s.lastGw || ""; $("#fGwId").placeholder = "tw-…"; $("#fBroker").value = s.broker;
+  document.querySelectorAll(".gwName").forEach((e) => e.textContent = s.gwId);
 }
 function renderAll() { renderControls(); renderRuns(); renderRange(); renderEvents(); renderRaw(); renderPorts(); }
 
@@ -1496,11 +1566,13 @@ async function mvConnect() {
   try { if (!window.mqtt) await loadScript(MQTT_JS); } catch (e) { $("#mvStatus").textContent = "Couldn't load the MQTT library. This phone needs mobile data or WiFi."; return; }
   const s = settings();
   mv.client = window.mqtt.connect(s.broker, { clientId: "twmic-" + Math.random().toString(16).slice(2, 10), reconnectPeriod: 3000, connectTimeout: 10000, clean: true });
-  mv.client.on("connect", () => { mv.client.subscribe(`${micTopic(s.gwId)}/cmd`, { qos: 0 }); renderMv(); });
+  mv.client.on("connect", () => { mv.client.subscribe([`${micTopic(s.gwId)}/cmd`, watchTopic(s.gwId)], { qos: 0 }); renderMv(); });
   mv.client.on("offline", renderMv);
   mv.client.on("message", (topic, payload) => {
+    if (topic.endsWith("/watch")) { mv.loggerAt = Date.now(); return; }
     let j;
     try { j = JSON.parse(new TextDecoder().decode(payload)); } catch (e) { return; }
+    if (j.cmd === "move" && typeof j.gw === "string" && /^[\w-]{3,40}$/.test(j.gw)) { mvJoin(j.gw); return; }
     if (j.cmd === "rec_start") mvRecStart(j.session);
     if (j.cmd === "rec_stop") mvRecStop();
     if (j.cmd === "cal") mvCal(j.sound);
@@ -1602,8 +1674,12 @@ function renderMv() {
     $("#lmSave").disabled = !mv.file;
     return;
   }
-  const online = mv.client && mv.client.connected;
-  if (mv.stream) $("#mvStatus").innerHTML = online ? `Connected to logger <code>${esc(settings().gwId)}</code>. Leave this phone by the mic.` : "Mic on. Connecting to the logger…";
+  const online = mv.client && mv.client.connected, gw = esc(settings().gwId);
+  const lag = mv.loggerAt ? Math.round((Date.now() - mv.loggerAt) / 1000) : null, lost = online && (lag == null ? Date.now() - mv.joinedAt > 10000 : lag > 15);
+  if (mv.stream) $("#mvStatus").innerHTML = !online ? "Mic on. Connecting to the logger…"
+    : !lost ? `Connected to logger <code>${gw}</code>. Leave this phone by the mic.`
+    : `Logger <code>${gw}</code> hasn't been heard ${lag == null ? "yet" : `for ${lag} s`}. Its screen may be locked, or it's out of signal. If it was closed and opened again, find it again.`;
+  $("#mvRefind").hidden = !lost || !!mv.finder || !!mvs.seq;
   $("#mvCalLine").textContent = mv.offset != null
     ? `Meter set${mv.offsetFrom ? ` from ${mv.offsetFrom}` : ""}: reading + ${mv.offset.toFixed(1)} dB. Set it again only on a different phone or browser.`
     : "Once per phone, at home: hold this phone beside the detector's mic, with the detector on USB to a laptop running the logger. Play the calibration and tap Set the mic phone's meter from the detector on the laptop. Phone mics differ by several dB, and each 6 dB doubles or halves the emulated distance.";
@@ -1622,7 +1698,23 @@ function renderMv() {
   $("#mvRecLine").textContent = mv.rec ? `Recording since ${clock(mv.recStart)}, ${Math.round((Date.now() - mv.recStart) / 1000)} s.` : mv.file ? `${mv.file.name}, ${(mv.file.size / 1e6).toFixed(1)} MB. Save it before closing this page.` : "The logger starts and stops the recording with the speaker sequence.";
 }
 
+// Join a logger by its ID: the tap that picks it also starts the mic, which needs a tap.
+function mvJoin(gw) {
+  const s = settings(); s.gwId = gw; saveSettings(s);
+  mv.finder = null; mv.loggerAt = null; mv.joinedAt = Date.now();
+  if (!mv.stream) { mvStart(); return; }
+  if (mv.client) mv.client.end(true);
+  mvConnect();
+}
+function mvFind() {
+  if (mv.finder) return;
+  mv.finder = finder("logger", "#mvFound", mvJoin);
+  renderMv();
+}
+
 function startMicMode() {
+  MIC_MODE = true;
+  mv.joinedAt = Date.now();
   document.body.classList.add("micmode");
   document.title = "trip/wire mic";
   $("h1").textContent = "trip/wire mic";
@@ -1634,7 +1726,12 @@ function startMicMode() {
   $("#mvSave").onclick = mvSave;
   $("#mvFile").onchange = () => { if (sp.key === "own") sp.buf = null; };
   window.addEventListener("beforeunload", (e) => { if (mv.rec || mv.file) { e.preventDefault(); e.returnValue = ""; } });
-  if (!params.get("gw")) $("#mvStatus").textContent = "Open this page from the QR code in the logger, so it knows which logger to join.";
+  $("#mvRefind").onclick = mvFind;
+  if (!params.get("gw")) {
+    $("#mvStart").hidden = true;
+    $("#mvStatus").textContent = "Put this phone beside the mic, at the same height. Then tap your logger below and allow the microphone. That one tap joins the logger and starts the mic.";
+    mvFind();
+  }
   renderMv();
 }
 
@@ -1676,7 +1773,30 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "m" || e.key === "M") mark("mark");
 });
 setInterval(() => { renderLive(); renderDetMeter(); if (sp.seq || sp.cal || sp.measuring) renderSp(); publishWatch(); }, 1000);
-$("#watchBox").ontoggle = () => { if ($("#watchBox").open) showWatchQr(); };
+document.querySelectorAll(".shareLink").forEach((b) => b.onclick = () => shareLink(b));
+$("#roleLink").onclick = (e) => { e.preventDefault(); location.href = location.pathname; };
+
+// With no role in the link, ask which phone this is.
+function pickRole() {
+  document.body.classList.add("picking");
+  document.title = "trip/wire"; $("h1").textContent = "trip/wire";
+  $("#rolePick").hidden = false;
+  document.querySelectorAll("#rolePick button.role").forEach((b) => b.onclick = () => {
+    $("#rolePick").hidden = true;
+    document.body.classList.remove("picking");
+    $("#roleLinkWrap").hidden = false;
+    if (b.dataset.role === "mic") startMicMode();
+    else if (b.dataset.role === "watch") startWatchMode();
+    else startLoggerRole();
+  });
+}
+function startLoggerRole() {
+  document.title = "trip/wire logger"; $("h1").textContent = "trip/wire logger";
+  micListen(); // the mic phone works with no board connected
+  $("#connectPanel").open = true;
+  gwFinder = finder("gateway", "#gwFound", (id) => { $("#fGwId").value = id; connectWifi(); });
+}
+
 const gwParam = params.get("gw");
 if (!EMBED && gwParam && /^[\w-]{3,40}$/.test(gwParam)) {
   const s = settings(); s.gwId = gwParam; saveSettings(s);
@@ -1693,7 +1813,8 @@ else if (EMBED) {
   scriptedDemo();
 } else if (params.has("demo")) startDemo();
 else if (gwParam) connectWifi();
-else micListen(); // the mic phone works with no board connected
+else pickRole();
+$("#roleLinkWrap").hidden = EMBED || document.body.classList.contains("picking");
 document.querySelectorAll(".toguide").forEach((a) => a.onclick = (e) => {
   e.preventDefault();
   $("#guide").open = true;

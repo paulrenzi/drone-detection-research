@@ -6,7 +6,6 @@
 <meta name="theme-color" content="#1f5f8b">
 <title>trip/wire flasher</title>
 <script type="module" src="https://unpkg.com/esp-web-tools@10.2.1/dist/web/install-button.js?module"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root {
   --bg: #f6f5f1; --panel: #ffffff; --ink: #1b1d1f; --muted: #5d636a; --line: #d9d6cf;
@@ -49,7 +48,6 @@ summary { cursor: pointer; color: var(--accent); }
 .pins td, .pins th { border-bottom: 1px solid var(--line); padding: 5px 6px; text-align: left; }
 footer { font-size: 13px; color: var(--muted); }
 .qr { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
-#qr { background: #fff; padding: 8px; border-radius: 8px; line-height: 0; }
 .qr p { flex: 1; min-width: 180px; margin: 0; }
 </style>
 </head>
@@ -83,8 +81,7 @@ footer { font-size: 13px; color: var(--muted); }
     <button slot="activate" id="gwBtn" disabled>Install gateway</button>
   </esp-web-install-button>
   <div class="qr">
-    <div id="qr"></div>
-    <p><strong>Then scan this with the logger phone.</strong> It opens the logger with this gateway ID and connects. Or open <a id="qrLink" href="../weekend/logger.html">this link</a> on the phone.</p>
+    <p><strong>Then, on the logger phone,</strong> turn on the hotspot, open the logger and tap <strong>Logger phone</strong>. Gateway <code id="gwShow"></code> shows up there by itself about 30 s after the board has power: tap it. To use this computer as the logger instead, for the meter step at home, <a id="qrLink" href="../weekend/logger.html">open the logger here</a>.</p>
   </div>
 </div>
 
@@ -136,13 +133,9 @@ const logger = read(LOGGER_KEY) || {};
 if (!logger.gwId) { logger.gwId = "tw-" + Math.random().toString(36).slice(2, 8); write(LOGGER_KEY, logger); }
 $("#gwId").value = logger.gwId;
 
-let qr = null;
 function showQr(gwId) {
-  const url = new URL(`../weekend/logger.html?gw=${encodeURIComponent(gwId)}`, location.href).href;
-  $("#qrLink").href = url;
-  if (!window.QRCode) return;
-  if (!qr) qr = new QRCode($("#qr"), { text: url, width: 148, height: 148, correctLevel: QRCode.CorrectLevel.M });
-  else qr.makeCode(url);
+  $("#qrLink").href = new URL(`../weekend/logger.html?gw=${encodeURIComponent(gwId)}`, location.href).href;
+  $("#gwShow").textContent = gwId;
 }
 
 const cache = {};
