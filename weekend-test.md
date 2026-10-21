@@ -10,12 +10,12 @@ nav_primary: 4
 
 **Pass:** heard at 100 m. **Fail:** under 60 m.
 
-**You need:** two Heltec V3 boards, an INMP441 mic, a Bluetooth speaker, two phones, a power bank, a tape measure and a drone ([kit and prices]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector)).
+**You need:** the two XIAO ESP32S3 + Wio-SX1262 kits with their antennas, a USB-C data cable, a laptop with Chrome, an INMP441 mic, a Bluetooth speaker, two phones, a power bank, a tape measure and a drone ([kit and prices]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector)).
 
 ## The steps
 
-1. **Flash two Heltec boards** from the [Batear web flasher](https://docs.batear.io/flasher/): one *detector*, one *gateway*. Give the gateway your phone's hotspot ([how](#phone-setup)).
-2. **Wire the mic** to the detector ([pins]({{ site.baseurl }}{% link research/open-source-builds.md %}#the-saturday-test)).
+1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* with your phone's hotspot ([how](#phone-setup)). This replaces the Meshtastic firmware they came with.
+2. **Wire the mic** to the detector: SCK to D3, WS to D4, SD to D5, L/R to GND, VDD to 3V3, GND to GND.
 3. **Open the logger** on your phone and connect. Pair the speaker, and in the logger's *Speaker test* tap **Play calibration** next to the mic. You should see an alarm.
 4. **Lay out the field** ([where everything goes](#field-layout)). Put the detector and the second phone side by side, 0.5 m up, in windscreens. Put the speaker on a chair 5 m away, with the logger phone and gateway on the chair too. On the logger phone, turn on Do Not Disturb and set Auto-Lock to Never.
 5. **Calibrate the speaker.** Use the second phone as the sound meter at the mic ([how](#speaker-test)).
@@ -63,10 +63,7 @@ you, quiet, behind the speaker
 
 1. Turn on your phone's hotspot. On an iPhone, switch on **Maximize Compatibility**: the board only sees 2.4 GHz.
 2. Open the logger on the phone. Under **Connect** it shows a gateway ID such as `tw-k3f9x2`.
-3. When you flash the gateway, fill in the Batear flasher's gateway settings:
-   - Wi-Fi SSID and password: your hotspot's
-   - MQTT broker URL: `mqtt://broker.hivemq.com:1883`
-   - Gateway Device ID: the logger's ID
+3. In [the flasher]({{ site.baseurl }}/tools/flasher/), enter the hotspot's name and password and that gateway ID. It fills in the broker for you. Flash both boards from the same computer, since they need the same network key.
 4. Tap **Connect over WiFi**. The chip turns to *gateway online* when the board checks in.
 
 Readings pass through a free public broker, so anyone who guessed the ID could read them: fine for a test, not for anything sensitive. Keep the screen on, since readings that arrive while it's locked are lost.

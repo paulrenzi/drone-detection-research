@@ -69,8 +69,8 @@ Earlier warning against a threat nothing else detects (fibre-optic FPVs), at low
 
 | Item | Buy | Alternatives |
 |---|---|---|
-| **2 × LoRa board**, 915 MHz | Heltec V3 2-pack, [Amazon, $44.98](https://www.amazon.com/dp/B0CW6151WJ) | [Rokland, $29.97 each](https://store.rokland.com/products/heltec-wifi-lora-32v3); [Heltec direct, $17.90–19.90](https://heltec.org/project/wifi-lora-32-v3/) + China shipping; [RAK WisBlock kit, $34.97](https://store.rokland.com/products/rak-wireless-wisblock-meshtastic-starter-kit); [LILYGO T3S3, $72.99](https://www.tindie.com/products/yihang/915mhz-meshtastic-kit-t3s3-s3-sx1262/) |
-| **u.FL→SMA cable** (V3 has no SMA) | Proxicast, [Amazon, $7.94](https://www.amazon.com/dp/B09GJGNPQX) | [Adafruit 851, $3.95](https://www.adafruit.com/product/851) |
+| **2 × LoRa board**, 915 MHz | **Bought:** Seeed XIAO ESP32S3 + Wio-SX1262 kit, [Rokland, $15.97 each](https://store.rokland.com/products/seeed-studio-xiao-esp32s3-wio-sx1262-kit-for-meshtastic-lora) | Heltec V3 2-pack, [Amazon, $44.98](https://www.amazon.com/dp/B0CW6151WJ); [Rokland, $29.97 each](https://store.rokland.com/products/heltec-wifi-lora-32v3); [Heltec direct, $17.90–19.90](https://heltec.org/project/wifi-lora-32-v3/) + China shipping; [RAK WisBlock kit, $34.97](https://store.rokland.com/products/rak-wireless-wisblock-meshtastic-starter-kit); [LILYGO T3S3, $72.99](https://www.tindie.com/products/yihang/915mhz-meshtastic-kit-t3s3-s3-sx1262/) |
+| **u.FL→SMA cable** (neither board has SMA) | Proxicast, [Amazon, $7.94](https://www.amazon.com/dp/B09GJGNPQX) | [Adafruit 851, $3.95](https://www.adafruit.com/product/851) |
 | **10 dB attenuator** (margin method) | MWRF, [Amazon, $12.49](https://www.amazon.com/dp/B07MRG9RDV) | [Inmet AHC-10, RF Parts, $15.91](https://www.rfparts.com/ahc-10.html); [L-com 20 dB, $92.09](https://www.l-com.com/coaxial-2w-20db-rf-fixed-attenuator-sma-male-to-sma-female-passivated-stainless-steel-body-up-to-6-ghz) |
 | **Mast**, 6–10 m | **Free:** upstairs window, roof edge, tree | Mifoci 23 ft, [Amazon, $59.99](https://www.amazon.com/dp/B0GYYL3S6C) (16 ft [$39.99](https://www.amazon.com/dp/B0GYXPXCNY)); [Spiderbeam 12 m HD, $109.99](https://moonrakeronline.com/us/spiderpole-12hd-telescopic-pole-12m-heavy-duty-fibreglass) |
 | **Antenna** (run D) | 915 MHz omni with u.FL lead, [Amazon, $16.95](https://www.amazon.com/dp/B0GSB5XKLF) | [8 dBi omni, Newegg Business, $16.99](https://www.neweggbusiness.com/p/9B-2VT-04FG-00029); [Rokland 5.8 dBi kit, $49.97](https://store.rokland.com/products/meshtastic-compatible-6-dbi-n-female-omni-outdoor-915-mhz-antenna-kit-with-6-10-or-15-cable-choice) |
@@ -217,7 +217,7 @@ A pass shows the idea works at small scale on US ground. It does not show it aga
 
 | Layer | Item | Buy | Price |
 |---|---|---|---|
-| 1 | Heltec LoRa 32 V3, 915 MHz, 2-pack | [Amazon](https://www.amazon.com/dp/B0CW6151WJ) | $44.98 |
+| 1 | Seeed XIAO ESP32S3 + Wio-SX1262 kit, ×2 (bought) | [Rokland](https://store.rokland.com/products/seeed-studio-xiao-esp32s3-wio-sx1262-kit-for-meshtastic-lora) | $31.94 |
 | 1 | u.FL→SMA pigtail, Proxicast | [Amazon](https://www.amazon.com/dp/B09GJGNPQX) | $7.94 |
 | 1 | 10 dB SMA attenuator, MWRF | [Amazon](https://www.amazon.com/dp/B07MRG9RDV) | $12.49 |
 | 1 | 915 MHz omni, N, with u.FL lead (run D) | [Amazon](https://www.amazon.com/dp/B0GSB5XKLF) | $16.95 |

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f5f8b">
+<title>Board Flasher</title>
+<script type="module" src="https://unpkg.com/esp-web-tools@10.2.1/dist/web/install-button.js?module"></script>
+<style>
+:root {
+  --bg: #f6f5f1; --panel: #ffffff; --ink: #1b1d1f; --muted: #5d636a; --line: #d9d6cf;
+  --accent: #1f5f8b; --accent-ink: #ffffff; --alarm: #b3261e; --ok: #2e7d32; --warn: #8a5a00;
+  --chip: #ecebe6; --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141618; --panel: #1d2023; --ink: #e8e6e1; --muted: #9aa0a6; --line: #33373b;
+    --accent: #6aa8d8; --accent-ink: #0e1113; --alarm: #ef6b62; --ok: #7cc47f; --warn: #e0b050; --chip: #2a2e32;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141618; --panel: #1d2023; --ink: #e8e6e1; --muted: #9aa0a6; --line: #33373b;
+  --accent: #6aa8d8; --accent-ink: #0e1113; --alarm: #ef6b62; --ok: #7cc47f; --warn: #e0b050; --chip: #2a2e32;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 640px; margin: 0 auto; padding: 16px 16px calc(32px + env(safe-area-inset-bottom)); }
+h1 { font-size: 22px; margin: 0 0 4px; }
+h2 { font-size: 17px; margin: 0 0 8px; }
+p { margin: 0 0 10px; }
+a { color: var(--accent); }
+code { font-family: var(--mono); font-size: 14px; background: var(--chip); border-radius: 4px; padding: 1px 5px; overflow-wrap: anywhere; }
+.lead { color: var(--muted); margin-bottom: 16px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+label { display: flex; flex-direction: column; gap: 3px; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+input { font: inherit; font-size: 16px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; width: 100%; }
+button { font: inherit; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 8px; padding: 11px 16px; cursor: pointer; min-height: 44px; }
+button:disabled { opacity: .45; cursor: default; }
+.hint { font-size: 13px; color: var(--muted); }
+.warn { color: var(--warn); font-size: 14px; display: none; }
+.warn.show { display: block; }
+ol { padding-left: 22px; margin: 0 0 10px; }
+li { margin-bottom: 4px; }
+details { margin-top: 8px; }
+summary { cursor: pointer; color: var(--accent); }
+.pins { width: 100%; border-collapse: collapse; font-size: 14px; margin: 8px 0; }
+.pins td, .pins th { border-bottom: 1px solid var(--line); padding: 5px 6px; text-align: left; }
+footer { font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+<h1>Flash the boards</h1>
+<p class="lead">For the Seeed XIAO ESP32S3 + Wio-SX1262 kit. This replaces the Meshtastic firmware the kit ships with; you can put Meshtastic back any time from <a href="https://flasher.meshtastic.org/" target="_blank" rel="noopener">its flasher</a>.</p>
+
+<p id="noSerial" class="warn">This browser can't reach a USB board. Use Chrome or Edge on a laptop or desktop.</p>
+
+<div class="panel">
+  <h2>1. Detector</h2>
+  <ol>
+    <li>Screw the antenna on first. Transmitting without one can damage the radio.</li>
+    <li>Plug the board in with a USB-C data cable, tap <strong>Install detector</strong> and pick the port (<em>USB JTAG/serial</em>).</li>
+    <li>Tick <strong>Erase device</strong> the first time, to clear Meshtastic.</li>
+  </ol>
+  <esp-web-install-button id="btnDet">
+    <button slot="activate">Install detector</button>
+  </esp-web-install-button>
+</div>
+
+<div class="panel">
+  <h2>2. Gateway</h2>
+  <label>Hotspot name<input id="ssid" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+  <label>Hotspot password<input id="pass" type="password" autocomplete="off"></label>
+  <label>Gateway ID<input id="gwId" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+  <p class="hint">Use the ID your logger shows under <em>Connect</em>. If you've opened the <a href="../weekend/logger.html">logger</a> in this browser, it's already filled in. The board only sees 2.4 GHz, so on an iPhone switch on <strong>Maximize Compatibility</strong>.</p>
+  <p id="gwWarn" class="warn show">Fill in the hotspot name and gateway ID first.</p>
+  <esp-web-install-button id="btnGw">
+    <button slot="activate" id="gwBtn" disabled>Install gateway</button>
+  </esp-web-install-button>
+</div>
+
+<div class="panel">
+  <h2>If it won't connect</h2>
+  <p>Hold the <strong>B</strong> (boot) button on the XIAO, plug in the cable, then let go. Try again.</p>
+  <details>
+    <summary>Where the mic goes</summary>
+    <table class="pins">
+      <tr><th>INMP441</th><th>XIAO pin</th></tr>
+      <tr><td>SCK</td><td>D3</td></tr>
+      <tr><td>WS</td><td>D4</td></tr>
+      <tr><td>SD</td><td>D5</td></tr>
+      <tr><td>L/R</td><td>GND</td></tr>
+      <tr><td>VDD / GND</td><td>3V3 / GND</td></tr>
+    </table>
+  </details>
+  <details>
+    <summary>What gets written</summary>
+    <p>Both boards get the same random network key, made once in this browser, so flash both from the same computer. The gateway also gets your hotspot, the public broker <code>mqtt://broker.hivemq.com:1883</code> and the gateway ID. Nothing you type leaves this page.</p>
+    <p class="hint">Network key: <code id="keyShow"></code></p>
+  </details>
+</div>
+
+<footer>
+  <p>Firmware: <a href="https://github.com/paulrenzi/tripwire-firmware">tripwire-firmware</a>, a fork of <a href="https://github.com/batear-io/batear">Batear</a> (MIT), build <code id="fwVer">…</code>. Built in CI, not yet run on a real XIAO.</p>
+</footer>
+</main>
+
+<script type="module">
+import { generateNvsImage, generateGatewayNvsImage, hexToBytes, generateRandomKey } from "./nvs_gen.js";
+
+const NVS_OFFSET = 0x9000;
+const BROKER = "mqtt://broker.hivemq.com:1883";
+const LOGGER_KEY = "tw-weekend-logger-settings";
+const KEY_KEY = "tw-flasher-netkey";
+const $ = (s) => document.querySelector(s);
+
+if (!("serial" in navigator)) $("#noSerial").classList.add("show");
+
+function read(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
+function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+let netKey = read(KEY_KEY);
+if (!/^[0-9a-fA-F]{32}$/.test(netKey || "")) { netKey = generateRandomKey(16); write(KEY_KEY, netKey); }
+$("#keyShow").textContent = netKey;
+
+const logger = read(LOGGER_KEY) || {};
+if (logger.gwId) $("#gwId").value = logger.gwId;
+
+const cache = {};
+async function firmware(role) {
+  if (!cache[role]) {
+    const r = await fetch(`firmware/merged_${role}_xiao.bin`, { cache: "no-cache" });
+    if (!r.ok) throw new Error(`firmware ${role}: ${r.status}`);
+    cache[role] = await r.arrayBuffer();
+  }
+  return cache[role];
+}
+
+function patch(buf, nvs) {
+  const out = new Uint8Array(Math.max(buf.byteLength, NVS_OFFSET + nvs.length)).fill(0xFF);
+  out.set(new Uint8Array(buf));
+  out.set(nvs, NVS_OFFSET);
+  return out;
+}
+
+const urls = {};
+function manifest(slot, name, bin) {
+  for (const u of urls[slot] || []) URL.revokeObjectURL(u);
+  const binUrl = URL.createObjectURL(new Blob([bin], { type: "application/octet-stream" }));
+  const man = URL.createObjectURL(new Blob([JSON.stringify({
+    name, new_install_prompt_erase: true,
+    builds: [{ chipFamily: "ESP32-S3", parts: [{ path: binUrl, offset: 0 }] }]
+  })], { type: "application/json" }));
+  urls[slot] = [binUrl, man];
+  return man;
+}
+
+const devEui = new Uint8Array(8);
+async function prepDetector() {
+  const nvs = generateNvsImage(devEui, hexToBytes(netKey), 1);
+  $("#btnDet").setAttribute("manifest", manifest("det", "Tripwire detector (XIAO)", patch(await firmware("detector"), nvs)));
+}
+
+let gwTimer = null;
+function prepGateway() {
+  const ssid = $("#ssid").value.trim(), gwId = $("#gwId").value.trim();
+  const ready = ssid !== "" && gwId !== "";
+  $("#gwWarn").classList.toggle("show", !ready);
+  $("#gwBtn").disabled = true;
+  clearTimeout(gwTimer);
+  if (!ready) return;
+  gwTimer = setTimeout(async () => {
+    const cfg = { wifiSsid: ssid, mqttUrl: BROKER, deviceId: gwId };
+    if ($("#pass").value) cfg.wifiPass = $("#pass").value;
+    const nvs = generateGatewayNvsImage(devEui, hexToBytes(netKey), cfg);
+    $("#btnGw").setAttribute("manifest", manifest("gw", "Tripwire gateway (XIAO)", patch(await firmware("gateway"), nvs)));
+    $("#gwBtn").disabled = false;
+    if (gwId !== logger.gwId) { logger.gwId = gwId; write(LOGGER_KEY, logger); }
+  }, 300);
+}
+
+for (const id of ["#ssid", "#pass", "#gwId"]) $(id).addEventListener("input", prepGateway);
+prepDetector().catch((e) => { $("#noSerial").textContent = "Couldn't load the firmware: " + e.message; $("#noSerial").classList.add("show"); });
+prepGateway();
+
+fetch("firmware/version.txt", { cache: "no-cache" }).then((r) => r.ok ? r.text() : "unknown").then((t) => { $("#fwVer").textContent = t.trim(); });
+</script>
+</body>
+</html>
