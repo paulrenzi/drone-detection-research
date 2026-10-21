@@ -7,7 +7,7 @@
       "uri": "dart.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-21T20:11:47.569Z",
+      "validatedAt": "2026-10-21T20:33:56.720Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -45,7 +45,7 @@
       "uri": "harness.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-21T20:11:47.660Z",
+      "validatedAt": "2026-10-21T20:33:56.812Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -83,7 +83,7 @@
       "uri": "aircraft.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-21T20:11:48.003Z",
+      "validatedAt": "2026-10-21T20:33:57.158Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -121,7 +121,7 @@
       "uri": "stake.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-21T20:11:48.060Z",
+      "validatedAt": "2026-10-21T20:33:57.218Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,

@@ -14,6 +14,6 @@ notes={
  'stake_clamp_detail.png':'Two stake ties plus separate pod-neck retaining tie; locator offcut visible.',
 }
 rows={p.name:dict(inspected=True,sha256=hashlib.sha256(p.read_bytes()).hexdigest(),note=notes.get(p.name,'Framing, part visibility, geometry and current XIAO identity visually reviewed.')) for p in sorted((R/'renders').glob('*.png'))}
-data=dict(reviewed_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),method='Assistant visually inspected every final PNG using view_image; corrections regenerated and re-inspected.',scope='CAD imagery only; no physical print, acoustic, radio, drop or flight qualification',renders=rows)
+data=dict(reviewed_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),method='Assistant visually inspected every final PNG at original resolution using view_image; checked US units, number/word spacing, matching model values, and uncropped, non-overlapping labels.',scope='CAD imagery only; no physical print, acoustic, radio, drop or flight qualification',renders=rows)
 for folder in ('out','web'):(R/folder/'visual_review.json').write_text(json.dumps(data,indent=2)+'\n')
 print('Recorded current inspection of',len(rows),'renders')

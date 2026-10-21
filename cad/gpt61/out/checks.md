@@ -1,142 +1,155 @@
-# Generated geometry checks
+# Generated geometry checks — US customary display
 
-- PASS: body_solid - {"valid": true, "solids": 1, "volume_mm3": 32269.722880566318}
-- PASS: body_bed - {"bbox_mm": [195.438557604146, 37.300000100000005, 53.200000100000004], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: pod_shell_solid - {"valid": true, "solids": 1, "volume_mm3": 14945.057696989386}
-- PASS: pod_shell_bed - {"bbox_mm": [102.00000020000398, 37.400000000000006, 17.800000200000003], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: pod_lid_solid - {"valid": true, "solids": 1, "volume_mm3": 4493.746241041024}
-- PASS: pod_lid_bed - {"bbox_mm": [150.0, 32.0, 5.900000000000006], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: usb_cap_solid - {"valid": true, "solids": 1, "volume_mm3": 721.0339983722076}
-- PASS: usb_cap_bed - {"bbox_mm": [16.4, 21.4, 3.400000000000003], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: plate_solid - {"valid": true, "solids": 1, "volume_mm3": 103683.19756902361}
-- PASS: plate_bed - {"bbox_mm": [177.0, 164.6663292844048, 76.20000020000002], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: rotor_solid - {"valid": true, "solids": 1, "volume_mm3": 30410.991532145075}
-- PASS: rotor_bed - {"bbox_mm": [129.29904772779173, 129.8, 6.000000000000011], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: fit_coupon_solid - {"valid": true, "solids": 1, "volume_mm3": 3537.223465853332}
-- PASS: fit_coupon_bed - {"bbox_mm": [55.0, 11.6, 10.8], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: stake_adapter_solid - {"valid": true, "solids": 1, "volume_mm3": 10535.14786998049}
-- PASS: stake_adapter_bed - {"bbox_mm": [44.0, 42.0, 17.000000000000004], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: stake_cell_holder_solid - {"valid": true, "solids": 1, "volume_mm3": 24051.917649055526}
-- PASS: stake_cell_holder_bed - {"bbox_mm": [80.50000010000001, 70.6000001, 19.100000100000003], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: dummy_body_solid - {"valid": true, "solids": 1, "volume_mm3": 39706.56179134687}
-- PASS: dummy_body_bed - {"bbox_mm": [195.438557604146, 37.300000100000005, 53.200000100000004], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: dummy_lid_solid - {"valid": true, "solids": 1, "volume_mm3": 3209.037167544041}
-- PASS: dummy_lid_bed - {"bbox_mm": [77.0, 21.0, 2.0000000000000044], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: dummy_head_insert_solid - {"valid": true, "solids": 1, "volume_mm3": 1474.1639647148718}
-- PASS: dummy_head_insert_bed - {"bbox_mm": [23.0, 17.8, 7.0], "bed_mm": [245.0, 245.0, 260.0]}
-- PASS: balance_fixed_point - {"hanger_mm": 254.4385575041457, "cg_mm": [254.43385051830592, 7.086717221274974, 9.02556412225324], "mass_g": 147.93074419497574}
-- PASS: snap_flexure_screen - {"per_arm_deflection_mm": 0.8999999999999986, "nominal_surface_strain": 0.004999999999999991, "root_factor": 2.0, "factored_strain": 0.009999999999999983, "screen_allowable": 0.015, "per_arm_tip_force_N": 0.7253333333333319, "four_arm_force_N": 2.9013333333333278, "method": "linear axial cantilever, F=3EI delta/L^3; conservative tip load"}
-- PASS: hanger_tension_screen - {"stress_3g_MPa": 0.2217271190360556, "assumed_print_allowable_MPa": 8, "method": "axial neck area, layer-strength coupon required"}
-- PASS: bearing_friction_screen - {"assumed_mu": 0.12, "static_torque_Nm": 0.034480526269132436, "three_g_torque_Nm": 0.10344157880739731, "SG90_4v8_stall_Nm": 0.1765197, "scope": "engineering estimate with PTFE tape, no measured friction or servo current"}
-- PASS: four_rail_ties_load_screen - {"force_per_tie_3g_N": 5.70354837368772, "S7_catalog_min_loop_strength_N": 80, "scope": "Equal sharing assumed; printed saddle strength and dynamic unequal loading untested"}
-- PASS: cell_to_body - {"interference_mm3": 0.0}
-- PASS: PCB_to_shell - {"interference_mm3": 0.0}
-- PASS: PCB_to_lid - {"interference_mm3": 0.0}
-- PASS: mic_to_shell - {"interference_mm3": 0.0}
-- PASS: mic_to_lid - {"interference_mm3": 0.0}
-- PASS: shell_to_lid - {"interference_mm3": 0.0}
-- PASS: cap_to_shell - {"interference_mm3": 0.0}
-- PASS: cap_to_lid - {"interference_mm3": 0.0}
-- PASS: dummy_lid_to_body - {"interference_mm3": 0.0}
-- PASS: dummy_insert_to_shell - {"interference_mm3": 0.0}
-- PASS: mic_wire_D3_BCLK_to_body - {"interference_mm3": 0.0}
-- PASS: mic_wire_D3_BCLK_to_pod_shell - {"interference_mm3": 0.0}
-- PASS: mic_wire_D3_BCLK_to_pod_lid - {"interference_mm3": 0.0}
-- PASS: mic_wire_D4_WS_to_body - {"interference_mm3": 0.0}
-- PASS: mic_wire_D4_WS_to_pod_shell - {"interference_mm3": 0.0}
-- PASS: mic_wire_D4_WS_to_pod_lid - {"interference_mm3": 0.0}
-- PASS: mic_wire_D5_SD_to_body - {"interference_mm3": 0.0}
-- PASS: mic_wire_D5_SD_to_pod_shell - {"interference_mm3": 0.0}
-- PASS: mic_wire_D5_SD_to_pod_lid - {"interference_mm3": 0.0}
-- PASS: mic_wire_3V3_to_body - {"interference_mm3": 0.0}
-- PASS: mic_wire_3V3_to_pod_shell - {"interference_mm3": 0.0}
-- PASS: mic_wire_3V3_to_pod_lid - {"interference_mm3": 0.0}
-- PASS: mic_wire_GND_to_body - {"interference_mm3": 0.0}
-- PASS: mic_wire_GND_to_pod_shell - {"interference_mm3": 0.0}
-- PASS: mic_wire_GND_to_pod_lid - {"interference_mm3": 0.0}
-- PASS: power_wire_0_to_body - {"interference_mm3": 0.0}
-- PASS: power_wire_0_to_pod_shell - {"interference_mm3": 0.0}
-- PASS: power_wire_0_to_pod_lid - {"interference_mm3": 0.0}
-- PASS: power_wire_1_to_body - {"interference_mm3": 0.0}
-- PASS: power_wire_1_to_pod_shell - {"interference_mm3": 0.0}
-- PASS: power_wire_1_to_pod_lid - {"interference_mm3": 0.0}
-- PASS: separate_insulated_wire_routes - {"collisions": [], "scope": "Nominal rigid wire routes, excluding solder-to-pad contacts"}
-- PASS: rod_press_lands_declared - {"intentional_interference_mm3": 4.378204164032724, "land_bore_mm": 5.95, "rod_mm": 6.0, "main_bore_mm": 6.35}
-- PASS: servo_case_to_plate - {"interference_mm3": 0.0}
-- PASS: servo_case_to_rotor - {"interference_mm3": 0.0}
-- PASS: rotor_to_plate - {"interference_mm3": 0.0}
-- PASS: horn_and_drive_to_plate - {"interference_mm3": 0.0}
-- PASS: horn_and_drive_to_rotor - {"interference_mm3": 0.0}
-- PASS: axial_keeper_to_rotor - {"interference_mm3": 0.0, "keeper_gap_mm": 0.4}
-- PASS: rail_tie_channels - {"interference_mm3": 0.0, "nominal_tie_width_mm": 2.5, "channel_width_mm": 3.1}
-- PASS: dart1_release - {"initial_mm2": 26.725850868571634, "previous_detent_mm2": 26.725850868571634, "minimum_before_previous_detent_mm2": 26.725850868571634, "at_release_mm2": 0.0, "release_deg": 16.0, "full_clear_window_deg": [11.0, 21.0]}
-- PASS: dart2_release - {"initial_mm2": 26.725850868572085, "previous_detent_mm2": 26.725850868572127, "minimum_before_previous_detent_mm2": 26.72585086857206, "at_release_mm2": 0.0, "release_deg": 48.0, "full_clear_window_deg": [43.0, 53.0]}
-- PASS: dart3_release - {"initial_mm2": 26.725850868571815, "previous_detent_mm2": 26.725850868571797, "minimum_before_previous_detent_mm2": 26.72585086857173, "at_release_mm2": 0.0, "release_deg": 32.0, "full_clear_window_deg": [27.0, 37.0]}
-- PASS: dart4_release - {"initial_mm2": 26.725850868571815, "previous_detent_mm2": 26.72585086857179, "minimum_before_previous_detent_mm2": 26.725850868571676, "at_release_mm2": 0.0, "release_deg": 64.0, "full_clear_window_deg": [59.0, 64.0]}
-- PASS: rotor_body_sweep - {"max_interference_mm3": 0.0, "worst_angle_dart": [], "sampled_step_deg": 2}
-- PASS: harness_to_OEM_drone - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "x500_landing_gear_002"}
-- PASS: carried_dart1_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.399999999999984, "nearest": "x500_frame_203"}
-- PASS: carried_dart1_landing_gear - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 2.5445196981024836, "nearest": "x500_landing_gear_003"}
-- PASS: carried_dart1_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.60095874215625, "nearest": "prop_swept_3"}
-- PASS: carried_dart1_harness - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "plate"}
-- PASS: carried_dart1_ground - {"clearance_mm": 94.67643338940002}
-- PASS: carried_dart2_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.399999999999984, "nearest": "x500_frame_203"}
-- PASS: carried_dart2_landing_gear - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "x500_landing_gear_003"}
-- PASS: carried_dart2_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.6, "nearest": "prop_swept_0"}
-- PASS: carried_dart2_harness - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "plate"}
-- PASS: carried_dart2_ground - {"clearance_mm": 94.67643338940002}
-- PASS: darts_1_2_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 2.5999999999999943}
-- PASS: carried_dart3_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.399999999999984, "nearest": "x500_frame_203"}
-- PASS: carried_dart3_landing_gear - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "x500_landing_gear_019"}
-- PASS: carried_dart3_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.6, "nearest": "prop_swept_1"}
-- PASS: carried_dart3_harness - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "plate"}
-- PASS: carried_dart3_ground - {"clearance_mm": 94.67643338940002}
-- PASS: darts_1_3_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 6.600000000000001}
-- PASS: darts_2_3_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 46.599999999999994}
-- PASS: carried_dart4_frame - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 17.455100131711255, "nearest": "x500_frame_203"}
-- PASS: carried_dart4_landing_gear - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "x500_landing_gear_019"}
-- PASS: carried_dart4_prop_sweeps - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 123.6, "nearest": "prop_swept_1"}
-- PASS: carried_dart4_harness - {"max_interference_mm3": 0.0, "part": "", "min_clearance_mm": 0.0, "nearest": "plate"}
-- PASS: carried_dart4_ground - {"clearance_mm": 94.67643338940002}
-- PASS: darts_1_4_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 46.599999999999994}
-- PASS: darts_2_4_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 86.6}
-- PASS: darts_3_4_separation - {"interference_mm3": 0.0, "clearance_lower_bound_mm": 2.5999999999999943}
-- PASS: vertical_extraction_sweep - {"max_interference_mm3": 0.0, "worst_dart_drop_part": null, "drop_samples_mm": [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90], "min_leg_clearance_mm": 0.0}
-- PASS: post_extraction_pitch_sweep - {"max_interference_mm3": 0.0, "worst": null, "pitch_step_deg": 5, "vertical_translation_before_pitch_mm": 430, "aircraft_height_above_stock_ground_mm": 1500, "ground_clearance_mm": 920.0634401075075, "scope": "prescribed path only, no fall dynamics or aerodynamic claim"}
-- PASS: stood_body_ground - {"interference_mm3": 0.0, "lowest_height_mm": -1.0000000532907051e-07}
-- PASS: stood_pod_shell_ground - {"interference_mm3": 0.0, "lowest_height_mm": 409.999999899996}
-- PASS: stood_pod_lid_ground - {"interference_mm3": 0.0, "lowest_height_mm": 466.0}
-- PASS: stood_usb_cap_ground - {"interference_mm3": 0.0, "lowest_height_mm": 510.20000000000005}
-- PASS: stood_full_aircraft_scene - {"clearance_lower_bound_mm": 132.11007741660785, "listener_offset_mm": [650, 0, 0], "stock_skid_ground_z_mm": 0, "scope": "end-state review layout; intentional70mm tip-soil penetration"}
-- PASS: dummy_mass_and_3D_balance - {"mass_g": 147.93074419497574, "ballast_g": 36.8233221424516, "cg_error_mm": [0.0, 0.0, 0.0], "pockets_fit": true}
-- PASS: ballast_body_front_clearance - {"interference_mm3": 0.0, "steel_mass_g": 11.62897736153684}
-- PASS: ballast_body_rear_clearance - {"interference_mm3": 0.0, "steel_mass_g": 20.252124441690032}
-- PASS: ballast_head_front_clearance - {"interference_mm3": 0.0, "steel_mass_g": 2.4711101696123645}
-- PASS: ballast_head_rear_clearance - {"interference_mm3": 0.0, "steel_mass_g": 2.4711101696123645}
-- PASS: USB_plug_access - {"interference_mm3": 0.0, "plug_envelope_mm": [12, 11, 6.2], "scope": "MEASURE actual cable overmould; end cap removed"}
-- PASS: BOOT_RESET_pin_access_-5.93 - {"interference_mm3": 0.0, "pin_d_mm": 0.7, "scope": "Cap removed; verify button identity/travel on purchased revision"}
-- PASS: BOOT_RESET_pin_access_5.93 - {"interference_mm3": 0.0, "pin_d_mm": 0.7, "scope": "Cap removed; verify button identity/travel on purchased revision"}
-- PASS: mic_ground_height - {"height_mm": 500.0}
-- PASS: stake_range_8.0 - {"interference_mm3": 0.0, "axis_height_mm": 10.65685424949238, "diameter_mm": 8.0}
-- PASS: stake_cell_holder_range_8.0 - {"interference_mm3": 0.0, "diameter_mm": 8.0}
-- PASS: stake_range_10.0 - {"interference_mm3": 0.0, "axis_height_mm": 12.071067811865476, "diameter_mm": 10.0}
-- PASS: stake_cell_holder_range_10.0 - {"interference_mm3": 0.0, "diameter_mm": 10.0}
-- PASS: stake_range_13.0 - {"interference_mm3": 0.0, "axis_height_mm": 14.192388155425117, "diameter_mm": 13.0}
-- PASS: stake_cell_holder_range_13.0 - {"interference_mm3": 0.0, "diameter_mm": 13.0}
-- PASS: stake_power_wire_0_to_stake_adapter - {"interference_mm3": 0.0}
-- PASS: stake_power_wire_0_to_stake_cell_holder - {"interference_mm3": 0.0}
-- PASS: stake_power_wire_0_to_pod_shell - {"interference_mm3": 0.0}
-- PASS: stake_power_wire_0_to_pod_lid - {"interference_mm3": 0.0}
-- PASS: stake_power_wire_1_to_stake_adapter - {"interference_mm3": 0.0}
-- PASS: stake_power_wire_1_to_stake_cell_holder - {"interference_mm3": 0.0}
-- PASS: stake_power_wire_1_to_pod_shell - {"interference_mm3": 0.0}
-- PASS: stake_power_wire_1_to_pod_lid - {"interference_mm3": 0.0}
-- PASS: stake_separate_power_wires - {"interference_mm3": 0.0}
-- PASS: stake_adapter_to_pod_shell - {"interference_mm3": 0.0}
-- PASS: stake_adapter_to_pod_socket_rod_offcut - {"interference_mm3": 0.0}
-- PASS: stake_clamp_tie_457_clearance - {"interference_mm3": 0.0}
-- PASS: stake_clamp_tie_483_clearance - {"interference_mm3": 0.0}
-- PASS: stake_cell_tie_284_clearance - {"interference_mm3": 0.0}
-- PASS: stake_cell_tie_336_clearance - {"interference_mm3": 0.0}
-- PASS: stake_pod_retaining_tie_clearance - {"interference_mm3": 0.0}
-- PASS: stake_mic_height - {"mic_height_mm": 500, "stake_length_mm": 1219.2, "burial_nominal_mm": 100.0, "scope": "Slide adapter until mic is500mm above actual ground, independently of insertion depth"}
+**140/140 checks pass.**
+
+Display values are converted from unchanged `checks.json` model values. Lengths use three decimal inches here to preserve clearance information; small areas and volumes retain significant digits. Values near zero can round to zero. Check names containing stock positions are also converted for display. The acceleration factor 3g means three times gravity.
+
+Vehicle distances are conservative axis-aligned bounding-box lower bounds; a zero lower bound is NOT a measured zero gap. Interference results use actual B-rep boolean volumes after broad-phase pruning.
+
+Discrete sampling: 0.5 degree contact; 2 degree rotor-neck; 0.197 in extraction; 5 degree prescribed pitch.
+
+- No aerodynamic or self-righting simulation
+- No print, proof load, water, shake, cycling or flight test
+- MEASURE parameters remain nominal assumptions
+- Intentional press-fit, heat-set and elastomer contacts are excluded from clearance pass claims
+
+- PASS: body solid — valid: true; solids: 1; volume: 1.96922 in³
+- PASS: body bed — bbox: [7.694 in, 1.469 in, 2.094 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: pod shell solid — valid: true; solids: 1; volume: 0.912003 in³
+- PASS: pod shell bed — bbox: [4.016 in, 1.472 in, 0.701 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: pod lid solid — valid: true; solids: 1; volume: 0.274225 in³
+- PASS: pod lid bed — bbox: [5.906 in, 1.260 in, 0.232 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: usb cap solid — valid: true; solids: 1; volume: 0.0440002 in³
+- PASS: usb cap bed — bbox: [0.646 in, 0.843 in, 0.134 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: plate solid — valid: true; solids: 1; volume: 6.32714 in³
+- PASS: plate bed — bbox: [6.969 in, 6.483 in, 3.000 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: rotor solid — valid: true; solids: 1; volume: 1.85579 in³
+- PASS: rotor bed — bbox: [5.091 in, 5.110 in, 0.236 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: fit coupon solid — valid: true; solids: 1; volume: 0.215855 in³
+- PASS: fit coupon bed — bbox: [2.165 in, 0.457 in, 0.425 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: stake adapter solid — valid: true; solids: 1; volume: 0.642894 in³
+- PASS: stake adapter bed — bbox: [1.732 in, 1.654 in, 0.669 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: stake cell holder solid — valid: true; solids: 1; volume: 1.46774 in³
+- PASS: stake cell holder bed — bbox: [3.169 in, 2.780 in, 0.752 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: dummy body solid — valid: true; solids: 1; volume: 2.42304 in³
+- PASS: dummy body bed — bbox: [7.694 in, 1.469 in, 2.094 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: dummy lid solid — valid: true; solids: 1; volume: 0.195827 in³
+- PASS: dummy lid bed — bbox: [3.031 in, 0.827 in, 0.079 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: dummy head insert solid — valid: true; solids: 1; volume: 0.089959 in³
+- PASS: dummy head insert bed — bbox: [0.906 in, 0.701 in, 0.276 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: balance fixed point — hanger: 10.017 in; cg: [10.017 in, 0.279 in, 0.355 in]; mass: 5.22 oz
+- PASS: snap flexure screen — per arm deflection: 0.035 in; nominal surface strain: 0.005; root factor: 2; factored strain: 0.01; screen allowable: 0.015; per arm tip force: 0.16 lbf; four arm force: 0.65 lbf; method: linear axial cantilever, F=3EI delta/L^3; conservative tip load
+- PASS: hanger tension screen — stress 3g: 32.16 psi; assumed print allowable: 1160.30 psi; method: axial neck area, layer-strength coupon required
+- PASS: bearing friction screen — assumed mu: 0.12; static torque: 4.88 oz·in; three g torque: 14.65 oz·in; SG90 4v8 stall: 25.00 oz·in; scope: engineering estimate with PTFE tape, no measured friction or servo current
+- PASS: four rail ties load screen — force per tie 3g: 1.28 lbf; S7 catalog min loop strength: 17.98 lbf; scope: Equal sharing assumed; printed saddle strength and dynamic unequal loading untested
+- PASS: cell to body — interference: 0 in³
+- PASS: PCB to shell — interference: 0 in³
+- PASS: PCB to lid — interference: 0 in³
+- PASS: mic to shell — interference: 0 in³
+- PASS: mic to lid — interference: 0 in³
+- PASS: shell to lid — interference: 0 in³
+- PASS: cap to shell — interference: 0 in³
+- PASS: cap to lid — interference: 0 in³
+- PASS: dummy lid to body — interference: 0 in³
+- PASS: dummy insert to shell — interference: 0 in³
+- PASS: mic wire D3 BCLK to body — interference: 0 in³
+- PASS: mic wire D3 BCLK to pod shell — interference: 0 in³
+- PASS: mic wire D3 BCLK to pod lid — interference: 0 in³
+- PASS: mic wire D4 WS to body — interference: 0 in³
+- PASS: mic wire D4 WS to pod shell — interference: 0 in³
+- PASS: mic wire D4 WS to pod lid — interference: 0 in³
+- PASS: mic wire D5 SD to body — interference: 0 in³
+- PASS: mic wire D5 SD to pod shell — interference: 0 in³
+- PASS: mic wire D5 SD to pod lid — interference: 0 in³
+- PASS: mic wire 3V3 to body — interference: 0 in³
+- PASS: mic wire 3V3 to pod shell — interference: 0 in³
+- PASS: mic wire 3V3 to pod lid — interference: 0 in³
+- PASS: mic wire GND to body — interference: 0 in³
+- PASS: mic wire GND to pod shell — interference: 0 in³
+- PASS: mic wire GND to pod lid — interference: 0 in³
+- PASS: power wire 0 to body — interference: 0 in³
+- PASS: power wire 0 to pod shell — interference: 0 in³
+- PASS: power wire 0 to pod lid — interference: 0 in³
+- PASS: power wire 1 to body — interference: 0 in³
+- PASS: power wire 1 to pod shell — interference: 0 in³
+- PASS: power wire 1 to pod lid — interference: 0 in³
+- PASS: separate insulated wire routes — collisions: []; scope: Nominal rigid wire routes, excluding solder-to-pad contacts
+- PASS: rod press lands declared — intentional interference: 0.000267174 in³; land bore: 0.234 in; rod: 0.236 in; main bore: 0.250 in
+- PASS: servo case to plate — interference: 0 in³
+- PASS: servo case to rotor — interference: 0 in³
+- PASS: rotor to plate — interference: 0 in³
+- PASS: horn and drive to plate — interference: 0 in³
+- PASS: horn and drive to rotor — interference: 0 in³
+- PASS: axial keeper to rotor — interference: 0 in³; keeper gap: 0.016 in
+- PASS: rail tie channels — interference: 0 in³; nominal tie width: 0.098 in; channel width: 0.122 in
+- PASS: dart1 release — initial: 0.0414252 in²; previous detent: 0.0414252 in²; minimum before previous detent: 0.0414252 in²; at release: 0 in²; release: 16 degrees; full clear window: [11 degrees, 21 degrees]
+- PASS: dart2 release — initial: 0.0414252 in²; previous detent: 0.0414252 in²; minimum before previous detent: 0.0414252 in²; at release: 0 in²; release: 48 degrees; full clear window: [43 degrees, 53 degrees]
+- PASS: dart3 release — initial: 0.0414252 in²; previous detent: 0.0414252 in²; minimum before previous detent: 0.0414252 in²; at release: 0 in²; release: 32 degrees; full clear window: [27 degrees, 37 degrees]
+- PASS: dart4 release — initial: 0.0414252 in²; previous detent: 0.0414252 in²; minimum before previous detent: 0.0414252 in²; at release: 0 in²; release: 64 degrees; full clear window: [59 degrees, 64 degrees]
+- PASS: rotor body sweep — max interference: 0 in³; worst angle dart: []; sampled step: 2 degrees
+- PASS: harness to OEM drone — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: x 500_landing_gear_002
+- PASS: carried dart1 frame — max interference: 0 in³; part: ; min clearance: 0.685 in; nearest: x 500_frame_203
+- PASS: carried dart1 landing gear — max interference: 0 in³; part: ; min clearance: 0.100 in; nearest: x 500_landing_gear_003
+- PASS: carried dart1 prop sweeps — max interference: 0 in³; part: ; min clearance: 4.866 in; nearest: prop_swept_3
+- PASS: carried dart1 harness — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: plate
+- PASS: carried dart1 ground — clearance: 3.727 in
+- PASS: carried dart2 frame — max interference: 0 in³; part: ; min clearance: 0.685 in; nearest: x 500_frame_203
+- PASS: carried dart2 landing gear — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: x 500_landing_gear_003
+- PASS: carried dart2 prop sweeps — max interference: 0 in³; part: ; min clearance: 4.866 in; nearest: prop_swept_0
+- PASS: carried dart2 harness — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: plate
+- PASS: carried dart2 ground — clearance: 3.727 in
+- PASS: darts 1 2 separation — interference: 0 in³; clearance lower bound: 0.102 in
+- PASS: carried dart3 frame — max interference: 0 in³; part: ; min clearance: 0.685 in; nearest: x 500_frame_203
+- PASS: carried dart3 landing gear — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: x 500_landing_gear_019
+- PASS: carried dart3 prop sweeps — max interference: 0 in³; part: ; min clearance: 4.866 in; nearest: prop_swept_1
+- PASS: carried dart3 harness — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: plate
+- PASS: carried dart3 ground — clearance: 3.727 in
+- PASS: darts 1 3 separation — interference: 0 in³; clearance lower bound: 0.260 in
+- PASS: darts 2 3 separation — interference: 0 in³; clearance lower bound: 1.835 in
+- PASS: carried dart4 frame — max interference: 0 in³; part: ; min clearance: 0.687 in; nearest: x 500_frame_203
+- PASS: carried dart4 landing gear — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: x 500_landing_gear_019
+- PASS: carried dart4 prop sweeps — max interference: 0 in³; part: ; min clearance: 4.866 in; nearest: prop_swept_1
+- PASS: carried dart4 harness — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: plate
+- PASS: carried dart4 ground — clearance: 3.727 in
+- PASS: darts 1 4 separation — interference: 0 in³; clearance lower bound: 1.835 in
+- PASS: darts 2 4 separation — interference: 0 in³; clearance lower bound: 3.409 in
+- PASS: darts 3 4 separation — interference: 0 in³; clearance lower bound: 0.102 in
+- PASS: vertical extraction sweep — max interference: 0 in³; worst dart drop part: none; drop samples: [0.000 in, 0.197 in, 0.394 in, 0.591 in, 0.787 in, 0.984 in, 1.181 in, 1.378 in, 1.575 in, 1.772 in, 1.969 in, 2.165 in, 2.362 in, 2.559 in, 2.756 in, 2.953 in, 3.150 in, 3.346 in, 3.543 in]; min leg clearance: 0.000 in
+- PASS: post extraction pitch sweep — max interference: 0 in³; worst: none; pitch step: 5 degrees; vertical translation before pitch: 16.929 in; aircraft height above stock ground: 59.055 in; ground clearance: 36.223 in; scope: prescribed path only, no fall dynamics or aerodynamic claim
+- PASS: stood body ground — interference: 0 in³; lowest height: 0.000 in
+- PASS: stood pod shell ground — interference: 0 in³; lowest height: 16.142 in
+- PASS: stood pod lid ground — interference: 0 in³; lowest height: 18.346 in
+- PASS: stood usb cap ground — interference: 0 in³; lowest height: 20.087 in
+- PASS: stood full aircraft scene — clearance lower bound: 5.201 in; listener offset: [25.591 in, 0.000 in, 0.000 in]; stock skid ground z: 0.000 in; scope: end-state review layout; intentional 2.76 in tip-soil penetration
+- PASS: dummy mass and 3D balance — mass: 5.22 oz; ballast: 1.30 oz; cg error: [0.000 in, 0.000 in, 0.000 in]; pockets fit: true
+- PASS: ballast body front clearance — interference: 0 in³; steel mass: 0.41 oz
+- PASS: ballast body rear clearance — interference: 0 in³; steel mass: 0.71 oz
+- PASS: ballast head front clearance — interference: 0 in³; steel mass: 0.09 oz
+- PASS: ballast head rear clearance — interference: 0 in³; steel mass: 0.09 oz
+- PASS: USB plug access — interference: 0 in³; plug envelope: [0.472 in, 0.433 in, 0.244 in]; scope: MEASURE actual cable overmould; end cap removed
+- PASS: BOOT RESET pin access -0.233 in — interference: 0 in³; pin d: 0.028 in; scope: Cap removed; verify button identity/travel on purchased revision
+- PASS: BOOT RESET pin access 0.233 in — interference: 0 in³; pin d: 0.028 in; scope: Cap removed; verify button identity/travel on purchased revision
+- PASS: mic ground height — height: 19.685 in
+- PASS: stake range 0.315 in — interference: 0 in³; axis height: 0.420 in; diameter: 0.315 in
+- PASS: stake cell holder range 0.315 in — interference: 0 in³; diameter: 0.315 in
+- PASS: stake range 0.394 in — interference: 0 in³; axis height: 0.475 in; diameter: 0.394 in
+- PASS: stake cell holder range 0.394 in — interference: 0 in³; diameter: 0.394 in
+- PASS: stake range 0.512 in — interference: 0 in³; axis height: 0.559 in; diameter: 0.512 in
+- PASS: stake cell holder range 0.512 in — interference: 0 in³; diameter: 0.512 in
+- PASS: stake power wire 0 to stake adapter — interference: 0 in³
+- PASS: stake power wire 0 to stake cell holder — interference: 0 in³
+- PASS: stake power wire 0 to pod shell — interference: 0 in³
+- PASS: stake power wire 0 to pod lid — interference: 0 in³
+- PASS: stake power wire 1 to stake adapter — interference: 0 in³
+- PASS: stake power wire 1 to stake cell holder — interference: 0 in³
+- PASS: stake power wire 1 to pod shell — interference: 0 in³
+- PASS: stake power wire 1 to pod lid — interference: 0 in³
+- PASS: stake separate power wires — interference: 0 in³
+- PASS: stake adapter to pod shell — interference: 0 in³
+- PASS: stake adapter to pod socket rod offcut — interference: 0 in³
+- PASS: stake clamp tie 17.99 in clearance — interference: 0 in³
+- PASS: stake clamp tie 19.02 in clearance — interference: 0 in³
+- PASS: stake cell tie 11.18 in clearance — interference: 0 in³
+- PASS: stake cell tie 13.23 in clearance — interference: 0 in³
+- PASS: stake pod retaining tie clearance — interference: 0 in³
+- PASS: stake mic height — mic height: 19.685 in; stake length: 48.000 in; burial nominal: 3.937 in; scope: Slide adapter until mic is 19.69 in above actual ground, independently of insertion depth

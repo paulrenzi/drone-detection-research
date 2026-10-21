@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-21T20:16:07.834545+00:00",
+  "created_utc": "2026-10-21T20:36:59.568361+00:00",
   "cadquery": "2.8.0",
   "vtk": "9.6.2",
   "geometry_checks": 140,
@@ -254,9 +254,14 @@
       "sha256": "2fee101c53252898c3982b48094d7a17a47db91358c01ec2ca0886c88f66b24a"
     },
     {
+      "path": "display_units.py",
+      "bytes": 7665,
+      "sha256": "30cb38ef809f83241ae3bcc774bbc4f700cb54684392b5cc6d6cb566865e6659"
+    },
+    {
       "path": "document.py",
-      "bytes": 32507,
-      "sha256": "a609647162bd963f4162bab386c57d7c5fe4dd9dd2703d973d412b4ba151dbeb"
+      "bytes": 35240,
+      "sha256": "4a6014167082432aab2c0369b5d400877273c39e7f48b922107b0b5fc22a3cf7"
     },
     {
       "path": "exploded.py",
@@ -310,8 +315,8 @@
     },
     {
       "path": "record_visual_review.py",
-      "bytes": 1916,
-      "sha256": "d73ed4ec454e905cf40a18f983313e2243290203d54f684f23bd556e6b870e45"
+      "bytes": 1998,
+      "sha256": "6ef68b3e0b9d4252d007ef05a89d1d9a28a715f420683c034ab9ed0958776acc"
     },
     {
       "path": "refresh_reports.py",
@@ -325,8 +330,8 @@
     },
     {
       "path": "refresh_stake_wiring.py",
-      "bytes": 1467,
-      "sha256": "d20647c6d21b28408fa1081dfb84b42752afb9a938f32304a0fd7853d08fffc0"
+      "bytes": 1330,
+      "sha256": "c72af490bdf5a8ac5dde1be25dd4e8ddab7a1c50211d153b9a99bfbc286d33fc"
     },
     {
       "path": "render_details.py",
@@ -335,8 +340,13 @@
     },
     {
       "path": "render_local.py",
-      "bytes": 4780,
-      "sha256": "b9fc185fcc5f12499c0da3c20eea38fdac01c2a485c8c0d72d3b5e54405e4537"
+      "bytes": 5714,
+      "sha256": "46433fc428edca77a9a242aaf35ca31d467699801e8e77cb0e9604b0638512f3"
+    },
+    {
+      "path": "render_us_units.py",
+      "bytes": 1008,
+      "sha256": "d7f6f95aafb4cc0ac7924b9ef1f59fda11961b466cd46e4af0b3eaa4de5a05ff"
     },
     {
       "path": "source_drawings.py",
@@ -364,64 +374,69 @@
       "sha256": "4d7a532affe156f6aa5a59b988e96b7b02fc9e4e7a94499d29d5c3842bbccab9"
     },
     {
+      "path": "validate_us_units.py",
+      "bytes": 7108,
+      "sha256": "f5f71e9ba358fe4cb7e9def9ba93bb6f6f11b377acb6287f9c94968c45a5e957"
+    },
+    {
       "path": "variants.py",
       "bytes": 9395,
       "sha256": "c3c0fc4c8320d08f7f78ff9c5b1b8181353d4c2657c8b2496a4f65ccb8918b3e"
     },
     {
       "path": "verify.py",
-      "bytes": 16997,
-      "sha256": "cb183d33eb60d689d0f1dae82f6e916c637c9835a8af0ce68d4c72c0d4a049d8"
+      "bytes": 16871,
+      "sha256": "1d1e11a28268a00a1667b077879805ff266aa37e956dfc40953c96ba272d59b1"
     },
     {
       "path": "web_export.py",
-      "bytes": 31967,
-      "sha256": "60e4039cd1421a4739a957ec1f944b6dbacb9a260e4d79382a92637f6b5eb64c"
+      "bytes": 32446,
+      "sha256": "6750b59034ee27900db7b6f69aeb478fbf18a41abe642234fa1c207ca8630681"
     },
     {
       "path": "renders/aircraft_exploded.png",
-      "bytes": 215371,
-      "sha256": "551a2c87dbe3c65987a5065d5ad15ce2f409917c8c279ef62dceeea1b88ff1ac"
+      "bytes": 215318,
+      "sha256": "96f968a61a2da33b0769e776dfaa6745d2842fe464977130516e8e9d4b87f701"
     },
     {
       "path": "renders/assembly_carried.png",
-      "bytes": 168898,
-      "sha256": "b9021570a2df07df70b51e96c034fe98b3dc892697be3696172676fd58bebb7c"
+      "bytes": 168996,
+      "sha256": "32520052b2bda453b52d000de7763a6df08bda18b880235f406c11e9b261a0c5"
     },
     {
       "path": "renders/assembly_mid_release.png",
-      "bytes": 160475,
-      "sha256": "23df70a3d4e5e9458fb01e73640b674cc371f0c9dd7ae04fdfddc2fdb0950bb6"
+      "bytes": 160867,
+      "sha256": "2436503d36e5bb32ddbd5d975bb5f230bd686fc6d7d44fbc837d03d1b22cd0f4"
     },
     {
       "path": "renders/assembly_stood.png",
-      "bytes": 104917,
-      "sha256": "b1c1597d6e9725d24e14bdb1193a3f927c6731c1ceec2003737a07525bbd9ddc"
+      "bytes": 104862,
+      "sha256": "844bc71ef94f26e9609cfac274cde5126c62495d187d6fdace4597e4abb5606f"
     },
     {
       "path": "renders/bought_servo.png",
-      "bytes": 53337,
-      "sha256": "e05fb02f275a511785c1df6577df1241f9560923caf844aa08f5797299116c2c"
+      "bytes": 53403,
+      "sha256": "dc212e4f8997bea930248186c77b112eae8a4c283e031094220bde0a286d3c01"
     },
     {
       "path": "renders/bought_xiao_wio.png",
-      "bytes": 72092,
-      "sha256": "3e554d528c33914a1855b9171eaa7e9ef5604489048b80c730636ae9aa155390"
+      "bytes": 72119,
+      "sha256": "07b897b03206ceb3b8a1fce5f33411dfe126eeae39465675fb4554edd57b5484"
     },
     {
       "path": "renders/dart_exploded.png",
-      "bytes": 68478,
-      "sha256": "b52ade15019776ce72ad8c1a3e45344e972e660d062aa7d32a884f89e347bb76"
+      "bytes": 68589,
+      "sha256": "29972feb7471158162b002e6971304a29d4033759477b27777e8e24ff74f25ad"
     },
     {
       "path": "renders/dart_exploded_pod.png",
-      "bytes": 86996,
-      "sha256": "91f8c71b6d1f7ef7958e415d3c2b6ead21f78907373491d2c774601dd94f6595"
+      "bytes": 86969,
+      "sha256": "6c65380bdda908ce1b05deb80299b712ca9655c2e706f9b57dfbd4cb9fc1278b"
     },
     {
       "path": "renders/dart_stood.png",
-      "bytes": 24751,
-      "sha256": "5bec7b57e3826fd70112e1fe399713f5ca3906e81cbe6fd119fc6fd84c17f774"
+      "bytes": 25006,
+      "sha256": "1599d6eea3d080e094cda1aac5fabfceff67b8b4db89019cb6daaf14982fa620"
     },
     {
       "path": "renders/dummy_assembled.png",
@@ -430,8 +445,8 @@
     },
     {
       "path": "renders/dummy_ballast_detail.png",
-      "bytes": 41877,
-      "sha256": "c6f886d4199b8476739afd29da54281b100ba50b538b8ef65744056d3502dee7"
+      "bytes": 41763,
+      "sha256": "c3bf4f706bdcc160208c7972176c394760c733376e704d0cbfe1fa362e679cf6"
     },
     {
       "path": "renders/harness_exploded.png",
@@ -445,103 +460,103 @@
     },
     {
       "path": "renders/pod_exploded.png",
-      "bytes": 38417,
-      "sha256": "7301d9023d52b26da28dfa053666bf07ee993753a3c450eb890aa6379f25089d"
+      "bytes": 38786,
+      "sha256": "b5cdbd17c2c86c2a6f88a5f5169a124f43e44ab9a76056997ea076553cabdd5a"
     },
     {
       "path": "renders/pod_usb_access.png",
-      "bytes": 41909,
-      "sha256": "d7298d083d59b069ec139b89d1b4661563fb3e4e03a3185976a0bf34186b6768"
+      "bytes": 41711,
+      "sha256": "417902725e58106faf84308c4d2a18376a25fde27fda48e6550c23c0f1733852"
     },
     {
       "path": "renders/print_body.png",
-      "bytes": 43158,
-      "sha256": "ea1db41210684cc726e7726f88eee1b2e846fd3242bf9a86ec3127aa7e7051e1"
+      "bytes": 44047,
+      "sha256": "40339d829d0597486549a9844867b973b96cbc15f91d934a89b6865be54496b9"
     },
     {
       "path": "renders/print_dummy_body.png",
-      "bytes": 37101,
-      "sha256": "b65b032026996f0f5b045735c0d1fb0681a7533f455a9d2e93ab2771934637cb"
+      "bytes": 38106,
+      "sha256": "b1b4734970b4d9bcb221597d448dffec208458b109bbe8fc9d56fa6f574cb309"
     },
     {
       "path": "renders/print_dummy_head_insert.png",
-      "bytes": 32429,
-      "sha256": "607e861f068011078756745c3dc81c6025cae0cd8c0d2867871c76f4ee55914d"
+      "bytes": 33246,
+      "sha256": "35eaa9e246aab1c0295bb1302881af505435c4f75e8dc336d3c57469e21a3c48"
     },
     {
       "path": "renders/print_dummy_lid.png",
-      "bytes": 25776,
-      "sha256": "cde2184c2d2e15269d27b57af7fa4a753876c975251992e9e94be2057ea819cd"
+      "bytes": 27769,
+      "sha256": "16fb88ea45ed6c02e7e30a67c3b403962166785d4a329a5ffc08f557c49d9f11"
     },
     {
       "path": "renders/print_fit_coupon.png",
-      "bytes": 43159,
-      "sha256": "52e9914163c54aca3c23a5317bd8ee7631e2b65eaa53af581694bf57052619d7"
+      "bytes": 43929,
+      "sha256": "5badd73c78d67d492b5f7fecf7fff12f4cd6470b999d81922ce189850c86853c"
     },
     {
       "path": "renders/print_plate.png",
-      "bytes": 53975,
-      "sha256": "1d9db6f77a26947c41ddc1623dc5b9041407f7877c96c49095e476030a15dd1b"
+      "bytes": 55657,
+      "sha256": "8a400aa237fdaca31ddc806569758a304f4808ccd703fb97a9a341f843178794"
     },
     {
       "path": "renders/print_pod_lid.png",
-      "bytes": 27076,
-      "sha256": "43d8a512147e8dc4db3252cb263224e13276dc85aab8e32e2484f11700ffa8c1"
+      "bytes": 28561,
+      "sha256": "02e8900ba0479c88b2a3a33a9a2df11c0735d1f14ab64c9b1119db18f1235f29"
     },
     {
       "path": "renders/print_pod_shell.png",
-      "bytes": 38984,
-      "sha256": "58063722cfa9dd380a2ffdb3e637ed94051fa5a6ac4335b2cd5bb1ea67c8a594"
+      "bytes": 40015,
+      "sha256": "6e786d08fbe7aff573db48f8935221c54b3aba8e261c83d1b7f4aa3aeeb0b8fc"
     },
     {
       "path": "renders/print_rotor.png",
-      "bytes": 42075,
-      "sha256": "c7daf1f44bc7c284270d527ca8f4e22122d139fd5bfcf61acefba81ec171d798"
+      "bytes": 42724,
+      "sha256": "941a124effebbc866b1f45579f242223c167f653050ac3898d7c452c09cd10e0"
     },
     {
       "path": "renders/print_stake_adapter.png",
-      "bytes": 38440,
-      "sha256": "4394f827e57f7dd006e90f71c614cd99239fb417d9a39ad6186060d39ef98bf6"
+      "bytes": 40101,
+      "sha256": "81112f19de65bf9883d9187ad8b0face527b23811d8ad6e836d118354cd0f293"
     },
     {
       "path": "renders/print_stake_cell_holder.png",
-      "bytes": 47495,
-      "sha256": "987821ab3f66a52c7685fc08c5189ff6423d96d727e8d8c35eadf339285e9526"
+      "bytes": 48631,
+      "sha256": "30792a4c2b9a81ead660d18caf0a8146f7103b94f5f761a6ccfa873a756f005b"
     },
     {
       "path": "renders/print_usb_cap.png",
-      "bytes": 33454,
-      "sha256": "a53c9cc2fc0217d2fb2e8841c3d4c44d1cef30f91dbc2a92216a9ce812b2d61e"
+      "bytes": 35185,
+      "sha256": "1298ee58dc9fc89218c713c09dffbf06f7c8823ff27246ea7fe309c921340008"
     },
     {
       "path": "renders/release_detail.png",
-      "bytes": 63409,
-      "sha256": "03416912f2fe01e1a46bafc5b9d45aed6bd7aeab50a43b9434c14c0514f21e57"
+      "bytes": 63468,
+      "sha256": "6beed30a20920c5f8950a253629fcd71e0ed2d883190c0ac8307aaa7d88477d4"
     },
     {
       "path": "renders/section_body.png",
-      "bytes": 35166,
-      "sha256": "f15ba573d51caff2ef0e6571bb94bcf01fff86c6c641f09b19e9c74753f43dca"
+      "bytes": 35167,
+      "sha256": "8d5cb447da3cf6eda227d307dd9a157693688304cd01499548387e39ca7de8ad"
     },
     {
       "path": "renders/section_body_snap.png",
-      "bytes": 29462,
-      "sha256": "f8dbbc15e66e8061bdfa0f8f79578bc2af7c9e2b2cf5aa95eef63f577541ab20"
+      "bytes": 29975,
+      "sha256": "94d8a58eb23a3a6a9088d27489037457f31972c7a3b1736e37bda4dfa26d6e9b"
     },
     {
       "path": "renders/section_pod.png",
-      "bytes": 43813,
-      "sha256": "a94b652c38064bcc44e02543088b96c03436d007cd6c62442940b12d57c3d009"
+      "bytes": 43998,
+      "sha256": "9bcfff03bf6d09542a3d08a912945b2e924ddbb0764654210c2e5120f0e8e4a9"
     },
     {
       "path": "renders/stake_assembled.png",
-      "bytes": 27378,
-      "sha256": "99fff387b3a4c4b0df90efb17701e6bec497a8f5c80292407f4ef4311e668b01"
+      "bytes": 28591,
+      "sha256": "cc435fd14bc620e203a06cf1a99654878f74832d8c500f9f99cd59ee56199901"
     },
     {
       "path": "renders/stake_clamp_detail.png",
-      "bytes": 63054,
-      "sha256": "efc0b580551d839e0a7299394904858be03e14bb80833535ce726f3ccae15148"
+      "bytes": 62758,
+      "sha256": "905298911b60c05598f29cf54a92e5f79f2e2ba75945755eb84790f0357bb845"
     },
     {
       "path": "out/body.stl",

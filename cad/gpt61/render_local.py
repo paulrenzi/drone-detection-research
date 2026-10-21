@@ -4,6 +4,17 @@ import math
 import vtk
 import cadquery as cq
 from PIL import Image, ImageDraw, ImageFont
+from display_units import us_text
+
+def caption_record(path,size,title,subtitle,boxes,labels=()):
+    """Keep a reviewable text/layout record alongside the original-size PNGs."""
+    import json
+    for bbox in boxes:
+        assert bbox[0]>=0 and bbox[1]>=0 and bbox[2]<size[0] and bbox[3]<size[1], (path,bbox,size)
+    folder=Path(__file__).resolve().parent/'tmp'/'us-caption-records'
+    folder.mkdir(parents=True,exist_ok=True)
+    data=dict(file=Path(path).name,size=size,title=title,subtitle=subtitle,labels=list(labels),text_boxes=boxes,text_fits=True)
+    (folder/(Path(path).stem+'.json')).write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
 
 COLORS = dict(body=(0.94,.42,.10), pod=(.09,.44,.56), lid=(.16,.62,.69),
     plate=(.92,.53,.13), rotor=(.18,.28,.38), carbon=(.15,.18,.22),
@@ -30,6 +41,7 @@ def poly(s,tol=.18):
 
 def render(parts,path,title,subtitle='',az=-56,el=26,size=(1600,1050),scale=None,target=None,edges=False):
     """parts: (shape, color key [,opacity]); orthographic, fitted then explicit scale."""
+    title,subtitle=us_text(title),us_text(subtitle)
     ren=vtk.vtkRenderer();ren.SetBackground(.957,.966,.972)
     # Reserve header space instead of painting text over the model (whip tip
     # in a tall view otherwise disappears beneath the annotation band).
@@ -85,6 +97,11 @@ def render(parts,path,title,subtitle='',az=-56,el=26,size=(1600,1050),scale=None
         if line and draw.textlength(test,font=sf)>size[0]-72:lines.append(line);line=word
         else:line=test
     if line:lines.append(line)
-    for i,line in enumerate(lines[:2]):draw.text((36,62+i*24),line,fill=(67,83,93),font=sf)
+    assert len(lines)<=2,(path,lines)
+    boxes=[draw.textbbox((35,18),title,font=f)]
+    for i,line in enumerate(lines):
+        draw.text((36,62+i*24),line,fill=(67,83,93),font=sf)
+        boxes.append(draw.textbbox((36,62+i*24),line,font=sf))
+    caption_record(path,size,title,subtitle,boxes)
     im.save(path)
     print('render',Path(path).name,flush=True)

@@ -1,6 +1,10 @@
 {
   "unchanged": true,
   "files": {
+    "out/archive_validation.json": {
+      "bytes": 324,
+      "sha256": "27593e4428251c743a0588bd9cb6cfb40505f99910268bf86083001c1e0d5d78"
+    },
     "out/assembly_carried.step": {
       "bytes": 217765536,
       "sha256": "fb8e410e1de33bbe1ef5a3d6b5efca3fe5010a698eea86801b94c6eaae98813a"
@@ -54,8 +58,8 @@
       "sha256": "c11bb63754998ec6610c4af652c38fc67f8c12aeac3af07d9965851b1145cfdd"
     },
     "out/checks.md": {
-      "bytes": 14599,
-      "sha256": "f50e780506a00f4834d71b2d55a0e8cb5e65829f6665625d41a3c3f7e895b9a9"
+      "bytes": 14285,
+      "sha256": "e008daa2b09596720eda97a14dbe4ec5df3aa0b858987a1de09b37b020f67fb0"
     },
     "out/dart_stood.step": {
       "bytes": 23585370,
@@ -117,6 +121,10 @@
       "bytes": 46770,
       "sha256": "6bb558186cc9d060a23aa261002a996977d8e62a553221e1c19f1f8750442240"
     },
+    "out/package_validation.json": {
+      "bytes": 386,
+      "sha256": "071383d2fa90ebee8fb1d904d11a24a40e5468f37aa099080106bc8a3598c9e3"
+    },
     "out/plate.step": {
       "bytes": 1568495,
       "sha256": "820451af25da4d83d38c1eeed5b0a605ea7eb6b250281a005b3193a15ff8ef33"
@@ -142,16 +150,16 @@
       "sha256": "78ff027fd7fc096056e20608b08db486a286014e86107a877c6dc047d533b5aa"
     },
     "out/print-kit.zip": {
-      "bytes": 718649,
-      "sha256": "20c63036936731d69ba74a38e3db37c33669ba4b688f2dffb027239ec63deacb"
+      "bytes": 2412287,
+      "sha256": "d9f0cf9c5137c4a7a314966e595523454c22355853edb651cde848e41e1da2f3"
     },
     "out/print_manifest.json": {
       "bytes": 2890,
       "sha256": "c6245479ff7353a7cf31d89bbe5988f0d36b3f4cd7f0ff6e59288fa0afbf3664"
     },
     "out/receipt.json": {
-      "bytes": 9291,
-      "sha256": "bd0b3f3cf3a35e0692fc6e91910acf8ab8874179a43f3f50438a5b2b28468fb6"
+      "bytes": 18252,
+      "sha256": "5a2a0c96701e87f695700677b1ac01c7b69bb0fc662b867ce51d1ef913d0ee15"
     },
     "out/rotor.step": {
       "bytes": 211281,
@@ -190,8 +198,8 @@
       "sha256": "cc93fffec1aed228179a9a48d6486f1e3111e331d01b3c05348d6b6f4617f04f"
     },
     "out/visual_review.json": {
-      "bytes": 5653,
-      "sha256": "78a6d26fbe82c20eef20e83476bd2f1dcef7861f6d6e01cb4b9d3647d6ee7925"
+      "bytes": 8407,
+      "sha256": "cc103e18312eb93fb1cccc9903e41ec2a14e0816f7f6b524f5c042ef3001d055"
     },
     "build.py": {
       "bytes": 21767,

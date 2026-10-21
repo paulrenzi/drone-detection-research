@@ -24,7 +24,8 @@ from vtk.util.numpy_support import numpy_to_vtk, vtk_to_numpy
 import trimesh
 from exploded import (ROOT, DURATION, make_parts, instances, verify_exploded,
                       load_cache)
-from render_local import COLORS
+from render_local import COLORS,caption_record
+from display_units import us_text
 
 WEB=ROOT/'web'
 TMP=ROOT/'tmp'
@@ -352,15 +353,21 @@ def camera_render(inst,meshes,path,title,subtitle,az=-65,el=28,size=(2000,1200),
     snap=vtk.vtkWindowToImageFilter();snap.SetInput(win);snap.Update();out=vtk.vtkPNGWriter();out.SetFileName(str(path));out.SetInputConnection(snap.GetOutputPort());out.Write();win.Finalize()
     im=Image.open(path).convert('RGB');draw=ImageDraw.Draw(im)
     font=ImageFont.truetype('C:/Windows/Fonts/segoeui.ttf',21);bold=ImageFont.truetype('C:/Windows/Fonts/segoeuib.ttf',31)
-    draw.rectangle((0,0,size[0],124),fill=(244,247,249));draw.text((35,18),title,font=bold,fill=(28,48,61))
-    draw.text((35,66),subtitle,font=font,fill=(67,83,93))
+    draw.rectangle((0,0,size[0],124),fill=(244,247,249));draw.text((35,18),us_text(title),font=bold,fill=(28,48,61))
+    draw.text((35,66),us_text(subtitle),font=font,fill=(67,83,93))
+    boxes=[draw.textbbox((35,18),us_text(title),font=bold),draw.textbbox((35,66),us_text(subtitle),font=font)]
+    shown_labels=[]
     for name,text,xy in labels:
+        text=us_text(text).replace('M2 x 6 screws','M2x6 screws')
         if name not in projected_anchors:continue
         x,y=xy[0]*size[0],xy[1]*size[1];anchor=projected_anchors[name]
         box=draw.textbbox((x,y),text,font=font);box=(box[0]-8,box[1]-4,box[2]+8,box[3]+4)
+        boxes.append(box)
         endpoint=(box[0] if anchor[0]<x else box[2],(box[1]+box[3])/2)
+        shown_labels.append(dict(text=text,position=(x,y),box=box,anchor=anchor,endpoint=endpoint))
         draw.line([anchor,endpoint],fill=(104,120,132),width=2);draw.ellipse((anchor[0]-3,anchor[1]-3,anchor[0]+3,anchor[1]+3),fill=(56,75,88))
         draw.rectangle(box,fill=(244,247,249));draw.text((x,y),text,font=font,fill=(28,48,61))
+    caption_record(path,size,us_text(title),us_text(subtitle),boxes,shown_labels)
     im.save(path);print('RENDER',path.name,flush=True)
 
 

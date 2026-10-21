@@ -14,6 +14,7 @@ v=overlap(raw['stake_power_wire_0'],raw['stake_power_wire_1']);new.append(dict(c
 assert all(r['pass_'] for r in new)
 names={r['check'] for r in new};checks['checks']=[r for r in checks['checks'] if r['check'] not in names]+new
 (OUT/'checks.json').write_text(json.dumps(checks,indent=2)+'\n')
-(OUT/'checks.md').write_text('# Generated geometry checks\n\n'+'\n'.join(f'- {"PASS" if r["pass_"] else "FAIL"}: {r["check"]} - '+json.dumps({k:v for k,v in r.items() if k not in ('check','pass_')}) for r in checks['checks'])+'\n')
+from display_units import write_checks_markdown
+write_checks_markdown(checks, OUT/'checks.md')
 mass_report(p);assembly(stake_rows(p),'Stake_listener',OUT/'stake_assembled.step');render_variants(p)
 print('Stake wiring refreshed; existing verified geometric parts unchanged.',flush=True)

@@ -1,0 +1,460 @@
+{
+  "pass_": true,
+  "created_utc": "2026-10-21T20:36:59.165210+00:00",
+  "geometry_checks": 140,
+  "printed_export_checks": 12,
+  "protected_geometry_files": 425,
+  "machine_reports_unchanged": [
+    "out/mass_properties.json",
+    "out/print_manifest.json",
+    "out/kits.json",
+    "web/manifest.json"
+  ],
+  "geometry_check_results_unchanged": true,
+  "export_validation_unchanged": true,
+  "renderer_geometry_camera_and_colour_code_unchanged": true,
+  "raster_comparison_limits": {
+    "mean_channel_difference_below": 1.0,
+    "channel_difference_over_16_pixel_fraction_below": 0.003
+  },
+  "render_count": 33,
+  "documents": [
+    "DESIGN.md",
+    "README.md",
+    "web/README.md",
+    "REVIEW.html",
+    "out/checks.md"
+  ],
+  "renders": [
+    {
+      "file": "aircraft_exploded.png",
+      "sha256": "96f968a61a2da33b0769e776dfaa6745d2842fe464977130516e8e9d4b87f701",
+      "size": [
+        2100,
+        2100
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 0,
+      "mean_channel_difference_outside_annotations": 0.0,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "assembly_carried.png",
+      "sha256": "32520052b2bda453b52d000de7763a6df08bda18b880235f406c11e9b261a0c5",
+      "size": [
+        1800,
+        1200
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 1582,
+      "mean_channel_difference_outside_annotations": 0.00041938997821350764,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "assembly_mid_release.png",
+      "sha256": "2436503d36e5bb32ddbd5d975bb5f230bd686fc6d7d44fbc837d03d1b22cd0f4",
+      "size": [
+        1800,
+        1200
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 1739,
+      "mean_channel_difference_outside_annotations": 0.00046875,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "assembly_stood.png",
+      "sha256": "844bc71ef94f26e9609cfac274cde5126c62495d187d6fdace4597e4abb5606f",
+      "size": [
+        1900,
+        1200
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 562,
+      "mean_channel_difference_outside_annotations": 0.00014851006191950465,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "bought_servo.png",
+      "sha256": "dc212e4f8997bea930248186c77b112eae8a4c283e031094220bde0a286d3c01",
+      "size": [
+        1300,
+        1100
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 6204,
+      "mean_channel_difference_outside_annotations": 0.0028397176372884875,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "bought_xiao_wio.png",
+      "sha256": "07b897b03206ceb3b8a1fce5f33411dfe126eeae39465675fb4554edd57b5484",
+      "size": [
+        1500,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 398,
+      "mean_channel_difference_outside_annotations": 0.00014014014014014013,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "dart_exploded.png",
+      "sha256": "29972feb7471158162b002e6971304a29d4033759477b27777e8e24ff74f25ad",
+      "size": [
+        2200,
+        1200
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 0,
+      "mean_channel_difference_outside_annotations": 0.0,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "dart_exploded_pod.png",
+      "sha256": "6c65380bdda908ce1b05deb80299b712ca9655c2e706f9b57dfbd4cb9fc1278b",
+      "size": [
+        1700,
+        1500
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 0,
+      "mean_channel_difference_outside_annotations": 0.0,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "dart_stood.png",
+      "sha256": "1599d6eea3d080e094cda1aac5fabfceff67b8b4db89019cb6daaf14982fa620",
+      "size": [
+        850,
+        1600
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 191,
+      "mean_channel_difference_outside_annotations": 6.852203246890154e-05,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "dummy_assembled.png",
+      "sha256": "83dd249f291bc6a94796b03d9c5d8bde2a770145b22bd6025f3579d37585985d",
+      "size": [
+        850,
+        1600
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 0,
+      "mean_channel_difference_outside_annotations": 0.0,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "dummy_ballast_detail.png",
+      "sha256": "c3bf4f706bdcc160208c7972176c394760c733376e704d0cbfe1fa362e679cf6",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 0,
+      "mean_channel_difference_outside_annotations": 0.0,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "harness_exploded.png",
+      "sha256": "4cf97a45cd113070e60e4539448fbdb7d393170797fa433d1faf4386beeb70dd",
+      "size": [
+        2200,
+        1500
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 0,
+      "mean_channel_difference_outside_annotations": 0.0,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "harness_exploded_detail.png",
+      "sha256": "ca6547bdd049be2c865b1d5544908e4055eb7ec7d302529c5ae7368cff8df80d",
+      "size": [
+        1700,
+        1700
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 0,
+      "mean_channel_difference_outside_annotations": 0.0,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "pod_exploded.png",
+      "sha256": "b5cdbd17c2c86c2a6f88a5f5169a124f43e44ab9a76056997ea076553cabdd5a",
+      "size": [
+        1600,
+        1150
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 2162,
+      "mean_channel_difference_outside_annotations": 0.0005595696852922287,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "pod_usb_access.png",
+      "sha256": "417902725e58106faf84308c4d2a18376a25fde27fda48e6550c23c0f1733852",
+      "size": [
+        1600,
+        1100
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 1235,
+      "mean_channel_difference_outside_annotations": 0.0208430330634278,
+      "large_difference_pixel_fraction": 0.0002840334008097166
+    },
+    {
+      "file": "print_body.png",
+      "sha256": "40339d829d0597486549a9844867b973b96cbc15f91d934a89b6865be54496b9",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 1642,
+      "mean_channel_difference_outside_annotations": 0.0005919200450450451,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "print_dummy_body.png",
+      "sha256": "b1b4734970b4d9bcb221597d448dffec208458b109bbe8fc9d56fa6f574cb309",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 1853,
+      "mean_channel_difference_outside_annotations": 0.0006416572822822823,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "print_dummy_head_insert.png",
+      "sha256": "35eaa9e246aab1c0295bb1302881af505435c4f75e8dc336d3c57469e21a3c48",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 6746,
+      "mean_channel_difference_outside_annotations": 0.0027613551051051052,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "print_dummy_lid.png",
+      "sha256": "16fb88ea45ed6c02e7e30a67c3b403962166785d4a329a5ffc08f557c49d9f11",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 201,
+      "mean_channel_difference_outside_annotations": 5.7479354354354355e-05,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "print_fit_coupon.png",
+      "sha256": "5badd73c78d67d492b5f7fecf7fff12f4cd6470b999d81922ce189850c86853c",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 28470,
+      "mean_channel_difference_outside_annotations": 0.015210914039039038,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "print_plate.png",
+      "sha256": "8a400aa237fdaca31ddc806569758a304f4808ccd703fb97a9a341f843178794",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 2899,
+      "mean_channel_difference_outside_annotations": 0.001092576951951952,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "print_pod_lid.png",
+      "sha256": "02e8900ba0479c88b2a3a33a9a2df11c0735d1f14ab64c9b1119db18f1235f29",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 376,
+      "mean_channel_difference_outside_annotations": 0.00011918168168168168,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "print_pod_shell.png",
+      "sha256": "6e786d08fbe7aff573db48f8935221c54b3aba8e261c83d1b7f4aa3aeeb0b8fc",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 5133,
+      "mean_channel_difference_outside_annotations": 0.001563673048048048,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "print_rotor.png",
+      "sha256": "941a124effebbc866b1f45579f242223c167f653050ac3898d7c452c09cd10e0",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 4945,
+      "mean_channel_difference_outside_annotations": 0.001368947072072072,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "print_stake_adapter.png",
+      "sha256": "81112f19de65bf9883d9187ad8b0face527b23811d8ad6e836d118354cd0f293",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 14288,
+      "mean_channel_difference_outside_annotations": 0.016527777777777777,
+      "large_difference_pixel_fraction": 0.00019496058558558557
+    },
+    {
+      "file": "print_stake_cell_holder.png",
+      "sha256": "30792a4c2b9a81ead660d18caf0a8146f7103b94f5f761a6ccfa873a756f005b",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 11472,
+      "mean_channel_difference_outside_annotations": 0.007907516891891892,
+      "large_difference_pixel_fraction": 8.094031531531532e-05
+    },
+    {
+      "file": "print_usb_cap.png",
+      "sha256": "1298ee58dc9fc89218c713c09dffbf06f7c8823ff27246ea7fe309c921340008",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 2659,
+      "mean_channel_difference_outside_annotations": 0.0007519237987987989,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "release_detail.png",
+      "sha256": "6beed30a20920c5f8950a253629fcd71e0ed2d883190c0ac8307aaa7d88477d4",
+      "size": [
+        1500,
+        1100
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 2907,
+      "mean_channel_difference_outside_annotations": 0.0009228520017993703,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "section_body.png",
+      "sha256": "8d5cb447da3cf6eda227d307dd9a157693688304cd01499548387e39ca7de8ad",
+      "size": [
+        1600,
+        900
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 942,
+      "mean_channel_difference_outside_annotations": 0.000376744923857868,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "section_body_snap.png",
+      "sha256": "94d8a58eb23a3a6a9088d27489037457f31972c7a3b1736e37bda4dfa26d6e9b",
+      "size": [
+        1200,
+        950
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 464,
+      "mean_channel_difference_outside_annotations": 0.00017932909042694245,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "section_pod.png",
+      "sha256": "9bcfff03bf6d09542a3d08a912945b2e924ddbb0764654210c2e5120f0e8e4a9",
+      "size": [
+        1600,
+        1100
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 2941,
+      "mean_channel_difference_outside_annotations": 0.0010020242914979757,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "stake_assembled.png",
+      "sha256": "cc435fd14bc620e203a06cf1a99654878f74832d8c500f9f99cd59ee56199901",
+      "size": [
+        950,
+        1800
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 0,
+      "mean_channel_difference_outside_annotations": 0.0,
+      "large_difference_pixel_fraction": 0.0
+    },
+    {
+      "file": "stake_clamp_detail.png",
+      "sha256": "905298911b60c05598f29cf54a92e5f79f2e2ba75945755eb84790f0357bb845",
+      "size": [
+        1500,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true,
+      "changed_pixels_outside_annotations": 20135,
+      "mean_channel_difference_outside_annotations": 0.19911986986986988,
+      "large_difference_pixel_fraction": 0.002172672672672673
+    }
+  ],
+  "scope": "US caption/document units and typography; original model hashes, exact check values, unchanged machine reports, label bounds/overlap, unchanged renderer geometry/camera/colour code, and small raster-noise bounds outside annotations. Human review is separate in visual_review.json."
+}

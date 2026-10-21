@@ -222,7 +222,8 @@ def verify(p):
     check('stake_mic_height',abs(MIC_X-BODY_X0-500)<.01,mic_height_mm=500,stake_length_mm=1219.2,burial_nominal_mm=M.stake_burial,scope='Slide adapter until mic is500mm above actual ground, independently of insertion depth')
     data=dict(checks=checks,failed=failures,rigid_interferences=records,release_contact=area,measure_parameters=measure_dict(),clearance_distances='Vehicle distances are conservative axis-aligned bounding-box lower bounds; a zero lower bound is NOT a measured zero gap. Interference results use actual B-rep boolean volumes after broad-phase pruning.',discrete_sampling='0.5deg contact; 2deg rotor-neck; 5mm extraction; 5deg prescribed pitch',limitations=['No aerodynamic or self-righting simulation','No print, proof load, water, shake, cycling or flight test','MEASURE parameters remain nominal assumptions','Intentional press-fit, heat-set and elastomer contacts are excluded from clearance pass claims'])
     (ROOT/'out'/'checks.json').write_text(json.dumps(data,indent=2)+'\n')
-    (ROOT/'out'/'checks.md').write_text('# Generated geometry checks\n\n'+ '\n'.join(f'- {"PASS" if r["pass_"] else "FAIL"}: {r["check"]} - '+json.dumps({k:v for k,v in r.items() if k not in ('check','pass_')}) for r in checks)+'\n')
+    from display_units import write_checks_markdown
+    write_checks_markdown(data, ROOT/'out'/'checks.md')
     print('VERIFICATION',len(checks),'checks;',len(failures),'failures',flush=True)
     if failures:raise AssertionError('Failed geometry checks: '+', '.join(failures))
     return data
