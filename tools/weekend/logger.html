@@ -257,7 +257,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
         <li>Pair the Bluetooth speaker with the mic phone, and put the speaker on a chair 16 ft from the mic, facing it. The mic phone plays it: this phone only gives the orders, so it can be anywhere with a signal.</li>
         <li>Pick a sound, tap <b>Play calibration</b>, and use the volume buttons on the mic phone or the speaker until <i>Sound at the mic</i> reads 60–65 dB(A). Then don't touch the volume again.</li>
         <li>Tap <b>Measure at the mic</b>. The mic phone reads 10 s with the speaker off, then 10 s of calibration, and both readings fill in. Or type them from any sound meter.</li>
-        <li>Tap <b>Start sequence</b> and walk away with this phone and the gateway. You have 60 s before the first play. The mic phone then starts recording, plays each distance once (each is logged here as a <i>Speaker</i> run), records the background as a <i>No drone</i> run and stops the recording, about 10 minutes in all. It carries on by itself if this phone loses signal.</li>
+        <li>Tap <b>Start sequence</b> and walk away with this phone and the gateway. You have 60 s before the first play. The mic phone then starts recording, plays each distance three times (each is logged here as a <i>Speaker</i> run), records the background as a <i>No drone</i> run and stops the recording, about 21 minutes in all. It carries on by itself if this phone loses signal.</li>
       </ol>
       <div class="fields">
         <label class="span2">Sound
@@ -280,8 +280,8 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
         <label>Step by
           <select id="spMode"><option value="distance">Distance, ft</option><option value="level">Level at mic, dB(A)</option></select>
         </label>
-        <label class="span2"><span id="spListLabel">Distances, ft</span> <input id="spList" type="text" inputmode="decimal" value="80, 160, 250, 330, 500, 650, 1000"></label>
-        <label>Plays each <input id="spRepeat" type="number" inputmode="numeric" min="1" step="1" value="1"></label>
+        <label class="span2"><span id="spListLabel">Distances, ft</span> <input id="spList" type="text" inputmode="decimal" value="80, 160, 200, 250, 330, 500, 650, 1000"></label>
+        <label>Plays each <input id="spRepeat" type="number" inputmode="numeric" min="1" step="1" value="3"></label>
         <label>Play, s <input id="spPlay" type="number" inputmode="numeric" min="5" step="5" value="30"></label>
         <label>Gap, s <input id="spGap" type="number" inputmode="numeric" min="0" step="5" value="10"></label>
         <label>Walk away, s <input id="spWait" type="number" inputmode="numeric" min="0" step="10" value="60"></label>
@@ -396,7 +396,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
     <dt>dBFS, the raw level</dt>
     <dd>How loud the sound is inside a microphone's own recording, where 0 is the loudest it can record. So it is always negative: about −90 is near silence and −20 is loud. Two devices give different dBFS for the same sound, so it only tells you if a sound got louder or quieter for that one device. The detector reports dBFS: <i>detector hears</i>.</dd>
     <dt>Setting the meter</dt>
-    <dd>Turns the phone's raw level into dB(A). Phone mics differ by several dB, so once per phone you read a steady sound, such as a fan, with a sound meter app on the same phone, then type that reading in here while the same sound plays. Until then the logger shows the raw level in orange.</dd>
+    <dd>Turns the phone's raw level into dB(A). Phone mics differ by several dB, so once per phone you read a loud, steady sound, such as pink noise at 70–80 dB(A), with NIOSH SLM on an iPhone (this one, or one held right beside it), then type that reading in here while the same sound plays. Until then the logger shows the raw level in orange.</dd>
     <dt>Background</dt>
     <dd>The level with nothing playing: wind, birds, traffic. A drone has to rise above it to be heard, so a quiet day makes for a longer range.</dd>
   </dl>
@@ -409,7 +409,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
     <dt>Calibration</dt>
     <dd>A steady sound at the speaker's full test volume. Its reading at the mic is the starting point the logger turns down from for each distance.</dd>
     <dt>Aimed, measured, detector</dt>
-    <dd>In the tables, <i>Aimed</i> is the level the logger tried to play at the mic, <i>Measured</i> is what the phone at the mic heard, and <i>Detector</i> is what the detector heard, in its own raw level. If aimed and measured are far apart, that play didn't stand in for the distance it claims.</dd>
+    <dd>In the tables, <i>Aimed</i> is the level the logger tried to play at the mic, <i>Measured</i> is what the phone at the mic heard, and <i>Detector</i> is what the detector heard, in its own raw level. If aimed and measured are far apart on a play louder than the background, that play didn't stand in for the distance it claims. On a play quieter than the background, measured reads the background, and that's expected.</dd>
   </dl>
   <h3>Radio and detection</h3>
   <dl>
@@ -1350,7 +1350,7 @@ function renderRange() {
   const radio = all.filter((g) => g.type === "radio" && g.pk > 0).map((g) => g.distance_ft ?? 0);
   const parts = [];
   if (acoustic.length) parts.push(solid.length ? `Heard in 90% of runs out to <b>${Math.max(...solid)} ft</b> (3 or more runs each). Pass: 330 ft with a consumer drone, 490 ft with an FPV.` : "No distance yet has 3 or more runs with 90% heard.");
-  if (speaker.length) parts.push(solidSpk.length ? `Speaker: heard in 90% of runs out to <b>${Math.max(...solidSpk)} ft</b> emulated. Pass: 330 ft. A real flight later checks what the ground does.` : "Speaker: no emulated distance yet has 3 or more runs with 90% heard.");
+  if (speaker.length) parts.push(solidSpk.length ? `Speaker: heard in 90% of runs out to <b>${Math.max(...solidSpk)} ft</b> emulated. Pass: 330 ft. Fail: short of 200 ft. A real flight later checks what the ground does.` : "Speaker: no emulated distance yet has 3 or more runs with 90% heard.");
   if (speakerLvl.length) parts.push(solidLvl.length ? `Speaker: heard in 90% of runs down to <b>${Math.min(...solidLvl)} dB(A)</b> at the mic.` : "Speaker: no level yet has 3 or more runs with 90% heard.");
   if (radio.length) parts.push(`Radio: packets received out to <b>${Math.max(...radio)} ft</b>.`);
   $("#verdict").innerHTML = parts.join(" ") || "Finish a hover, pass, speaker or radio-walk run to fill this table.";
@@ -1543,7 +1543,7 @@ function renderMv() {
     $("#lmMeter").hidden = false; $("#lmCalLine").hidden = false;
     $("#lmCalLine").textContent = mv.offset != null
       ? `Meter set: reading + ${mv.offset.toFixed(1)} dB. Set it again only on a different phone or browser.`
-      : "Once per phone, at home: read a steady sound, such as a fan, with a sound meter app on this phone (A-weighting). Come back here with the same sound on, wait 5 s, type that reading and tap Set.";
+      : "Once per phone, at home: play pink noise loud enough that NIOSH SLM on an iPhone (this one, or one right beside it, A-weighting) reads 70–80 dB(A). Come back here with the same sound on, wait 5 s, type that reading and tap Set.";
     $("#lmSave").hidden = !mv.file && !mv.rec;
     $("#lmSave").disabled = !mv.file;
     return;
@@ -1552,7 +1552,7 @@ function renderMv() {
   if (mv.stream) $("#mvStatus").innerHTML = online ? `Connected to logger <code>${esc(settings().gwId)}</code>. Leave this phone by the mic.` : "Mic on. Connecting to the logger…";
   $("#mvCalLine").textContent = mv.offset != null
     ? `Meter set: reading + ${mv.offset.toFixed(1)} dB. Set it again only on a different phone or browser.`
-    : "Once per phone: play a steady sound, hold another phone with a sound meter app right beside this one, and enter its reading. Phone mics differ by several dB, and each 6 dB doubles or halves the emulated distance.";
+    : "Once per phone: play pink noise loud enough that NIOSH SLM reads 70–80 dB(A) on an iPhone held right beside this one, and enter its reading. Phone mics differ by several dB, and each 6 dB doubles or halves the emulated distance.";
   $("#mvRec").disabled = !mv.stream;
   $("#mvRec").textContent = mv.rec ? "Stop recording" : "Start recording";
   $("#mvRec").classList.toggle("stop", !!mv.rec);
