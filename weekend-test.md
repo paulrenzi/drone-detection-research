@@ -6,7 +6,7 @@ nav_primary: 4
 # The Saturday test
 {: .no_toc }
 
-**One day, about $80–90, and no drone.** How far does a mic 20 in off the ground hear a drone, and how far can its alarm travel by radio? A Bluetooth speaker plays a recorded drone at the level it would reach the mic from 80 to 1,000 ft.
+**One day, about $80–90, and no drone.** How far does a mic 20 in off the ground hear a drone, and how far can its alarm travel by radio? A Bluetooth speaker 16 ft from the mic plays a recorded drone turned down to the level it would reach the mic from 80 to 1,000 ft, so the far distances fit in a yard. The radio's range is walked for real.
 
 **Pass:** heard in 3 of 3 plays at 330 ft. **Fail:** not heard that reliably at 200 ft. In between is short of a pass, not a fail. The sweep plays every distance three times, because the logger only rules on a distance with 3 or more plays.
 
@@ -42,57 +42,61 @@ The test uses two boards and two phones:
 - **Board 2, the gateway,** has no mic. It receives the detector's radio messages and passes them to the logger phone over its hotspot.
 - **The logger phone** runs the logger and the hotspot, and tells the mic phone what to play and when.
 
+**The distances are played, not walked.** The speaker is always 16 ft from the mic. For 330 ft, the mic phone plays the drone as quietly as it would sound from 330 ft away: 26 dB quieter than at 16 ft, since every doubling of distance takes 6 dB off. So Bluetooth only ever has to cover 16 ft. The one thing that goes far is the radio, from board 1 to board 2.
+
 So the test has two ends. The **sound end** (board 1, the mic, the mic phone and the speaker) never moves. The **receiving end** (board 2 and the logger phone) is you, and goes wherever you go. The only link between the ends is the one under test, LoRa; the two phones keep in touch over mobile data. A real system is the same chain: one gateway listening to detectors spread across a field.
 
 <figure class="field-layout" style="margin:12px 0 16px;max-width:420px">
-<svg viewBox="0 0 360 536" width="100%" role="img" aria-labelledby="flTitle flDesc" style="color:inherit;font-family:inherit">
+<svg viewBox="0 0 360 600" width="100%" role="img" aria-labelledby="flTitle flDesc" style="color:inherit;font-family:inherit">
 <title id="flTitle">Field layout for the Saturday test</title>
-<desc id="flDesc">Seen from above. The sound end: board 1, the detector, wired to the mic 20 inches up, with the mic phone beside it, and the Bluetooth speaker on a chair 16 feet away, facing the mic. The mic phone plays the speaker by Bluetooth. The receiving end: you, 65 feet or more behind the speaker, carrying board 2, the gateway, with its power bank, and the logger phone, whose hotspot the gateway joins by WiFi. The detector reaches the gateway by LoRa radio. Not to scale.</desc>
-<rect x="6" y="6" width="348" height="480" rx="12" fill="#6a9a3a" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.3" stroke-dasharray="4 4"/>
-<text x="20" y="32" font-size="13" fill="currentColor" fill-opacity="0.7">Grass, 16 ft or more from walls and cars</text>
-<text x="20" y="56" font-size="12" font-weight="600" fill="currentColor" fill-opacity="0.7">SOUND END: STAYS PUT</text>
-<line x1="48" y1="84" x2="48" y2="66" stroke="#534ab7" stroke-width="1.6"/>
-<rect x="18" y="84" width="36" height="36" rx="5" fill="#534ab7" fill-opacity="0.15" stroke="#534ab7"/>
-<text x="36" y="108" font-size="16" font-weight="700" text-anchor="middle" fill="#534ab7">1</text>
-<line x1="54" y1="102" x2="64" y2="102" stroke="#1d9e75" stroke-width="1.6"/>
-<circle cx="80" cy="102" r="16" fill="#1d9e75" fill-opacity="0.18" stroke="#1d9e75"/>
-<text x="80" y="106" font-size="11" font-weight="600" text-anchor="middle" fill="currentColor">Mic</text>
-<rect x="110" y="80" width="24" height="44" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"/>
-<line x1="118" y1="118" x2="126" y2="118" stroke="currentColor" stroke-width="1.4"/>
-<text x="160" y="80" font-size="13" font-weight="600" fill="#534ab7">Board 1: detector</text>
-<text x="160" y="97" font-size="13" fill="currentColor">wired to the mic, 20 in up</text>
-<text x="160" y="118" font-size="13" font-weight="600" fill="currentColor">Mic phone, beside it</text>
-<text x="160" y="135" font-size="13" fill="currentColor">meter, recorder, player</text>
-<line x1="122" y1="126" x2="125" y2="250" stroke="#c2562c" stroke-width="1.6" stroke-dasharray="1 4" stroke-linecap="round"/>
-<line x1="36" y1="122" x2="36" y2="410" stroke="#534ab7" stroke-width="1.6" stroke-dasharray="6 4"/>
-<line x1="160" y1="170" x2="184" y2="170" stroke="#534ab7" stroke-width="1.6" stroke-dasharray="6 4"/>
-<text x="190" y="174" font-size="12" fill="currentColor">LoRa: board 1 to 2</text>
-<line x1="160" y1="190" x2="184" y2="190" stroke="#c2562c" stroke-width="1.6" stroke-dasharray="1 4" stroke-linecap="round"/>
-<text x="190" y="194" font-size="12" fill="currentColor">Bluetooth: to speaker</text>
-<line x1="160" y1="210" x2="184" y2="210" stroke="#1a7fa8" stroke-width="1.6" stroke-dasharray="2 3"/>
-<text x="190" y="214" font-size="12" fill="currentColor">WiFi: board 2 to logger</text>
-<rect x="90" y="250" width="70" height="46" rx="8" fill="#c2562c" fill-opacity="0.1" stroke="#c2562c"/>
-<rect x="105" y="256" width="40" height="34" rx="6" fill="none" stroke="currentColor" stroke-width="1.4"/>
-<circle cx="125" cy="273" r="9" fill="none" stroke="currentColor" stroke-width="1.2"/>
-<text x="172" y="268" font-size="13" font-weight="600" fill="#c2562c">Chair, 16 ft from the mic</text>
-<text x="172" y="285" font-size="13" fill="currentColor">Speaker, facing the mic</text>
-<line x1="125" y1="298" x2="125" y2="384" stroke="currentColor" stroke-opacity="0.45" stroke-dasharray="2 4"/>
-<text x="138" y="346" font-size="13" fill="currentColor">65 ft or more</text>
-<text x="50" y="380" font-size="12" font-weight="600" fill="currentColor" fill-opacity="0.7">RECEIVING END: MOVES WITH YOU</text>
-<rect x="10" y="390" width="340" height="86" rx="8" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.5"/>
-<line x1="48" y1="414" x2="48" y2="398" stroke="#534ab7" stroke-width="1.6"/>
-<rect x="18" y="414" width="36" height="36" rx="5" fill="#534ab7" fill-opacity="0.15" stroke="#534ab7"/>
-<text x="36" y="438" font-size="16" font-weight="700" text-anchor="middle" fill="#534ab7">2</text>
-<rect x="60" y="420" width="16" height="24" rx="3" fill="none" stroke="currentColor" stroke-opacity="0.6"/>
-<line x1="78" y1="432" x2="98" y2="432" stroke="#1a7fa8" stroke-width="1.6" stroke-dasharray="2 3"/>
-<rect x="100" y="410" width="24" height="44" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"/>
-<line x1="108" y1="448" x2="116" y2="448" stroke="currentColor" stroke-width="1.4"/>
-<text x="140" y="412" font-size="13" font-weight="600" fill="currentColor">You, quiet, carrying</text>
-<text x="140" y="430" font-size="13" font-weight="600" fill="#534ab7">Board 2: gateway</text>
-<text x="140" y="447" font-size="13" fill="currentColor">and its power bank</text>
-<text x="140" y="465" font-size="13" font-weight="600" fill="currentColor">Logger phone: hotspot</text>
-<text x="8" y="508" font-size="12" fill="currentColor" fill-opacity="0.7">Not to scale. The two phones keep in touch by mobile</text>
-<text x="8" y="525" font-size="12" fill="currentColor" fill-opacity="0.7">data. On the radio walk, only the receiving end moves.</text>
+<desc id="flDesc">Seen from above, not to scale. A callout explains that the speaker never moves: it sits 16 feet from the mic and the mic phone plays the drone quieter to stand in for 80 to 1,000 feet. The sound end: board 1, the detector, wired to the mic 20 inches up, with the mic phone beside it, and the speaker on a chair 16 feet away, which the mic phone plays by Bluetooth. A LoRa radio link runs from board 1 to the receiving end, 65 feet or more away during the sound test and walked out to 1,300 feet and beyond for the radio walk. The receiving end: you, carrying board 2, the gateway, with its power bank, and the logger phone, whose hotspot the gateway joins by WiFi a pocket away. The two phones talk over their own mobile data, through the internet.</desc>
+<rect x="6" y="6" width="348" height="88" rx="10" fill="#c2562c" fill-opacity="0.08" stroke="#c2562c" stroke-opacity="0.6"/>
+<text x="18" y="27" font-size="12" font-weight="700" fill="#c2562c">HOW 330 FT FITS IN A YARD</text>
+<text x="18" y="46" font-size="12" fill="currentColor">The speaker never moves: it stays 16 ft from</text>
+<text x="18" y="62" font-size="12" fill="currentColor">the mic and plays the drone quieter, as quiet</text>
+<text x="18" y="78" font-size="12" fill="currentColor">as it sounds from 330 ft. Only the radio walks.</text>
+<rect x="6" y="106" width="348" height="228" rx="10" fill="#6a9a3a" fill-opacity="0.08" stroke="currentColor" stroke-opacity="0.3" stroke-dasharray="4 4"/>
+<text x="18" y="126" font-size="12" font-weight="600" fill="currentColor" fill-opacity="0.7">SOUND END: STAYS PUT, ON GRASS</text>
+<line x1="48" y1="152" x2="48" y2="136" stroke="#534ab7" stroke-width="1.6"/>
+<rect x="18" y="152" width="36" height="36" rx="5" fill="#534ab7" fill-opacity="0.15" stroke="#534ab7"/>
+<text x="36" y="176" font-size="16" font-weight="700" text-anchor="middle" fill="#534ab7">1</text>
+<line x1="54" y1="170" x2="66" y2="170" stroke="currentColor" stroke-width="2"/>
+<circle cx="82" cy="170" r="16" fill="#1d9e75" fill-opacity="0.18" stroke="#1d9e75"/>
+<text x="82" y="174" font-size="11" font-weight="600" text-anchor="middle" fill="currentColor">Mic</text>
+<rect x="110" y="148" width="24" height="44" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<line x1="118" y1="186" x2="126" y2="186" stroke="currentColor" stroke-width="1.4"/>
+<text x="148" y="152" font-size="13" font-weight="600" fill="#534ab7">Board 1: detector,</text>
+<text x="148" y="168" font-size="13" fill="currentColor">wired to the mic, 20 in up</text>
+<text x="148" y="188" font-size="13" font-weight="600" fill="currentColor">Mic phone beside it:</text>
+<text x="148" y="204" font-size="13" fill="currentColor">meter, recorder, player</text>
+<line x1="122" y1="194" x2="122" y2="266" stroke="#c2562c" stroke-width="2" stroke-dasharray="1 4" stroke-linecap="round"/>
+<text x="130" y="236" font-size="12" font-weight="600" fill="#c2562c">Bluetooth, 16 ft: plays</text>
+<text x="130" y="251" font-size="12" fill="#c2562c">the drone, turned down</text>
+<rect x="87" y="268" width="70" height="46" rx="8" fill="#c2562c" fill-opacity="0.1" stroke="#c2562c"/>
+<rect x="102" y="274" width="40" height="34" rx="6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<circle cx="122" cy="291" r="9" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="168" y="287" font-size="13" font-weight="600" fill="#c2562c">Speaker on a chair,</text>
+<text x="168" y="303" font-size="13" fill="currentColor">facing the mic</text>
+<line x1="36" y1="190" x2="36" y2="452" stroke="#534ab7" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="48" y="356" font-size="12" font-weight="600" fill="#534ab7">LoRa radio, board 1 to board 2:</text>
+<text x="48" y="372" font-size="12" fill="currentColor">65 ft or more for the sound test,</text>
+<text x="48" y="388" font-size="12" fill="currentColor">then walked out to 1,300 ft and on.</text>
+<text x="48" y="404" font-size="12" fill="currentColor">The only link that goes the distance.</text>
+<rect x="6" y="420" width="348" height="100" rx="10" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-opacity="0.5"/>
+<text x="60" y="440" font-size="12" font-weight="600" fill="currentColor" fill-opacity="0.7">RECEIVING END: YOU, CARRYING</text>
+<rect x="18" y="452" width="36" height="36" rx="5" fill="#534ab7" fill-opacity="0.15" stroke="#534ab7"/>
+<text x="36" y="476" font-size="16" font-weight="700" text-anchor="middle" fill="#534ab7">2</text>
+<rect x="58" y="458" width="14" height="24" rx="3" fill="none" stroke="currentColor" stroke-opacity="0.6"/>
+<line x1="76" y1="470" x2="96" y2="470" stroke="#1a7fa8" stroke-width="2" stroke-dasharray="2 3"/>
+<rect x="100" y="448" width="24" height="44" rx="5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<line x1="108" y1="486" x2="116" y2="486" stroke="currentColor" stroke-width="1.4"/>
+<text x="136" y="462" font-size="13" font-weight="600" fill="#534ab7">Board 2: gateway</text>
+<text x="136" y="478" font-size="13" fill="currentColor">+ power bank, WiFi to</text>
+<text x="136" y="494" font-size="13" font-weight="600" fill="currentColor">logger phone (hotspot),</text>
+<text x="136" y="510" font-size="13" fill="currentColor">a pocket apart</text>
+<text x="8" y="546" font-size="12" fill="currentColor" fill-opacity="0.8">The two phones never connect to each other: each</text>
+<text x="8" y="562" font-size="12" fill="currentColor" fill-opacity="0.8">uses its own mobile data, so the logger phone can</text>
+<text x="8" y="578" font-size="12" fill="currentColor" fill-opacity="0.8">order plays from anywhere. Not to scale.</text>
 </svg>
 </figure>
 
