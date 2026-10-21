@@ -1,4 +1,7 @@
-"""Regenerate the 33 presentation PNGs from the unchanged final B-rep cache."""
+"""Regenerate regular presentation PNGs from the current verified B-rep cache.
+
+The five web/exploded PNGs are generated separately by web_export.py.
+"""
 import sys
 sys.dont_write_bytecode=True
 from build import load_cache,render_all,print_transform,RENDERS

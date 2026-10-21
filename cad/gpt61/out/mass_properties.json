@@ -2,13 +2,13 @@
   "dart": [
     {
       "name": "body",
-      "volume_mm3": 32269.722880566296,
+      "volume_mm3": 33437.703156269214,
       "density_g_cm3": 1.27,
-      "mass_g": 40.9825480583192,
+      "mass_g": 42.4658830084619,
       "centroid_mm": [
-        168.44501329479255,
-        7.283718578918076,
-        8.751998391308899
+        177.3012020593483,
+        6.722191987436284,
+        8.611525757303625
       ],
       "basis": "100% infill, 4 walls, solid PETG"
     },
@@ -431,98 +431,182 @@
         8.025956104067298
       ],
       "basis": "MEASURE kit antenna and coax; unsourced dimensions"
+    },
+    {
+      "name": "tail_fin_1",
+      "volume_mm3": 2744.735999999999,
+      "density_g_cm3": 1.27,
+      "mass_g": 3.485814719999999,
+      "centroid_mm": [
+        450.81550138155364,
+        11.409357544131074,
+        18.797142842410064
+      ],
+      "basis": "100% infill flat PETG tail part"
+    },
+    {
+      "name": "tail_fin_2",
+      "volume_mm3": 2744.735999999998,
+      "density_g_cm3": 1.27,
+      "mass_g": 3.4858147199999974,
+      "centroid_mm": [
+        450.8155013815537,
+        -11.40935754413108,
+        18.797142842410057
+      ],
+      "basis": "100% infill flat PETG tail part"
+    },
+    {
+      "name": "tail_fin_3",
+      "volume_mm3": 2744.735999999999,
+      "density_g_cm3": 1.27,
+      "mass_g": 3.485814719999999,
+      "centroid_mm": [
+        450.81550138155376,
+        -11.40935754413108,
+        -8.397142842410055
+      ],
+      "basis": "100% infill flat PETG tail part"
+    },
+    {
+      "name": "tail_fin_4",
+      "volume_mm3": 2744.7360000000026,
+      "density_g_cm3": 1.27,
+      "mass_g": 3.4858147200000036,
+      "centroid_mm": [
+        450.81550138155364,
+        11.409357544131074,
+        -8.397142842410055
+      ],
+      "basis": "100% infill flat PETG tail part"
+    },
+    {
+      "name": "tail_collar_1",
+      "volume_mm3": 1453.1044637835819,
+      "density_g_cm3": 1.27,
+      "mass_g": 1.845442669005149,
+      "centroid_mm": [
+        391.99999999999994,
+        -0.4918113949443959,
+        5.23147152760656
+      ],
+      "basis": "100% infill flat PETG tail part"
+    },
+    {
+      "name": "tail_collar_2",
+      "volume_mm3": 1453.1044637835819,
+      "density_g_cm3": 1.27,
+      "mass_g": 1.845442669005149,
+      "centroid_mm": [
+        460.00000000000006,
+        -0.4918113949443959,
+        5.23147152760656
+      ],
+      "basis": "100% infill flat PETG tail part"
+    },
+    {
+      "name": "tail_bond",
+      "volume_mm3": 46.369907566985376,
+      "density_g_cm3": null,
+      "mass_g": 0.6,
+      "centroid_mm": [
+        426.0000000000001,
+        1.5222655339683182e-15,
+        5.199999999999993
+      ],
+      "basis": "MEASURE cured bond including keyway fillets"
     }
   ],
-  "dart_total_g": 147.93074419497574,
+  "dart_total_g": 167.64822336312875,
   "dart_cg_mm": [
-    254.43385051830592,
-    7.086717221274974,
-    9.02556412225324
+    276.6405069700999,
+    6.164614119008283,
+    8.572169432782582
   ],
-  "hanger_x_mm": 254.4385575041457,
-  "hanger_y_mm": 7.085828491577084,
-  "balance_residual_mm": -0.004706985839789013,
+  "hanger_x_mm": 276.63856811287144,
+  "hanger_y_mm": 6.16489509689643,
+  "balance_residual_mm": 0.0019388572284810834,
   "harness": [
     {
       "name": "plate",
-      "volume_mm3": 103683.19756902361,
+      "volume_mm3": 103683.19756902335,
       "density_g_cm3": 1.27,
-      "mass_g": 131.67766091266,
+      "mass_g": 131.67766091265966,
       "centroid_mm": [
-        -5.197235418028156,
-        -0.004196990265430292,
-        9.189259967403196
+        -5.197235418028087,
+        -0.004196990265567284,
+        9.189259967403194
       ],
       "basis": "100% infill PETG"
     },
     {
       "name": "rotor",
-      "volume_mm3": 30410.991532145075,
+      "volume_mm3": 30410.991532145108,
       "density_g_cm3": 1.27,
-      "mass_g": 38.62195924582424,
+      "mass_g": 38.621959245824286,
       "centroid_mm": [
-        0.25222159610729283,
-        -0.5044868873906405,
-        13.510612136446353
+        0.2522215961072896,
+        -0.5044868873906239,
+        13.510612136446351
       ],
       "basis": "100% infill PETG"
     },
     {
       "name": "SG90_with_stock_horn",
-      "volume_mm3": 7290.361157155203,
+      "volume_mm3": 7290.361157155206,
       "density_g_cm3": null,
       "mass_g": 9.0,
       "centroid_mm": [
-        -4.8812508602490725,
-        -1.4186293949986195e-16,
-        -8.843458665061698
+        -4.881250860249073,
+        1.1680697081807316e-16,
+        -8.8434586650617
       ],
       "basis": "S3 rated9g; model external centroid"
     },
     {
       "name": "SG90_spline_screw",
-      "volume_mm3": 27.507624138151797,
+      "volume_mm3": 27.507624138151776,
       "density_g_cm3": 7.85,
-      "mass_g": 0.2159348494844916,
+      "mass_g": 0.21593484948449143,
       "centroid_mm": [
-        2.0180278366631612e-17,
-        5.293437646788311e-18,
-        12.487597237058774
+        -2.825238971328428e-17,
+        -3.3588865485319834e-17,
+        12.487597237058775
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "rotor_keeper_spacer",
-      "volume_mm3": 19.000352368911077,
+      "volume_mm3": 19.000352368911066,
       "density_g_cm3": 7.85,
-      "mass_g": 0.14915276609595196,
+      "mass_g": 0.14915276609595188,
       "centroid_mm": [
-        2.6878585271039407e-16,
-        -1.3578448835134013e-16,
+        1.0517707279971948e-16,
+        -1.5643595830344452e-16,
         13.500000000000002
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "rotor_keeper_washer",
-      "volume_mm3": 30.34071645020686,
+      "volume_mm3": 30.340716450206834,
       "density_g_cm3": 7.85,
-      "mass_g": 0.23817462413412382,
+      "mass_g": 0.23817462413412363,
       "centroid_mm": [
-        9.696840943373985e-16,
-        -3.641538732452199e-17,
+        8.965003891043881e-17,
+        -2.617705664391143e-17,
         15.800000000000002
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "drive_pin_-9.0",
-      "volume_mm3": 30.47344873982101,
+      "volume_mm3": 30.473448739820984,
       "density_g_cm3": 7.85,
-      "mass_g": 0.2392165726075949,
+      "mass_g": 0.23921657260759474,
       "centroid_mm": [
-        -9.000000000000002,
-        -1.4695675299578874e-17,
+        -9.0,
+        -1.7445301427737474e-17,
         12.350000000000001
       ],
       "basis": "modeled hardware density"
@@ -533,153 +617,153 @@
       "density_g_cm3": 7.85,
       "mass_g": 0.1455277684502549,
       "centroid_mm": [
-        -8.999999999999998,
-        -7.268140245118509e-16,
-        8.999999999999998
+        -9.0,
+        -2.371957720414833e-16,
+        9.000000000000004
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "drive_pin_upper_nut_-9.0",
-      "volume_mm3": 18.53856922933183,
+      "volume_mm3": 18.538569229331827,
       "density_g_cm3": 7.85,
-      "mass_g": 0.14552776845025486,
+      "mass_g": 0.14552776845025484,
       "centroid_mm": [
-        -8.999999999999998,
-        -7.867012256702098e-16,
-        12.200000000000001
+        -9.0,
+        -2.371957720414834e-16,
+        12.200000000000003
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "drive_pin_9.0",
-      "volume_mm3": 30.47344873982101,
+      "volume_mm3": 30.473448739820984,
       "density_g_cm3": 7.85,
-      "mass_g": 0.2392165726075949,
+      "mass_g": 0.23921657260759474,
       "centroid_mm": [
-        9.000000000000002,
-        -1.4695675299578874e-17,
+        8.999999999999998,
+        -1.7445301427737474e-17,
         12.350000000000001
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "drive_pin_lower_nut_9.0",
-      "volume_mm3": 18.53856922933183,
+      "volume_mm3": 18.538569229331834,
       "density_g_cm3": 7.85,
-      "mass_g": 0.14552776845025486,
+      "mass_g": 0.1455277684502549,
       "centroid_mm": [
-        8.999999999999998,
-        -7.406508288597102e-16,
+        9.000000000000004,
+        -2.247626773623664e-16,
         8.999999999999998
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "drive_pin_upper_nut_9.0",
-      "volume_mm3": 18.538569229331845,
+      "volume_mm3": 18.53856922933184,
       "density_g_cm3": 7.85,
-      "mass_g": 0.145527768450255,
+      "mass_g": 0.14552776845025497,
       "centroid_mm": [
         8.999999999999998,
-        -7.646057093230531e-16,
-        12.2
+        -1.7685291643567927e-16,
+        12.200000000000003
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "servo_mount_nut_-1",
-      "volume_mm3": 18.538569229331845,
+      "volume_mm3": 18.53856922933185,
       "density_g_cm3": 7.85,
       "mass_g": 0.145527768450255,
       "centroid_mm": [
-        -19.2,
-        -3.675643102145114e-16,
-        -0.6
+        -19.200000000000003,
+        2.407259547803674e-16,
+        -0.5999999999999998
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "servo_M2x6_-1",
-      "volume_mm3": 40.124022333430005,
+      "volume_mm3": 40.12402233342998,
       "density_g_cm3": 7.85,
-      "mass_g": 0.31497357531742554,
+      "mass_g": 0.3149735753174253,
       "centroid_mm": [
-        -19.200000000000003,
-        -5.45227104106051e-16,
-        -4.298941367488606
+        -19.2,
+        -6.020884170361877e-16,
+        -4.298941367488608
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "servo_mount_nut_1",
-      "volume_mm3": 18.53856922933184,
+      "volume_mm3": 18.538569229331834,
       "density_g_cm3": 7.85,
-      "mass_g": 0.14552776845025497,
+      "mass_g": 0.1455277684502549,
       "centroid_mm": [
-        8.3,
-        -6.529724307611307e-16,
-        -0.5999999999999996
+        8.300000000000002,
+        -2.245495486692066e-16,
+        -0.5999999999999998
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "servo_M2x6_1",
-      "volume_mm3": 40.124022333430005,
+      "volume_mm3": 40.124022333429984,
       "density_g_cm3": 7.85,
-      "mass_g": 0.31497357531742554,
+      "mass_g": 0.31497357531742537,
       "centroid_mm": [
         8.3,
-        -5.556104939025715e-16,
+        -6.162148032068337e-16,
         -4.298941367488609
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "servo_lead_0",
-      "volume_mm3": 51.84104402952706,
+      "volume_mm3": 51.84104402952703,
       "density_g_cm3": 1.45,
-      "mass_g": 0.07516951384281424,
+      "mass_g": 0.0751695138428142,
       "centroid_mm": [
-        -35.78696981447953,
-        -9.686771562164962,
-        -3.3009753468687997
+        -35.78696981447954,
+        -9.686771562164964,
+        -3.3009753468687983
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "servo_lead_1",
-      "volume_mm3": 51.841044021567086,
+      "volume_mm3": 51.84104402156706,
       "density_g_cm3": 1.45,
-      "mass_g": 0.07516951383127227,
+      "mass_g": 0.07516951383127222,
       "centroid_mm": [
-        -35.78696981640329,
-        -8.68677156180943,
-        -3.3009753463441
+        -35.78696981640328,
+        -8.686771561809433,
+        -3.3009753463441007
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "servo_lead_2",
-      "volume_mm3": 51.8410440245743,
+      "volume_mm3": 51.841044024574266,
       "density_g_cm3": 1.45,
-      "mass_g": 0.07516951383563274,
+      "mass_g": 0.07516951383563268,
       "centroid_mm": [
         -35.78696981543889,
-        -7.686771562110252,
-        -3.3009753466088023
+        -7.686771562110255,
+        -3.300975346608801
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "servo_JR_plug",
-      "volume_mm3": 177.42477796076932,
+      "volume_mm3": 177.42477796076935,
       "density_g_cm3": 1.2,
-      "mass_g": 0.2129097335529232,
+      "mass_g": 0.21290973355292322,
       "centroid_mm": [
         -69.0,
-        -10.000000000000004,
-        0.8000000000000004
+        -10.000000000000002,
+        0.8000000000000003
       ],
       "basis": "modeled hardware density"
     },
@@ -690,67 +774,67 @@
       "mass_g": 0.25208341312649646,
       "centroid_mm": [
         -85.00000000000001,
-        -27.118429885494447,
-        75.26150469306786
+        -27.118429885494454,
+        75.26150469306779
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "rail_zip_-85.0_30",
-      "volume_mm3": 221.1258009881547,
+      "volume_mm3": 221.12580098815485,
       "density_g_cm3": 1.14,
-      "mass_g": 0.25208341312649635,
+      "mass_g": 0.2520834131264965,
       "centroid_mm": [
         -84.99999999999999,
-        32.88157011450555,
-        75.26150469306783
+        32.88157011450553,
+        75.2615046930678
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "rail_zip_60.0_-30",
-      "volume_mm3": 221.1258009881547,
+      "volume_mm3": 221.12580098815474,
       "density_g_cm3": 1.14,
-      "mass_g": 0.25208341312649635,
+      "mass_g": 0.2520834131264964,
       "centroid_mm": [
-        59.99999999999998,
-        -27.11842988549444,
-        75.26150469306786
+        60.0,
+        -27.118429885494447,
+        75.26150469306779
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "rail_zip_60.0_30",
-      "volume_mm3": 221.12580098815454,
+      "volume_mm3": 221.1258009881547,
       "density_g_cm3": 1.14,
-      "mass_g": 0.2520834131264962,
+      "mass_g": 0.25208341312649635,
       "centroid_mm": [
-        60.00000000000003,
+        59.99999999999996,
         32.88157011450554,
-        75.26150469306786
+        75.26150469306782
       ],
       "basis": "modeled hardware density"
     },
     {
       "name": "PTFE_bearing_film",
-      "volume_mm3": 67.1798173043623,
+      "volume_mm3": 67.1798173043648,
       "density_g_cm3": 2.2,
-      "mass_g": 0.14779559806959708,
+      "mass_g": 0.14779559806960257,
       "centroid_mm": [
-        1.69227667301551e-13,
-        -1.2054224984534574e-14,
-        11.955000000000005
+        -1.5568945391742113e-13,
+        -2.293566144769247e-15,
+        11.954999999999993
       ],
       "basis": "modeled hardware density"
     }
   ],
-  "harness_total_g": 183.4789768303886,
+  "harness_total_g": 183.47897683038832,
   "harness_cg_mm": [
-    -4.136356415280739,
-    -0.11565017766531768,
-    9.521453203290932
+    -4.136356415280687,
+    -0.11565017766541275,
+    9.52145320329093
   ],
-  "carried_payload_g": 775.2019536102916,
+  "carried_payload_g": 854.0718702829033,
   "infill": "100% in all prototype parts; four 0.4mm walls and six top/bottom layers; no global density multiplier",
   "balance_iterations": [
     {
@@ -759,57 +843,57 @@
         6.0
       ],
       "cg": [
-        255.3479894536024,
-        6.966524445251732
+        276.09281194952194,
+        6.193513310823428
       ],
-      "mass": 148.44370188438745
+      "mass": 166.67784610239775
     },
     {
       "hanger": [
-        255.3479894536024,
-        6.966524445251732
+        276.09281194952194,
+        6.193513310823428
       ],
       "cg": [
-        254.50129548361494,
-        7.075544057730052
+        276.60725436212107,
+        6.168130325404682
       ],
-      "mass": 147.94413127226343
+      "mass": 167.61516456518018
     },
     {
       "hanger": [
-        254.50129548361494,
-        7.075544057730052
+        276.60725436212107,
+        6.168130325404682
       ],
       "cg": [
-        254.4385575041457,
-        7.085828491577084
+        276.63856811287144,
+        6.16489509689643
       ],
-      "mass": 147.9304742024889
+      "mass": 167.64724523706627
     },
     {
       "hanger": [
-        254.4385575041457,
-        7.085828491577084
+        276.63856811287144,
+        6.16489509689643
       ],
       "cg": [
-        254.43385051830592,
-        7.086717221274974
+        276.6405069700999,
+        6.164614119008283
       ],
-      "mass": 147.93074419497574
+      "mass": 167.64822336312875
     }
   ],
   "auxiliary_printed": [
     {
       "name": "fit_coupon",
-      "volume_mm3": 3537.223465853332,
+      "volume_mm3": 3537.2234658533307,
       "density_g_cm3": 1.27,
-      "mass_g": 4.492273801633732,
+      "mass_g": 4.49227380163373,
       "centroid_mm": [
-        22.29673033806538,
-        -0.08926920837707102,
-        5.250644502917078
+        22.296730338065395,
+        -0.08926920837707024,
+        5.25064450291708
       ],
-      "basis": "100% infill solid PETG"
+      "basis": "100% infill solid PETG; per physical copy"
     },
     {
       "name": "stake_adapter",
@@ -817,99 +901,123 @@
       "density_g_cm3": 1.27,
       "mass_g": 13.379637794875222,
       "centroid_mm": [
-        467.9648680267099,
+        467.9648680267102,
         15.752577609204065,
-        0.4816406289227395
+        0.48164062892273984
       ],
-      "basis": "100% infill solid PETG"
+      "basis": "100% infill solid PETG; per physical copy"
     },
     {
       "name": "stake_cell_holder",
-      "volume_mm3": 24051.917649055526,
+      "volume_mm3": 24051.91764905551,
       "density_g_cm3": 1.27,
-      "mass_g": 30.54593541430052,
+      "mass_g": 30.545935414300498,
       "centroid_mm": [
         110.33494386084692,
-        23.255609152758044,
-        4.05773187143744
+        23.25560915275803,
+        4.057731871437438
       ],
-      "basis": "100% infill solid PETG"
+      "basis": "100% infill solid PETG; per physical copy"
     },
     {
       "name": "dummy_body",
-      "volume_mm3": 39706.56179134687,
+      "volume_mm3": 40874.54203973633,
       "density_g_cm3": 1.27,
-      "mass_g": 50.42733347501052,
+      "mass_g": 51.91066839046513,
       "centroid_mm": [
-        157.7028745066311,
-        8.419671527338489,
-        9.718232132937851
+        165.2546953134529,
+        7.92785120306196,
+        9.575707622716578
       ],
-      "basis": "100% infill solid PETG"
+      "basis": "100% infill solid PETG; per physical copy"
     },
     {
       "name": "dummy_lid",
-      "volume_mm3": 3209.037167544041,
+      "volume_mm3": 3209.0371675440415,
       "density_g_cm3": 1.27,
       "mass_g": 4.075477202780933,
       "centroid_mm": [
-        111.0,
-        16.499999999999996,
+        111.00000000000001,
+        16.500000000000004,
         21.0
       ],
-      "basis": "100% infill solid PETG"
+      "basis": "100% infill solid PETG; per physical copy"
     },
     {
       "name": "dummy_head_insert",
-      "volume_mm3": 1474.1639647148718,
+      "volume_mm3": 1474.163964714871,
       "density_g_cm3": 1.27,
-      "mass_g": 1.8721882351878874,
+      "mass_g": 1.8721882351878862,
       "centroid_mm": [
-        560.0000000000005,
-        5.068992016195643e-17,
-        5.936035386689871
+        560.0,
+        1.0045611932516834e-16,
+        5.936035386689873
       ],
-      "basis": "100% infill solid PETG"
+      "basis": "100% infill solid PETG; per physical copy"
+    },
+    {
+      "name": "tail_fin",
+      "volume_mm3": 2744.735999999999,
+      "density_g_cm3": 1.27,
+      "mass_g": 3.485814719999999,
+      "centroid_mm": [
+        450.81550138155364,
+        11.409357544131074,
+        18.797142842410064
+      ],
+      "basis": "100% infill solid PETG; per physical copy"
+    },
+    {
+      "name": "tail_collar",
+      "volume_mm3": 1453.1044637835819,
+      "density_g_cm3": 1.27,
+      "mass_g": 1.845442669005149,
+      "centroid_mm": [
+        391.99999999999994,
+        -0.4918113949443959,
+        5.23147152760656
+      ],
+      "basis": "100% infill solid PETG; per physical copy"
     }
   ],
   "dummy": {
-    "target_mass_g": 147.93074419497574,
-    "baseline_mass_g": 111.10742205252414,
-    "ballast_total_g": 36.8233221424516,
+    "target_mass_g": 167.64822336312875,
+    "baseline_mass_g": 130.82490118598906,
+    "ballast_total_g": 36.82332217713969,
     "ballast": [
       {
         "name": "body_front",
-        "mass_g": 11.62897736153684,
+        "mass_g": 11.628977330114783,
         "centroid_mm": [
           92,
-          16.761828076506013,
-          9.661740930424212
+          16.76182808346062,
+          9.661740926316625
         ],
         "equivalent_solid_steel_bbox_mm": [
           20,
           12,
-          6.172493291686222
+          6.172493275007847
         ],
         "fits_pocket": true
       },
       {
         "name": "body_rear",
-        "mass_g": 20.252124441690032,
+        "mass_g": 20.252124507800186,
         "centroid_mm": [
           130,
-          16.761828076506013,
-          9.661740930424212
+          16.76182808346062,
+          9.661740926316625
         ],
         "equivalent_solid_steel_bbox_mm": [
           20,
           12,
-          10.749535266289827
+          10.749535301380142
         ],
         "fits_pocket": true
       },
       {
         "name": "head_front",
-        "mass_g": 2.4711101696123645,
+        "mass_g": 2.471110169612359,
         "centroid_mm": [
           554,
           0.0,
@@ -918,13 +1026,13 @@
         "equivalent_solid_steel_bbox_mm": [
           6.5,
           13,
-          3.7253385137185613
+          3.7253385137185533
         ],
         "fits_pocket": true
       },
       {
         "name": "head_rear",
-        "mass_g": 2.4711101696123645,
+        "mass_g": 2.471110169612359,
         "centroid_mm": [
           566,
           0.0,
@@ -933,16 +1041,16 @@
         "equivalent_solid_steel_bbox_mm": [
           6.5,
           13,
-          3.7253385137185613
+          3.7253385137185533
         ],
         "fits_pocket": true
       }
     ],
-    "total_g": 147.93074419497574,
+    "total_g": 167.64822336312875,
     "cg_mm": [
-      254.43385051830592,
-      7.086717221274974,
-      9.02556412225324
+      276.6405069700999,
+      6.164614119008283,
+      8.572169432782582
     ],
     "cg_error_mm": [
       0.0,
@@ -952,39 +1060,39 @@
     "baseline_parts": [
       {
         "name": "dummy_body",
-        "volume_mm3": 39706.56179134687,
+        "volume_mm3": 40874.54203973633,
         "density_g_cm3": 1.27,
-        "mass_g": 50.42733347501052,
+        "mass_g": 51.91066839046513,
         "centroid_mm": [
-          157.7028745066311,
-          8.419671527338489,
-          9.718232132937851
+          165.2546953134529,
+          7.92785120306196,
+          9.575707622716578
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "dummy_lid",
-        "volume_mm3": 3209.037167544041,
+        "volume_mm3": 3209.0371675440415,
         "density_g_cm3": 1.27,
         "mass_g": 4.075477202780933,
         "centroid_mm": [
-          111.0,
-          16.499999999999996,
+          111.00000000000001,
+          16.500000000000004,
           21.0
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "dummy_head_insert",
-        "volume_mm3": 1474.1639647148718,
+        "volume_mm3": 1474.163964714871,
         "density_g_cm3": 1.27,
-        "mass_g": 1.8721882351878874,
+        "mass_g": 1.8721882351878862,
         "centroid_mm": [
-          560.0000000000005,
-          5.068992016195643e-17,
-          5.936035386689871
+          560.0,
+          1.0045611932516834e-16,
+          5.936035386689873
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "rod",
@@ -996,19 +1104,19 @@
           6.985417729409094e-17,
           5.199999999999998
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "pod_shell",
-        "volume_mm3": 14945.057696989386,
+        "volume_mm3": 14945.057696989394,
         "density_g_cm3": 1.27,
-        "mass_g": 18.98022327517652,
+        "mass_g": 18.98022327517653,
         "centroid_mm": [
-          532.6291743592196,
-          -0.004116381431928387,
-          5.823259396255947
+          532.6291743592202,
+          -0.004116381431927069,
+          5.823259396255956
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "pod_lid",
@@ -1017,70 +1125,154 @@
         "mass_g": 5.707057726122101,
         "centroid_mm": [
           583.615366861316,
-          -0.006732931987166901,
-          18.05686781873449
+          -0.006732931987165479,
+          18.056867818734496
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "usb_cap",
-        "volume_mm3": 721.0339983722076,
+        "volume_mm3": 721.0339983722075,
         "density_g_cm3": 1.27,
-        "mass_g": 0.9157131779327037,
+        "mass_g": 0.9157131779327036,
         "centroid_mm": [
-          582.4134557175886,
-          -3.3517999570365353e-16,
-          8.499999999999998
+          582.4134557175892,
+          1.323658095865608e-16,
+          8.500000000000007
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
+      },
+      {
+        "name": "tail_fin_1",
+        "volume_mm3": 2744.735999999999,
+        "density_g_cm3": 1.27,
+        "mass_g": 3.485814719999999,
+        "centroid_mm": [
+          450.81550138155364,
+          11.409357544131074,
+          18.797142842410064
+        ],
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
+      },
+      {
+        "name": "tail_fin_2",
+        "volume_mm3": 2744.735999999998,
+        "density_g_cm3": 1.27,
+        "mass_g": 3.4858147199999974,
+        "centroid_mm": [
+          450.8155013815537,
+          -11.40935754413108,
+          18.797142842410057
+        ],
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
+      },
+      {
+        "name": "tail_fin_3",
+        "volume_mm3": 2744.735999999999,
+        "density_g_cm3": 1.27,
+        "mass_g": 3.485814719999999,
+        "centroid_mm": [
+          450.81550138155376,
+          -11.40935754413108,
+          -8.397142842410055
+        ],
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
+      },
+      {
+        "name": "tail_fin_4",
+        "volume_mm3": 2744.7360000000026,
+        "density_g_cm3": 1.27,
+        "mass_g": 3.4858147200000036,
+        "centroid_mm": [
+          450.81550138155364,
+          11.409357544131074,
+          -8.397142842410055
+        ],
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
+      },
+      {
+        "name": "tail_collar_1",
+        "volume_mm3": 1453.1044637835819,
+        "density_g_cm3": 1.27,
+        "mass_g": 1.845442669005149,
+        "centroid_mm": [
+          391.99999999999994,
+          -0.4918113949443959,
+          5.23147152760656
+        ],
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
+      },
+      {
+        "name": "tail_collar_2",
+        "volume_mm3": 1453.1044637835819,
+        "density_g_cm3": 1.27,
+        "mass_g": 1.845442669005149,
+        "centroid_mm": [
+          460.00000000000006,
+          -0.4918113949443959,
+          5.23147152760656
+        ],
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
+      },
+      {
+        "name": "tail_bond",
+        "volume_mm3": 46.369907566985376,
+        "density_g_cm3": null,
+        "mass_g": 0.6,
+        "centroid_mm": [
+          426.0000000000001,
+          1.5222655339683182e-15,
+          5.199999999999993
+        ],
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "pod_insert_0",
-        "volume_mm3": 20.94681397950493,
+        "volume_mm3": 20.946813979504938,
         "density_g_cm3": 8.5,
-        "mass_g": 0.1780479188257919,
+        "mass_g": 0.17804791882579196,
         "centroid_mm": [
-          540.0002271937901,
-          -11.000070095932816,
-          14.971501512423366
+          540.0002271937898,
+          -11.000070095932811,
+          14.971501512423343
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "pod_M2x6_0",
-        "volume_mm3": 40.12402233343014,
+        "volume_mm3": 40.1240223334301,
         "density_g_cm3": 7.85,
-        "mass_g": 0.3149735753174266,
+        "mass_g": 0.31497357531742626,
         "centroid_mm": [
           539.9999999999999,
-          -10.999999999999998,
-          17.098941367488596
+          -11.000000000000002,
+          17.098941367488603
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "pod_insert_1",
-        "volume_mm3": 20.946813979504988,
+        "volume_mm3": 20.946813979504974,
         "density_g_cm3": 8.5,
-        "mass_g": 0.1780479188257924,
+        "mass_g": 0.1780479188257923,
         "centroid_mm": [
-          540.00022719379,
-          10.999929904067185,
-          14.971501512423355
+          540.0002271937906,
+          10.999929904067182,
+          14.971501512423357
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "pod_M2x6_1",
-        "volume_mm3": 40.12402233343014,
+        "volume_mm3": 40.1240223334301,
         "density_g_cm3": 7.85,
-        "mass_g": 0.3149735753174266,
+        "mass_g": 0.31497357531742626,
         "centroid_mm": [
           539.9999999999999,
-          10.999999999999996,
-          17.098941367488596
+          10.999999999999998,
+          17.098941367488603
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "pod_insert_2",
@@ -1088,35 +1280,35 @@
         "density_g_cm3": 8.5,
         "mass_g": 0.1780479188257932,
         "centroid_mm": [
-          576.0002271937902,
-          10.999929904067189,
-          14.97150151242337
+          576.0002271937897,
+          10.999929904067196,
+          14.97150151242336
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "pod_M2x6_2",
-        "volume_mm3": 40.12402233343011,
+        "volume_mm3": 40.12402233343008,
         "density_g_cm3": 7.85,
-        "mass_g": 0.31497357531742637,
+        "mass_g": 0.3149735753174261,
         "centroid_mm": [
-          576.0,
-          10.999999999999998,
+          575.9999999999999,
+          10.999999999999995,
           17.0989413674886
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "perimeter_silicone_seal",
-        "volume_mm3": 160.2101133804394,
+        "volume_mm3": 160.21011338043934,
         "density_g_cm3": 1.1,
-        "mass_g": 0.17623112471848335,
+        "mass_g": 0.1762311247184833,
         "centroid_mm": [
-          558.9999999999981,
-          -5.4828083765860024e-15,
+          558.9999999999993,
+          -2.809792935758669e-15,
           16.549999999999976
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "dummy_nut_77",
@@ -1128,7 +1320,7 @@
           16.5,
           17.199999999999992
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "dummy_M2x8_77",
@@ -1140,7 +1332,7 @@
           16.5,
           20.273190783951648
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "dummy_nut_145",
@@ -1152,7 +1344,7 @@
           16.5,
           17.2
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       },
       {
         "name": "dummy_M2x8_145",
@@ -1164,7 +1356,7 @@
           16.500000000000004,
           20.27319078395165
         ],
-        "basis": "Inert dummy nominal material-density model, solid PETG"
+        "basis": "Inert dummy nominal material-density model, solid PETG; same tail bonds"
       }
     ],
     "all_pockets_fit": true,
@@ -1192,20 +1384,20 @@
         "mass_g": 1.8,
         "centroid_mm": [
           558.6372418569458,
-          -0.07298512500741562,
+          -0.07298512500741605,
           11.606639634872248
         ],
         "basis": "Same sourced maximum/MEASURE mass as flying dart"
       },
       {
         "name": "INMP441_breakout",
-        "volume_mm3": 240.04719951910675,
+        "volume_mm3": 240.0471995191068,
         "density_g_cm3": null,
         "mass_g": 1.0,
         "centroid_mm": [
-          569.9050761015095,
+          569.9050761015097,
           -13.427445709704015,
-          8.000000000000004
+          7.999999999999997
         ],
         "basis": "Same sourced maximum/MEASURE mass as flying dart"
       },
@@ -1223,12 +1415,12 @@
       },
       {
         "name": "LoRa_FPC_and_coax",
-        "volume_mm3": 351.5510904690423,
+        "volume_mm3": 351.55109046904215,
         "density_g_cm3": null,
         "mass_g": 0.8,
         "centroid_mm": [
-          624.5661371411763,
-          -1.366687689711822,
+          624.5661371411759,
+          -1.3666876897118168,
           18.522194168185592
         ],
         "basis": "Same sourced maximum/MEASURE mass as flying dart"
@@ -1239,21 +1431,21 @@
         "density_g_cm3": null,
         "mass_g": 0.35,
         "centroid_mm": [
-          554.2953762244506,
-          13.224995216793616,
-          8.025956104067303
+          554.2953762244507,
+          13.22499521679361,
+          8.025956104067298
         ],
         "basis": "Same sourced maximum/MEASURE mass as flying dart"
       },
       {
         "name": "pod_shell",
-        "volume_mm3": 14945.057696989386,
+        "volume_mm3": 14945.057696989394,
         "density_g_cm3": 1.27,
-        "mass_g": 18.98022327517652,
+        "mass_g": 18.98022327517653,
         "centroid_mm": [
-          532.6291743592196,
-          -0.004116381431928387,
-          5.823259396255947
+          532.6291743592202,
+          -0.004116381431927069,
+          5.823259396255956
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
@@ -1264,68 +1456,68 @@
         "mass_g": 5.707057726122101,
         "centroid_mm": [
           583.615366861316,
-          -0.006732931987166901,
-          18.05686781873449
+          -0.006732931987165479,
+          18.056867818734496
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "usb_cap",
-        "volume_mm3": 721.0339983722076,
+        "volume_mm3": 721.0339983722075,
         "density_g_cm3": 1.27,
-        "mass_g": 0.9157131779327037,
+        "mass_g": 0.9157131779327036,
         "centroid_mm": [
-          582.4134557175886,
-          -3.3517999570365353e-16,
-          8.499999999999998
+          582.4134557175892,
+          1.323658095865608e-16,
+          8.500000000000007
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "pod_insert_0",
-        "volume_mm3": 20.94681397950493,
+        "volume_mm3": 20.946813979504938,
         "density_g_cm3": 8.5,
-        "mass_g": 0.1780479188257919,
+        "mass_g": 0.17804791882579196,
         "centroid_mm": [
-          540.0002271937901,
-          -11.000070095932816,
-          14.971501512423366
+          540.0002271937898,
+          -11.000070095932811,
+          14.971501512423343
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "pod_M2x6_0",
-        "volume_mm3": 40.12402233343014,
+        "volume_mm3": 40.1240223334301,
         "density_g_cm3": 7.85,
-        "mass_g": 0.3149735753174266,
+        "mass_g": 0.31497357531742626,
         "centroid_mm": [
           539.9999999999999,
-          -10.999999999999998,
-          17.098941367488596
+          -11.000000000000002,
+          17.098941367488603
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "pod_insert_1",
-        "volume_mm3": 20.946813979504988,
+        "volume_mm3": 20.946813979504974,
         "density_g_cm3": 8.5,
-        "mass_g": 0.1780479188257924,
+        "mass_g": 0.1780479188257923,
         "centroid_mm": [
-          540.00022719379,
-          10.999929904067185,
-          14.971501512423355
+          540.0002271937906,
+          10.999929904067182,
+          14.971501512423357
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "pod_M2x6_1",
-        "volume_mm3": 40.12402233343014,
+        "volume_mm3": 40.1240223334301,
         "density_g_cm3": 7.85,
-        "mass_g": 0.3149735753174266,
+        "mass_g": 0.31497357531742626,
         "centroid_mm": [
           539.9999999999999,
-          10.999999999999996,
-          17.098941367488596
+          10.999999999999998,
+          17.098941367488603
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
@@ -1335,57 +1527,57 @@
         "density_g_cm3": 8.5,
         "mass_g": 0.1780479188257932,
         "centroid_mm": [
-          576.0002271937902,
-          10.999929904067189,
-          14.97150151242337
+          576.0002271937897,
+          10.999929904067196,
+          14.97150151242336
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "pod_M2x6_2",
-        "volume_mm3": 40.12402233343011,
+        "volume_mm3": 40.12402233343008,
         "density_g_cm3": 7.85,
-        "mass_g": 0.31497357531742637,
+        "mass_g": 0.3149735753174261,
         "centroid_mm": [
-          576.0,
-          10.999999999999998,
+          575.9999999999999,
+          10.999999999999995,
           17.0989413674886
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "perimeter_silicone_seal",
-        "volume_mm3": 160.2101133804394,
+        "volume_mm3": 160.21011338043934,
         "density_g_cm3": 1.1,
-        "mass_g": 0.17623112471848335,
+        "mass_g": 0.1762311247184833,
         "centroid_mm": [
-          558.9999999999981,
-          -5.4828083765860024e-15,
+          558.9999999999993,
+          -2.809792935758669e-15,
           16.549999999999976
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "mic_waterproof_film",
-        "volume_mm3": 2.513274122871854,
+        "volume_mm3": 2.5132741228718523,
         "density_g_cm3": 1.1,
-        "mass_g": 0.0027646015351590397,
+        "mass_g": 0.0027646015351590375,
         "centroid_mm": [
           570.0,
-          -14.825000000000001,
-          8.000000000000007
+          -14.825,
+          8.000000000000005
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "mic_silicone_cavity_seal",
-        "volume_mm3": 26.23858184278205,
+        "volume_mm3": 26.238581842782033,
         "density_g_cm3": 1.1,
-        "mass_g": 0.028862440027060256,
+        "mass_g": 0.02886244002706024,
         "centroid_mm": [
           570.0000000000001,
-          -14.400000000000004,
-          8.000000000000005
+          -14.4,
+          8.000000000000004
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
@@ -1439,61 +1631,61 @@
       },
       {
         "name": "mic_wire_D3_BCLK",
-        "volume_mm3": 25.000034005282416,
+        "volume_mm3": 25.00003400528238,
         "density_g_cm3": 1.45,
-        "mass_g": 0.0362500493076595,
+        "mass_g": 0.036250049307659446,
         "centroid_mm": [
           551.3905198338515,
-          -0.6165393247951182,
-          3.5148896525177986
+          -0.6165393247951207,
+          3.5148896525177964
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "mic_wire_D4_WS",
-        "volume_mm3": 24.42901911215267,
+        "volume_mm3": 24.429019112152663,
         "density_g_cm3": 1.45,
-        "mass_g": 0.03542207771262137,
+        "mass_g": 0.03542207771262136,
         "centroid_mm": [
-          551.7456147137253,
-          -0.34012385371519166,
+          551.7456147137252,
+          -0.3401238537151806,
           7.825091008141252
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "mic_wire_D5_SD",
-        "volume_mm3": 24.545774225302225,
+        "volume_mm3": 24.5457742253022,
         "density_g_cm3": 1.45,
-        "mass_g": 0.035591372626688225,
+        "mass_g": 0.03559137262668819,
         "centroid_mm": [
-          552.093412908033,
-          0.18625680631155198,
-          11.833803584217073
+          552.0934129080327,
+          0.1862568063115614,
+          11.833803584217067
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "mic_wire_3V3",
-        "volume_mm3": 7.988817548136726,
+        "volume_mm3": 7.988817548136715,
         "density_g_cm3": 1.45,
-        "mass_g": 0.011583785444798251,
+        "mass_g": 0.011583785444798237,
         "centroid_mm": [
           569.5177064948081,
-          -10.714307314351501,
+          -10.7143073143515,
           5.082892711954225
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "mic_wire_GND",
-        "volume_mm3": 8.36844673008031,
+        "volume_mm3": 8.368446730080306,
         "density_g_cm3": 1.45,
-        "mass_g": 0.01213424775861645,
+        "mass_g": 0.012134247758616445,
         "centroid_mm": [
           569.854329073515,
-          -10.491042139532924,
-          8.774838464593644
+          -10.491042139532926,
+          8.77483846459365
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
@@ -1503,21 +1695,21 @@
         "density_g_cm3": 1.27,
         "mass_g": 13.379637794875222,
         "centroid_mm": [
-          467.9648680267099,
+          467.9648680267102,
           15.752577609204065,
-          0.4816406289227395
+          0.48164062892273984
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
       {
         "name": "stake_cell_holder",
-        "volume_mm3": 24051.917649055526,
+        "volume_mm3": 24051.917649055507,
         "density_g_cm3": 1.27,
-        "mass_g": 30.54593541430052,
+        "mass_g": 30.545935414300494,
         "centroid_mm": [
-          310.33494386084675,
-          -6.7443908472419345,
-          4.057731871437446
+          310.3349438608469,
+          -6.744390847241948,
+          4.0577318714374435
         ],
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       },
@@ -1630,11 +1822,11 @@
         "basis": "Nominal model density; 100% infill for printed pieces; stock MEASURE"
       }
     ],
-    "total_g": 308.89243072119933,
+    "total_g": 308.8924307211993,
     "cg_local_mm": [
-      503.82050210145115,
+      503.82050210145127,
       13.501372816129797,
-      10.322021836646181
+      10.322021836646183
     ],
     "datum": "Original dart X/Y/Z datum before stood_transform; includes full1219.2mm stake and cell; not flight payload"
   }

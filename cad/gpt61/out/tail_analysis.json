@@ -1,0 +1,1078 @@
+{
+  "method": "Uniform pressure on the union of orthographically projected CAD side silhouettes (cardboard-cutout estimate); CP=sum(area*x)/sum(area). 0.010 in raster, 15 degree roll samples. Parts are not double-counted.",
+  "source_urls": [
+    "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/generalized-center-of-pressure/",
+    "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/conditions-for-rocket-stability/",
+    "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/falling-object-with-air-resistance/"
+  ],
+  "body_width_mm": 37.300000100000005,
+  "target_minimum_body_widths": 2.0,
+  "before": {
+    "mass_g": 147.930835912718,
+    "cg_mm": [
+      254.43345503684094,
+      7.0867981516850955,
+      9.025568258293344
+    ],
+    "minimum": {
+      "roll_deg": 90,
+      "projected_area_mm2": 7091.625,
+      "cp_x_mm": 301.0830028378545,
+      "components": [
+        {
+          "component": "body_and_cell",
+          "projected_area_mm2": 3485.0625,
+          "centroid_x_mm": 173.2433040117645
+        },
+        {
+          "component": "pod",
+          "projected_area_mm2": 1681.125,
+          "centroid_x_mm": 537.3855305227155
+        },
+        {
+          "component": "antenna_strip_and_backer",
+          "projected_area_mm2": 178.0625,
+          "centroid_x_mm": 635.0916549666549
+        },
+        {
+          "component": "exposed_rod",
+          "projected_area_mm2": 1747.375,
+          "centroid_x_mm": 294.6738679447743
+        }
+      ],
+      "cg_x_mm": 254.43345503684094,
+      "static_margin_mm": 46.64954780101357,
+      "static_margin_body_widths": 1.2506581146366689
+    },
+    "maximum": {
+      "roll_deg": 15,
+      "projected_area_mm2": 10482.125,
+      "cp_x_mm": 332.0991181415982,
+      "components": [
+        {
+          "component": "body_and_cell",
+          "projected_area_mm2": 4885.8125,
+          "centroid_x_mm": 153.1298546173231
+        },
+        {
+          "component": "pod",
+          "projected_area_mm2": 2668.375,
+          "centroid_x_mm": 541.6894821286363
+        },
+        {
+          "component": "antenna_strip_and_backer",
+          "projected_area_mm2": 1248.6875,
+          "centroid_x_mm": 635.2169840832875
+        },
+        {
+          "component": "exposed_rod",
+          "projected_area_mm2": 1679.25,
+          "centroid_x_mm": 294.3710175673664
+        }
+      ],
+      "cg_x_mm": 254.43345503684094,
+      "static_margin_mm": 77.66566310475724,
+      "static_margin_body_widths": 2.0821893537945924
+    },
+    "roll_samples": [
+      {
+        "roll_deg": 0,
+        "projected_area_mm2": 9631.125,
+        "cp_x_mm": 331.3995866266921,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4379.4375,
+            "centroid_x_mm": 146.97198020579128
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2323.625,
+            "centroid_x_mm": 542.4715557587821
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 1248.8125,
+            "centroid_x_mm": 635.2220547019668
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 76.96613158985116,
+        "static_margin_body_widths": 2.063435157734789
+      },
+      {
+        "roll_deg": 15,
+        "projected_area_mm2": 10482.125,
+        "cp_x_mm": 332.0991181415982,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4885.8125,
+            "centroid_x_mm": 153.1298546173231
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2668.375,
+            "centroid_x_mm": 541.6894821286363
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 1248.6875,
+            "centroid_x_mm": 635.2169840832875
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 77.66566310475724,
+        "static_margin_body_widths": 2.0821893537945924
+      },
+      {
+        "roll_deg": 30,
+        "projected_area_mm2": 10719.4375,
+        "cp_x_mm": 331.92923413075545,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 5060.3125,
+            "centroid_x_mm": 158.66082720928796
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2833.0,
+            "centroid_x_mm": 540.9029904253441
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 1146.875,
+            "centroid_x_mm": 635.2223297002724
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 77.4957790939145,
+        "static_margin_body_widths": 2.0776348226850136
+      },
+      {
+        "roll_deg": 45,
+        "projected_area_mm2": 10551.0625,
+        "cp_x_mm": 328.8701278603458,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 5067.375,
+            "centroid_x_mm": 163.00999037963442
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2810.5,
+            "centroid_x_mm": 540.1899128268991
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 993.9375,
+            "centroid_x_mm": 635.2212711438093
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 74.43667282350486,
+        "static_margin_body_widths": 1.995621249971655
+      },
+      {
+        "roll_deg": 60,
+        "projected_area_mm2": 9811.0625,
+        "cp_x_mm": 322.35306685055775,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4800.625,
+            "centroid_x_mm": 166.80008136961334
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2592.0,
+            "centroid_x_mm": 539.3541425540124
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 739.1875,
+            "centroid_x_mm": 635.2285131478819
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 67.91961181371681,
+        "static_margin_body_widths": 1.820901116129402
+      },
+      {
+        "roll_deg": 75,
+        "projected_area_mm2": 8587.375,
+        "cp_x_mm": 314.1424565859765,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4235.0,
+            "centroid_x_mm": 169.88044569067296
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2214.25,
+            "centroid_x_mm": 538.5114034097325
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 458.875,
+            "centroid_x_mm": 635.236141378371
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 59.709001549135564,
+        "static_margin_body_widths": 1.600777517132917
+      },
+      {
+        "roll_deg": 90,
+        "projected_area_mm2": 7091.625,
+        "cp_x_mm": 301.0830028378545,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 3485.0625,
+            "centroid_x_mm": 173.2433040117645
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 1681.125,
+            "centroid_x_mm": 537.3855305227155
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 178.0625,
+            "centroid_x_mm": 635.0916549666549
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1747.375,
+            "centroid_x_mm": 294.6738679447743
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 46.64954780101357,
+        "static_margin_body_widths": 1.2506581146366689
+      },
+      {
+        "roll_deg": 105,
+        "projected_area_mm2": 8433.125,
+        "cp_x_mm": 317.0407581709034,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4080.625,
+            "centroid_x_mm": 170.40879154541278
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2214.375,
+            "centroid_x_mm": 538.5056519898391
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 458.875,
+            "centroid_x_mm": 635.236141378371
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 62.60730313406248,
+        "static_margin_body_widths": 1.6784799722845702
+      },
+      {
+        "roll_deg": 120,
+        "projected_area_mm2": 9560.375,
+        "cp_x_mm": 326.3495351908267,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4549.75,
+            "centroid_x_mm": 166.61325828342217
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2592.1875,
+            "centroid_x_mm": 539.3513230861965
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 739.1875,
+            "centroid_x_mm": 635.2285131478819
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 71.91608015398577,
+        "static_margin_body_widths": 1.9280450391737602
+      },
+      {
+        "roll_deg": 135,
+        "projected_area_mm2": 10423.0625,
+        "cp_x_mm": 329.5451964993494,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4943.625,
+            "centroid_x_mm": 160.49812890338566
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2806.3125,
+            "centroid_x_mm": 540.1314697890915
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 993.875,
+            "centroid_x_mm": 635.218101496667
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 75.11174146250846,
+        "static_margin_body_widths": 2.013719604856206
+      },
+      {
+        "roll_deg": 150,
+        "projected_area_mm2": 10694.6875,
+        "cp_x_mm": 330.46592861525875,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 5040.5625,
+            "centroid_x_mm": 155.1228177038773
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2828.0,
+            "centroid_x_mm": 540.8346667256011
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 1146.875,
+            "centroid_x_mm": 635.2223297002724
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 76.03247357841781,
+        "static_margin_body_widths": 2.0384041119189646
+      },
+      {
+        "roll_deg": 165,
+        "projected_area_mm2": 10415.4375,
+        "cp_x_mm": 331.7649170102072,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4821.75,
+            "centroid_x_mm": 150.1666245398455
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2665.8125,
+            "centroid_x_mm": 541.6523603263545
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 1248.625,
+            "centroid_x_mm": 635.2144734207628
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1679.25,
+            "centroid_x_mm": 294.3710175673664
+          }
+        ],
+        "cg_x_mm": 254.43345503684094,
+        "static_margin_mm": 77.33146197336629,
+        "static_margin_body_widths": 2.073229537963628
+      }
+    ]
+  },
+  "after": {
+    "mass_g": 167.64822336312875,
+    "cg_mm": [
+      276.6405069700999,
+      6.164614119008283,
+      8.572169432782582
+    ],
+    "minimum": {
+      "roll_deg": 90,
+      "projected_area_mm2": 11041.375,
+      "cp_x_mm": 354.3442987173246,
+      "components": [
+        {
+          "component": "body_and_cell",
+          "projected_area_mm2": 3729.625,
+          "centroid_x_mm": 184.04187753460468
+        },
+        {
+          "component": "pod",
+          "projected_area_mm2": 1681.125,
+          "centroid_x_mm": 537.3855305227155
+        },
+        {
+          "component": "antenna_strip_and_backer",
+          "projected_area_mm2": 178.0625,
+          "centroid_x_mm": 635.0916549666549
+        },
+        {
+          "component": "fins_and_collars",
+          "projected_area_mm2": 3947.375,
+          "centroid_x_mm": 450.1850953165078
+        },
+        {
+          "component": "exposed_rod",
+          "projected_area_mm2": 1505.1875,
+          "centroid_x_mm": 287.3352624257775
+        }
+      ],
+      "cg_x_mm": 276.6405069700999,
+      "static_margin_mm": 77.70379174722467,
+      "static_margin_body_widths": 2.0832115694076005
+    },
+    "maximum": {
+      "roll_deg": 120,
+      "projected_area_mm2": 15632.875,
+      "cp_x_mm": 371.75909041842914,
+      "components": [
+        {
+          "component": "body_and_cell",
+          "projected_area_mm2": 4882.0625,
+          "centroid_x_mm": 176.79930837376622
+        },
+        {
+          "component": "pod",
+          "projected_area_mm2": 2592.1875,
+          "centroid_x_mm": 539.3513230861965
+        },
+        {
+          "component": "antenna_strip_and_backer",
+          "projected_area_mm2": 739.1875,
+          "centroid_x_mm": 635.2285131478819
+        },
+        {
+          "component": "fins_and_collars",
+          "projected_area_mm2": 5972.6875,
+          "centroid_x_mm": 446.30807556271776
+        },
+        {
+          "component": "exposed_rod",
+          "projected_area_mm2": 1446.75,
+          "centroid_x_mm": 286.9927207534128
+        }
+      ],
+      "cg_x_mm": 276.6405069700999,
+      "static_margin_mm": 95.11858344832922,
+      "static_margin_body_widths": 2.550096064164064
+    },
+    "roll_samples": [
+      {
+        "roll_deg": 0,
+        "projected_area_mm2": 12962.5,
+        "cp_x_mm": 361.10420805207326,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4601.125,
+            "centroid_x_mm": 154.33470414844194
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2323.625,
+            "centroid_x_mm": 542.4715557587821
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 1248.8125,
+            "centroid_x_mm": 635.2220547019668
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 3342.1875,
+            "centroid_x_mm": 449.3223679289388
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1446.75,
+            "centroid_x_mm": 286.9927207534128
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 84.46370108197334,
+        "static_margin_body_widths": 2.2644423821857664
+      },
+      {
+        "roll_deg": 15,
+        "projected_area_mm2": 15549.0,
+        "cp_x_mm": 368.3674824345617,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 5168.1875,
+            "centroid_x_mm": 161.46829310323977
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2668.375,
+            "centroid_x_mm": 541.6894821286363
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 1248.6875,
+            "centroid_x_mm": 635.2169840832875
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 5017.0,
+            "centroid_x_mm": 446.3668869593383
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1446.75,
+            "centroid_x_mm": 286.9927207534128
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 91.72697546446176,
+        "static_margin_body_widths": 2.4591682364221157
+      },
+      {
+        "roll_deg": 30,
+        "projected_area_mm2": 15829.8125,
+        "cp_x_mm": 368.59381675004045,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 5370.3125,
+            "centroid_x_mm": 167.6255208030259
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2833.0,
+            "centroid_x_mm": 540.9029904253441
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 1146.875,
+            "centroid_x_mm": 635.2223297002724
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 5366.0,
+            "centroid_x_mm": 447.1949485184495
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1113.625,
+            "centroid_x_mm": 246.06371366034347
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 91.95330977994053,
+        "static_margin_body_widths": 2.4652361805205603
+      },
+      {
+        "roll_deg": 45,
+        "projected_area_mm2": 15469.6875,
+        "cp_x_mm": 366.29547855685513,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 5395.875,
+            "centroid_x_mm": 172.53842923992866
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2810.5,
+            "centroid_x_mm": 540.1899128268991
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 993.9375,
+            "centroid_x_mm": 635.2212711438093
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 5315.875,
+            "centroid_x_mm": 447.9399117031533
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 953.5,
+            "centroid_x_mm": 214.69765993707395
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 89.65497158675521,
+        "static_margin_body_widths": 2.4036185347558536
+      },
+      {
+        "roll_deg": 60,
+        "projected_area_mm2": 15875.1875,
+        "cp_x_mm": 368.77748540371573,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 5124.4375,
+            "centroid_x_mm": 176.78570056469613
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2592.0,
+            "centroid_x_mm": 539.3541425540124
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 739.1875,
+            "centroid_x_mm": 635.2285131478819
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 5972.8125,
+            "centroid_x_mm": 446.3088068330456
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1446.75,
+            "centroid_x_mm": 286.9927207534128
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 92.13697843361581,
+        "static_margin_body_widths": 2.4701602730991894
+      },
+      {
+        "roll_deg": 75,
+        "projected_area_mm2": 14053.625,
+        "cp_x_mm": 365.66559562034706,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4527.0625,
+            "centroid_x_mm": 180.24865220272528
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2214.25,
+            "centroid_x_mm": 538.5114034097325
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 458.875,
+            "centroid_x_mm": 635.236141378371
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 5406.6875,
+            "centroid_x_mm": 448.3023411400234
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1446.75,
+            "centroid_x_mm": 286.9927207534128
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 89.02508865024714,
+        "static_margin_body_widths": 2.3867315928035917
+      },
+      {
+        "roll_deg": 90,
+        "projected_area_mm2": 11041.375,
+        "cp_x_mm": 354.3442987173246,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 3729.625,
+            "centroid_x_mm": 184.04187753460468
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 1681.125,
+            "centroid_x_mm": 537.3855305227155
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 178.0625,
+            "centroid_x_mm": 635.0916549666549
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 3947.375,
+            "centroid_x_mm": 450.1850953165078
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1505.1875,
+            "centroid_x_mm": 287.3352624257775
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 77.70379174722467,
+        "static_margin_body_widths": 2.0832115694076005
+      },
+      {
+        "roll_deg": 105,
+        "projected_area_mm2": 13905.5,
+        "cp_x_mm": 367.8682535687318,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4378.8125,
+            "centroid_x_mm": 180.9665309515993
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2214.375,
+            "centroid_x_mm": 538.5056519898391
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 458.875,
+            "centroid_x_mm": 635.236141378371
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 5406.6875,
+            "centroid_x_mm": 448.3002459338551
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1446.75,
+            "centroid_x_mm": 286.9927207534128
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 91.22774659863188,
+        "static_margin_body_widths": 2.445784084559074
+      },
+      {
+        "roll_deg": 120,
+        "projected_area_mm2": 15632.875,
+        "cp_x_mm": 371.75909041842914,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 4882.0625,
+            "centroid_x_mm": 176.79930837376622
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2592.1875,
+            "centroid_x_mm": 539.3513230861965
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 739.1875,
+            "centroid_x_mm": 635.2285131478819
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 5972.6875,
+            "centroid_x_mm": 446.30807556271776
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1446.75,
+            "centroid_x_mm": 286.9927207534128
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 95.11858344832922,
+        "static_margin_body_widths": 2.550096064164064
+      },
+      {
+        "roll_deg": 135,
+        "projected_area_mm2": 15350.1875,
+        "cp_x_mm": 366.82343304031303,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 5280.625,
+            "centroid_x_mm": 170.01710853355428
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2806.3125,
+            "centroid_x_mm": 540.1314697890915
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 993.875,
+            "centroid_x_mm": 635.218101496667
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 5315.875,
+            "centroid_x_mm": 447.9399117031533
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 953.5,
+            "centroid_x_mm": 214.69765993707395
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 90.18292607021311,
+        "static_margin_body_widths": 2.4177728104138287
+      },
+      {
+        "roll_deg": 150,
+        "projected_area_mm2": 15819.0625,
+        "cp_x_mm": 367.3931792141601,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 5364.6875,
+            "centroid_x_mm": 164.07154278557698
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2828.0,
+            "centroid_x_mm": 540.8346667256011
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 1146.875,
+            "centroid_x_mm": 635.2223297002724
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 5365.875,
+            "centroid_x_mm": 447.19628380739397
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1113.625,
+            "centroid_x_mm": 246.06371366034347
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 90.7526722440602,
+        "static_margin_body_widths": 2.433047506722666
+      },
+      {
+        "roll_deg": 165,
+        "projected_area_mm2": 15488.875,
+        "cp_x_mm": 368.0937154489916,
+        "components": [
+          {
+            "component": "body_and_cell",
+            "projected_area_mm2": 5110.875,
+            "centroid_x_mm": 158.43053721231686
+          },
+          {
+            "component": "pod",
+            "projected_area_mm2": 2665.8125,
+            "centroid_x_mm": 541.6523603263545
+          },
+          {
+            "component": "antenna_strip_and_backer",
+            "projected_area_mm2": 1248.625,
+            "centroid_x_mm": 635.2144734207628
+          },
+          {
+            "component": "fins_and_collars",
+            "projected_area_mm2": 5016.8125,
+            "centroid_x_mm": 446.3678583886681
+          },
+          {
+            "component": "exposed_rod",
+            "projected_area_mm2": 1446.75,
+            "centroid_x_mm": 286.9927207534128
+          }
+        ],
+        "cg_x_mm": 276.6405069700999,
+        "static_margin_mm": 91.45320847889167,
+        "static_margin_body_widths": 2.451828638973426
+      }
+    ]
+  },
+  "raster_convergence": {
+    "before": {
+      "coarse_step_mm": 0.25,
+      "fine_step_mm": 0.125,
+      "roll_deg": 90,
+      "cp_delta_mm": -0.48939052580237785
+    },
+    "after": {
+      "coarse_step_mm": 0.25,
+      "fine_step_mm": 0.125,
+      "roll_deg": 90,
+      "cp_delta_mm": -0.2338423201057367
+    }
+  },
+  "carriage": [
+    {
+      "hanger_offset_from_cg_mm": -5.0,
+      "equilibrium_nose_down_deg": -6.8818977666476355,
+      "hanger_x_mm": 271.3290519346536,
+      "cg_mm": [
+        276.32797243899614,
+        6.186043583743863,
+        8.581431173042974
+      ],
+      "mass_g": 167.17812668165845,
+      "ground_clearance_mm": 51.28575827424761,
+      "seating_collisions": [
+        {
+          "dart": 1,
+          "part": "plate",
+          "interference_mm3": 1835.516522474348
+        },
+        {
+          "dart": 2,
+          "part": "rotor",
+          "interference_mm3": 7.070290433249731
+        },
+        {
+          "dart": 3,
+          "part": "rotor",
+          "interference_mm3": 13.862334311006029
+        },
+        {
+          "dart": 4,
+          "part": "rotor",
+          "interference_mm3": 1.0531655449146415
+        }
+      ],
+      "selected": false,
+      "scope": "Static gravity equilibrium about head bearing point; rigid head/plate/rotor seating check. Tilted options rejected here, not release-qualified."
+    },
+    {
+      "hanger_offset_from_cg_mm": 0.0,
+      "equilibrium_nose_down_deg": -0.0026814905503933857,
+      "hanger_x_mm": 276.63856811287144,
+      "cg_mm": [
+        276.6405069700999,
+        6.164614119008283,
+        8.572169432782582
+      ],
+      "mass_g": 167.64822336312875,
+      "ground_clearance_mm": 80.36230955629051,
+      "seating_collisions": [],
+      "selected": true,
+      "scope": "Static gravity equilibrium about head bearing point; rigid head/plate/rotor seating check. Tilted options rejected here, not release-qualified."
+    },
+    {
+      "hanger_offset_from_cg_mm": 5.0,
+      "equilibrium_nose_down_deg": 6.878683561345588,
+      "hanger_x_mm": 281.9656508041235,
+      "cg_mm": [
+        276.9668559603533,
+        6.143213129330738,
+        8.562931795061425
+      ],
+      "mass_g": 168.11961474632358,
+      "ground_clearance_mm": 65.6873928525568,
+      "seating_collisions": [
+        {
+          "dart": 2,
+          "part": "rotor",
+          "interference_mm3": 1.0526689332759127
+        },
+        {
+          "dart": 3,
+          "part": "plate",
+          "interference_mm3": 419.9004398395091
+        },
+        {
+          "dart": 4,
+          "part": "rotor",
+          "interference_mm3": 7.0669560924991295
+        }
+      ],
+      "selected": false,
+      "scope": "Static gravity equilibrium about head bearing point; rigid head/plate/rotor seating check. Tilted options rejected here, not release-qualified."
+    }
+  ],
+  "wind": [
+    {
+      "drop_height_ft": 16.0,
+      "impact_speed_ft_s": 32.0869062690687,
+      "impact_speed_mph": 21.877436092049628,
+      "tilt_deg": {
+        "5": 12.873615673898536,
+        "10": 24.564758854439287,
+        "15": 34.43601352796799
+      }
+    },
+    {
+      "drop_height_ft": 33.0,
+      "impact_speed_ft_s": 46.08131079906474,
+      "impact_speed_mph": 31.4190755441028,
+      "tilt_deg": {
+        "5": 9.042169704058704,
+        "10": 17.655127399564286,
+        "15": 25.52060148174338
+      }
+    },
+    {
+      "drop_height_ft": 49.0,
+      "impact_speed_ft_s": 56.152085970870225,
+      "impact_speed_mph": 38.28551316108685,
+      "tilt_deg": {
+        "5": 7.440586160941046,
+        "10": 14.638352134484421,
+        "15": 21.39490333570527
+      }
+    }
+  ],
+  "limitations": [
+    "Estimate only; nothing printed, dropped or flown.",
+    "Uniform broadside pressure is not a validated small-angle CP; real force coefficients, wake shielding, fin flexibility, inertia, damping, propwash and rotation timing are unknown.",
+    "Roll sampling is discrete; the minimum reported is the sampled minimum.",
+    "Wind arithmetic assumes release from rest, zero horizontal ground speed, constant wind, no drag and perfect alignment with relative air; it is not a landing prediction.",
+    "Vertical drag alone reduces impact speed and increases this tilt at fixed relative crosswind; horizontal entrainment reduces relative crosswind, so the net change requires coupled dynamics.",
+    "A positive static margin does not establish self-righting from a flat release or completion of a turn within the available drop height. Controlled dummy drop tests must determine that."
+  ]
+}

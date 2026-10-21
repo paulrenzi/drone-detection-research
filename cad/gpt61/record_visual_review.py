@@ -5,6 +5,11 @@ R=Path(__file__).resolve().parent
 ap=argparse.ArgumentParser();ap.add_argument('--reviewed',action='store_true',help='Explicitly attest that every current render has been inspected.');args=ap.parse_args()
 if not args.reviewed:raise SystemExit('Inspect all renders first, then supply --reviewed. This script does not inspect images.')
 notes={
+ 'dart_balance.png':'CAD side cutaway shows gold 18650 at nose, labelled tip datum, actual mass balance and sampled pressure estimates before/after fins.',
+ 'dart_fins_detail.png':'Diagonal flat panels, two slotted collars, tab clearance and bonded attachment inspected; no physical joint qualification.',
+ 'dart_fall_sequence.png':'Four illustrative attitudes explicitly labelled schematic, not simulation; wind is upwind-pointing, with no turn timing claim.',
+ 'print_tail_fin.png':'Full broad planar face on bed, tabs coplanar; no supports.',
+ 'print_tail_collar.png':'Axial face on bed; rod bore, keyways and wire relief open vertically; no supports.',
  'print_stake_adapter.png':'Reoriented flat after visual review; removes unsupported sideways V-saddle projections.',
  'print_stake_cell_holder.png':'Flat coplanar base and cradle floor; snap beams require local support.',
  'pod_usb_access.png':'End cap set aside, USB visible; lid retained and FPC backer explicitly cropped.',

@@ -51,6 +51,12 @@ def make_parts(p):
                          basis=r['basis'] if r else None, **kw), 'dart'))
 
     raw = {n: (n, s, c) for n, s, c in dart_rows(p)}
+    for n in raw:
+        if not n.startswith('tail_'):continue
+        add(n,[raw[n]],n.replace('_',' ').capitalize(),'bought' if n=='tail_bond' else 'printed',
+            {'type':'modelled','reference':'tail_fins.py; DESIGN.md'},
+            'Bonds the keyed fins and collars to the rod.' if n=='tail_bond' else 'Adds tail side area for the estimated restoring moment.' if n.startswith('tail_fin') else 'Locates four keyed fin tabs around the rod.',
+            uncertainties=['Prototype bond strength, fin stiffness and fall response are untested; weigh actual parts and cured adhesive.'])
     for n, desc, function in (
         ('body', 'Printed body with integral cell snaps and hanger', 'Supports the cell and rod and transfers the carried load through its integral hanger.'),
         ('pod_shell', 'Printed electronics tray', 'Holds the electronics and provides the rod socket and microphone cavity.'),
@@ -197,6 +203,13 @@ def dart_offset(n):
     # Pod first withdraws from the square rod end on +X; body withdraws toward
     # the tip on -X. Cell opens +Z; mic assembly opens toward the cavity on -Y.
     if n=='rod': return (0,0,0),ramp(0,1)
+    if n.startswith('tail_fin'):
+        from parameters import FIN_ANGLES
+        import math
+        a=math.radians(FIN_ANGLES[int(n[-1])-1])
+        return (0,65*math.cos(a),65*math.sin(a)),ramp(1.1,2.0)
+    if n.startswith('tail_collar'):return (180 if n.endswith('2') else 150,0,-60),ramp(2,3.3)
+    if n=='tail_bond':return (0,-85,-65),ramp(2,3.3)
     if n=='body': return (-300,0,0),ramp(2.0,3.3)
     if n=='cell_18650': return (-300,0,85),None
     if n.startswith('nickel_tab'): return (-318 if n.endswith('77.82') else -282,0,85),None

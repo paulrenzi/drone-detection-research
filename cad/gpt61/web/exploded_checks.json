@@ -2,8 +2,8 @@
   "dart": {
     "pass_": true,
     "threshold_mm3": 0.02,
-    "groups": 36,
-    "pairs": 630,
+    "groups": 43,
+    "pairs": 903,
     "exact_boolean_candidates": 0,
     "collisions": [],
     "scope": "Final exploded endpoint, exact original B-reps, AABB pruning; retained subassembly internal contacts excluded.",

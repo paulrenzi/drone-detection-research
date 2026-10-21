@@ -1,13 +1,13 @@
 {
   "pass_": true,
-  "geometry_checks": 140,
-  "printed_parts": 12,
+  "geometry_checks": 164,
+  "printed_parts": 14,
   "models": {
-    "dart": 147.93074419497574,
-    "harness": 775.2019536102916,
-    "aircraft": 775.2019536102916,
+    "dart": 167.64822336312875,
+    "harness": 854.0718702829033,
+    "aircraft": 854.0718702829033,
     "stake": 308.8924307211993
   },
-  "render_count": 33,
-  "scope": "Current report consistency, output identities, GLB mass accounting, all visual-review hashes and validator summaries"
+  "render_count": 38,
+  "scope": "Current report consistency, output identities, GLB mass accounting, tail nodes and kit quantities, all visual-review hashes and validator summaries"
 }

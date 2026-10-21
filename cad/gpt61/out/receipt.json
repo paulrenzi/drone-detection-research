@@ -1,8 +1,8 @@
 {
-  "created_utc": "2026-10-21T20:36:59.568361+00:00",
+  "created_utc": "2026-10-21T21:33:57.047783+00:00",
   "cadquery": "2.8.0",
   "vtk": "9.6.2",
-  "geometry_checks": 140,
+  "geometry_checks": 164,
   "failed": [],
   "printed_exports_verified": [
     {
@@ -10,14 +10,14 @@
       "passed": true,
       "step_valid": true,
       "step_solids": 1,
-      "stl_triangles": 14594,
+      "stl_triangles": 14598,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 32269.722724812345,
-      "stl_volume_mm3": 32272.109050236864,
-      "relative_volume_error": 7.394936252997351e-05,
+      "cad_volume_mm3": 33437.70298494458,
+      "stl_volume_mm3": 33440.02521724986,
+      "relative_volume_error": 6.944951650301955e-05,
       "stl_bounds": [
-        -97.71927642822266,
-        97.71927642822266,
+        -108.81928253173828,
+        108.81928253173828,
         -18.649999618530273,
         18.649999618530273,
         1.0000000116860974e-07,
@@ -31,9 +31,9 @@
       "step_solids": 1,
       "stl_triangles": 16506,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 14945.061569386096,
-      "stl_volume_mm3": 14945.336503970042,
-      "relative_volume_error": 1.839635003637824e-05,
+      "cad_volume_mm3": 14945.0615693861,
+      "stl_volume_mm3": 14945.336503979928,
+      "relative_volume_error": 1.8396350697638103e-05,
       "stl_bounds": [
         -51.0,
         51.0,
@@ -70,8 +70,8 @@
       "stl_triangles": 1340,
       "boundary_or_nonmanifold_edges": 0,
       "cad_volume_mm3": 721.0339983722137,
-      "stl_volume_mm3": 721.0231709683542,
-      "relative_volume_error": 1.5016495593721858e-05,
+      "stl_volume_mm3": 721.0231709683544,
+      "relative_volume_error": 1.5016495593406515e-05,
       "stl_bounds": [
         -8.199999809265137,
         8.199999809265137,
@@ -88,9 +88,9 @@
       "step_solids": 1,
       "stl_triangles": 13228,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 103683.19779530354,
-      "stl_volume_mm3": 103655.62451144792,
-      "relative_volume_error": 0.00026593782253948867,
+      "cad_volume_mm3": 103683.19779530831,
+      "stl_volume_mm3": 103655.62450954763,
+      "relative_volume_error": 0.0002659378409133694,
       "stl_bounds": [
         -88.5,
         88.5,
@@ -108,8 +108,8 @@
       "stl_triangles": 4104,
       "boundary_or_nonmanifold_edges": 0,
       "cad_volume_mm3": 30410.991532147244,
-      "stl_volume_mm3": 30393.014210758578,
-      "relative_volume_error": 0.0005911455195290785,
+      "stl_volume_mm3": 30393.014210758593,
+      "relative_volume_error": 0.0005911455195285999,
       "stl_bounds": [
         -64.64907836914062,
         64.64952087402344,
@@ -127,8 +127,8 @@
       "stl_triangles": 3164,
       "boundary_or_nonmanifold_edges": 0,
       "cad_volume_mm3": 3537.223465853333,
-      "stl_volume_mm3": 3537.572500873729,
-      "relative_volume_error": 9.867485720522786e-05,
+      "stl_volume_mm3": 3537.572500873728,
+      "relative_volume_error": 9.867485720497074e-05,
       "stl_bounds": [
         -27.5,
         27.5,
@@ -164,9 +164,9 @@
       "step_solids": 1,
       "stl_triangles": 10858,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 24051.91761714479,
-      "stl_volume_mm3": 24053.515968918724,
-      "relative_volume_error": 6.645423451782912e-05,
+      "cad_volume_mm3": 24051.91761714452,
+      "stl_volume_mm3": 24053.139402166074,
+      "relative_volume_error": 5.07978216540218e-05,
       "stl_bounds": [
         -40.25,
         40.25,
@@ -181,14 +181,14 @@
       "passed": true,
       "step_valid": true,
       "step_solids": 1,
-      "stl_triangles": 10598,
+      "stl_triangles": 10602,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 39706.56178600212,
-      "stl_volume_mm3": 39708.16287163434,
-      "relative_volume_error": 4.032294815265841e-05,
+      "cad_volume_mm3": 40874.542033876256,
+      "stl_volume_mm3": 40876.45555476176,
+      "relative_volume_error": 4.6814491130312244e-05,
       "stl_bounds": [
-        -97.71927642822266,
-        97.71927642822266,
+        -108.81928253173828,
+        108.81928253173828,
         -18.649999618530273,
         18.649999618530273,
         1.0000000116860974e-07,
@@ -222,8 +222,8 @@
       "stl_triangles": 1340,
       "boundary_or_nonmanifold_edges": 0,
       "cad_volume_mm3": 1474.1639647148709,
-      "stl_volume_mm3": 1474.1646131333569,
-      "relative_volume_error": 4.3985506463352533e-07,
+      "stl_volume_mm3": 1474.1646131333573,
+      "relative_volume_error": 4.3985506494200346e-07,
       "stl_bounds": [
         -11.5,
         11.5,
@@ -232,10 +232,48 @@
         0.0,
         7.0
       ]
+    },
+    {
+      "part": "tail_fin",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 44,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 2744.735999999135,
+      "stl_volume_mm3": 2744.736093318943,
+      "relative_volume_error": 3.3999556970873946e-08,
+      "stl_bounds": [
+        -82.0,
+        82.0,
+        -10.699999809265137,
+        10.699999809265137,
+        -1.9317880628477724e-14,
+        1.2000000476837158
+      ]
+    },
+    {
+      "part": "tail_collar",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 848,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 1453.1044637833904,
+      "stl_volume_mm3": 1452.2762230217131,
+      "relative_volume_error": 0.0005699801922849025,
+      "stl_bounds": [
+        -8.996109962463379,
+        8.996109962463379,
+        -8.97357177734375,
+        8.97744369506836,
+        -9.987688412386596e-16,
+        8.0
+      ]
     }
   ],
-  "dart_g": 147.93074419497574,
-  "harness_g": 183.4789768303886,
+  "dart_g": 167.64822336312875,
+  "harness_g": 183.47897683038832,
   "scope": "cad/gpt61 only; no commit/push; no physical qualification",
   "files": [
     {
@@ -245,8 +283,8 @@
     },
     {
       "path": "build.py",
-      "bytes": 21767,
-      "sha256": "72e5a0df48de4e296769be12e3fb0d7a1527f2d1e49eeb81cc72986659379316"
+      "bytes": 22614,
+      "sha256": "7ccf009b2c4a7d60f6c172b216f77a020cc41a171b2e89082934a1f313c40102"
     },
     {
       "path": "clean_obsolete.py",
@@ -255,18 +293,18 @@
     },
     {
       "path": "display_units.py",
-      "bytes": 7665,
-      "sha256": "30cb38ef809f83241ae3bcc774bbc4f700cb54684392b5cc6d6cb566865e6659"
+      "bytes": 7667,
+      "sha256": "b73fe1cfe9fa470b27f3d0b0493eefc3e798243b4aa3941edd532c857a55747c"
     },
     {
       "path": "document.py",
-      "bytes": 35240,
-      "sha256": "4a6014167082432aab2c0369b5d400877273c39e7f48b922107b0b5fc22a3cf7"
+      "bytes": 36776,
+      "sha256": "954c18cf742d07855f7f59ff0fcb94fd4075b7e1be78f2ba626819c809590636"
     },
     {
       "path": "exploded.py",
-      "bytes": 21074,
-      "sha256": "0684bbe482dc179e5027bb4576c3a1ee294294ec962bc0ef1c3b94fbad9ff9ef"
+      "bytes": 22035,
+      "sha256": "9f5471d51f4c56d02c8e5035f381ff5d1c03af228c150fb0dacba9ea27e6e749"
     },
     {
       "path": "fetch_sources.py",
@@ -290,13 +328,13 @@
     },
     {
       "path": "package.py",
-      "bytes": 1524,
-      "sha256": "60d72c72ab0a119029cb104592c698a5190dd6f33c1719dac3fa6a72b9e12df3"
+      "bytes": 1652,
+      "sha256": "5030fd04222c984ed1e2fd46ca0fa723acf5eec636d49bb20c1523b7e2e451b3"
     },
     {
       "path": "parameters.py",
-      "bytes": 8954,
-      "sha256": "c7535ba04f61179cdc2b227cd994374f87dfccd605db8b6db9734b050504f433"
+      "bytes": 9370,
+      "sha256": "6cff8f33110ad222062731f844c802f578cb31a89567c45c1e9a6518142b7102"
     },
     {
       "path": "printed.py",
@@ -315,13 +353,13 @@
     },
     {
       "path": "record_visual_review.py",
-      "bytes": 1998,
-      "sha256": "6ef68b3e0b9d4252d007ef05a89d1d9a28a715f420683c034ab9ed0958776acc"
+      "bytes": 2655,
+      "sha256": "658e75361e1a41edb22196ce017f5261361a93a5a7812cc2b22aba782d42be5f"
     },
     {
       "path": "refresh_reports.py",
-      "bytes": 929,
-      "sha256": "88e463b15ba273499640fe67b565589916a72e282fa0c03cffb3a77d44ab0121"
+      "bytes": 354,
+      "sha256": "dc4ab61d740d8f563fdd7a4112f9216687757e68e42b01253adaede644432f1b"
     },
     {
       "path": "refresh_stake_prints.py",
@@ -340,13 +378,13 @@
     },
     {
       "path": "render_local.py",
-      "bytes": 5714,
-      "sha256": "46433fc428edca77a9a242aaf35ca31d467699801e8e77cb0e9604b0638512f3"
+      "bytes": 5889,
+      "sha256": "85c63589aeefbcb375b973c4945644024c0409ea045d502c2b91749440b53bea"
     },
     {
       "path": "render_us_units.py",
-      "bytes": 1008,
-      "sha256": "d7f6f95aafb4cc0ac7924b9ef1f59fda11961b466cd46e4af0b3eaa4de5a05ff"
+      "bytes": 1082,
+      "sha256": "e34a1fd4bad4a0e23b5ca9af2b4bb0af8a6214bb72a39c65c57e0420b048797a"
     },
     {
       "path": "source_drawings.py",
@@ -357,6 +395,21 @@
       "path": "stake_web.py",
       "bytes": 2277,
       "sha256": "cd60be5bfe3aa9ba68d066ed03ec5a648ea4278e26f7699fe4a70621e9cce1a2"
+    },
+    {
+      "path": "tail_analysis.py",
+      "bytes": 14008,
+      "sha256": "b94791a27ee153de9b39725bf698856f484c90bdf71b47162be35570039c7b62"
+    },
+    {
+      "path": "tail_fins.py",
+      "bytes": 2593,
+      "sha256": "6cd241c458dc2887aa574be3ef9c83b478e4e4851448db912fa0789062278e16"
+    },
+    {
+      "path": "tail_notes.py",
+      "bytes": 10462,
+      "sha256": "3afc6a2f69003dc561de3b526b66ac6ed8889ff687539975da2b83b77d088ee8"
     },
     {
       "path": "validate_archive.py",
@@ -370,63 +423,68 @@
     },
     {
       "path": "validate_package.py",
-      "bytes": 2906,
-      "sha256": "4d7a532affe156f6aa5a59b988e96b7b02fc9e4e7a94499d29d5c3842bbccab9"
+      "bytes": 4119,
+      "sha256": "e37ec79479c0244352c608e26b981fed25c4779bdbc4e84e6549f404ab936871"
     },
     {
       "path": "validate_us_units.py",
-      "bytes": 7108,
-      "sha256": "f5f71e9ba358fe4cb7e9def9ba93bb6f6f11b377acb6287f9c94968c45a5e957"
+      "bytes": 3755,
+      "sha256": "bdc6f11c8b06ac59c08d6692a425d3d8c194e16a54a3cdb7cd36725a3e44d29d"
     },
     {
       "path": "variants.py",
-      "bytes": 9395,
-      "sha256": "c3c0fc4c8320d08f7f78ff9c5b1b8181353d4c2657c8b2496a4f65ccb8918b3e"
+      "bytes": 9613,
+      "sha256": "c589092b6957fcebd765c530b88cffb83d24681dbadc23abfbe6d026aa019b18"
     },
     {
       "path": "verify.py",
-      "bytes": 16871,
-      "sha256": "1d1e11a28268a00a1667b077879805ff266aa37e956dfc40953c96ba272d59b1"
+      "bytes": 20679,
+      "sha256": "670e9866bd95cfb8fb30345e70381ea728fe28afa1e215533e482522faf7e48c"
     },
     {
       "path": "web_export.py",
-      "bytes": 32446,
-      "sha256": "6750b59034ee27900db7b6f69aeb478fbf18a41abe642234fa1c207ca8630681"
+      "bytes": 32565,
+      "sha256": "2b081f90cda8ade3709efe9b59a71f90644a930c9520bd378594492daeeb916d"
     },
     {
       "path": "renders/aircraft_exploded.png",
-      "bytes": 215318,
-      "sha256": "96f968a61a2da33b0769e776dfaa6745d2842fe464977130516e8e9d4b87f701"
+      "bytes": 218150,
+      "sha256": "69d822dd4e5fc297ebf4a94c54be2052523aec9f38c9e425c15634d1cc95593e"
     },
     {
       "path": "renders/assembly_carried.png",
-      "bytes": 168996,
-      "sha256": "32520052b2bda453b52d000de7763a6df08bda18b880235f406c11e9b261a0c5"
+      "bytes": 164794,
+      "sha256": "55efcfd16c5090c26c086eaa4171c05863106169e8f0739fdca8aa42e492e8a8"
     },
     {
       "path": "renders/assembly_mid_release.png",
-      "bytes": 160867,
-      "sha256": "2436503d36e5bb32ddbd5d975bb5f230bd686fc6d7d44fbc837d03d1b22cd0f4"
+      "bytes": 162981,
+      "sha256": "7049e918cc0d36a37ae15c00dfedb2ed16f210f525717f18b8b4191fed84defb"
     },
     {
       "path": "renders/assembly_stood.png",
-      "bytes": 104862,
-      "sha256": "844bc71ef94f26e9609cfac274cde5126c62495d187d6fdace4597e4abb5606f"
+      "bytes": 105627,
+      "sha256": "36020c2bf1b48e33c472209f1c8e8cbbaadc844742613391eebe9cefacb6a496"
     },
     {
       "path": "renders/bought_servo.png",
-      "bytes": 53403,
-      "sha256": "dc212e4f8997bea930248186c77b112eae8a4c283e031094220bde0a286d3c01"
+      "bytes": 53510,
+      "sha256": "b9d20438352857360c7094065ab24d4b5678ce16a6b5a15ef27f4a99d9b73b3d"
     },
     {
       "path": "renders/bought_xiao_wio.png",
-      "bytes": 72119,
-      "sha256": "07b897b03206ceb3b8a1fce5f33411dfe126eeae39465675fb4554edd57b5484"
+      "bytes": 72059,
+      "sha256": "6d21b97d5e5ff13c415d6cf250c38a089ef38b0d7fd7409cc7d85dc20c219c47"
+    },
+    {
+      "path": "renders/dart_balance.png",
+      "bytes": 52055,
+      "sha256": "eedfa1d4301d975d27be67f5f4a21b4dfabaab67e47646fcd55edd9d4e10264c"
     },
     {
       "path": "renders/dart_exploded.png",
-      "bytes": 68589,
-      "sha256": "29972feb7471158162b002e6971304a29d4033759477b27777e8e24ff74f25ad"
+      "bytes": 71909,
+      "sha256": "a5afaaab72c7d62f39fd36457150edcc38f22e58e927fa71a16fc25b24bcc919"
     },
     {
       "path": "renders/dart_exploded_pod.png",
@@ -434,49 +492,59 @@
       "sha256": "6c65380bdda908ce1b05deb80299b712ca9655c2e706f9b57dfbd4cb9fc1278b"
     },
     {
+      "path": "renders/dart_fall_sequence.png",
+      "bytes": 49761,
+      "sha256": "f74e83d9d27db3fcadd5fb5ba8aa10ff2a617163326529df5c7f063a39d7ca57"
+    },
+    {
+      "path": "renders/dart_fins_detail.png",
+      "bytes": 52902,
+      "sha256": "68cac270aac0133e8463468f04f65915d9ca8a6a556e9302b6bad618a3193397"
+    },
+    {
       "path": "renders/dart_stood.png",
-      "bytes": 25006,
-      "sha256": "1599d6eea3d080e094cda1aac5fabfceff67b8b4db89019cb6daaf14982fa620"
+      "bytes": 26291,
+      "sha256": "45a96fc118d57c5bdf35f6718a7ac080c9f70f828b2041b0814cc00424c8bcd5"
     },
     {
       "path": "renders/dummy_assembled.png",
-      "bytes": 25802,
-      "sha256": "83dd249f291bc6a94796b03d9c5d8bde2a770145b22bd6025f3579d37585985d"
+      "bytes": 27184,
+      "sha256": "4609ad917b7d6398fc7d0782fa1e8d2a87b80bfad19f21cbfb9d1abafd59d094"
     },
     {
       "path": "renders/dummy_ballast_detail.png",
-      "bytes": 41763,
-      "sha256": "c3bf4f706bdcc160208c7972176c394760c733376e704d0cbfe1fa362e679cf6"
+      "bytes": 40892,
+      "sha256": "4b7af7b4daf8978b7a2cb3d3feb4537b96335a4147cb885825bb1655c6d595f6"
     },
     {
       "path": "renders/harness_exploded.png",
-      "bytes": 131777,
-      "sha256": "4cf97a45cd113070e60e4539448fbdb7d393170797fa433d1faf4386beeb70dd"
+      "bytes": 135694,
+      "sha256": "e3a747b7a86d43236c5f09e62248ae7277a32a1da6d04ab1e03dc0bb1bae1392"
     },
     {
       "path": "renders/harness_exploded_detail.png",
-      "bytes": 92997,
-      "sha256": "ca6547bdd049be2c865b1d5544908e4055eb7ec7d302529c5ae7368cff8df80d"
+      "bytes": 93032,
+      "sha256": "a607b0d4891884f4951afd67787ffff2df0e98b52765f02723c1588dfbfbc8f9"
     },
     {
       "path": "renders/pod_exploded.png",
-      "bytes": 38786,
-      "sha256": "b5cdbd17c2c86c2a6f88a5f5169a124f43e44ab9a76056997ea076553cabdd5a"
+      "bytes": 38735,
+      "sha256": "cd7b4c0111dc1fd4cd86e297375408e8dedf68387cc8f5550bddd08b854cccdf"
     },
     {
       "path": "renders/pod_usb_access.png",
-      "bytes": 41711,
-      "sha256": "417902725e58106faf84308c4d2a18376a25fde27fda48e6550c23c0f1733852"
+      "bytes": 41911,
+      "sha256": "414c7dc64036880752fb23cd2235dc9697d678eff79ce535bb858a1670697e4b"
     },
     {
       "path": "renders/print_body.png",
-      "bytes": 44047,
-      "sha256": "40339d829d0597486549a9844867b973b96cbc15f91d934a89b6865be54496b9"
+      "bytes": 42984,
+      "sha256": "534d87067044398cb84686dfcb5a8b14f32b3413dd1bcdda8fcced82a54b25c8"
     },
     {
       "path": "renders/print_dummy_body.png",
-      "bytes": 38106,
-      "sha256": "b1b4734970b4d9bcb221597d448dffec208458b109bbe8fc9d56fa6f574cb309"
+      "bytes": 37706,
+      "sha256": "25ece69d733c6d03f128b21dbf0966bc4257d3a433a445b7f124093552a841c0"
     },
     {
       "path": "renders/print_dummy_head_insert.png",
@@ -495,8 +563,8 @@
     },
     {
       "path": "renders/print_plate.png",
-      "bytes": 55657,
-      "sha256": "8a400aa237fdaca31ddc806569758a304f4808ccd703fb97a9a341f843178794"
+      "bytes": 55655,
+      "sha256": "694786408a4626b0edf75f40d0724ba5d69630c87d994d1d2cd56524f1b78157"
     },
     {
       "path": "renders/print_pod_lid.png",
@@ -510,18 +578,28 @@
     },
     {
       "path": "renders/print_rotor.png",
-      "bytes": 42724,
-      "sha256": "941a124effebbc866b1f45579f242223c167f653050ac3898d7c452c09cd10e0"
+      "bytes": 42888,
+      "sha256": "ea1641eeeeb5a719a4913cc4da040a0bc7b15e5f0e952cf72c4b79add69313c3"
     },
     {
       "path": "renders/print_stake_adapter.png",
-      "bytes": 40101,
-      "sha256": "81112f19de65bf9883d9187ad8b0face527b23811d8ad6e836d118354cd0f293"
+      "bytes": 37675,
+      "sha256": "517a37747ecfd7b8d6d3334761129cca9ef6141df57845cce76a5779123c945b"
     },
     {
       "path": "renders/print_stake_cell_holder.png",
-      "bytes": 48631,
-      "sha256": "30792a4c2b9a81ead660d18caf0a8146f7103b94f5f761a6ccfa873a756f005b"
+      "bytes": 44804,
+      "sha256": "e631d9129aaaf3a1068626a00d73c8284d26746043b688af595f101e8a527d91"
+    },
+    {
+      "path": "renders/print_tail_collar.png",
+      "bytes": 31690,
+      "sha256": "5d7a05f964d10336927508b57e71b093194f6144badf1254f21c8fdc6d89cf45"
+    },
+    {
+      "path": "renders/print_tail_fin.png",
+      "bytes": 23324,
+      "sha256": "e8d8cc30d9f42e45262f25c9652797f402239eb8a32e4682812e94a07e164868"
     },
     {
       "path": "renders/print_usb_cap.png",
@@ -530,18 +608,18 @@
     },
     {
       "path": "renders/release_detail.png",
-      "bytes": 63468,
-      "sha256": "6beed30a20920c5f8950a253629fcd71e0ed2d883190c0ac8307aaa7d88477d4"
+      "bytes": 63683,
+      "sha256": "84c09d319fea6b9de7f450a68c9d30022f8a9c8cceb47bfbf7acec892277a41f"
     },
     {
       "path": "renders/section_body.png",
-      "bytes": 35167,
-      "sha256": "8d5cb447da3cf6eda227d307dd9a157693688304cd01499548387e39ca7de8ad"
+      "bytes": 34448,
+      "sha256": "7bad929061da9fe0f8ba12ea58dd9b0c09e6918a1490049c4eba536a9d08a186"
     },
     {
       "path": "renders/section_body_snap.png",
-      "bytes": 29975,
-      "sha256": "94d8a58eb23a3a6a9088d27489037457f31972c7a3b1736e37bda4dfa26d6e9b"
+      "bytes": 29976,
+      "sha256": "e14eaf46559226a37b0e35b56bafebc661b26f1c61968fe9c83d1a5e6f46a4c7"
     },
     {
       "path": "renders/section_pod.png",
@@ -550,58 +628,58 @@
     },
     {
       "path": "renders/stake_assembled.png",
-      "bytes": 28591,
-      "sha256": "cc435fd14bc620e203a06cf1a99654878f74832d8c500f9f99cd59ee56199901"
+      "bytes": 28586,
+      "sha256": "65b4a25c92265f98d9ef4e33c196973083600fa311776000ea68a5132d588669"
     },
     {
       "path": "renders/stake_clamp_detail.png",
-      "bytes": 62758,
-      "sha256": "905298911b60c05598f29cf54a92e5f79f2e2ba75945755eb84790f0357bb845"
+      "bytes": 63288,
+      "sha256": "c3b99095979849fe32709c90d88c0dfc640d549776eb51cfb40917897ed2cdd2"
     },
     {
       "path": "out/body.stl",
-      "bytes": 729834,
-      "sha256": "95de07af8b96742ca5d143c1a11fc70d9a8319eb15984f98c5d71060de0b521e"
+      "bytes": 730034,
+      "sha256": "4258174f278cea09beef419cab1eda04c719ce51ceec930fc4dc51bc7596a7c8"
     },
     {
       "path": "out/dummy_body.stl",
-      "bytes": 529984,
-      "sha256": "ff83da5100149abf535fd9a4557d4e879387710d4ccc8b765b70ec95f3c3186f"
+      "bytes": 530184,
+      "sha256": "bcbb0ce9d083eb23f38497de698b1d3848327c83d1dbd3a3b75547de5e82ea3f"
     },
     {
       "path": "out/dummy_head_insert.stl",
       "bytes": 67084,
-      "sha256": "5002b66ecfddc20215374ab21456df56decbaa074d734c6757f13b6345188e16"
+      "sha256": "c9af1b2eb3d35b2a299c16b3fc0e3f9aff625a86c9d89809ea6ff70efbb1a6d2"
     },
     {
       "path": "out/dummy_lid.stl",
       "bytes": 64684,
-      "sha256": "ef9f5e0c0b9439215366e77db3c3e8cbce4dd277b6d104e20179b24bf21bdb7e"
+      "sha256": "1b62e656c13236c7fd31b3c567bf180eabeab3f5be95e6fadc986b8ecf9f0ee5"
     },
     {
       "path": "out/fit_coupon.stl",
       "bytes": 158284,
-      "sha256": "d5a9e07753fbc8db2366306ef7d83c385bbe35d7323414db766baad406229280"
+      "sha256": "740b47c0d8fdd7de12d53a79a7564afe48d36ce0a87d70832f399e2ded29fd0c"
     },
     {
       "path": "out/plate.stl",
       "bytes": 661484,
-      "sha256": "53a45a86ed632e9e62642869b96df8c20e18c1a17925bcf402b0fed6c607f483"
+      "sha256": "bc9ba67235165863b6938438b863d955288c04b82c9a6dbaf4dafbbed8b3f5ef"
     },
     {
       "path": "out/pod_lid.stl",
       "bytes": 284484,
-      "sha256": "ba27bb01369a460c13f0733796e70aa4e2ffe5460f77c2b29ea38890679804ac"
+      "sha256": "1ed2e8d1d10b1d7782efa740d0e076c685ea8557345c9a60c23faac29a537a8f"
     },
     {
       "path": "out/pod_shell.stl",
       "bytes": 825484,
-      "sha256": "78ff027fd7fc096056e20608b08db486a286014e86107a877c6dc047d533b5aa"
+      "sha256": "857ee596b9caa48e8b3decdb2803ad81c2dd790baf9935c35df29cca54fe79c1"
     },
     {
       "path": "out/rotor.stl",
       "bytes": 205284,
-      "sha256": "500680ed698ca593f1c46f4e457443630886650da0f727d2b8063b1c3ce4a222"
+      "sha256": "cb6671ce37320bd471f30489d44350fe2b21c2f3ced8b670187a68d99dc63663"
     },
     {
       "path": "out/stake_adapter.stl",
@@ -611,12 +689,22 @@
     {
       "path": "out/stake_cell_holder.stl",
       "bytes": 543034,
-      "sha256": "7168042760357e386992f3ffa263c56b4bad883497faf88aeaafb44edb1b407e"
+      "sha256": "abb1c0d221c5a71312e1d8e558c86f016799652ecb32c64af5d26b928e19f70d"
+    },
+    {
+      "path": "out/tail_collar.stl",
+      "bytes": 42484,
+      "sha256": "60304b1a02931e3590c5981ede5c0bde41b3b95b6477732d986760beb722ac4a"
+    },
+    {
+      "path": "out/tail_fin.stl",
+      "bytes": 2284,
+      "sha256": "c304d75a4adbd5f68e38d62516fd7d8955906329a2a601c15608375cc0205199"
     },
     {
       "path": "out/usb_cap.stl",
       "bytes": 67084,
-      "sha256": "cc93fffec1aed228179a9a48d6486f1e3111e331d01b3c05348d6b6f4617f04f"
+      "sha256": "7d4b0af71a3e0b83bef480f584b963aff500840db242dd5b34f27a5ffd9ab694"
     }
   ]
 }

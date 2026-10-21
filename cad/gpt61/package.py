@@ -4,7 +4,7 @@ import json, hashlib, zipfile, datetime
 ROOT=Path(__file__).resolve().parent
 out=ROOT/'out'
 prints=json.loads((out/'print_manifest.json').read_text())
-paths=[out/r[ext] for r in prints for ext in ('step','stl')]+[out/'print_manifest.json',out/'kits.json',ROOT/'DESIGN.md',ROOT/'README.md',out/'mass_properties.csv',out/'mass_properties.json',out/'checks.md',out/'package_validation.json']
+paths=[out/r[ext] for r in prints for ext in ('step','stl')]+[out/'print_manifest.json',out/'kits.json',ROOT/'DESIGN.md',ROOT/'README.md',out/'mass_properties.csv',out/'mass_properties.json',out/'checks.md',out/'checks.json',out/'tail_analysis.json',out/'export_validation.json',out/'us_units_validation.json',out/'visual_review.json',out/'package_validation.json']
 with zipfile.ZipFile(out/'print-kit.zip','w',zipfile.ZIP_DEFLATED,compresslevel=7) as z:
     for p in paths:z.write(p,p.name)
 records=[]

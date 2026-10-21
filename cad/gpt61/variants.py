@@ -8,9 +8,9 @@ import purchased as buy
 R=Path(__file__).resolve().parent
 
 def write_kit_manifest():
-    kits={'four_flying_darts_and_harness':dict(body=4,pod_shell=4,pod_lid=4,usb_cap=4,plate=1,rotor=1),
+    kits={'four_flying_darts_and_harness':dict(body=4,pod_shell=4,pod_lid=4,usb_cap=4,plate=1,rotor=1,tail_fin=16,tail_collar=8),
           'one_stake_listener':dict(stake_adapter=1,stake_cell_holder=1,pod_shell=1,pod_lid=1,usb_cap=1),
-          'one_inert_dummy':dict(dummy_body=1,dummy_lid=1,dummy_head_insert=1,pod_shell=1,pod_lid=1,usb_cap=1),
+          'one_inert_dummy':dict(dummy_body=1,dummy_lid=1,dummy_head_insert=1,pod_shell=1,pod_lid=1,usb_cap=1,tail_fin=4,tail_collar=2),
           'fit_tool':dict(fit_coupon=1)}
     (R/'out/kits.json').write_text(json.dumps(dict(printed_kits=kits,notes=['All printed parts intentionally100% infill; STLs onZ0 for Vyper.','Stake and dummy are alternatives; do not add their parts to flight payload.','See DESIGN.md for bought hardware, ballast centres and assembly.']),indent=2)+'\n')
 
@@ -18,6 +18,8 @@ def dummy_baseline(p):
     rows=[('dummy_body',p['dummy_body'],'body'),('dummy_lid',p['dummy_lid'],'lid'),
           ('dummy_head_insert',p['dummy_head_insert'],'body'),('rod',buy.rod(),'rod')]
     rows += [(n,p[n],'pod' if n=='pod_shell' else 'lid') for n in ('pod_shell','pod_lid','usb_cap')]
+    from tail_fins import rows as tail_rows
+    rows += tail_rows(p)
     rows += [r for r in p['hardware'] if r[0].startswith(('pod_insert','pod_M2','perimeter'))]
     for x in (77,145):
         nut=__import__('cadquery').Workplane('XY').workplane(offset=16.4).center(x,CELL_Y).polygon(6,M2_NUT_CIRC).extrude(1.6).val().cut(cyl(.85,2,(x,CELL_Y,16.3)))
@@ -29,7 +31,7 @@ def dummy_report(p):
     rows=[]
     for n,s,c in dummy_baseline(p):
         rho=M.rod_density if n=='rod' else 8.5 if 'insert' in n and n!='dummy_head_insert' else 7.85 if 'M2' in n or 'nut_' in n else 1.10 if 'seal' in n else M.petg_density
-        rows.append(mass_item(n,s,rho,basis='Inert dummy nominal material-density model, solid PETG'))
+        rows.append(mass_item(n,s,rho if n!='tail_bond' else None,mass=M.fin_adhesive_mass if n=='tail_bond' else None,basis='Inert dummy nominal material-density model, solid PETG; same tail bonds'))
     base_m,base_c=resultant(rows)
     needed=p['dart_mass']-base_m
     # Preserve approximately the real head/body mass split, then solve exact

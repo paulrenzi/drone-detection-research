@@ -31,7 +31,7 @@ WEB=ROOT/'web'
 TMP=ROOT/'tmp'
 MESH_CACHE=TMP/'web-meshes'
 TIMES=np.array(sorted(set([0.,DURATION]+[round(i*.1,3) for i in range(81)])),dtype='<f4')
-VERSION='web-xiao-2'
+VERSION='web-xiao-fins-3'
 
 
 def sha(path):
@@ -62,7 +62,7 @@ def polydata(vertices,faces):
 
 
 def mesh_part(part):
-    sources=''.join(sha(ROOT/n) for n in ('parameters.py','printed.py','purchased.py','variants.py','stake_web.py'))
+    sources=''.join(sha(ROOT/n) for n in ('parameters.py','printed.py','purchased.py','variants.py','stake_web.py','tail_fins.py'))
     fingerprint=hashlib.sha256((VERSION+part.name+(':oem3000' if part.family=='drone' else '')+sha(ROOT/'cache/model.json')+sources).encode()).hexdigest()[:20]
     path=MESH_CACHE/(fingerprint+'.npz')
     if path.exists():
@@ -434,7 +434,7 @@ def main():
                   models=models,mass_groups=dict(antenna=dict(mass_g=.8,basis='MEASURE kit LoRa FPC and coax.'),SG90_with_stock_horn=dict(mass_g=9.0,basis='S3 catalog mass; individual servo/horn masses unmeasured.')),
                   modelled_mass_totals_g=dict(dart=mass['dart_total_g'],harness_without_darts=mass['harness_total_g'],four_dart_payload=mass['carried_payload_g'],stake=mass['stake']['total_g'],aircraft=None),
                   mass_report='../out/mass_properties.json',source_register='../DESIGN.md',source_download_register='../sources/manifest.json',
-                  limitations=['XIAO revision: geometry and mass reports regenerated before this web export.',
+                  limitations=['Finned XIAO revision: geometry and mass reports regenerated before this web export. Tail fins and collars are named physical nodes; bond is an unmeasured cured-mass allowance.',
                                'All masses are model estimates or catalog figures; no physical parts were weighed.',
                                'Per-part mass is null where only a purchased-assembly mass is available; never infer a mass from tessellated volume.',
                                'Dart nodes retain the original physical parts; populated board components and cell terminal details are grouped as purchased assemblies.',

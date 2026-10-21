@@ -2,9 +2,11 @@
 
 `dart.glb`, `harness.glb`, `aircraft.glb` and `stake.glb` use metres, Y up and an eight-second animation named `explode`. Scrub from 0 (assembled) to 8 (exploded). Dart lies along +X; the stake model stands upright. All materials are embedded PBR colours, with no textures or external resources.
 
+Dart, harness and aircraft models include separately named tail_fin_1 through tail_fin_4, tail_collar_1 and tail_collar_2 nodes for each dart, plus a cured-bond mass allowance. The stake model reuses the pod without flight fins. Fin and collar separation in the explode clip is an identification layout requiring debonding; it is not a reversible dry assembly. Stability and wind figures in DESIGN.md are estimates, with no demonstrated turn time or landing attitude.
+
 These models use the Seeed XIAO ESP32S3 + Wio-SX1262 kit. The kit FPC antenna envelopes, board mating spacing and actual masses remain MEASURE. Nothing has been printed, dropped or flown.
 
-Human dimensions and masses are displayed in inches and ounces or pounds. The GLB format remains in metres. Machine-readable manifest field names and values remain unchanged: `mass_g` still records grams, and fields with metric unit suffixes retain those units. STEP/STL manufacturing exports stay in millimetres. Do not rescale model files to match display labels.
+Human dimensions and masses are displayed in inches and ounces or pounds. The GLB format remains in metres. Machine-readable manifest field names and unit conventions remain unchanged; values follow the current finned geometry: `mass_g` still records grams, and fields with metric unit suffixes retain those units. STEP/STL manufacturing exports stay in millimetres. Do not rescale model files to match display labels.
 
 `manifest.json` contains file sizes, stored and instanced triangle counts, node names, display names, physical part functions, source references, material colours and model mass estimates. Loaded darts keep separately named nodes and share meshes. Servo and stock horn share a 0.32 oz catalog mass; their individual mass fields and all aircraft-part mass fields are null. Null means unavailable, never zero. Auxiliary stake parts are included in the stake model, not flight payload.
 
@@ -18,4 +20,4 @@ Rebuild after the CAD build and independent export validator:
 & 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/web_export.py
 ```
 
-Use `--render-only` to repeat exploded PNGs and `--no-render` for GLBs and validators only. All writes, including any npm validator installation/cache, stay under `cad/gpt 61/`.
+Use `--render-only` to repeat exploded PNGs and `--no-render` for GLBs and validators only. All writes, including any npm validator installation/cache, stay under `cad/gpt61/`.

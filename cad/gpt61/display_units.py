@@ -131,7 +131,7 @@ def write_checks_markdown(data, path):
         return key.replace('_',' ')
     lines=['# Generated geometry checks — US customary display','',
            f"**{len(data['checks'])-len(data['failed'])}/{len(data['checks'])} checks pass.**",'',
-           'Display values are converted from unchanged `checks.json` model values. Lengths use three decimal inches here to preserve clearance information; small areas and volumes retain significant digits. Values near zero can round to zero. Check names containing stock positions are also converted for display. The acceleration factor 3g means three times gravity.', '',
+           'Display values are converted from the current `checks.json` model values. Lengths use three decimal inches here to preserve clearance information; small areas and volumes retain significant digits. Values near zero can round to zero. Check names containing stock positions are also converted for display. The acceleration factor 3g means three times gravity.', '',
            data['clearance_distances'], '',
            'Discrete sampling: 0.5 degree contact; 2 degree rotor-neck; 0.197 in extraction; 5 degree prescribed pitch.', '',
            *['- '+us_text(item) for item in data['limitations']], '']

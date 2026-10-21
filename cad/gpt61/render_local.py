@@ -22,7 +22,7 @@ COLORS = dict(body=(0.94,.42,.10), pod=(.09,.44,.56), lid=(.16,.62,.69),
     oled=(.05,.09,.14), cell=(.16,.60,.47), wire=(.22,.23,.27),
     servo=(.16,.37,.72), horn=(.90,.91,.85), rod=(.84,.80,.62),
     gasket=(.34,.30,.29), soil=(.69,.63,.50), prop=(.58,.69,.75),
-    white=(.91,.93,.91), red=(.72,.10,.07))
+    white=(.91,.93,.91), red=(.72,.10,.07), fin=(.63,.22,.42))
 
 _cache={}
 def poly(s,tol=.18):
@@ -52,9 +52,12 @@ def render(parts,path,title,subtitle='',az=-56,el=26,size=(1600,1050),scale=None
         s,col,*op=row
         if isinstance(s,cq.Workplane):s=s.val()
         if s.Volume()<1e-8:continue
-        bb=s.BoundingBox()
-        corners += [(x,y,z) for x in (bb.xmin,bb.xmax) for y in (bb.ymin,bb.ymax) for z in (bb.zmin,bb.zmax)]
-        n=vtk.vtkPolyDataNormals();n.SetInputData(poly(s));n.SetFeatureAngle(45);n.SplittingOn()
+        pd=poly(s)
+        # Frame the displayed tessellation itself. Optimal B-rep bounds on
+        # imported OEM splines are expensive and add no useful camera accuracy.
+        bb=pd.GetBounds()
+        corners += [(x,y,z) for x in (bb[0],bb[1]) for y in (bb[2],bb[3]) for z in (bb[4],bb[5])]
+        n=vtk.vtkPolyDataNormals();n.SetInputData(pd);n.SetFeatureAngle(45);n.SplittingOn()
         m=vtk.vtkPolyDataMapper();m.SetInputConnection(n.GetOutputPort())
         a=vtk.vtkActor();a.SetMapper(m);p=a.GetProperty()
         p.SetColor(*COLORS.get(col,col));p.SetInterpolationToPhong()

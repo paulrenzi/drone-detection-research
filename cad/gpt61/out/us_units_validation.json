@@ -1,23 +1,9 @@
 {
   "pass_": true,
-  "created_utc": "2026-10-21T20:36:59.165210+00:00",
-  "geometry_checks": 140,
-  "printed_export_checks": 12,
-  "protected_geometry_files": 425,
-  "machine_reports_unchanged": [
-    "out/mass_properties.json",
-    "out/print_manifest.json",
-    "out/kits.json",
-    "web/manifest.json"
-  ],
-  "geometry_check_results_unchanged": true,
-  "export_validation_unchanged": true,
-  "renderer_geometry_camera_and_colour_code_unchanged": true,
-  "raster_comparison_limits": {
-    "mean_channel_difference_below": 1.0,
-    "channel_difference_over_16_pixel_fraction_below": 0.003
-  },
-  "render_count": 33,
+  "created_utc": "2026-10-21T21:33:12.970144+00:00",
+  "geometry_checks": 164,
+  "printed_export_checks": 14,
+  "render_count": 38,
   "documents": [
     "DESIGN.md",
     "README.md",
@@ -28,94 +14,83 @@
   "renders": [
     {
       "file": "aircraft_exploded.png",
-      "sha256": "96f968a61a2da33b0769e776dfaa6745d2842fe464977130516e8e9d4b87f701",
+      "sha256": "69d822dd4e5fc297ebf4a94c54be2052523aec9f38c9e425c15634d1cc95593e",
       "size": [
         2100,
         2100
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 0,
-      "mean_channel_difference_outside_annotations": 0.0,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "assembly_carried.png",
-      "sha256": "32520052b2bda453b52d000de7763a6df08bda18b880235f406c11e9b261a0c5",
+      "sha256": "55efcfd16c5090c26c086eaa4171c05863106169e8f0739fdca8aa42e492e8a8",
       "size": [
         1800,
         1200
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 1582,
-      "mean_channel_difference_outside_annotations": 0.00041938997821350764,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "assembly_mid_release.png",
-      "sha256": "2436503d36e5bb32ddbd5d975bb5f230bd686fc6d7d44fbc837d03d1b22cd0f4",
+      "sha256": "7049e918cc0d36a37ae15c00dfedb2ed16f210f525717f18b8b4191fed84defb",
       "size": [
         1800,
         1200
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 1739,
-      "mean_channel_difference_outside_annotations": 0.00046875,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "assembly_stood.png",
-      "sha256": "844bc71ef94f26e9609cfac274cde5126c62495d187d6fdace4597e4abb5606f",
+      "sha256": "36020c2bf1b48e33c472209f1c8e8cbbaadc844742613391eebe9cefacb6a496",
       "size": [
         1900,
         1200
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 562,
-      "mean_channel_difference_outside_annotations": 0.00014851006191950465,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "bought_servo.png",
-      "sha256": "dc212e4f8997bea930248186c77b112eae8a4c283e031094220bde0a286d3c01",
+      "sha256": "b9d20438352857360c7094065ab24d4b5678ce16a6b5a15ef27f4a99d9b73b3d",
       "size": [
         1300,
         1100
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 6204,
-      "mean_channel_difference_outside_annotations": 0.0028397176372884875,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "bought_xiao_wio.png",
-      "sha256": "07b897b03206ceb3b8a1fce5f33411dfe126eeae39465675fb4554edd57b5484",
+      "sha256": "6d21b97d5e5ff13c415d6cf250c38a089ef38b0d7fd7409cc7d85dc20c219c47",
       "size": [
         1500,
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 398,
-      "mean_channel_difference_outside_annotations": 0.00014014014014014013,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
+    },
+    {
+      "file": "dart_balance.png",
+      "sha256": "eedfa1d4301d975d27be67f5f4a21b4dfabaab67e47646fcd55edd9d4e10264c",
+      "size": [
+        2000,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true
     },
     {
       "file": "dart_exploded.png",
-      "sha256": "29972feb7471158162b002e6971304a29d4033759477b27777e8e24ff74f25ad",
+      "sha256": "a5afaaab72c7d62f39fd36457150edcc38f22e58e927fa71a16fc25b24bcc919",
       "size": [
         2200,
         1200
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 0,
-      "mean_channel_difference_outside_annotations": 0.0,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "dart_exploded_pod.png",
@@ -125,127 +100,117 @@
         1500
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 0,
-      "mean_channel_difference_outside_annotations": 0.0,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
+    },
+    {
+      "file": "dart_fall_sequence.png",
+      "sha256": "f74e83d9d27db3fcadd5fb5ba8aa10ff2a617163326529df5c7f063a39d7ca57",
+      "size": [
+        2000,
+        1050
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true
+    },
+    {
+      "file": "dart_fins_detail.png",
+      "sha256": "68cac270aac0133e8463468f04f65915d9ca8a6a556e9302b6bad618a3193397",
+      "size": [
+        1800,
+        1175
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true
     },
     {
       "file": "dart_stood.png",
-      "sha256": "1599d6eea3d080e094cda1aac5fabfceff67b8b4db89019cb6daaf14982fa620",
+      "sha256": "45a96fc118d57c5bdf35f6718a7ac080c9f70f828b2041b0814cc00424c8bcd5",
       "size": [
         850,
         1600
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 191,
-      "mean_channel_difference_outside_annotations": 6.852203246890154e-05,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "dummy_assembled.png",
-      "sha256": "83dd249f291bc6a94796b03d9c5d8bde2a770145b22bd6025f3579d37585985d",
+      "sha256": "4609ad917b7d6398fc7d0782fa1e8d2a87b80bfad19f21cbfb9d1abafd59d094",
       "size": [
         850,
         1600
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 0,
-      "mean_channel_difference_outside_annotations": 0.0,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "dummy_ballast_detail.png",
-      "sha256": "c3bf4f706bdcc160208c7972176c394760c733376e704d0cbfe1fa362e679cf6",
+      "sha256": "4b7af7b4daf8978b7a2cb3d3feb4537b96335a4147cb885825bb1655c6d595f6",
       "size": [
         1600,
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 0,
-      "mean_channel_difference_outside_annotations": 0.0,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "harness_exploded.png",
-      "sha256": "4cf97a45cd113070e60e4539448fbdb7d393170797fa433d1faf4386beeb70dd",
+      "sha256": "e3a747b7a86d43236c5f09e62248ae7277a32a1da6d04ab1e03dc0bb1bae1392",
       "size": [
         2200,
         1500
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 0,
-      "mean_channel_difference_outside_annotations": 0.0,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "harness_exploded_detail.png",
-      "sha256": "ca6547bdd049be2c865b1d5544908e4055eb7ec7d302529c5ae7368cff8df80d",
+      "sha256": "a607b0d4891884f4951afd67787ffff2df0e98b52765f02723c1588dfbfbc8f9",
       "size": [
         1700,
         1700
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 0,
-      "mean_channel_difference_outside_annotations": 0.0,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "pod_exploded.png",
-      "sha256": "b5cdbd17c2c86c2a6f88a5f5169a124f43e44ab9a76056997ea076553cabdd5a",
+      "sha256": "cd7b4c0111dc1fd4cd86e297375408e8dedf68387cc8f5550bddd08b854cccdf",
       "size": [
         1600,
         1150
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 2162,
-      "mean_channel_difference_outside_annotations": 0.0005595696852922287,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "pod_usb_access.png",
-      "sha256": "417902725e58106faf84308c4d2a18376a25fde27fda48e6550c23c0f1733852",
+      "sha256": "414c7dc64036880752fb23cd2235dc9697d678eff79ce535bb858a1670697e4b",
       "size": [
         1600,
         1100
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 1235,
-      "mean_channel_difference_outside_annotations": 0.0208430330634278,
-      "large_difference_pixel_fraction": 0.0002840334008097166
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_body.png",
-      "sha256": "40339d829d0597486549a9844867b973b96cbc15f91d934a89b6865be54496b9",
+      "sha256": "534d87067044398cb84686dfcb5a8b14f32b3413dd1bcdda8fcced82a54b25c8",
       "size": [
         1600,
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 1642,
-      "mean_channel_difference_outside_annotations": 0.0005919200450450451,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_dummy_body.png",
-      "sha256": "b1b4734970b4d9bcb221597d448dffec208458b109bbe8fc9d56fa6f574cb309",
+      "sha256": "25ece69d733c6d03f128b21dbf0966bc4257d3a433a445b7f124093552a841c0",
       "size": [
         1600,
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 1853,
-      "mean_channel_difference_outside_annotations": 0.0006416572822822823,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_dummy_head_insert.png",
@@ -255,10 +220,7 @@
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 6746,
-      "mean_channel_difference_outside_annotations": 0.0027613551051051052,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_dummy_lid.png",
@@ -268,10 +230,7 @@
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 201,
-      "mean_channel_difference_outside_annotations": 5.7479354354354355e-05,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_fit_coupon.png",
@@ -281,23 +240,17 @@
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 28470,
-      "mean_channel_difference_outside_annotations": 0.015210914039039038,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_plate.png",
-      "sha256": "8a400aa237fdaca31ddc806569758a304f4808ccd703fb97a9a341f843178794",
+      "sha256": "694786408a4626b0edf75f40d0724ba5d69630c87d994d1d2cd56524f1b78157",
       "size": [
         1600,
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 2899,
-      "mean_channel_difference_outside_annotations": 0.001092576951951952,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_pod_lid.png",
@@ -307,10 +260,7 @@
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 376,
-      "mean_channel_difference_outside_annotations": 0.00011918168168168168,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_pod_shell.png",
@@ -320,49 +270,57 @@
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 5133,
-      "mean_channel_difference_outside_annotations": 0.001563673048048048,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_rotor.png",
-      "sha256": "941a124effebbc866b1f45579f242223c167f653050ac3898d7c452c09cd10e0",
+      "sha256": "ea1641eeeeb5a719a4913cc4da040a0bc7b15e5f0e952cf72c4b79add69313c3",
       "size": [
         1600,
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 4945,
-      "mean_channel_difference_outside_annotations": 0.001368947072072072,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_stake_adapter.png",
-      "sha256": "81112f19de65bf9883d9187ad8b0face527b23811d8ad6e836d118354cd0f293",
+      "sha256": "517a37747ecfd7b8d6d3334761129cca9ef6141df57845cce76a5779123c945b",
       "size": [
         1600,
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 14288,
-      "mean_channel_difference_outside_annotations": 0.016527777777777777,
-      "large_difference_pixel_fraction": 0.00019496058558558557
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_stake_cell_holder.png",
-      "sha256": "30792a4c2b9a81ead660d18caf0a8146f7103b94f5f761a6ccfa873a756f005b",
+      "sha256": "e631d9129aaaf3a1068626a00d73c8284d26746043b688af595f101e8a527d91",
       "size": [
         1600,
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 11472,
-      "mean_channel_difference_outside_annotations": 0.007907516891891892,
-      "large_difference_pixel_fraction": 8.094031531531532e-05
+      "labels_do_not_overlap": true
+    },
+    {
+      "file": "print_tail_collar.png",
+      "sha256": "5d7a05f964d10336927508b57e71b093194f6144badf1254f21c8fdc6d89cf45",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true
+    },
+    {
+      "file": "print_tail_fin.png",
+      "sha256": "e8d8cc30d9f42e45262f25c9652797f402239eb8a32e4682812e94a07e164868",
+      "size": [
+        1600,
+        1000
+      ],
+      "text_fits": true,
+      "labels_do_not_overlap": true
     },
     {
       "file": "print_usb_cap.png",
@@ -372,49 +330,37 @@
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 2659,
-      "mean_channel_difference_outside_annotations": 0.0007519237987987989,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "release_detail.png",
-      "sha256": "6beed30a20920c5f8950a253629fcd71e0ed2d883190c0ac8307aaa7d88477d4",
+      "sha256": "84c09d319fea6b9de7f450a68c9d30022f8a9c8cceb47bfbf7acec892277a41f",
       "size": [
         1500,
         1100
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 2907,
-      "mean_channel_difference_outside_annotations": 0.0009228520017993703,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "section_body.png",
-      "sha256": "8d5cb447da3cf6eda227d307dd9a157693688304cd01499548387e39ca7de8ad",
+      "sha256": "7bad929061da9fe0f8ba12ea58dd9b0c09e6918a1490049c4eba536a9d08a186",
       "size": [
         1600,
         900
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 942,
-      "mean_channel_difference_outside_annotations": 0.000376744923857868,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "section_body_snap.png",
-      "sha256": "94d8a58eb23a3a6a9088d27489037457f31972c7a3b1736e37bda4dfa26d6e9b",
+      "sha256": "e14eaf46559226a37b0e35b56bafebc661b26f1c61968fe9c83d1a5e6f46a4c7",
       "size": [
         1200,
         950
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 464,
-      "mean_channel_difference_outside_annotations": 0.00017932909042694245,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "section_pod.png",
@@ -424,37 +370,28 @@
         1100
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 2941,
-      "mean_channel_difference_outside_annotations": 0.0010020242914979757,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "stake_assembled.png",
-      "sha256": "cc435fd14bc620e203a06cf1a99654878f74832d8c500f9f99cd59ee56199901",
+      "sha256": "65b4a25c92265f98d9ef4e33c196973083600fa311776000ea68a5132d588669",
       "size": [
         950,
         1800
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 0,
-      "mean_channel_difference_outside_annotations": 0.0,
-      "large_difference_pixel_fraction": 0.0
+      "labels_do_not_overlap": true
     },
     {
       "file": "stake_clamp_detail.png",
-      "sha256": "905298911b60c05598f29cf54a92e5f79f2e2ba75945755eb84790f0357bb845",
+      "sha256": "c3b99095979849fe32709c90d88c0dfc640d549776eb51cfb40917897ed2cdd2",
       "size": [
         1500,
         1000
       ],
       "text_fits": true,
-      "labels_do_not_overlap": true,
-      "changed_pixels_outside_annotations": 20135,
-      "mean_channel_difference_outside_annotations": 0.19911986986986988,
-      "large_difference_pixel_fraction": 0.002172672672672673
+      "labels_do_not_overlap": true
     }
   ],
-  "scope": "US caption/document units and typography; original model hashes, exact check values, unchanged machine reports, label bounds/overlap, unchanged renderer geometry/camera/colour code, and small raster-noise bounds outside annotations. Human review is separate in visual_review.json."
+  "scope": "Current finned model: US captions/documents, caption bounds and overlap, model-linked balance/pressure/ballast/print dimensions. SI machine field names and units retained; numeric values recomputed for changed geometry. Human inspection is separately attested in visual_review.json."
 }

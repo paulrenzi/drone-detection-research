@@ -79,6 +79,7 @@ class Measurements:
     wire_od: float = 1.05             # MEASURE: insulated 28AWG wire
     prop_plane_from_bottom_plate: float = 57.0 # MEASURE: fitted prop shoulder in S1 +Y frame
     prop_sweep_thickness: float = 4.0 # MEASURE: vertical blade-swept slab
+    fin_adhesive_mass: float = .60    # MEASURE total cured collar/fin bonds; weigh actual
 
 M=Measurements()
 ROD_L=500.0                           # fixed concept; square end at500
@@ -116,6 +117,14 @@ DRONE_DZ=85.0                         # S1 rail centre -13 ->72
 PROP_D=260.0                          # S2 drawing says260 (conservative vs nominal10in)
 GROUND_Z=-130.2764334894              # S1 lowest stock skid +85
 BED=(245.0,245.0,260.0)                # Vyper specified in user project context
+
+# D tail feathers: four removable flat panels, keyed into two bonded collars.
+FIN_X0=368.; FIN_X1=532.; FIN_T=1.2
+FIN_ROOT_R=11.; FIN_TIP_R=26.; FIN_TAB_R=4.6
+FIN_TIP_X0=390.; FIN_TIP_X1=518.
+FIN_COLLARS=(388.,456.); FIN_COLLAR_L=8.; FIN_COLLAR_R=9.
+FIN_SLOT_T=1.45; FIN_BORE_D=6.30
+FIN_ANGLES=(50.,130.,230.,310.)
 
 def measure_dict():return asdict(M)
 

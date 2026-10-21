@@ -19,6 +19,24 @@ def verify(p):
         s=p[n];b=print_transform(n,s).BoundingBox();dims=[b.xlen,b.ylen,b.zlen]
         check(n+'_solid',s.isValid() and len(s.Solids())==1,valid=s.isValid(),solids=len(s.Solids()),volume_mm3=s.Volume())
         check(n+'_bed',all(a<=b+.001 for a,b in zip(dims,BED)),bbox_mm=dims,bed_mm=BED)
+    from tail_fins import rows as tail_rows
+    tail=tail_rows(p)
+    for i,(n,s,c) in enumerate(tail):
+        if n=='tail_bond':continue
+        others=tail[:i]+[(k,p[k],'pod') for k in ('pod_shell','pod_lid','usb_cap')]+p['hardware']+[('rod',__import__('purchased').rod(),'rod')]
+        bad=[]
+        for other,b,col in others:
+            v=overlap(s,b)
+            if v>.02:bad.append([other,v])
+        check(n+'_local_clearance',not bad,collisions=bad,scope='All preceding tail parts, pod, antennas, cell/mic wires, ties and rod; nominal bonded gaps')
+    flat=print_transform('tail_fin',p['tail_fin']);fb=flat.BoundingBox()
+    check('tail_fin_flat_support_free',abs(fb.zlen-FIN_T)<1e-5 and abs(flat.Volume()/FIN_T-max(f.Area() for f in flat.Faces()))<.1,thickness_mm=fb.zlen,method='Constant-thickness extrusion; entire lower planar face on Z0')
+    collar=print_transform('tail_collar',p['tail_collar']);cb=collar.BoundingBox()
+    check('tail_collar_support_free',abs(cb.zlen-FIN_COLLAR_L)<1e-5,axial_height_mm=cb.zlen,method='Axial end face on Z0; constant annular section, all slots/bores open vertically')
+    ta=json.loads((ROOT/'out/tail_analysis.json').read_text())
+    check('tail_projected_margin_screen',ta['after']['minimum']['static_margin_body_widths']>=ta['target_minimum_body_widths'],minimum_margin_mm=ta['after']['minimum']['static_margin_mm'],minimum_margin_body_widths=ta['after']['minimum']['static_margin_body_widths'],body_width_mm=ta['body_width_mm'],target_body_widths=ta['target_minimum_body_widths'],scope='Sampled broadside silhouette estimate only; no dynamic fall qualification')
+    check('tail_projection_resolution',all(abs(r['cp_delta_mm'])<1 for r in ta['raster_convergence'].values()),cp_delta_mm={k:r['cp_delta_mm'] for k,r in ta['raster_convergence'].items()},scope='Halving raster spacing at sampled worst roll; not aerodynamic validation')
+    check('flat_carriage_selection',not next(r for r in ta['carriage'] if r['selected'])['seating_collisions'],cases=ta['carriage'],scope='Balanced carriage retained; noseward hanger offset produces nose-up equilibrium; tailward offset tilts nose down but has rigid seating interference')
     check('balance_fixed_point',abs(p['hanger']-p['dart_cg'][0])<.02,hanger_mm=p['hanger'],cg_mm=p['dart_cg'],mass_g=p['dart_mass'])
     # D throat tolerance .20 mm total; Samsung diameter tolerance +.07.
     delta=(M.cell_d+.07-(SNAP_MOUTH-.20))/2
@@ -103,7 +121,7 @@ def verify(p):
     # prune expensive boolean checks. Deliberate sealing/tie contacts excluded.
     # Exterior collision geometry. The pod is conservatively filled solid;
     # buried electronic detail was checked above and cannot affect frame fit.
-    dart=compound([p[n] for n in ('body','pod_shell','pod_lid','usb_cap')]+[__import__('purchased').rod(),cell]+[s for n,s,c in p['hardware'] if n in ('lora_FPC','RF_pigtail')])
+    dart=compound([p[n] for n in ('body','pod_shell','pod_lid','usb_cap')]+[__import__('purchased').rod(),cell]+[s for n,s,c in p['hardware'] if n in ('lora_FPC','RF_pigtail')]+[s for n,s,c in tail])
     carried=[carried_transform(dart,i,p['hanger_xy']) for i in range(4)]
     records=[]
     def against(a,rows,label):
@@ -135,12 +153,14 @@ def verify(p):
         check(f'carried_dart{i+1}_ground',a.BoundingBox().zmin>GROUND_Z,clearance_mm=a.BoundingBox().zmin-GROUND_Z)
         for j in range(i):
             v=overlap(a,carried[j]);d=min(aabb_distance(x,y) for x in a.Solids() for y in carried[j].Solids());check(f'darts_{j+1}_{i+1}_separation',v<.02,interference_mm3=v,clearance_lower_bound_mm=d)
+    mid=carried[0].translate((0,0,-70))
+    check('mid_release_ground',mid.BoundingBox().zmin>GROUND_Z,clearance_mm=mid.BoundingBox().zmin-GROUND_Z,drop_mm=70)
     # Full extraction sweep for every dart, including head crossing the plate.
     # Translate 0..90mm in 5mm increments, preserve horizontality until clear.
     release_max=0.;release_case=None;release_leg_min=1e9
     for i in range(4):
         rr=p['rotor'].rotate((0,0,0),(0,0,1),steps[i])
-        obstacles=hfixed+[('rotor',rr,'rotor')]+drone
+        obstacles=hfixed+[('rotor',rr,'rotor')]+drone+[(f'other_dart{j+1}',carried[j],'body') for j in range(4) if j!=i]
         for dz in range(0,91,5):
             a=carried[i].translate((0,0,-dz))
             for n,b,c in obstacles:
@@ -150,13 +170,27 @@ def verify(p):
             for n,b,c in legs:
                 if b.Volume()>500:release_leg_min=min(release_leg_min,aabb_distance(a,b))
     check('vertical_extraction_sweep',release_max<.02,max_interference_mm3=release_max,worst_dart_drop_part=release_case,drop_samples_mm=list(range(0,91,5)),min_leg_clearance_mm=release_leg_min)
+    # The rain hood was the limiting neighbour in the first fin orientation.
+    # Measure true B-rep separation for this interface, rather than reporting
+    # a zero whole-dart AABB lower bound as if it were a measured clearance.
+    fins=compound(s for n,s,c in tail if n.startswith('tail_fin'))
+    neighbor_min=1e9;neighbor_case=None
+    for i in range(4):
+        for dz in range(0,91,5):
+            a=carried_transform(fins,i,p['hanger_xy'],dz)
+            for j in range(4):
+                if j==i:continue
+                b=carried_transform(p['pod_shell'],j,p['hanger_xy'])
+                d=a.distance(b)
+                if d<neighbor_min:neighbor_min=d;neighbor_case=[i+1,dz,j+1]
+    check('tail_to_neighbor_pod_extraction',neighbor_min>.5,min_clearance_mm=neighbor_min,worst_dart_drop_neighbor=neighbor_case,scope='True OCP closest distance, all four fins against other pod shells/hoods at every extraction sample')
     # Prescribed rotation after 430mm separation, aircraft in air +1500mm.
     # All four dart positions, 0..90deg pitch; ground checked with aircraft high.
     pitchmax=0.;pitchcase=None;pitchground=1e9
     for i in range(4):
         for angle in range(0,91,5):
             a=carried_transform(dart,i,p['hanger_xy'],430,angle)
-            for n,b,c in drone:
+            for n,b,c in drone+props+hfixed+[('rotor',p['rotor'],'rotor')]+[(f'other_dart{j+1}',carried[j],'body') for j in range(4) if j!=i]:
                 v=overlap(a,b)
                 if v>pitchmax:pitchmax=v;pitchcase=[i+1,angle,n]
             pitchground=min(pitchground,a.BoundingBox().zmin-(GROUND_Z-1500))
@@ -164,8 +198,8 @@ def verify(p):
     # Stood state body stop at ground, 70mm rod penetration, all electronics
     # above ground. The rod/soil intersection is the only intended one.
     ground=box(1000,1000,100,at=(0,0,-100))
-    for name in ('body','pod_shell','pod_lid','usb_cap'):
-        s=stood_transform(p[name]);v=overlap(s,ground)
+    for name,s in [(n,p[n]) for n in ('body','pod_shell','pod_lid','usb_cap')]+[(n,s) for n,s,c in tail if n!='tail_bond']:
+        s=stood_transform(s);v=overlap(s,ground)
         check('stood_'+name+'_ground',v<.02,interference_mm3=v,lowest_height_mm=s.BoundingBox().zmin)
     stood=stood_transform(dart).translate((650,0,0))
     parked=compound([s.moved(cq.Location(cq.Vector(0,0,-GROUND_Z))) for n,s,c in p['drone']]+[a.moved(cq.Location(cq.Vector(0,0,-GROUND_Z))) for a in carried[1:]])
@@ -184,7 +218,7 @@ def verify(p):
         check('ballast_'+b['name']+'_clearance',v<.02,interference_mm3=v,steel_mass_g=b['mass_g'])
     # Cap removed: actual insertion corridor from beyond pod end to USB mouth.
     usb=box(18,11,6.2,at=(581,0,2.5))
-    v=overlap(usb,p['pod_shell'])+overlap(usb,p['pod_lid'])
+    v=overlap(usb,p['pod_shell'])+overlap(usb,p['pod_lid'])+sum(overlap(usb,s) for n,s,c in tail)
     check('USB_plug_access',v<.02,interference_mm3=v,plug_envelope_mm=[12,11,6.2],scope='MEASURE actual cable overmould; end cap removed')
     # Pin enters through removable service opening, diagonally downward onto
     # either button; starts beyond Wio end so upper PCB cannot block it.
@@ -194,6 +228,9 @@ def verify(p):
         v=sum(overlap(probe,s) for s in obstacles)
         check('BOOT_RESET_pin_access_'+str(y),v<.02,interference_mm3=v,pin_d_mm=.7,scope='Cap removed; verify button identity/travel on purchased revision')
     check('mic_ground_height',abs(MIC_X-BODY_X0-500)<.01,height_mm=MIC_X-BODY_X0)
+    port=cyl(2,35,(MIC_X,-48,MIC_Z),(0,1,0))
+    v=sum(overlap(port,s) for n,s,c in tail)
+    check('tail_to_mic_port_corridor',v<.02,interference_mm3=v,scope='Side-facing acoustic opening and outward approach remain clear of tail parts')
     # V saddles are diameter-independent. A circle seated on both45deg faces
     # raises its axis by radius*sqrt(2); evaluate both range endpoints and nominal.
     for d in (8.,M.stake_d,13.):

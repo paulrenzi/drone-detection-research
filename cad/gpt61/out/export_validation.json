@@ -5,14 +5,14 @@
       "passed": true,
       "step_valid": true,
       "step_solids": 1,
-      "stl_triangles": 14594,
+      "stl_triangles": 14598,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 32269.722724812345,
-      "stl_volume_mm3": 32272.109050236864,
-      "relative_volume_error": 7.394936252997351e-05,
+      "cad_volume_mm3": 33437.70298494458,
+      "stl_volume_mm3": 33440.02521724986,
+      "relative_volume_error": 6.944951650301955e-05,
       "stl_bounds": [
-        -97.71927642822266,
-        97.71927642822266,
+        -108.81928253173828,
+        108.81928253173828,
         -18.649999618530273,
         18.649999618530273,
         1.0000000116860974e-07,
@@ -26,9 +26,9 @@
       "step_solids": 1,
       "stl_triangles": 16506,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 14945.061569386096,
-      "stl_volume_mm3": 14945.336503970042,
-      "relative_volume_error": 1.839635003637824e-05,
+      "cad_volume_mm3": 14945.0615693861,
+      "stl_volume_mm3": 14945.336503979928,
+      "relative_volume_error": 1.8396350697638103e-05,
       "stl_bounds": [
         -51.0,
         51.0,
@@ -65,8 +65,8 @@
       "stl_triangles": 1340,
       "boundary_or_nonmanifold_edges": 0,
       "cad_volume_mm3": 721.0339983722137,
-      "stl_volume_mm3": 721.0231709683542,
-      "relative_volume_error": 1.5016495593721858e-05,
+      "stl_volume_mm3": 721.0231709683544,
+      "relative_volume_error": 1.5016495593406515e-05,
       "stl_bounds": [
         -8.199999809265137,
         8.199999809265137,
@@ -83,9 +83,9 @@
       "step_solids": 1,
       "stl_triangles": 13228,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 103683.19779530354,
-      "stl_volume_mm3": 103655.62451144792,
-      "relative_volume_error": 0.00026593782253948867,
+      "cad_volume_mm3": 103683.19779530831,
+      "stl_volume_mm3": 103655.62450954763,
+      "relative_volume_error": 0.0002659378409133694,
       "stl_bounds": [
         -88.5,
         88.5,
@@ -103,8 +103,8 @@
       "stl_triangles": 4104,
       "boundary_or_nonmanifold_edges": 0,
       "cad_volume_mm3": 30410.991532147244,
-      "stl_volume_mm3": 30393.014210758578,
-      "relative_volume_error": 0.0005911455195290785,
+      "stl_volume_mm3": 30393.014210758593,
+      "relative_volume_error": 0.0005911455195285999,
       "stl_bounds": [
         -64.64907836914062,
         64.64952087402344,
@@ -122,8 +122,8 @@
       "stl_triangles": 3164,
       "boundary_or_nonmanifold_edges": 0,
       "cad_volume_mm3": 3537.223465853333,
-      "stl_volume_mm3": 3537.572500873729,
-      "relative_volume_error": 9.867485720522786e-05,
+      "stl_volume_mm3": 3537.572500873728,
+      "relative_volume_error": 9.867485720497074e-05,
       "stl_bounds": [
         -27.5,
         27.5,
@@ -159,9 +159,9 @@
       "step_solids": 1,
       "stl_triangles": 10858,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 24051.91761714479,
-      "stl_volume_mm3": 24053.515968918724,
-      "relative_volume_error": 6.645423451782912e-05,
+      "cad_volume_mm3": 24051.91761714452,
+      "stl_volume_mm3": 24053.139402166074,
+      "relative_volume_error": 5.07978216540218e-05,
       "stl_bounds": [
         -40.25,
         40.25,
@@ -176,14 +176,14 @@
       "passed": true,
       "step_valid": true,
       "step_solids": 1,
-      "stl_triangles": 10598,
+      "stl_triangles": 10602,
       "boundary_or_nonmanifold_edges": 0,
-      "cad_volume_mm3": 39706.56178600212,
-      "stl_volume_mm3": 39708.16287163434,
-      "relative_volume_error": 4.032294815265841e-05,
+      "cad_volume_mm3": 40874.542033876256,
+      "stl_volume_mm3": 40876.45555476176,
+      "relative_volume_error": 4.6814491130312244e-05,
       "stl_bounds": [
-        -97.71927642822266,
-        97.71927642822266,
+        -108.81928253173828,
+        108.81928253173828,
         -18.649999618530273,
         18.649999618530273,
         1.0000000116860974e-07,
@@ -217,8 +217,8 @@
       "stl_triangles": 1340,
       "boundary_or_nonmanifold_edges": 0,
       "cad_volume_mm3": 1474.1639647148709,
-      "stl_volume_mm3": 1474.1646131333569,
-      "relative_volume_error": 4.3985506463352533e-07,
+      "stl_volume_mm3": 1474.1646131333573,
+      "relative_volume_error": 4.3985506494200346e-07,
       "stl_bounds": [
         -11.5,
         11.5,
@@ -227,158 +227,196 @@
         0.0,
         7.0
       ]
+    },
+    {
+      "part": "tail_fin",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 44,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 2744.735999999135,
+      "stl_volume_mm3": 2744.736093318943,
+      "relative_volume_error": 3.3999556970873946e-08,
+      "stl_bounds": [
+        -82.0,
+        82.0,
+        -10.699999809265137,
+        10.699999809265137,
+        -1.9317880628477724e-14,
+        1.2000000476837158
+      ]
+    },
+    {
+      "part": "tail_collar",
+      "passed": true,
+      "step_valid": true,
+      "step_solids": 1,
+      "stl_triangles": 848,
+      "boundary_or_nonmanifold_edges": 0,
+      "cad_volume_mm3": 1453.1044637833904,
+      "stl_volume_mm3": 1452.2762230217131,
+      "relative_volume_error": 0.0005699801922849025,
+      "stl_bounds": [
+        -8.996109962463379,
+        8.996109962463379,
+        -8.97357177734375,
+        8.97744369506836,
+        -9.987688412386596e-16,
+        8.0
+      ]
     }
   ],
   "files": [
     {
       "file": "assembly_carried.step",
-      "bytes": 217765536,
-      "sha256": "fb8e410e1de33bbe1ef5a3d6b5efca3fe5010a698eea86801b94c6eaae98813a"
+      "bytes": 218202629,
+      "sha256": "224e8920a5e4d4aa2dd70d3fe4d1169ef446fb85d3835733289682d007554fee"
     },
     {
       "file": "assembly_mid_release.step",
-      "bytes": 217776097,
-      "sha256": "1f95a70362ad31d2600a3543470daf5ebdc3bd22e2f056d2f76558247fef9e40"
+      "bytes": 218213182,
+      "sha256": "1bcf7bc37659ca7ad4968e44ba45a6e2737b588ffa665da2a18548f27da0e8ed"
     },
     {
       "file": "assembly_stood.step",
-      "bytes": 217795328,
-      "sha256": "ade9bc873b4ac5600d443560954cdbef8cd86f4bedf714adcd49db2575842948"
+      "bytes": 218232413,
+      "sha256": "2042ede41136589ce29b3386a8da514760037f08b4cc99ec7439216455d76a30"
     },
     {
       "file": "body.step",
-      "bytes": 1535915,
-      "sha256": "0142217a65d63b2532b59e89cf655c4ba0abc4f6561dfbd5bf8e66a2360fb0e7"
+      "bytes": 1536118,
+      "sha256": "d2f0611140a8ed8bf23d295f99f490a92757c540df99a234db9c411b2cab0851"
     },
     {
       "file": "body.stl",
-      "bytes": 729834,
-      "sha256": "95de07af8b96742ca5d143c1a11fc70d9a8319eb15984f98c5d71060de0b521e"
+      "bytes": 730034,
+      "sha256": "4258174f278cea09beef419cab1eda04c719ce51ceec930fc4dc51bc7596a7c8"
     },
     {
       "file": "bought_18650.step",
       "bytes": 28859,
-      "sha256": "33eb10e8872668c0b201e89adfefd8da12d77c2d4235bdb1526968d7341deec8"
+      "sha256": "bc58446404264072c537e0597c48e3f9ffcbd07d70f40b46e0ebc1b3e1c4763c"
     },
     {
       "file": "bought_inmp441.step",
-      "bytes": 132382,
-      "sha256": "cb842f0631c4c1dea89d8a784835fd5544588e774210826daecd28aca03e5793"
+      "bytes": 132411,
+      "sha256": "e1dc4b0fdd507cc3d822ab8516678cb99db188e53f552b4c31c3a8808d091984"
     },
     {
       "file": "bought_rod.step",
       "bytes": 8205,
-      "sha256": "6d48a10440a6e3e3a5dd7c470cf1ffd61839239ce50ef07403179d0f1a1c4398"
+      "sha256": "1ecdbf556c8d9da182de4dfa9752b324e43b03984a1f9f47d4e57a7168a463ed"
     },
     {
       "file": "bought_SG90.step",
-      "bytes": 1145493,
-      "sha256": "c7e3bd0be12db008e938be003238b64031f70c15b8591ba224bfad33e9343e22"
+      "bytes": 1145567,
+      "sha256": "ec4f6e4b991d86cacbd74da747241ffb6a74eedaecfc589588d2de0412032c53"
     },
     {
       "file": "bought_x500.step",
-      "bytes": 189444105,
-      "sha256": "836435ca9c3233e8e778f36e4f4f3a6ead16513d69768fcd719d53d8eaa1e066"
+      "bytes": 189444190,
+      "sha256": "4a748be492e52d4eba08677c34e72903d8d86753c9051d78d5fe15c76db4325a"
     },
     {
       "file": "bought_xiao_wio_stack.step",
-      "bytes": 10995227,
-      "sha256": "1fdd42a432eaa6d9cafaf9a4ed4c8df3322ee1e7a755261f530725bf8bbbc26f"
+      "bytes": 10988509,
+      "sha256": "5828ea98fc06556b49ee68c5b82232e5feaf8dae6bf4f1ceef3bc213b9daaaec"
     },
     {
       "file": "dart_stood.step",
-      "bytes": 23585370,
-      "sha256": "22149899f4eb636e7d8d0ea824c5562314d9da1b81b9e80f897b8310f51308f3"
+      "bytes": 24011286,
+      "sha256": "d94685d90177c174247d4f6ea3d5c95dfa6da43285255fbffd08938fa1f9dd78"
     },
     {
       "file": "dummy_assembled.step",
-      "bytes": 10293882,
-      "sha256": "21c20ab5244d7f15387f48b3bb2d2e1e3ef2e676eb4bbeac46b576beff3cf934"
+      "bytes": 10708171,
+      "sha256": "6c3b836d8c66ac799100d8256caa0953fb323b5c319f2f127d4877b363f3662f"
     },
     {
       "file": "dummy_body.step",
-      "bytes": 819573,
-      "sha256": "35990d3c9705d8531d4fe758990796d04de8c470624eb9448aade2f8432f1ef8"
+      "bytes": 819773,
+      "sha256": "9dd7fd883bbec06c0f0af4514128b478093e3771a20157a8c5f3330ae8ad7c9f"
     },
     {
       "file": "dummy_body.stl",
-      "bytes": 529984,
-      "sha256": "ff83da5100149abf535fd9a4557d4e879387710d4ccc8b765b70ec95f3c3186f"
+      "bytes": 530184,
+      "sha256": "bcbb0ce9d083eb23f38497de698b1d3848327c83d1dbd3a3b75547de5e82ea3f"
     },
     {
       "file": "dummy_head_insert.step",
       "bytes": 93109,
-      "sha256": "300472d28fee531a7e2ef1eb9fcfd9475aba872c32cd6be0c6a96f6b961c8b3d"
+      "sha256": "6e3673ccc8881f9c73462201acdea204f29ecad1d4e08f9ba0cc11144685e6a6"
     },
     {
       "file": "dummy_head_insert.stl",
       "bytes": 67084,
-      "sha256": "5002b66ecfddc20215374ab21456df56decbaa074d734c6757f13b6345188e16"
+      "sha256": "c9af1b2eb3d35b2a299c16b3fc0e3f9aff625a86c9d89809ea6ff70efbb1a6d2"
     },
     {
       "file": "dummy_lid.step",
       "bytes": 39058,
-      "sha256": "879e779a9b4b3e189efe3dcb576acf730f260d45a9805f304d97b53aa2f0b490"
+      "sha256": "cd2ce8a0d19921cbeab89fa7504183a6a4c19f4ae13ac80910d79692a30698ef"
     },
     {
       "file": "dummy_lid.stl",
       "bytes": 64684,
-      "sha256": "ef9f5e0c0b9439215366e77db3c3e8cbce4dd277b6d104e20179b24bf21bdb7e"
+      "sha256": "1b62e656c13236c7fd31b3c567bf180eabeab3f5be95e6fadc986b8ecf9f0ee5"
     },
     {
       "file": "fit_coupon.step",
-      "bytes": 253082,
-      "sha256": "7251c2b568e15620caba514b2e11753b859e82a5d59274641881c45a64667d93"
+      "bytes": 253075,
+      "sha256": "eea690ce9095eecca2578d80d51b1afd75b4eb2900cbad523c4f00445cf3d594"
     },
     {
       "file": "fit_coupon.stl",
       "bytes": 158284,
-      "sha256": "d5a9e07753fbc8db2366306ef7d83c385bbe35d7323414db766baad406229280"
+      "sha256": "740b47c0d8fdd7de12d53a79a7564afe48d36ce0a87d70832f399e2ded29fd0c"
     },
     {
       "file": "plate.step",
-      "bytes": 1568495,
-      "sha256": "820451af25da4d83d38c1eeed5b0a605ea7eb6b250281a005b3193a15ff8ef33"
+      "bytes": 1568477,
+      "sha256": "21957e94990b39d40ea13fd9643aa53208afd428297e2538cee2dc83a3d30621"
     },
     {
       "file": "plate.stl",
       "bytes": 661484,
-      "sha256": "53a45a86ed632e9e62642869b96df8c20e18c1a17925bcf402b0fed6c607f483"
+      "sha256": "bc9ba67235165863b6938438b863d955288c04b82c9a6dbaf4dafbbed8b3f5ef"
     },
     {
       "file": "pod_lid.step",
-      "bytes": 344270,
-      "sha256": "670f678520bacd5ee4bb1f392c7c69dc47c8ab79ae3ba98f0234861a2b78b8ce"
+      "bytes": 344271,
+      "sha256": "37952825c1f85bd9ab78ad942bbbe347aa9e05c1832e9905ee44070aebe14b79"
     },
     {
       "file": "pod_lid.stl",
       "bytes": 284484,
-      "sha256": "ba27bb01369a460c13f0733796e70aa4e2ffe5460f77c2b29ea38890679804ac"
+      "sha256": "1ed2e8d1d10b1d7782efa740d0e076c685ea8557345c9a60c23faac29a537a8f"
     },
     {
       "file": "pod_shell.step",
-      "bytes": 1058031,
-      "sha256": "f9fbe649592b66577cc8493fcd1a8fbacb3215369a883bdafdf7ba07af807a91"
+      "bytes": 1058018,
+      "sha256": "93d4bce6778fe8eec0e19cef12d829b6c6376d2fc2edeb53836a441acceb38e0"
     },
     {
       "file": "pod_shell.stl",
       "bytes": 825484,
-      "sha256": "78ff027fd7fc096056e20608b08db486a286014e86107a877c6dc047d533b5aa"
+      "sha256": "857ee596b9caa48e8b3decdb2803ad81c2dd790baf9935c35df29cca54fe79c1"
     },
     {
       "file": "rotor.step",
-      "bytes": 211281,
-      "sha256": "3ce2f1eb2f8a6aeb20cde0e0cc53529d61cc044ead8573e2871d332492e35889"
+      "bytes": 211273,
+      "sha256": "01381d83c7b3321a6271bc78b3f16407849eaf08de5d9aaa0175122e02f1060f"
     },
     {
       "file": "rotor.stl",
       "bytes": 205284,
-      "sha256": "500680ed698ca593f1c46f4e457443630886650da0f727d2b8063b1c3ce4a222"
+      "sha256": "cb6671ce37320bd471f30489d44350fe2b21c2f3ced8b670187a68d99dc63663"
     },
     {
       "file": "stake_adapter.step",
       "bytes": 316152,
-      "sha256": "7dbb5277e36c1e8a9618e75b62d927c46132cc7787a94d00f08ffccb510fa84a"
+      "sha256": "b8c094c7f5ddbff0278f64201542336fe012d4af9d4ac1e019ef9a116927f930"
     },
     {
       "file": "stake_adapter.stl",
@@ -387,28 +425,48 @@
     },
     {
       "file": "stake_assembled.step",
-      "bytes": 24078853,
-      "sha256": "10688d70615ad2fa685fb1df134ea4e9f39c25dedb4b14da1d6e89ba6cbba577"
+      "bytes": 24079078,
+      "sha256": "af3b3b6bc6c6266befddbb3db529f1d69c00ab3c8649c71fe0f6498e1226afc9"
     },
     {
       "file": "stake_cell_holder.step",
-      "bytes": 1410828,
-      "sha256": "9948194e832149e5ec918fb3450d585782afe09decd24bce531c5f430cfadb57"
+      "bytes": 1410836,
+      "sha256": "a782d76c628e1298d165e3dcb61f0f4a1adc99d5252fbf645b9bbc50bbd2c738"
     },
     {
       "file": "stake_cell_holder.stl",
       "bytes": 543034,
-      "sha256": "7168042760357e386992f3ffa263c56b4bad883497faf88aeaafb44edb1b407e"
+      "sha256": "abb1c0d221c5a71312e1d8e558c86f016799652ecb32c64af5d26b928e19f70d"
+    },
+    {
+      "file": "tail_collar.step",
+      "bytes": 86617,
+      "sha256": "90996afd58952d656139d2fd1136cb195ea87b6aaf4ed223e864aad5f21fe7ec"
+    },
+    {
+      "file": "tail_collar.stl",
+      "bytes": 42484,
+      "sha256": "60304b1a02931e3590c5981ede5c0bde41b3b95b6477732d986760beb722ac4a"
+    },
+    {
+      "file": "tail_fin.step",
+      "bytes": 46087,
+      "sha256": "093ee9e2bc42f97ac71e8bd643dac623df3e4c27c4417caeabe643f385a92c5a"
+    },
+    {
+      "file": "tail_fin.stl",
+      "bytes": 2284,
+      "sha256": "c304d75a4adbd5f68e38d62516fd7d8955906329a2a601c15608375cc0205199"
     },
     {
       "file": "usb_cap.step",
       "bytes": 94336,
-      "sha256": "950b4bf216c5a4edddf218be509413e51a40863febe9c360427056c7c7a7e04f"
+      "sha256": "866730214f3702fb9cb4cb19a1a4c7d1666f6c7b502b40870d971822acfe13d1"
     },
     {
       "file": "usb_cap.stl",
       "bytes": 67084,
-      "sha256": "cc93fffec1aed228179a9a48d6486f1e3111e331d01b3c05348d6b6f4617f04f"
+      "sha256": "7d4b0af71a3e0b83bef480f584b963aff500840db242dd5b34f27a5ffd9ab694"
     }
   ]
 }

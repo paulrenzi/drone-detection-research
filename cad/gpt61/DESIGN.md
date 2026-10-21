@@ -1,5 +1,7 @@
 # XIAO listener and X500 release harness: first-print revision
 
+The current tail-fin revision adds four flat-print panels and two keyed collars per dart, moves the hanger to the new balance point and re-solves the inert dummy. Pressure and wind figures below are estimates; no fall has been tested.
+
 ## Changes from the Heltec version
 
 The incorrect Heltec/OLED package has been replaced throughout the current assemblies, renders and web models by the owned Seeed XIAO ESP32S3 + Wio-SX1262 kit. The original brief and downloaded legacy sources are retained as history. Old model outputs have been removed.
@@ -8,10 +10,10 @@ The incorrect Heltec/OLED package has been replaced throughout the current assem
 | --- | --- | --- |
 | Populated processor/radio boards | 0.32 oz | 0.14 oz |
 | Printed pod shell/lid/cap | 1.05 oz | 0.90 oz |
-| Dart | 5.58 oz | 5.22 oz |
+| Dart | 5.58 oz | 5.91 oz |
 | Harness | 6.47 oz | 6.47 oz |
-| Four darts + harness | 1.80 lb | 1.71 lb |
-| Hanger from tip | 10.462 in | 10.017 in |
+| Four darts + harness | 1.80 lb | 1.88 lb |
+| Hanger from tip | 10.462 in | 10.891 in |
 
 Per the firmware brief, the listener reports alive by radio once per minute. That heartbeat replaces a visual status indication. Native OEM CAD may retain inactive onboard component bodies; no added LED, display or battery-divider circuit is fitted. A smaller cell could reduce nose mass, but its runtime and impact retention need testing; the specified 18650 remains in the real listener models.
 
@@ -23,11 +25,11 @@ The electronics tray is now 1.81 x 1.26 in rather than 3.23 x 1.42 in, with a na
 
 All dimensions in these notes and render labels use decimal inches; most dimensions use two decimals, and fits, clearances, tolerances and thin walls/film use three. Numerical solver residuals retain extra digits to avoid hiding the nominal match. Mass is in ounces to two decimals, or pounds for totals above one pound; small volumes retain significant digits. Densities are in lb/in³ with the original g/cm³ reference. Source metric figures appear in parentheses only in the source register; nozzle and layer settings retain the explicitly requested metric labels. Sold part names M2, M2x6, M2x8, M3, RX-M2x4, 18650, INR18650-25R, SG90, T18R and DIN934 are unchanged. Source and history files retain their original wording.
 
-**The model and manufacturing units have not changed.** STEP and STL files stay in millimetres; slicers read STL as mm, so rescaling would break printing. GLBs stay in metres, as required by glTF. Machine-readable JSON/CSV field names and values stay unchanged, including `mass_g` in `web/manifest.json`. `parameters.py` and the build code still compute in millimetres internally. `display_units.py` converts captions and human reports only. Geometry, cameras and colours are preserved.
+**The model and manufacturing units have not changed.** STEP and STL files stay in millimetres; slicers read STL as mm, so rescaling would break printing. GLBs stay in metres, as required by glTF. Machine-readable JSON/CSV field names and unit conventions stay unchanged; numeric values follow the revised geometry, including `mass_g` in `web/manifest.json`. `parameters.py` and the build code still compute in millimetres internally. `display_units.py` converts captions and human reports only. The tail-fin revision changes geometry and recomputes its dependent numeric values.
 
 ## Files and reproduction
 
-[REVIEW.html](REVIEW.html) indexes all current renders. `out/` contains twelve printed STEP/STL pairs, current bought-part CAD, carried/mid-release/stood aircraft assemblies, a stood dart, stake and dummy assemblies, mass/check reports, print manifest and `print-kit.zip`. All STLs are already placed on Z0 in the intended Vyper print orientation; STEP files retain assembly datums. Eighteen functional printed pieces make four real darts and one harness; the coupon, stake and dummy parts are optional alternatives/tools.
+[REVIEW.html](REVIEW.html) indexes all current renders. `out/` contains fourteen printed STEP/STL pairs, current bought-part CAD, carried/mid-release/stood aircraft assemblies, a stood dart, stake and dummy assemblies, mass/check reports, print manifest and `print-kit.zip`. All STLs are already placed on Z0 in the intended Vyper print orientation; STEP files retain assembly datums. Forty-two functional printed pieces make four real darts and one harness; the coupon, stake and dummy parts are optional alternatives/tools.
 
 ```powershell
 & 'C:\Users\paulm\.venvs\cad\Scripts\python.exe' cad/gpt61/fetch_sources.py
@@ -85,13 +87,66 @@ The kit LoRa FPC has an explicitly unmeasured 3.94 x 0.39 x 0.012 in nominal env
 
 A 0.75 x 0.55 in end opening gives access to USB-C and a 0.028 in pin path to either button with the printed cap removed. The cap has 0.012 in skirt clearance and a 0.047 in overlapping flange. Seal its perimeter with a removable thin silicone bead or weather tape; it is a prototype service closure, not a tested IP seal. The full pod lid need not be removed to flash. Cable overmould envelope 0.43 x 0.24 in is MEASURE. The lid perimeter has a 0.059 x 0.035 in gland for 0.047 in cord (25% nominal compression); three RX-M2x4 inserts and M2x6 screws clamp it. RTV, solder and service tape are not resolved as exact solids or weighed consumables.
 
+## Tail fins, pressure estimate and flat carriage
+
+Four identical trapezoidal PETG fins sit at 50, 130, 230 and 310 degrees around the rod on two separate slotted collars. The 80/100 degree spacing tilts them closer to vertical so a descending fin clears the next dart's microphone rain hood. Each fin has a 6.46 in root chord, 5.04 in tip chord, 0.59 in exposed radial span and 0.047 in thickness. Its root runs from 14.49 in to 20.94 in from the tip. Maximum radius from the rod axis is 1.02 in; the diagonal orientation limits carried width to about 1.35 in. Four fins add side area in both pitch and yaw.
+
+The two collars begin at 15.28 in and 17.95 in from the tip, each 0.31 in long, with 0.71 in OD and a 0.248 in bore. Two tabs per fin seat in open axial keyways with 0.010 in total thickness clearance and 0.016 in total axial clearance. The fins print on their full broad face; the collars print on an axial end face with vertical bore/keyways. Both need no supports. PETG is solid at the existing profile.
+
+Install the collars and four fins before the pod. Dry-fit all eight tabs; align the open wire reliefs on the cell-wire side and keep them free of adhesive. Bond both collar bores and all fin tabs using a PETG-compatible adhesive verified by a coupon. Roughen/clean the rod locally and hold the panel angles while curing. The mass model includes 0.02 oz total cured adhesive as a MEASURE allowance; the CAD bond films are representative, not exact fillets. Weigh the actual cured build, and use the same joints and fins on the dummy. Joint strength, fin stiffness and long-term creep are untested. Do not rely on a loose sliding collar or on keyway friction. Service requires debonding; the exploded layout identifies the pieces without claiming a reversible dry assembly.
+
+The fin tips stay inside the available dart spacing. This trades away the span of a larger lawn-dart tail: the long chord supplies area while the diagonal panels preserve clearance. No fin, collar or pod scaling is used during release. The tail already sits below and beyond the deck; it does not need to pass through the head slots. Only the head and post cross those gaps. Full-size geometry is included in carried, mid-release, vertical extraction, later prescribed pitch, stood, dummy and web assemblies. The microphone corridor, removable USB cap and complete antenna strip remain unobstructed. This is a span-constrained prototype, not an optimized aerodynamic design.
+
+The limiting sampled fin-to-neighbour-pod gap is **0.056 in**, measured by true B-rep closest distance, at **0.591 in downward extraction** of dart 1 beside dart 2. This is nominal CAD separation, not a tolerance or flex guarantee.
+
+The pressure calculation uses uniform pressure on the union of the actual projected side silhouettes: **CP = sum(projected area x area-centroid distance) / sum(projected area)**. Rod, body including cell, pod, antenna strip/backer, fins and collars are projected onto the longitudinal/transverse plane; occupied pixels remove hidden rod and overlapping fin area. This is a cardboard-cutout estimate. It does not assign validated small-angle force coefficients. `tail_analysis.py` repeats rolls from 0 through 165 degrees in 15 degree steps and halves the raster pitch at each sampled worst case. `out/tail_analysis.json` retains all component areas and centroid distances, both geometries/masses and convergence results.
+
+Aim: at least **2 body widths** behind the CG at the sampled worst roll, to give a visible geometric restoring lever despite uncertainty. One body width means the cradle/gutter breadth **1.469 in**; it excludes the tall hanger. This is a design screen, not a standard or a demonstrated fall-stability requirement. The same denominator is used before and after.
+
+| Model estimate | Before fins | With fins |
+| --- | --- | --- |
+| Dart mass | 5.22 oz | 5.91 oz |
+| CG from tip | 10.017 in | 10.891 in |
+| CP from tip, sampled minimum margin | 11.854 in | 13.951 in |
+| Static margin, sampled minimum | 1.837 in | 3.059 in |
+| Static margin / body width | 1.25 | 2.08 |
+| Sampled CP range | 11.854 in to 13.075 in | 13.951 in to 14.636 in |
+
+The old cutout can already place its estimated CP behind its CG because the long pod/antenna has side area. That result does not establish enough restoring force near nose-down, a safe turn from level or adequate damping. The fins add deliberate surfaces in both steering planes; a positive area margin still does not demonstrate self-righting. The model starts at zero fall speed, when this aerodynamic moment is zero. Fin stall, changing pressure distribution, flexibility, pod wakes, angular inertia, propwash and gusts remain unknown. No turn time, minimum release height, upright landing or drop survival is claimed. The dummy drop test must establish the response.
+
+The hanger moves with the new mass solution to **10.891 in from the tip**; its lateral axis follows the new CG. Four darts alone weigh **1.48 lb**; four darts plus the unchanged harness weigh **1.88 lb**. The dummy is re-solved with the same fins, collars and adhesive to match the new mass and all three first moments; matching inertia and aerodynamic response is still approximate.
+
+**Keep flat carriage at the balance point.** A hanger slightly ahead of the CG, toward the point, would make the tail sag and the point rise. To start nose-down under gravity, the support must be slightly aft of the CG, toward the fins. Both signs were recomputed with the moved post mass rather than merely rotating the old drawing.
+
+| Hanger relative to CG | Gravity equilibrium, nose-down positive | Rigid head seating |
+| --- | --- | --- |
+| Toward point by 0.197 in | -6.88 degrees | Interferes with rotor/plate |
+| At CG | -0.00 degrees | Clear |
+| Toward tail by 0.197 in | 6.88 degrees | Interferes with rotor/plate |
+
+An aft support could give an initial nose-down bias and shorten the required turn, but it lifts the long tail toward the aircraft, lowers the point toward the ground and puts the round head on an edge. The seating probe finds solid interference with the present horizontal support geometry, so the tilted alternatives are rejected before release qualification. Edge loading/wedging would also change extraction friction. Flat carriage preserves the full-head bearing surface and existing release path; its rotation must begin aerodynamically after release, with timing still unknown. Neither offset option is being advertised as a checked release configuration.
+
+### Wind estimate
+
+A finned dart tends to align with the air it falls through, which can incline its point into the wind rather than vertically. The requested no-drag arithmetic assumes release from rest, no horizontal ground speed, steady wind, vertical impact speed **sqrt(2 x gravity x height)** with **g = 32.174 ft/s²**, and perfect alignment. Tilt from vertical is **atan(wind / vertical impact speed)**.
+
+| Drop | No-drag impact speed | 5 mph wind | 10 mph wind | 15 mph wind |
+| --- | --- | --- | --- | --- |
+| 16 ft | 32.1 ft/s (21.9 mph) | 12.9 degrees | 24.6 degrees | 34.4 degrees |
+| 33 ft | 46.1 ft/s (31.4 mph) | 9.0 degrees | 17.7 degrees | 25.5 degrees |
+| 49 ft | 56.2 ft/s (38.3 mph) | 7.4 degrees | 14.6 degrees | 21.4 degrees |
+
+**This is an estimate, not a test or a landing prediction.** Vertical drag lowers the impact speed and increases this tilt for an unchanged relative crosswind. Horizontal drag also accelerates the dart downwind and reduces the relative crosswind, which can reduce tilt; the net result needs coupled flight dynamics or measurements. Fin alignment may lag or oscillate and may not complete in a short drop. These numbers provide neither drift/aim accuracy nor permission to assume an upright impact. `dart_fall_sequence.png` shows illustrative attitudes only; pose spacing is neither time nor distance.
+
+Primary references for the qualitative CG/CP criterion and the simplified calculation are [NASA Glenn: generalized center of pressure](https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/generalized-center-of-pressure/), [conditions for stability](https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/conditions-for-rocket-stability/) and [falling objects with air resistance](https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/falling-object-with-air-resistance/). Applying the cutout method to this irregular, initially horizontal dart is an engineering estimate, not validation by those references.
+
 ## Body, balance and harness
 
 The body retains the specified 0.24 x 19.69 in fibreglass spine, 2.76 in nose/soil stop, flat-top 18650 open snap cradle, axial sleeve, integral post and wire gutters. Three short 0.234 in nominal press lands sit in a 0.250 in relieved teardrop bore; the coupon determines the actual fit. Four 0.047 in thick, 0.71 in long cantilevers retain the cell through a 0.66 in throat with lead-in ramps. Axial end walls take impact load rather than the flexible latch tips. The rod tip is a 0.47 in cone with a 0.024 in blunt point for the nominal CAD envelope.
 
-The mass solver moves the post and its sleeve until its X/Y axis agrees with the recomputed dart centre of mass. The nominal CG is **(10.017, 0.279, 0.355) in**; the hanger is **X 10.017 in, Y 0.279 in** from the tip/rod datum. Residual X error is -0.000185 in. This numerical residual is not a real assembly tolerance; weighed stock and printed mass control actual balance.
+The mass solver moves the post and its sleeve until its X/Y axis agrees with the recomputed dart centre of mass. The nominal CG is **(10.891, 0.243, 0.337) in**; the hanger is **X 10.891 in, Y 0.243 in** from the tip/rod datum. Residual X error is 0.000076 in. This numerical residual is not a real assembly tolerance; weighed stock and printed mass control actual balance.
 
-The smaller head lowers the modelled load. The existing harness geometry is retained after rechecking all four moved darts: 3.27 in deck radius, 0.13 in deck, 1.89–2.01 in bearing ridge, 2.56 in rotor radius, 0.13 in rotor web and 20 degree release gaps. Slots are 0.80 x 0.61 in for 0.51 in heads and 0.20 in necks. The pilot has 0.010 in radial clearance. Payload rail centres are 2.36 in apart; saddles use 0.42 in seats and four T18R ties. Tall towers are explicitly hollow CAD geometry, not a density multiplier.
+The existing harness geometry is retained after rechecking the finned darts and their moved hangers: 3.27 in deck radius, 0.13 in deck, 1.89–2.01 in bearing ridge, 2.56 in rotor radius, 0.13 in rotor web and 20 degree release gaps. Slots are 0.80 x 0.61 in for 0.51 in heads and 0.20 in necks. The pilot has 0.010 in radial clearance. Payload rail centres are 2.36 in apart; saddles use 0.42 in seats and four T18R ties. Tall towers are explicitly hollow CAD geometry, not a density multiplier.
 
 The load path remains head -> rotor rim -> PTFE-covered bearing ridge -> plate -> saddles/rails. The SG90 stock horn drives two 0.71 in-spaced M2 studs with axial slip; a keeper washer has 0.016 in running gap and does not clamp the rotor onto the servo shaft. The model checks the case, horn, nuts, pilot and rotor throughout the release sequence. Dart 1 releases at 16 degrees, dart 3 at 32, dart 2 at 48 and dart 4 at 64. Servo travel, torque under friction, creep and shock remain physical qualification items.
 
@@ -101,7 +156,7 @@ The load path remains head -> rotor rim -> PTFE-covered bearing ridge -> plate -
 
 | Printed design | Mass at 100% | CAD volume |
 | --- | --- | --- |
-| body | 1.45 oz | 1.96922 in³ |
+| body | 1.50 oz | 2.04049 in³ |
 | pod_shell | 0.67 oz | 0.912003 in³ |
 | pod_lid | 0.20 oz | 0.274225 in³ |
 | usb_cap | 0.03 oz | 0.0440002 in³ |
@@ -110,16 +165,18 @@ The load path remains head -> rotor rim -> PTFE-covered bearing ridge -> plate -
 | fit_coupon | 0.16 oz | 0.215855 in³ |
 | stake_adapter | 0.47 oz | 0.642894 in³ |
 | stake_cell_holder | 1.08 oz | 1.46774 in³ |
-| dummy_body | 1.78 oz | 2.42304 in³ |
+| dummy_body | 1.83 oz | 2.49432 in³ |
 | dummy_lid | 0.14 oz | 0.195827 in³ |
 | dummy_head_insert | 0.07 oz | 0.089959 in³ |
+| tail_fin | 0.12 oz | 0.167494 in³ |
+| tail_collar | 0.07 oz | 0.0886739 in³ |
 
 | Assembly | Nominal mass |
 | --- | --- |
-| One real dart | 5.22 oz |
+| One real dart | 5.91 oz |
 | Harness including servo/hardware/ties | 6.47 oz |
-| Four real darts + harness | 1.71 lb |
-| Inert dummy with ballast | 5.22 oz |
+| Four real darts + harness | 1.88 lb |
+| Inert dummy with ballast | 5.91 oz |
 
 Complete stake installation, including the full 48.00 in nominal 0.39 in stake and 18650: **10.90 oz**. Stake density and all small-stock masses are unmeasured; this total is separate from flight payload.
 
@@ -149,7 +206,7 @@ Use the Anycubic Vyper 9.65 x 9.65 x 10.24 in, dry PETG, 0.4 mm nozzle (0.016 in
 
 | Part | Kit/optional qty | Print bounds in | Orientation | Supports |
 | --- | --- | --- | --- | --- |
-| body | 4 | 7.69 x 1.47 x 2.09 | Flat sole down; post and snaps up | Local only: hanger flange and four snap beams. Clear the flexure reliefs. |
+| body | 4 | 8.57 x 1.47 x 2.09 | Flat sole down; post and snaps up | Local only: hanger flange and four snap beams. Clear the flexure reliefs. |
 | pod_shell | 4 | 4.02 x 1.47 x 0.70 | Tray floor/neck flat down, opening up | Local only: rain hood, socket lip and mic guide ledges. Block teardrop ducts. |
 | pod_lid | 4 | 5.91 x 1.26 x 0.23 | Outside face and FPC backer together on bed | None. Backer top is coplanar with lid outside face. |
 | usb_cap | 4 | 0.65 x 0.84 x 0.13 | Outside flange face down, skirt up | None. |
@@ -158,9 +215,11 @@ Use the Anycubic Vyper 9.65 x 9.65 x 10.24 in, dry PETG, 0.4 mm nozzle (0.016 in
 | fit_coupon | 1 | 2.17 x 0.46 x 0.43 | Four linked block bases down | None; bores 0.232/0.236/0.240/0.244 in increase in X. |
 | stake_adapter | 1 | 1.73 x 1.65 x 0.67 | Flat bracket base down; V saddles up | None; small tie-channel bridges; offcut saddle is open. |
 | stake_cell_holder | 1 | 3.17 x 2.78 x 0.75 | Flat cradle sole down, snap arms up | Local only under snap beams, as on body. |
-| dummy_body | 1 | 7.69 x 1.47 x 2.09 | Flat sole down, pockets up | Local only under hanger flange; nut slots bridge 0.17 in. |
+| dummy_body | 1 | 8.57 x 1.47 x 2.09 | Flat sole down, pockets up | Local only under hanger flange; nut slots bridge 0.17 in. |
 | dummy_lid | 1 | 3.03 x 0.83 x 0.079 | Outside face down | None. |
 | dummy_head_insert | 1 | 0.91 x 0.70 x 0.28 | Floor down, ballast pockets up | None. |
+| tail_fin | 16 | 6.46 x 0.84 x 0.047 | Entire broad face down, tabs coplanar | None; constant-thickness panel. Print 16 for four darts. |
+| tail_collar | 8 | 0.71 x 0.71 x 0.31 | Axial end face down, rod bore vertical | None; open vertical bore and keyways. Print eight for four darts. |
 
 ## Hand-placed stake adapter
 
@@ -170,9 +229,9 @@ Place the pod midway up the stake, not on its 48 in top. Insert the stake by han
 
 ## Inert drop-test dummy
 
-The dummy uses the same 0.24 x 19.69 in rod, hanger location, pod shell/lid/service cap and external FPC backer. A closed twin-pocket ballast cassette replaces the cell cradle inside the dummy body; there is no cell, microphone or electronic stack. A small two-pocket printed head insert replaces the boards. The external backer is retained for approximate shape, while the flexible FPC itself is omitted; matching mass/CG does not match exact aerodynamic flexibility or inertia. Two M2x8 screws and side-loaded M2 captive nuts close the body ballast lid. Foam and adhesive retain the four weighed ballast portions; include their mass within the listed target portions.
+The dummy includes the same four fins, two collars and cured bond allowance, and uses the same 0.24 x 19.69 in rod, hanger location, pod shell/lid/service cap and external FPC backer. A closed twin-pocket ballast cassette replaces the cell cradle inside the dummy body; there is no cell, microphone or electronic stack. A small two-pocket printed head insert replaces the boards. The external backer is retained for approximate shape, while the flexible FPC itself is omitted; matching mass/CG does not match exact aerodynamic flexibility or inertia. Two M2x8 screws and side-loaded M2 captive nuts close the body ballast lid. Foam and adhesive retain the four weighed ballast portions; include their mass within the listed target portions.
 
-Empty dummy assembly estimate: **3.92 oz**. Add **1.30 oz** total steel ballast to target **5.22 oz** and CG **(10.017, 0.279, 0.355) in**. All three model moment residuals are below 0.00004 in.
+Empty dummy assembly estimate: **4.61 oz**. Add **1.30 oz** total steel ballast to target **5.91 oz** and CG **(10.891, 0.243, 0.337) in**. All three model moment residuals are below 0.00004 in.
 
 | Pocket | Weighed steel + fixative | Required centre XYZ in | Equivalent solid-steel block in |
 | --- | --- | --- | --- |
@@ -185,7 +244,7 @@ Steel density 0.2836 lb/in³ (7.85 g/cm³) sets only the equivalent CAD blocks. 
 
 ## Checks, limits and assembly
 
-Current run: **140/140 checks pass**. [checks.md](out/checks.md) and [checks.json](out/checks.json) retain every value and scope; STEP/STL round trips and topology are in [export_validation.json](out/export_validation.json).
+Current run: **164/164 checks pass**. [checks.md](out/checks.md) and [checks.json](out/checks.json) retain every value and scope; STEP/STL round trips and topology are in [export_validation.json](out/export_validation.json).
 
 Local board/mic/lid/cap/wire/ballast fits use actual B-rep intersection volumes with a 1.22047e-06 in³ threshold. Rod press lands, inserts, threads/solder and compressed soft seals have declared intended contact. Frame/prop/leg/ground checks use current exterior parts including the long FPC backer. Vehicle distance numbers are conservative AABB lower bounds; zero does not mean a measured zero gap. Rotor/head contact uses 0.5 degree samples, rotor/body sweep 2 degree, extraction 0.000–3.54 in in 0.20 in steps, and prescribed later pitch 0..90 degrees in 5 degree steps. These are discrete geometric checks, not a continuous or aerodynamic proof.
 
@@ -205,7 +264,7 @@ Assembly order:
 3. Heat-set three M2 inserts per pod. Seat the mic film and annular seal, install the breakout with port facing the hood and add its soft preload pad. Do not fill the acoustic cavity with rigid adhesive.
 4. Solder BAT wires to underside pads before installing the XIAO. Connect INMP441 to D3/D4/D5/3V3/GND and bridge L/R to ground for the selected channel. Keep headers off; inspect solder for shorts. Plug in Wio via B2B and connect the correct LoRa and WiFi U.FLs.
 5. Seat the stack on edge supports, dress all five short wires and route cell leads through the neck/gutter strain reliefs. Fit the supplied FPC to the backer without creasing its feed. Seal gland/rod entry with removable neutral-cure silicone.
-6. Slide body until its nose is 2.76 in from the sharpened tip. Snap the factory-wired flat-top 18650 into the retained cradle; insulate terminals, fit strain relief/body tie and two rod ties. Press the pod onto the final 0.79 in of rod.
+6. Slide body until its nose is 2.76 in from the sharpened tip. Snap the factory-wired flat-top 18650 into the retained cradle; insulate terminals, fit strain relief/body tie and two rod ties. Fit and bond the tail collars and fin tabs as described above, keeping the wire relief clear; then press the pod onto the final 0.79 in of rod.
 7. Fit perimeter cord and foam pads, close the lid with three M2x6 screws and install/seal the USB cap. Remove only the cap for flashing; use a pin for BOOT/RESET if needed. Check actual plug/pin reach before final sealing.
 8. Weigh and balance a completed dart. Update the model if the real balance differs materially from the integral hanger; source estimates are not permission to ignore that difference.
 9. Mount SG90 below the plate using two M2 nuts/screws. Fit stock horn, two round M2 drive studs and locking nuts, PTFE bearing film, rotor and loose axial keeper. Match replacement screw thread to the actual servo; never clamp payload load into its shaft.
@@ -282,6 +341,7 @@ The central Measurements dataclass includes sourced stock nominals requiring inc
 | wire_od | 0.041 in |
 | prop_plane_from_bottom_plate | 2.244 in |
 | prop_sweep_thickness | 0.157 in |
+| fin_adhesive_mass | 0.02 oz |
 
 ## Exploded web models and visual review
 

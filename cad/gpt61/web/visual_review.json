@@ -1,41 +1,46 @@
 {
-  "reviewed_utc": "2026-10-21T20:36:06.762785+00:00",
+  "reviewed_utc": "2026-10-21T21:33:56.641250+00:00",
   "method": "Assistant visually inspected every final PNG at original resolution using view_image; checked US units, number/word spacing, matching model values, and uncropped, non-overlapping labels.",
   "scope": "CAD imagery only; no physical print, acoustic, radio, drop or flight qualification",
   "renders": {
     "aircraft_exploded.png": {
       "inspected": true,
-      "sha256": "96f968a61a2da33b0769e776dfaa6745d2842fe464977130516e8e9d4b87f701",
+      "sha256": "69d822dd4e5fc297ebf4a94c54be2052523aec9f38c9e425c15634d1cc95593e",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "assembly_carried.png": {
       "inspected": true,
-      "sha256": "32520052b2bda453b52d000de7763a6df08bda18b880235f406c11e9b261a0c5",
+      "sha256": "55efcfd16c5090c26c086eaa4171c05863106169e8f0739fdca8aa42e492e8a8",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "assembly_mid_release.png": {
       "inspected": true,
-      "sha256": "2436503d36e5bb32ddbd5d975bb5f230bd686fc6d7d44fbc837d03d1b22cd0f4",
+      "sha256": "7049e918cc0d36a37ae15c00dfedb2ed16f210f525717f18b8b4191fed84defb",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "assembly_stood.png": {
       "inspected": true,
-      "sha256": "844bc71ef94f26e9609cfac274cde5126c62495d187d6fdace4597e4abb5606f",
+      "sha256": "36020c2bf1b48e33c472209f1c8e8cbbaadc844742613391eebe9cefacb6a496",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "bought_servo.png": {
       "inspected": true,
-      "sha256": "dc212e4f8997bea930248186c77b112eae8a4c283e031094220bde0a286d3c01",
+      "sha256": "b9d20438352857360c7094065ab24d4b5678ce16a6b5a15ef27f4a99d9b73b3d",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "bought_xiao_wio.png": {
       "inspected": true,
-      "sha256": "07b897b03206ceb3b8a1fce5f33411dfe126eeae39465675fb4554edd57b5484",
+      "sha256": "6d21b97d5e5ff13c415d6cf250c38a089ef38b0d7fd7409cc7d85dc20c219c47",
       "note": "Native Seeed board geometry; unmeasured B2B mating spacing labelled."
+    },
+    "dart_balance.png": {
+      "inspected": true,
+      "sha256": "eedfa1d4301d975d27be67f5f4a21b4dfabaab67e47646fcd55edd9d4e10264c",
+      "note": "CAD side cutaway shows gold 18650 at nose, labelled tip datum, actual mass balance and sampled pressure estimates before/after fins."
     },
     "dart_exploded.png": {
       "inspected": true,
-      "sha256": "29972feb7471158162b002e6971304a29d4033759477b27777e8e24ff74f25ad",
+      "sha256": "a5afaaab72c7d62f39fd36457150edcc38f22e58e927fa71a16fc25b24bcc919",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "dart_exploded_pod.png": {
@@ -43,49 +48,59 @@
       "sha256": "6c65380bdda908ce1b05deb80299b712ca9655c2e706f9b57dfbd4cb9fc1278b",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
+    "dart_fall_sequence.png": {
+      "inspected": true,
+      "sha256": "f74e83d9d27db3fcadd5fb5ba8aa10ff2a617163326529df5c7f063a39d7ca57",
+      "note": "Four illustrative attitudes explicitly labelled schematic, not simulation; wind is upwind-pointing, with no turn timing claim."
+    },
+    "dart_fins_detail.png": {
+      "inspected": true,
+      "sha256": "68cac270aac0133e8463468f04f65915d9ca8a6a556e9302b6bad618a3193397",
+      "note": "Diagonal flat panels, two slotted collars, tab clearance and bonded attachment inspected; no physical joint qualification."
+    },
     "dart_stood.png": {
       "inspected": true,
-      "sha256": "1599d6eea3d080e094cda1aac5fabfceff67b8b4db89019cb6daaf14982fa620",
+      "sha256": "45a96fc118d57c5bdf35f6718a7ac080c9f70f828b2041b0814cc00424c8bcd5",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "dummy_assembled.png": {
       "inspected": true,
-      "sha256": "83dd249f291bc6a94796b03d9c5d8bde2a770145b22bd6025f3579d37585985d",
+      "sha256": "4609ad917b7d6398fc7d0782fa1e8d2a87b80bfad19f21cbfb9d1abafd59d094",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "dummy_ballast_detail.png": {
       "inspected": true,
-      "sha256": "c3bf4f706bdcc160208c7972176c394760c733376e704d0cbfe1fa362e679cf6",
+      "sha256": "4b7af7b4daf8978b7a2cb3d3feb4537b96335a4147cb885825bb1655c6d595f6",
       "note": "Two retained body ballast pockets visible; remaining two head portions documented."
     },
     "harness_exploded.png": {
       "inspected": true,
-      "sha256": "4cf97a45cd113070e60e4539448fbdb7d393170797fa433d1faf4386beeb70dd",
+      "sha256": "e3a747b7a86d43236c5f09e62248ae7277a32a1da6d04ab1e03dc0bb1bae1392",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "harness_exploded_detail.png": {
       "inspected": true,
-      "sha256": "ca6547bdd049be2c865b1d5544908e4055eb7ec7d302529c5ae7368cff8df80d",
+      "sha256": "a607b0d4891884f4951afd67787ffff2df0e98b52765f02723c1588dfbfbc8f9",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "pod_exploded.png": {
       "inspected": true,
-      "sha256": "b5cdbd17c2c86c2a6f88a5f5169a124f43e44ab9a76056997ea076553cabdd5a",
+      "sha256": "cd7b4c0111dc1fd4cd86e297375408e8dedf68387cc8f5550bddd08b854cccdf",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "pod_usb_access.png": {
       "inspected": true,
-      "sha256": "417902725e58106faf84308c4d2a18376a25fde27fda48e6550c23c0f1733852",
+      "sha256": "414c7dc64036880752fb23cd2235dc9697d678eff79ce535bb858a1670697e4b",
       "note": "End cap set aside, USB visible; lid retained and FPC backer explicitly cropped."
     },
     "print_body.png": {
       "inspected": true,
-      "sha256": "40339d829d0597486549a9844867b973b96cbc15f91d934a89b6865be54496b9",
+      "sha256": "534d87067044398cb84686dfcb5a8b14f32b3413dd1bcdda8fcced82a54b25c8",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "print_dummy_body.png": {
       "inspected": true,
-      "sha256": "b1b4734970b4d9bcb221597d448dffec208458b109bbe8fc9d56fa6f574cb309",
+      "sha256": "25ece69d733c6d03f128b21dbf0966bc4257d3a433a445b7f124093552a841c0",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "print_dummy_head_insert.png": {
@@ -105,7 +120,7 @@
     },
     "print_plate.png": {
       "inspected": true,
-      "sha256": "8a400aa237fdaca31ddc806569758a304f4808ccd703fb97a9a341f843178794",
+      "sha256": "694786408a4626b0edf75f40d0724ba5d69630c87d994d1d2cd56524f1b78157",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "print_pod_lid.png": {
@@ -120,18 +135,28 @@
     },
     "print_rotor.png": {
       "inspected": true,
-      "sha256": "941a124effebbc866b1f45579f242223c167f653050ac3898d7c452c09cd10e0",
+      "sha256": "ea1641eeeeb5a719a4913cc4da040a0bc7b15e5f0e952cf72c4b79add69313c3",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "print_stake_adapter.png": {
       "inspected": true,
-      "sha256": "81112f19de65bf9883d9187ad8b0face527b23811d8ad6e836d118354cd0f293",
+      "sha256": "517a37747ecfd7b8d6d3334761129cca9ef6141df57845cce76a5779123c945b",
       "note": "Reoriented flat after visual review; removes unsupported sideways V-saddle projections."
     },
     "print_stake_cell_holder.png": {
       "inspected": true,
-      "sha256": "30792a4c2b9a81ead660d18caf0a8146f7103b94f5f761a6ccfa873a756f005b",
+      "sha256": "e631d9129aaaf3a1068626a00d73c8284d26746043b688af595f101e8a527d91",
       "note": "Flat coplanar base and cradle floor; snap beams require local support."
+    },
+    "print_tail_collar.png": {
+      "inspected": true,
+      "sha256": "5d7a05f964d10336927508b57e71b093194f6144badf1254f21c8fdc6d89cf45",
+      "note": "Axial face on bed; rod bore, keyways and wire relief open vertically; no supports."
+    },
+    "print_tail_fin.png": {
+      "inspected": true,
+      "sha256": "e8d8cc30d9f42e45262f25c9652797f402239eb8a32e4682812e94a07e164868",
+      "note": "Full broad planar face on bed, tabs coplanar; no supports."
     },
     "print_usb_cap.png": {
       "inspected": true,
@@ -140,17 +165,17 @@
     },
     "release_detail.png": {
       "inspected": true,
-      "sha256": "6beed30a20920c5f8950a253629fcd71e0ed2d883190c0ac8307aaa7d88477d4",
+      "sha256": "84c09d319fea6b9de7f450a68c9d30022f8a9c8cceb47bfbf7acec892277a41f",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "section_body.png": {
       "inspected": true,
-      "sha256": "8d5cb447da3cf6eda227d307dd9a157693688304cd01499548387e39ca7de8ad",
+      "sha256": "7bad929061da9fe0f8ba12ea58dd9b0c09e6918a1490049c4eba536a9d08a186",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "section_body_snap.png": {
       "inspected": true,
-      "sha256": "94d8a58eb23a3a6a9088d27489037457f31972c7a3b1736e37bda4dfa26d6e9b",
+      "sha256": "e14eaf46559226a37b0e35b56bafebc661b26f1c61968fe9c83d1a5e6f46a4c7",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "section_pod.png": {
@@ -160,12 +185,12 @@
     },
     "stake_assembled.png": {
       "inspected": true,
-      "sha256": "cc435fd14bc620e203a06cf1a99654878f74832d8c500f9f99cd59ee56199901",
+      "sha256": "65b4a25c92265f98d9ef4e33c196973083600fa311776000ea68a5132d588669",
       "note": "Framing, part visibility, geometry and current XIAO identity visually reviewed."
     },
     "stake_clamp_detail.png": {
       "inspected": true,
-      "sha256": "905298911b60c05598f29cf54a92e5f79f2e2ba75945755eb84790f0357bb845",
+      "sha256": "c3b99095979849fe32709c90d88c0dfc640d549776eb51cfb40917897ed2cdd2",
       "note": "Two stake ties plus separate pod-neck retaining tie; locator offcut visible."
     }
   }

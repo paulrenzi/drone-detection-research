@@ -46,6 +46,11 @@ def mass_dart(body,parts):
     for names,label,grams in [(('lora_FPC','RF_pigtail'),'LoRa_FPC_and_coax',M.fpc_mass),(('wifi_FPC','wifi_coax'),'WiFi_FPC_and_coax',M.wifi_mass)]:
         ant=compound(s for n,s,c in parts['hardware'] if n in names)
         rows.append(mass_item(label,ant,mass=grams,basis='MEASURE kit antenna and coax; unsourced dimensions'))
+    from tail_fins import rows as tail_rows
+    for n,s,c in tail_rows(parts):
+        rows.append(mass_item(n,s,M.petg_density if n!='tail_bond' else None,
+                    mass=M.fin_adhesive_mass if n=='tail_bond' else None,
+                    basis='MEASURE cured bond including keyway fillets' if n=='tail_bond' else '100% infill flat PETG tail part'))
     return rows
 
 def resultant(rows):
@@ -56,6 +61,8 @@ def make_model():
     parts={}
     for n,f in (('pod_shell',pr.pod_shell),('pod_lid',pr.pod_lid),('usb_cap',pr.usb_cap),('stake_adapter',pr.stake_adapter),('stake_cell_holder',pr.stake_cell_holder),('dummy_lid',pr.dummy_lid),('dummy_head_insert',pr.dummy_head_insert),('plate',pr.plate),('rotor',pr.rotor),('fit_coupon',pr.fit_coupon)):
         log('model',n);parts[n]=f()
+    from tail_fins import printed_shapes
+    parts.update(printed_shapes())
     parts['board']=buy.xiao_stack();parts['mic']=buy.microphone();parts['hardware']=buy.dart_hardware()
     # Fixed point: moving the integral hanger also moves its mass and sleeve.
     h=267.;hy=6.
@@ -85,7 +92,8 @@ def make_model():
     return parts
 
 def dart_rows(parts):
-    return [('body',parts['body'],'body'),('pod_shell',parts['pod_shell'],'pod'),('pod_lid',parts['pod_lid'],'lid'),('usb_cap',parts['usb_cap'],'lid'),('rod',buy.rod(),'rod')]+buy.cell()+parts['board']+parts['mic']+parts['hardware']
+    from tail_fins import rows as tail_rows
+    return [('body',parts['body'],'body'),('pod_shell',parts['pod_shell'],'pod'),('pod_lid',parts['pod_lid'],'lid'),('usb_cap',parts['usb_cap'],'lid'),('rod',buy.rod(),'rod')]+buy.cell()+parts['board']+parts['mic']+parts['hardware']+tail_rows(parts)
 
 def carried_transform(s,i,hanger,drop=0,pitch=0):
     h,hy,cz=hanger
@@ -129,13 +137,15 @@ def stood_scene(parts):
     return rows
 
 def print_transform(n,s):
+    from tail_fins import print_shape
+    s=print_shape(n,s)
     if n=='usb_cap':s=s.rotate((0,0,0),(0,1,0),90)
     elif n in ('pod_lid','dummy_lid'):s=s.rotate((0,0,0),(1,0,0),180)
     elif n=='rotor':s=s.rotate((0,0,0),(1,0,0),180)
     b=s.BoundingBox()
     return s.translate((-(b.xmin+b.xmax)/2,-(b.ymin+b.ymax)/2,-b.zmin))
 
-PRINT_NAMES=('body','pod_shell','pod_lid','usb_cap','plate','rotor','fit_coupon','stake_adapter','stake_cell_holder','dummy_body','dummy_lid','dummy_head_insert')
+PRINT_NAMES=('body','pod_shell','pod_lid','usb_cap','plate','rotor','fit_coupon','stake_adapter','stake_cell_holder','dummy_body','dummy_lid','dummy_head_insert','tail_fin','tail_collar')
 
 def cache(parts):
     serial={}
@@ -201,7 +211,7 @@ def export_all(parts):
             # STEP retains assembly datum, STL is already in print orientation.
             obj=s if ext=='step' else print_transform(n,s)
             cq.exporters.export(obj,str(OUT/(n+'.'+ext)),tolerance=.05,angularTolerance=.12)
-        manifest.append(dict(part=n,quantity=4 if n in ('body','pod_shell','pod_lid','usb_cap') else 1, kit='four-dart' if n in ('body','pod_shell','pod_lid','usb_cap','plate','rotor') else 'optional prototype/tool',step=n+'.step',stl=n+'.stl',print_bbox_mm=[print_transform(n,s).BoundingBox().xlen,print_transform(n,s).BoundingBox().ylen,print_transform(n,s).BoundingBox().zlen]))
+        manifest.append(dict(part=n,quantity=16 if n=='tail_fin' else 8 if n=='tail_collar' else 4 if n in ('body','pod_shell','pod_lid','usb_cap') else 1, kit='four-dart' if n in ('body','pod_shell','pod_lid','usb_cap','plate','rotor','tail_fin','tail_collar') else 'optional prototype/tool',step=n+'.step',stl=n+'.stl',print_bbox_mm=[print_transform(n,s).BoundingBox().xlen,print_transform(n,s).BoundingBox().ylen,print_transform(n,s).BoundingBox().zlen]))
     log('export bought parts')
     assembly(parts['board'],'XIAO_ESP32S3_Wio_SX1262',OUT/'bought_xiao_wio_stack.step')
     assembly(parts['mic'],'INMP441_breakout',OUT/'bought_inmp441.step')
@@ -234,7 +244,7 @@ def mass_report(parts):
         harness.append(mass_item(n,s,2.2 if 'PTFE' in n else 1.14 if n.startswith('rail_zip') else 1.45 if 'lead' in n else 1.2 if 'plug' in n else 7.85,basis='modeled hardware density'))
     hm,hc=resultant(harness)
     data=dict(dart=rows,dart_total_g=parts['dart_mass'],dart_cg_mm=parts['dart_cg'],hanger_x_mm=parts['hanger'],hanger_y_mm=parts['hanger_y'],balance_residual_mm=parts['dart_cg'][0]-parts['hanger'],harness=harness,harness_total_g=hm,harness_cg_mm=hc,carried_payload_g=hm+4*parts['dart_mass'],infill='100% in all prototype parts; four 0.4mm walls and six top/bottom layers; no global density multiplier',balance_iterations=parts['balance_iterations'])
-    data['auxiliary_printed']=[mass_item(n,parts[n],M.petg_density,basis='100% infill solid PETG') for n in PRINT_NAMES if n not in ('body','pod_shell','pod_lid','usb_cap','plate','rotor')]
+    data['auxiliary_printed']=[mass_item(n,parts[n],M.petg_density,basis='100% infill solid PETG; per physical copy') for n in PRINT_NAMES if n not in ('body','pod_shell','pod_lid','usb_cap','plate','rotor')]
     from variants import dummy_report
     data['dummy']=dummy_report(parts)
     from variants import stake_mass_report
@@ -247,6 +257,8 @@ def mass_report(parts):
         for group,it in [('auxiliary_printed',data['auxiliary_printed']),('dummy_baseline',data['dummy']['baseline_parts']),('stake',data['stake']['parts'])]:
             for r in it:writer.writerow([group,r['name'],r['mass_g'],*r['centroid_mm'],r['volume_mm3'],r['basis']])
         for r in data['dummy']['ballast']:writer.writerow(['dummy_ballast',r['name'],r['mass_g'],*r['centroid_mm'],'','Weighed steel portion, include fixative'])
+    from tail_analysis import report as tail_report
+    tail_report(parts)
     return data
 
 def render_all(parts):
@@ -306,6 +318,8 @@ def render_all(parts):
     render_variants(parts)
     from render_details import service_detail
     service_detail(parts)
+    from tail_analysis import render_tail_views
+    render_tail_views(parts)
     rend(parts['servo'],'bought_servo.png','TowerPro SG90 and supplied double horn','Case, tabs, grooves on the output spline, fixing nuts and two axial sliding drive pins',az=-65,el=28,size=(1300,1100))
 
 def main():

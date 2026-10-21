@@ -1,8 +1,8 @@
 # Generated geometry checks — US customary display
 
-**140/140 checks pass.**
+**164/164 checks pass.**
 
-Display values are converted from unchanged `checks.json` model values. Lengths use three decimal inches here to preserve clearance information; small areas and volumes retain significant digits. Values near zero can round to zero. Check names containing stock positions are also converted for display. The acceleration factor 3g means three times gravity.
+Display values are converted from the current `checks.json` model values. Lengths use three decimal inches here to preserve clearance information; small areas and volumes retain significant digits. Values near zero can round to zero. Check names containing stock positions are also converted for display. The acceleration factor 3g means three times gravity.
 
 Vehicle distances are conservative axis-aligned bounding-box lower bounds; a zero lower bound is NOT a measured zero gap. Interference results use actual B-rep boolean volumes after broad-phase pruning.
 
@@ -13,8 +13,8 @@ Discrete sampling: 0.5 degree contact; 2 degree rotor-neck; 0.197 in extraction;
 - MEASURE parameters remain nominal assumptions
 - Intentional press-fit, heat-set and elastomer contacts are excluded from clearance pass claims
 
-- PASS: body solid — valid: true; solids: 1; volume: 1.96922 in³
-- PASS: body bed — bbox: [7.694 in, 1.469 in, 2.094 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: body solid — valid: true; solids: 1; volume: 2.04049 in³
+- PASS: body bed — bbox: [8.568 in, 1.469 in, 2.094 in]; bed: [9.646 in, 9.646 in, 10.236 in]
 - PASS: pod shell solid — valid: true; solids: 1; volume: 0.912003 in³
 - PASS: pod shell bed — bbox: [4.016 in, 1.472 in, 0.701 in]; bed: [9.646 in, 9.646 in, 10.236 in]
 - PASS: pod lid solid — valid: true; solids: 1; volume: 0.274225 in³
@@ -31,17 +31,32 @@ Discrete sampling: 0.5 degree contact; 2 degree rotor-neck; 0.197 in extraction;
 - PASS: stake adapter bed — bbox: [1.732 in, 1.654 in, 0.669 in]; bed: [9.646 in, 9.646 in, 10.236 in]
 - PASS: stake cell holder solid — valid: true; solids: 1; volume: 1.46774 in³
 - PASS: stake cell holder bed — bbox: [3.169 in, 2.780 in, 0.752 in]; bed: [9.646 in, 9.646 in, 10.236 in]
-- PASS: dummy body solid — valid: true; solids: 1; volume: 2.42304 in³
-- PASS: dummy body bed — bbox: [7.694 in, 1.469 in, 2.094 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: dummy body solid — valid: true; solids: 1; volume: 2.49432 in³
+- PASS: dummy body bed — bbox: [8.568 in, 1.469 in, 2.094 in]; bed: [9.646 in, 9.646 in, 10.236 in]
 - PASS: dummy lid solid — valid: true; solids: 1; volume: 0.195827 in³
 - PASS: dummy lid bed — bbox: [3.031 in, 0.827 in, 0.079 in]; bed: [9.646 in, 9.646 in, 10.236 in]
 - PASS: dummy head insert solid — valid: true; solids: 1; volume: 0.089959 in³
 - PASS: dummy head insert bed — bbox: [0.906 in, 0.701 in, 0.276 in]; bed: [9.646 in, 9.646 in, 10.236 in]
-- PASS: balance fixed point — hanger: 10.017 in; cg: [10.017 in, 0.279 in, 0.355 in]; mass: 5.22 oz
+- PASS: tail fin solid — valid: true; solids: 1; volume: 0.167494 in³
+- PASS: tail fin bed — bbox: [6.457 in, 0.843 in, 0.047 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: tail collar solid — valid: true; solids: 1; volume: 0.0886739 in³
+- PASS: tail collar bed — bbox: [0.709 in, 0.707 in, 0.315 in]; bed: [9.646 in, 9.646 in, 10.236 in]
+- PASS: tail fin 1 local clearance — collisions: []; scope: All preceding tail parts, pod, antennas, cell/mic wires, ties and rod; nominal bonded gaps
+- PASS: tail fin 2 local clearance — collisions: []; scope: All preceding tail parts, pod, antennas, cell/mic wires, ties and rod; nominal bonded gaps
+- PASS: tail fin 3 local clearance — collisions: []; scope: All preceding tail parts, pod, antennas, cell/mic wires, ties and rod; nominal bonded gaps
+- PASS: tail fin 4 local clearance — collisions: []; scope: All preceding tail parts, pod, antennas, cell/mic wires, ties and rod; nominal bonded gaps
+- PASS: tail collar 1 local clearance — collisions: []; scope: All preceding tail parts, pod, antennas, cell/mic wires, ties and rod; nominal bonded gaps
+- PASS: tail collar 2 local clearance — collisions: []; scope: All preceding tail parts, pod, antennas, cell/mic wires, ties and rod; nominal bonded gaps
+- PASS: tail fin flat support free — thickness: 0.047 in; method: Constant-thickness extrusion; entire lower planar face on Z0
+- PASS: tail collar support free — axial height: 0.315 in; method: Axial end face on Z0; constant annular section, all slots/bores open vertically
+- PASS: tail projected margin screen — minimum margin: 3.059 in; minimum margin body widths: 2.08321157; body width: 1.469 in; target body widths: 2; scope: Sampled broadside silhouette estimate only; no dynamic fall qualification
+- PASS: tail projection resolution — cp delta: {before: -0.489390526, after: -0.23384232}; scope: Halving raster spacing at sampled worst roll; not aerodynamic validation
+- PASS: flat carriage selection — cases: [{hanger_offset_from_cg_mm: -0.197 in, equilibrium_nose_down_deg: -6.8819 degrees, hanger_x_mm: 10.682 in, cg_mm: [10.879 in, 0.244 in, 0.338 in], mass_g: 5.90 oz, ground_clearance_mm: 2.019 in, seating_collisions: [{dart: 1, part: plate, interference_mm3: 0.11201 in³}, {dart: 2, part: rotor, interference_mm3: 0.000431456 in³}, {dart: 3, part: rotor, interference_mm3: 0.000845932 in³}, {dart: 4, part: rotor, interference_mm3: 6.42681e-05 in³}], selected: false, scope: Static gravity equilibrium about head bearing point; rigid head/plate/rotor seating check. Tilted options rejected here, not release-qualified.}, {hanger_offset_from_cg_mm: 0.000 in, equilibrium_nose_down_deg: -0.00268149 degrees, hanger_x_mm: 10.891 in, cg_mm: [10.891 in, 0.243 in, 0.337 in], mass_g: 5.91 oz, ground_clearance_mm: 3.164 in, seating_collisions: [], selected: true, scope: Static gravity equilibrium about head bearing point; rigid head/plate/rotor seating check. Tilted options rejected here, not release-qualified.}, {hanger_offset_from_cg_mm: 0.197 in, equilibrium_nose_down_deg: 6.87868 degrees, hanger_x_mm: 11.101 in, cg_mm: [10.904 in, 0.242 in, 0.337 in], mass_g: 5.93 oz, ground_clearance_mm: 2.586 in, seating_collisions: [{dart: 2, part: rotor, interference_mm3: 6.42378e-05 in³}, {dart: 3, part: plate, interference_mm3: 0.0256239 in³}, {dart: 4, part: rotor, interference_mm3: 0.000431252 in³}], selected: false, scope: Static gravity equilibrium about head bearing point; rigid head/plate/rotor seating check. Tilted options rejected here, not release-qualified.}]; scope: Balanced carriage retained; noseward hanger offset produces nose-up equilibrium; tailward offset tilts nose down but has rigid seating interference
+- PASS: balance fixed point — hanger: 10.891 in; cg: [10.891 in, 0.243 in, 0.337 in]; mass: 5.91 oz
 - PASS: snap flexure screen — per arm deflection: 0.035 in; nominal surface strain: 0.005; root factor: 2; factored strain: 0.01; screen allowable: 0.015; per arm tip force: 0.16 lbf; four arm force: 0.65 lbf; method: linear axial cantilever, F=3EI delta/L^3; conservative tip load
-- PASS: hanger tension screen — stress 3g: 32.16 psi; assumed print allowable: 1160.30 psi; method: axial neck area, layer-strength coupon required
-- PASS: bearing friction screen — assumed mu: 0.12; static torque: 4.88 oz·in; three g torque: 14.65 oz·in; SG90 4v8 stall: 25.00 oz·in; scope: engineering estimate with PTFE tape, no measured friction or servo current
-- PASS: four rail ties load screen — force per tie 3g: 1.28 lbf; S7 catalog min loop strength: 17.98 lbf; scope: Equal sharing assumed; printed saddle strength and dynamic unequal loading untested
+- PASS: hanger tension screen — stress 3g: 36.45 psi; assumed print allowable: 1160.30 psi; method: axial neck area, layer-strength coupon required
+- PASS: bearing friction screen — assumed mu: 0.12; static torque: 5.53 oz·in; three g torque: 16.60 oz·in; SG90 4v8 stall: 25.00 oz·in; scope: engineering estimate with PTFE tape, no measured friction or servo current
+- PASS: four rail ties load screen — force per tie 3g: 1.41 lbf; S7 catalog min loop strength: 17.98 lbf; scope: Equal sharing assumed; printed saddle strength and dynamic unequal loading untested
 - PASS: cell to body — interference: 0 in³
 - PASS: PCB to shell — interference: 0 in³
 - PASS: PCB to lid — interference: 0 in³
@@ -89,39 +104,47 @@ Discrete sampling: 0.5 degree contact; 2 degree rotor-neck; 0.197 in extraction;
 - PASS: rotor body sweep — max interference: 0 in³; worst angle dart: []; sampled step: 2 degrees
 - PASS: harness to OEM drone — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: x 500_landing_gear_002
 - PASS: carried dart1 frame — max interference: 0 in³; part: ; min clearance: 0.685 in; nearest: x 500_frame_203
-- PASS: carried dart1 landing gear — max interference: 0 in³; part: ; min clearance: 0.100 in; nearest: x 500_landing_gear_003
-- PASS: carried dart1 prop sweeps — max interference: 0 in³; part: ; min clearance: 4.866 in; nearest: prop_swept_3
+- PASS: carried dart1 landing gear — max interference: 0 in³; part: ; min clearance: 0.064 in; nearest: x 500_landing_gear_003
+- PASS: carried dart1 prop sweeps — max interference: 0 in³; part: ; min clearance: 4.866 in; nearest: prop_swept_0
 - PASS: carried dart1 harness — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: plate
-- PASS: carried dart1 ground — clearance: 3.727 in
+- PASS: carried dart1 ground — clearance: 3.164 in
 - PASS: carried dart2 frame — max interference: 0 in³; part: ; min clearance: 0.685 in; nearest: x 500_frame_203
 - PASS: carried dart2 landing gear — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: x 500_landing_gear_003
 - PASS: carried dart2 prop sweeps — max interference: 0 in³; part: ; min clearance: 4.866 in; nearest: prop_swept_0
 - PASS: carried dart2 harness — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: plate
-- PASS: carried dart2 ground — clearance: 3.727 in
-- PASS: darts 1 2 separation — interference: 0 in³; clearance lower bound: 0.102 in
+- PASS: carried dart2 ground — clearance: 3.164 in
+- PASS: darts 1 2 separation — interference: 0 in³; clearance lower bound: 0.000 in
 - PASS: carried dart3 frame — max interference: 0 in³; part: ; min clearance: 0.685 in; nearest: x 500_frame_203
 - PASS: carried dart3 landing gear — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: x 500_landing_gear_019
 - PASS: carried dart3 prop sweeps — max interference: 0 in³; part: ; min clearance: 4.866 in; nearest: prop_swept_1
 - PASS: carried dart3 harness — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: plate
-- PASS: carried dart3 ground — clearance: 3.727 in
+- PASS: carried dart3 ground — clearance: 3.164 in
 - PASS: darts 1 3 separation — interference: 0 in³; clearance lower bound: 0.260 in
-- PASS: darts 2 3 separation — interference: 0 in³; clearance lower bound: 1.835 in
-- PASS: carried dart4 frame — max interference: 0 in³; part: ; min clearance: 0.687 in; nearest: x 500_frame_203
+- PASS: darts 2 3 separation — interference: 0 in³; clearance lower bound: 1.788 in
+- PASS: carried dart4 frame — max interference: 0 in³; part: ; min clearance: 0.685 in; nearest: x 500_frame_203
 - PASS: carried dart4 landing gear — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: x 500_landing_gear_019
 - PASS: carried dart4 prop sweeps — max interference: 0 in³; part: ; min clearance: 4.866 in; nearest: prop_swept_1
 - PASS: carried dart4 harness — max interference: 0 in³; part: ; min clearance: 0.000 in; nearest: plate
-- PASS: carried dart4 ground — clearance: 3.727 in
-- PASS: darts 1 4 separation — interference: 0 in³; clearance lower bound: 1.835 in
-- PASS: darts 2 4 separation — interference: 0 in³; clearance lower bound: 3.409 in
-- PASS: darts 3 4 separation — interference: 0 in³; clearance lower bound: 0.102 in
+- PASS: carried dart4 ground — clearance: 3.164 in
+- PASS: darts 1 4 separation — interference: 0 in³; clearance lower bound: 1.788 in
+- PASS: darts 2 4 separation — interference: 0 in³; clearance lower bound: 3.111 in
+- PASS: darts 3 4 separation — interference: 0 in³; clearance lower bound: 0.000 in
+- PASS: mid release ground — clearance: 0.408 in; drop: 2.756 in
 - PASS: vertical extraction sweep — max interference: 0 in³; worst dart drop part: none; drop samples: [0.000 in, 0.197 in, 0.394 in, 0.591 in, 0.787 in, 0.984 in, 1.181 in, 1.378 in, 1.575 in, 1.772 in, 1.969 in, 2.165 in, 2.362 in, 2.559 in, 2.756 in, 2.953 in, 3.150 in, 3.346 in, 3.543 in]; min leg clearance: 0.000 in
-- PASS: post extraction pitch sweep — max interference: 0 in³; worst: none; pitch step: 5 degrees; vertical translation before pitch: 16.929 in; aircraft height above stock ground: 59.055 in; ground clearance: 36.223 in; scope: prescribed path only, no fall dynamics or aerodynamic claim
+- PASS: tail to neighbor pod extraction — min clearance: 0.056 in; worst dart drop neighbor: [1, 15, 2]; scope: True OCP closest distance, all four fins against other pod shells/hoods at every extraction sample
+- PASS: post extraction pitch sweep — max interference: 0 in³; worst: none; pitch step: 5 degrees; vertical translation before pitch: 16.929 in; aircraft height above stock ground: 59.055 in; ground clearance: 35.331 in; scope: prescribed path only, no fall dynamics or aerodynamic claim
 - PASS: stood body ground — interference: 0 in³; lowest height: 0.000 in
 - PASS: stood pod shell ground — interference: 0 in³; lowest height: 16.142 in
 - PASS: stood pod lid ground — interference: 0 in³; lowest height: 18.346 in
 - PASS: stood usb cap ground — interference: 0 in³; lowest height: 20.087 in
-- PASS: stood full aircraft scene — clearance lower bound: 5.201 in; listener offset: [25.591 in, 0.000 in, 0.000 in]; stock skid ground z: 0.000 in; scope: end-state review layout; intentional 2.76 in tip-soil penetration
-- PASS: dummy mass and 3D balance — mass: 5.22 oz; ballast: 1.30 oz; cg error: [0.000 in, 0.000 in, 0.000 in]; pockets fit: true
+- PASS: stood tail fin 1 ground — interference: 0 in³; lowest height: 11.732 in
+- PASS: stood tail fin 2 ground — interference: 0 in³; lowest height: 11.732 in
+- PASS: stood tail fin 3 ground — interference: 0 in³; lowest height: 11.732 in
+- PASS: stood tail fin 4 ground — interference: 0 in³; lowest height: 11.732 in
+- PASS: stood tail collar 1 ground — interference: 0 in³; lowest height: 12.520 in
+- PASS: stood tail collar 2 ground — interference: 0 in³; lowest height: 15.197 in
+- PASS: stood full aircraft scene — clearance lower bound: 6.075 in; listener offset: [25.591 in, 0.000 in, 0.000 in]; stock skid ground z: 0.000 in; scope: end-state review layout; intentional 2.76 in tip-soil penetration
+- PASS: dummy mass and 3D balance — mass: 5.91 oz; ballast: 1.30 oz; cg error: [0.000 in, 0.000 in, 0.000 in]; pockets fit: true
 - PASS: ballast body front clearance — interference: 0 in³; steel mass: 0.41 oz
 - PASS: ballast body rear clearance — interference: 0 in³; steel mass: 0.71 oz
 - PASS: ballast head front clearance — interference: 0 in³; steel mass: 0.09 oz
@@ -130,6 +153,7 @@ Discrete sampling: 0.5 degree contact; 2 degree rotor-neck; 0.197 in extraction;
 - PASS: BOOT RESET pin access -0.233 in — interference: 0 in³; pin d: 0.028 in; scope: Cap removed; verify button identity/travel on purchased revision
 - PASS: BOOT RESET pin access 0.233 in — interference: 0 in³; pin d: 0.028 in; scope: Cap removed; verify button identity/travel on purchased revision
 - PASS: mic ground height — height: 19.685 in
+- PASS: tail to mic port corridor — interference: 0 in³; scope: Side-facing acoustic opening and outward approach remain clear of tail parts
 - PASS: stake range 0.315 in — interference: 0 in³; axis height: 0.420 in; diameter: 0.315 in
 - PASS: stake cell holder range 0.315 in — interference: 0 in³; diameter: 0.315 in
 - PASS: stake range 0.394 in — interference: 0 in³; axis height: 0.475 in; diameter: 0.394 in

@@ -7,7 +7,7 @@
       "uri": "dart.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-21T20:33:56.720Z",
+      "validatedAt": "2026-10-21T21:32:34.707Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -24,18 +24,18 @@
             "pointer": "/buffers/0",
             "mimeType": "application/gltf-buffer",
             "storage": "glb",
-            "byteLength": 3168516
+            "byteLength": 3235836
           }
         ],
         "animationCount": 1,
-        "materialCount": 12,
+        "materialCount": 13,
         "hasMorphTargets": false,
         "hasSkins": false,
         "hasTextures": false,
         "hasDefaultScene": true,
-        "drawCallCount": 45,
-        "totalVertexCount": 103419,
-        "totalTriangleCount": 108686,
+        "drawCallCount": 52,
+        "totalVertexCount": 105477,
+        "totalTriangleCount": 110540,
         "maxUVs": 0,
         "maxInfluences": 0,
         "maxAttributes": 2
@@ -45,7 +45,7 @@
       "uri": "harness.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-21T20:33:56.812Z",
+      "validatedAt": "2026-10-21T21:32:34.794Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -62,18 +62,18 @@
             "pointer": "/buffers/0",
             "mimeType": "application/gltf-buffer",
             "storage": "glb",
-            "byteLength": 3972324
+            "byteLength": 4060056
           }
         ],
         "animationCount": 1,
-        "materialCount": 16,
+        "materialCount": 17,
         "hasMorphTargets": false,
         "hasSkins": false,
         "hasTextures": false,
         "hasDefaultScene": true,
-        "drawCallCount": 72,
-        "totalVertexCount": 126132,
-        "totalTriangleCount": 130094,
+        "drawCallCount": 79,
+        "totalVertexCount": 128190,
+        "totalTriangleCount": 131948,
         "maxUVs": 0,
         "maxInfluences": 0,
         "maxAttributes": 2
@@ -83,7 +83,7 @@
       "uri": "aircraft.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-21T20:33:57.158Z",
+      "validatedAt": "2026-10-21T21:32:35.126Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
@@ -100,18 +100,18 @@
             "pointer": "/buffers/0",
             "mimeType": "application/gltf-buffer",
             "storage": "glb",
-            "byteLength": 18548836
+            "byteLength": 18637168
           }
         ],
         "animationCount": 1,
-        "materialCount": 18,
+        "materialCount": 19,
         "hasMorphTargets": false,
         "hasSkins": false,
         "hasTextures": false,
         "hasDefaultScene": true,
-        "drawCallCount": 316,
-        "totalVertexCount": 614508,
-        "totalTriangleCount": 605838,
+        "drawCallCount": 323,
+        "totalVertexCount": 616591,
+        "totalTriangleCount": 607692,
         "maxUVs": 0,
         "maxInfluences": 0,
         "maxAttributes": 2
@@ -121,7 +121,7 @@
       "uri": "stake.glb",
       "mimeType": "model/gltf-binary",
       "validatorVersion": "2.0.0-dev.3.10",
-      "validatedAt": "2026-10-21T20:33:57.218Z",
+      "validatedAt": "2026-10-21T21:32:35.183Z",
       "issues": {
         "numErrors": 0,
         "numWarnings": 0,
