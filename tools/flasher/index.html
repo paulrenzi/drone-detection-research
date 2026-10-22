@@ -47,8 +47,8 @@ summary { cursor: pointer; color: var(--accent); }
 .pins { width: 100%; border-collapse: collapse; font-size: 14px; margin: 8px 0; }
 .pins td, .pins th { border-bottom: 1px solid var(--line); padding: 5px 6px; text-align: left; }
 footer { font-size: 13px; color: var(--muted); }
-.qr { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
-.qr p { flex: 1; min-width: 180px; margin: 0; }
+.next { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+.next p { margin: 0; }
 </style>
 </head>
 <body>
@@ -72,16 +72,19 @@ footer { font-size: 13px; color: var(--muted); }
 
 <div class="panel">
   <h2>2. Gateway</h2>
-  <label>Hotspot name<input id="ssid" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
-  <label>Hotspot password<input id="pass" type="password" autocomplete="off"></label>
+  <p class="hint">Put in both phones' hotspots. The gateway joins whichever one is on, so on the day either phone can be the logger, and you can swap by turning one hotspot off and the other on. Each phone's hotspot name and password are on its hotspot settings screen.</p>
+  <label>First phone's hotspot name<input id="ssid" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+  <label>First phone's hotspot password<input id="pass" type="password" autocomplete="off"></label>
+  <label>Second phone's hotspot name<input id="ssid2" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+  <label>Second phone's hotspot password<input id="pass2" type="password" autocomplete="off"></label>
   <label>Gateway ID<input id="gwId" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
   <p class="hint">Made up for you; change it only to match a logger you've already set up. The board only sees 2.4 GHz, so on an iPhone switch on <strong>Maximize Compatibility</strong>.</p>
-  <p id="gwWarn" class="warn show">Fill in the hotspot name and gateway ID first.</p>
+  <p id="gwWarn" class="warn show">Fill in at least one hotspot name and the gateway ID first.</p>
   <esp-web-install-button id="btnGw">
     <button slot="activate" id="gwBtn" disabled>Install gateway</button>
   </esp-web-install-button>
-  <div class="qr">
-    <p><strong>Then, on the logger phone,</strong> turn on the hotspot, open the logger and tap <strong>Logger phone</strong>. Gateway <code id="gwShow"></code> shows up there by itself about 30 s after the board has power: tap it. To use this computer as the logger instead, for the meter step at home, <a id="qrLink" href="../weekend/logger.html">open the logger here</a>.</p>
+  <div class="next">
+    <p><strong>Then, on whichever phone will be the logger,</strong> turn on its hotspot, open the logger and tap <strong>Logger phone</strong>. Gateway <code id="gwShow"></code> shows up there by itself about 30 s after the board has power: tap it. To use this computer as the logger instead, for the meter step at home, <a id="loggerLink" href="../weekend/logger.html">open the logger here</a>.</p>
   </div>
 </div>
 
@@ -101,7 +104,7 @@ footer { font-size: 13px; color: var(--muted); }
   </details>
   <details>
     <summary>What gets written</summary>
-    <p>Both boards get the same random network key, made once in this browser, so flash both from the same computer. The gateway also gets your hotspot, the public broker <code>mqtt://broker.hivemq.com:1883</code> and the gateway ID. Nothing you type leaves this page.</p>
+    <p>Both boards get the same random network key, made once in this browser, so flash both from the same computer. The gateway also gets your hotspots, the public broker <code>mqtt://broker.hivemq.com:1883</code> and the gateway ID. Nothing you type leaves this page.</p>
     <p class="hint">Network key: <code id="keyShow"></code></p>
   </details>
 </div>
@@ -133,8 +136,8 @@ const logger = read(LOGGER_KEY) || {};
 if (!logger.gwId) { logger.gwId = "tw-" + Math.random().toString(36).slice(2, 8); write(LOGGER_KEY, logger); }
 $("#gwId").value = logger.gwId;
 
-function showQr(gwId) {
-  $("#qrLink").href = new URL(`../weekend/logger.html?gw=${encodeURIComponent(gwId)}`, location.href).href;
+function showGw(gwId) {
+  $("#loggerLink").href = new URL(`../weekend/logger.html?gw=${encodeURIComponent(gwId)}`, location.href).href;
   $("#gwShow").textContent = gwId;
 }
 
@@ -175,16 +178,21 @@ async function prepDetector() {
 
 let gwTimer = null;
 function prepGateway() {
-  const ssid = $("#ssid").value.trim(), gwId = $("#gwId").value.trim();
+  let ssid = $("#ssid").value.trim(), pass = $("#pass").value;
+  let ssid2 = $("#ssid2").value.trim(), pass2 = $("#pass2").value;
+  if (!ssid) [ssid, pass, ssid2, pass2] = [ssid2, pass2, "", ""];
+  const gwId = $("#gwId").value.trim();
   const ready = ssid !== "" && gwId !== "";
   $("#gwWarn").classList.toggle("show", !ready);
   $("#gwBtn").disabled = true;
-  if (gwId) showQr(gwId);
+  if (gwId) showGw(gwId);
   clearTimeout(gwTimer);
   if (!ready) return;
   gwTimer = setTimeout(async () => {
     const cfg = { wifiSsid: ssid, mqttUrl: BROKER, deviceId: gwId };
-    if ($("#pass").value) cfg.wifiPass = $("#pass").value;
+    if (pass) cfg.wifiPass = pass;
+    if (ssid2) cfg.wifiSsid2 = ssid2;
+    if (ssid2 && pass2) cfg.wifiPass2 = pass2;
     const nvs = generateGatewayNvsImage(devEui, hexToBytes(netKey), cfg);
     $("#btnGw").setAttribute("manifest", manifest("gw", "Tripwire gateway (XIAO)", patch(await firmware("gateway"), nvs)));
     $("#gwBtn").disabled = false;
@@ -192,7 +200,7 @@ function prepGateway() {
   }, 300);
 }
 
-for (const id of ["#ssid", "#pass", "#gwId"]) $(id).addEventListener("input", prepGateway);
+for (const id of ["#ssid", "#pass", "#ssid2", "#pass2", "#gwId"]) $(id).addEventListener("input", prepGateway);
 prepDetector().catch((e) => { $("#noSerial").textContent = "Couldn't load the firmware: " + e.message; $("#noSerial").classList.add("show"); });
 prepGateway();
 

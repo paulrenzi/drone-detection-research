@@ -16,7 +16,7 @@ nav_primary: 4
 
 Do steps 1–3 at home the day before.
 
-1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* with the hotspot of the phone you'll carry, the *logger phone* ([how](#phone-setup)). This replaces the Meshtastic firmware they came with. Then open the logger on the logger phone and tap **Logger phone**: that phone runs the whole test ([what each phone shows](#screens)).
+1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* with both phones' hotspots, so either phone can be the *logger phone* on the day ([how](#phone-setup)). This replaces the Meshtastic firmware they came with. Then open the logger on the logger phone and tap **Logger phone**: that phone runs the whole test ([what each phone shows](#screens)).
 2. **Wire the mic** to the detector: SCK to D3, WS to D4, SD to D5, L/R to GND, VDD to 3V3, GND to GND.
 3. **Check it works, and set the mic phone's meter.** Turn on the logger phone's hotspot and power the gateway from its power bank. Leave the detector plugged into the laptop: it's the reference meter for this step ([how](#phone-meter)). On the logger phone, tap your gateway when it shows up under *Connect*. The chip then reads *gateway online*, and *last packet* should reset about once a minute as the detector checks in. On the laptop, open the logger from the flasher's link, tap **Connect USB** and pick the detector. On the other phone, open the logger, tap **Mic phone**, then tap the logger that shows up: that starts its mic. Pair the speaker with the mic phone, tap **Play calibration** on the laptop, then tap **Set the mic phone's meter from the detector**. You should see an alarm, and the speaker should sound full, not thin like a phone call ([why](#phone-meter)).
 4. **Lay out the field** ([where everything goes](#field-layout)). The test has two ends. The *sound end* stays put: the detector 20 in up in its windscreen, the mic phone right beside it at the same height, and the speaker on a chair 16 ft away, facing the mic. The *receiving end* is you, carrying the logger phone and the gateway with its power bank. On both phones, turn on Do Not Disturb and set Auto-Lock to Never.
@@ -30,7 +30,10 @@ Do steps 1–3 at home the day before.
 
 A speaker can't copy what 330 ft of real ground and wind does to the sound. A real flight checks that later, in [layer 2]({{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11).
 
-## What each phone shows {#screens}
+## Details
+
+<details class="layer" id="screens" markdown="block">
+<summary><span class="layer-title">What each phone shows</span><span class="layer-sub">Each phone asks which one it is: the logger phone runs the test, the mic phone sits by the mic</span></summary>
 
 The logger is one web page that opens as two different screens. Open it on each phone from the **Open the logger** button above, or send the link from one phone to the other. Its first screen asks *Which phone is this?*. Your answer decides which screen you get, and the title at the top then says which one you're on. Nothing to scan, and no laptop on the day.
 
@@ -47,7 +50,7 @@ The logger is one web page that opens as two different screens. Open it on each 
 
 Anyone else can follow along from anywhere by tapping **Just watching**, a third, watch-only screen, *trip/wire watch*. If either phone ends up on the wrong screen, tap **Change phone** at the top.
 
-## Details
+</details>
 
 <details class="layer" id="field-layout" markdown="block">
 <summary><span class="layer-title">Where everything goes</span><span class="layer-sub">Two ends: the sound end stays put, and the receiving end goes wherever you go</span></summary>
@@ -123,14 +126,14 @@ So the test has two ends. The **sound end** (board 1, the mic, the mic phone and
 - **Stay 16 ft or more from walls, cars and fences,** on grass. A hard surface behind the mic adds up to 3 dB and flatters the result.
 - **Check for a cell signal** where you set up. Both phones need mobile data: the hotspot needs it, and the mic phone reaches the logger over the internet. Give the mic phone its own data, not the hotspot, which won't reach it once you walk away.
 - **Do Not Disturb matters, on both phones.** A notification on the mic phone plays through the speaker at test volume and gets logged as drone sound, and a call stops the audio. Airplane mode won't work, because both phones need data.
-- **Flash the gateway with the hotspot, not your home WiFi.** Otherwise it works in the garden and goes silent in the field. On an iPhone, switch on **Maximize Compatibility**: the board only sees 2.4 GHz.
+- **Flash the gateway with both phones' hotspots, not your home WiFi.** Otherwise it works in the garden and goes silent in the field. On an iPhone, switch on **Maximize Compatibility**: the board only sees 2.4 GHz.
 </details>
 
 <details class="layer" id="phone-setup" markdown="block">
 <summary><span class="layer-title">Set up the phones</span><span class="layer-sub">The gateway joins the logger phone's hotspot, and both phones meet through a public MQTT broker</span></summary>
 
-1. Turn on the logger phone's hotspot. On an iPhone, switch on **Maximize Compatibility**: the board only sees 2.4 GHz.
-2. In [the flasher]({{ site.baseurl }}/tools/flasher/), enter the hotspot's name and password. It makes up a gateway ID and fills in the broker for you. Flash both boards from the same computer, since they need the same network key.
+1. Note each phone's hotspot name and password, from its hotspot settings. On an iPhone, switch on **Maximize Compatibility**: the board only sees 2.4 GHz.
+2. In [the flasher]({{ site.baseurl }}/tools/flasher/), enter both hotspots. The gateway joins whichever one is on, so either phone can be the logger phone, and you can swap on the day by turning one hotspot off and the other on. Keep only one on at a time. It makes up a gateway ID and fills in the broker for you. Flash both boards from the same computer, since they need the same network key.
 3. On the logger phone, open the logger and tap **Logger phone**.
 4. Power the gateway. It shows up under *Connect* about 30 s later, by the ID the flasher gave it: tap it. The chip turns to *gateway online* when the board checks in. An iPhone only shows its hotspot while the Personal Hotspot screen is open, so keep it open until then.
 5. On the other phone, on its own mobile data, open the logger, tap **Mic phone**, then tap the logger, and allow the microphone. That tap starts the mic and also lets it play the speaker. *Sound at the mic* in the logger then shows *live* under *mic phone*.

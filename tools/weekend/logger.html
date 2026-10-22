@@ -141,7 +141,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
     <h2>Which phone is this?</h2>
     <p class="note" style="margin:0 0 10px">Open this page on both phones and pick one on each. They find the gateway and each other by themselves: nothing to scan or type.</p>
     <div class="roles">
-      <button class="role" data-role="logger"><b>Logger phone</b><span>Its hotspot runs the gateway. You carry both and run the test from here.</span></button>
+      <button class="role" data-role="logger"><b>Logger phone</b><span>Goes with the gateway and runs the test. Either phone can do it: its hotspot is the one the gateway joins.</span></button>
       <button class="role" data-role="mic"><b>Mic phone</b><span>Stays beside the mic. Measures and records the sound there, and plays the speaker.</span></button>
       <button class="role" data-role="watch"><b>Just watching</b><span>Follow a test from anywhere. Changes nothing.</span></button>
     </div>
@@ -158,8 +158,8 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
         <div class="source">
           <b>WiFi, from a phone</b>
           <ol>
-            <li>Turn on your phone's hotspot. On iPhone, switch on <i>Maximize Compatibility</i>: the board only sees 2.4 GHz.</li>
-            <li>Power the gateway, flashed with this hotspot in <a href="../flasher/" target="_blank" rel="noopener">the flasher</a>. About 30 s later it shows up below: tap it.</li>
+            <li>Turn on this phone's hotspot, and make sure the other phone's is off. On iPhone, switch on <i>Maximize Compatibility</i>: the board only sees 2.4 GHz.</li>
+            <li>Power the gateway, flashed with both phones' hotspots in <a href="../flasher/" target="_blank" rel="noopener">the flasher</a>. About 30 s later it shows up below: tap it. Swapping phones later? Turn this hotspot off and the other one on: the gateway moves over within about a minute, no unplugging.</li>
           </ol>
           <div id="gwFound" class="found-list" hidden></div>
           <div class="fields" style="grid-template-columns:1fr 1fr;margin:8px 0">
@@ -214,7 +214,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
       <details class="hide-embed" id="micJoinBox" style="margin-top:8px" open>
         <summary>Set up the mic phone</summary>
         <div class="micjoin" id="micJoin">
-          <p>The test uses two phones. <b>The mic phone</b> stays beside the mic: it measures and records the sound there and plays the speaker. <b>This phone</b> is the logger and the hotspot, and goes wherever the gateway goes. On the mic phone, open this page, tap <b>Mic phone</b>, then tap <b>Logger <span class="gwName"></span></b>.</p>
+          <p>The test uses two phones. <b>The mic phone</b> stays beside the mic: it measures and records the sound there and plays the speaker. <b>This phone</b> is the logger: its hotspot is on, and it goes wherever the gateway goes. On the mic phone, open this page, tap <b>Mic phone</b>, then tap <b>Logger <span class="gwName"></span></b>.</p>
           <button class="shareLink">Send the link to the other phone</button>
         </div>
       </details>
