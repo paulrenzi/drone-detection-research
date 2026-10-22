@@ -53,7 +53,7 @@ Each step names what it uses.
 
 ### In the park
 
-{:start="5"}
+{:start="5" style="counter-reset: step-counter 4"}
 5. **Set out the two ends** ([where everything goes](#field-layout)). The detector 20 in up in its windscreen, the mic phone right beside it at the same height, and the speaker on a chair 16 ft away, facing the mic. On both phones, turn on Do Not Disturb and set Auto-Lock to Never.
    <span class="tw-uses"><span class="tw-c tw-det">Detector</span><span class="tw-c tw-mp">Mic phone</span><span class="tw-c tw-spk">Speaker</span></span>
 6. **Connect.** Turn on the logger phone's hotspot, power the gateway, and tap the gateway under *Connect*. On the mic phone, tap **Mic phone**, then the logger.
