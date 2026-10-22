@@ -12,17 +12,62 @@ nav_primary: 4
 
 **You need:** the two XIAO ESP32S3 + Wio-SX1262 kits with their antennas (one becomes the detector, the other the gateway), a USB-C data cable, a laptop with Chrome, an INMP441 mic with jumper wires (its pins need soldering), two fur windscreens, a Bluetooth speaker, two phones with mobile data (an old one will do for the mic phone), two power banks and a tape measure ([kit and prices]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector)).
 
+## At a glance
+
+Two boards, two phones, a speaker and a laptop. The laptop is only used at home, the day before.
+
+<div class="tw-kit">
+<div class="tw-item"><span class="tw-c tw-lap">Laptop + USB-C cable</span><p><b>Sets everything up, at home.</b> Flashes both boards (step 1). Then, plugged into the detector, it's the reference meter that sets the mic phone's meter (step 3).</p><p class="tw-where">On the day: stays home.</p></div>
+<div class="tw-item"><span class="tw-c tw-det">Board 1: detector</span><p><b>Listens for the drone and sends alarms by radio.</b> The XIAO, LoRa radio and antenna, with the INMP441 mic wired on, in a fur windscreen, on its own power bank. It has no screen.</p><p class="tw-where">On the day: sound end, 20 in off the ground.</p></div>
+<div class="tw-item"><span class="tw-c tw-gw">Board 2: gateway</span><p><b>Catches the detector's radio messages.</b> The same XIAO, radio and antenna, with no mic, on its own power bank. It passes what it hears to the logger phone's hotspot over WiFi.</p><p class="tw-where">On the day: in your pocket.</p></div>
+<div class="tw-item"><span class="tw-c tw-lp">Logger phone</span><p><b>The control panel, and the gateway's internet.</b> Its hotspot is the gateway's WiFi. It runs the logger page, which shows alarms, starts the test and keeps the results.</p><p class="tw-where">On the day: with you, next to the gateway.</p></div>
+<div class="tw-item"><span class="tw-c tw-mp">Mic phone</span><p><b>The meter, recorder and player at the mic.</b> It measures and records the sound at the mic and plays the drone to the speaker by Bluetooth. It does what the logger phone tells it, over mobile data. Any old phone with data will do.</p><p class="tw-where">On the day: sound end, beside the detector's mic.</p></div>
+<div class="tw-item"><span class="tw-c tw-spk">Bluetooth speaker</span><p><b>Plays the drone,</b> turned down to how it sounds from 80 to 1,000 ft. It's paired with the mic phone.</p><p class="tw-where">On the day: sound end, on a chair 16 ft from the mic, facing it.</p></div>
+<div class="tw-item"><span class="tw-c tw-oth">Also</span><p>Two power banks (detector, gateway), two fur windscreens, a tape measure, jumper wires.</p></div>
+</div>
+
+On the day there are two ends ([layout](#field-layout)):
+
+<div class="tw-ends">
+<div class="tw-end"><span class="tw-end-h">Sound end · stays put</span><span class="tw-c tw-det">Detector</span><span class="tw-c tw-mp">Mic phone</span><span class="tw-c tw-spk">Speaker</span><p>Detector and mic phone side by side, 20 in up. Speaker 16 ft away.</p></div>
+<div class="tw-end"><span class="tw-end-h">Receiving end · with you</span><span class="tw-c tw-gw">Gateway</span><span class="tw-c tw-lp">Logger phone</span><p>65 ft or more away during the sound test, then walked out for the radio test.</p></div>
+<div class="tw-end"><span class="tw-end-h">At home</span><span class="tw-c tw-lap">Laptop</span><p>Its jobs are done the day before.</p></div>
+</div>
+
 ## The steps
 
-Do steps 1–3 at home the day before.
+Each step names what it uses.
 
-1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* ([how](#phone-setup)). No hotspot is fixed at flashing: in the park, whichever phone you pick as the *logger phone* gives the gateway its hotspot. This replaces the Meshtastic firmware they came with. Then open the logger on the logger phone and tap **Logger phone**: that phone runs the whole test ([what each phone shows](#screens)).
+### At home, the day before
+
+1. **Flash both boards** from [our flasher]({{ site.baseurl }}/tools/flasher/), antennas on: the *detector*, then the *gateway* ([how](#phone-setup)). This replaces the Meshtastic firmware they came with. No hotspot is fixed at flashing: whichever phone you pick as the *logger phone* gives the gateway its hotspot in step 4.
+   <span class="tw-uses"><span class="tw-c tw-lap">Laptop</span><span class="tw-c tw-det">Detector</span><span class="tw-c tw-gw">Gateway</span></span>
 2. **Wire the mic** to the detector: SCK to D3, WS to D4, SD to D5, L/R to GND, VDD to 3V3, GND to GND.
-3. **Check it works, and set the mic phone's meter.** Turn on the logger phone's hotspot and power the gateway from its power bank. Leave the detector plugged into the laptop: it's the reference meter for this step ([how](#phone-meter)). On the logger phone, tap your gateway when it shows up under *Connect*. The chip then reads *gateway online*, and *last packet* should reset about once a minute as the detector checks in. On the laptop, open the logger from the flasher's link, tap **Connect USB** and pick the detector. On the other phone, open the logger, tap **Mic phone**, then tap the logger that shows up: that starts its mic. Pair the speaker with the mic phone, tap **Play calibration** on the laptop, then tap **Set the mic phone's meter from the detector**. You should see an alarm, and the speaker should sound full, not thin like a phone call ([why](#phone-meter)).
-4. **Lay out the field** ([where everything goes](#field-layout)). The test has two ends. The *sound end* stays put: the detector 20 in up in its windscreen, the mic phone right beside it at the same height, and the speaker on a chair 16 ft away, facing the mic. The *receiving end* is you, carrying the logger phone and the gateway with its power bank. On both phones, turn on Do Not Disturb and set Auto-Lock to Never.
-5. **Calibrate the speaker** from the logger: set the volume on the mic phone or the speaker until *Sound at the mic* reads 60–65 dB(A), then tap **Measure at the mic** ([how](#speaker-test)).
-6. **Start the sweep.** Tap **Start sequence**, then walk 65 ft or more behind the speaker with the logger phone and the gateway, and stay quiet for about 21 minutes. You have 60 s before the first play; you'll hear it start. The mic phone records at the mic, plays each distance three times (about 16 minutes), records 4 minutes of background with the speaker off, and stops the recording. The logger shows the countdown, the sound at the mic and each alarm as it arrives. Then walk back and tap **Save recording** on the mic phone.
-7. **Walk the gateway away** from the detector, with the logger phone, stopping at 330, 660 and 1,300 ft and on. At each stop, set *Type* to *Radio walk*, enter the distance, tap **Start run**, and stop it once a packet arrives, about a minute. Turn back when none comes in two minutes. The sound end hasn't moved, so at any stop you can also tap **Start sequence** again and see real alarms arrive from that far.
+   <span class="tw-uses"><span class="tw-c tw-det">Detector</span><span class="tw-c tw-oth">INMP441 mic</span></span>
+3. **Set the mic phone's meter.** Leave the detector plugged into the laptop: it's the reference meter for this step ([how](#phone-meter)). On the laptop, open the logger from the flasher's link, tap **Connect USB** and pick the detector. On the mic phone, open the logger, tap **Mic phone**, then tap the laptop's logger when it shows up: that starts its mic. Put the mic phone right beside the detector's mic. Pair the speaker with the mic phone, set it 3 ft away, tap **Play calibration** on the laptop, then tap **Set the mic phone's meter from the detector**. The phone remembers it.
+   <span class="tw-uses"><span class="tw-c tw-lap">Laptop</span><span class="tw-c tw-det">Detector</span><span class="tw-c tw-mp">Mic phone</span><span class="tw-c tw-spk">Speaker</span></span>
+   <span class="tw-see">You should see: the mic phone reads within about 1 dB of the detector, an alarm on the laptop, and the speaker sounds full, not thin like a phone call ([why](#phone-meter)).</span>
+4. **Check the gateway reaches the logger phone.** On the logger phone, open the logger and tap **Logger phone**: that phone runs the whole test from here on ([what each phone shows](#screens)). Give the gateway the logger phone's hotspot ([how](#phone-setup)), turn the hotspot on, power the gateway from its power bank, and tap the gateway when it shows up under *Connect*. Keep the detector powered.
+   <span class="tw-uses"><span class="tw-c tw-lp">Logger phone</span><span class="tw-c tw-gw">Gateway</span><span class="tw-c tw-det">Detector</span></span>
+   <span class="tw-see">You should see: the chip reads *gateway online*, and *last packet* resets about once a minute as the detector checks in.</span>
+
+### In the park
+
+{:start="5"}
+5. **Set out the two ends** ([where everything goes](#field-layout)). The detector 20 in up in its windscreen, the mic phone right beside it at the same height, and the speaker on a chair 16 ft away, facing the mic. On both phones, turn on Do Not Disturb and set Auto-Lock to Never.
+   <span class="tw-uses"><span class="tw-c tw-det">Detector</span><span class="tw-c tw-mp">Mic phone</span><span class="tw-c tw-spk">Speaker</span></span>
+6. **Connect.** Turn on the logger phone's hotspot, power the gateway, and tap the gateway under *Connect*. On the mic phone, tap **Mic phone**, then the logger.
+   <span class="tw-uses"><span class="tw-c tw-lp">Logger phone</span><span class="tw-c tw-gw">Gateway</span><span class="tw-c tw-mp">Mic phone</span></span>
+   <span class="tw-see">You should see: the logger phone shows *gateway online* and the mic phone live under *Sound at the mic*.</span>
+7. **Set the speaker's volume** from the logger: tap **Play calibration**, set the volume on the mic phone or the speaker until *Sound at the mic* reads 60–65 dB(A), then tap **Measure at the mic** ([how](#speaker-test)). Don't touch the volume again.
+   <span class="tw-uses"><span class="tw-c tw-lp">Logger phone</span><span class="tw-c tw-mp">Mic phone</span><span class="tw-c tw-spk">Speaker</span></span>
+8. **The sound test, about 21 minutes, hands off.** Tap **Start sequence**, then walk 65 ft or more behind the speaker with the logger phone and the gateway, and stay quiet. You have 60 s before the first play; you'll hear it start. The mic phone records at the mic, plays each distance three times (about 16 minutes), records 4 minutes of background with the speaker off, and stops the recording. Then walk back and tap **Save recording** on the mic phone.
+   <span class="tw-uses"><span class="tw-c tw-lp">Logger phone</span><span class="tw-c tw-gw">Gateway</span><span class="tw-c tw-mp">Mic phone</span><span class="tw-c tw-spk">Speaker</span><span class="tw-c tw-det">Detector</span></span>
+   <span class="tw-see">You should see: a countdown on the logger, then the sound at the mic and each alarm as it arrives.</span>
+9. **The radio test: walk the gateway away** from the detector, with the logger phone, stopping at 330, 660 and 1,300 ft and on. At each stop, set *Type* to *Radio walk*, enter the distance, tap **Start run**, and stop it once a packet arrives, about a minute. Turn back when none comes in two minutes. The sound end hasn't moved, so at any stop you can also tap **Start sequence** again and see real alarms arrive from that far.
+   <span class="tw-uses"><span class="tw-c tw-lp">Logger phone</span><span class="tw-c tw-gw">Gateway</span><span class="tw-c tw-det">Detector</span></span>
+10. **Read the result and pack up.** The result is on the logger phone, below.
+    <span class="tw-uses"><span class="tw-c tw-lp">Logger phone</span></span>
 
 **The result** is the logger's *Range so far* table: for each distance, whether the detector heard it, the level the phone measured at the mic, and the detector's own level. There's nothing to export: the logger saves every run online as it goes, so you can ask Claude to read the latest session from anywhere. The recording is for [training clips](#weekend-downloads).
 
