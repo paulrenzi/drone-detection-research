@@ -141,7 +141,7 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
     <h2>Which phone is this?</h2>
     <p class="note" style="margin:0 0 10px">Open this page on both phones and pick one on each. They find the gateway and each other by themselves: nothing to scan or type.</p>
     <div class="roles">
-      <button class="role" data-role="logger"><b>Logger phone</b><span>Goes with the gateway and runs the test. Either phone can do it: its hotspot is the one the gateway joins.</span></button>
+      <button class="role" data-role="logger"><b>Logger phone</b><span>Goes with the gateway and runs the test. Any phone can: you give the gateway its hotspot from here.</span></button>
       <button class="role" data-role="mic"><b>Mic phone</b><span>Stays beside the mic. Measures and records the sound there, and plays the speaker.</span></button>
       <button class="role" data-role="watch"><b>Just watching</b><span>Follow a test from anywhere. Changes nothing.</span></button>
     </div>
@@ -158,8 +158,9 @@ body.micmode #guide, body.watchmode #guide { max-width: 520px; margin: 12px auto
         <div class="source">
           <b>WiFi, from a phone</b>
           <ol>
-            <li>Turn on this phone's hotspot, and make sure the other phone's is off. On iPhone, switch on <i>Maximize Compatibility</i>: the board only sees 2.4 GHz.</li>
-            <li>Power the gateway, flashed with both phones' hotspots in <a href="../flasher/" target="_blank" rel="noopener">the flasher</a>. About 30 s later it shows up below: tap it. Swapping phones later? Turn this hotspot off and the other one on: the gateway moves over within about a minute, no unplugging.</li>
+            <li>Power the gateway. If it already knows this phone's hotspot, turn the hotspot on: the gateway shows up below in about 30 s. Tap it.</li>
+            <li>If not, give it this phone's hotspot. With the hotspot off, wait for a WiFi network called <i>tw-… setup</i> (up to a minute), join it in this phone's WiFi settings, and type this phone's hotspot name and password into the page that opens. If no page opens, go to <i>192.168.4.1</i>.</li>
+            <li>Turn this phone's hotspot on. On iPhone, switch on <i>Maximize Compatibility</i> and keep the Personal Hotspot screen open: the board only sees 2.4 GHz. The gateway shows up below in about 30 s: tap it.</li>
           </ol>
           <div id="gwFound" class="found-list" hidden></div>
           <div class="fields" style="grid-template-columns:1fr 1fr;margin:8px 0">
@@ -953,7 +954,7 @@ function finder(kind, sel, onPick) {
     rows.sort((a, b) => b[2] - a[2]); // a gateway passing on a detector right now goes first
     const head = !f.client || !f.client.connected ? "Connecting…"
       : rows.length ? (kind === "gateway" ? "Tap your gateway. Its ID is the one in the flasher." : "Tap your logger. Its name is under Set up the mic phone, on the logger.")
-      : kind === "gateway" ? "Looking for your gateway. Turn on this phone's hotspot and power the gateway: it shows up here about 30 s later."
+      : kind === "gateway" ? "Looking for your gateway. It shows up here about 30 s after it joins this phone's hotspot: see the steps above."
       : "Looking for the logger. Open this page on the logger phone and tap Logger phone first.";
     const html = `<p class="note" style="margin:0">${esc(head)}</p>` + rows.map(([id, note]) =>
       `<button class="found" data-id="${esc(id)}"><b>${kind === "gateway" ? "Gateway" : "Logger"} ${esc(id)}</b><span>${esc(note)}</span></button>`).join("");
