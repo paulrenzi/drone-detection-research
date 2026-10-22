@@ -29,7 +29,7 @@ Don't try to make a microphone hear farther. Drop cheap ones 1.2–2.5 mi forwar
 1. **Lay a line.** A small drone with no pilot drops 3–4 throwaway listeners per flight across the enemy's approach, 1.2–2.5 mi out. Two lines, a few hundred yards apart.
 2. **Listen quietly.** Each listener sleeps until it hears something drone-like, and transmits nothing while it waits.
 3. **Report back.** A few-byte alert hops listener to listener to a listen-only receiver at the edge of the unit's tree line, wired back to the dugout, so the unit's position emits nothing.
-4. **Warn.** Warning time is distance ÷ drone speed. A line 1.2 mi out gives about 50–65 seconds against an FPV; a ring of microphones 980 ft out gives 8–10 (both estimates).
+4. **Warn.** Warning time is distance ÷ drone speed. A line 1.2 mi out gives about 50–65 seconds against an FPV at top speed, and 1.5–2 minutes at the 37–50 mph it usually flies with a warhead ([the drones]({{ site.baseurl }}{% link research/threat-profile.md %})); a ring of microphones 980 ft out gives 8–10 (both estimates).
 
 The idea is to buy warning with distance rather than with sensitivity. A better microphone gains tens of yards; laying the line forward gains miles.
 

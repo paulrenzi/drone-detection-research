@@ -61,7 +61,7 @@ How much warning each defence needs, and so what a minute adds over the few seco
 
 ### How much warning each source gives
 
-Warning is the distance at which the drone is detected, divided by its speed. FPVs reach a top speed of about 87 mph ([ERR, Nov 2025](https://news.err.ee/1609861089/err-in-ukraine-up-close-with-ukraine-s-counter-drone-air-defense-teams)), so the figures below take 62–87 mph (63–87 mph). They are our arithmetic, not measurements, and they ignore the second or two needed to recognise the sound.
+Warning is the distance at which the drone is detected, divided by its speed. FPVs reach a top speed of about 87 mph ([ERR, Nov 2025](https://news.err.ee/1609861089/err-in-ukraine-up-close-with-ukraine-s-counter-drone-air-defense-teams)), so the figures below take 63–87 mph, the worst case. Loaded FPVs usually fly at 37–50 mph ([Kyiv Post](https://www.kyivpost.com/post/39057)), which makes every warning about 1.5–2 times longer ([the drones]({{ site.baseurl }}{% link research/threat-profile.md %})). They are our arithmetic, not measurements, and they ignore the second or two needed to recognise the sound.
 
 | Source of warning | Detects at | Warning vs an FPV (est.) | Against fibre-optic FPVs? |
 |---|---|---|---|

@@ -24,7 +24,7 @@ nav_tripwire: 1
 1. **Lay a line.** A small drone with no pilot drops 3–4 throwaway listeners per flight across the enemy's approach, 1.2–2.5 mi out. Two lines, a few hundred yards apart.
 2. **Listen quietly.** Each listener sleeps until it hears something drone-like, and transmits nothing while it waits.
 3. **Report back.** A few-byte alert hops listener to listener to a raised receiver at the unit.
-4. **Warn.** Warning time is distance ÷ drone speed, so a line 1.2 mi out gives about 50–65 seconds against an FPV. A ring of microphones 980 ft out gives 8–10 (both estimates).
+4. **Warn.** Warning time is distance ÷ drone speed, so a line 1.2 mi out gives about 50–65 seconds against an FPV at top speed, and 1.5–2 minutes at its usual 37–50 mph. A ring of microphones 980 ft out gives 8–10 (both estimates).
 
 ## Why it matters
 
@@ -71,14 +71,14 @@ A microphone hears a small FPV at roughly **330–980 ft** ([working estimate]({
 {: .warning }
 > **The only measured range for cheap microphones is lower: about 160–200 ft** against a consumer drone in a windy field ([what's measured]({{ site.baseurl }}{% link research/competitors.md %}#what-is-actually-measured)). FPVs are probably louder, but no study has flown one at distance. If 160–200 ft holds, listeners sit about 330 ft apart and a 1.9 mi line needs about 30, not 12. T11 decides it.
 
-| Where the listeners sit | Warning against an FPV at 67–89 mph |
-|---|---|
-| Ring placed by hand, ~980 ft out | ~8–10 seconds |
-| Line laid by drone, 1.2 mi out | ~50–65 seconds |
-| Line laid by drone, 2.5 mi out | ~1.5–2 minutes |
+| Where the listeners sit | Warning against an FPV at top speed, 67–89 mph | At its usual speed with a warhead, 37–50 mph |
+|---|---|---|
+| Ring placed by hand, ~980 ft out | ~8–10 seconds | ~13–18 seconds |
+| Line laid by drone, 1.2 mi out | ~50–65 seconds | ~1.5–2 minutes |
+| Line laid by drone, 2.5 mi out | ~1.5–2 minutes | ~3–4 minutes |
 
 {: .warning }
-> FPV speeds and detection ranges are planning estimates, not field measurements. The ratio is what matters: ten times the distance is roughly ten times the warning.
+> FPV speeds and detection ranges are planning estimates, not field measurements ([how fast and how high the drones fly]({{ site.baseurl }}{% link research/threat-profile.md %})). The ratio is what matters: ten times the distance is roughly ten times the warning.
 
 Ten seconds is enough to get a shotgun or net-gun up; weapons have only about 1–4 seconds of the drone's flight in range, so a minute adds little for them. What a minute adds is a go/no-go call on exposure: get people under cover, don't start a vehicle run, hold a resupply pickup. Only a line forward gives that against fibre-optic FPVs. Interceptor drones are built mostly for other targets so far. [A minute against the alternatives]({{ site.baseurl }}{% link research/problem-check.md %}#a-minute-against-the-alternatives).
 
