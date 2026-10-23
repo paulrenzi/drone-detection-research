@@ -8,6 +8,14 @@ nav_primary: 2.15
 
 A net in front of a position protects people who are a few yards from a dugout, where seconds of warning already help. People on a road have nowhere to go in seconds. About half of casualties come in the rear, during rotation and resupply ([RUSI, Feb 2025](https://static.rusi.org/tactical-developments-third-year-russo-ukrainian-war-february-2205.pdf)), and fibre-optic FPVs now hunt roads and land beside them to wait ([Trench Art](https://www.trenchart.us/p/russias-best-drones-lie-in-wait-beside)). This page is a working model of a permanent guard on a road: [`route_model.py`](https://github.com/paulrenzi/tripwire/blob/main/tools/routemodel/route_model.py), built on the [lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net), run on two invented 4 mi roads. Nothing in it is measured yet.
 
+## The parts
+
+- **A dart** is a small listening sensor: a microphone that hears drone motors, a LoRa radio and one battery cell, in a finned body dropped from a drone so it sticks point-first in the ground ([dart model]({{ site.baseurl }}{% link build-3d.md %}#why-it-should-fall-point-first)). It only says "I heard a drone", and its neighbours relay that along the row. About $29.
+- **A tip dart** is a dart with a spool of FPV fibre, about 1.2 mi, and a small laser. It is dropped first, paying the fibre out from a post, and sends every alert it hears or is passed home as light. About $94.
+- **A post** is a dart's board on a stake, set in by hand from a vehicle at night, 40 ft off the road and at most 1,100 ft apart: about 5 a mile. It has 4 cells instead of 1, so it lasts about 4 times as long, and a 2 ft whip antenna, so its radio should reach about 2,500 ft, past the next post (est., T9). About $45.
+- **What a post is connected to:** its neighbour posts, by radio and, as proposed, by a twisted-pair cable along the verge ([below](#jamming-and-a-wire-along-the-road)); and, at 5–7 of a road's 21 posts, a tip dart's fibre. Nothing else: no mains power, no network.
+- **Where the alerts go:** there is no central box. Every post repeats every alert along the whole road, so anything listening anywhere on it hears all of it. Each vehicle carries a receiver that never transmits. Each checkpoint has one wired to a phone, tablet or laptop that shows the road's map and which stretches are hot. A laptop sees the whole road from a checkpoint within radio reach of the end post, or plugged into the end of the cable. Anywhere further back needs a link this page doesn't design.
+
 ## Short answer
 
 - **A guard has two parts.** Posts stand along the road, placed by hand. A fence of air-dropped darts runs about a mile out on every side a drone can come from. Every 2 mi a **tip dart** in the fence sends its alerts to a post down an FPV fibre, as on the [position net]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box), so nothing between the fence and the road uses radio.
