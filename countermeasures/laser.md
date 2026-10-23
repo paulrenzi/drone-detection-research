@@ -14,7 +14,7 @@ nav_counter: 3
   <defs><marker id="lz-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#151515"/></marker></defs>
   <rect x="0" y="0" width="480" height="40" fill="#f3e1d8"/>
   <text x="14" y="27" class="vz-t-tag" style="font-size:15px">ENEMY SIDE · TO THE PILOT</text>
-  <path d="M250 40 C 240 80, 262 120, 246 160 C 238 180, 250 196, 246 206" fill="none" stroke="#d2451e" stroke-width="2.5"/>
+  <path d="M250 40 C 240 80, 262 120, 246 160 C 238 180, 250 196, 246 216" fill="none" stroke="#d2451e" stroke-width="2.5"/>
   <circle cx="246" cy="232" r="44" fill="none" stroke="#2f6b3a" stroke-width="2.5" stroke-dasharray="6 5"/>
   <g transform="translate(246 232)" stroke="#151515" stroke-width="2.5">
     <line x1="-11" y1="-11" x2="11" y2="11"/><line x1="11" y1="-11" x2="-11" y2="11"/>
