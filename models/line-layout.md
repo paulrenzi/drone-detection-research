@@ -26,7 +26,7 @@ What 12 darts look like in front of a unit, seen from above and drawn to scale. 
 <span id="line-layout-status" aria-live="polite" style="font-weight:600;flex:1 1 220px"></span>
 </figcaption>
 </figure>
-<script src="{{ '/assets/js/line-layout.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/line-layout.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 
 Each layout uses the same 12 darts, and no hop is longer than 980 ft. Each plays two drones at 45 mph: one heading straight for the unit, then one coming in 30° off to the side.
 
