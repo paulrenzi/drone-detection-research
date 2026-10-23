@@ -6,14 +6,53 @@ nav_primary: 2.2
 # Projected costs
 {: .no_toc }
 
+<p class="vz-lede">What one unit's package costs us at three scales, what it costs to keep up, and what it sells for with our markup. <strong>The drone is about half the package; solar sets the yearly bill.</strong></p>
+
+<div class="stats">
+  <div class="stat"><p class="stat-num">$2,760</p><p class="stat-label">one unit's package, small batch (est.); $3,050 at today's prices</p></div>
+  <div class="stat"><p class="stat-num">22</p><p class="stat-label">darts used per lay, 4 of them tips with fibre</p></div>
+  <div class="stat"><p class="stat-num">$3.1–4.8k</p><p class="stat-label">a year to keep it up, with solar (est.)</p></div>
+  <div class="stat"><p class="stat-num">$4,140</p><p class="stat-label">the package's price at a 50% markup</p></div>
+</div>
+
+### What's in the package
+
+<div class="vz-bars">
+  <div class="vz-bar-row"><span class="vz-bar-label">Prototype</span><span class="vz-bar-track"><span class="vz-bar vz-seg-darts" style="width:25.6%" title="$781"></span><span class="vz-bar vz-seg-tips" style="width:17.0%" title="$520"></span><span class="vz-bar vz-seg-box" style="width:5.9%" title="$180"></span><span class="vz-bar vz-seg-drone" style="width:51.5%" title="$1,573"></span></span><span class="vz-bar-val">$3,050</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">Small batch (est.)</span><span class="vz-bar-track"><span class="vz-bar vz-seg-darts" style="width:23.1%" title="$704"></span><span class="vz-bar vz-seg-tips" style="width:16.0%" title="$488"></span><span class="vz-bar vz-seg-box" style="width:5.6%" title="$170"></span><span class="vz-bar vz-seg-drone" style="width:45.7%" title="$1,397"></span></span><span class="vz-bar-val">$2,760</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">Production (est.)</span><span class="vz-bar-track"><span class="vz-bar vz-seg-darts" style="width:15.8%" title="$484"></span><span class="vz-bar vz-seg-tips" style="width:12.4%" title="$380"></span><span class="vz-bar vz-seg-box" style="width:3.9%" title="$120"></span><span class="vz-bar vz-seg-drone" style="width:33.5%" title="$1,024"></span></span><span class="vz-bar-val">$2,010</span></div>
+  <p class="vz-bar-note vz-legend"><span class="vz-key vz-seg-drone"></span>delivery drone and kit <span class="vz-key vz-seg-darts"></span>22 darts <span class="vz-key vz-seg-tips"></span>4 tip darts <span class="vz-key vz-seg-box"></span>base box and wire</p>
+</div>
+
+### A year of upkeep, per unit
+
+<div class="vz-bars">
+  <div class="vz-bar-row"><span class="vz-bar-label">Solar, 4 winter re-lays <em>(the plan)</em></span><span class="vz-bar-track"><span class="vz-bar vz-bar-us" style="width:10.0%"></span><span class="vz-bar vz-bar-us-light" style="width:5.4%"></span></span><span class="vz-bar-val">$3.1–4.8k</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">Solar, 2 winter re-lays</span><span class="vz-bar-track"><span class="vz-bar vz-bar-them" style="width:5.0%"></span><span class="vz-bar vz-bar-them-light" style="width:2.7%"></span></span><span class="vz-bar-val">$1.5–2.4k</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">No solar, 4-week cells</span><span class="vz-bar-track"><span class="vz-bar vz-bar-them" style="width:32.4%"></span><span class="vz-bar vz-bar-them-light" style="width:17.8%"></span></span><span class="vz-bar-val">$10–15.5k</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">No solar, 2-week cells</span><span class="vz-bar-track"><span class="vz-bar vz-bar-them" style="width:64.7%"></span><span class="vz-bar vz-bar-them-light" style="width:35.3%"></span></span><span class="vz-bar-val">$20–30.9k</span></div>
+  <p class="vz-bar-note">Darts aren't recovered: a net is re-laid when its cells run flat, about 22 darts and 7 sorties. Dark: production prices; light: up to prototype prices. Winter sunlight (T12) is the biggest unknown in the budget.</p>
+</div>
+
+<p class="vz-done"><span class="vz-chip vz-chip-done">checked</span> prototype prices are real listings · <span class="vz-chip vz-chip-open">est.</span> small-batch and production prices are our estimates until a supplier quotes</p>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">The opening, as first written</span><span class="layer-sub">What the package covers, and which prices are checked</span></summary>
+
 What one unit's package costs us at three scales, what it costs to keep up, and what it sells for once our markup is added. The package is everything a unit needs to lay and run the net on [How it works]({{ site.baseurl }}{% link models/line-layout.md %}), a front row of darts with two FPV fibres home: the darts, the tip darts, the base box and its wire, and the drone that lays them, outfitted as the [lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net) requires.
 
 **Prototype prices are checked listings.** Small-batch and production prices are our estimates, marked "est.", until a supplier quotes.
 
-1. TOC
-{:toc}
+</details>
 
-## Short answer
+<details class="layer" id="short-answer" markdown="block">
+<summary><span class="layer-title">Short answer</span><span class="layer-sub">The package, fibre, the price, solar, roads and the next lever, in six bullets</span></summary>
 
 - **One unit's package costs us about $3,050 today,** about $2,760 in a small batch and about $2,010 in production. That is 22 darts, 4 tip darts with their fibre, a base box wired to the positions, and a delivery drone with its navigation and confirm kit, 6 packs and a 2-channel charger. Every dart carries a small solar panel.
 - **Fibre made it smaller.** A lay takes about 22 darts, against about 35 on radio trunks: 16 planned on real ground, plus about 6 for bad landings, short hops and broken fibres. The drone is now about half the package.
@@ -22,7 +61,10 @@ What one unit's package costs us at three scales, what it costs to keep up, and 
 - **A road costs more than a position.** Guarding 4 mi of supply road takes a package of about $6,200–7,400 and about $19–27k a year with solar, $4,700–6,700 a mile ([below](#guarding-a-road)).
 - **Landing reliability (T10) is the next lever:** at 95% upright instead of 85%, each lay uses about 2 fewer darts.
 
-## Per component
+</details>
+
+<details class="layer" id="per-component" markdown="block">
+<summary><span class="layer-title">Per component</span><span class="layer-sub">Every part of a dart, a tip dart, the base box and the drone, priced at three scales</span></summary>
 
 | Component | Prototype: retail, hand-built | Small batch: ~500 darts (est.) | Production: 5,000+ darts, custom board (est.) |
 |---|---|---|---|
@@ -51,7 +93,10 @@ What one unit's package costs us at three scales, what it costs to keep up, and 
 
 The small batch costs about the same per dart as the prototype because it pays for assembly. Bulk pricing saves about what the labour adds. The phone or tablet that shows the alarm is the unit's own Android phone, so it is not in the package. The tip dart, the base box and the wire are a design, not yet built ([the fibres and the base box]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)); their prices are estimates in every column.
 
-## One unit's package
+</details>
+
+<details class="layer" id="one-units-package" markdown="block">
+<summary><span class="layer-title">One unit's package</span><span class="layer-sub">Darts planned and used, the package at three scales, and what solar and fibre changed</span></summary>
 
 The lay model plans **16 darts** on its example sector, all in the front row, 2 of them tips. That is 1 more than open ground needs, because a hop that crosses a windbreak is shorter. Laying them takes **about 22 darts, and 26 in 9 lays out of 10**, because the drone confirms every link and re-drops darts that land badly or out of reach, and a tip whose fibre breaks is laid again. The package carries 22 darts and 4 tip darts.
 
@@ -69,7 +114,10 @@ Darts are costed at the middle of each range. **What the lay model added to the 
 
 **What fibre changed:** the last plan, radio trunks, carried 40 darts and 3 receivers for about $2,620 in a small batch, and still needed about $60–100 of forward roots on fibre to survive the unit's own jammers. Fibre to the front row drops 12 relay darts and the receivers, adds 4 tip darts, a base box and a wire, and needs nothing more for our own jammers.
 
-## Keeping it up
+</details>
+
+<details class="layer" id="keeping-it-up" markdown="block">
+<summary><span class="layer-title">Keeping it up</span><span class="layer-sub">Re-lays, solar through a Donetsk winter, repairs, and what T10 and T12 decide</span></summary>
 
 Darts aren't recovered. Every net is re-laid when its cells run down, and darts lost to shelling are replaced. **A re-lay is about 22 darts and 7 sorties:** about 20 darts and 2.6 tip darts on average. The drone comes home, except about 0.15 times a lay, at the model's guess of 2% lost per sortie. The base box and the wire stay.
 
@@ -86,7 +134,10 @@ A re-lay's cost is about 22 darts, plus 0.15 of a drone (about $140 at prototype
 
 None of this is measured. T12 now has two halves: how long a cell lasts, and how much a panel collects through a winter, with the cold-charging cutoff. It is the biggest number in the whole budget. **T10 is next:** each dart that lands upright instead of tilted saves one re-drop, and at 95% upright a lay uses about 20 darts instead of 22, about $250 a year at small-batch prices and 4 re-lays.
 
-## Guarding a road
+</details>
+
+<details class="layer" id="guarding-a-road" markdown="block">
+<summary><span class="layer-title">Guarding a road</span><span class="layer-sub">A road's package and a year's bill, posts alone or with the fence</span></summary>
 
 From the [route model]({{ site.baseurl }}{% link models/route-guard.md %}), run on two invented 4 mi roads. Small-batch costs to us (est.). A **post** is about $49: the dart's board, 4 cells, a 2 ft whip, a stake and a 1 W solar panel tilted toward the sun. The drone is the position package's, with 6 more packs and 2 more charger channels so a fence goes in in a day. The fence comes home on FPV fibre: every 2 mi a **tip dart** (about $122) sends its alerts down a fibre to a post, which carries a **fibre end** (a light detector, connector and box, about $20, est.).
 
@@ -110,7 +161,10 @@ From the [route model]({{ site.baseurl }}{% link models/route-guard.md %}), run 
 - **Posts only,** with no fence: about $1,530 for 25 posts and 14 receivers, and about $3,800 a year, all of it posts lost (about $940 a mile). It hears drones land by the road but gives only 4–9 s of warning of a strike.
 - **Zvook's NW0** is pitched for roads at 1,300–2,000 ft spacing, which is about 11–17 sensors on 4 mi, about $9–16k before power, with no fence ([competitors]({{ site.baseurl }}{% link research/competitors.md %})).
 
-## Pricing: our cost plus markup
+</details>
+
+<details class="layer" id="pricing-our-cost-plus-markup" markdown="block">
+<summary><span class="layer-title">Pricing: our cost plus markup</span><span class="layer-sub">The package and a re-lay pack at 30%, 50% and 100% markup</span></summary>
 
 The price is our total cost of the package plus our markup. At three markups:
 
@@ -139,3 +193,5 @@ At 50% on small-batch cost, the package is about $1,380 per position, a little m
 **Sell like Chuyka:** a defence price without VAT with an end-user certificate, a Brave1 Market listing, then e-point eligibility.
 
 Every cost here except the prototype column is an estimate, and every yearly figure rests on an unmeasured battery life and winter solar harvest, an assumed landing rate, and guessed loss rates for darts, posts, fibres and drones.
+
+</details>
