@@ -1,0 +1,19 @@
+{
+  "_note": "Example sector for the lay model. Local frame in feet: x along the front, y toward the enemy, the receiver at P2 = (0, 0). Every feature is invented to exercise the planner; it is not a real place.",
+  "origin_latlon": [38.0, -98.0],
+  "threat_bearing_deg": 0,
+  "positions": [[-820, 0], [0, 0], [820, 0]],
+  "receiver": [0, 0],
+  "enemy_edge": [[-7500, 6700], [-2700, 6550], [-1900, 5900], [-1100, 6550], [7500, 6850]],
+  "tree_belts": [
+    {"name": "east-west windbreak", "line": [[-7000, 2480], [7000, 2760]], "width": 40},
+    {"name": "north-south windbreak", "line": [[2650, 900], [2950, 7200]], "width": 40}
+  ],
+  "ravines": [
+    {"name": "balka", "line": [[-4300, 2300], [-2500, 6600]], "width": 300, "depth": 50}
+  ],
+  "slope_ft_per_ft": 0.01,
+  "wind": {"mph": 9, "toward_deg": 0, "gust_margin_mph": 5},
+  "air_temp_f": 30,
+  "packs_warmed": true
+}

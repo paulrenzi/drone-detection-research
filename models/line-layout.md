@@ -59,7 +59,7 @@ At 60 mph (88 ft a second), 65 s means hearing the drone **5,720 ft out**.
 
 ## Two trunks, for redundancy
 
-**The net always has two trunks,** one from each end of the front row: **20 darts**, 10 listening and 10 relay. For one position instead of three, the row is 9 darts, so 19 in all.
+**The net always has two trunks,** one from each end of the front row: **20 darts** on open, flat ground, 10 in the front row and 10 relays. For one position instead of three, the row is 9 darts, so 19 in all. Real ground takes more: the [lay model](#laying-the-net) plans 25 on its example sector and uses about 35 to lay them.
 
 - **No single dart can silence it.** Knocking out any one dart cuts off at most 1 other. If a trunk dart dies, alerts run the other way along the front row to the other trunk.
 - **A single trunk is not offered.** It would save 5 darts, but one dead relay would silence the whole net, and every front dart beyond a dead one would go quiet.
@@ -69,40 +69,117 @@ What the package costs is on [Projected costs]({{ site.baseurl }}{% link costs.m
 
 ## Laying the net
 
-Nobody walks a mile forward to plant darts. A small drone does it, with no pilot flying it and no video link ([delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %})).
+Nobody walks a mile forward to plant darts. A small drone does it, with no pilot flying it and no video link ([delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %})). This section is a working model of that job: a planner and simulator, [`lay_model.py`](https://github.com/paulrenzi/tripwire/blob/main/tools/laymodel/lay_model.py), that plans a net on a map, checks every sortie against the battery and the wind, writes the ArduPilot missions, and then lays the net 1,000 times with drop errors, bad landings and radio fading.
 
-1. **Plan on a map.** The planning tool splits the net into drop points, groups them 4 per sortie, and writes one mission file per sortie ([software plan]({{ site.baseurl }}{% link build-software.md %})). It gets the unit's positions, the ±45° edges and the spacing from the numbers above. Each dart's ID is tied to its drop point, so the receiver can show which dart heard a drone.
-2. **Load and launch.** Four darts hang on a harness under an ArduPilot quad, one release servo each ([3D models]({{ site.baseurl }}{% link build-3d.md %}#2-the-harness-loaded-with-four-darts)). The drone flies the mission with every radio off, drops each dart point first from a short hover, and flies home.
-3. **Lay the trunks first, then the front row.** A dart can only report once the darts behind it are down. Laid from the unit outward, every new dart checks in through the net as soon as it lands, so the crew sees each one arrive.
-4. **Check the net.** The receiver lists every dart that has checked in and how strong its link is. A missing or weak dart gets a spare dropped beside it on the next sortie.
+<figure style="margin:12px 0 8px;max-width:600px">
+<video controls muted playsinline loop preload="metadata" poster="{{ '/assets/video/lay-net-poster.png' | relative_url }}" style="width:100%;display:block;border:1px solid #ddd">
+<source src="{{ '/assets/video/lay-net.mp4' | relative_url }}" type="video/mp4">
+</video>
+<figcaption style="font-size:0.9em;margin-top:6px">One lay from the model, about 1 min 50 s. An example sector (invented, to scale): two windbreaks, a 50 ft ravine, ground rising 50 ft toward the front, an enemy salient and a 9 mph wind toward it. GPS is jammed. Every position, battery reading and relay shown comes from the model's output.</figcaption>
+</figure>
+
+### How a lay works
+
+1. **Scout.** The unit's own recon drone flies the planned row the day before. Map data is months old; craters, wires and fallen trees are not on it. The crew moves any point the footage puts on bad ground.
+2. **Plan.** The crew gives the tool its positions, the **enemy's forward edge as a line** (not just a direction), and the wind forecast. The tool reads a free elevation map (Copernicus GLO-30, about 100 ft grid) and a free land-cover map (ESA WorldCover, about 33 ft grid). It keeps every drop point off trees, off ravine floors and at least 650 ft short of the enemy edge, shortens every hop that crosses a windbreak or a rise, and runs the front row 300 ft past both 45° lines. Then it groups the darts into sorties that pass the battery check and writes one mission per sortie: terrain-relative heights, a ground speed for every leg, a release step for every dart.
+3. **Fly.** The drone follows the terrain using its downward lidar, and releases each dart from 33 ft above the ground, not above the launch point. With GPS working it cruises at 100 ft. With GPS jammed it cruises at 35 ft, where its optical-flow sensor stays inside the lidar's 39 ft range, and climbs only to cross the windbreaks the map shows.
+4. **Confirm every dart** (table below). Each dart sends "landed" with its tilt, its neighbour relays it, and every relay carries the relayer's ID. The dart that closes the front row needs relays from both sides. A point gets at most 3 extra darts; after that it is left for a repair sortie. A hand-placed **root dart** beside the receiver relays for the first dart on each trunk, because the receiver never transmits.
+5. **Check the battery before every drop.** The drone must be able to release here and still get home into the wind plus a 5 mph gust, with 20% left. If it can't, it flies home with the darts still on board, and they go on the next sortie.
+6. **Turn round.** Swap the pack, reload 4 darts, scan their IDs. With 6 packs and a 2-channel charger, the drone never waits for a charge.
+
+**What the drone's receive-only radio hears after each drop, and what it does next:**
+
+| The drone hears | It means | Next |
+|---|---|---|
+| A relay from the planned neighbour | Linked | Fly on |
+| "Landed" but no relay | Out of reach | Next dart 300 ft back toward the neighbour |
+| "Landed, tilted" | Lying flat or in a tree | Next dart on the same spot |
+| Nothing | A dud | Next dart on the same spot |
+
+If a sortie runs out of darts or battery partway through, the points it didn't finish go first on the next sortie.
+
+### What the model found
+
+The example sector, 1,000 lays per row. **"Whole"** means every drone track within 45° of each position is heard at least 55 s out. That is 5 s short of the minute target, which leaves room for small drop errors.
+
+| Case | Whole | Survives any one loss | Darts used | Darts, 9 lays in 10 | Sorties | Hours |
+|---|---|---|---|---|---|---|
+| The first 20-dart plan, GPS working, no confirm | 0% | 0% | 20 | 20 | 5.1 | 1.0 |
+| This plan (25 darts), GPS working, no confirm | 5% | 0% | 25 | 25 | 7.1 | 1.3 |
+| This plan, GPS working, confirm | 100% | 99% | 32.2 | 36 | 8.6 | 1.9 |
+| **This plan, GPS jammed, confirm** | **99%** | **93%** | **34.9** | **40** | **9.3** | **2.2** |
+| … if 95% of darts land upright, not 85% | 100% | 98% | 30.7 | 34 | 8.2 | 1.7 |
+| … if the radio hop is 800 ft, not 980 | 100% | 94% | 40.9 | 46 | 10.8 | 2.9 |
+| … if the compass is off 4°, not 2° | 91% | 87% | 35.1 | 40 | 9.3 | 2.2 |
+| … in a 15 mph wind | 100% | 95% | 34.8 | 40 | 10.3 | 2.7 |
+| … at 14 °F, with packs not kept warm | 99% | 95% | 34.8 | 40 | 17.6 | 6.3 |
+
+- **A lay takes about 35 darts and 9 sorties, not 20 and 5.** The 25 planned darts are the floor. Darts that land badly (15%, assumed) and hops that fall short take about 10 more.
+- **Without confirmation, the net is almost never whole.** 980 ft is the hop that works 9 times in 10. With about 25 links, nearly every lay has one that fails, and nothing on the ground says which.
+- **On real ground, the first plan fails.** Hops across a windbreak lose about 4 dB, so the 980 ft hop becomes about 760 ft. Only 6 of the first plan's 20 darts would reach the unit, even with perfect drops.
+- **Wind:** 7 sorties up to 12 mph, 8 at 15 mph and 13 at 18 mph. Above about 15 mph, don't lay.
+- **Cold packs double the sorties.** Keep them warm until launch.
+- **The drone is a consumable.** At 2% lost per sortie (a guess), a lay costs about 0.2 drones: 2–3 a year at four-week re-lays.
+
+### Holes found, and the fixes now in the model
+
+| Hole | What it did | Fix | Cost |
+|---|---|---|---|
+| The plan ignored the ground | Darts in trees and ravines; hops across windbreaks out of reach | Elevation and land-cover checks in the planner | Free data |
+| Mission heights were relative to the launch point | Over ground rising 50 ft, a 33 ft release height would put the drone into the ground | Terrain following plus a downward lidar | MTF-01P flow and lidar, ~$42 |
+| Optical flow loses its scale above the lidar's range | Jammed-GPS navigation drifts at 100 ft | Cruise at 35 ft when jammed; climb only over mapped belts | None |
+| Optical flow needs light | At night with GPS jammed, only the compass is left | When GPS is jammed, lay at dawn or dusk | None |
+| Without GPS, ArduPilot has no origin, and so no position to look up magnetic declination | Missions won't run, or headings are off by the local declination | The tool sets the origin and the declination at the launch point before each sortie ([ArduPilot](https://ardupilot.org/copter/docs/common-non-gps-navigation-landing-page.html)) | None |
+| Nothing checked that a link worked | 95% of lays broken somewhere | Drop, then confirm, on every dart | Receive-only radio, ~$20 |
+| Any relay counted as a confirmation | A dart out of reach of its planned neighbour could pass on a relay from the dart before it | Relays carry the relayer's ID; the closing dart needs both sides | 2 bytes a packet |
+| The receiver can't transmit | The first dart on each trunk can't be confirmed, and P2 can't pass an alarm to P1 and P3 | A hand-placed root dart beside the receiver relays every alert once more, within one hop of all three positions | One dart |
+| A bad landing was invisible | A flat or snagged dart checks in normally but hears and radios much worse | An accelerometer in every dart | ~$1–2 a dart |
+| The harness drops in a fixed order | A spare is just the next dart, and relay darts can't stand in for listening darts | Every dart gets a microphone. Points a sortie runs out for move to the next one | ~$3 a former relay dart |
+| End darts sat 635 ft inside the 45° lines | Every drone track along a 45° line only grazed a dart, and a rotation of 3° left one edge unheard | Ends 300 ft past the 45° lines | One dart |
+| A fixed 22 mph cruise | Against 14 mph, the drone couldn't take even one dart to the end of a trunk and get home | Least-energy ground speed per leg (ArduPilot DO_CHANGE_SPEED); battery check with gust margin before every drop | None |
+| 2 packs and a 1-channel charger | A lay took 5.2 h | 6 packs and a 2-channel charger: about 2 h | ~$340 |
+| Cold packs | Up to 25% less capacity (assumed) | An insulated bag | ~$20 |
+
+**Still open, not modelled:**
+- The drone's return shows the enemy where it launched from. Launch 300–500 ft from the positions, and vary the spot.
+- The unit's own trench jammers may cover our 900 MHz band. That needs a bench test with a real jammer.
+- The trunks point at the positions.
+- A sortie can't be recalled.
+- Handing the net over to a relieving unit isn't designed.
+
+### What each test now has to report
+
+The model turns on five numbers. Each test should report a spread, not one figure:
+
+- **T9:** the hop that works 90% of the time, and how much it varies from place to place (4 dB assumed).
+- **T10:** the share of drops that land upright in plough, pasture and frozen ground (85% assumed). This is the cheapest saving: at 95%, each lay uses 4 fewer darts.
+- **T13:** power against airspeed with 4 darts, and the battery each sortie uses.
+- **T14:** compass error with GPS jammed, split into the error shared by a whole day and the change from one sortie to the next (2° and 0.7° assumed). At 4°, 9% of lays leave a gap. Also the lidar's real range over dark plough and snow: the 35 ft cruise assumes the full 39 ft.
+- **T12:** pack capacity at 14 °F, warm and cold.
 
 ### What the drone knows
 
-**Nothing about north, the enemy or spacing.** It flies a list of coordinates.
+**Coordinates, a few rules and its own sensors.** It knows nothing about north, the enemy or spacing.
 
-- **The crew gives the planning tool two things:** its positions on the map, and one arrow for the threat direction, normally square to the line of contact. The tool lays out the front row 5,316 ft out along the arrow, ±45°, at 969 ft spacing, with the trunks to darts 1 and 8, and writes a coordinate for every drop. Importing positions from the unit's mapping app is still to build.
-- **The drone gets north and its position from its own sensors:** GPS and compass, or the fallbacks below.
-- **The darts know nothing either.** The microphone hears all round and nothing needs a heading. "Dart 7" is a place only because the plan tied that ID to that point.
-- **Spacing is checked by radio, after each drop.** See [Drop, then confirm](#drop-then-confirm).
-
-**The net's 20 darts are 5 sorties:** two for the trunks and three for the front row. The longest flies about 1.1 mi out, along about half a mile of the row and back. An X500-class quad with 4 darts is estimated at 11–12 minutes' hover ([Hardware]({{ site.baseurl }}{% link build-hardware.md %})); whether a sortie that long fits one battery is test T13.
+- **North and position:** GPS and compass, or with GPS jammed, compass, optical flow and lidar from an origin set at launch (below).
+- **The enemy:** only through the plan, which keeps every point 650 ft short of the forward edge the crew drew.
+- **Spacing:** proved by radio, one relay at a time, never measured.
+- **The darts know nothing.** "Dart 7" is a place only because the drone's log ties that ID to where it was released.
 
 ### Finding the drop points when GPS is jammed
 
-GPS is jammed routinely at the front ([field conditions]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)). The darts carry no GPS. A dart's position is its planned drop point, corrected by where the drone's flight log says it released. The drone needs to know where it is, in this order of cost:
+GPS is jammed routinely at the front ([field conditions]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)). The darts carry no GPS. A dart's position is where the drone's log says it released. The drone needs to know where it is, in this order of cost:
 
 | Method | What it needs | Good enough? |
 |---|---|---|
 | **Plain GPS** | Nothing extra | Where it isn't jammed. Each flight log records where GPS failed or jumped, so the unit learns its own map of jamming |
-| **Short legs on compass, barometer and optical flow** from a point the crew can confirm by eye | A downward optical-flow camera and rangefinder | Drifts over distance with no fixed reference, so legs stay short ([ArduPilot](https://ardupilot.org/copter/docs/common-non-gps-navigation-landing-page.html)) |
-| **Computer vision: matching the camera's view to satellite maps** | A downward camera, a Jetson Orin NX-class computer (several hundred dollars, est.) and stored map tiles | Not used yet; the upgrade if T14 shows compass drift is much worse than 3°. Best open candidate: [NGPS](https://github.com/snktshrma/ngps_flight) (MIT licence, ROS 2, feeds ArduPilot), whose author reports about 10–20 ft error over 5 real flights at 200–490 ft up ([paper](https://arxiv.org/abs/2607.18936)). [gnss-denied-nav](https://github.com/koksalan/gnss-denied-nav) (MIT) reports a 79 ft median on unseen regions and refuses to fix when seasons change the ground; simulation and datasets only. [WildNav](https://github.com/TIERS/wildnav) relies on SuperGlue, whose licence bars commercial use. Ukrainian systems doing this are reported but proprietary |
-| **By hand** | Troops walking in at night | Only for the trunk darts nearest the unit, an inference |
-
-A downward camera could also record each drop, so the crew can check after landing that a dart stood upright. That adds weight but no radio link (an idea, untested).
+| **Compass, barometer and optical flow** from an origin set at launch | The MTF-01P flow and lidar sensor (now in the kit), daylight, a 35 ft cruise | The model's choice under jamming. Drifts with distance, but darts in one sortie drift together, and drop, then confirm repairs the joins ([ArduPilot](https://ardupilot.org/copter/docs/common-non-gps-navigation-landing-page.html)) |
+| **Computer vision: matching the camera's view to satellite maps** | A downward camera, a Jetson Orin NX-class computer (several hundred dollars, est.) and stored map tiles | Not used yet; the upgrade if T14 shows a compass error well over 2°. Best open candidate: [NGPS](https://github.com/snktshrma/ngps_flight) (MIT licence, ROS 2, feeds ArduPilot), whose author reports about 10–20 ft error over 5 real flights at 200–490 ft up ([paper](https://arxiv.org/abs/2607.18936)). [gnss-denied-nav](https://github.com/koksalan/gnss-denied-nav) (MIT) reports a 79 ft median on unseen regions and refuses to fix when seasons change the ground; simulation and datasets only. [WildNav](https://github.com/TIERS/wildnav) relies on SuperGlue, whose licence bars commercial use. Ukrainian systems doing this are reported but proprietary |
+| **By hand** | Troops walking in at night | The root dart beside the receiver, and trunk darts near the unit (an inference) |
 
 ## What placement has to get right
 
-**Accuracy decides the dart count.** The 20-dart net assumes every dart lands on its point. A dart that lands off its point can end up beyond radio reach of its neighbour. So the plan has to shrink every gap by twice the expected drop error:
+**Accuracy decides the dart count, unless every link is confirmed.** The 20-dart net assumes every dart lands on its point. A dart that lands off its point can end up beyond radio reach of its neighbour. So the plan has to shrink every gap by twice the expected drop error:
 
 | Drop error | Planned spacing | Front row | Relays per trunk | Total |
 |---|---|---|---|---|
@@ -111,14 +188,14 @@ A downward camera could also record each drop, so the crew can check after landi
 | ±66 ft | 848 ft | 12 | 6 | **24** |
 | ±160 ft | 660 ft | 14 | 8 | **30** |
 
-How close a drop lands is test T13. The tripwire page's working figure, that drops 66–160 ft off still make a line, needs revisiting: at 160 ft off, this net needs 30 darts, not 20.
+How close a drop lands is test T13. The tripwire page's working figure, that drops 66–160 ft off still make a line, needs revisiting: at 160 ft off, this net needs 30 darts, not 20. The [lay model](#laying-the-net) takes the other route: it plans at the full hop and confirms every link as it is made, which costs fewer darts than planning for the error.
 
 **The other requirements:**
 
 - **Land upright, point first, in soil.** The tip goes in about 2.8 in, holding the microphone about 20 in up. Whether the fins turn a dart nose-down in time is the first drop test ([dart model]({{ site.baseurl }}{% link build-3d.md %}#why-it-should-fall-point-first)).
 - **Nothing solid between neighbours.** A ridge, a building or a thick tree belt between two darts can break a hop. Plan hops along open ground and shorten them under trees, which also shortens hearing.
 - **Relay darts keep their radio listening.** A listening dart can sleep until it hears something, but a relay has to be awake to catch its neighbour's packet. How long its cell lasts in the cold is unknown until the battery test (T12). Relays may need re-laying sooner than listening darts.
-- **A receiver at every position.** P1 and P3 sit 820 ft from P2, within one hop, so the receiver at P2 passes the alarm on.
+- **A receiver at every position, and a root dart.** Receivers never transmit. Every alert ends at a dart placed by hand beside P2, which relays it once more; P1 and P3 sit 820 ft away, within one hop, so all three receivers hear it.
 - **Keep the unit's own drones out of the alarm.** Ukrainian FPVs sound like Russian ones. The proposed answer is to alarm only on drones heading inbound, outside the unit's own flight times (test T15).
 - **Re-lay before the cells run out,** and replace darts lost to shelling. The darts' battery reports forecast when.
 
@@ -138,11 +215,11 @@ Same map, with time compressed. A relay is knocked out, found by the roll call a
 
 | Failure | What the unit loses | Fix | Our cost |
 |---|---|---|---|
-| **A listening dart** | A blind gap about 670 ft wide: its neighbours end up 1,938 ft apart and each hears 635 ft | One sortie drops a dart on its point | ~$25–29 |
-| **A relay dart** | No coverage, but the net is down to one trunk | Same, and first | ~$23–26 |
+| **A front dart** | A blind gap about 670 ft wide: its neighbours end up 1,938 ft apart and each hears 635 ft | One sortie drops a dart on its point | ~$27–31 |
+| **A trunk dart** | No coverage, but the net is down to one trunk | Same, and first | ~$27–31 |
 | **Two darts** | One on each trunk silences the net: 36 of the 190 possible pairs do that | Repair after the first loss | Per dart |
 | **The receiver** | Everything, until swapped | By hand, at the position | ~$22 |
-| **Cells run down** | Darts drop out one by one | A re-lay: 20 darts, 5 sorties | ~$515 |
+| **Cells run down** | Darts drop out one by one | A re-lay: about 35 darts, 9 sorties | ~$1,190, with drone wear |
 | **The drone** | Any repair or re-lay | A new quad | ~$850–920 |
 | **LoRa jammed** | Every dart at once | No dart fixes it: change channel or settings, or wait | none |
 
@@ -160,7 +237,7 @@ Same map, with time compressed. A relay is knocked out, found by the roll call a
 2. The drone, still hovering, hears that relay. That proves the new dart reached its neighbour.
 3. If it hears nothing, the drone drops a spare about 300 ft toward the neighbour's logged point and listens again.
 
-That measures every link as it is made, so the drone never needs to know where it is to within a hop, and a failed join costs one spare. Absolute error is cheap: a front row 280 ft off costs at most about 3 s of warning. The 4 spares in the package then go to failed joins and bad landings. If drops really land ±66 ft off, all 24 darts are in the net, and repair stock is extra.
+That measures every link as it is made, so the drone never needs to know where it is to within a hop, and a failed join costs one spare. Absolute error is cheap in the middle of the row, at most about 3 s of warning for 280 ft. **It is not cheap at the ends:** a net rotated 3° moves an end dart about 280 ft along the row, and the old ends, 635 ft inside the 45° lines, then left one edge unheard. The lay model puts the ends 300 ft past the 45° lines instead, and confirms every dart, not just the joins ([Laying the net](#laying-the-net)).
 
 **If the planning numbers are wrong, the fix is more darts, not a redesign:**
 

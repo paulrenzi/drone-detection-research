@@ -201,7 +201,7 @@
         pulse.setAttribute("opacity", 0); packet.setAttribute("opacity", 0); ear.textContent = "";
         setDrone(lerp(at, home, (u - 0.65) / 0.35), true);
         var c = route(); tally.textContent = c.up + " of " + c.total + " darts reach the unit";
-        say("Two trunks again. Our cost: one relay dart, about $25, and about 10 minutes of flying.");
+        say("Two trunks again. Our cost: one dart, about $29, and about 10 minutes of flying.");
       }
       if (u > 0.99) drone.setAttribute("opacity", 0);
     }],
