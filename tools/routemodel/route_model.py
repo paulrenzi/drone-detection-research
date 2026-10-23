@@ -51,13 +51,18 @@ P_LOSS_DART_DAY, P_LOSS_POST_DAY, REPAIR_DAYS = 0.005, 0.01, 1.0
 derive()
 
 # ---- costs, small batch, ours (Projected costs) ASSUME ------------------------------------------
-DART_USD, POST_USD, RX_USD = 29.0, 45.0, 22.0   # a post: the dart's board, 4 cells, a 2 ft whip and a stake (est.)
-TIP_USD = 94.0                                   # a tip dart: a dart plus ~1.2 mi of fibre and a laser (costs.md, small batch)
+DART_USD, POST_USD, RX_USD = 32.0, 49.0, 22.0   # with solar: a dart's 2.4 in panel and charger ~$3; a post: the dart's board, 4 cells, a 2 ft whip, a stake and a 1 W panel (est.)
+TIP_USD = 122.0                                  # a tip dart: a dart plus ~1.2 mi of fibre at $55-80 a mile and a laser (costs.md, small batch)
 END_USD = 20.0                                   # a fibre's end at its post: light detector, connector, box (est.)
 DRONE_USD, PACK_WEAR_USD = 850.0, 0.30
 KIT_USD = 1397.0 + 360.0 + 100.0                 # the outfitted drone, plus 6 more packs and 2 more charger channels
 RECEIVERS = 14                                   # 12 vehicles and 2 checkpoints
-POST_LIFE_X = 4.0                                # 4 cells: a post lasts 4 times as long as a dart ASSUME (T12)
+POST_LIFE_X = 4.0                                # without solar, 4 cells: a post lasts 4 times as long as a dart ASSUME (T12)
+# Solar: darts run flat only in midwinter, so the fence is re-laid 2-4 times a year, not every cell life;
+# a post's tilted 1 W panel carries it through December, so posts get no scheduled cell swaps ASSUME (T12)
+YEARS = (("Solar, 4 winter re-lays", 4.0, 0.0), ("Solar, 2 winter re-lays", 2.0, 0.0),
+         ("No solar, 2-week cells", 26.0, 26.0 / POST_LIFE_X), ("No solar, 4-week cells", 13.0, 13.0 / POST_LIFE_X),
+         ("No solar, 12-week cells", 52.0 / 12, 52.0 / 12 / POST_LIFE_X))
 
 
 # ---- the road -------------------------------------------------------------------------------
@@ -600,19 +605,22 @@ def main(argv):
     say("package: %d air-dropped darts, %d tip darts and %d fibre ends, %d posts, %d receivers, outfitted drone with 12 packs and 4 channels: $%.0f ($%.0f a mile)"
         % (carry_air, carry_tips, len(tips), carry_posts, RECEIVERS, pkg, pkg / miles))
     say("one re-lay of the fence: $%.0f (%.0f darts, %.1f of them tip darts, %.2f drones, pack wear)" % (relay_cost, stats["lay_darts"], stats["lay_tips"], stats["lay_lost"]))
-    say("| Dart cell life | Fence re-lays a year | Fence | Posts | Repairs between re-lays | A year | A mile a year |")
+    say("| Power | Fence re-lays a year | Fence | Post cell swaps | Repairs between re-lays | A year | A mile a year |")
     say("|---|---|---|---|---|---|---|")
     yearly = {}
-    for wk in (2, 4, 12):
-        n = 52.0 / wk
+    for lab, n, swaps in YEARS:
         fence = n * relay_cost
-        posts = 52.0 / (wk * POST_LIFE_X) * len(P["posts"]) * POST_USD
+        posts = swaps * len(P["posts"]) * POST_USD
         lost_d = stats["air"] * P_LOSS_DART_DAY * 365; lost_p = len(P["posts"]) * P_LOSS_POST_DAY * 365
         lost_t = len(tips) * P_LOSS_DART_DAY * 365; cuts = len(tips) * P_CUT_DAY * 365   # a cut fibre: a new tip, on its own sortie
         rep = (lost_d * DART_USD + lost_p * POST_USD + lost_d / lm.CAPACITY * (lm.P_DRONE_LOSS * DRONE_USD + PACK_WEAR_USD)
                + lost_t * (TIP_USD - DART_USD) + cuts * (TIP_USD + lm.P_DRONE_LOSS * DRONE_USD + PACK_WEAR_USD))
-        tot = fence + posts + rep; yearly[wk] = tot
-        say("| %d weeks | %.1f | $%.0f | $%.0f | $%.0f | $%.0f | $%.0f |" % (wk, n, fence, posts, rep, tot, tot / miles))
+        tot = fence + posts + rep; yearly[lab] = tot
+        say("| %s | %.1f | $%.0f | $%.0f | $%.0f | $%.0f | $%.0f |" % (lab, n, fence, posts, rep, tot, tot / miles))
+    po = len(P["posts"]) * P_LOSS_POST_DAY * 365 * POST_USD
+    say("posts only, solar: $%.0f a year in lost posts ($%.0f a mile); package %d posts and %d receivers $%.0f"
+        % (po, po / miles, carry_posts, RECEIVERS, carry_posts * POST_USD + RECEIVERS * RX_USD))
+    stats["posts_only_year"] = po
     stats.update({"pkg": pkg, "pkg_mile": pkg / miles, "relay_cost": relay_cost, "yearly": yearly, "carry_air": carry_air, "carry_tips": carry_tips, "carry_posts": carry_posts})
     json.dump(stats, open(os.path.join(out, "%s-stats.json" % tag), "w"), indent=1)
     if "--demo" in argv: demo(cfg, sec, road, P, nodes, net, out, stats)

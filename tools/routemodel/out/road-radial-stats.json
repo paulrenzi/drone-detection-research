@@ -54,13 +54,16 @@
  "snap_worst": 0.8341463414634146,
  "snap_land": 0.9941289437585734,
  "one_worst": 0.9795121951219512,
- "pkg": 6784.0,
- "pkg_mile": 1682.9196892705595,
- "relay_cost": 3271.7415,
+ "posts_only_year": 3755.8499999999995,
+ "pkg": 7432.0,
+ "pkg_mile": 1843.6702727975824,
+ "relay_cost": 3712.9815,
  "yearly": {
-  "2": 101858.57025,
-  "4": 56254.68075000001,
-  "12": 25852.08775
+  "Solar, 4 winter re-lays": 27161.642249999997,
+  "Solar, 2 winter re-lays": 19735.67925,
+  "No solar, 2-week cells": 115535.73525,
+  "No solar, 4-week cells": 63922.72575,
+  "No solar, 12-week cells": 29514.052749999995
  },
  "carry_air": 80,
  "carry_tips": 11,

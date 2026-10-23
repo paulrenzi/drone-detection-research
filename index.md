@@ -14,7 +14,7 @@ Don't try to make a microphone hear farther. Drop cheap ones about a mile forwar
 
 <div class="stats">
   <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a row about 1 mi out, against ~10 s from a ring near the unit (est.)</p></div>
-  <div class="stat"><p class="stat-num">$29 / $94</p><p class="stat-label">a throwaway dart, and a tip dart with its fibre (small-batch est.)</p></div>
+  <div class="stat"><p class="stat-num">$32 / $122</p><p class="stat-label">a throwaway dart, and a tip dart with its fibre (small-batch est.)</p></div>
   <div class="stat"><p class="stat-num">160–200 ft</p><p class="stat-label">the only measured cheap-mic range; we plan on 330–980 ft, unproven</p></div>
   <div class="stat"><p class="stat-num">3/5</p><p class="stat-label">feasibility: every part exists, the whole chain is untested</p></div>
 </div>
@@ -35,7 +35,7 @@ The idea is to buy warning with distance rather than with sensitivity. A better 
 
 **The same darts can guard a supply road,** where about half of casualties happen ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %})):
 
-- **Posts along the verge,** about 5 a mile, hear drones that land to wait in ambush, which nothing else on sale does. On their own they cost about $1,600 a mile a year.
+- **Posts along the verge,** about 5 a mile, hear drones that land to wait in ambush, which nothing else on sale does. On their own they cost about $940 a mile a year.
 - **A fence of darts a mile out,** home on fibre like a position's line, gives every drone flying in at least 60 s in the model.
 - **The alert travels with the troops:** receivers in their vehicles, lamps on the posts, and, if a partner takes it, the phone systems they already carry ([Partners]({{ site.baseurl }}{% link research/partners.md %})).
 
@@ -71,13 +71,13 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 <span class="assess-num">04</span>
 <span class="assess-title">Guarding a road</span>
 <span class="assess-q">Can the same darts protect a supply road?</span>
-<span class="assess-body">Posts on the verge hear drones waiting in ambush; a fence a mile out gives a minute. About $9–14k a mile a year in full, $1,600 for posts alone.</span>
+<span class="assess-body">Posts on the verge hear drones waiting in ambush; a fence a mile out gives a minute. About $4.7–6.7k a mile a year in full with solar, $940 for posts alone.</span>
 </a>
 <a class="assess-card" href="{{ site.baseurl }}{% link costs.md %}">
 <span class="assess-num">05</span>
 <span class="assess-title">Projected costs</span>
 <span class="assess-q">What does it cost to buy, and to keep laid?</span>
-<span class="assess-body">Parts per dart, a unit's package at about $1.9–2.9k, and re-lays at about $8.5–13k a year: lines are ammunition.</span>
+<span class="assess-body">Parts per dart, a unit's package at about $2.0–3.1k, and re-lays at about $3–5k a year with solar: lines are ammunition.</span>
 </a>
 <a class="assess-card" href="{{ site.baseurl }}{% link research/competitors.md %}">
 <span class="assess-num">06</span>

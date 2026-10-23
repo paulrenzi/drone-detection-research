@@ -266,6 +266,8 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 ## 7. Not yet designed
 
 - **Tip dart:** a dart body that also carries a spool of about 1.2 mi of FPV fibre and a small laser, about 10 oz (est.), from [the fibres and the base box]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box). The harness slot has to take its weight and let the fibre pay out freely from the first drop. It follows T21's bench version.
+- **Solar on the head pod:** a 2.4 × 2.4 in epoxy panel lying flat on top of the pod, matte so it doesn't glint to a drone overhead, and a charger chip with a thermistor that stops charging below 32°F ([why]({{ site.baseurl }}{% link costs.md %}#keeping-it-up)). About 0.4 oz at the tail moves the balance point back, against the point-first fall, so `v3.py` has to place the hanger post again with it fitted, and T10 drops darts with it.
+- **Post:** a stake mount for a dart's board, 4 cells, a 2 ft whip and a 1 W solar panel tilted toward the sun ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %}#the-parts)).
 - **Base box:** a small box for a receive-only Heltec, two light detectors with fibre connectors and an RS-485 module, on the unit's power.
 - **Edge receiver mount,** only where fibre can't go: a pole-top box for a receive-only Heltec, an RS-485 module and a Yagi clamp, from the [edge receiver design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees). It follows T17's bench version.
 - **X500 leg extensions:** only for v1 darts; v2 darts ride high enough for stock legs.

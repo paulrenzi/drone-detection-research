@@ -107,13 +107,13 @@ The chain above writes off the half of rear casualties caused by drones already 
 
 ## Is it worth the cost?
 
-The tripwire costs about $1.9–2.9k for a unit's package and about $8.5–13k a year in re-lays at four-week cells ([running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)).
+The tripwire costs about $2.0–3.1k for a unit's package and about $3–5k a year in re-lays, with a solar panel on every dart ([running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)).
 
 **Inference (rule of thumb, no source):** if a battalion takes even a few dozen drone casualties a year, averting 1–4% of them is plausibly worth that cost. It is not worth it where:
 - most drone casualties come from FPVs already waiting in ambush, or launched inside the line; or
 - the roads are already netted.
 
-A guard on a supply road costs more: about $37–56k a year for 4 mi at four-week cells ([costs]({{ site.baseurl }}{% link costs.md %}#guarding-a-road)). It is aimed at the rear, where about half the casualties are.
+A guard on a supply road costs more: about $19–27k a year for 4 mi with solar ([costs]({{ site.baseurl }}{% link costs.md %}#guarding-a-road)). It is aimed at the rear, where about half the casualties are.
 
 ## The Israeli analogue
 

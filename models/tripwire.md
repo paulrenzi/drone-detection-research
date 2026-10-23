@@ -197,22 +197,24 @@ A reader suggested one central node with a known position, and listeners that me
 | LoRa radio | SX1262, 915 MHz in the US | $6–25 | Sends alerts and relays neighbours' alerts toward the unit |
 | GPS | none | $0 (was $8–15) | Dropped: it would be jammed where it matters most ([why](#solving-the-field-limits-at-no-extra-cost)) |
 | Battery | small LiPo cell | ~$3–8 (estimate) | Weeks, not days, only if the listener sleeps until it hears something |
+| Solar | a 2.4 × 2.4 in panel lying flat on the pod, and a charger chip that stops charging below 32°F | ~$2–4 (estimate) | Covers a dart's daily use from March to October, so cells run flat only in midwinter ([running cost](#the-running-cost-lines-are-ammunition)) |
 | One printed body and a head pod on a fibreglass rod | 3D-printed, plus a ~$1.10 rod | $1–2 in filament | Sticks upright and holds the mic about 20 in up |
 | Windscreen | fur or foam cover | ~$1–3 (estimate) | Wind is the biggest range-killer in [VolAnti's tests]({{ site.baseurl }}{% link research/open-source-builds.md %}#volanti) |
-| **Total** | | **~$17–50** | Against a **$30–60 target** (~$25–65 with GPS) |
+| **Total** | | **~$19–54** | Against a **$30–60 target** (~$25–65 with GPS) |
 
 {: .warning }
-> Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first ones. A unit's package, 22 darts, 4 tip darts with their fibre, a base box and an outfitted delivery drone, costs us about **$2,580** in a small batch ([Projected costs]({{ site.baseurl }}{% link costs.md %})).
+> Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first ones. A unit's package, 22 darts, 4 tip darts with their fibre, a base box and an outfitted delivery drone, costs us about **$2,760** in a small batch ([Projected costs]({{ site.baseurl }}{% link costs.md %})).
 
 ### The running cost: lines are ammunition
 
-The package price is only the start. Listeners aren't recovered, so every net is re-laid when its batteries run out. All figures below are estimates from [Projected costs]({{ site.baseurl }}{% link costs.md %}), built on the unproven "weeks" battery target (T12):
+The package price is only the start. Listeners aren't recovered, so every net is re-laid when its batteries run out. A small solar panel on every dart keeps that to midwinter. All figures below are estimates from [Projected costs]({{ site.baseurl }}{% link costs.md %}#keeping-it-up), built on an unmeasured battery life and winter solar harvest (T12):
 
-- **One re-lay** of a unit's net: about 22 darts and 7 drone sorties at up to 4 darts each ([lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)), **≈ $660–1,020** at our cost with drone wear.
-- **At four weeks per battery:** about 13 re-lays a year, so **≈ $8.5–13k a year** per unit. That doubles at two weeks.
+- **One re-lay** of a unit's net: about 22 darts and 7 drone sorties at up to 4 darts each ([lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)), **≈ $770–1,190** at our cost with drone wear.
+- **With solar:** a dart's panel covers its daily use from March to October, and about half to two-thirds of it from December to January, so the net goes flat only in midwinter: about 2–4 re-lays a year, **≈ $3–5k a year** per unit.
+- **Without solar,** at four weeks per battery, it would be 13 re-lays and **≈ $10–15.5k a year**.
 - **Plus** listeners lost to shelling, and the occasional delivery drone.
 
-So the tripwire is a consumable, not a one-off purchase. It costs less than a radar but more than a radio detector bought once. Two things shrink the bill: battery life measured in months, not weeks, and a cheaper listener. Test T12 decides which bill is real.
+So the tripwire is a consumable, not a one-off purchase. It costs less than a radar but more than a radio detector bought once. What shrinks the bill now is a panel that collects more in winter, a cell that lasts longer in the cold, and fewer listeners lost. Test T12 decides which bill is real.
 
 ### Five build steps
 
@@ -223,7 +225,7 @@ Each step answers one question before money goes into the next. They match the [
 | **1. Weekend test kit** | 2 Heltec V3 boards running [Batear]({{ site.baseurl }}{% link research/open-source-builds.md %}#batear), 3 INMP441 mics, windscreens, phones as recorders | A cheap mic hears a drone at known distances; first labelled training audio; a first radio range figure | **~$80–90** with a borrowed drone, tripods and power banks; ~$360–480 buying everything |
 | **2. Radio range test (T9)** | The same two boards, one carried away from a raised receiver | Whether a row a mile out can report back at all. **The deciding question** | < $300 |
 | **3. Listener on a mast (T10, T11)** | One listener on a 1.6–3.3 ft spring mast, plus a drop-tested printed dart body | Detection range at listener height (sets spacing), and whether listeners land upright | < $500 |
-| **4. Battery test (T12)** | One listener with wake-on-sound and a small classifier | Whether "weeks on a small battery" is real | < $200 |
+| **4. Battery and solar test (T12)** | One listener with wake-on-sound, a small classifier and its solar panel | Whether "weeks on a small battery" is real, and how much a panel collects in winter | < $250 |
 | **5. Drop flight (T13)** | A printed quad that lays 4 listeners on planned points | Placement accuracy and payload | < $500 |
 
 ### Parts for step 1
@@ -244,7 +246,7 @@ The claim is narrow: **for early warning of low drones approaching a unit, inclu
 
 | | Fibre-optic FPV | Behind trees or a ridge | Warning time vs FPV | Emits while watching | Rough cost | A unit can carry it |
 |---|:-:|:-:|---|:-:|---|:-:|
-| **Drone-laid tripwire** | ✅ | ✅ | **~1–2 min** | ❌ | **~$1.9–2.9k package, then ≈ $8.5–13k a year in re-lays** ([est.](#the-running-cost-lines-are-ammunition)) | ✅ |
+| **Drone-laid tripwire** | ✅ | ✅ | **~1–2 min** | ❌ | **~$2.0–3.1k package, then ≈ $3–5k a year in re-lays with solar** ([est.](#the-running-cost-lines-are-ammunition)) | ✅ |
 | Hand-placed acoustic ring | ✅ | ✅ | ~10 s | ❌ | similar | ✅ |
 | Radio detector (e.g. Chuyka) | ❌ | partly | long, if it emits | ❌ | ~$584–701 | ✅ |
 | Camera (e.g. WISP) | ✅ if in sight | ❌ | depends on sight lines | ❌ | far higher | ❌ |
@@ -361,7 +363,7 @@ A **printed fixed-wing** carrier is worth testing too: it flies much farther on 
 | **T9** Radio range at 1.2–1.9 mi, open ground and trees, raised receiver at the unit ([test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back)) | Can a forward line report back at all? Probably yes in the open; trees unproven | < $300 |
 | **T10** Drop-test printed dart bodies onto soil, sand, mud and grass | Do listeners land upright with the mic clear? | < $200 |
 | **T11** FPV detection range for one mic on a 1.6–3.3 ft spring mast | How far apart listeners can be | < $300 |
-| **T12** Wake-on-sound battery life with a small classifier, including in cold | Is "weeks" real, and how much shorter in winter? | < $200 |
+| **T12** Wake-on-sound battery life with a small classifier, including in cold, and a winter of solar harvest on a dart and a post | Is "weeks" real, how much shorter in winter, and how many winter re-lays does solar leave? | < $250 |
 | **T13** Drop flight: 4 listeners on planned points from a printed quad | Placement accuracy and payload | < $500 |
 | **T14** The same flight with GPS unavailable | Can a line be laid under jamming? | < $300 |
 | **T15** Record friendly drones; test whether sound, which line trips first and flight times can sort friend from foe, with clocks kept in step without GPS | Will the line cry wolf? | < $200 |

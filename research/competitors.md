@@ -99,7 +99,7 @@ So **T11, our own range test with a real FPV, is the most valuable test on the s
 - **Not found:** an independent test, or any unit reported using it. Zvook's own vehicle sensor trial at NATO's BATT26 exercise "worked. Not perfectly", by Zvook's account.
 - **Plausibility (inference):** 490 ft is in line with measured results. 1,500 ft is above anything measured with a cheap sensor.
 - **It can report by wire.** The Ethernet version, and the fibre and twisted-pair links Zvook's maker describes, can't be jammed ([dev.ua](https://dev.ua/en/news/ukrainska-kompaniia-zvook-stvoryla-akustychnyi-sensor-dlia-vyiavlennia-fpv-droniv-za-zvukom-1769187556)). Our darts rely on radio, which jammers on both sides cover ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
-- **On roads it is the direct rival to our posts.** A wired line of NW0s every 1,300–2,000 ft along a road is what our [road guard]({{ site.baseurl }}{% link models/route-guard.md %}) does with its posts, at about $45 a post against $834–950. What NW0 lacks is the fence a mile out that gives the minute.
+- **On roads it is the direct rival to our posts.** A wired line of NW0s every 1,300–2,000 ft along a road is what our [road guard]({{ site.baseurl }}{% link models/route-guard.md %}) does with its posts, at about $49 a post against $834–950. What NW0 lacks is the fence a mile out that gives the minute.
 - **Where we differ:**
   - We run for weeks on a battery, not 15–18 W.
   - Our listeners are cheap enough to lose.
@@ -187,7 +187,7 @@ They serve the rear, cost too much for a platoon, or don't hear fibre-optic dron
 
 **Cost honesty:**
 - Per sensor we are roughly 3–50x cheaper than NW0, and it also needs 15–18 W of power. Per position is open until range is measured on both sides.
-- The tripwire is a consumable, with an estimated $8.5–13k a year in re-lays ([estimate]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)). Quote both numbers.
+- The tripwire is a consumable, with an estimated $3–5k a year in re-lays, with a solar panel on every dart ([estimate]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)). Quote both numbers.
 
 ## Risks to this positioning
 

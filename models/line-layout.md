@@ -133,7 +133,7 @@ The example sector, 1,000 lays per row. **"Whole"** means every drone track with
 - **Losing one dart costs a little more than before:** 91% of lays survive any one loss, against 93% on radio trunks, because a tip dart now does a whole trunk's job.
 - **Wind:** 5 sorties up to 12 mph, 7 at 15 mph and 12 at 18 mph. Above about 15 mph, don't lay.
 - **Cold packs more than double the sorties.** Keep them warm until launch.
-- **The drone is a consumable.** At 2% lost per sortie (a guess), a lay costs about 0.15 drones: about 2 a year at four-week re-lays.
+- **The drone is a consumable.** At 2% lost per sortie (a guess), a lay costs about 0.15 drones: about 0.6 a year at 4 winter re-lays, with solar.
 
 ### Holes found, and the fixes now in the model
 
@@ -210,10 +210,10 @@ How close a drop lands is test T13. The tripwire page's working figure, that dro
 
 - **Land upright, point first, in soil.** The tip goes in about 2.8 in, holding the microphone about 20 in up. Whether the fins turn a dart nose-down in time is the first drop test ([dart model]({{ site.baseurl }}{% link build-3d.md %}#why-it-should-fall-point-first)).
 - **Nothing solid between neighbours.** A ridge, a building or a thick tree belt between two darts can break a hop. Plan hops along open ground and shorten them under trees, which also shortens hearing.
-- **Every dart keeps its radio listening.** It has to be awake to catch its neighbours' alerts and pass them on. How long its cell lasts in the cold is unknown until the battery test (T12). Tip darts also flash a laser every 10 s for the heartbeat, a small extra drain (est.).
+- **Every dart keeps its radio listening.** It has to be awake to catch its neighbours' alerts and pass them on. That costs about 105 mAh a day (est.). A 2.4 in solar panel lying flat on top of the pod, so it works whichever way the dart faces, collects about that much in November and more from March to October, but only about half of it in December. So cells still run flat in midwinter, and the net is re-laid 2–4 times a year instead of 13 (est.). A charger chip stops charging below 32°F, when charging would damage the cell. How long a cell lasts in the cold, and how much the panel collects through a winter, are unknown until the battery test (T12). Tip darts also flash a laser every 10 s for the heartbeat, about 25 µA averaged, a negligible drain (est.).
 - **A base box and a wire.** Both fibres end at the base box, placed by hand at the launch point and run on the unit's power. A wire carries alerts from it to a phone or tablet at each position. If the box dies, the unit hears nothing, so it is the first thing the crew checks, and a spare is cheap.
 - **Keep the unit's own drones out of the alarm.** Ukrainian FPVs sound like Russian ones. The proposed answer is to alarm only on drones heading inbound, outside the unit's own flight times (test T15).
-- **Re-lay before the cells run out,** and replace darts lost to shelling. The darts' battery reports forecast when.
+- **Re-lay before the cells run out,** in practice in midwinter, and replace darts lost to shelling. The darts' battery reports forecast when.
 
 ## When it breaks
 

@@ -53,8 +53,8 @@ These are standard acoustics estimates, not measurements of our kit.
 | [1](#layer-1-the-radio-test-t9) T9 | Do dart-to-dart hops hold at 660–980 ft, in the open and across trees? | ~$65–80 | ~$80 | T9's marks, or margins that predict them |
 | [2](#layer-2-hear-a-drone-from-near-the-ground-t11) T11 | How far does a mic at 1.6–3.3 ft hear a drone? | ~$50 | ~$130 | ≥330 ft (sets spacing, so cost per km) |
 | [3](#layer-3-fibre-home-t21) T21 | Does a tip's light get home down the fibre, and what does it cost the battery? | ~$110–470 | ~$240–600 | Every frame with 10 dB to spare; battery cost measured |
-| [4](#layer-4-battery-and-cold-t12) T12 | Does a listener last weeks, and in the cold? | ~$35–135 | ~$275–735 | ≥3 weeks, cold loss measured |
-| [5](#layer-5-the-mvp-a-six-listener-line) MVP | Does the whole chain work? | ~$250–350 | ~$525–1,085 | 18/20 crossings in 10 s, <1 false alarm/day, silent |
+| [4](#layer-4-battery-and-cold-t12) T12 | Does a listener last weeks, in the cold, and what does its solar panel collect? | ~$55–175 | ~$295–775 | ≥3 weeks, cold loss and winter harvest measured |
+| [5](#layer-5-the-mvp-a-six-listener-line) MVP | Does the whole chain work? | ~$250–350 | ~$545–1,125 | 18/20 crossings in 10 s, <1 false alarm/day, silent |
 
 Assumed owned: laptop, phone, USB power banks, soldering iron.
 
@@ -134,14 +134,14 @@ Run with leaves on now and leaves off in December.
 **Why:** alerts come home by fibre, so the line's way home is a tip dart's light, not a radio the unit has to receive beside its own jammers. This proves a tip can send a few bytes down a full spool on a dart's battery ([design]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)). Nothing at the base box transmits, so the silence check that layer 3 used to need comes free.
 
 {: .warning }
-> **Less firm than the other layers.** The sellers' pages wouldn't load on 2026-10-23, so these prices are from search listings, unconfirmed. No cheap bare laser for single-mode fibre was found at retail; the bench uses FPV fibre transceivers that already carry serial data instead.
+> **Less firm than the other layers.** The sellers' pages wouldn't load on 2026-10-23, so these prices are from search listings, unconfirmed. The likely cheap light source is a fibre-to-the-home modem's laser at $5–9, from one unconfirmed listing. Until one arrives, the bench uses FPV fibre transceivers that already carry serial data, and swaps in that laser when it does.
 
 | Item | Buy | Alternatives |
 |---|---|---|
 | **Reference link, ×2:** FPV fibre transceivers that carry serial data | NanoHD F3, "video + UART serial/CRSF", [Unmanned Tech, £29.69 each](https://www.unmannedtechshop.co.uk/collections/fibre-optic) | Sky and ground modules, [GetFPV, $110 each](https://www.getfpv.com/commercial-industry-drones/fiber-optics.html); Sky TX kit with 3 km of fibre, [Sigmanortec, ~€421](https://sigmanortec.ro/en/fiber-optic-fpv-kit-3km-with-sky-tx-module) |
 | **Bench fibre** | A short single-mode patch cord in the transceivers' connector, plus a fixed optical attenuator (search terms) | – |
 | **A real spool** (step 4 only) | 1 km canister, [GetFPV, about $360](https://www.getfpv.com/commercial-industry-drones/fiber-optics.html) | [2 km canister, GetFPV](https://www.getfpv.com/commercial-industry-drones/fiber-optic-canister-v2-2km.html); bulk G657A2 at about $30 a km, with a large minimum order ([Alibaba](https://electronics.alibaba.com/product/fiber-drone-cable)) |
-| **The cheap tip's light source** | None found cheap. Pigtailed 1310 nm laser diodes start at about $328 ([MKS](https://np.d1.mks.com/f/fiber-pigtailed-laser-diodes)) | Ask the FPV fibre module makers for their bare transmitter. That part is what a $94 tip dart assumes |
+| **The cheap tip's light source** | The 1310 nm laser from a fibre-to-the-home modem, already joined to a lead of single-mode fibre, $5–9, buy-one minimum ([GoldSupplier](https://www.goldsupplier.com/provide/p100619675.html), one listing, unconfirmed). It is the part a $122 tip dart assumes | Branded pigtailed 1310 nm laser diodes, from about $328 ([MKS](https://np.d1.mks.com/f/fiber-pigtailed-laser-diodes)); the FPV fibre module makers' bare transmitter |
 | **Current meter** | Layer 4's PPK2 | – |
 
 **Run**
@@ -150,7 +150,7 @@ Run with leaves on now and leaves off in December.
 3. Measure the sending end's current: always on, and keyed only for alerts and the 10 s heartbeat, if it can be.
 4. Lay the real spool from the drone over plough, grass and a hedgerow, with the home end plugged in first. Count breaks (1 in 20 assumed).
 
-**Gate (proposed):** every frame arrives with at least 10 dB to spare; a cut shows dark within 30 s; the light and heartbeat leave a tip lasting the four-week cell plan. If the reference link draws too much for a dart, that is the gap a cheap light source has to close. If none can, use the fallback below.
+**Gate (proposed):** every frame arrives with at least 10 dB to spare; a cut shows dark within 30 s; the light and heartbeat add little to a tip's daily use (about 25 µA averaged, est.), so its solar panel still covers it outside midwinter. If the reference link draws too much for a dart, that is the gap a cheap light source has to close. If none can, use the fallback below.
 
 </details>
 
@@ -180,9 +180,9 @@ Run with leaves on now and leaves off in December.
 </details>
 
 <details class="layer" id="layer-4-battery-and-cold-t12" markdown="block">
-<summary><span class="layer-title">Layer 4: battery and cold (T12), ~$35–135</span><span class="layer-sub">Weeks on one cell? The kitchen freezer is the cold chamber</span></summary>
+<summary><span class="layer-title">Layer 4: battery, cold and solar (T12), ~$55–175</span><span class="layer-sub">Weeks on one cell? The kitchen freezer is the cold chamber, and a winter outdoors measures the panel</span></summary>
 
-**Why:** listeners are disposable, so battery life sets the [running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition). It needs the classifier trained on layer 2's audio.
+**Why:** listeners are disposable, so battery life and how much a solar panel collects in winter set the [running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition). With a panel, cells should run flat only in midwinter; this measures whether they do. It needs the classifier trained on layer 2's audio.
 
 | Item | Buy | Alternatives |
 |---|---|---|
@@ -190,14 +190,17 @@ Run with leaves on now and leaves off in December.
 | **Cells** (not on Amazon) | [Molicel P28A, $5.99](https://www.18650batterystore.com/products/molicel-p28a) | [Samsung 30Q, $6.99](https://www.18650batterystore.com/products/samsung-30q); [Battery Junction P28A, ~$6.70](https://batteryjunction.com/molicel-inr18650-p28a) |
 | **Holder** | 2-pack with leads, [Amazon, $5.99](https://www.amazon.com/dp/B092TGQ7PB) | [SparkFun 1×18650, $1.25](https://www.sparkfun.com/battery-holder-1x18650-wire-leads.html) (backordered) |
 | **Plug** | Solder the V3's included SH1.25 lead to the holder | LiPo with "Micro JST 1.25" ([Rokland V3 page](https://store.rokland.com/products/heltec-wifi-lora-32v3)). Adafruit LiPos (JST-PH) don't fit |
+| **Solar charger** | Adafruit bq24074 Universal USB/DC/Solar charger, [Adafruit, $14.95](https://www.adafruit.com/products/4755), with a 10K thermistor on the cell so it stops charging below 32°F | A TP4056-class module with a thermistor input (search terms), cheaper but less tested |
+| **Panels** | A dart's: 2.4 × 2.4 in epoxy panel, [Kunkune, £1–2.55](https://kunkune.co.uk/shop/uncategorized/small-solar-epoxy-panel-polycrystalline-solar-panel). A post's: 6 V 1 W, [Adafruit, $19.95](https://adafruit.com/product/3809) | 110 × 60 mm 6 V 1 W, [Low Power Lab, $4.95](https://lowpowerlab.com/shop/product/166) (out of stock) |
 | **Freezer logger** | Inkbird IBS-TH2 Plus, [Amazon, $24.99](https://www.amazon.com/dp/B08TM67HJH) (only the probe goes in; the body is rated to 14 °F) | [GoveeLife R1, $39.99](https://us.govee.com/products/goveelife-smart-thermometer-r1) |
 
 **Run**
 1. Measure the current asleep, listening and sending, then work out days per cell.
 2. Run one listener on a cell at room temperature until it dies, with a speaker playing a drone clip on a timer.
 3. Repeat in the freezer (0 °F), with the board reporting its voltage and temperature as in the [cold fix]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost).
+4. Put one listener with its flat panel outdoors on a stake, and one post with its tilted panel, from November to February, logging cell voltage, charge current and temperature every 10 minutes. Note snow, frost and shade. Check that the charger never charges below 32°F.
 
-**Gate (proposed):** at least **3 weeks** at room temperature, with the cold loss measured. If it fails, recompute the running cost; a one-week listener may still pay.
+**Gate (proposed):** at least **3 weeks** at room temperature, with the cold loss measured, and a winter shortfall that matches the plan's 2–4 re-lays a year (the panel collecting about half a dart's daily use in December, est.). If it fails, recompute the running cost; a one-week listener may still pay.
 
 </details>
 

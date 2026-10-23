@@ -15,11 +15,12 @@ What one unit's package costs us at three scales, what it costs to keep up, and 
 
 ## Short answer
 
-- **One unit's package costs us about $2,850 today,** about $2,580 in a small batch and about $1,860 in production. That is 22 darts, 4 tip darts with their fibre, a base box wired to the positions, and a delivery drone with its navigation and confirm kit, 6 packs and a 2-channel charger.
-- **Fibre made it smaller.** A lay takes about 22 darts, against about 35 on radio trunks: 16 planned on real ground, plus about 6 for bad landings, short hops and broken fibres. The drone is now over half the package.
-- **The price is our cost plus our markup.** At 50%, the package sells for about $3,870 in a small batch, about $1,290 per position.
-- **A road costs more than a position.** Guarding 4 mi of supply road takes a package of about $5,700–6,800 and about $37–56k a year at four-week cells, $9–14k a mile ([below](#guarding-a-road)).
-- **Re-lays are the real bill.** At four-week cells, a unit re-lays 13 times a year. Battery life (T12) decides whether a year costs us about $4,100 or $26,600 at prototype prices. Landing reliability (T10) is the next lever: at 95% upright instead of 85%, each lay uses about 2 fewer darts.
+- **One unit's package costs us about $3,050 today,** about $2,760 in a small batch and about $2,010 in production. That is 22 darts, 4 tip darts with their fibre, a base box wired to the positions, and a delivery drone with its navigation and confirm kit, 6 packs and a 2-channel charger. Every dart carries a small solar panel.
+- **Fibre made it smaller.** A lay takes about 22 darts, against about 35 on radio trunks: 16 planned on real ground, plus about 6 for bad landings, short hops and broken fibres. The drone is now about half the package.
+- **The price is our cost plus our markup.** At 50%, the package sells for about $4,140 in a small batch, about $1,380 per position.
+- **Solar makes re-lays a winter job.** A dart's panel covers its daily use from March to October, so cells run flat only in midwinter. We plan on 4 winter re-lays a year, 2 if winters are kind: about $3,100–4,800 a year per unit, against about $10,000–15,500 at four-week cells without solar. How much a panel collects in a Ukrainian winter (T12) is now the biggest number in the budget.
+- **A road costs more than a position.** Guarding 4 mi of supply road takes a package of about $6,200–7,400 and about $19–27k a year with solar, $4,700–6,700 a mile ([below](#guarding-a-road)).
+- **Landing reliability (T10) is the next lever:** at 95% upright instead of 85%, each lay uses about 2 fewer darts.
 
 ## Per component
 
@@ -31,10 +32,11 @@ What one unit's package costs us at three scales, what it costs to keep up, and 
 | 18650 cell | $4.99 ([Samsung 25R](https://www.18650batterystore.com/products/samsung-25r-18650)) | $3–4 | $2.50–3.50: EVE cells at $2.50, when in stock |
 | Rod, printed body and fins | $2.60: rod $1.10 ([10-pack, $11](https://www.amazon.com/dp/B0FNZQLH1P)) plus about $1.50 of PETG, wire and screws | $2 | $1–1.50, moulded |
 | Windscreen, foam | $0.50 ([10-pack, $4.99](https://www.amazon.com/dp/B07X4VKKQ7)) | $0.50 | $0.30–0.50 |
+| Solar: a 2.4 × 2.4 in epoxy panel facing up on the pod, and a charger chip that stops charging below 32°F (est.) | ~$4: panel about $1.30–3.30 ([Kunkune, £1–2.55](https://kunkune.co.uk/shop/uncategorized/small-solar-epoxy-panel-polycrystalline-solar-panel)), charger chip about $0.50 | ~$3 | ~$2 |
 | Assembly and test | not counted: our time | $5: 15 minutes at $20 an hour | $2–3 |
-| **Dart** (every dart now has a microphone and a tilt sensor, so any dart can stand in anywhere) | **~$31.50** | **~$27–31** | **~$16–24** |
-| Tip dart's extra: about 1.2 mi of FPV fibre on a spool, a small laser and its driver (est.) | ~$70: fibre about $40–70 at [$32–56 a mile](https://dronexl.co/2026/05/11/ukraine-fiber-optic-spool-price-ai-data-center-demand/), spool and laser ~$10 | ~$65 | ~$50 |
-| **Tip dart** (a dart plus the above, about 10 oz) | **~$100** | **~$94** | **~$70** |
+| **Dart** (every dart now has a microphone, a tilt sensor and a solar panel, so any dart can stand in anywhere) | **~$35.50** | **~$30–34** | **~$18–26** |
+| Tip dart's extra: about 1.2 mi of FPV fibre on a spool, a small laser and its driver (est.) | ~$95: fibre about $65–95 at $55–80 a mile, spool, laser and driver ~$10 | ~$90 | ~$75 |
+| **Tip dart** (a dart plus the above, about 10 oz) | **~$130** | **~$122** | **~$95** |
 | **Base box** (a dart's board receiving only, two light detectors, box and two fibre connectors, est.) | ~$70 | ~$60 | ~$40 |
 | **Wire to the positions** (about 2,300 ft of twisted pair, a serial line chip at each end, a USB adapter for each phone or tablet, est.) | ~$110 | ~$110 | ~$80 |
 | Delivery drone: X500 V2 with Pixhawk 6X, GPS and telemetry radio | [$946](https://pyrodrone.com/products/holybro-x500-v2-pixhawk-development-kit-with-the-pixhawk-6x-standard-m10-gps-915mhz-telemetry-radio) | ~$850, a dealer discount | ~$550: a smaller printed ArduPilot quad with the same electronics ($400–700) |
@@ -45,6 +47,8 @@ What one unit's package costs us at three scales, what it costs to keep up, and 
 | Chargers: two channels | ~$120: two [ISDT 608AC at $59.99](https://www.buddyrc.com/products/isdt-608ac-ac-battgo-smart-battery-charger) | ~$100 | ~$100 |
 | Insulated pack bag | ~$20 (est.) | ~$20 | ~$20 |
 
+**Fibre is now the tip's biggest cost,** and its price is rising. Bare bend-insensitive single-mode fibre (G.657.A2), the kind FPV spools use, was quoted at $33–35 a km in March 2026, about $53–56 a mile. Ready-wound 50 km spools went from about $300 to about $2,500 over the year, about $80 a mile, as AI data centres took the same fibre ([DroneXL](https://dronexl.co/2026/05/11/ukraine-fiber-optic-spool-price-ai-data-center-demand/)). Retail 10 km FPV spools are listed at about €200 ([Elfcams](https://www.elfcams.com/us/product/29204)), about $37 a mile. We plan on $55–80 a mile. **The laser is cheap:** the 1310 nm laser in fibre-to-the-home modems comes already joined to a lead of the same fibre, and is listed at $5–9, buy-one minimum ([GoldSupplier](https://www.goldsupplier.com/provide/p100619675.html), one listing, unconfirmed).
+
 The small batch costs about the same per dart as the prototype because it pays for assembly. Bulk pricing saves about what the labour adds. The phone or tablet that shows the alarm is the unit's own Android phone, so it is not in the package. The tip dart, the base box and the wire are a design, not yet built ([the fibres and the base box]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)); their prices are estimates in every column.
 
 ## One unit's package
@@ -53,13 +57,15 @@ The lay model plans **16 darts** on its example sector, all in the front row, 2 
 
 | Part of the package | Prototype | Small batch (est.) | Production (est.) |
 |---|---|---|---|
-| 22 darts | $693 | $638 | $440 |
-| 4 tip darts | $406 | $376 | $280 |
+| 22 darts | $781 | $704 | $484 |
+| 4 tip darts | $520 | $488 | $380 |
 | Base box and the wire to the positions | $180 | $170 | $120 |
 | Delivery drone, harness, navigation and confirm kit, 6 packs, 2 chargers, pack bag | $1,573 | $1,397 | $1,024 |
-| **Package: our total cost** | **~$2,850** | **~$2,580** | **~$1,860** |
+| **Package: our total cost** | **~$3,050** | **~$2,760** | **~$2,010** |
 
-Darts are costed at the middle of each range. **What the lay model added to the drone:** the flow-and-lidar sensor ($42), the confirm radio ($20), 4 more packs and a second charger ($340) and a pack bag ($20), about $420 in all. A unit that already flies an ArduPilot quad can take the package without the drone and its packs: darts, tip darts, base box and wire, harness, flow sensor and confirm radio, about $1,250 in a small batch.
+Darts are costed at the middle of each range. **What the lay model added to the drone:** the flow-and-lidar sensor ($42), the confirm radio ($20), 4 more packs and a second charger ($340) and a pack bag ($20), about $420 in all. A unit that already flies an ArduPilot quad can take the package without the drone and its packs: darts, tip darts, base box and wire, harness, flow sensor and confirm radio, about $1,430 in a small batch.
+
+**What solar and the fibre price changed:** solar adds about $3 a dart in a small batch, and the fibre's rise adds about $28 a tip dart. Together they put about $180 on the package, and they cut the yearly bill by two-thirds ([below](#keeping-it-up)).
 
 **What fibre changed:** the last plan, radio trunks, carried 40 darts and 3 receivers for about $2,620 in a small batch, and still needed about $60–100 of forward roots on fibre to survive the unit's own jammers. Fibre to the front row drops 12 relay darts and the receivers, adds 4 tip darts, a base box and a wire, and needs nothing more for our own jammers.
 
@@ -67,36 +73,41 @@ Darts are costed at the middle of each range. **What the lay model added to the 
 
 Darts aren't recovered. Every net is re-laid when its cells run down, and darts lost to shelling are replaced. **A re-lay is about 22 darts and 7 sorties:** about 20 darts and 2.6 tip darts on average. The drone comes home, except about 0.15 times a lay, at the model's guess of 2% lost per sortie. The base box and the wire stay.
 
-| Cell life | Re-lays a year | Our cost at prototype (~$1,020 a re-lay) | Our cost in production (~$660 a re-lay, est.) |
+**Solar sets how often.** A dart listens all the time to relay its neighbours, about 105 mAh a day. A 2.4 in panel lying flat on its pod collects about that much in November and more from March to October, but only about half of it in December and two-thirds in January (PVGIS sunlight records for Donetsk oblast, 2015–2020, est.). Over November to January a dart falls about 3,200 mAh short, more than its cell holds, so the net still goes flat in midwinter. Snow, shade in tree belts and frost, when the charger must not charge, make it worse.
+
+| Power | Re-lays a year | Our cost at prototype (~$1,190 a re-lay) | Our cost in production (~$770 a re-lay, est.) |
 |---|---|---|---|
-| 2 weeks | 26 | ~$26,600 | ~$17,100 |
-| 4 weeks | 13 | ~$13,300 | ~$8,500 |
-| 12 weeks | 4 | ~$4,100 | ~$2,600 |
+| **Solar, 4 winter re-lays (the plan)** | 4 | **~$4,760** | **~$3,080** |
+| Solar, 2 winter re-lays | 2 | ~$2,380 | ~$1,540 |
+| No solar, 4-week cells | 13 | ~$15,500 | ~$10,000 |
+| No solar, 2-week cells | 26 | ~$30,900 | ~$20,000 |
 
-A re-lay's cost is about 22 darts, plus 0.15 of a drone (about $140 at prototype prices, $80 in production), plus about $2 of pack wear. **Repairs between re-lays** cost one dart each, about $27–31, or one tip dart, about $90–100, plus about $0.30 of pack wear a sortie; up to 4 darts go on one sortie ([When it breaks]({{ site.baseurl }}{% link models/line-layout.md %}#when-it-breaks)).
+A re-lay's cost is about 22 darts, plus 0.15 of a drone (about $140 at prototype prices, $80 in production), plus about $2 of pack wear. **Repairs between re-lays** cost one dart each, about $30–34, or one tip dart, about $122, plus about $0.30 of pack wear a sortie; up to 4 darts go on one sortie ([When it breaks]({{ site.baseurl }}{% link models/line-layout.md %}#when-it-breaks)). With solar, losses to shelling are a bigger share of the bill than before.
 
-None of these cell lives is measured. Every dart now keeps its radio listening to relay its neighbours, and tip darts also flash a laser heartbeat every 10 s, so tips may run down first. Test T12 decides which row is real, and it is the biggest number in the whole budget. **T10 is next:** each dart that lands upright instead of tilted saves one re-drop, and at 95% upright a lay uses about 20 darts instead of 22, about $900 a year at small-batch prices and four-week cells.
+None of this is measured. T12 now has two halves: how long a cell lasts, and how much a panel collects through a winter, with the cold-charging cutoff. It is the biggest number in the whole budget. **T10 is next:** each dart that lands upright instead of tilted saves one re-drop, and at 95% upright a lay uses about 20 darts instead of 22, about $250 a year at small-batch prices and 4 re-lays.
 
 ## Guarding a road
 
-From the [route model]({{ site.baseurl }}{% link models/route-guard.md %}), run on two invented 4 mi roads. Small-batch costs to us (est.). A **post** is about $45: the dart's board, 4 cells, a 2 ft whip and a stake. The drone is the position package's, with 6 more packs and 2 more charger channels so a fence goes in in a day. The fence comes home on FPV fibre: every 2 mi a **tip dart** (about $94) sends its alerts down a fibre to a post, which carries a **fibre end** (a light detector, connector and box, about $20, est.).
+From the [route model]({{ site.baseurl }}{% link models/route-guard.md %}), run on two invented 4 mi roads. Small-batch costs to us (est.). A **post** is about $49: the dart's board, 4 cells, a 2 ft whip, a stake and a 1 W solar panel tilted toward the sun. The drone is the position package's, with 6 more packs and 2 more charger channels so a fence goes in in a day. The fence comes home on FPV fibre: every 2 mi a **tip dart** (about $122) sends its alerts down a fibre to a post, which carries a **fibre end** (a light detector, connector and box, about $20, est.).
 
 | | Road along the front | Road toward the front |
 |---|---|---|
-| **Package:** 25 posts, 50 or 80 air-dropped darts, 9 or 11 tip darts, 5 or 7 fibre ends, 14 receivers (12 vehicles, 2 checkpoints), the outfitted drone with 12 packs and 4 charger channels | **~$5,690** | **~$6,780** |
+| **Package:** 25 posts, 50 or 80 air-dropped darts, 9 or 11 tip darts, 5 or 7 fibre ends, 14 receivers (12 vehicles, 2 checkpoints), the outfitted drone with 12 packs and 4 charger channels | **~$6,190** | **~$7,430** |
 | Cable and a hooded lamp on every post (proposed, [why]({{ site.baseurl }}{% link models/route-guard.md %}#jamming-and-a-wire-along-the-road)) | ~$800 | ~$800 |
-| One re-lay of the fence: about 46 or 76 darts (6 or 9 of them tip darts), 0.3–0.6 of a lost drone, pack wear | ~$2,000 | ~$3,270 |
-| A year at two-week cells | ~$66,400 | ~$101,900 |
-| **A year at four-week cells:** 13 re-lays, posts every 16 weeks, repairs between re-lays and cut fibres | **~$37,300** | **~$56,300** |
-| A year at twelve-week cells | ~$17,900 | ~$25,900 |
-| **A mile a year at four-week cells** | **~$9,300** | **~$14,000** |
-| Package at +50% | ~$8,540 | ~$10,180 |
+| One re-lay of the fence: about 46 or 76 darts (6 or 9 of them tip darts), 0.3–0.6 of a lost drone, pack wear | ~$2,290 | ~$3,710 |
+| **A year with solar, 4 winter re-lays:** no post cell swaps, repairs between re-lays and cut fibres | **~$18,600** | **~$27,200** |
+| A year with solar, 2 winter re-lays | ~$14,000 | ~$19,700 |
+| A year without solar, four-week cells: 13 re-lays, post cells every 16 weeks | ~$42,600 | ~$63,900 |
+| **A mile a year with solar, 4 winter re-lays** | **~$4,700** | **~$6,700** |
+| Package at +50% | ~$9,280 | ~$11,150 |
 
-- **The fence is 70–76% of the bill.** Posts carry 4 cells and should last about 4 times as long as a dart (T12).
-- **Fibre made it cheaper.** On radio trunks the package was about $5,900–7,060 and a year at four-week cells about $44,400–64,500. Each fibre replaces about 5 relay darts.
-- **Cut fibres are a new running cost:** at a guessed 1% of days each, about 18–26 new tip darts a year, about $2,000–2,800.
+- **Solar cut the bill by more than half.** Re-lays fall from 13 a year to 2–4, and posts stop needing cell swaps: a post's tilted 1 W panel collects about twice its daily use even in December, and its 4 cells hold about 100 days in reserve (est.).
+- **Repairs are now half the bill,** about $9,400–12,300 a year: darts and posts lost to shelling, and cut fibres. Battery life no longer dominates; losses do, and those guesses (0.5% of darts and 1% of posts a day) are now the numbers to check.
+- **The fence is 80–86% of the bill.** Lost posts are the rest.
+- **Fibre made it cheaper.** Each fibre replaces about 5 relay darts. Its price rose in 2026, but at $55–80 a mile it is still the cheaper trunk.
+- **Cut fibres are a running cost:** at a guessed 1% of days each, about 18–26 new tip darts a year, about $2,500–3,600.
 - **The drone is the hidden cost again:** at 2% lost per sortie, a re-lay loses about $270–500 of drone.
-- **Posts only,** with no fence: about $1,400 for 25 posts and 14 receivers, and about $6,500 a year. It hears drones land by the road but gives only 4–9 s of warning of a strike.
+- **Posts only,** with no fence: about $1,530 for 25 posts and 14 receivers, and about $3,800 a year, all of it posts lost (about $940 a mile). It hears drones land by the road but gives only 4–9 s of warning of a strike.
 - **Zvook's NW0** is pitched for roads at 1,300–2,000 ft spacing, which is about 11–17 sensors on 4 mi, about $9–16k before power, with no fence ([competitors]({{ site.baseurl }}{% link research/competitors.md %})).
 
 ## Pricing: our cost plus markup
@@ -105,15 +116,15 @@ The price is our total cost of the package plus our markup. At three markups:
 
 | What a unit buys | Our cost, small batch | +30% | +50% | +100% |
 |---|---|---|---|---|
-| **Package:** 22 darts, 4 tip darts, base box and wire, outfitted drone | ~$2,580 | ~$3,360 | **~$3,870** | ~$5,160 |
-| Package without the drone and packs | ~$1,250 | ~$1,630 | ~$1,880 | ~$2,500 |
-| **Re-lay pack:** 20 darts and 3 tip darts | ~$860 | ~$1,120 | **~$1,290** | ~$1,720 |
+| **Package:** 22 darts, 4 tip darts, base box and wire, outfitted drone | ~$2,760 | ~$3,590 | **~$4,140** | ~$5,520 |
+| Package without the drone and packs | ~$1,430 | ~$1,860 | ~$2,150 | ~$2,860 |
+| **Re-lay pack:** 20 darts and 3 tip darts | ~$1,010 | ~$1,310 | **~$1,520** | ~$2,020 |
 
 | What a unit buys | Our cost, production | +30% | +50% | +100% |
 |---|---|---|---|---|
-| **Package** | ~$1,860 | ~$2,420 | **~$2,800** | ~$3,730 |
-| Package without the drone and packs | ~$890 | ~$1,160 | ~$1,340 | ~$1,790 |
-| **Re-lay pack:** 20 darts and 3 tip darts | ~$610 | ~$790 | **~$920** | ~$1,220 |
+| **Package** | ~$2,010 | ~$2,610 | **~$3,020** | ~$4,020 |
+| Package without the drone and packs | ~$1,040 | ~$1,350 | ~$1,560 | ~$2,080 |
+| **Re-lay pack:** 20 darts and 3 tip darts | ~$730 | ~$950 | **~$1,100** | ~$1,460 |
 
 **What the market charges, for comparison** (all from [the competitor analysis]({{ site.baseurl }}{% link research/competitors.md %})):
 
@@ -121,10 +132,10 @@ The price is our total cost of the package plus our markup. At three markups:
 - **Chuyka 3.0 radio detector:** $584 for defence buyers, $701 with VAT. Its maker calls it the most-requested item units buy with e-points.
 - **Zvook NW0:** about $834–950 per sensor, plus 15–18 W of power.
 
-At 50% on small-batch cost, the package is about $1,290 per position, a little more than one NW0. A dart sells for about $38–58 in a small batch at these markups, and a tip dart for about $120–190.
+At 50% on small-batch cost, the package is about $1,380 per position, a little more than one NW0. A dart sells for about $39–68 in a small batch at these markups, and a tip dart for about $160–245.
 
-**A unit's first year** is the package plus 12 re-lays at four-week cells, and about 2 replacement drones. At 50% on small-batch cost, that is about $21,900, or about $8,500 at twelve-week cells (the package plus 3 re-lays and about half a replacement drone). Quote both numbers, as [the competitor analysis]({{ site.baseurl }}{% link research/competitors.md %}#how-to-position) recommends.
+**A unit's first year** with solar is the package plus 3 winter re-lays, with about half a replacement drone in them. At 50% on small-batch cost, that is about $9,000, or about $5,800 if winters need only 2 re-lays (the package plus 1). Without solar, at four-week cells, it would be about $23,700. Quote the range, as [the competitor analysis]({{ site.baseurl }}{% link research/competitors.md %}#how-to-position) recommends.
 
 **Sell like Chuyka:** a defence price without VAT with an end-user certificate, a Brave1 Market listing, then e-point eligibility.
 
-Every cost here except the prototype column is an estimate, and every yearly figure rests on an unmeasured battery life, an assumed landing rate and a guessed drone-loss rate.
+Every cost here except the prototype column is an estimate, and every yearly figure rests on an unmeasured battery life and winter solar harvest, an assumed landing rate, and guessed loss rates for darts, posts, fibres and drones.
