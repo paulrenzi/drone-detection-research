@@ -57,8 +57,7 @@
   }
   var FRONT = frontRow(), NF = FRONT.length;
   var LAYOUTS = {
-    trunk: { label: "One trunk", legs: [Math.floor((NF - 1) / 2)] },
-    v: { label: "V: two trunks", legs: [1, NF - 2] }
+    v: { label: "two trunks", legs: [1, NF - 2] }
   };
 
   var svg = el("svg", { viewBox: "0 0 600 590", width: "100%", role: "img",

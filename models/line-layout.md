@@ -21,10 +21,6 @@ The planning numbers, none measured yet:
 ## The net
 
 <figure style="margin:12px 0 8px;max-width:600px">
-<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
-<button type="button" class="btn btn-sm" data-layout="v">V: two trunks · 20 darts</button>
-<button type="button" class="btn btn-sm" data-layout="trunk">One trunk · 15 darts</button>
-</div>
 <div id="line-layout"></div>
 <figcaption style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px">
 <button type="button" id="line-layout-play" class="btn btn-sm">Play</button>
@@ -61,16 +57,15 @@ At 60 mph (88 ft a second), 65 s means hearing the drone **5,720 ft out**.
 
 **The net is wider than the unit.** 1.7 mi of front is roughly what 40 soldiers hold at 15 per km. Neighbouring units can share one continuous front row, at about 5.5 darts per mile of front, and each adds only its own trunk.
 
-## Depth against failure
+## Two trunks, for redundancy
 
-| Layout | Darts | Longest route home | One dart knocked out |
-|---|---|---|---|
-| **One trunk** from the middle of the row | **15**: 10 listening + 5 relay | 11 hops | A trunk dart: the whole net goes silent. A front dart: every dart beyond it |
-| **V: two trunks**, one from each end of the row | **20**: 10 listening + 10 relay | 9 hops | **Never more than 1 other dart.** Alerts go the other way along the front row to the other trunk |
+**The net always has two trunks,** one from each end of the front row: **20 darts**, 10 listening and 10 relay. For one position instead of three, the row is 9 darts, so 19 in all.
 
-For one position instead of three, the row is 9 darts: **14** with one trunk, **19** with the V.
+- **No single dart can silence it.** Knocking out any one dart cuts off at most 1 other. If a trunk dart dies, alerts run the other way along the front row to the other trunk.
+- **A single trunk is not offered.** It would save 5 darts, but one dead relay would silence the whole net, and every front dart beyond a dead one would go quiet.
+- **The longest route home is 9 hops.** At 0.05–1 s a hop that adds at most about 9 s, and short hops allow the fast radio settings (airtime estimate).
 
-**We recommend the V.** Its 5 extra darts are the cheapest insurance in the design: with one trunk, a single dead relay silences the whole net. 11 hops at 0.05–1 s each add at most about 11 s, and short hops allow the fast radio settings (airtime estimate). What it costs is on [Projected costs]({{ site.baseurl }}{% link costs.md %}).
+What the package costs is on [Projected costs]({{ site.baseurl }}{% link costs.md %}).
 
 ## Laying the net
 
@@ -81,7 +76,7 @@ Nobody walks a mile forward to plant darts. A small drone does it, with no pilot
 3. **Lay the trunks first, then the front row.** A dart can only report once the darts behind it are down. Laid from the unit outward, every new dart checks in through the net as soon as it lands, so the crew sees each one arrive.
 4. **Check the net.** The receiver lists every dart that has checked in and how strong its link is. A missing or weak dart gets a spare dropped beside it on the next sortie.
 
-**The V's 20 darts are 5 sorties:** two for the trunks and three for the front row. The longest flies about 1.1 mi out, along about half a mile of the row and back. An X500-class quad with 4 darts is estimated at 11–12 minutes' hover ([Hardware]({{ site.baseurl }}{% link build-hardware.md %})); whether a sortie that long fits one battery is test T13.
+**The net's 20 darts are 5 sorties:** two for the trunks and three for the front row. The longest flies about 1.1 mi out, along about half a mile of the row and back. An X500-class quad with 4 darts is estimated at 11–12 minutes' hover ([Hardware]({{ site.baseurl }}{% link build-hardware.md %})); whether a sortie that long fits one battery is test T13.
 
 ### Finding the drop points when GPS is jammed
 
@@ -98,9 +93,9 @@ A downward camera could also record each drop, so the crew can check after landi
 
 ## What placement has to get right
 
-**Accuracy decides the dart count.** The 20-dart V assumes every dart lands on its point. A dart that lands off its point can end up beyond radio reach of its neighbour. So the plan has to shrink every gap by twice the expected drop error:
+**Accuracy decides the dart count.** The 20-dart net assumes every dart lands on its point. A dart that lands off its point can end up beyond radio reach of its neighbour. So the plan has to shrink every gap by twice the expected drop error:
 
-| Drop error | Planned spacing | Front row | Relays per trunk | V total |
+| Drop error | Planned spacing | Front row | Relays per trunk | Total |
 |---|---|---|---|---|
 | none | 980 ft | 10 | 5 | **20** |
 | ±33 ft | 914 ft | 11 | 6 | **23** |
