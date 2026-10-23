@@ -6,7 +6,7 @@
   var box = document.getElementById("route-model");
   if (!box) return;
   var NS = "http://www.w3.org/2000/svg";
-  var ACC = "#c2562c", GREEN = "#4f7a3a", BLUE = "#1f5f8b", GREY = "#8a8a8a", RED = "#b3261e", ROAD = "#b39a6b";
+  var ACC = "#c2562c", GREEN = "#4f7a3a", BLUE = "#1f5f8b", GREY = "#8a8a8a", RED = "#b3261e", ROAD = "#b39a6b", FIBRE = "#6b3fa0";
   var svg, D, K, YMIN, XMAX, TOP = 64, scenes = [], total = 0, panel, btn, G = {};
 
   function el(tag, attrs, parent) {
@@ -61,7 +61,7 @@
       style: "font-family:inherit;color:inherit;display:block" }, box);
     el("title", { id: "rtTitle" }).textContent = "A supply road guarded by posts and a fence of darts, with three drones from the route model";
     el("desc", { id: "rtDesc" }).textContent = "A top-down map of a 4 mile road running toward the front, enemy to the right. Posts stand along the road; " +
-      "a fence of darts about a mile out wraps the road on every side a drone can come from, joined to the road by trunks. " +
+      "a fence of darts about a mile out wraps the road on every side a drone can come from, joined to the road by FPV fibres from tip darts to posts. " +
       "A drone flying in to hunt the road is heard at the fence and the stretch it can reach goes hot about 84 seconds before it could get there; trucks stop. " +
       "A second drone flies in and lands beside the road; a post hears it come down and the stretch stays hot until a team clears it. " +
       "A third drone, carried in on foot and launched near the road, is heard about a second before it strikes.";
@@ -89,6 +89,10 @@
       if (D.nodes[l[0]].post && D.nodes[l[1]].post) return;
       el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: BLUE, "stroke-opacity": 0.35, "stroke-width": 1 }, G.links);
     });
+    (D.fibres || []).forEach(function (f) {
+      var a = sx(D.nodes[f[0]].p), b = sx(D.nodes[f[1]].p);
+      el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: FIBRE, "stroke-opacity": 0.75, "stroke-width": 1.6, "stroke-dasharray": "5 4" }, G.links);
+    });
     el("path", { d: roadPath(0, D.L), fill: "none", stroke: ROAD, "stroke-width": 5, "stroke-linecap": "round" });
     G.hot = el("path", { d: "", fill: "none", stroke: RED, "stroke-width": 8, "stroke-opacity": 0.55, "stroke-linecap": "round" });
     G.hot2 = el("path", { d: "", fill: "none", stroke: RED, "stroke-width": 8, "stroke-opacity": 0.55, "stroke-linecap": "round" });
@@ -100,6 +104,7 @@
       var nd = D.nodes[n], q = sx(nd.p);
       G.dot[n] = nd.post ? el("rect", { x: q[0] - 2.6, y: q[1] - 2.6, width: 5.2, height: 5.2, fill: GREEN })
         : el("circle", { cx: q[0], cy: q[1], r: n[0] === "F" ? 2.8 : 2.2, fill: "#fff", stroke: n[0] === "F" ? ACC : BLUE, "stroke-width": 1.4 });
+      if (nd.tip) el("circle", { cx: q[0], cy: q[1], r: 5.5, fill: "none", stroke: FIBRE, "stroke-width": 1.4 });
     });
     // labels for the parts
     G.parts = el("g", {});
@@ -107,8 +112,8 @@
     G.lblFence = text(lp[0], lp[1] - 8, "fence, 1 mi out", { "font-size": 11, "font-weight": 700, fill: ACC, "text-anchor": "middle" }, G.parts);
     var tp = D.posts[Math.round(D.posts.length * 0.3)].p, tq = sx(tp);
     G.lblPosts = text(tq[0], tq[1] + 16, "posts along the road", { "font-size": 11, "font-weight": 700, fill: GREEN, "text-anchor": "middle" }, G.parts);
-    var tr = D.runs[0].trunks[1], trp = tr.relays[Math.floor(tr.relays.length / 2)], trq = sx(trp);
-    G.lblTrunk = text(trq[0] + 6, trq[1] + 3, "trunk", { "font-size": 11, "font-weight": 700, fill: BLUE }, G.parts);
+    var fb = D.fibres[1], trq = sx(lerp(D.nodes[fb[0]].p, D.nodes[fb[1]].p, 0.5));
+    G.lblTrunk = text(trq[0] + 6, trq[1] + 3, "fibre", { "font-size": 11, "font-weight": 700, fill: FIBRE }, G.parts);
     // scale
     var mi1 = 5280 * K;
     el("line", { x1: 14, y1: H - 14, x2: 14 + mi1, y2: H - 14, stroke: "currentColor", "stroke-width": 3 });
@@ -167,7 +172,7 @@
     out.push([8, function (u) {
       clearFx(); G.parts.setAttribute("opacity", 1);
       G.clock.textContent = "A guarded road, to scale"; G.board.textContent = ""; G.count.textContent = "";
-      say("A 4-mile road running toward the front. Posts every 1,060 ft along it, placed by hand. A fence of darts about a mile out on every side a drone can come from, dropped by drone and joined to the road by trunks every 2 mi.");
+      say("A 4-mile road running toward the front. Posts every 1,060 ft along it, placed by hand. A fence of darts about a mile out on every side a drone can come from, dropped by drone. Every 2 mi a tip dart in the fence sends its alerts to a post down an FPV fibre the drone paid out as it laid it.");
     }]);
     // ---- 1. a drone flies in to hunt the road
     var x1 = 10, heardAt = ev1.heard[ev1.first][0], alertAt = heardAt + 3 + 0.3 * ev1.home.length;
@@ -192,7 +197,7 @@
       if (tr < heardAt) { G.board.textContent = "Road clear"; G.board.setAttribute("fill", GREEN);
         say("A drone flies in from the enemy side to hunt the road. Two trucks are moving."); }
       else if (tr < tA) { G.board.textContent = "HOT: mile " + mi(hot1[0]) + " to " + mi(hot1[1]) + " · it can reach the road in " + Math.max(0, Math.round(tA - tr)) + " s"; G.board.setAttribute("fill", RED);
-        say("A dart on a trunk hears it " + ((tA - heardAt) * D.fts / 5280).toFixed(1) + " mi from the road. The alert is at the road in about " + Math.round(3 + 0.3 * ev1.home.length) + " s, " + Math.round(ev1.warn) + " s before the drone can be. The truck inside the stretch stops under the trees; the one behind holds short."); }
+        say("A dart in the fence hears it " + ((tA - heardAt) * D.fts / 5280).toFixed(1) + " mi from the road. The alert is at the road in about " + Math.round(3 + 0.3 * ev1.home.length) + " s, " + Math.round(ev1.warn) + " s before the drone can be. The truck inside the stretch stops under the trees; the one behind holds short."); }
       else if (tr < tEnd - 8) { G.board.textContent = "HOT: drone over the road"; G.board.setAttribute("fill", RED);
         say("It reaches the road and hunts along it. The posts track it as it goes, but nothing on the road is moving."); }
       else { G.board.textContent = tr < tEnd ? "HOT: drone leaving" : "Road clear"; G.board.setAttribute("fill", tr < tEnd ? RED : GREEN);

@@ -10,12 +10,12 @@ A net in front of a position protects people who are a few yards from a dugout, 
 
 ## Short answer
 
-- **A guard has two parts.** Posts stand along the road, placed by hand. A fence of air-dropped darts runs about a mile out on every side a drone can come from, joined to the road by trunks.
-- **The fence gives the minute.** In the model, every drone flying in to strike the road, from anywhere within 60° of the enemy, is heard at least 58 s before it can reach the road; the median is 71–100 s. Posts alone give 4–9 s.
+- **A guard has two parts.** Posts stand along the road, placed by hand. A fence of air-dropped darts runs about a mile out on every side a drone can come from. Every 2 mi a **tip dart** in the fence sends its alerts to a post down an FPV fibre, as on the [position net]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box), so nothing between the fence and the road uses radio.
+- **The fence gives the minute.** In the model, every drone flying in to strike the road, from anywhere within 60° of the enemy, is heard at least 60 s before it can reach the road; the median is 72–102 s. Posts alone give 4–9 s.
 - **The posts catch drones landing to wait.** Every landing within 300 ft of the road is heard, about 340 ft from the post that hears it loudest. The alert, "drone waiting near post 17", stays up until someone clears it.
-- **How many:** 21 posts and 60–93 darts for 4 mi of road, **about 20–28 a mile**. A road running toward the front costs more than one running along it, because the fence has to wrap both sides and the forward end.
-- **What it costs us:** a package of about **$5,900–7,100**, then about **$44–64k a year** at four-week cells, **$11–16k a mile**. That is about what one unit's position net costs. Posts alone cost about $1,400 and $6,500 a year; they find landings but give no minute.
-- **Jamming: the trucks' own jammers are the threat, and a wire answers it.** A truck's jammer deafens its own receiver and the posts near it, so a radio-only guard tells a jamming truck nothing on the move. Posts on a cable along the verge, each with a hooded lamp facing the road, keep the warning in the model (100% of tracks with a minute) for about $200 a mile more (est.). In the worst case for jamming, the truck's jammer reaches the fence too.
+- **How many:** 21 posts and 35–58 darts for 4 mi of road, **about 14–20 a mile**. A road running toward the front costs more than one running along it, because the fence has to wrap both sides and the forward end. Fibre took out the 25–35 relay darts the radio trunks needed.
+- **What it costs us:** a package of about **$5,700–6,800**, then about **$37–56k a year** at four-week cells, **$9–14k a mile**. Posts alone cost about $1,400 and $6,500 a year; they find landings but give no minute.
+- **Jamming: the trucks' own jammers are the threat, and a wire answers it.** A truck's jammer deafens its own receiver and the posts near it, so a radio-only guard tells a jamming truck nothing on the move. Posts on a cable along the verge, each with a hooded lamp facing the road, keep the warning in the model (100% of tracks with a minute) for about $200 a mile more (est.). In the worst case for jamming, the truck's jammer reaches the fence too, and the fibres only partly save it.
 - **What it misses:** drones parked before it was laid, drones carried in on foot, and landings more than about 600 ft from the road. Our own drone crews, who live in this strip, are a risk worse here than at a position.
 
 1. TOC
@@ -35,8 +35,8 @@ A net in front of a position protects people who are a few yards from a dugout, 
 
 The model's example road, to scale, with the enemy to the right: 4 mi running toward the front, from a depot 5.7 mi back to 1.7 mi behind our positions. Every position, hearing and warning comes from the model; time runs ten times faster, except in the last scene.
 
-1. **Hear.** Every dart and post listens all the time. A fence dart or trunk dart that hears a drone passes "drone, heading in" to its neighbour.
-2. **Get it to the road.** The alert hops along the fence to the nearest trunk and down it to a post, at most 11 hops.
+1. **Hear.** Every dart and post listens all the time. A fence dart that hears a drone passes "drone, heading in" to its neighbour.
+2. **Get it to the road.** The alert hops along the fence to the nearest tip dart, at most 6 hops, and the tip sends it down its fibre to a post as flashes of a small laser. Light only goes one way, home, and a heartbeat every 10 s shows the fibre is whole.
 3. **Spread it along the road.** Posts relay every alert along the road. Their 2 ft whips on stakes should reach about 2,500 ft, more than two posts' spacing, so one dead post breaks nothing (an estimate; T9 measures it). Proposed: a cable along the verge as well, so posts share alerts where radio is jammed ([below](#jamming-and-a-wire-along-the-road)).
 4. **Show it.** Every vehicle carries a receiver that never transmits, so a truck gives nothing away. It and a board at each checkpoint show which stretches are hot. Drivers check before setting out; anyone on a hot stretch stops under cover.
 5. **Count in and out.** A drone heard crossing the fence inward stays on the count until it is heard leaving, heard landing, or cleared.
@@ -45,7 +45,7 @@ The model's example road, to scale, with the enemy to the right: 4 mi running to
 
 | Alert | What sets it off | What it says | When it clears |
 |---|---|---|---|
-| **Inbound** | A fence or trunk dart hears a drone | "Hot: mile 0.7 to 2.7". The stretch a drone could reach | The fence hears it leave, or a set time passes with nothing heard |
+| **Inbound** | A fence dart hears a drone | "Hot: mile 0.7 to 2.7". The stretch a drone could reach | The fence hears it leave, or a set time passes with nothing heard |
 | **Waiting** | A post hears a drone close by, then nothing: no strike, nothing heard leaving | "Drone waiting near post 17, mile 3.2" | A team clears it |
 
 **The waiting alert is the one nothing else gives.** A drone waiting with its motors off is silent, but it had to fly there, and it lands within earshot of a post. It then sits on the ground for hours, unable to move fast. That is when to deal with it. In the model, the stretch to search is the post's neighbourhood, about 2,600 ft of road. Two posts hear the landing only 13–24% of the time, so a finer fix needs posts on both sides of the road.
@@ -54,18 +54,22 @@ The model's example road, to scale, with the enemy to the right: 4 mi running to
 
 ## How many darts
 
-| Road, 4 mi | Posts | Fence | Fence darts | Trunks (relays) | Air-dropped | Per mile, all |
+| Road, 4 mi | Posts | Fence | Fence darts | Of them, tip darts (fibre) | Air-dropped | Per mile, all |
 |---|---|---|---|---|---|---|
-| Running along the front, 2.3 mi back | 21 | 6.2 mi | 35 | 5 (25) | 60 | **20** |
-| Running toward the front, 1.7–5.7 mi back | 21 | 10.2 mi | 58 | 7 (35) | 93 | **28** |
+| Running along the front, 2.3 mi back | 21 | 6.2 mi | 35 | 5 (5.6 mi of fibre) | 35 | **14** |
+| Running toward the front, 1.7–5.7 mi back | 21 | 10.2 mi | 58 | 7 (7.8 mi of fibre) | 58 | **20** |
+
+On radio trunks the same fences needed 60 and 93 air-dropped darts: 25–35 of them were relays.
 
 **The rules the planner uses:**
 
 - **Posts every 1,100 ft at most.** Then any landing up to 300 ft off the road passes within 635 ft of a post. Posts stand 40 ft off the road.
 - **The fence sits 5,316 ft out,** the same distance as the position net's front row, for the same reason: a drone at 60 mph crossing midway between two darts is heard 65 s out.
 - **The fence only goes where a drone heading for the road would cross.** The planner flies tracks at every point of the road from every angle within 60° of the enemy, and puts the fence where they cross 5,316 ft from the road, plus 300 ft at each end. Behind the depot no track crosses, so the back is left open.
-- **Fence darts sit about 960 ft apart,** one radio hop, as on the position net. **A trunk every 2 mi** brings alerts to the road, so no fence dart is more than about 6 hops from one, and every fence dart has two ways home.
-- **The planner moves darts off trees,** and moves a trunk that would run along a windbreak to the next fence dart.
+- **Fence darts sit about 960 ft apart,** one radio hop, as on the position net. **A fibre every 2 mi** brings alerts to the road, so no fence dart is more than about 6 hops from a tip, and every fence dart has two ways home.
+- **Each fibre runs from its tip to the nearest post,** about a mile. A tip's spool holds about 1.2 mi, and the planner allows 10% for the fibre not lying straight, so it moves a tip to the next fence dart if its fibre would be too long.
+- **Fibre must not lie across the road,** where trucks would cut it. Posts stand on one side, so where the fence is across the road from them, the fibre ends at a box on the near verge, joined to its post by a short cable buried under the road, laid by hand with the posts (est. a few dollars; not modelled).
+- **The planner moves darts off trees.**
 
 ## What the model found
 
@@ -74,25 +78,29 @@ Every drone flies straight at 60 mph toward a point on the road, from 7.5 mi out
 | Road, 4 mi | Guard | Worst warning | 1 track in 10 below | Median | Tracks with a minute (55 s) |
 |---|---|---|---|---|---|
 | Along the front | Posts only | 0 s | 2 s | 4 s | 0% |
-| Along the front | **Posts and fence** | **58 s** | 61 s | 71 s | **100%** |
+| Along the front | **Posts and fence** | **60 s** | 63 s | 72 s | **100%** |
 | Toward the front | Posts only | 2 s | 4 s | 9 s | 9% |
-| Toward the front | **Posts and fence** | **59 s** | 68 s | 100 s | **100%** |
+| Toward the front | **Posts and fence** | **61 s** | 69 s | 102 s | **100%** |
 
 - **Landings within 300 ft of the road: all heard by a post.** The loudest post is a median 340–350 ft from the drone, and 9 in 10 within 525–585 ft.
-- **One dead dart or post costs little.** The worst single loss leaves 98–99% of tracks with a minute.
-- **Between repairs**, assuming each dart is lost 0.5% of days and each post 1% (shelling, traffic, scavenging: guesses), and the daily roll call finds a loss within a day: about one node is down at a time. Tracks with a minute average 99–100%, 88–96% on the worst day sampled; landings heard average 99%.
-- **Laying the fence, GPS jammed, every dart confirmed,** 200 lays: about 77 darts and 23 sorties for the road along the front, 119 darts and 35 sorties for the road toward it. The planned net is whole after 99–100% of lays.
+- **One dead dart or post costs little.** The worst single loss leaves 98% of tracks with a minute.
+- **One cut fibre costs nothing in the model.** Its tip still relays by radio along the fence to the next tip, so 100% of tracks keep a minute.
+- **Between repairs**, assuming each dart is lost 0.5% of days, each post 1% and each fibre is cut 1% (shelling, traffic, scavenging: guesses), and the daily roll call or the fibre's heartbeat finds a loss within a day: about one node is down at a time. Tracks with a minute average 100%, 83–98% on the worst day sampled (on the road toward the front, a tip and a dart six places along from it down on the same day); landings heard average 99%.
+- **Laying the fence, GPS jammed, every dart confirmed,** 200 lays: about 46 darts and 18 sorties for the road along the front, 76 darts and 28 sorties for the road toward it, 6–9 of them tip darts. On radio trunks it was 77–119 darts and 23–35 sorties. The planned net is whole after 100% of lays.
 
 **If the planning numbers are wrong, the fix is more darts,** as on the position net (per mile, posts and darts):
 
 | Case | Along the front | Toward the front |
 |---|---|---|
-| **Plan** | **20** | **28** |
-| Drones come within 45° of the enemy, not 60° | 18 | 26 |
-| Drones come within 75° | 21 | 29 |
-| Radio hop 800 ft, not 980 | 23 | 33 |
-| Hearing 500 ft, not 656 | 24 | 33 |
-| A trunk every 3 mi, not 2 | 19 | 26 |
+| **Plan** | **14** | **20** |
+| Drones come within 45° of the enemy, not 60° | 13 | 18 |
+| Drones come within 75° | 15 | 20 |
+| Radio hop 800 ft, not 980 | 16 | 22 |
+| Hearing 500 ft, not 656 | 18 | 24 |
+| A fibre every 3 mi, not 2 | 14 | 20 |
+| The last plan: radio relay trunks | 20 | 28 |
+
+A fibre costs no extra darts, since its tip is a fence dart, so fewer fibres save nothing but tip darts. If 1 fibre in 5 breaks while it is laid, not 1 in 20, a lay uses about 2 more darts.
 
 ## Jamming, and a wire along the road
 
@@ -105,24 +113,24 @@ Every drone flies straight at 60 mph toward a point on the road, from 7.5 mi out
 
 - **Twisted pair along the verge,** laid on the same night as the posts. RS-485 runs about 0.7 mi a segment ([TI](https://www.ti.com/document-viewer/SN65HVD72/datasheet/typical-application-sllse118349)), and every post repeats it, so every post knows what any post has heard, with no radio. Posts keep their radios as a backup, so a cut costs nothing unless a jammer is on at the same place.
 - **A hooded lamp on each post, facing the road.** Posts on a hot stretch light up. A driver sees them with the jammer on, and a truck needs no receiver at all. It is the Russian roadside traffic light, driven by the guard. The hood has to hide the lamp from drones overhead; not designed.
-- **Why copper, not fibre:** both are unjammable, but every post on a fibre would need an optical converter at each end, and copper can also carry power. Fibre is light enough to pay out from a drone, which matters at the [position net]({{ site.baseurl }}{% link models/line-layout.md %}#jamming), where nobody can walk the route. Here a crew already stops at every post.
+- **Why copper, not fibre:** both are unjammable, but every post on a fibre would need an optical converter at each end, and copper can also carry power. Fibre is light enough to pay out from a drone, which is why the trunks out to the fence are fibre: nobody walks a mile out to lay them. Along the verge a crew already stops at every post.
 
 | Road, 4 mi | Jammers on | Tracks with a minute, radio guard | Cable and lamps, main estimate | Cable and lamps, worst case |
 |---|---|---|---|---|
 | Along the front | Trench jammers on both sides | 100% | 100% | 100% |
-| Along the front | The truck's own | **0%**: its receiver hears nothing | **100%** | 2% |
-| Toward the front | Trench jammers on both sides | 100% | 100% | 89% |
-| Toward the front | The truck's own | **0%** | **100%** | 22% |
+| Along the front | The truck's own | **0%**: its receiver hears nothing | **100%** | 21% |
+| Toward the front | Trench jammers on both sides | 100% | 100% | 82% |
+| Toward the front | The truck's own | **0%** | **100%** | 46% |
 
-**In the worst case the truck's jammer also reaches the fence** a mile out and stops its darts relaying, and the cable can't fix that. Then a truck has to switch its jammer off on a hot stretch, since it does nothing against fibre-optic FPVs anyway, or the trunks need fibre too. T19, run at range from a vehicle jammer, decides which.
+**In the worst case the truck's jammer also reaches the fence** a mile out and stops its darts relaying. Fibre takes the trunks out of that: 21–46% of tracks keep a minute, against 2–22% on radio trunks. What is left is the fence itself, whose darts relay along the row by radio, and the cable can't fix that. Then a truck has to switch its jammer off on a hot stretch, since it does nothing against fibre-optic FPVs anyway. T19, run at range from a vehicle jammer, decides whether the worst case is real.
 
 **The cable adds about $800 a road, $200 a mile** (est.): about $650 of twisted pair, $2–5 of RS-485 chip and $3 of lamp a post. It saves most of the vehicle receivers.
 
 ## Laying it
 
 - **Posts go in by hand,** from a vehicle at night: 21 stops on a 4 mi road, each post checked with a handheld receiver before the crew moves on. That puts a crew on the shoulder of the road it is guarding. Verges are often mined.
-- **The fence goes in by drone,** with the [lay model's]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net) loop: the drone launches from the road beside the trunk it is building, drops 4 darts a sortie, and confirms every dart by hearing its neighbour relay it. Trunks go first, so every fence dart has a way home before the next one lands.
-- **It is a day's work with more packs.** The road toward the front takes about 6.4 h of flying and charging with 12 packs and a 4-channel charger, 14.7 h with the position package's 6 packs and 2 channels. With GPS jammed it is a daylight job, so the larger kit is the difference between one day and two.
+- **The fence goes in by drone,** with the [lay model's]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net) loop: the drone drops 4 darts a sortie and confirms every dart by hearing its neighbour relay it. **Tips go first,** each as the first drop of its own sortie: the crew ties the fibre off at its post, the drone pays it out on the way to the fence, and the tip's heartbeat at the post confirms it. A tip whose fibre breaks is laid again with a new fibre. So every fence dart has a way home before the next one lands.
+- **It is a day's work with more packs.** The road toward the front takes about 5.1 h of flying and charging with 12 packs and a 4-channel charger, 11.7 h with the position package's 6 packs and 2 channels; the road along the front 3.1 h or 6.5 h. With GPS jammed it is a daylight job, so the larger kit is the difference between one day and two on the longer fence.
 - **The fence is re-laid when its cells run down;** posts carry 4 cells and should last about 4 times as long (T12).
 
 ## Cost
@@ -131,15 +139,17 @@ Small-batch cost to us, from [Projected costs]({{ site.baseurl }}{% link costs.m
 
 | | Along the front | Toward the front |
 |---|---|---|
-| **Package:** 25 posts, 90 or 130 darts, 14 receivers (12 vehicles, 2 checkpoints), the outfitted drone with 12 packs and 4 charger channels | **~$5,900** | **~$7,060** |
-| One re-lay of the fence: darts, about 0.5–0.7 of a lost drone, pack wear | ~$2,630 | ~$4,020 |
-| **A year at four-week cells:** 13 re-lays, posts, repairs between re-lays | **~$44,400** | **~$64,500** |
-| A year at two-week cells | ~$81,700 | ~$119,800 |
-| A year at twelve-week cells | ~$19,500 | ~$27,600 |
-| **A mile a year at four-week cells** | **~$11,100** | **~$16,000** |
+| **Package:** 25 posts, 50 or 80 darts, 9 or 11 tip darts and a fibre end at each fibre's post, 14 receivers (12 vehicles, 2 checkpoints), the outfitted drone with 12 packs and 4 charger channels | **~$5,690** | **~$6,780** |
+| One re-lay of the fence: about 46 or 76 darts (6 or 9 of them tip darts), about 0.3–0.6 of a lost drone, pack wear | ~$2,000 | ~$3,270 |
+| **A year at four-week cells:** 13 re-lays, posts, repairs between re-lays | **~$37,300** | **~$56,300** |
+| A year at two-week cells | ~$66,400 | ~$101,900 |
+| A year at twelve-week cells | ~$17,900 | ~$25,900 |
+| **A mile a year at four-week cells** | **~$9,300** | **~$14,000** |
 
-- **Battery life sets the bill,** as on the position net: the fence's re-lays are 75–80% of a year at four-week cells.
-- **The drone is the hidden cost again.** At the guessed 2% lost per sortie, a re-lay loses about 0.5–0.7 drones, about $400–570.
+- **Battery life sets the bill,** as on the position net: the fence's re-lays are 70–76% of a year at four-week cells.
+- **Fibre made it cheaper.** A tip dart costs about $94 against a dart's $29, but each fibre replaces about 5 relay darts, and fewer darts means fewer sorties and fewer lost drones. A re-lay costs about 19–24% less than on radio trunks.
+- **Cut fibres are a new running cost:** at the guessed 1% of days each, about 18–26 new tips a year, each on its own sortie, about $2,000–2,800.
+- **The drone is the hidden cost again.** At the guessed 2% lost per sortie, a re-lay loses about 0.3–0.6 drones, about $270–500.
 - **Posts only:** about $1,400 for 25 posts and 14 receivers, and about $6,500 a year. No drone is needed. It finds landings by the road but gives 4–9 s of warning of a strike.
 - **The cable and lamps** add about $800 a road ([above](#jamming-and-a-wire-along-the-road)). Repairs to cuts are not costed.
 
@@ -158,7 +168,8 @@ Small-batch cost to us, from [Projected costs]({{ site.baseurl }}{% link costs.m
 | **Drones carried in on foot** and launched near the road | Cross no fence. In the model a post hears it lift off about 1 s before it strikes | Patrols; nothing in the guard | Not fixable by the guard |
 | **Landings more than about 600 ft from the road** | Known to be inside, not where | A second row of posts, or posts on both sides | Not modelled |
 | **The convoy's own jammer** | A vehicle jammer covering 900 MHz blinds the truck's receiver and posts within about 900 ft, on the move, when it matters | Posts on a cable with lamps facing the road: modelled, 100% on the main estimate | Proposed; T19 at range |
-| **The truck's jammer reaching the fence** | In the worst case for jamming, darts a mile out can't relay while it passes | Jammer off on a hot stretch, or fibre trunks | Unknown until T19 |
+| **The truck's jammer reaching the fence** | In the worst case for jamming, darts a mile out can't relay while it passes | Fibre trunks (now the plan) keep 21–46% of tracks; a jammer off on a hot stretch keeps the rest | Unknown until T19 |
+| **A cut fibre** | Shelling, vehicles or people cut a fibre lying a mile across the ground. Guessed at 1% of days each | The tip still relays by radio to the next tip, so no single cut costs a track in the model. The heartbeat shows the cut within 30 s; a new tip is laid on its own sortie | Modelled; T21 |
 | **A cut cable** | Shelling or traffic cuts the cable along the verge | Posts fall back to radio; the roll call finds the break | Not costed |
 | **Our own drones** | Our drone crews live in this strip and cross the fence both ways all day | A cheap beacon on our drones that darts recognise; flight corridors and times (T15) | Not designed |
 | **Traffic noise** | A convoy passing may deafen a post just when a drone lands near it | The fence is far from traffic; landings usually come before the traffic | T20 |
@@ -169,6 +180,7 @@ Small-batch cost to us, from [Projected costs]({{ site.baseurl }}{% link costs.m
 ## What has to be tested
 
 - **T20 (new): hear a landing beside a road.** Fly an FPV-size quad in, land it 50–600 ft from a post, and cut the motors, with and without trucks passing. Does the post tell "landed" from "flew out of range", and how far does a passing truck cut its hearing?
+- **T21 on a road:** lay a tip's fibre from a post a mile out across the ground beside a road, and count how often vehicles, people and weather cut it (1% of days assumed).
 - **T9 with whips:** the post-to-post hop on 2 ft whips, which this page assumes reaches about 2,500 ft.
 - **T19 with a vehicle jammer,** as well as a trench jammer, and at range: how far from a jammer does a post or a dart still receive? That number decides whether the fence works beside a jamming convoy.
 - **A lamp drivers can see and drones can't:** how well does a hood hide it from above?

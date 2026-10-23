@@ -18,7 +18,7 @@ What one unit's package costs us at three scales, what it costs to keep up, and 
 - **One unit's package costs us about $2,850 today,** about $2,580 in a small batch and about $1,860 in production. That is 22 darts, 4 tip darts with their fibre, a base box wired to the positions, and a delivery drone with its navigation and confirm kit, 6 packs and a 2-channel charger.
 - **Fibre made it smaller.** A lay takes about 22 darts, against about 35 on radio trunks: 16 planned on real ground, plus about 6 for bad landings, short hops and broken fibres. The drone is now over half the package.
 - **The price is our cost plus our markup.** At 50%, the package sells for about $3,870 in a small batch, about $1,290 per position.
-- **A road costs more than a position.** Guarding 4 mi of supply road takes a package of about $5,900–7,100 and about $44–64k a year at four-week cells, $11–16k a mile ([below](#guarding-a-road)).
+- **A road costs more than a position.** Guarding 4 mi of supply road takes a package of about $5,700–6,800 and about $37–56k a year at four-week cells, $9–14k a mile ([below](#guarding-a-road)).
 - **Re-lays are the real bill.** At four-week cells, a unit re-lays 13 times a year. Battery life (T12) decides whether a year costs us about $4,100 or $26,600 at prototype prices. Landing reliability (T10) is the next lever: at 95% upright instead of 85%, each lay uses about 2 fewer darts.
 
 ## Per component
@@ -79,21 +79,23 @@ None of these cell lives is measured. Every dart now keeps its radio listening t
 
 ## Guarding a road
 
-From the [route model]({{ site.baseurl }}{% link models/route-guard.md %}), run on two invented 4 mi roads. Small-batch costs to us (est.). A **post** is about $45: the dart's board, 4 cells, a 2 ft whip and a stake. The drone is the position package's, with 6 more packs and 2 more charger channels so a fence goes in in a day.
+From the [route model]({{ site.baseurl }}{% link models/route-guard.md %}), run on two invented 4 mi roads. Small-batch costs to us (est.). A **post** is about $45: the dart's board, 4 cells, a 2 ft whip and a stake. The drone is the position package's, with 6 more packs and 2 more charger channels so a fence goes in in a day. The fence comes home on FPV fibre: every 2 mi a **tip dart** (about $94) sends its alerts down a fibre to a post, which carries a **fibre end** (a light detector, connector and box, about $20, est.).
 
 | | Road along the front | Road toward the front |
 |---|---|---|
-| **Package:** 25 posts, 90 or 130 air-dropped darts, 14 receivers (12 vehicles, 2 checkpoints), the outfitted drone with 12 packs and 4 charger channels | **~$5,900** | **~$7,060** |
+| **Package:** 25 posts, 50 or 80 air-dropped darts, 9 or 11 tip darts, 5 or 7 fibre ends, 14 receivers (12 vehicles, 2 checkpoints), the outfitted drone with 12 packs and 4 charger channels | **~$5,690** | **~$6,780** |
 | Cable and a hooded lamp on every post (proposed, [why]({{ site.baseurl }}{% link models/route-guard.md %}#jamming-and-a-wire-along-the-road)) | ~$800 | ~$800 |
-| One re-lay of the fence: about 77 or 119 darts, 0.5–0.7 of a lost drone, pack wear | ~$2,630 | ~$4,020 |
-| A year at two-week cells | ~$81,700 | ~$119,800 |
-| **A year at four-week cells:** 13 re-lays, posts every 16 weeks, repairs between re-lays | **~$44,400** | **~$64,500** |
-| A year at twelve-week cells | ~$19,500 | ~$27,600 |
-| **A mile a year at four-week cells** | **~$11,100** | **~$16,000** |
-| Package at +50% | ~$8,850 | ~$10,590 |
+| One re-lay of the fence: about 46 or 76 darts (6 or 9 of them tip darts), 0.3–0.6 of a lost drone, pack wear | ~$2,000 | ~$3,270 |
+| A year at two-week cells | ~$66,400 | ~$101,900 |
+| **A year at four-week cells:** 13 re-lays, posts every 16 weeks, repairs between re-lays and cut fibres | **~$37,300** | **~$56,300** |
+| A year at twelve-week cells | ~$17,900 | ~$25,900 |
+| **A mile a year at four-week cells** | **~$9,300** | **~$14,000** |
+| Package at +50% | ~$8,540 | ~$10,180 |
 
-- **The fence is 75–80% of the bill.** Posts carry 4 cells and should last about 4 times as long as a dart (T12).
-- **The drone is the hidden cost again:** at 2% lost per sortie, a re-lay loses about $400–570 of drone.
+- **The fence is 70–76% of the bill.** Posts carry 4 cells and should last about 4 times as long as a dart (T12).
+- **Fibre made it cheaper.** On radio trunks the package was about $5,900–7,060 and a year at four-week cells about $44,400–64,500. Each fibre replaces about 5 relay darts.
+- **Cut fibres are a new running cost:** at a guessed 1% of days each, about 18–26 new tip darts a year, about $2,000–2,800.
+- **The drone is the hidden cost again:** at 2% lost per sortie, a re-lay loses about $270–500 of drone.
 - **Posts only,** with no fence: about $1,400 for 25 posts and 14 receivers, and about $6,500 a year. It hears drones land by the road but gives only 4–9 s of warning of a strike.
 - **Zvook's NW0** is pitched for roads at 1,300–2,000 ft spacing, which is about 11–17 sensors on 4 mi, about $9–16k before power, with no fence ([competitors]({{ site.baseurl }}{% link research/competitors.md %})).
 

@@ -1,7 +1,8 @@
 """Route model: guarding a supply road with the tripwire.
 
 Plans a guard on a road map: posts along the road, placed by hand, and a fence of air-dropped
-darts about a mile out on every side a drone can come from, joined to the road by trunks. Lays
+darts about a mile out on every side a drone can come from, joined to the road by trunks: an FPV
+fibre from a tip dart in the fence to a post, or with FIBRE off, a row of radio relays. Lays
 the fence many times in simulation with the lay model's drop errors, bad landings, radio fading
 and drop-then-confirm. Then scores the guard against drones flying in to strike and drones flying
 in to land and wait, and against darts dying between repairs.
@@ -33,6 +34,10 @@ def derive():
 
 THREAT_DEG = 60.0      # drones come from within 60 degrees of the enemy direction ASSUME
 TRUNK_EVERY = 10560.0  # a trunk every 2 mi of fence, so no fence dart is more than ~6 hops from one
+FIBRE = True           # a trunk is an FPV fibre from a tip dart to a post, not a row of radio relays (untested, T21)
+FIBRE_FT = 6336.0      # a tip's spool, about 1.2 mi, as on the position net ASSUME
+FIBRE_SLACK = 1.1      # fibre paid out from a drone runs about 10% longer than the straight line ASSUME
+P_CUT_DAY = 0.01       # a laid fibre cut by shelling, vehicles or people, a day. A pure guess
 END_EXTRA = 300.0      # run each fence 300 ft past where it stops being exposed, as the position net does
 POST_MAX = 1100.0      # posts: any landing up to 300 ft off the road passes within hearing of one
 POST_RANGE = 2500.0    # post to post: 2 ft whips on stakes, two-ray estimate with 20 dB in hand (T9) ASSUME
@@ -47,6 +52,8 @@ derive()
 
 # ---- costs, small batch, ours (Projected costs) ASSUME ------------------------------------------
 DART_USD, POST_USD, RX_USD = 29.0, 45.0, 22.0   # a post: the dart's board, 4 cells, a 2 ft whip and a stake (est.)
+TIP_USD = 94.0                                   # a tip dart: a dart plus ~1.2 mi of fibre and a laser (costs.md, small batch)
+END_USD = 20.0                                   # a fibre's end at its post: light detector, connector, box (est.)
 DRONE_USD, PACK_WEAR_USD = 850.0, 0.30
 KIT_USD = 1397.0 + 360.0 + 100.0                 # the outfitted drone, plus 6 more packs and 2 more charger channels
 RECEIVERS = 14                                   # 12 vehicles and 2 checkpoints
@@ -187,11 +194,15 @@ def plan(sec, road, fence=True):
         tips = sorted(set(min(range(len(F)), key=lambda i: abs(us[i] - L * j / k)) for j in range(k + 1)))
         trunks = []
         for ti0 in tips:
-            # a trunk that would run along a tree belt can't be laid; try the fence darts either side
+            # a trunk that would run along a tree belt, or a fibre too long for its spool, can't be
+            # laid; try the fence darts either side
             for ti in sorted(range(len(F)), key=lambda i: abs(i - ti0))[:7]:
                 tip = F[ti]
                 post = min(posts, key=lambda q: dist(q["p"], tip))
                 L2 = dist(post["p"], tip)
+                if FIBRE:
+                    if L2 * FIBRE_SLACK > FIBRE_FT: continue
+                    trunks.append({"tip": ti, "post": post["id"], "relays": [], "fibre": True}); break
                 g = lambda u, a=post["p"], b=tip, L2=L2: lerp(a, b, u / L2)
                 try: tr, _ = lm.even_or_greedy(sec, g, 0.0, L2, HOP * lm.PLAN_FRAC, {})
                 except RuntimeError: continue
@@ -212,6 +223,7 @@ def lay_sequence(P):
         fid = lambda i: "F%d.%d" % (ri + 1, i + 1)
         def trunk(j):
             t = T[j]; prev = t["post"]
+            if t.get("fibre"): push(fid(t["tip"]), F[t["tip"]], prev, "tip"); return
             for i, p in enumerate(t["relays"]):
                 name = "T%d.%d.%d" % (ri + 1, j + 1, i + 1); push(name, p, prev, "relay"); prev = name
             push(fid(t["tip"]), F[t["tip"]], prev, "front")
@@ -224,7 +236,11 @@ def lay_sequence(P):
     return seq
 
 
-def launch_for(posts, pts):
+def launch_for(posts, sq):
+    """Launch beside the post nearest the sortie's drops; a tip's sortie launches from the post its
+    fibre is tied off at."""
+    if sq[0]["kind"] == "tip": return tuple(next(q["p"] for q in posts if q["id"] == sq[0]["anchor"]))
+    pts = [s["p"] for s in sq]
     c = (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
     return tuple(min(posts, key=lambda q: dist(q["p"], c))["p"])
 
@@ -232,10 +248,10 @@ def launch_for(posts, pts):
 def chunk(sec, P):
     out, i, seq = [], 0, P["seq"]
     while i < len(seq):
-        k = lm.CAPACITY
+        k = lm.tip_cap(seq[i:])
         while k > 0:
-            lm.LAUNCH = launch_for(P["posts"], [s["p"] for s in seq[i:i + k]])
-            ok, f = lm.sortie_fits(sec, [s["p"] for s in seq[i:i + k]])
+            lm.LAUNCH = launch_for(P["posts"], seq[i:i + k])
+            ok, f = lm.sortie_fits(sec, [s["p"] for s in seq[i:i + k]], tip=seq[i]["kind"] == "tip")
             if ok: break
             k -= 1
         if k == 0: raise RuntimeError("one dart to %s does not fit a battery" % seq[i]["id"])
@@ -255,11 +271,13 @@ class RouteLay(lm.Lay):
         self.sorties, self.used, self.lost_drones, self.gaps = [], 0, 0, []
         self.holder = {q["id"]: q["id"] for q in P["posts"]}
         self.anchor_of = {s["id"]: s["anchor"] for s in self.seq}
+        self.tips_used = 0
 
     def link(self, a, b):
         if a == b: return False
         da, db = self.darts[a], self.darts[b]
         if not (da["ok"] and db["ok"]): return False
+        if da.get("fibre") == b or db.get("fibre") == a: return True   # light down a fibre, no radio
         if da.get("post") and db.get("post"): return dist(da["p"], db["p"]) <= POST_RANGE
         if dist(da["p"], db["p"]) > 2 * HOP: return False
         return lm.Lay.link(self, a, b)
@@ -267,14 +285,14 @@ class RouteLay(lm.Lay):
     def run(self):
         queue = [dict(x) for x in self.seq]
         while queue:
-            k = lm.CAPACITY
+            k = lm.tip_cap(queue); tip = queue[0]["kind"] == "tip"
             while k > 1:
-                lm.LAUNCH = launch_for(self.P["posts"], [s["p"] for s in queue[:k]])
-                if lm.sortie_fits(self.sec, [s["p"] for s in queue[:k]])[0]: break
+                lm.LAUNCH = launch_for(self.P["posts"], queue[:k])
+                if lm.sortie_fits(self.sec, [s["p"] for s in queue[:k]], tip=tip)[0]: break
                 k -= 1
             todo = queue[:k]
-            lm.LAUNCH = launch_for(self.P["posts"], [s["p"] for s in todo])
-            f = lm.Flight(self.sec, lm.CAPACITY, self.sec.wind, low=self.jammed); nav = self.nav()
+            lm.LAUNCH = launch_for(self.P["posts"], todo)
+            f = lm.Flight(self.sec, lm.CAPACITY, self.sec.wind, low=self.jammed, tip=tip); nav = self.nav()
             log = {"plan": [s["id"] for s in todo], "drops": [], "launch": lm.LAUNCH}
             if self.rng.random() < lm.P_DRONE_LOSS:
                 self.lost_drones += 1; log["lost"] = True; self.sorties.append((log, f)); continue
@@ -290,6 +308,9 @@ class RouteLay(lm.Lay):
                     name = s["id"] if tries == 0 else "%s+%d" % (s["id"], tries)
                     st = self.land_one(name, f.at); f.drop(); left -= 1
                     self.darts[name]["logged"] = spot
+                    if s["kind"] == "tip":
+                        self.tips_used += 1
+                        if self.rng.random() >= lm.P_SNAG: self.darts[name]["fibre"] = anchor   # the fibre reached its post
                     if st == "upright": group.append(name)
                     side = self.joined(anchor, group)
                     ok = bool(side) and (second is None or second in self.joined(anchor, group, [second]))
@@ -301,6 +322,8 @@ class RouteLay(lm.Lay):
                         if side: self.holder[s["id"]] = min(side, key=lambda n: dist(self.darts[n]["logged"], s["p"]))
                         break
                     if tries >= lm.MAX_EXTRA: self.gaps.append(s["id"]); break
+                    if s["kind"] == "tip":   # a new tip needs a new fibre from its post: next sortie, same spot
+                        s["resume"] = (tries + 1, s["p"], []); slipped = True; break
                     if st == "upright":
                         if not side: frm, to = spot, self.darts[anchor]["logged"]
                         else:
@@ -332,9 +355,16 @@ class Net:
             for b in self.ids[i + 1:]:
                 if abs(self.p[a][0] - self.p[b][0]) < POST_RANGE + 10 and abs(self.p[a][1] - self.p[b][1]) < POST_RANGE + 10 and linkf(a, b):
                     self.adj[a].append(b); self.adj[b].append(a)
+        self.fibre = {}   # tip dart -> the post its fibre ends at
+        for n in self.ids:
+            o = nodes[n].get("fibre")
+            if o in self.p and linkf(n, o):
+                self.fibre[n] = o
+                if o not in self.adj[n]: self.adj[n].append(o); self.adj[o].append(n)
 
-    def hops(self, dead=()):
-        """Hops from each node to the posts, and the post its alert arrives at."""
+    def hops(self, dead=(), cut=()):
+        """Hops from each node to the posts, and the post its alert arrives at. cut: tip darts whose
+        fibre is cut (the tip still relays by radio)."""
         dead = set(dead); h, via, q = {}, {}, []
         for n in self.post:
             if n not in dead: h[n] = 0; via[n] = n; q.append(n)
@@ -343,6 +373,7 @@ class Net:
             a = q[i]; i += 1
             for b in self.adj[a]:
                 if b in dead or b in h: continue
+                if (b in cut and self.fibre.get(b) == a) or (a in cut and self.fibre.get(a) == b): continue
                 if b in self.post: continue
                 h[b] = h[a] + 1; via[b] = via[a]; q.append(b)
         return h, via
@@ -387,8 +418,8 @@ def warn_of(net, track, ents, h, via):
     return best if best is not None else -1e9
 
 
-def score_tracks(net, T, dead=(), cache=None):
-    h, via = net.hops(dead)
+def score_tracks(net, T, dead=(), cache=None, cut=()):
+    h, via = net.hops(dead, cut)
     pts = [(n, net.p[n]) for n in net.ids if n in h]
     ws = []
     for i, tr in enumerate(T):
@@ -428,12 +459,13 @@ def summarise(ws):
 
 def planned_nodes(P):
     nodes = {q["id"]: {"p": q["p"], "post": True} for q in P["posts"]}
-    for s in P["seq"]: nodes[s["id"]] = {"p": s["p"]}
+    for s in P["seq"]: nodes[s["id"]] = {"p": s["p"], "fibre": s["anchor"] if s["kind"] == "tip" else None}
     return nodes
 
 
 def planned_link(sec, nodes):
     def f(a, b):
+        if nodes[a].get("fibre") == b or nodes[b].get("fibre") == a: return True
         pa, pb = nodes[a]["p"], nodes[b]["p"]
         if nodes[a].get("post") and nodes[b].get("post"): return dist(pa, pb) <= POST_RANGE
         return dist(pa, pb) <= sec.reach(pa, pb) + 1
@@ -469,11 +501,18 @@ def main(argv):
     cut = [n for n in nodes if n not in h]
     wsP = score_tracks(net, T); wP = summarise(wsP); lP = score_landings(net, spots)
     nf = sum(len(R["front"]) for R in P["runs"]); nt = sum(len(t["relays"]) for R in P["runs"] for t in R["trunks"])
+    ntr = sum(len(R["trunks"]) for R in P["runs"]); tips = [s["id"] for s in P["seq"] if s["kind"] == "tip"]
     fence_len = sum(polyfn(R["line"])[1] for R in P["runs"]) / 5280
+    fibre_mi = sum(dist(nodes[t]["p"], nodes[nodes[t]["fibre"]]["p"]) for t in tips) * FIBRE_SLACK / 5280
     say()
     say("## Plan")
-    say("posts %d (one every %.0f ft), fence %.1f mi in %d run(s): %d fence darts, %d trunks with %d relays; %d air-dropped darts in all"
-        % (len(P["posts"]), road.L / (len(P["posts"]) - 1), fence_len, len(P["runs"]), nf, sum(len(R["trunks"]) for R in P["runs"]), nt, nf + nt))
+    if FIBRE:
+        say("posts %d (one every %.0f ft), fence %.1f mi in %d run(s): %d fence darts, %d of them tip darts on fibre trunks to a post (%.1f mi of fibre, the longest %.0f ft laid); %d air-dropped darts in all"
+            % (len(P["posts"]), road.L / (len(P["posts"]) - 1), fence_len, len(P["runs"]), nf, len(tips), fibre_mi,
+               max(dist(nodes[t]["p"], nodes[nodes[t]["fibre"]]["p"]) for t in tips) * FIBRE_SLACK, nf + nt))
+    else:
+        say("posts %d (one every %.0f ft), fence %.1f mi in %d run(s): %d fence darts, %d radio trunks with %d relays; %d air-dropped darts in all"
+            % (len(P["posts"]), road.L / (len(P["posts"]) - 1), fence_len, len(P["runs"]), nf, ntr, nt, nf + nt))
     say("per mile of road: %.1f posts, %.1f darts; longest route to a post %d hops; nodes cut off in the plan: %d"
         % (len(P["posts"]) / miles, (nf + nt) / miles, max(h.values()), len(cut)))
     say()
@@ -500,15 +539,21 @@ def main(argv):
     say()
     say("## One dead node, on the plan")
     say("worst single loss leaves %.0f%% of tracks with a minute; %d of %d nodes cost more than 2 points" % (100 * worst_one, bad, len(nodes)))
+    one_cut = None
+    if FIBRE:
+        one_cut = min(summarise(score_tracks(net, T, cache=cache, cut=[t]))["share55"] for t in tips)
+        say("worst single fibre cut leaves %.0f%% of tracks with a minute (the tip still relays to its neighbours by radio)" % (100 * one_cut))
 
     # ---- holes between repairs
     rng = random.Random(seed); snaps = []
     for _ in range(150):
         dead = [n for n in nodes if rng.random() < (P_LOSS_POST_DAY if nodes[n].get("post") else P_LOSS_DART_DAY) * REPAIR_DAYS]
-        ws = score_tracks(net, T, dead=dead, cache=cache)
-        snaps.append((len(dead), summarise(ws)["share55"], score_landings(net, spots, dead)["heard"]))
+        cuts = [t for t in tips if rng.random() < P_CUT_DAY * REPAIR_DAYS] if FIBRE else []
+        ws = score_tracks(net, T, dead=dead, cache=cache, cut=cuts)
+        snaps.append((len(dead) + len(cuts), summarise(ws)["share55"], score_landings(net, spots, dead)["heard"]))
     say()
-    say("## Holes between repairs (each dart lost %.1f%% a day, each post %.1f%%, found and fixed within %g day)" % (100 * P_LOSS_DART_DAY, 100 * P_LOSS_POST_DAY, REPAIR_DAYS))
+    say("## Holes between repairs (each dart lost %.1f%% a day, each post %.1f%%%s, found and fixed within %g day)"
+        % (100 * P_LOSS_DART_DAY, 100 * P_LOSS_POST_DAY, ", each fibre cut %.0f%%" % (100 * P_CUT_DAY) if FIBRE else "", REPAIR_DAYS))
     say("dead at a time: mean %.1f; tracks with a minute: mean %.0f%%, worst day %.0f%%; landings heard: mean %.0f%%"
         % (sum(a for a, b, c in snaps) / len(snaps), 100 * sum(b for a, b, c in snaps) / len(snaps), 100 * min(b for a, b, c in snaps), 100 * sum(c for a, b, c in snaps) / len(snaps)))
 
@@ -531,26 +576,30 @@ def main(argv):
         ptsl = [(n, nl.p[n]) for n in nl.ids if n in hh]
         ws = [warn_of(nl, tr, entries(tr, ptsl), hh, vv) for tr in T[::3]]
         dur = [f.t / 60 for lg, f in L.sorties]
-        res.append({"darts": L.used, "sorties": len(L.sorties), "h6": lm.timeline(dur)[-1][1] / 60, "h12": lm.timeline(dur, 12, 4)[-1][1] / 60,
+        res.append({"darts": L.used, "tips": L.tips_used, "sorties": len(L.sorties), "h6": lm.timeline(dur)[-1][1] / 60, "h12": lm.timeline(dur, 12, 4)[-1][1] / 60,
                     "share55": sum(w >= WHOLE_S for w in ws) / len(ws), "lost": L.lost_drones, "gaps": len(L.gaps), "L": L})
     m = lambda k: sum(x[k] for x in res) / len(res)
-    say("simulated, GPS jammed, confirm, %d lays: darts %.1f (9 in 10 within %d), sorties %.1f, %.1f h (6 packs) / %.1f h (12 packs), drones lost %.2f, points left for repair %.2f"
-        % (runs, m("darts"), lm.pct([x["darts"] for x in res], 0.9), m("sorties"), m("h6"), m("h12"), m("lost"), m("gaps")))
+    say("simulated, GPS jammed, confirm, %d lays: darts %.1f (9 in 10 within %d), %.1f of them tip darts (9 in 10 within %d), sorties %.1f, %.1f h (6 packs) / %.1f h (12 packs), drones lost %.2f, points left for repair %.2f"
+        % (runs, m("darts"), lm.pct([x["darts"] for x in res], 0.9), m("tips"), lm.pct([x["tips"] for x in res], 0.9), m("sorties"), m("h6"), m("h12"), m("lost"), m("gaps")))
     say("tracks with a minute after the lay: mean %.0f%%, lays with at least 97%%: %.0f%%"
         % (100 * m("share55"), 100 * sum(x["share55"] >= 0.97 for x in res) / len(res)))
     stats = {"miles": miles, "posts": len(P["posts"]), "fence_darts": nf, "relays": nt, "air": nf + nt, "fence_mi": fence_len,
+             "fibre": FIBRE, "trunks": ntr, "tips": len(tips), "fibre_mi": fibre_mi, "one_cut": one_cut,
+             "lay_tips": m("tips"), "lay_tips90": lm.pct([x["tips"] for x in res], 0.9),
              "warn_posts": w0, "warn_fence": wP, "land": lP, "land_far": lf, "lay_darts": m("darts"), "lay_darts90": lm.pct([x["darts"] for x in res], 0.9),
              "lay_sorties": m("sorties"), "lay_h6": m("h6"), "lay_h12": m("h12"), "lay_lost": m("lost"), "lay_share55": m("share55"),
              "snap_dead": sum(a for a, b, c in snaps) / len(snaps), "snap_share55": sum(b for a, b, c in snaps) / len(snaps),
              "snap_worst": min(b for a, b, c in snaps), "snap_land": sum(c for a, b, c in snaps) / len(snaps), "one_worst": worst_one}
     say()
     say("## Costs, ours, small batch (est.)")
-    carry_air, carry_posts = 10 * math.ceil(stats["lay_darts90"] / 10), len(P["posts"]) + 4
-    pkg = carry_air * DART_USD + carry_posts * POST_USD + RECEIVERS * RX_USD + KIT_USD
-    relay_cost = stats["lay_darts"] * DART_USD + stats["lay_lost"] * DRONE_USD + stats["lay_sorties"] * PACK_WEAR_USD
-    say("package: %d air-dropped darts, %d posts, %d receivers, outfitted drone with 12 packs and 4 channels: $%.0f ($%.0f a mile)"
-        % (carry_air, carry_posts, RECEIVERS, pkg, pkg / miles))
-    say("one re-lay of the fence: $%.0f (%.0f darts, %.2f drones, pack wear)" % (relay_cost, stats["lay_darts"], stats["lay_lost"]))
+    carry_tips = stats["lay_tips90"] + (1 if FIBRE else 0)                      # one spare for a cut fibre
+    carry_air, carry_posts = 10 * math.ceil((stats["lay_darts90"] - stats["lay_tips90"]) / 10), len(P["posts"]) + 4
+    pkg = carry_air * DART_USD + carry_tips * TIP_USD + len(tips) * END_USD + carry_posts * POST_USD + RECEIVERS * RX_USD + KIT_USD
+    relay_cost = ((stats["lay_darts"] - stats["lay_tips"]) * DART_USD + stats["lay_tips"] * TIP_USD
+                  + stats["lay_lost"] * DRONE_USD + stats["lay_sorties"] * PACK_WEAR_USD)
+    say("package: %d air-dropped darts, %d tip darts and %d fibre ends, %d posts, %d receivers, outfitted drone with 12 packs and 4 channels: $%.0f ($%.0f a mile)"
+        % (carry_air, carry_tips, len(tips), carry_posts, RECEIVERS, pkg, pkg / miles))
+    say("one re-lay of the fence: $%.0f (%.0f darts, %.1f of them tip darts, %.2f drones, pack wear)" % (relay_cost, stats["lay_darts"], stats["lay_tips"], stats["lay_lost"]))
     say("| Dart cell life | Fence re-lays a year | Fence | Posts | Repairs between re-lays | A year | A mile a year |")
     say("|---|---|---|---|---|---|---|")
     yearly = {}
@@ -558,11 +607,13 @@ def main(argv):
         n = 52.0 / wk
         fence = n * relay_cost
         posts = 52.0 / (wk * POST_LIFE_X) * len(P["posts"]) * POST_USD
-        lost_d = nf_nt = stats["air"] * P_LOSS_DART_DAY * 365; lost_p = len(P["posts"]) * P_LOSS_POST_DAY * 365
-        rep = lost_d * DART_USD + lost_p * POST_USD + lost_d / lm.CAPACITY * (lm.P_DRONE_LOSS * DRONE_USD + PACK_WEAR_USD)
+        lost_d = stats["air"] * P_LOSS_DART_DAY * 365; lost_p = len(P["posts"]) * P_LOSS_POST_DAY * 365
+        lost_t = len(tips) * P_LOSS_DART_DAY * 365; cuts = len(tips) * P_CUT_DAY * 365   # a cut fibre: a new tip, on its own sortie
+        rep = (lost_d * DART_USD + lost_p * POST_USD + lost_d / lm.CAPACITY * (lm.P_DRONE_LOSS * DRONE_USD + PACK_WEAR_USD)
+               + lost_t * (TIP_USD - DART_USD) + cuts * (TIP_USD + lm.P_DRONE_LOSS * DRONE_USD + PACK_WEAR_USD))
         tot = fence + posts + rep; yearly[wk] = tot
         say("| %d weeks | %.1f | $%.0f | $%.0f | $%.0f | $%.0f | $%.0f |" % (wk, n, fence, posts, rep, tot, tot / miles))
-    stats.update({"pkg": pkg, "pkg_mile": pkg / miles, "relay_cost": relay_cost, "yearly": yearly, "carry_air": carry_air, "carry_posts": carry_posts})
+    stats.update({"pkg": pkg, "pkg_mile": pkg / miles, "relay_cost": relay_cost, "yearly": yearly, "carry_air": carry_air, "carry_tips": carry_tips, "carry_posts": carry_posts})
     json.dump(stats, open(os.path.join(out, "%s-stats.json" % tag), "w"), indent=1)
     if "--demo" in argv: demo(cfg, sec, road, P, nodes, net, out, stats)
     if "--cases" in argv:
@@ -573,7 +624,9 @@ def main(argv):
         for lab, kv in (("Plan", {}), ("Drones come within 45 degrees, not 60", {"THREAT_DEG": 45.0}),
                         ("Drones come within 75 degrees", {"THREAT_DEG": 75.0}), ("Radio hop 800 ft, not 980", {"HOP": 800.0}),
                         ("Hearing 500 ft, not 656", {"HEAR": 500.0}), ("A trunk every 3 mi, not 2", {"TRUNK_EVERY": 15840.0}),
-                        ("Landings 95% upright, not 85%", {"P_UPRIGHT": 0.95, "P_TILTED": 0.03})):
+                        ("Landings 95% upright, not 85%", {"P_UPRIGHT": 0.95, "P_TILTED": 0.03}),
+                        ("1 fibre in 5 breaks while laid, not 1 in 20", {"P_SNAG": 0.20}),
+                        ("The last plan: radio relay trunks", {"FIBRE": False})):
             r = case_row(cfg, kv, max(10, runs // 4), seed)
             say("| %s | %d | %d | %.1f | %.0f%% | %.1f | %.1f |" % (lab, r["posts"], r["air"], (r["posts"] + r["air"]) / miles, 100 * r["share55"], r["darts"], r["sorties"]))
     open(os.path.join(out, "%s-summary.md" % tag), "w", encoding="utf-8").write("\n".join(md) + "\n")
@@ -581,7 +634,7 @@ def main(argv):
 
 def case_row(cfg, kv, runs, seed):
     g, gl = globals(), vars(lm)
-    where = lambda k: gl if k in gl else g     # planning numbers live in the lay model; route ones here
+    where = lambda k: g if k == "FIBRE" else gl if k in gl else g     # planning numbers live in the lay model; route ones here
     old = {k: where(k)[k] for k in kv}
     for k, v in kv.items(): where(k)[k] = v
     derive()
@@ -655,8 +708,9 @@ def demo(cfg, sec, road, P, nodes, net, out, stats):
     D_ = {"cfg": cfg, "road": road.p, "L": road.L, "posts": [{"id": q["id"], "p": q["p"], "s": q["s"]} for q in P["posts"]],
           "runs": [{"line": R["line"][::4] + [R["line"][-1]], "front": R["front"], "trunks": R["trunks"]} for R in P["runs"]],
           "nodes": {n: {"p": [round(nodes[n]["p"][0]), round(nodes[n]["p"][1])], "post": bool(nodes[n].get("post")),
-                        "h": h.get(n), "s": round(road.proj(nodes[n]["p"]))} for n in nodes},
-          "links": links, "reff": REFF, "D": D, "fts": FTS, "events": events, "veh_fts": VEH_MPH * 5280 / 3600,
+                        "tip": n in net.fibre, "h": h.get(n), "s": round(road.proj(nodes[n]["p"]))} for n in nodes},
+          "links": [l for l in links if net.fibre.get(l[0]) != l[1] and net.fibre.get(l[1]) != l[0]],
+          "fibres": [[t, o] for t, o in sorted(net.fibre.items())], "reff": REFF, "D": D, "fts": FTS, "events": events, "veh_fts": VEH_MPH * 5280 / 3600,
           "stats": {k: v for k, v in stats.items() if not isinstance(v, dict) or k in ("warn_fence", "land")}}
     json.dump(D_, open(os.path.join(out, "route-demo.json"), "w"), separators=(",", ":"))
 

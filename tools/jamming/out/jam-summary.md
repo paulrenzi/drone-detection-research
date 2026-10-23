@@ -31,9 +31,9 @@ Assumed: jammer power spread over 860-940 MHz, SF9, 125 kHz, 5 dB link margin, a
 |---|---|---|---|
 | a road running along the front | Our and the enemy's trench jammers on | 100% | 100% |
 | a road running along the front | The truck's own jammer on, radio guard | 0% | 0% |
-| a road running along the front | The truck's own jammer on, posts on a wire with lamps | 100% | 2% |
-| a road running along the front | All of them, posts on a wire with lamps | 100% | 2% |
-| a road running toward the front | Our and the enemy's trench jammers on | 100% | 89% |
+| a road running along the front | The truck's own jammer on, posts on a wire with lamps | 100% | 21% |
+| a road running along the front | All of them, posts on a wire with lamps | 100% | 21% |
+| a road running toward the front | Our and the enemy's trench jammers on | 100% | 82% |
 | a road running toward the front | The truck's own jammer on, radio guard | 0% | 0% |
-| a road running toward the front | The truck's own jammer on, posts on a wire with lamps | 100% | 22% |
-| a road running toward the front | All of them, posts on a wire with lamps | 100% | 21% |
+| a road running toward the front | The truck's own jammer on, posts on a wire with lamps | 100% | 46% |
+| a road running toward the front | All of them, posts on a wire with lamps | 100% | 38% |

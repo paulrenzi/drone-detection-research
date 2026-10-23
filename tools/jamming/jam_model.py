@@ -140,8 +140,8 @@ def hops_deaf(net, deaf, wired):
     i = 0
     while i < len(q):
         a = q[i]; i += 1
-        if a in deaf: continue
         for b in net.adj[a]:
+            if a in deaf and net.fibre.get(b) != a: continue   # a deaf node still gets light down its fibre
             if b in h or b in net.post: continue
             h[b] = h[a] + 1; via[b] = via[a]; q.append(b)
     return h, via

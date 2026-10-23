@@ -33,7 +33,7 @@ Don't try to make a microphone hear farther. Drop cheap ones about a mile forwar
 
 The idea is to buy warning with distance rather than with sensitivity. A better microphone gains tens of yards; laying the line forward gains miles.
 
-**The same darts can guard a supply road,** where about half of casualties happen: a fence a mile out gives every drone flying in at least 58 s in the model, and posts along the verge hear drones that land to wait in ambush ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %})).
+**The same darts can guard a supply road,** where about half of casualties happen: a fence a mile out gives every drone flying in at least 60 s in the model, and posts along the verge hear drones that land to wait in ambush ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %})).
 
 <p class="kicker">02 · Why it matters</p>
 
