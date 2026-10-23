@@ -1114,6 +1114,11 @@ body.ou {
 }
 
 .vz-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.vz-steps.vz-3, .vz-chain.vz-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.vz-cards.vz-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.vz-cards.vz-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ou .main-content .vz-figure.vz-narrow { max-width: 560px; }
+.ou .main-content .vz-cards.vz-4 .vz-card p.vz-card-num { font-size: 22px; }
 
 .vz-step, .vz-card, .ou .main-content a.vz-link {
   padding: 16px 14px;
@@ -1185,7 +1190,12 @@ body.ou {
   .vz-bar-row { grid-template-columns: 1fr 70px; }
   .vz-bar-label { grid-column: 1 / -1; }
   .vz-steps, .vz-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .vz-cards { grid-template-columns: 1fr; }
+  .vz-cards, .vz-cards.vz-2 { grid-template-columns: 1fr; }
+  .vz-cards.vz-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vz-steps.vz-3, .vz-chain.vz-3 { grid-template-columns: 1fr; }
+  .vz-cards.vz-4 .vz-card:nth-child(odd) { border-right: 1px solid #151515; }
+  .vz-steps.vz-3 .vz-step, .vz-chain.vz-3 a.vz-link { border-right: 0; border-bottom: 1px solid #151515; }
+  .vz-steps.vz-3 .vz-step:last-child, .vz-chain.vz-3 a.vz-link:last-child { border-bottom: 0; }
   .vz-step, .ou .main-content a.vz-link {
     border-bottom: 1px solid $ou-ink;
     &:nth-child(2n) { border-right: 0; }

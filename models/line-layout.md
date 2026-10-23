@@ -6,17 +6,53 @@ nav_primary: 2.1
 # How it works
 {: .no_toc }
 
-How many darts it takes to give a unit a minute's warning of a drone, where they go, and how they get there. Listening darts sit in a row about a mile out. The one that hears a drone radios its neighbours, the row passes the alert along to one of two **tip darts**, and each tip sends it home down an FPV fibre the drone paid out as it laid the tip. The map is drawn to scale, and its animation runs ten times faster than real life.
+<p class="vz-lede">A row of listening darts about a mile out. The dart that hears a drone radios its neighbours, the alert hops along the row to one of two <strong>tip darts</strong>, and each tip sends it home down a fibre the drone laid.</p>
 
-The planning numbers, none measured yet:
+<div class="stats">
+  <div class="stat"><p class="stat-num">15</p><p class="stat-label">darts on open, flat ground; about 22 used in laying them</p></div>
+  <div class="stat"><p class="stat-num">960 ft</p><p class="stat-label">between darts: the radio hop sets it, not the ear</p></div>
+  <div class="stat"><p class="stat-num">1.01 mi</p><p class="stat-label">out: the front row, 5,316 ft from the unit</p></div>
+  <div class="stat"><p class="stat-num">≥ 65 s</p><p class="stat-label">warning for any drone heading for the unit (est.)</p></div>
+</div>
 
-- **Hearing: 656 ft (200 m).** A drone 165 ft up is heard about 635 ft away along the ground. [T11]({{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11) measures it.
-- **Radio: 980 ft (300 m) per hop** near the ground. [T9]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back) measures it.
-- **Drones: 60 mph, up to 165 ft up.** That is above the 37–50 mph an FPV usually flies with a warhead and below its 75 mph loaded maximum. Fibre-optic FPVs fly at 65–165 ft ([the drones]({{ site.baseurl }}{% link research/threat-profile.md %})).
-- **Warning: at least a minute,** plus 5 s for recognition and relaying.
+### The planning numbers, none measured yet
 
-1. TOC
-{:toc}
+<div class="vz-cards vz-4">
+  <div class="vz-card"><p class="vz-card-num">656 ft</p><p>a dart's hearing. A drone 165 ft up is heard about 635 ft away along the ground. <a href="{{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11">T11</a> measures it</p></div>
+  <div class="vz-card"><p class="vz-card-num">980 ft</p><p>a radio hop near the ground. <a href="{{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back">T9</a> measures it</p></div>
+  <div class="vz-card"><p class="vz-card-num">60 mph</p><p>drones, up to 165 ft up: above an FPV's usual 37–50 mph, below its 75 mph loaded top (<a href="{{ site.baseurl }}{% link research/threat-profile.md %}">the drones</a>)</p></div>
+  <div class="vz-card"><p class="vz-card-num">+5 s</p><p>for recognising the drone and relaying the alert, on top of the minute</p></div>
+</div>
+
+### Why the row sits a mile out
+
+<figure class="vz-figure vz-narrow">
+<svg viewBox="0 0 420 440" role="img" aria-labelledby="ll-deep-t">
+  <title id="ll-deep-t">The worst case: a drone flying midway between two front darts 960 feet apart is first heard about 400 feet before the row. With the row 5,316 feet out, it is heard 5,720 feet from the unit, 65 seconds at 60 mph.</title>
+  <g fill="#d2451e" fill-opacity=".07" stroke="#d2451e" stroke-opacity=".5" stroke-dasharray="5 4">
+    <circle cx="60" cy="200" r="198"/><circle cx="360" cy="200" r="198"/>
+  </g>
+  <line x1="0" y1="200" x2="420" y2="200" stroke="#6a625a" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <line x1="210" y1="8" x2="210" y2="345" stroke="#151515" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <path d="M202 333 L210 347 L218 333" fill="none" stroke="#151515" stroke-width="2.5"/>
+  <g fill="#d2451e"><circle cx="60" cy="200" r="8"/><circle cx="360" cy="200" r="8"/></g>
+  <circle cx="210" cy="71" r="9" fill="#fff" stroke="#d2451e" stroke-width="4"/>
+  <text x="226" y="58" class="vz-t" style="font-size:18px">first heard</text>
+  <line x1="196" y1="71" x2="196" y2="200" stroke="#151515" stroke-width="1.5"/>
+  <text x="188" y="142" class="vz-t-small" text-anchor="end" style="font-size:17px">~400 ft</text>
+  <text x="60" y="232" class="vz-t-small" text-anchor="middle" style="font-size:16px">dart</text>
+  <text x="360" y="232" class="vz-t-small" text-anchor="middle" style="font-size:16px">dart</text>
+  <line x1="72" y1="262" x2="348" y2="262" stroke="#151515" stroke-width="1.5"/>
+  <path d="M82 256 L70 262 L82 268 M338 256 L350 262 L338 268" fill="none" stroke="#151515" stroke-width="1.5"/>
+  <rect x="166" y="250" width="88" height="24" fill="#fff"/>
+  <text x="210" y="268" class="vz-t" text-anchor="middle" style="font-size:17px">960 ft</text>
+  <text x="222" y="310" class="vz-t-small" style="font-size:16px">5,316 ft to the unit</text>
+  <rect x="166" y="352" width="88" height="32" fill="#151515"/>
+  <text x="210" y="374" class="vz-t-unit" text-anchor="middle" style="font-size:15px">UNIT</text>
+  <text x="210" y="420" class="vz-t-accent" text-anchor="middle" style="font-size:18px">5,720 ft ÷ 88 ft/s = 65 s of warning</text>
+</svg>
+<figcaption>The worst case: a drone passing exactly between two front darts. Dashed circles are each dart's hearing; drawn to scale except the distance home.</figcaption>
+</figure>
 
 ## The net
 
@@ -33,13 +69,57 @@ The planning numbers, none measured yet:
 
 Three drones fly in at 60 mph: one straight at the middle position, exactly between two front darts (the worst case), one from 30° to the left, and one from 60° to the right. **Tap any dart to knock it out, or a fibre to cut it,** and see which darts can still get an alert home.
 
+<div class="vz-steps vz-3">
+  <div class="vz-step">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="14" cy="24" r="5" fill="#d2451e"/><g fill="none" stroke="#151515" stroke-width="3"><path d="M24 14 Q30 24 24 34"/><path d="M31 8 Q41 24 31 40"/></g></svg>
+    <p class="vz-step-num">1 · Hear</p>
+    <p>Every dart listens in every direction and answers one question: <em>is that a drone?</em></p>
+  </div>
+  <div class="vz-step">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><g fill="#d2451e"><circle cx="6" cy="30" r="4"/><circle cx="24" cy="30" r="4"/><circle cx="42" cy="30" r="4"/></g><g fill="none" stroke="#151515" stroke-width="3"><path d="M8 24 Q15 12 22 24"/><path d="M26 24 Q33 12 40 24"/></g><line x1="42" y1="34" x2="42" y2="46" stroke="#2f6b3a" stroke-width="3"/></svg>
+    <p class="vz-step-num">2 · Pass it back</p>
+    <p>A few bytes hop dart to dart, 0.05–1 s a hop, to a tip dart, which flashes it home down its fibre.</p>
+  </div>
+  <div class="vz-step">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6 L44 42 H4 Z" fill="#d2451e"/><rect x="22" y="18" width="4" height="13" fill="#fff"/><rect x="22" y="34" width="4" height="4" fill="#fff"/></svg>
+    <p class="vz-step-num">3 · Warn</p>
+    <p>Both fibres end at a base box behind the unit, wired to a phone at each position. Nothing at the unit uses radio.</p>
+  </div>
+</div>
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">The three steps in full</span><span class="layer-sub">Tip darts, hop times, the base box, and why it's a tripwire, not an array</span></summary>
+
 1. **Hear.** Every dart listens all the time, in every direction. It only answers one question: *is that a drone?*
 2. **Pass it back.** The dart that hears it radios a few bytes to its neighbours. Each dart relays an alert once, along the row, until it reaches a **tip dart**: the second or the second-last dart in the row. A tip carries a spool of FPV fibre whose other end is tied off at home, and it sends the alert down the fibre as flashes of a small laser. Each radio hop takes about 0.05–1 s depending on the radio's settings; the fibre adds nothing worth counting.
 3. **Warn.** Both fibres end at the **base box** at the launch point behind the unit ([below](#the-fibres-and-the-base-box)). It passes each alert down a wire to a phone or tablet at each position. Nothing at the unit uses radio, so the unit's own jammers can't deafen it ([Jamming](#jamming)). Warning is distance ÷ speed, from wherever the drone was first heard.
 
 **It is a tripwire, not a microphone array.** An array combines its microphones to find a direction, which needs exact spacing and shared timing. Here each dart only says "I heard it", and the net carries that home.
 
-## How deep
+</details>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">The planning numbers, as first written</span><span class="layer-sub">The page's original opening, with its sources</span></summary>
+
+How many darts it takes to give a unit a minute's warning of a drone, where they go, and how they get there. Listening darts sit in a row about a mile out. The one that hears a drone radios its neighbours, the row passes the alert along to one of two **tip darts**, and each tip sends it home down an FPV fibre the drone paid out as it laid the tip. The map is drawn to scale, and its animation runs ten times faster than real life.
+
+The planning numbers, none measured yet:
+
+- **Hearing: 656 ft (200 m).** A drone 165 ft up is heard about 635 ft away along the ground. [T11]({{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11) measures it.
+- **Radio: 980 ft (300 m) per hop** near the ground. [T9]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back) measures it.
+- **Drones: 60 mph, up to 165 ft up.** That is above the 37–50 mph an FPV usually flies with a warhead and below its 75 mph loaded maximum. Fibre-optic FPVs fly at 65–165 ft ([the drones]({{ site.baseurl }}{% link research/threat-profile.md %})).
+- **Warning: at least a minute,** plus 5 s for recognition and relaying.
+
+</details>
+
+<details class="layer" id="how-deep" markdown="block">
+<summary><span class="layer-title">How deep</span><span class="layer-sub">Why the front row sits 5,316 ft out, and why the radio, not the ear, sets the spacing</span></summary>
 
 At 60 mph (88 ft a second), 65 s means hearing the drone **5,720 ft out**.
 
@@ -49,7 +129,10 @@ At 60 mph (88 ft a second), 65 s means hearing the drone **5,720 ft out**.
 
 **The radio sets the spacing, not the ear.** A 656 ft ear alone would allow front darts 1,270 ft apart. But each front dart has to reach its neighbour by radio, so they sit about 960 ft apart. A better ear than this saves almost nothing. A longer radio hop is what would cut darts.
 
-## How wide
+</details>
+
+<details class="layer" id="how-wide" markdown="block">
+<summary><span class="layer-title">How wide</span><span class="layer-sub">Three positions, ±60° each, a 2.5 mi row, and sharing it with neighbours</span></summary>
 
 **A unit is small and spread out.** Kofman describes "nine men in three defensive positions" with "250 meters of open ground" between them, and about 15 soldiers per km of front on average ([hvylya](https://en.hvylya.net/news/2036-15-soldiers-per-kilometer-kofman-on-how-europe-s-biggest-war-emptied-the-front-line)). Neighbouring positions are reported 650–3,300 ft apart ([EMPR](https://empr.media/opinion/investigation/widening-gaps-on-the-front-why-ukraines-forces-struggle-to-hold-back-advancing-russians/)). So the map protects **three positions 820 ft apart, 1,640 ft across.**
 
@@ -59,7 +142,10 @@ At 60 mph (88 ft a second), 65 s means hearing the drone **5,720 ft out**.
 
 **The net is wider than the unit.** 2.4 mi of front is roughly what 60 soldiers hold at about 24 per mile. Neighbouring units can share one continuous front row, at about 5.5 darts per mile of front, and each adds only its own two fibres.
 
-## Two fibres, for redundancy
+</details>
+
+<details class="layer" id="two-fibres-for-redundancy" markdown="block">
+<summary><span class="layer-title">Two fibres, for redundancy</span><span class="layer-sub">Why two tip darts, what one loss costs, and the fibres and base box</span></summary>
 
 **The net always has two fibres,** one to the second dart at each end of the front row: **15 darts** on open, flat ground, 2 of them tip darts. The last plan carried alerts home on radio trunks and needed 22 (12 in the row, 10 relays) plus a root dart placed by hand. Laying takes more than the plan: on the [lay model](#laying-the-net)'s example sector it plans 16 darts and uses about 22, after bad landings, short hops and broken fibres. The radio trunks used about 35.
 
@@ -77,7 +163,10 @@ At 60 mph (88 ft a second), 65 s means hearing the drone **5,720 ft out**.
 
 What the package costs is on [Projected costs]({{ site.baseurl }}{% link costs.md %}).
 
-## Laying the net
+</details>
+
+<details class="layer" id="laying-the-net" markdown="block">
+<summary><span class="layer-title">Laying the net</span><span class="layer-sub">The lay model: sorties, what it found, the holes fixed, and laying under GPS jamming</span></summary>
 
 Nobody walks a mile forward to plant darts. A small drone does it, with no pilot flying it and no video link ([delivery drone]({{ site.baseurl }}{% link research/delivery-drone.md %})). This section is a working model of that job: a planner and simulator, [`lay_model.py`](https://github.com/paulrenzi/tripwire/blob/main/tools/laymodel/lay_model.py), that plans a net on a map, checks every sortie against the battery and the wind, writes the ArduPilot missions, and then lays the net 1,000 times with drop errors, bad landings and radio fading.
 
@@ -193,7 +282,10 @@ GPS is jammed routinely at the front ([field conditions]({{ site.baseurl }}{% li
 | **Computer vision: matching the camera's view to satellite maps** | A downward camera, a Jetson Orin NX-class computer (several hundred dollars, est.) and stored map tiles | Not used yet; the upgrade if T14 shows a compass error well over 2°. Best open candidate: [NGPS](https://github.com/snktshrma/ngps_flight) (MIT licence, ROS 2, feeds ArduPilot), whose author reports about 10–20 ft error over 5 real flights at 200–490 ft up ([paper](https://arxiv.org/abs/2607.18936)). [gnss-denied-nav](https://github.com/koksalan/gnss-denied-nav) (MIT) reports a 79 ft median on unseen regions and refuses to fix when seasons change the ground; simulation and datasets only. [WildNav](https://github.com/TIERS/wildnav) relies on SuperGlue, whose licence bars commercial use. Ukrainian systems doing this are reported but proprietary |
 | **By hand** | Troops walking in at night | The base box and the wire to the positions |
 
-## What placement has to get right
+</details>
+
+<details class="layer" id="what-placement-has-to-get-right" markdown="block">
+<summary><span class="layer-title">What placement has to get right</span><span class="layer-sub">Drop error against dart count, landing upright, power, the base box, friendly drones</span></summary>
 
 **Accuracy decides the dart count, unless every link is confirmed.** The 15-dart net assumes every dart lands on its point. A dart that lands off its point can end up beyond radio reach of its neighbour. So the plan has to shrink every gap by twice the expected drop error:
 
@@ -215,7 +307,10 @@ How close a drop lands is test T13. The tripwire page's working figure, that dro
 - **Keep the unit's own drones out of the alarm.** Ukrainian FPVs sound like Russian ones. The proposed answer is to alarm only on drones heading inbound, outside the unit's own flight times (test T15).
 - **Re-lay before the cells run out,** in practice in midwinter, and replace darts lost to shelling. The darts' battery reports forecast when.
 
-## When it breaks
+</details>
+
+<details class="layer" id="when-it-breaks" markdown="block">
+<summary><span class="layer-title">When it breaks</span><span class="layer-sub">A repair animation and what each failure costs to fix</span></summary>
 
 <figure style="margin:12px 0 8px;max-width:600px">
 <div id="repair-model"></div>
@@ -265,7 +360,10 @@ That measures every link as it is made, so the drone never needs to know where i
 | **980 ft (plan)** | **15** |
 | 1,250 ft | 13 |
 
-## Jamming
+</details>
+
+<details class="layer" id="jamming" markdown="block">
+<summary><span class="layer-title">Jamming</span><span class="layer-sub">How close a jammer has to be to blind a dart, from a link-budget model</span></summary>
 
 {: .warning }
 > Estimates from a link-budget model, [`jam_model.py`](https://github.com/paulrenzi/tripwire/blob/main/tools/jamming/jam_model.py), run on the example sector with every jammer on all the time. Jammer powers and heights are assumed, not measured. [T19]({{ site.baseurl }}{% link research/open-questions.md %}) measures it.
@@ -298,10 +396,15 @@ The worst case assumes the jammer's signal crosses open ground with none of the 
 - **Why not fibre everywhere?** Fibre can't be jammed and gives off nothing to find. But an air-dropped row can't share one: every dart would need its own run, and a single cut would silence everything beyond it. Fibre fits the long links home: the two tips here, and a tip every 2 mi in a road's fence ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %}#how-many-darts)).
 - **Which case is real decides the project.** If the main estimate holds, jamming is a placement problem: keep radios a few hundred feet from jammers. If the worst case holds, a radio net cannot work near the front at all. T19 now has to measure at range from a jammer, not only beside one.
 
-## What the net misses
+</details>
+
+<details class="layer" id="what-the-net-misses" markdown="block">
+<summary><span class="layer-title">What the net misses</span><span class="layer-sub">Parked ambush drones, launches inside the net, very high or flat approaches</span></summary>
 
 - **Fibre-optic FPVs already parked in ambush.** They sit silent by a road and lift off seconds before they strike. A guard on the road itself is the answer: posts that hear them land ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %})).
 - **Drones launched from inside the net,** drones flying higher than a dart can hear, and drones coming in flatter than 60°.
 - **Direction.** A dart hearing a drone can't tell if it is the unit's own, unless the unit's drones fly at set times.
 
 Everything here is geometry on the planning numbers above, not measurements. If a dart hears less than 656 ft, the front row needs more darts. If the radio reaches less than 980 ft, the front row needs more darts too.
+
+</details>
