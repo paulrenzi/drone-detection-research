@@ -6,7 +6,14 @@ nav_primary: 5
 # The MVP path: $80 to a working line
 {: .no_toc }
 
-The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five cheap layers. Each answers one question, and its gate decides whether to buy the next. **MVP = layer 5:** six hand-placed listeners hear a real drone and alert a screen at the base box over fibre, while nothing at the unit transmits.
+<p class="vz-lede">The <a href="{{ site.baseurl }}{% link models/tripwire.md %}">tripwire</a> built in five cheap layers. Each answers one question, and its gate decides whether to buy the next. <strong>The MVP is layer 5:</strong> six hand-placed listeners hear a real drone and alert a screen at the base box over fibre, while nothing at the unit transmits.</p>
+
+<div class="stats">
+  <div class="stat"><p class="stat-num">$80</p><p class="stat-label">for the first step, the Saturday test</p></div>
+  <div class="stat"><p class="stat-num">$545–1,125</p><p class="stat-label">to the MVP, all five layers</p></div>
+  <div class="stat"><p class="stat-num">6</p><p class="stat-label">listeners in the MVP line, 0.6–1.2 mi out</p></div>
+  <div class="stat"><p class="stat-num">0</p><p class="stat-label">layers run so far: a plan, not a result</p></div>
+</div>
 
 {: .warning }
 > **A plan, not a result: no layer has been run yet.** Gates marked *proposed* are ours; T9's are the site's. Links were loaded 2026-10-15. Items that wouldn't load are search terms.
@@ -47,6 +54,19 @@ These are standard acoustics estimates, not measurements of our kit.
 
 ## The five layers to the MVP
 
+<div class="vz-ladder">
+  <a class="vz-rung" href="#layer-0"><span class="vz-rung-n">0</span><span class="vz-rung-q"><strong>Where does a minute help most?</strong> <span class="vz-rung-meta">T18 · $0 · gate: None: sizes the payoff</span></span><span class="vz-rung-track"><span class="vz-bar vz-bar-us" style="width:0.6%"></span><span class="vz-bar vz-bar-us-light" style="width:0%"></span></span><span class="vz-rung-tot">$0</span></a>
+  <a class="vz-rung" href="#layer-1-the-radio-test-t9"><span class="vz-rung-n">1</span><span class="vz-rung-q"><strong>Do dart-to-dart hops hold at 660–980 ft?</strong> <span class="vz-rung-meta">T9 · ~$65–80 · gate: T9's marks</span></span><span class="vz-rung-track"><span class="vz-bar vz-bar-us" style="width:7.1%"></span><span class="vz-bar vz-bar-us-light" style="width:0.0%"></span></span><span class="vz-rung-tot">~$80</span></a>
+  <a class="vz-rung" href="#layer-2-hear-a-drone-from-near-the-ground-t11"><span class="vz-rung-n">2</span><span class="vz-rung-q"><strong>How far does a mic near the ground hear a drone?</strong> <span class="vz-rung-meta">T11 · ~$50 · gate: ≥ 330 ft</span></span><span class="vz-rung-track"><span class="vz-bar vz-bar-us" style="width:11.6%"></span><span class="vz-bar vz-bar-us-light" style="width:0.0%"></span></span><span class="vz-rung-tot">~$130</span></a>
+  <a class="vz-rung" href="#layer-3-fibre-home-t21"><span class="vz-rung-n">3</span><span class="vz-rung-q"><strong>Does a tip's light get home down the fibre?</strong> <span class="vz-rung-meta">T21 · ~$110–470 · gate: Every frame, 10 dB spare</span></span><span class="vz-rung-track"><span class="vz-bar vz-bar-us" style="width:21.3%"></span><span class="vz-bar vz-bar-us-light" style="width:31.999999999999996%"></span></span><span class="vz-rung-tot">~$240–600</span></a>
+  <a class="vz-rung" href="#layer-4-battery-and-cold-t12"><span class="vz-rung-n">4</span><span class="vz-rung-q"><strong>Does a listener last weeks, in the cold?</strong> <span class="vz-rung-meta">T12 · ~$55–175 · gate: ≥ 3 weeks</span></span><span class="vz-rung-track"><span class="vz-bar vz-bar-us" style="width:26.2%"></span><span class="vz-bar vz-bar-us-light" style="width:42.7%"></span></span><span class="vz-rung-tot">~$295–775</span></a>
+  <a class="vz-rung" href="#layer-5-the-mvp-a-six-listener-line"><span class="vz-rung-n">5</span><span class="vz-rung-q"><strong>Does the whole chain work?</strong> <span class="vz-rung-meta">MVP · ~$250–350 · gate: 18 of 20 crossings in 10 s</span></span><span class="vz-rung-track"><span class="vz-bar vz-bar-us" style="width:48.4%"></span><span class="vz-bar vz-bar-us-light" style="width:51.6%"></span></span><span class="vz-rung-tot">~$545–1,125</span></a>
+</div>
+<p class="vz-bar-note">Bars: total spent by the end of each layer, dark the low end and light the high end, out of $1,125. Tap a layer to open it.</p>
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">The layers as a table</span><span class="layer-sub">Every layer's question, spend, running total and gate in full</span></summary>
+
 | Layer | Question | Spend | Total | Gate |
 |---|---|---|---|---|
 | [0](#layer-0) T18 | Where does a minute help most, and how would troops place a line? | $0 | $0 | None: sizes the payoff, shapes placement |
@@ -55,6 +75,8 @@ These are standard acoustics estimates, not measurements of our kit.
 | [3](#layer-3-fibre-home-t21) T21 | Does a tip's light get home down the fibre, and what does it cost the battery? | ~$110–470 | ~$240–600 | Every frame with 10 dB to spare; battery cost measured |
 | [4](#layer-4-battery-and-cold-t12) T12 | Does a listener last weeks, in the cold, and what does its solar panel collect? | ~$55–175 | ~$295–775 | ≥3 weeks, cold loss and winter harvest measured |
 | [5](#layer-5-the-mvp-a-six-listener-line) MVP | Does the whole chain work? | ~$250–350 | ~$545–1,125 | 18/20 crossings in 10 s, <1 false alarm/day, silent |
+
+</details>
 
 Assumed owned: laptop, phone, USB power banks, soldering iron.
 

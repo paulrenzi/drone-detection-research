@@ -1216,3 +1216,20 @@ body.ou {
   span:first-child { transform: none; }
   span:last-child { transform: translateX(-100%); }
 }
+
+.vz-ladder { margin: 16px 0 6px; border: 1px solid $ou-ink; background: #fff; }
+.ou .main-content a.vz-rung {
+  display: grid; grid-template-columns: 36px 1fr 180px 100px; gap: 12px; align-items: center;
+  padding: 10px 14px; border-bottom: 1px solid $ou-rule; color: $ou-body; text-decoration: none;
+  &:last-child { border-bottom: 0; }
+  &:hover { background: $ou-ground; }
+}
+.vz-rung-n { font-family: $ou-mono; font-size: 20px; font-weight: 700; color: $ou-accent-dark; }
+.vz-rung-q { font-size: 14px; line-height: 1.35; color: $ou-ink; }
+.vz-rung-meta { display: block; font-family: $ou-mono; font-size: 11px; color: $ou-muted; margin-top: 2px; }
+.vz-rung-track { display: flex; height: 16px; background: $ou-ground; }
+.vz-rung-tot { font-family: $ou-mono; font-size: 13px; font-weight: 700; text-align: right; color: $ou-ink; }
+@media (max-width: 640px) {
+  .ou .main-content a.vz-rung { grid-template-columns: 28px 1fr 92px; }
+  .vz-rung-track { grid-column: 2 / -1; grid-row: 2; }
+}
