@@ -1,6 +1,6 @@
 ---
 title: Countermeasures
-nav_counter: 1
+nav_primary: 3.2
 permalink: /countermeasures/
 ---
 

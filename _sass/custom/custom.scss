@@ -223,6 +223,15 @@ body.ou {
   margin-top: 2px;
 }
 
+.ou-nav-sub {
+  padding: 4px 12px 4px 38px;
+  font-size: 12px;
+}
+
+.ou-nav-sub + .ou-nav-top {
+  margin-top: 2px;
+}
+
 .ou-nav-link.is-active .ou-nav-num {
   color: #fff;
 }

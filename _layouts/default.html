@@ -28,17 +28,17 @@ layout: table_wrappers
         <a href="{{ '/' | relative_url }}" class="ou-nav-link ou-nav-top{% if page.url == '/' %} is-active{% endif %}"><span class="ou-nav-num">01</span>Overview</a>
         {% for p in primary %}
           <a href="{{ p.url | relative_url }}" class="ou-nav-link ou-nav-top{% if p.url == page.url %} is-active{% endif %}"><span class="ou-nav-num">0{{ forloop.index | plus: 1 }}</span>{{ p.nav_label | default: p.title }}</a>
+          {% if p.url == '/countermeasures/' %}
+            {% assign counter = site.pages | where_exp: "c", "c.nav_counter" | sort: "nav_counter" %}
+            {% for c in counter %}
+              <a href="{{ c.url | relative_url }}" class="ou-nav-link ou-nav-sub{% if c.url == page.url %} is-active{% endif %}">{{ c.title }}</a>
+            {% endfor %}
+          {% endif %}
         {% endfor %}
 
         {% assign detail = site.pages | where_exp: "p", "p.nav_tripwire" | sort: "nav_tripwire" %}
         <p class="ou-nav-label">TRIPWIRE DETAIL</p>
         {% for p in detail %}
-          <a href="{{ p.url | relative_url }}" class="ou-nav-link{% if p.url == page.url %} is-active{% endif %}">{{ p.title }}</a>
-        {% endfor %}
-
-        {% assign counter = site.pages | where_exp: "p", "p.nav_counter" | sort: "nav_counter" %}
-        <p class="ou-nav-label">COUNTERMEASURES</p>
-        {% for p in counter %}
           <a href="{{ p.url | relative_url }}" class="ou-nav-link{% if p.url == page.url %} is-active{% endif %}">{{ p.title }}</a>
         {% endfor %}
 
