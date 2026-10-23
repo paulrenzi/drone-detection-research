@@ -1275,3 +1275,13 @@ body.ou {
 .vz-bar-them-light { background: #c9c1b4; }
 .vz-key { display: inline-block; width: 12px; height: 12px; margin: 0 4px 0 10px; vertical-align: -1px; }
 .vz-legend .vz-key:first-child { margin-left: 0; }
+
+.vz-gridwrap { margin: 16px 0 6px; max-width: 560px; }
+.ou .main-content .vz-grid-ylab, .ou .main-content .vz-grid-xlab { margin: 0; font-family: $ou-mono; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: $ou-muted; }
+.ou .main-content .vz-grid-xlab { text-align: right; margin-top: 4px; }
+.vz-grid { display: grid; grid-template-columns: 22px repeat(4, minmax(0, 1fr)); gap: 4px; }
+.vz-gcell { min-height: 64px; padding: 6px; background: #fff; border: 1px solid $ou-rule; display: flex; flex-wrap: wrap; gap: 4px; align-content: flex-start; }
+.vz-gcell-hot { background: #fbeee8; border-color: #f0b49f; }
+.vz-grid-y, .vz-grid-x { font-family: $ou-mono; font-size: 13px; font-weight: 700; color: $ou-ink; display: flex; align-items: center; justify-content: center; }
+.ou .main-content a.vz-gchip { padding: 3px 7px; background: $ou-ink; color: #fff; font-family: $ou-mono; font-size: 12px; font-weight: 700; text-decoration: none; }
+.ou .main-content a.vz-gchip-us { background: $ou-accent; }
