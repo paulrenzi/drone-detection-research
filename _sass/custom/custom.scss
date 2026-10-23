@@ -1298,3 +1298,6 @@ body.ou {
   strong { color: $ou-ink; } em { font-style: normal; font-family: $ou-mono; font-size: 11px; color: $ou-muted; } }
 .vz-funnel-us .vz-funnel-bar { background: $ou-accent; }
 .vz-funnel-us .vz-funnel-num { color: $ou-accent-dark; }
+
+.vz-chip-no { background: #f3d3c6; color: $ou-accent-dark; }
+.ou .main-content a.vz-rung .vz-chip { justify-self: start; }

@@ -7,6 +7,41 @@ nav_order: 0.35
 # What front-line troops actually have, and what listening adds
 {: .no_toc }
 
+<p class="vz-lede">What Ukrainian troops within about 12 mi of the line actually use against drones in 2025–2026, and what a cheap listener adds to each. <strong>Against fibre-optic FPVs, the real baseline is ears, eyes and a firearm.</strong></p>
+
+### Against a fibre-optic FPV, what works
+
+<div class="vz-tiles">
+  <div class="vz-tile"><span class="vz-tile-q">Ears and eyes</span><span class="vz-tile-cost">the main detector today; ~5 s</span><span class="vz-chip vz-chip-open">partly</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">Radio detectors</span><span class="vz-tile-cost">blind: no radio link to hear</span><span class="vz-chip vz-chip-no">doesn't</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">Signature detectors</span><span class="vz-tile-cost">radio-based too</span><span class="vz-chip vz-chip-no">doesn't</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">Jammers</span><span class="vz-tile-cost">nothing to jam</span><span class="vz-chip vz-chip-no">doesn't</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">Shotguns and rifles</span><span class="vz-tile-cost">short range only</span><span class="vz-chip vz-chip-open">partly</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">Shooter teams</span><span class="vz-tile-cost">need to know where</span><span class="vz-chip vz-chip-open">partly</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">Net-guns</span><span class="vz-tile-cost">very close range</span><span class="vz-chip vz-chip-open">partly</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">AI turret</span><span class="vz-tile-cost">claimed; at the position only</span><span class="vz-chip vz-chip-done">works</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">Interceptor drones</span><span class="vz-tile-cost">no verified FPV kill</span><span class="vz-chip ">unknown</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">Nets and net tunnels</span><span class="vz-tile-cost">leaky; drones fly under</span><span class="vz-chip vz-chip-open">partly</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">Movement discipline</span><span class="vz-tile-cost">night, fog, on foot</span><span class="vz-chip vz-chip-open">partly</span></div>
+  <div class="vz-tile"><span class="vz-tile-q">Acoustic sensors</span><span class="vz-tile-cost">makers' claims only</span><span class="vz-chip ">unknown</span></div>
+</div>
+<p class="vz-bar-note">From first-hand accounts, purchase volumes and our inference. No source ranks these against each other or says what share of units has each. Reviewed 2026-10-15.</p>
+
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">The gap</p><p>The most common warning device, the radio detector, can't hear a fibre-optic drone. Still open in 2026</p></div>
+  <div class="vz-card"><p class="vz-card-num">The money</p><p>goes to interceptor drones, the most-ordered category in 2026, bought against recon drones and Shaheds, not attacking FPVs</p></div>
+  <div class="vz-card"><p class="vz-card-num">Where we help most</p><p>Most FPVs fibre-optic, units moving in the open, no turret yet. Only the line gives a minute (inference)</p></div>
+</div>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">The opening, as first written</span><span class="layer-sub">What the page covers, and why no source ranks these measures</span></summary>
+
 This page covers what Ukrainian troops within about 12 mi of the line actually use against FPV and recon drones in 2025–2026, as opposed to what is in catalogues. For each item, it asks what a cheap acoustic listener adds. Use it with [What the line gains in lives]({{ site.baseurl }}{% link research/lives-model.md %}): that page estimates the lives; this one says what the line is up against. Reviewed 2026-10-15.
 
 {: .warning }
@@ -15,10 +50,10 @@ This page covers what Ukrainian troops within about 12 mi of the line actually u
 > - We found no figure for what share of units has any item.
 > - The judgements below come from first-hand accounts, purchase volumes and our own inference, labelled as such.
 
-1. TOC
-{:toc}
+</details>
 
-## Short answer
+<details class="layer" id="short-answer" markdown="block">
+<summary><span class="layer-title">Short answer</span><span class="layer-sub">Ears and firearms, blind radio detectors, jamming losing ground, interceptors, AI turrets</span></summary>
 
 - **Against fibre-optic FPVs, the real baseline is ears, eyes and a firearm.** A Ukrainian border guard spokesman said fibre-optic drones are detected "by ear and visually" and "You can only shoot it down" ([Gwara Media, Feb 2025](https://gwaramedia.com/en/border-guards-russian-troops-actively-use-fiber-optic-drones-resistant-to-jamming-north-of-kharkiv-oblast/)). A listener at the position competes first with a soldier's hearing, not with a product.
 - **The most common warning device is blind to fibre-optic drones.** Radio detectors such as Chuyka and Tsukorok can't hear a drone with no radio link. This gap is still open in 2026.
@@ -32,7 +67,10 @@ This page covers what Ukrainian troops within about 12 mi of the line actually u
 
   A listener at the position adds least once a turret or a good sentry is there. A minute's warning of fibre-optic drones is offered by nothing else we found.
 
-## The inventory
+</details>
+
+<details class="layer" id="the-inventory" markdown="block">
+<summary><span class="layer-title">The inventory</span><span class="layer-sub">Every measure: how common, whether it works against fibre-optic FPVs, and what a listening line adds</span></summary>
 
 Key: ✅ works, 🟡 partly, ❌ doesn't, ❔ unknown.
 
@@ -51,7 +89,10 @@ Key: ✅ works, 🟡 partly, ❌ doesn't, ❔ unknown.
 | **Movement discipline** (night, fog, on foot) | Universal. Logistics shifted to daytime, and more people move on foot because "Enemy drone operators are currently more focused on targeting vehicles" (UNITED24) | 🟡 | Hours | The go/no-go minute. **This is where the [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %}) puts nearly all the value** |
 | **Acoustic sensors** (Zvook NW0, Kara Dag) | Not found in front-line use; maker claims only. Kara Dag notes that most microphones struggle to tell drone noise from ambient sound beyond about 330 ft ([Euromaidan Press, Feb 2025](https://euromaidanpress.com/2025/02/03/russias-fiber-optic-drones-dodge-jamming-but-ukraine-hunts-them-with-infrared-and-sound/)) | ❔ claimed | Seconds at the position | Direct competitors ([competitor analysis]({{ site.baseurl }}{% link research/competitors.md %})) |
 
-## What this means for listening tech (inference)
+</details>
+
+<details class="layer" id="what-this-means-for-listening-tech-inference" markdown="block">
+<summary><span class="layer-title">What this means for listening tech (inference)</span><span class="layer-sub">Where a listener adds most and least</span></summary>
 
 1. **There are two different products here.**
    - **A listener at the position** gives about 10 seconds. It competes with sentries' ears, and soon with AI turrets that carry their own sensors. Its edge is cost and never tiring.
@@ -61,7 +102,10 @@ Key: ✅ works, 🟡 partly, ❌ doesn't, ❔ unknown.
 4. **Interceptors are where the budget is.** If a line can cue interceptors against recon drones, it is tied to the fastest-growing purchase. That depends on T11 (can we hear them) and on whether interceptor crews want an acoustic cue. Ask in T18.
 5. **The buying route is open.** Brave1 Market averages eight days to deliver stocked items, and 180 brigades have guaranteed budgets on DOT-Chain Defence. Being listed does not guarantee anyone buys.
 
-## What we could not find
+</details>
+
+<details class="layer" id="what-we-could-not-find" markdown="block">
+<summary><span class="layer-title">What we could not find</span><span class="layer-sub">The gaps in the evidence</span></summary>
 
 - What share of units has any of these items.
 - Per-brigade counter-drone spend.
@@ -71,3 +115,5 @@ Key: ✅ works, 🟡 partly, ❌ doesn't, ❔ unknown.
 - **A demand for small mobile radar.** A drone-unit commander reportedly asked for mobile radar every 1.2–2.5 mi along the line. We saw that only in search snippets. If true, small radar is the nearest rival for forward warning, and it may struggle against low-flying drones.
 
 T18 should ask which of these a unit actually has and which it trusts.
+
+</details>
