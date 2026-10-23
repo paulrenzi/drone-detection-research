@@ -40,8 +40,8 @@ nav_counter: 2
     <line x1="-7" y1="-7" x2="7" y2="7"/><line x1="7" y1="-7" x2="-7" y2="7"/>
     <g fill="#fff" stroke-width="2"><circle cx="-7" cy="-7" r="3"/><circle cx="7" cy="-7" r="3"/><circle cx="-7" cy="7" r="3"/><circle cx="7" cy="7" r="3"/></g>
   </g>
-  <text x="290" y="284" class="vz-t" text-anchor="end" style="font-size:15px">landed to wait:</text>
-  <text x="290" y="302" class="vz-t-small" text-anchor="end" style="font-size:14px">the posts heard it land</text>
+  <text x="280" y="290" class="vz-t" text-anchor="end" style="font-size:15px">landed to wait:</text>
+  <text x="280" y="308" class="vz-t-small" text-anchor="end" style="font-size:14px">the posts heard it land</text>
   <rect x="0" y="340" width="480" height="30" fill="#e7e2d8"/>
   <text x="14" y="360" class="vz-t-tag" style="font-size:14px">ROAD</text>
   <g fill="#151515"><rect x="60" y="326" width="8" height="8"/><rect x="240" y="326" width="8" height="8"/><rect x="420" y="326" width="8" height="8"/></g>
@@ -84,7 +84,7 @@ nav_counter: 2
   <defs><marker id="fc-arrow-s" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2f6b3a"/></marker></defs>
   <text x="178" y="154" class="vz-t-green" text-anchor="end" style="font-size:14px">trolley, 2 lb</text>
   <text x="48" y="86" class="vz-t-small" style="font-size:13px">3 ft</text>
-  <text x="330" y="146" class="vz-t-small" style="font-size:13px">≥ 2.3 ft at mid-span</text>
+  <text x="430" y="138" class="vz-t-small" text-anchor="end" style="font-size:13px">≥ 2.3 ft at mid-span</text>
   <text x="240" y="182" class="vz-t-small" text-anchor="middle" style="font-size:13px">165 ft span, 12.5 ga fence wire at 250 lb</text>
 </svg>
 <figcaption>One span from the side, heights exaggerated. The blade sits deep in the V, so only something thin, like a fibre, can reach it.</figcaption>
