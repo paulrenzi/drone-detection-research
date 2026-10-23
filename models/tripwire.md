@@ -79,7 +79,7 @@ nav_tripwire: 1
 <div class="stats">
   <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a row about 1 mi out (est.)</p></div>
   <div class="stat"><p class="stat-num">$21–59</p><p class="stat-label">per throwaway listener (est.)</p></div>
-  <div class="stat"><p class="stat-num">35</p><p class="stat-label">darts to lay one unit's net (lay model)</p></div>
+  <div class="stat"><p class="stat-num">22</p><p class="stat-label">darts to lay one unit's net, 4 of them tips with fibre (lay model)</p></div>
   <div class="stat"><p class="stat-num">4/5</p><p class="stat-label">feasibility: every part exists, fibre took out the long radio link; field tests still to run</p></div>
 </div>
 
