@@ -1289,3 +1289,12 @@ body.ou {
 .vz-size-M { background: #f6e2b8; color: $ou-amber; }
 .vz-size-L { background: #f3d3c6; color: $ou-accent-dark; }
 .ou .main-content .vz-cards.vz-4 .vz-card p.vz-card-num { line-height: 1.15; }
+
+.vz-funnel { margin: 14px 0 6px; padding: 14px; background: #fff; border: 1px solid $ou-ink; }
+.vz-funnel-row { position: relative; display: grid; grid-template-columns: 52px 1fr; align-items: center; min-height: 34px; margin-bottom: 4px; }
+.vz-funnel-bar { position: absolute; left: 52px; top: 3px; bottom: 3px; background: #e7ddd0; max-width: calc(100% - 52px); }
+.vz-funnel-num { font-family: $ou-mono; font-size: 16px; font-weight: 700; color: $ou-ink; }
+.vz-funnel-txt { position: relative; padding: 4px 8px; font-size: 13px; line-height: 1.3; color: $ou-body;
+  strong { color: $ou-ink; } em { font-style: normal; font-family: $ou-mono; font-size: 11px; color: $ou-muted; } }
+.vz-funnel-us .vz-funnel-bar { background: $ou-accent; }
+.vz-funnel-us .vz-funnel-num { color: $ou-accent-dark; }

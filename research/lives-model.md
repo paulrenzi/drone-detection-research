@@ -7,12 +7,43 @@ nav_order: 0.3
 # What the forward line gains in lives
 {: .no_toc }
 
+<p class="vz-lede">What a minute of warning from a forward line does for troops' lives, against the ~10 seconds a sensor at the position gives. <strong>A Fermi estimate: a range, not a number.</strong> No source measures what warning does to drone casualties.</p>
+
+<div class="stats">
+  <div class="stat"><p class="stat-num">1–4</p><p class="stat-label">of every 100 drone casualties averted, our central guess</p></div>
+  <div class="stat"><p class="stat-num">0.3–14</p><p class="stat-label">the plausible range</p></div>
+  <div class="stat"><p class="stat-num">5–8</p><p class="stat-label">with a guard on the supply road too, on guarded roads</p></div>
+  <div class="stat"><p class="stat-num">~50%</p><p class="stat-label">of casualties come in the rear, moving: who the minute is for</p></div>
+</div>
+
+### From 100 casualties to about 4
+
+<div class="vz-funnel">
+  <div class="vz-funnel-row"><span class="vz-funnel-bar" style="width:100%"></span><span class="vz-funnel-num">100</span><span class="vz-funnel-txt"><strong>drone casualties</strong> · in a unit with no radio detector</span></div>
+  <div class="vz-funnel-row"><span class="vz-funnel-bar" style="width:50%"></span><span class="vz-funnel-num">50</span><span class="vz-funnel-txt"><strong>were moving in the rear</strong> · rotation, resupply, recovery, evacuation <em>claimed</em></span></div>
+  <div class="vz-funnel-row"><span class="vz-funnel-bar" style="width:25%"></span><span class="vz-funnel-num">25</span><span class="vz-funnel-txt"><strong>from FPVs that fly in across the line</strong> · not ones already waiting in ambush <em>guess</em></span></div>
+  <div class="vz-funnel-row"><span class="vz-funnel-bar" style="width:15%"></span><span class="vz-funnel-num">15</span><span class="vz-funnel-txt"><strong>that the line hears</strong> <em>guess · T11</em></span></div>
+  <div class="vz-funnel-row"><span class="vz-funnel-bar" style="width:12%"></span><span class="vz-funnel-num">12</span><span class="vz-funnel-txt"><strong>where the alert gets through</strong> <em>guess · T9, T19</em></span></div>
+  <div class="vz-funnel-row"><span class="vz-funnel-bar" style="width:7.2%"></span><span class="vz-funnel-num">7.2</span><span class="vz-funnel-txt"><strong>where troops act on it</strong> · not ignored as a false alarm <em>guess · T18</em></span></div>
+  <div class="vz-funnel-row vz-funnel-us"><span class="vz-funnel-bar" style="width:3.6%"></span><span class="vz-funnel-num">3.6</span><span class="vz-funnel-txt"><strong>where acting avoids the hit</strong> <em>guess · T18</em></span></div>
+</div>
+<p class="vz-bar-note">Central guesses, each step a share of the one above. A unit that already has a radio detector gains only on fibre-optic FPVs: about 1–2. At a fixed position a minute adds little, since weapons need only seconds; the gain is for people about to move.</p>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">The opening, as first written</span><span class="layer-sub">What the estimate covers, and how each input is marked</span></summary>
+
 We estimate what a minute of warning from a forward listening line does for troops' lives, compared with the ~10 seconds a sensor at the position gives, and with the partner systems each could cue. This is a Fermi estimate. Each input is marked **measured**, **claimed** (a source says so, unverified) or **guess** (ours). No source measures what warning does to drone casualties, so the result is a range, not a number. What troops already carry is on [What troops have, and what listening adds]({{ site.baseurl }}{% link research/frontline-kit.md %}). Reviewed 2026-10-15.
 
-1. TOC
-{:toc}
+</details>
 
-## Short answer
+<details class="layer" id="short-answer" markdown="block">
+<summary><span class="layer-title">Short answer</span><span class="layer-sub">Position against movement, the central guess, the road guard, partner systems, the three tests</span></summary>
 
 - **At a fixed position, a minute adds little over 10 seconds.** Shotguns, net-guns and turrets have the drone in range for only about 1–4 s, so seconds of warning are enough to have them ready ([A minute against the alternatives]({{ site.baseurl }}{% link research/problem-check.md %}#a-minute-against-the-alternatives)).
 - **A minute matters for people about to move:** rotation, resupply, evacuation, recovery. About half of casualties happen in the rear doing exactly this. Ten seconds is too late for them, but a minute lets them hold or change a movement.
@@ -28,7 +59,10 @@ We estimate what a minute of warning from a forward listening line does for troo
   - T9/T21: do the hops along the row hold, and does the light get home down the fibre?
   - T11: does a listener hear an FPV?
 
-## Scale
+</details>
+
+<details class="layer" id="scale" markdown="block">
+<summary><span class="layer-title">Scale</span><span class="layer-sub">Casualties, the drone share, the rear share, the fibre-optic share, and what they imply</span></summary>
 
 | Input | Value | Type |
 |---|---|---|
@@ -43,7 +77,10 @@ We estimate what a minute of warning from a forward listening line does for troo
 - If every unit fielded a line and the central guess held, that would be on the order of 100–400 casualties a month averted.
 - That is an upper bound for the idea, not a forecast. No unit-level casualty rate was found, so we can't yet say what one line saves one battalion.
 
-## The chain, per 100 drone casualties
+</details>
+
+<details class="layer" id="the-chain-per-100-drone-casualties" markdown="block">
+<summary><span class="layer-title">The chain, per 100 drone casualties</span><span class="layer-sub">The five conditions a minute needs, each with its guess, range and test</span></summary>
 
 A minute of warning only saves someone who meets all five conditions:
 1. They are about to be exposed.
@@ -70,7 +107,10 @@ The ranges multiply the low ends together and the high ends together, so the tru
 - **Giving away positions.** An alert or a jammer that transmits can reveal the unit's position. The tripwire's listeners only receive at the unit, but a cued jammer transmits.
 - **Hours lost.** Movements held on false alarms cost time; whether units would accept that is a T18 question.
 
-## A minute against 10 seconds, with partner systems
+</details>
+
+<details class="layer" id="a-minute-against-10-seconds-with-partner-systems" markdown="block">
+<summary><span class="layer-title">A minute against 10 seconds, with partner systems</span><span class="layer-sub">What each warning time lets jammers, interceptors and avoidance do</span></summary>
 
 | Partner system | With ~10 s (sensor at the position, or a soldier's ear) | With ~1 min (forward line) | What the minute adds in lives |
 |---|---|---|---|
@@ -87,7 +127,10 @@ The ranges multiply the low ends together and the high ends together, so the tru
 - Against **fibre-optic FPVs**, jammers do nothing and weapons get only seconds whatever the warning. The line's minute is the only early warning available, and its value is entirely in **avoidance by people who are about to move**.
 - So the line's value grows with the fibre-optic share in a sector and with how much movement the unit has to make in the open.
 
-## Adding a guard on the supply road
+</details>
+
+<details class="layer" id="adding-a-guard-on-the-supply-road" markdown="block">
+<summary><span class="layer-title">Adding a guard on the supply road</span><span class="layer-sub">How posts by the road catch drones waiting in ambush</span></summary>
 
 The chain above writes off the half of rear casualties caused by drones already waiting by the road: a position's line can't hear something sitting still. A [road guard]({{ site.baseurl }}{% link models/route-guard.md %}) changes that. In the route model, posts along the road hear every drone that lands within 300 ft of it, and keep the alert ("drone waiting near post 17") up for hours. A rough re-run, using the same steps:
 
@@ -105,7 +148,10 @@ The chain above writes off the half of rear casualties caused by drones already 
 - **It applies only to movement on guarded roads.** The last stretch on foot to a position isn't covered. If half a unit's movement casualties happen on its guarded roads, the gain is about half: roughly 4 more per 100, not 8.
 - **Without the cable and lamps,** a truck with its jammer on hears nothing on the move ([jamming]({{ site.baseurl }}{% link models/route-guard.md %}#jamming-and-a-wire-along-the-road)).
 
-## Is it worth the cost?
+</details>
+
+<details class="layer" id="is-it-worth-the-cost" markdown="block">
+<summary><span class="layer-title">Is it worth the cost?</span><span class="layer-sub">The line's cost against what it might save</span></summary>
 
 The tripwire costs about $2.0–3.1k for a unit's package and about $3–5k a year in re-lays, with a solar panel on every dart ([running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)).
 
@@ -115,7 +161,10 @@ The tripwire costs about $2.0–3.1k for a unit's package and about $3–5k a ye
 
 A guard on a supply road costs more: about $19–27k a year for 4 mi with solar ([costs]({{ site.baseurl }}{% link costs.md %}#guarding-a-road)). It is aimed at the rear, where about half the casualties are.
 
-## The Israeli analogue
+</details>
+
+<details class="layer" id="the-israeli-analogue" markdown="block">
+<summary><span class="layer-title">The Israeli analogue</span><span class="layer-sub">What sirens and shelters teach, including harm from alerts</span></summary>
 
 - **What was found:** Zucker and Kaplan modelled rocket casualties in Sderot and found expected casualties per rocket would be "between three (best-case) and nine (worst-case) times higher" without civil defence ([Studies in Conflict & Terrorism, 2014](https://ideas.repec.org/a/taf/uterxx/v37y2014i3p258-266.html)).
 - **Why it doesn't transfer directly:**
@@ -123,7 +172,10 @@ A guard on a supply road costs more: about $19–27k a year for 4 mi with solar 
   - Civilians in a town are not soldiers on the move.
 - **What it does show:** warning paired with somewhere to go saves many lives. Warning with nowhere to go saves few. The line's minute is worth most where troops have a real alternative to moving.
 
-## What would change this estimate
+</details>
+
+<details class="layer" id="what-would-change-this-estimate" markdown="block">
+<summary><span class="layer-title">What would change this estimate</span><span class="layer-sub">The findings that would move it up or down</span></summary>
 
 - **T18 (interviews):**
   - What share of a unit's drone casualties happen while moving.
@@ -133,3 +185,5 @@ A guard on a supply road costs more: about $19–27k a year for 4 mi with solar 
 - **T11:** whether a listener hears an FPV at all, and at what distance.
 - **T9/T17:** whether the alert gets out of the trees.
 - **A unit casualty rate:** with one, the estimate becomes lives per battalion per year, and can be set against the re-lay cost.
+
+</details>
