@@ -27,7 +27,8 @@ nav_label: Competitors
   <circle cx="338" cy="289" r="5" fill="#151515"/>
   <text x="338" y="276" class="vz-t" text-anchor="middle" style="font-size:13px">DroneAlert</text>
   <rect x="463" y="258" width="12" height="28" fill="none" stroke="#151515" stroke-width="2" stroke-dasharray="3 2"/>
-  <text x="476" y="248" class="vz-t" text-anchor="end" style="font-size:13px">Zvook NW0 (claimed)</text>
+  <line x1="469" y1="200" x2="469" y2="256" stroke="#151515" stroke-width="1"/>
+  <text x="476" y="194" class="vz-t" text-anchor="end" style="font-size:13px">Zvook NW0 (claimed)</text>
   <path d="M434 294 L444 304 M444 294 L434 304" stroke="#b83a16" stroke-width="2.5"/>
   <line x1="439" y1="232" x2="439" y2="290" stroke="#b83a16" stroke-width="1"/>
   <text x="440" y="226" class="vz-t" text-anchor="end" style="font-size:13px;fill:#b83a16">Chuyka: blind to fibre</text>
