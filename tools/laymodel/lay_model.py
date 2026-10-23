@@ -69,6 +69,11 @@ WHOLE_S = 55.0                        # a lay is whole if every track gets at le
 MAX_EXTRA = 3                         # extra darts tried per point before it is left for the crew
 END_INSET = -300.0                    # end darts 300 ft beyond the 45° edge line; the old plan set them 635 ft in
 PLAN_FRAC = 1.0                       # plan hops at this share of the 90% hop
+COVER_DEG = 45.0                      # each position is covered for drones within this angle of straight on
+JUDGE_DEG = None                      # angle the "whole" check uses; None = COVER_DEG
+FIBRE = False                         # trunks are FPV fibre to a tip dart, not radio relays (idea, untested)
+TIP_G = 285.0                         # tip dart with ~1.2 mi of fibre on its spool and a small laser, 10 oz ASSUME
+P_SNAG = 0.05                         # fibre breaks while being laid (snag, tree, wire) ASSUME
 
 
 def cold_factor(temp_f, warmed):
@@ -163,11 +168,11 @@ class Sector:
 
 # ---- the plan -------------------------------------------------------------------------------
 def arc_point(u, depth):
-    a = depth * math.pi / 4
+    A = math.radians(COVER_DEG); a = depth * A
     if u < a:
-        th = math.pi / 4 * (1 - u / a); return (-W / 2 - depth * math.sin(th), depth * math.cos(th))
+        th = A * (1 - u / a); return (-W / 2 - depth * math.sin(th), depth * math.cos(th))
     if u <= a + W: return (-W / 2 + (u - a), depth)
-    th = math.pi / 4 * (u - a - W) / a; return (W / 2 + depth * math.sin(th), depth * math.cos(th))
+    th = A * (u - a - W) / a; return (W / 2 + depth * math.sin(th), depth * math.cos(th))
 
 
 def pulled(sec, p, notes):
@@ -229,7 +234,7 @@ def even_or_greedy(sec, pts_fn, u0, u1, step_max, notes):
 
 def plan(sec):
     notes = {"moved": [], "pulled": []}
-    a = DEPTH * math.pi / 4; L = W + 2 * a
+    a = DEPTH * math.radians(COVER_DEG); L = W + 2 * a
     nominal_n = math.ceil((L - 2 * REFF) / HOP) + 1
     fr, moved = even_or_greedy(sec, lambda u: arc_point(u, DEPTH), END_INSET, L - END_INSET, HOP * PLAN_FRAC, notes)
     front = [p for u, p in fr]
@@ -240,6 +245,7 @@ def plan(sec):
     rx = tuple(sec.cfg["receiver"])
     trunks = []
     for j in (1, len(front) - 2):
+        if FIBRE: trunks.append([]); continue   # the fibre runs from the receiver straight to the tip dart
         tip = front[j]
         L2 = dist(rx, tip)
         fn = lambda u, tip=tip: lerp(rx, tip, u / L2)
@@ -256,11 +262,11 @@ def lay_sequence(P):
     def push(name, p, anchor, kind, second=None):
         seq.append({"id": name, "p": p, "anchor": anchor, "kind": kind, "second": second})
     for i, p in enumerate(TL): push("L%d" % (i + 1), p, "RX" if i == 0 else "L%d" % i, "relay")
-    push("F2", F[1], "L%d" % len(TL), "front"); push("F1", F[0], "F2", "front")
+    push("F2", F[1], "L%d" % len(TL) if TL else "RX", "front" if TL or not FIBRE else "tip"); push("F1", F[0], "F2", "front")
     mid = n // 2   # left side lays F3..F(mid); right side lays down to F(mid+1)
     for i in range(2, mid): push("F%d" % (i + 1), F[i], "F%d" % i, "front")
     for i, p in enumerate(TR): push("R%d" % (i + 1), p, "RX" if i == 0 else "R%d" % i, "relay")
-    push("F%d" % (n - 1), F[n - 2], "R%d" % len(TR), "front"); push("F%d" % n, F[n - 1], "F%d" % (n - 1), "front")
+    push("F%d" % (n - 1), F[n - 2], "R%d" % len(TR) if TR else "RX", "front" if TR or not FIBRE else "tip"); push("F%d" % n, F[n - 1], "F%d" % (n - 1), "front")
     for i in range(n - 3, mid - 1, -1):
         push("F%d" % (i + 1), F[i], "F%d" % (i + 2), "front", second=("F%d" % i) if i == mid else None)
     return seq
@@ -307,10 +313,10 @@ def ground_speed(d, wind, va=CRUISE_MPH):
 
 class Flight:
     """Battery and clock for one sortie. Energy is a fraction of a full pack."""
-    def __init__(self, sec, darts, wind, low=False):
-        self.sec, self.wind, self.low = sec, wind, low
+    def __init__(self, sec, darts, wind, low=False, tip=False):
+        self.sec, self.wind, self.low, self.tip = sec, wind, low, tip
         self.agl = LOW_AGL if low else CRUISE_AGL
-        self.mass = ANCHOR_G + HARNESS_G + KIT_G + DART_G * darts
+        self.mass = ANCHOR_G + HARNESS_G + KIT_G + DART_G * darts + (TIP_G - DART_G if tip else 0.0)
         self.used, self.t, self.track, self.at = 0.0, 0.0, [], LAUNCH
         self.burn(self.agl / V_UP, CLIMB_K); self.mark()
 
@@ -339,7 +345,7 @@ class Flight:
 
     def drop(self):
         down = (self.agl - DROP_AGL) / V_DN; up = (self.agl - DROP_AGL) / V_UP
-        self.burn(down); self.burn(SETTLE_S); self.mass -= DART_G; self.mark("release")
+        self.burn(down); self.burn(SETTLE_S); self.mass -= TIP_G if self.tip else DART_G; self.tip = False; self.mark("release")
         self.burn(up, CLIMB_K); self.burn(max(0.0, LISTEN_S - up))
 
     def home_cost(self, frm=None, gust=True):
@@ -361,8 +367,8 @@ class Flight:
         self.go(LAUNCH); self.burn(self.agl / V_DN + 10); self.mark("land")
 
 
-def sortie_fits(sec, pts, darts=CAPACITY):
-    f = Flight(sec, darts, sec.wind)
+def sortie_fits(sec, pts, darts=CAPACITY, tip=False):
+    f = Flight(sec, darts, sec.wind, tip=tip)
     for p in pts:
         if not f.can_afford(p): return False, f
         f.go(p); f.drop()
@@ -370,12 +376,20 @@ def sortie_fits(sec, pts, darts=CAPACITY):
     return f.used <= 1 - RESERVE, f
 
 
+def tip_cap(q):
+    """A fibre tip must be the first drop of its sortie: its fibre is tied off at home."""
+    k = CAPACITY
+    for j in range(1, min(k, len(q))):
+        if q[j]["kind"] == "tip": return j
+    return k
+
+
 def chunk(sec, seq):
     out, i = [], 0
     while i < len(seq):
-        k = CAPACITY
+        k = tip_cap(seq[i:])
         while k > 0:
-            ok, f = sortie_fits(sec, [s["p"] for s in seq[i:i + k]])
+            ok, f = sortie_fits(sec, [s["p"] for s in seq[i:i + k]], tip=seq[i]["kind"] == "tip")
             if ok: break
             k -= 1
         if k == 0: raise RuntimeError("one dart to %s does not fit a battery" % seq[i]["id"])
@@ -440,6 +454,7 @@ class Lay:
         self.sorties, self.used, self.lost_drones, self.gaps = [], 0, 0, []
         self.holder = {"RX": "RX"}                                          # planned point -> dart that holds it
         self.anchor_of = {s["id"]: s["anchor"] for s in self.seq}
+        self.tips = set()                                                   # tip darts whose fibre reached home
 
     def joined(self, anchor, group, extra=()):
         """Darts of this point's group (and extra darts) that reach the anchor through the group."""
@@ -456,6 +471,7 @@ class Lay:
 
     def link(self, a, b):
         if a == b or not (self.darts[a]["ok"] and self.darts[b]["ok"]): return False
+        if FIBRE and "RX" in (a, b): return (b if a == "RX" else a) in self.tips   # the receiver has no radio link
         key = (a, b) if a < b else (b, a)
         pa, pb = self.darts[a]["p"], self.darts[b]["p"]
         hit = self.links.get(key)
@@ -490,10 +506,10 @@ class Lay:
         queue = [dict(x) for x in self.seq]
         while queue:
             # take as many planned points as fit (confirm needs no slot reserved: a spare is the next dart)
-            k = CAPACITY
-            while k > 1 and not sortie_fits(self.sec, [s["p"] for s in queue[:k]])[0]: k -= 1
+            k = tip_cap(queue); tip = queue[0]["kind"] == "tip"
+            while k > 1 and not sortie_fits(self.sec, [s["p"] for s in queue[:k]], tip=tip)[0]: k -= 1
             todo, carried = queue[:k], CAPACITY
-            f = Flight(self.sec, carried, self.sec.wind, low=self.jammed); nav = self.nav()
+            f = Flight(self.sec, carried, self.sec.wind, low=self.jammed, tip=tip); nav = self.nav()
             log = {"plan": [s["id"] for s in todo], "drops": []}
             if self.rng.random() < P_DRONE_LOSS:
                 self.lost_drones += 1; log["lost"] = True; self.sorties.append((log, f)); continue   # spare drone flies it again
@@ -509,6 +525,7 @@ class Lay:
                     name = s["id"] if tries == 0 else "%s+%d" % (s["id"], tries)
                     st = self.land_one(name, f.at); f.drop(); left -= 1
                     self.darts[name]["logged"] = spot
+                    if s["kind"] == "tip" and self.rng.random() >= P_SNAG: self.tips.add(name)
                     if st == "upright": group.append(name)
                     # The drone hears the new dart's own 'landed' (unless it is a dud) and which neighbours
                     # relayed it: each relay carries the relayer's ID. So it knows which side is joined.
@@ -531,6 +548,8 @@ class Lay:
                         spot = add(frm, mul(sub(to, frm), SPARE_STEP / max(1.0, dist(to, frm))))
                     # tilted (the dart reports it) or a dud (nothing heard at all): re-drop on the same spot
                     tries += 1
+                    if s["kind"] == "tip":   # a new tip needs a new fibre from home: next sortie, same spot
+                        s["resume"] = (tries, s["p"], []); slipped = True; break
                     if left == 0 or not f.can_afford(spot):   # finish this point on the next sortie
                         s["resume"] = (tries, spot, group); slipped = True; break
                 if slipped: break
@@ -554,7 +573,8 @@ class Lay:
         pts = [self.darts[n]["p"] for n in live if n != "RX"]
         worst = 1e9
         for tgt in self.sec.cfg["positions"]:
-            for ang in range(-45, 46, 5):
+            J = int(JUDGE_DEG or COVER_DEG)
+            for ang in range(-J, J + 1, 5):
                 d = (math.sin(math.radians(ang)), math.cos(math.radians(ang)))
                 start = add(tgt, mul(d, 12000.0)); d = (-d[0], -d[1])   # flying in toward the position
                 best = None
@@ -634,7 +654,9 @@ def fmt_case(label, r):
 def nominal_warn(sec, PP):
     n = Lay(sec, PP, random.Random(0))
     for s_ in lay_sequence(PP): n.darts[s_["id"]] = {"p": s_["p"], "ok": True, "logged": s_["p"]}
-    n.link = lambda a, b: a != b and dist(n.darts[a]["p"], n.darts[b]["p"]) <= sec.reach(n.darts[a]["p"], n.darts[b]["p"])
+    tips = {s_["id"] for s_ in lay_sequence(PP) if s_["kind"] == "tip"}
+    n.link = lambda a, b: a != b and ((b if a == "RX" else a) in tips if FIBRE and "RX" in (a, b) else
+                                      dist(n.darts[a]["p"], n.darts[b]["p"]) <= sec.reach(n.darts[a]["p"], n.darts[b]["p"]))
     g = n.graph()
     return n.warning(g), len(g) - 1, len(n.darts) - 1
 
