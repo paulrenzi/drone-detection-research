@@ -7,6 +7,72 @@ nav_order: 8
 # Open questions and field tests
 {: .no_toc }
 
+<p class="vz-lede">The ratings on this site are judgements. <strong>These tests would turn them into measurements</strong>, most for under $300 each.</p>
+
+<div class="stats">
+  <div class="stat"><p class="stat-num">21</p><p class="stat-label">tests listed</p></div>
+  <div class="stat"><p class="stat-num">5</p><p class="stat-label">decide whether the tripwire works at all</p></div>
+  <div class="stat"><p class="stat-num">≤ $300</p><p class="stat-label">for most single tests</p></div>
+  <div class="stat"><p class="stat-num">0</p><p class="stat-label">run yet; T9 is designed</p></div>
+</div>
+
+### Decides whether the tripwire works
+
+<div class="vz-tiles">
+  <div class="vz-tile"><span class="vz-tile-id">T9</span><span class="vz-tile-q">Do dart-to-dart radio hops hold?</span><span class="vz-tile-cost">< $300</span><span class="vz-chip vz-chip-done">designed</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T11</span><span class="vz-tile-q">How far does one mic hear an FPV?</span><span class="vz-tile-cost">< $300</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T21</span><span class="vz-tile-q">Does light get home down the fibre?</span><span class="vz-tile-cost">~$110 on the bench, ~$470 with a real spool</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T19</span><span class="vz-tile-q">How close can a jammer be?</span><span class="vz-tile-cost">< $300; a licensed range or Ukraine</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T12</span><span class="vz-tile-q">Weeks on one cell, in winter, with solar?</span><span class="vz-tile-cost">< $250</span><span class="vz-chip vz-chip-open">not started</span></div>
+</div>
+
+### Decides how it is laid
+
+<div class="vz-tiles">
+  <div class="vz-tile"><span class="vz-tile-id">T10</span><span class="vz-tile-q">Do darts land upright?</span><span class="vz-tile-cost">< $200</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T13</span><span class="vz-tile-q">A drone lays 4 darts on their points</span><span class="vz-tile-cost">< $500</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T14</span><span class="vz-tile-q">The same with GPS jammed</span><span class="vz-tile-cost">< $300</span><span class="vz-chip vz-chip-open">not started</span></div>
+</div>
+
+### Sorts the alarms, and the fallbacks
+
+<div class="vz-tiles">
+  <div class="vz-tile"><span class="vz-tile-id">T15</span><span class="vz-tile-q">Can it tell our drones from theirs?</span><span class="vz-tile-cost">< $200</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T20</span><span class="vz-tile-q">Can a post hear a drone land by a road?</span><span class="vz-tile-cost">< $200</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T17</span><span class="vz-tile-q">Fallback: a silent receiver at the tree line</span><span class="vz-tile-cost">< $300</span><span class="vz-chip vz-chip-open">not started</span></div>
+</div>
+
+### Shapes the payoff, not a gate
+
+<div class="vz-tiles">
+  <div class="vz-tile"><span class="vz-tile-id">T18</span><span class="vz-tile-q">Ask front-line troops where a minute helps</span><span class="vz-tile-cost">$0</span><span class="vz-chip vz-chip-open">not started</span></div>
+</div>
+
+### For the other sensor models
+
+<div class="vz-tiles">
+  <div class="vz-tile"><span class="vz-tile-id">T1</span><span class="vz-tile-q">Run bearing code on a public dataset</span><span class="vz-tile-cost">$0</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T2</span><span class="vz-tile-q">Bearings from 3–5 mic-array nodes</span><span class="vz-tile-cost">< $500</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T3</span><span class="vz-tile-q">Does mounting higher help?</span><span class="vz-tile-cost">~$0 extra</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T4</span><span class="vz-tile-q">Which windscreen, at what wind?</span><span class="vz-tile-cost">< $100</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T5</span><span class="vz-tile-q">False alarms over a week</span><span class="vz-tile-cost">~$0 extra</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T6</span><span class="vz-tile-q">Shahed-class engine recordings</span><span class="vz-tile-cost">partnership</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T7</span><span class="vz-tile-q">20+ nodes in a mass raid</span><span class="vz-tile-cost">~$1,000</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T8</span><span class="vz-tile-q">How visible is a node's radio?</span><span class="vz-tile-cost">< $300</span><span class="vz-chip vz-chip-open">not started</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">T16</span><span class="vz-tile-q">Positions and clocks without GPS, for arrays</span><span class="vz-tile-cost">< $300</span><span class="vz-chip vz-chip-open">not started</span></div>
+</div>
+
+<p class="vz-bar-note">What each test measures, its cost and its links are in <a href="#the-short-version-in-full">every test in full</a> below.</p>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">Every test in full</span><span class="layer-sub">The full table: what each test does, what it answers, its cost and status</span></summary>
+
 The ratings on this site are judgements. These tests would turn them into measurements. Ordered roughly by value per dollar.
 
 | # | Test | Answers | Est. cost | Status |
@@ -33,7 +99,10 @@ The ratings on this site are judgements. These tests would turn them into measur
 | T20 | [Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %}): fly an FPV-size quad in, land it 50–600 ft from a post and cut the motors, with and without trucks passing | Can a post tell "landed" from "flew out of range", and how far does a passing truck cut its hearing? | < $200 (est.) | Not started |
 | T21 | [How it works]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box): a tip dart's board driving a small laser into a full 1.2 mi spool of FPV fibre, read by a base box; then cut the fibre, and lay a spool from the drone over plough, grass and a windbreak | Does enough light get home? What do the laser and a heartbeat every 10 s cost the battery? How much does a tip weigh, and how often does fibre break while a drone lays it (1 in 20 assumed)? Steps: [MVP layer 3]({{ site.baseurl }}{% link mvp.md %}#layer-3-fibre-home-t21) | ~$110 on the bench, ~$470 with a real spool (listed prices) | Not started |
 
-## T9: do the hops along the row hold? {#t9-can-a-forward-line-report-back}
+</details>
+
+<details class="layer" id="t9-can-a-forward-line-report-back" markdown="block">
+<summary><span class="layer-title">T9: do the hops along the row hold?</span><span class="layer-sub">What has been measured, why antenna height matters, a prediction, and the test plan</span></summary>
 
 Alerts now come home by fibre from a tip dart in the row ([T21]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)), so the radio's job in the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) is short: a few bytes from dart to dart along the row, both 1.6–3.3 ft above the ground, about 980 ft a hop. That hop sets the spacing, and so how many darts a line needs ([how]({{ site.baseurl }}{% link models/line-layout.md %})). The old question, whether a node 1.2–2.5 mi forward can reach a raised receiver at the unit directly, now matters only for the [fallback]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees) where fibre can't go. This section collects what is already published and sets out the test that would settle the rest.
 
@@ -122,7 +191,10 @@ At each point: stake the node, send **at least 100 packets per spreading factor*
 {: .warning }
 > Two boards measure one link at a time. How well a chain of many hops holds up is estimated from single-link delivery rates, not measured, until T7's 20-node test.
 
-## T16: positions and clocks without GPS
+</details>
+
+<details class="layer" id="t16-positions-and-clocks-without-gps" markdown="block">
+<summary><span class="layer-title">T16: positions and clocks without GPS</span><span class="layer-sub">What has been measured, and what it suggests for arrays that need exact positions and clocks</span></summary>
 
 A reader's suggestion: one central node knows where it is, and the others work out their own positions from it, instead of every node carrying GPS. It matters most for [M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) and [M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}), which locate drones from several nodes. The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost) doesn't need that precision.
 
@@ -144,8 +216,13 @@ The anchor itself should be a surveyed point, not a GPS receiver: at the unit it
 - **Clocks** are the recurring need, and a time beacon from the anchor is the part most worth testing. Its accuracy over LoRa is not measured here.
 - **Calibration flyby** (our idea, not the reader's): the delivery drone logs its own track. Each node's detection time, and for M1 its bearing, compared against that log could correct both position and clock, and M1's compass, with no extra radio traffic.
 
-## Open questions
+</details>
+
+<details class="layer" id="open-questions" markdown="block">
+<summary><span class="layer-title">Open questions</span><span class="layer-sub">Unanswered questions about data, buyers and the business</span></summary>
 
 - Where is the Ukraine/Norway open-source sound library? (see [Datasets]({{ site.baseurl }}{% link research/datasets.md %}))
 - What price would a NATO buyer pay per node, and what certification would they demand?
 - Is the better business the **node**, the **fusion software**, or the **training data**?
+
+</details>
