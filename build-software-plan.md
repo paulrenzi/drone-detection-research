@@ -7,15 +7,46 @@ nav_tripwire: 8
 # Build: software plan, and the open-source parts to build it from
 {: .no_toc }
 
+<p class="vz-lede">Which public projects each of the six programs on <a href="{{ site.baseurl }}{% link build-software.md %}">Build: software</a> can be built from, what they change in the design, and the order to build in. <strong>A plan, not progress: no code exists yet.</strong></p>
+
+<div class="vz-cards vz-4">
+  <div class="vz-card"><p class="vz-card-num">MIT</p><p>Our firmware stays MIT, built on Batear and RadioLib. Mesh firmwares lend ideas, not code: they beacon, and Meshtastic is GPL</p></div>
+  <div class="vz-card"><p class="vz-card-num">Radio does the listening</p><p>The SX1262 runs relay listening windows itself, so the ESP32 sleeps until the radio wakes it</p></div>
+  <div class="vz-card"><p class="vz-card-num">Weakest goes first</p><p>A dart that heard a packet faintly relays sooner, so each hop covers the most ground</p></div>
+  <div class="vz-card"><p class="vz-card-num">One dataset is out</p><p>The Al-Emadi drone audio is non-commercial only; a CC BY FPV set and Batear's MIT set replace it</p></div>
+</div>
+
+### The build, in seven phases
+
+<div class="vz-tiles">
+  <div class="vz-tile"><span class="vz-tile-id">Phase 0</span><span class="vz-tile-q">Groundwork</span><span class="vz-tile-cost">laptop only</span><span class="vz-chip vz-size-S">small</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">Phase 1</span><span class="vz-tile-q">Radio range</span><span class="vz-tile-cost">T9 · layer 1</span><span class="vz-chip vz-size-S">small</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">Phase 2</span><span class="vz-tile-q">Edge receiver and display v0</span><span class="vz-tile-cost">T17 · layer 3</span><span class="vz-chip vz-size-M">medium</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">Phase 3</span><span class="vz-tile-q">Battery life</span><span class="vz-tile-cost">T12 · layer 4</span><span class="vz-chip vz-size-M">medium</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">Phase 4</span><span class="vz-tile-q">Relaying and the line display</span><span class="vz-tile-cost">layer 5</span><span class="vz-chip vz-size-L">large</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">Phase 5</span><span class="vz-tile-q">The learned classifier</span><span class="vz-tile-cost">after layer 2 data</span><span class="vz-chip vz-size-L">large</span></div>
+  <div class="vz-tile"><span class="vz-tile-id">Phase 6</span><span class="vz-tile-q">Laying the line</span><span class="vz-tile-cost">T13, T14</span><span class="vz-chip vz-size-M">medium</span></div>
+</div>
+<p class="vz-bar-note">Each phase goes with a test or an MVP layer. Size is the work, not the cost. One assumption is unproven: that an Android tablet can read the wired display adapter in the browser. A laptop works either way.</p>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">The opening, as first written</span><span class="layer-sub">The page's introduction and the plan-not-progress warning</span></summary>
+
 Which public projects each of the six programs on [Build: software]({{ site.baseurl }}{% link build-software.md %}) can be built from, what each one changes in the design, and the order to build it all in.
 
 {: .warning }
 > **A plan, not progress.** No code exists yet. Every repository below was checked on 2026-10-19 for its licence, its last push and, where it matters, its source. Stars and dates move; licences rarely do. Nothing here has been run on our hardware.
 
-1. TOC
-{:toc}
+</details>
 
-## Short answer
+<details class="layer" id="short-answer" markdown="block">
+<summary><span class="layer-title">Short answer</span><span class="layer-sub">Licences, three findings that change the design, Batear moving our way, and one unproven assumption</span></summary>
 
 - **Our firmware stays MIT, built on Batear and RadioLib.** Both are MIT and active. The mesh firmwares (Meshtastic, MeshCore, LoRaMesher) are used for their ideas, not their code. All three send routine beacons or routing traffic, and a listener must stay silent until it hears a drone. Meshtastic is also GPL, which would change our licence.
 - **Three findings change the design:**
@@ -25,7 +56,10 @@ Which public projects each of the six programs on [Build: software]({{ site.base
 - **Batear has moved toward us.** An open issue ([#51](https://github.com/batear-io/batear/issues/51)) proposes one firmware where every node detects *and* relays. A closed, unmerged draft ([#49](https://github.com/batear-io/batear/pull/49)) wires an int8 CNN into its audio chain on TensorFlow Lite Micro. Our relay and nonce work is worth offering upstream, not keeping in a private fork.
 - **One assumption is unproven:** that an Android tablet can read the RS-485 adapter in the browser. Chrome on Android has Web Serial over Bluetooth. Public sources don't settle whether it reads a *wired* USB serial adapter. A laptop works either way. Test the tablet in phase 2.
 
-## The open-source parts, layer by layer
+</details>
+
+<details class="layer" id="the-open-source-parts-layer-by-layer" markdown="block">
+<summary><span class="layer-title">The open-source parts, layer by layer</span><span class="layer-sub">For each of the six programs: the projects to build from, and the repositories</span></summary>
 
 **Use** means its code goes into ours. **Tool** means we run it as a separate program, so its licence doesn't touch ours. **Reference** means we read it and write our own.
 
@@ -86,7 +120,10 @@ Which public projects each of the six programs on [Build: software]({{ site.base
 | rtl-sdr `rtl_power` | GPL-2.0 | **Tool** | Sweeps 915 MHz around an armed-wait listener and the edge receiver for the silence check (T8, T17) |
 | [Meshtasticator](https://github.com/meshtastic/Meshtasticator) | none stated | **Reference** | A discrete-event simulator of Meshtastic flooding over LoRa path loss. With no licence we read it, then write our own small simulator |
 
-## The plan
+</details>
+
+<details class="layer" id="the-plan" markdown="block">
+<summary><span class="layer-title">The plan</span><span class="layer-sub">Seven phases from groundwork to laying the line, and what comes later</span></summary>
 
 Each phase ends in something that runs, and each lines up with an [MVP]({{ site.baseurl }}{% link mvp.md %}) layer, so software is never ahead of what the hardware tests have shown. Sizes are rough: **S** is a few days, **M** one to two weeks, **L** several weeks. They are estimates, not commitments.
 
@@ -153,9 +190,14 @@ The **packet codec** (I1, I1a) is written twice, in C for the firmware and in Py
 - TAK output through pytak.
 - A tablet app, only if phase 2 forces one.
 
-## Risks the parts don't remove
+</details>
+
+<details class="layer" id="risks-the-parts-dont-remove" markdown="block">
+<summary><span class="layer-title">Risks the parts don't remove</span><span class="layer-sub">What open-source parts can't fix for us</span></summary>
 
 - **Sleep current on the Heltec board** may decide battery life whatever the software does (phase 3).
 - **The classifier's training data** is mostly hobby drones in quiet places. Field recordings from Batear's SD logging are the only route to front-line negatives.
 - **Upstream may not want** a military line-relay use in Batear. The fork works on its own either way.
 - **Licences:** keep GPL code (Meshtastic, MAVProxy, ArduPilot, gr-lora_sdr) as separate tools and references, never pasted into the firmware or the display.
+
+</details>

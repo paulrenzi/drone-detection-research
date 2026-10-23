@@ -1285,3 +1285,7 @@ body.ou {
 .vz-grid-y, .vz-grid-x { font-family: $ou-mono; font-size: 13px; font-weight: 700; color: $ou-ink; display: flex; align-items: center; justify-content: center; }
 .ou .main-content a.vz-gchip { padding: 3px 7px; background: $ou-ink; color: #fff; font-family: $ou-mono; font-size: 12px; font-weight: 700; text-decoration: none; }
 .ou .main-content a.vz-gchip-us { background: $ou-accent; }
+.vz-size-S { background: #d9ead9; color: $ou-green; }
+.vz-size-M { background: #f6e2b8; color: $ou-amber; }
+.vz-size-L { background: #f3d3c6; color: $ou-accent-dark; }
+.ou .main-content .vz-cards.vz-4 .vz-card p.vz-card-num { line-height: 1.15; }
