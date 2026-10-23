@@ -7,20 +7,22 @@ nav_order: 3
 # M3 — Single-mic nodes + time-difference of arrival
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-| **3/5** | **3/5** | 3/5 | 4/5 | 4/5 | 3/5 |
+<p class="vz-lede">Cheapest hardware, but shifts all the difficulty into timing and computation. Better as a cross-check inside M1 than as the whole system.</p>
 
-**Unit cost (est.):** $30–50
+<div class="vz-meters">
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Feasibility</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Payoff</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Technical readiness</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Cost per sq mi</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Persistence</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Deployability</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+</div>
 
-**Best against:** loud, continuous sources (Shahed-class) in areas with dense nodes
-
-**One-line verdict:** Cheapest hardware, but shifts all the difficulty into timing and computation. Better as a cross-check inside M1 than as the whole system.
-
-**Payoff:** Too sparse to locate drones on its own, but its low cost is what makes throwaway tripwire nodes possible.
-
-1. TOC
-{:toc}
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">Unit cost</p><p>$30–50 (est.)</p></div>
+  <div class="vz-card"><p class="vz-card-num">Best against</p><p>loud, continuous sources (Shahed-class) in areas with dense nodes</p></div>
+  <div class="vz-card"><p class="vz-card-num">Payoff</p><p>Too sparse to locate drones on its own, but its low cost is what makes throwaway tripwire nodes possible.</p></div>
+</div>
 
 ## How it works
 
@@ -48,12 +50,24 @@ nav_order: 3
 - What's the accuracy versus M1 bearings for the same node count?
 - Without GPS, how closely can a time beacon from a surveyed anchor keep node clocks in step? ([T16]({{ site.baseurl }}{% link research/open-questions.md %}#t16-positions-and-clocks-without-gps))
 
-## Rating history
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="rating-history" markdown="block">
+<summary><span class="layer-title">Rating history</span><span class="layer-sub">Each change to the rating, and why</span></summary>
 
 | Date | Rating | Why |
 |---|---|---|
 | 2026-10-15 | 3 | Physics is sound; matching continuous sound across distant nodes is unproven at low bandwidth. |
 
-## Sources
+</details>
+
+<details class="layer" id="sources" markdown="block">
+<summary><span class="layer-title">Sources</span><span class="layer-sub">Every source on this page</span></summary>
 
 - See [Localization methods]({{ site.baseurl }}{% link research/localization.md %}).
+
+</details>

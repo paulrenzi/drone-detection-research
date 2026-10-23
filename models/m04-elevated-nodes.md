@@ -7,20 +7,22 @@ nav_order: 4
 # M4 — Elevated fixed nodes (towers, masts, rooftops)
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-| **4/5** | **4/5** | 5/5 | 4/5 | 5/5 | 3/5 |
+<p class="vz-lede">Not a separate sensor so much as <em>where to put M1</em>. Getting mics 33–98 ft up is probably the cheapest range gain available.</p>
 
-**Unit cost (est.):** M1 node ($80–150) + mount ($0 on existing structures, $100–300 for a dedicated mast)
+<div class="vz-meters">
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Feasibility</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Payoff</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Technical readiness</span><span class="vz-dots" aria-label="5 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="vz-meter-v">5/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Cost per sq mi</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Persistence</span><span class="vz-dots" aria-label="5 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="vz-meter-v">5/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Deployability</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+</div>
 
-**Best against:** everything — height helps for all targets
-
-**One-line verdict:** Not a separate sensor so much as *where to put M1*. Getting mics 33–98 ft up is probably the cheapest range gain available.
-
-**Payoff:** Height is the cheapest range gain available, and range is the biggest weakness.
-
-1. TOC
-{:toc}
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">Unit cost</p><p>M1 node ($80–150) + mount ($0 on existing structures, $100–300 for a dedicated mast) (est.)</p></div>
+  <div class="vz-card"><p class="vz-card-num">Best against</p><p>everything — height helps for all targets</p></div>
+  <div class="vz-card"><p class="vz-card-num">Payoff</p><p>Height is the cheapest range gain available, and range is the biggest weakness.</p></div>
+</div>
 
 ## How it works
 
@@ -52,13 +54,25 @@ Mount nodes on telecom towers, power poles, water towers, grain silos, church st
 - Range gain at 6.6 ft vs. 33 ft vs. 98 ft for the same target and wind — the single most useful field test after basic detection works.
 - Can telecom operators host nodes at scale (as Drone Rada is discussing with Lithuanian operators)?
 
-## Rating history
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="rating-history" markdown="block">
+<summary><span class="layer-title">Rating history</span><span class="layer-sub">Each change to the rating, and why</span></summary>
 
 | Date | Rating | Why |
 |---|---|---|
 | 2026-10-15 | 4 | Proven placement (Zvook); deployability limited by access/installation. |
 
-## Sources
+</details>
+
+<details class="layer" id="sources" markdown="block">
+<summary><span class="layer-title">Sources</span><span class="layer-sub">Every source on this page</span></summary>
 
 - [Startup Estonia — Zvook tests vehicle-mounted detector at NATO BATT26 (mentions tower-mounted origins)](https://ecosystem.startupestonia.ee/news/note/zvook-tests-vehicle-mounted-acoustic-drone-detector-at-nato-s-batt26)
 - [TWZ — Thousands of networked microphones are tracking drones in Ukraine](https://www.twz.com/land/thousands-of-networked-microphones-are-tracking-drones-in-ukraine)
+
+</details>

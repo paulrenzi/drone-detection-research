@@ -7,20 +7,22 @@ nav_order: 5
 # M5 — Tethered aerostats and balloons
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-| **3/5** | **2/5** | 4/5 | 2/5 | 3/5 | 2/5 |
+<p class="vz-lede">A quiet way to get mics (and radios) very high for days at a time. A gap-filler for valleys and coastlines, not a replacement for the ground mesh.</p>
 
-**Unit cost (est.):** small helium balloon kits from ~$5k; military tethered aerostats $50k to millions
+<div class="vz-meters">
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Feasibility</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Payoff</span><span class="vz-dots" aria-label="2 of 5"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">2/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Technical readiness</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Cost per sq mi</span><span class="vz-dots" aria-label="2 of 5"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">2/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Persistence</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Deployability</span><span class="vz-dots" aria-label="2 of 5"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">2/5</span></div>
+</div>
 
-**Best against:** low-flying drones and cruise missiles hidden from ground sensors by terrain
-
-**One-line verdict:** A quiet way to get mics (and radios) very high for days at a time. A gap-filler for valleys and coastlines, not a replacement for the ground mesh.
-
-**Payoff:** A useful gap-filler at fixed sites; too costly and visible for most units.
-
-1. TOC
-{:toc}
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">Unit cost</p><p>small helium balloon kits from ~$5k; military tethered aerostats $50k to millions (est.)</p></div>
+  <div class="vz-card"><p class="vz-card-num">Best against</p><p>low-flying drones and cruise missiles hidden from ground sensors by terrain</p></div>
+  <div class="vz-card"><p class="vz-card-num">Payoff</p><p>A useful gap-filler at fixed sites; too costly and visible for most units.</p></div>
+</div>
 
 ## How it works
 
@@ -51,12 +53,24 @@ A helium balloon or aerostat on a tether lifts a mic array (and often a radio re
 - Bearing stability on a moving, swaying platform (needs an IMU-corrected array).
 - Cheapest viable kit: weather balloon + small tether vs. purpose-built aerostat.
 
-## Rating history
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="rating-history" markdown="block">
+<summary><span class="layer-title">Rating history</span><span class="layer-sub">Each change to the rating, and why</span></summary>
 
 | Date | Rating | Why |
 |---|---|---|
 | 2026-10-15 | 3 | Known platform, US interest; cost and wind limit it to niche use. |
 
-## Sources
+</details>
+
+<details class="layer" id="sources" markdown="block">
+<summary><span class="layer-title">Sources</span><span class="layer-sub">Every source on this page</span></summary>
 
 - [Interesting Engineering — Hecker on acoustic sensors and tethered aerostats (Feb 2024)](https://interestingengineering.com/military/ukraine-microphone-laden-balloons-awe-us)
+
+</details>

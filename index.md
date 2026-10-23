@@ -56,7 +56,7 @@ Don't try to make a microphone hear farther. Drop cheap ones about a mile forwar
   <line x1="300" y1="238" x2="300" y2="318" stroke="#151515" stroke-width="2"/>
   <path d="M293 246 L300 234 L307 246 M293 310 L300 322 L307 310" fill="none" stroke="#151515" stroke-width="2"/>
   <text x="288" y="266" class="vz-t-big" text-anchor="end">~1 mi</text>
-  <text x="288" y="296" class="vz-t-accent" text-anchor="end">≈ 1 min warning</text>
+  <text x="290" y="296" class="vz-t-accent" text-anchor="end" style="font-size:19px">≈ 1 min warning</text>
   <text x="575" y="300" class="vz-t-green" text-anchor="end">fibre home</text>
   <rect x="316" y="332" width="88" height="36" fill="#151515"/>
   <text x="360" y="357" class="vz-t-unit" text-anchor="middle">UNIT</text>

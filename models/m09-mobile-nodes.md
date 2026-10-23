@@ -7,20 +7,22 @@ nav_order: 9
 # M9 — Vehicle and soldier-mounted mobile nodes
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-| **3/5** | **3/5** | 3/5 | 3/5 | 4/5 | 4/5 |
+<p class="vz-lede">Brings the network to where troops actually are. Vehicle noise is the main problem; works best while stopped.</p>
 
-**Unit cost (est.):** $150–1,000 (ruggedized M1 array + vehicle power)
+<div class="vz-meters">
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Feasibility</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Payoff</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Technical readiness</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Cost per sq mi</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Persistence</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Deployability</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+</div>
 
-**Best against:** threats to convoys, checkpoints and forward positions
-
-**One-line verdict:** Brings the network to where troops actually are. Vehicle noise is the main problem; works best while stopped.
-
-**Payoff:** Covers units on the move, but range drops while moving.
-
-1. TOC
-{:toc}
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">Unit cost</p><p>$150–1,000 (ruggedized M1 array + vehicle power) (est.)</p></div>
+  <div class="vz-card"><p class="vz-card-num">Best against</p><p>threats to convoys, checkpoints and forward positions</p></div>
+  <div class="vz-card"><p class="vz-card-num">Payoff</p><p>Covers units on the move, but range drops while moving.</p></div>
+</div>
 
 ## How it works
 
@@ -44,13 +46,25 @@ nav_order: 9
 - Detection range while moving at 19–37 mph vs. stationary.
 - Can engine noise be cancelled using a reference mic near the engine?
 
-## Rating history
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="rating-history" markdown="block">
+<summary><span class="layer-title">Rating history</span><span class="layer-sub">Each change to the rating, and why</span></summary>
 
 | Date | Rating | Why |
 |---|---|---|
 | 2026-10-15 | 3 | In NATO trials; self-noise limits it on the move. |
 
-## Sources
+</details>
+
+<details class="layer" id="sources" markdown="block">
+<summary><span class="layer-title">Sources</span><span class="layer-sub">Every source on this page</span></summary>
 
 - [Startup Estonia — Zvook vehicle-mounted detector at NATO BATT26](https://ecosystem.startupestonia.ee/news/note/zvook-tests-vehicle-mounted-acoustic-drone-detector-at-nato-s-batt26)
 - [University of Salford — Experimental evaluation of acoustic drone tracking using mobile microphone arrays](https://salford.figshare.com/articles/conference_contribution/Experimental_Evaluation_of_Acoustic_Drone_Tracking_using_Mobile_Microphone_Arrays/27697134/1)
+
+</details>

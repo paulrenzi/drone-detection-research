@@ -7,23 +7,22 @@ nav_order: 7
 # M7 — Drone-deployed ground nodes
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-| **3/5** | **4/5** | 3/5 | 3/5 | 4/5 | 4/5 |
+<p class="vz-lede">Use the drone as the <em>installer</em>, not the sensor. Fast mesh build-out in contested or remote ground.</p>
 
-**Unit cost (est.):** M1 node in a drop-safe case ($80–150) + share of a reusable delivery drone
+<div class="vz-meters">
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Feasibility</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Payoff</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Technical readiness</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Cost per sq mi</span><span class="vz-dots" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span><span class="vz-meter-v">3/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Persistence</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Deployability</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+</div>
 
-**Best against:** any target, in areas people can't safely reach
-
-**One-line verdict:** Use the drone as the *installer*, not the sensor. Fast mesh build-out in contested or remote ground.
-
-**Payoff:** The delivery method behind the drone-laid tripwire.
-
-{: .note }
-> The strongest use of this model is the [drone-laid tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): throwaway listeners dropped in a row about a mile forward of a unit for a minute or more of warning.
-
-1. TOC
-{:toc}
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">Unit cost</p><p>M1 node in a drop-safe case ($80–150) + share of a reusable delivery drone (est.)</p></div>
+  <div class="vz-card"><p class="vz-card-num">Best against</p><p>any target, in areas people can't safely reach</p></div>
+  <div class="vz-card"><p class="vz-card-num">Payoff</p><p>The delivery method behind the drone-laid tripwire.</p></div>
+</div>
 
 ## How it works
 
@@ -49,8 +48,17 @@ nav_order: 7
 - How well can a node estimate its own heading after landing without human calibration?
 - Lowest-cost drop-tolerant enclosure that keeps mics clear of mud and water.
 
-## Rating history
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="rating-history" markdown="block">
+<summary><span class="layer-title">Rating history</span><span class="layer-sub">Each change to the rating, and why</span></summary>
 
 | Date | Rating | Why |
 |---|---|---|
 | 2026-10-15 | 3 | Straightforward extension of M1; self-calibration untested. |
+
+</details>

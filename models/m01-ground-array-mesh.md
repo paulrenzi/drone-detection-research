@@ -7,20 +7,22 @@ nav_order: 1
 # M1 — Fixed ground mic-array mesh
 {: .no_toc }
 
-| Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-| **4/5** | **4/5** | 4/5 | 4/5 | 4/5 | 4/5 |
+<p class="vz-lede">The recommended core. A purpose-built board that reports <em>bearing + class + confidence</em> is cheaper than a phone and gives better direction data.</p>
 
-**Unit cost (est.):** $60–120 per node at volume
+<div class="vz-meters">
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Feasibility</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter vz-meter-key"><span class="vz-meter-name">Payoff</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Technical readiness</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Cost per sq mi</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Persistence</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+  <div class="vz-meter"><span class="vz-meter-name">Deployability</span><span class="vz-dots" aria-label="4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span><span class="vz-meter-v">4/5</span></div>
+</div>
 
-**Best against:** engine-driven one-way attack drones (Shahed/Geran class), larger multirotors
-
-**One-line verdict:** The recommended core. A purpose-built board that reports *bearing + class + confidence* is cheaper than a phone and gives better direction data.
-
-**Payoff:** The layer that locates drones near a unit; any position fix needs it.
-
-1. TOC
-{:toc}
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">Unit cost</p><p>$60–120 per node at volume (est.)</p></div>
+  <div class="vz-card"><p class="vz-card-num">Best against</p><p>engine-driven one-way attack drones (Shahed/Geran class), larger multirotors</p></div>
+  <div class="vz-card"><p class="vz-card-num">Payoff</p><p>The layer that locates drones near a unit; any position fix needs it.</p></div>
+</div>
 
 ## How it works
 
@@ -73,13 +75,25 @@ Full detail and alternatives: [Hardware notes]({{ site.baseurl }}{% link researc
 - LoRa mesh vs. cellular: latency and reliability with hundreds of nodes reporting during a raid.
 - Under GPS jamming, can a surveyed anchor (ranging, a time beacon) or a calibration flyby keep node positions and clocks good enough? ([T16]({{ site.baseurl }}{% link research/open-questions.md %}#t16-positions-and-clocks-without-gps))
 
-## Rating history
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="rating-history" markdown="block">
+<summary><span class="layer-title">Rating history</span><span class="layer-sub">Each change to the rating, and why</span></summary>
 
 | Date | Rating | Why |
 |---|---|---|
 | 2026-10-15 | 4 | Initial assessment. All parts exist; not yet field-tested by us. |
 
-## Sources
+</details>
+
+<details class="layer" id="sources" markdown="block">
+<summary><span class="layer-title">Sources</span><span class="layer-sub">Every source on this page</span></summary>
 
 - [TWZ — Ukraine's acoustic network eyed by U.S. as low-cost air defense](https://www.twz.com/air/ukraines-acoustic-drone-detection-network-eyed-by-u-s-as-low-cost-air-defense-option)
 - [Robin Radar — acoustic sensors for drone detection (overview of strengths/limits)](https://www.robinradar.com/blog/acoustic-sensors-drone-detection)
+
+</details>

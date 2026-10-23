@@ -1301,3 +1301,14 @@ body.ou {
 
 .vz-chip-no { background: #f3d3c6; color: $ou-accent-dark; }
 .ou .main-content a.vz-rung .vz-chip { justify-self: start; }
+
+.vz-meters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid $ou-ink; margin: 18px 0; background: #fff; }
+.vz-meter { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; padding: 12px 14px; border-right: 1px solid $ou-rule; border-bottom: 1px solid $ou-rule; }
+.vz-meter-name { grid-column: 1 / -1; font-family: $ou-mono; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: $ou-muted; }
+.vz-meter-key .vz-meter-name { color: $ou-accent-dark; }
+.vz-dots { display: flex; gap: 4px; align-items: center;
+  i { width: 14px; height: 14px; border-radius: 50%; background: $ou-ground; border: 1px solid $ou-rule; }
+  i.on { background: $ou-ink; border-color: $ou-ink; } }
+.vz-meter-key .vz-dots i.on { background: $ou-accent; border-color: $ou-accent; }
+.vz-meter-v { font-family: $ou-mono; font-size: 13px; font-weight: 700; color: $ou-ink; }
+@media (max-width: 640px) { .vz-meters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
