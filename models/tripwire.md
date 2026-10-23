@@ -89,7 +89,9 @@ Ten seconds is enough to get a shotgun or net-gun up; weapons have only about 1�
 Covering a whole area against small drones would take thousands of nodes ([the density problem]({{ site.baseurl }}{% link research/range-and-cost.md %}#worked-examples)). Attacking drones mostly come from one side, so a tripwire only covers the approaches.
 
 - **One row**, about a mile out, says *something crossed here, at this time*. That is the [modelled net]({{ site.baseurl }}{% link models/line-layout.md %}).
-- **Direction comes from order, with a second row:** a drone heading in trips the outer row first. A second row a few hundred yards behind would add direction, speed and a firmer filter for about a dozen more darts; it is an option, not in the model.
+- **Where it crossed, for free:** the alert names the dart that heard it, and comparing loudness with its neighbours places the crossing between two darts: about ±5° as seen from the unit (estimate).
+- **Which way it's heading, for free in firmware:** each dart notes the moment the drone passed closest, from the loudness peak and the drop in pitch as it goes by. A drone flying straight in passes neighbouring darts at the same moment; one at an angle passes them seconds apart, so 1 s of timing error is about ±5° of heading (estimate). It costs a few bytes an alert and clocks that agree to about 0.1 s, not 1–2 s. Untested on an FPV, whose changing throttle blurs the pitch; T11 measures it.
+- **A second row** a few hundred yards behind adds in-or-out, speed and heading when only one dart heard it, for about a dozen more darts. It is an option, not in the model, and worth it only if T11 shows the timing method doesn't hold up.
 - A listener only has to hear the drone, not locate it, so listeners sit about one detection range apart: every 660–980 ft against FPVs, or closer under trees. A 1.9 mi front takes about 12 per line ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}) works out a net for one unit: 15 listening darts a mile out with two fibres home, 16 on real ground and about 22 used in laying them; [Projected costs]({{ site.baseurl }}{% link costs.md %}) prices it).
 - Pinpointing the drone is left to the dense ring near the unit ([M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) on [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %}) placements).
 
@@ -169,6 +171,7 @@ Over weeks, a line becomes a record of drone traffic on the unit's approach:
 ### What has to be proven
 
 - **Clocks without GPS.** Telling direction from which line trips first needs neighbouring clocks to agree within about 1–2 seconds for weeks. A drone at 67–89 mph crosses lines a few hundred yards apart roughly 5–15 seconds apart, and ordinary microcontroller clocks drift a few seconds a day (both estimates). Neighbour syncing has to keep up (T15).
+- **Heading from timing** needs two darts to hear the drone. Head-on that happens on only about a third of crossings, at 30° off about half, at 60° nearly all (estimates from 960 ft spacing and 635 ft hearing). The one-dart cases are the drones flying straight at the unit.
 - **Direction alone doesn't sort friend from foe.** Friendly drones fly home inbound, and enemy scouts leave outbound. Until T15 shows whether sound can tell them apart, the unit's flight times do most of the work.
 - **Positions from the drop plan** are only as good as the drone's navigation (T14).
 - **Battery life in cold**, with the extra bytes counted (T12).
@@ -193,7 +196,7 @@ A reader suggested one central node with a known position, and listeners that me
 | Part | Example | Est. cost | Why it's there |
 |---|---|---|---|
 | Microcontroller | ESP32-S3 | $4–10 | Runs the drone / no-drone classifier on the device, so only a few bytes are sent |
-| Microphone | INMP441 or ICS-43434 (I²S digital MEMS) | $1–3 | One mic is enough: a line listener only has to hear, not take a bearing |
+| Microphone | INMP441 or ICS-43434 (I²S digital MEMS) | $1–3 | One mic is enough: a line listener only has to hear; heading comes from timing across neighbouring darts |
 | LoRa radio | SX1262, 915 MHz in the US | $6–25 | Sends alerts and relays neighbours' alerts toward the unit |
 | GPS | none | $0 (was $8–15) | Dropped: it would be jammed where it matters most ([why](#solving-the-field-limits-at-no-extra-cost)) |
 | Battery | small LiPo cell | ~$3–8 (estimate) | Weeks, not days, only if the listener sleeps until it hears something |
@@ -362,7 +365,7 @@ A **printed fixed-wing** carrier is worth testing too: it flies much farther on 
 |---|---|---|
 | **T9** Radio range at 1.2–1.9 mi, open ground and trees, raised receiver at the unit ([test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back)) | Can a forward line report back at all? Probably yes in the open; trees unproven | < $300 |
 | **T10** Drop-test printed dart bodies onto soil, sand, mud and grass | Do listeners land upright with the mic clear? | < $200 |
-| **T11** FPV detection range for one mic on a 1.6–3.3 ft spring mast | How far apart listeners can be | < $300 |
+| **T11** FPV detection range for one mic on a 1.6–3.3 ft spring mast. Record raw audio on every mic and the test drone's GPS log | How far apart listeners can be, and whether the moment of closest pass is sharp enough to give heading | < $300 |
 | **T12** Wake-on-sound battery life with a small classifier, including in cold, and a winter of solar harvest on a dart and a post | Is "weeks" real, how much shorter in winter, and how many winter re-lays does solar leave? | < $250 |
 | **T13** Drop flight: 4 listeners on planned points from a printed quad | Placement accuracy and payload | < $500 |
 | **T14** The same flight with GPS unavailable | Can a line be laid under jamming? | < $300 |
