@@ -8,17 +8,42 @@ nav_tripwire: 4
 # Range and cost-per-square-mile model
 {: .no_toc }
 
-1. TOC
-{:toc}
+<p class="vz-lede">Cost per square mile = node cost × nodes per square mile, and <strong>how far a node hears sets how many nodes</strong>. Halve the range and you need four times the nodes.</p>
 
-## The metric that matters
+### Working range estimates, by target
+
+<div class="vz-bars">
+  <div class="vz-bar-row"><span class="vz-bar-label">Shahed / Geran, cruise missiles</span><span class="vz-bar-track"><span class="vz-bar vz-bar-them" style="width:19.4%"></span><span class="vz-bar vz-bar-them-light" style="width:80.6%"></span></span><span class="vz-bar-val">0.6–3.1 mi</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">Large multirotor, Mavic class</span><span class="vz-bar-track"><span class="vz-bar vz-bar-them" style="width:4.0%"></span><span class="vz-bar vz-bar-them-light" style="width:5.7%"></span></span><span class="vz-bar-val">660–1,600 ft</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label"><strong>Small or fibre-optic FPV</strong></span><span class="vz-bar-track"><span class="vz-bar vz-bar-us" style="width:2.0%"></span><span class="vz-bar vz-bar-us-light" style="width:4.0%"></span></span><span class="vz-bar-val">330–980 ft</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">Measured: cheap array, DJI Phantom</span><span class="vz-bar-track"><span class="vz-bar vz-bar-them" style="width:1.0%"></span><span class="vz-bar vz-bar-them-light" style="width:0.2%"></span></span><span class="vz-bar-val">160–200 ft</span></div>
+  <p class="vz-bar-note">Planning guesses, except the last row (Ghouli, Acta Acustica 2026). Wind, terrain and background noise can halve or double them. No FPV has been range-tested; T11 decides it. VolAnti measured 340 ft on a hovering quad.</p>
+</div>
+
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">1.15 / r²</p><p>nodes per square mile on a triangular grid with spacing r (miles), so 3 nodes hear most points</p></div>
+  <div class="vz-card"><p class="vz-card-num">Lines, not areas</p><p>The tripwire covers approaches with a row, not every square mile, which is why it stays cheap</p></div>
+  <div class="vz-card"><p class="vz-card-num">Field data</p><p>replaces every row here once it exists</p></div>
+</div>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-metric-that-matters" markdown="block">
+<summary><span class="layer-title">The metric that matters</span><span class="layer-sub">Cost per square mile, and the triangular-grid rule</span></summary>
 
 **Cost per square mile = node cost × nodes per square mile.**
 Node density is set by how far a node can hear the target, and by the need for **at least three nodes** to hear it at once (for a position fix from bearings).
 
 A simple layout rule: on a triangular grid with spacing equal to the detection range *r*, most points are heard by ≥3 nodes. That grid needs about **1.15 / r² nodes per square mile** (r in miles).
 
-## Detection range by target (working estimates)
+</details>
+
+<details class="layer" id="detection-range-by-target-working-estimates" markdown="block">
+<summary><span class="layer-title">Detection range by target (working estimates)</span><span class="layer-sub">Each target's sound and range guess, and the few measurements</span></summary>
 
 {: .warning }
 > These ranges are planning guesses from public reporting and the general acoustics of each target. They must be replaced with field measurements. Wind, terrain, time of day and background noise can halve or double them.
@@ -40,7 +65,10 @@ The first published field number for a cheap node comes from the open-source [Vo
 - **Speaker tone:** studio and shotgun microphones heard a speaker tone set to a hovering drone's level at 230–310 ft in low wind and 120–150 ft in high wind (*Sensors* 2025).
 - **None of these used an FPV.** Treat 330–980 ft for FPVs as unproven until T11.
 
-## Worked examples
+</details>
+
+<details class="layer" id="worked-examples" markdown="block">
+<summary><span class="layer-title">Worked examples</span><span class="layer-sub">What area coverage costs at each range</span></summary>
 
 | Range *r* | Nodes / sq mi | At $100 / node | At $450 / node (phone benchmark) |
 |---|---|---|---|
@@ -55,7 +83,10 @@ Takeaways:
 - Against small electric drones, density explodes. Wide-area coverage is unrealistic; protect **points** (bases, positions, critical infrastructure) instead.
 - Halving node cost and **doubling range** are worth the same: doubling range cuts density by 4×. Range improvements (height, windscreens, better arrays and classifiers) may be the bigger lever.
 
-## What drives range
+</details>
+
+<details class="layer" id="what-drives-range" markdown="block">
+<summary><span class="layer-title">What drives range</span><span class="layer-sub">Wind, terrain, height, background noise and the mic</span></summary>
 
 - **Source loudness and frequency:** low-frequency engine tones travel further; high-pitched small props fade faster.
 - **Spreading loss:** ~6 dB lost per doubling of distance, plus air absorption that grows with frequency.
@@ -63,3 +94,5 @@ Takeaways:
 - **Wind:** turbulence at the mic adds low-frequency noise; wind direction also bends sound.
 - **Terrain and height:** obstacles block; ground absorbs; height helps (see [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %})).
 - **Array gain:** combining N mics adds up to ~10·log₁₀(N) dB against diffuse noise — about 6 dB for 4 mics, 9 dB for 8.
+
+</details>
