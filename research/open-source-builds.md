@@ -7,12 +7,31 @@ nav_order: 1.5
 # Open-source projects to build on
 {: .no_toc }
 
+<p class="vz-lede">Three public projects already cover parts of the tripwire. <strong>None does bearings, fusion, military map output or forward placement</strong>, which is where this project adds something.</p>
+
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">Batear</p><p>A single-mic detector and LoRa gateway on an ESP32-S3: <strong>our starting firmware</strong></p><p><span class="vz-chip vz-chip-done">MIT</span> <span class="vz-chip">active</span> <span class="vz-chip vz-chip-open">no range published</span></p></div>
+  <div class="vz-card"><p class="vz-card-num">VolAnti</p><p>A four-mic unit with a local alarm: <strong>real range data</strong>, 340 ft on a hovering quad, and a tested cheap design</p><p><span class="vz-chip vz-chip-done">Apache / CERN-OHL</span> <span class="vz-chip">active</span></p></div>
+  <div class="vz-card"><p class="vz-card-num">AcousticPrint</p><p>Machine-learning code for identifying drones: <strong>method ideas and labelled data</strong></p><p><span class="vz-chip vz-chip-open">no licence</span> <span class="vz-chip">dormant since 2020</span></p></div>
+</div>
+
+<p class="vz-done">The last section turns them into a <a href="#weekend-test-kit-start-training-the-detector">weekend test kit</a> for collecting training audio; the steps are on <a href="{{ site.baseurl }}{% link weekend-test.md %}">the Saturday test</a>.</p>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">The opening, as first written</span><span class="layer-sub">What the three projects cover, and what none of them does</span></summary>
+
 Three public projects already cover parts of what this site proposes. Two are working low-cost detectors on the same chip family we picked; one is academic code for telling drones apart. None of them does bearings, fusion, military map output or forward placement, which is where this project would add something. The last section turns them into a [weekend test kit](#weekend-test-kit-start-training-the-detector) for collecting training audio.
 
-1. TOC
-{:toc}
+</details>
 
-## At a glance
+<details class="layer" id="at-a-glance" markdown="block">
+<summary><span class="layer-title">At a glance</span><span class="layer-sub">The three projects side by side: hardware, detection, range, links, licence, activity</span></summary>
 
 | | Batear | VolAnti | AcousticPrint |
 |---|---|---|---|
@@ -26,7 +45,10 @@ Three public projects already cover parts of what this site proposes. Two are wo
 | **Activity** | Active (last push 2026-10-06), ~425 stars | Active (last push 2026-09-20), ~416 stars | Dormant since May 2020, 5 stars |
 | **Best use for us** | Starting firmware for a tripwire node | Real range data and a tested low-cost unit design | Method ideas and labelled data |
 
-## Batear
+</details>
+
+<details class="layer" id="batear" markdown="block">
+<summary><span class="layer-title">Batear</span><span class="layer-sub">The MIT single-mic detector we'd fork, and what it lacks for our use</span></summary>
 
 **[github.com/batear-io/batear](https://github.com/batear-io/batear)**: an open-source, edge-only acoustic drone detector built on the ESP32-S3. No cloud and no subscription.
 
@@ -42,7 +64,10 @@ Three public projects already cover parts of what this site proposes. Two are wo
 
 **What it lacks for our use:** no direction or position; a star network, not a mesh, so no hop-by-hop relay back from a forward line; no GPS; the ESP32-S3 runs the FFT continuously, which is not a weeks-on-a-battery design; output goes to Home Assistant, not TAK or Lattice; and no published range. Field testing in Ukraine is described as planned, not done.
 
-## VolAnti
+</details>
+
+<details class="layer" id="volanti" markdown="block">
+<summary><span class="layer-title">VolAnti</span><span class="layer-sub">The four-mic unit with a published 340 ft test, and its range against wind</span></summary>
 
 **[volantitech.com](https://volantitech.com/)** · [github.com/agamrossen/VolAnti](https://github.com/agamrossen/VolAnti): an open-hardware acoustic detector designed and tested by Agam Rossen, an engineering student at the University of York. It is one person's project, not a company.
 
@@ -69,7 +94,10 @@ Nine units were built and sent to an unnamed site in September 2026.
 
 **Cautions:** the author's own disclaimer says it is not a life-safety product, has had no certification, and that the firmware, written in a month, is the least mature part, with false alarms indoors on some music and fan-like noise. The hardware licence (CERN-OHL-W) asks that changes to the board design be shared under the same licence, which matters if we sell a modified board. The author also says VolAnti was never made for or with any military and will never include countermeasures; the licences still allow reuse, but any military use of a derived design should credit it and keep its name off.
 
-## AcousticPrint
+</details>
+
+<details class="layer" id="acousticprint" markdown="block">
+<summary><span class="layer-title">AcousticPrint</span><span class="layer-sub">Academic drone-identification code, dormant</span></summary>
 
 **[github.com/AcousticPrint/AcousticPrint](https://github.com/AcousticPrint/AcousticPrint)**: research code from an academic team (Kolamunna, Li, Dahanayake, Seneviratne, Thilakaratne, Zomaya, Seneviratne) that builds acoustic "signatures" for drone classes and flags sounds that match **no known class** as outliers.
 
@@ -79,14 +107,20 @@ Nine units were built and sent to an unnamed site in September 2026.
 
 **Cautions:** no licence is published, which by default means **we may not reuse the code**; reading it for ideas is fine, and we'd need the authors' permission to copy it. The repository has been dormant since 2020, states no accuracy figures, and covers consumer camera drones, not FPVs or Shaheds.
 
-## What this means for the project
+</details>
+
+<details class="layer" id="what-this-means-for-the-project" markdown="block">
+<summary><span class="layer-title">What this means for the project</span><span class="layer-sub">What we take from each, and what nobody has published</span></summary>
 
 - **The single detector node is largely solved in the open.** Two independent projects detect drones on an ESP32-S3 for well under $100. Hardware is not the moat, as the [wider-field overview]({{ site.baseurl }}{% link research/landscape.md %}) already argues.
 - **What nobody has published** is what this site is about: bearings from cheap nodes, fusing many nodes into a track, relaying from forward lines, output to TAK and Lattice, and real combat recordings.
 - **Fastest path to a prototype:** start tripwire nodes from Batear's MIT firmware, measure range against VolAnti's published numbers, and add open-set rejection along AcousticPrint's lines on our own data.
 - These projects are also **free alternatives** a buyer could find. Anything we sell has to do clearly more than they do.
 
-## Weekend test kit: start training the detector
+</details>
+
+<details class="layer" id="weekend-test-kit-start-training-the-detector" markdown="block">
+<summary><span class="layer-title">Weekend test kit: start training the detector</span><span class="layer-sub">What training needs, the parts, and the recommendation</span></summary>
 
 The aim of a first weekend is not a finished node. It is **labelled recordings** of a drone at known distances, plus plenty of recordings of everything that isn't a drone, a first classifier trained on them, and a free baseline detector (Batear) to beat. Training data is the real bottleneck ([Training data]({{ site.baseurl }}{% link research/datasets.md %})), so the first test should start producing it.
 
@@ -132,10 +166,15 @@ The steps are on one page: [the Saturday test]({{ site.baseurl }}{% link weekend
 {: .note }
 > **Fly legally.** In the US, recreational pilots must pass the free online TRUST test and fly in permitted airspace (check B4UFLY or a similar app), under 400 ft and within sight. Drones under 8.8 oz flown for fun don't need registering; heavier ones do. Recording drone sound in a field needs no permit, but keep cameras off neighbours' property.
 
-## Sources
+</details>
+
+<details class="layer" id="sources" markdown="block">
+<summary><span class="layer-title">Sources</span><span class="layer-sub">Every source on this page</span></summary>
 
 - [Batear — GitHub](https://github.com/batear-io/batear) and its [detection algorithm notes](https://github.com/batear-io/batear/blob/main/docs/how-it-works.md)
 - [VolAnti — project site](https://volantitech.com/), [GitHub](https://github.com/agamrossen/VolAnti) and [licence and disclaimer](https://github.com/agamrossen/VolAnti/blob/main/LICENSE.md)
 - [AcousticPrint — GitHub](https://github.com/AcousticPrint/AcousticPrint)
 - Test kit: [Batear hardware and wiring](https://github.com/batear-io/batear/blob/main/docs/hardware.md), [Batear TF-card recording](https://github.com/batear-io/batear/blob/main/docs/configuration.md), [VolAnti breadboard build](https://github.com/agamrossen/VolAnti/blob/main/docs/breadboard-build.md), [Adafruit ICS-43434 (discontinued notice)](https://www.adafruit.com/product/6049), [Rokland — XIAO ESP32S3 + Wio-SX1262 kit](https://store.rokland.com/products/seeed-studio-xiao-esp32s3-wio-sx1262-kit-for-meshtastic-lora), [Meshtastic — XIAO S3 pin map](https://github.com/meshtastic/firmware/blob/master/variants/esp32s3/seeed_xiao_s3/variant.h), [Rokland — Heltec V3 US915](https://store.rokland.com/products/heltec-wifi-lora-32v3), [CNX Software — T-ETH-Lite S3](https://www.cnx-software.com/2023/09/27/lilygo-t-eth-lite-esp32-s3-board-ethernet-poe/), [The Drive — DJI Mini 4K pricing](https://www.thedrive.com/news/dji-drones-amazon-spring-sale-2026), [FAA — recreational flyers](https://www.faa.gov/uas/recreational_flyers)
 - Kit photos, cropped and resized, from Wikimedia Commons: [LILYGO T-Beam](https://commons.wikimedia.org/wiki/File:Meshtastic_T-Beam.jpg) (Chiffre01, CC0), [windshield](https://commons.wikimedia.org/wiki/File:Nicolai_Equipment_Windshield_for_Shotgun_Microphone.jpg) (Nicolai Equipment, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)), [tripod](https://commons.wikimedia.org/wiki/File:(Photography_equipment_Tripod_Photo_Camera_Tripod_photograph_in_a_studio).jpg) (David Adam Kess, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)), [power bank](https://commons.wikimedia.org/wiki/File:USB_power_bank.jpg) (Ronggy, public domain), [DJI Mini 2](https://commons.wikimedia.org/wiki/File:DJI_Mini_2.jpg) (Florian Fuchs, CC BY-SA 4.0), [racing quad](https://commons.wikimedia.org/wiki/File:Racing_Drone.jpg) (Commanderbryce, CC BY-SA 4.0), [ESP32-S3](https://commons.wikimedia.org/wiki/File:ESP32-S3_on_paper.jpg) (VectorVoyager, CC BY-SA 4.0), [microSD](https://commons.wikimedia.org/wiki/File:Size_comparison_of_SD_card,_microSD_card,_and_dime.jpg) (Nashucks, CC0). Breadboard photo from [VolAnti](https://github.com/agamrossen/VolAnti) (Agam Rossen, CC BY-SA 4.0).
+
+</details>
