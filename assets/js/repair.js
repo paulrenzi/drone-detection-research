@@ -14,7 +14,8 @@
   var W = 1640, UX = 300, UY = 520;
   var ACC = "#c2562c", GREEN = "#4f7a3a", BLUE = "#1f5f8b", GREY = "#8a8a8a", RED = "#b3261e";
   var POS = [[-W / 2, 0], [0, 0], [W / 2, 0]];
-  var DRIFT = 3, STEP_BACK = 300, KILL = 12;   // compass error in degrees; spare offset; relay 3, left trunk
+  var DRIFT = 3, STEP_BACK = 300;   // compass error in degrees; spare offset
+  var END = -300, ROOT = [0, 250];   // ends 300 ft past the 45° lines; root dart beside the receiver
 
   function el(tag, attrs, parent) {
     var e = document.createElementNS(NS, tag);
@@ -43,21 +44,24 @@
       if (u <= a + W) return [-W / 2 + (u - a), DEPTH];
       th = Math.PI / 4 * (u - a - W) / a; return [W / 2 + DEPTH * Math.sin(th), DEPTH * Math.cos(th)];
     }
-    var usable = len - 2 * REFF, n = Math.ceil(usable / HOP) + 1, step = usable / (n - 1), out = [];
-    for (var i = 0; i < n; i++) out.push(pt(REFF + i * step));
+    var usable = len - 2 * END, n = Math.ceil(usable / HOP) + 1, step = usable / (n - 1), out = [];
+    for (var i = 0; i < n; i++) out.push(pt(END + i * step));
     return out;
   }
   var FRONT = frontRow(), NF = FRONT.length;
   var PLAN = FRONT.slice();
   [1, NF - 2].forEach(function (j) { for (var k = 1; k <= 5; k++) PLAN.push([FRONT[j][0] * k / 6, FRONT[j][1] * k / 6]); });
-  var SORTIE = [3, 4, 5, 6];   // the re-lay sortie that closes the front row between darts 2 and 7
+  PLAN.push(ROOT);
+  var KILL = NF + 2;           // relay 3, left trunk
+  var NROOT = PLAN.length - 1;
+  var SORTIE = [4, 5, 6, 7];   // the last re-lay sortie: F5 to F8, closing the front row onto F9
 
   var svg = el("svg", { viewBox: "0 0 600 590", width: "100%", role: "img",
     "aria-labelledby": "rmTitle rmDesc", style: "font-family:inherit;color:inherit;display:block" }, box);
   el("title", { id: "rmTitle" }).textContent = "How the net is repaired, seen from above";
   el("desc", { id: "rmDesc" }).textContent = "To scale. A shell knocks out a relay dart on the left trunk and alerts re-route to the right trunk. " +
     "The daily roll call finds it missing and one drone sortie drops a replacement. Then a re-lay sortie flown on a compass 3 degrees off " +
-    "lands its last dart 1,250 feet from its neighbour; the drone hears no relay, drops a spare 300 feet closer, and the link is confirmed.";
+    "lands its closing dart out of reach of F9; the drone hears a relay from F7 only, drops a spare 300 feet toward F9, and the link is confirmed.";
 
   el("rect", { x: 0, y: 0, width: 600, height: 590, fill: "#efe9d8" });
   el("rect", { x: 0, y: 0, width: 600, height: 84, fill: ACC, "fill-opacity": 0.1 });
@@ -115,7 +119,8 @@
     while (gLinks.firstChild) gLinks.removeChild(gLinks.firstChild);
     for (i = 0; i < n; i++) seen.push(false);
     function link(a, b) { el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: BLUE, "stroke-opacity": 0.55, "stroke-dasharray": "4 3" }, gLinks); }
-    for (i = 0; i < n; i++) if (live(nodes[i]) && distFt(nodes[i].p, POS[1]) <= HOP) { seen[i] = true; q.push(i); link([nodes[i].x, nodes[i].y], sx(POS[1])); }
+    var rootUp = live(nodes[NROOT]);
+    for (i = 0; i < n; i++) if (live(nodes[i]) && (rootUp ? i === NROOT : distFt(nodes[i].p, POS[1]) <= HOP)) { seen[i] = true; q.push(i); link([nodes[i].x, nodes[i].y], sx(POS[1])); }
     while (q.length) {
       var a = q.shift();
       for (j = 0; j < n; j++) if (live(nodes[j]) && !seen[j] && distFt(nodes[a].p, nodes[j].p) <= HOP) {
@@ -157,6 +162,7 @@
   function reset() {
     while (gNodes.firstChild) gNodes.removeChild(gNodes.firstChild);
     nodes = PLAN.map(function (p, i) { return node(p, i < NF); });
+    var rs = sx(ROOT); text(rs[0] + 10, rs[1] - 6, "root dart", { "font-size": 13, "font-weight": 700, fill: BLUE }, gNodes);
     spare = node(SPARE, true); spare.hidden = true;
     nodes.push(spare);
     gGhost.setAttribute("opacity", 0);
@@ -182,9 +188,9 @@
       for (var i = 0; i < n; i++) if (live(nodes[i])) { if (i <= k) heard++; }
       var d = nodes[Math.min(k, n - 1)];
       if (live(d) && u < 0.83) ring(pulse, d.p, (u * n * 1.2) % 1); else pulse.setAttribute("opacity", 0);
-      tally.textContent = "Roll call: " + heard + " of 20 answered";
+      tally.textContent = "Roll call: " + heard + " of " + n + " answered";
       say(u < 0.83 ? "Daily roll call: every dart sends one check-in, and the others relay it once." :
-        "19 of 20 answered. Missing: relay 3, left trunk. The receiver names it from the plan. Repair it on the next sortie.");
+        (n - 1) + " of " + n + " answered. Missing: relay 3, left trunk. The receiver names it from the plan. Repair it on the next sortie.");
     }],
     [7, function (u) {
       clock.textContent = "Day 1, 06:20";
@@ -195,7 +201,7 @@
         if (d.dead) { d.dead = false; route(); d.dot.setAttribute("fill", "#cfe0ec"); }
         var v = (u - 0.35) / 0.3; ring(pulse, at, (v * 2) % 1);
         var nb = nodes[KILL - 1]; packet.setAttribute("opacity", 1); var s = sx(lerp(at, nb.p, Math.min(1, v * 1.5))); packet.setAttribute("cx", s[0]); packet.setAttribute("cy", s[1]);
-        var ds_ = sx(at); ear.setAttribute("x", ds_[0] + 14); ear.setAttribute("y", ds_[1] + 5); ear.setAttribute("fill", GREEN); ear.textContent = v > 0.6 ? "✓ relayed" : "";
+        var ds_ = sx(at); ear.setAttribute("x", ds_[0] + 14); ear.setAttribute("y", ds_[1] + 5); ear.setAttribute("fill", GREEN); ear.textContent = v > 0.6 ? "✓ relayed by relay 2" : "";
         say("The new dart sends 'landed'. Its neighbour relays it, and the drone hears that relay: the link works.");
       } else {
         pulse.setAttribute("opacity", 0); packet.setAttribute("opacity", 0); ear.textContent = "";
@@ -209,8 +215,8 @@
       clock.textContent = "Day 28, re-lay · GPS jammed";
       SORTIE.forEach(function (i) { nodes[i].hidden = true; });
       gGhost.setAttribute("opacity", 1); route();
-      tally.textContent = "Last re-lay sortie: front darts 3 to 6";
-      say("A re-lay with GPS jammed. The drone flies on compass, optical flow and barometer, and its compass is 3° off.");
+      tally.textContent = "Last re-lay sortie: front darts F5 to F8";
+      say("A re-lay with GPS jammed. The drone flies on compass, optical flow and lidar from an origin set at launch, and its compass is 3° off.");
     }],
     [9, function (u) {
       var path = [POS[1]].concat(DROPS), seg = u / 0.7;
@@ -218,25 +224,25 @@
         setDrone(fly(path, seg), true);
         var done = Math.floor(seg * (path.length - 1) + 0.02);
         SORTIE.forEach(function (i, k) { if (k < done && nodes[i].hidden) { move(nodes[i], DROPS[k]); nodes[i].hidden = false; route(); } });
-        say("Each drop lands about " + commas(Math.round(DEPTH * Math.tan(DRIFT * Math.PI / 180) / 10) * 10) + " ft from its planned point. Darts in one sortie are off together, so they still reach each other.");
+        say("Each drop lands about " + commas(Math.round(DEPTH * Math.tan(DRIFT * Math.PI / 180) / 10) * 10) + " ft from its planned point. Darts in one sortie are off together, so each is still relayed by the one before.");
       } else {
         SORTIE.forEach(function (i, k) { if (nodes[i].hidden) { move(nodes[i], DROPS[k]); nodes[i].hidden = false; } });
         route(); setDrone(LAST, true);
         var a = sx(LAST), b = sx(NEXT);
         bad.setAttribute("x1", a[0]); bad.setAttribute("y1", a[1]); bad.setAttribute("x2", b[0]); bad.setAttribute("y2", b[1]); bad.setAttribute("opacity", 1);
         badLbl.setAttribute("x", (a[0] + b[0]) / 2 + 14); badLbl.setAttribute("y", (a[1] + b[1]) / 2 - 22); badLbl.textContent = commas(GAP) + " ft";
-        ear.setAttribute("x", a[0] - 12); ear.setAttribute("y", a[1] + 26); ear.setAttribute("fill", RED); ear.setAttribute("text-anchor", "middle"); ear.textContent = "no relay heard";
-        say("The last drop lands " + commas(GAP) + " ft from dart 7, out of reach. The drone hears no relay of its 'landed' message.");
+        ear.setAttribute("x", a[0] - 12); ear.setAttribute("y", a[1] + 26); ear.setAttribute("fill", RED); ear.setAttribute("text-anchor", "middle"); ear.textContent = "relayed by F7 only";
+        say("F8 closes the row, so it must be relayed from both sides. F7 relays it; F9 doesn't: F8 landed " + commas(GAP) + " ft from F9, out of reach.");
       }
     }],
     [7, function (u) {
-      if (u < 0.3) { setDrone(lerp(LAST, SPARE, u / 0.3), true); say("So it drops a spare " + STEP_BACK + " ft toward dart 7's logged point."); }
+      if (u < 0.3) { setDrone(lerp(LAST, SPARE, u / 0.3), true); say("So it drops a spare " + STEP_BACK + " ft toward F9's logged point."); }
       else {
         setDrone(SPARE, true);
         if (spare.hidden) { spare.hidden = false; route(); bad.setAttribute("opacity", 0); badLbl.textContent = ""; }
-        ear.setAttribute("text-anchor", "start"); var s = sx(SPARE); ear.setAttribute("x", s[0] + 14); ear.setAttribute("y", s[1] + 5); ear.setAttribute("fill", GREEN); ear.textContent = "✓ relayed";
+        ear.setAttribute("text-anchor", "start"); var s = sx(SPARE); ear.setAttribute("x", s[0] + 14); ear.setAttribute("y", s[1] + 5); ear.setAttribute("fill", GREEN); ear.textContent = "✓ relayed by F8 and F9";
         var c = route(); tally.textContent = c.up + " of " + c.total + " darts reach the unit";
-        say("Dart 7 relays the spare's 'landed' message: the row is closed. It cost one spare dart; the drone never needed to know where it was to within a hop.");
+        say("F8 and F9 both relay the spare's 'landed' message: the row is closed. It cost one spare dart; the drone never needed to know where it was to within a hop.");
       }
     }],
     [3, function () { drone.setAttribute("opacity", 0); ear.textContent = ""; }]

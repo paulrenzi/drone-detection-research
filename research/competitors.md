@@ -185,7 +185,7 @@ They serve the rear, cost too much for a platoon, or don't hear fibre-optic dron
 
 **Cost honesty:**
 - Per sensor we are roughly 3–50x cheaper than NW0, and it also needs 15–18 W of power. Per position is open until range is measured on both sides.
-- The tripwire is a consumable, with an estimated $5–16k a year in re-lays ([estimate]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)). Quote both numbers.
+- The tripwire is a consumable, with an estimated $10.5–17k a year in re-lays ([estimate]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)). Quote both numbers.
 
 ## Risks to this positioning
 

@@ -1,5 +1,5 @@
 // Animated top-down map of a dart net in front of a unit of three positions.
-// Listening darts form a front row; relay darts carry the alert home. Tap a dart to knock it out.
+// Listening darts form a front row; relay darts carry the alert home through a hand-placed root dart. Tap a dart to knock it out.
 // Scale: 1 svg unit = 1/FT ft. All distances below are in feet.
 (function () {
   var box = document.getElementById("line-layout");
@@ -15,6 +15,8 @@
   var W = 1640;                         // 3 positions, 820 ft apart
   var R = REFF * FT;
   var UX = 300, UY = 520;               // the middle position, with the receiver
+  var END = -300;                       // end darts 300 ft past the 45° lines, as in tools/laymodel/lay_model.py
+  var ROOT = [0, 250];                  // root dart, placed by hand beside the receiver; it repeats every alert to P1-P3
   var SPEEDUP = 10, HOP_SECS = 0.3;
   var ACC = "#c2562c", GREEN = "#4f7a3a", BLUE = "#1f5f8b", GREY = "#8a8a8a";
   var POS = [[-W / 2, 0], [0, 0], [W / 2, 0]];
@@ -37,7 +39,7 @@
   function fmt(s) { s = Math.max(0, Math.round(s)); return s >= 60 ? Math.floor(s / 60) + " min " + (s % 60) + " s" : s + " s"; }
   function commas(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 
-  // ---- the front row: an arc around the positions, ±45° from each, one radio hop apart
+  // ---- the front row: an arc around the positions, ±45° from each and 300 ft beyond, one radio hop apart
   function frontRow() {
     var a = DEPTH * Math.PI / 4, len = W + 2 * a;
     function pt(u) {
@@ -46,8 +48,8 @@
       if (u <= a + W) return [-W / 2 + (u - a), DEPTH];
       th = Math.PI / 4 * (u - a - W) / a; return [W / 2 + DEPTH * Math.sin(th), DEPTH * Math.cos(th)];
     }
-    var usable = len - 2 * REFF, n = Math.ceil(usable / SPACE) + 1, step = usable / (n - 1), out = [];
-    for (var i = 0; i < n; i++) out.push(pt(REFF + i * step));
+    var usable = len - 2 * END, n = Math.ceil(usable / SPACE) + 1, step = usable / (n - 1), out = [];
+    for (var i = 0; i < n; i++) out.push(pt(END + i * step));
     return out;
   }
   function leg(to) { // 5 relays, evenly spaced from the receiver to a front dart
@@ -101,13 +103,14 @@
   el("rect", { x: -3, y: -3, width: 6, height: 6, fill: "#111" }, ds);
 
   var netEl = document.getElementById("line-layout-net");
-  var lay, nodes, hopTo;   // hopTo[i] = next node toward the receiver (-1 = receiver, undefined = cut off)
+  var lay, nodes, hopTo, rootUp;   // hopTo[i] = next node toward the receiver (-1 = receiver, undefined = cut off)
 
   function build(name) {
     lay = LAYOUTS[name];
     while (gLay.firstChild) gLay.removeChild(gLay.firstChild);
     nodes = FRONT.map(function (p) { return { p: p, listen: true, dead: false }; });
     lay.legs.forEach(function (j) { leg(FRONT[j]).forEach(function (p) { nodes.push({ p: p, listen: false, dead: false }); }); });
+    nodes.push({ p: ROOT, listen: false, dead: false, root: true });
     nodes.forEach(function (d) {
       var s = sx(d.p); d.x = s[0]; d.y = s[1];
       if (d.listen) d.ring = el("circle", { cx: d.x, cy: d.y, r: R, fill: ACC, "fill-opacity": 0.08, stroke: ACC, "stroke-opacity": 0.35 }, gLay);
@@ -121,13 +124,16 @@
     });
     var top = sx([0, DEPTH]);
     text(300, top[1] - R - 10, "front row: " + NF + " listening darts, " + (DEPTH / 5280).toFixed(2) + " mi out", { "text-anchor": "middle", "font-size": 15, "font-weight": 700, fill: ACC }, gLay);
-    text(300, 108, "circles: what each dart hears · squares: relay darts, no mic", { "text-anchor": "middle", "font-size": 13, opacity: 0.85 }, gLay);
+    var rs = sx(ROOT);
+    text(rs[0] + 10, rs[1] - 6, "root dart", { "font-size": 13, "font-weight": 700, fill: BLUE }, gLay);
+    text(300, 108, "circles: what each dart hears · squares: relay darts", { "text-anchor": "middle", "font-size": 13, opacity: 0.85 }, gLay);
     var total = nodes.length;
     titleEl.textContent = "A net of " + total + " darts in front of a unit, seen from above: " + lay.label;
     descEl.textContent = "To scale. " + NF + " listening darts sit in an arc " + (DEPTH / 5280).toFixed(2) +
-      " miles in front of three positions, covering 45 degrees either side of each. " +
+      " miles in front of three positions, running 300 feet past 45 degrees either side of them. " +
       (lay.legs.length > 1 ? "Two chains of five relay darts, one at each end of the arc, carry the alert back to the receiver."
                            : "One chain of five relay darts carries the alert from the middle of the arc back to the receiver.") +
+      " A root dart beside the receiver repeats it to all three positions." +
       " Drones come in at 60 mph straight on, 30 degrees from the left and 45 degrees from the right.";
     route();
   }
@@ -137,7 +143,8 @@
     var n = nodes.length, hops = [], i, j, q = [];
     hopTo = new Array(n);
     for (i = 0; i < n; i++) hops.push(Infinity);
-    for (i = 0; i < n; i++) if (!nodes[i].dead && distFt(nodes[i].p, POS[1]) <= HOP) { hops[i] = 1; hopTo[i] = -1; q.push(i); }
+    rootUp = !nodes[n - 1].dead;
+    for (i = 0; i < n; i++) if (!nodes[i].dead && (rootUp ? nodes[i].root : distFt(nodes[i].p, POS[1]) <= HOP)) { hops[i] = 1; hopTo[i] = -1; q.push(i); }
     while (q.length) {
       var a = q.shift();
       for (j = 0; j < n; j++) if (!nodes[j].dead && hops[j] === Infinity && distFt(nodes[a].p, nodes[j].p) <= HOP) { hops[j] = hops[a] + 1; hopTo[j] = a; q.push(j); }
@@ -154,7 +161,8 @@
     });
     paint();
     if (netEl) netEl.textContent = !dead ? "All " + nodes.length + " darts reach the unit. Tap a dart to knock it out." :
-      dead + " knocked out · " + (cut ? cut + " listening dart" + (cut > 1 ? "s" : "") + " cut off from the unit." : "every live listening dart still reaches the unit.");
+      dead + " knocked out · " + (cut ? cut + " listening dart" + (cut > 1 ? "s" : "") + " cut off from the unit." : "every live listening dart still reaches the unit.") +
+      (rootUp ? "" : " With the root dart out, alerts reach the receiver at P2 directly, but only positions within a hop of the last relay hear them.");
   }
   function paint() {
     nodes.forEach(function (d) {
@@ -177,7 +185,7 @@
   var passes = [
     { a: approach(POS[1], 0), intro: "A drone flies straight at P2, exactly between two front darts: the worst case." },
     { a: approach(POS[0], -30), intro: "A drone comes in at P1 from 30° to the left." },
-    { a: approach(POS[2], 45), intro: "A drone comes in at P3 from 45° to the right, the edge of the net." }
+    { a: approach(POS[2], 45), intro: "A drone comes in at P3 from 45° to the right, the edge of what the net covers." }
   ];
 
   var panel = document.getElementById("line-layout-status");
@@ -210,7 +218,7 @@
         if (d.cut) { st.cutHeard = true; continue; }
         st.hit = i; st.warn = leftS; st.hopT = 0;
         var route = [[d.x, d.y]], k = i;
-        while (k !== -1) { k = hopTo[k]; route.push(k === -1 ? sx(POS[1]) : [nodes[k].x, nodes[k].y]); if (k !== -1) nodes[k].dot.setAttribute("fill", "#cfe0ec"); }
+        while (k !== -1) { st.lastNode = k; k = hopTo[k]; route.push(k === -1 ? sx(POS[1]) : [nodes[k].x, nodes[k].y]); if (k !== -1) nodes[k].dot.setAttribute("fill", "#cfe0ec"); }
         st.route = route;
         d.dot.setAttribute("fill", ACC); d.ring.setAttribute("fill-opacity", 0.25);
         break;
@@ -230,7 +238,8 @@
         say("A front dart heard it " + commas(st.warn * FTS) + " ft out. Passing the alert home: hop " + (s + 1) + " of " + nh + "…");
       } else {
         packet.setAttribute("opacity", 0);
-        say("ALERT at all 3 positions · drone arrives in about " + fmt(leftS) + ". Take cover.");
+        var who = rootUp ? ["P1", "P2", "P3"] : ["P1", "P2", "P3"].filter(function (n_, k) { return k === 1 || distFt(nodes[st.lastNode].p, POS[k]) <= HOP; });
+        say("ALERT at " + (who.length === 3 ? "all 3 positions" : who.join(" and ") + " only") + " · drone arrives in about " + fmt(leftS) + ". Take cover.");
       }
     } else if (st.hit === 99) {
       say("No dart could get it home. Only the unit's own ears catch it, about " + fmt(st.warn) + " out.");

@@ -34,8 +34,8 @@ The planning numbers, none measured yet:
 Three drones fly in at 60 mph: one straight at the middle position, exactly between two front darts (the worst case), one from 30° to the left, and one from 45° to the right. **Tap any dart to knock it out** and see which darts can still get an alert home.
 
 1. **Hear.** Every listening dart listens all the time, in every direction. It only answers one question: *is that a drone?*
-2. **Pass it back.** The dart that hears it radios a few bytes to its neighbour. Each dart relays an alert once, until it reaches the receiver at the unit. Each hop takes about 0.05–1 s depending on the radio's settings.
-3. **Warn.** The receiver passes the alarm to the other positions and to a phone or tablet. Warning is distance ÷ speed, from wherever the drone was first heard.
+2. **Pass it back.** The dart that hears it radios a few bytes to its neighbour. Each dart relays an alert once, until it reaches the **root dart**, placed by hand beside the receiver at P2, which repeats it once more. Each hop takes about 0.05–1 s depending on the radio's settings.
+3. **Warn.** Every position has a receiver within a hop of the root dart. Receivers never transmit; each passes the alarm to a phone or tablet. Warning is distance ÷ speed, from wherever the drone was first heard.
 
 **It is a tripwire, not a microphone array.** An array combines its microphones to find a direction, which needs exact spacing and shared timing. Here each dart only says "I heard it", and the net carries that home.
 
@@ -47,23 +47,23 @@ At 60 mph (88 ft a second), 65 s means hearing the drone **5,720 ft out**.
 - **So the front row sits 5,316 ft (1.01 mi) out.** Every drone heading for the unit is heard at least 5,720 ft away.
 - **Each trunk is 6 hops: 5 relay darts.** Relays only carry the message, so they sit a full hop apart and need no microphone.
 
-**The radio sets the spacing, not the ear.** A 656 ft ear alone would allow front darts 1,270 ft apart. But each front dart has to reach its neighbour by radio, so they sit about 970 ft apart. A better ear than this saves almost nothing. A longer radio hop is what would cut darts.
+**The radio sets the spacing, not the ear.** A 656 ft ear alone would allow front darts 1,270 ft apart. But each front dart has to reach its neighbour by radio, so they sit about 960 ft apart. A better ear than this saves almost nothing. A longer radio hop is what would cut darts.
 
 ## How wide
 
 **A unit is small and spread out.** Kofman describes "nine men in three defensive positions" with "250 meters of open ground" between them, and about 15 soldiers per km of front on average ([hvylya](https://en.hvylya.net/news/2036-15-soldiers-per-kilometer-kofman-on-how-europe-s-biggest-war-emptied-the-front-line)). Neighbouring positions are reported 650–3,300 ft apart ([EMPR](https://empr.media/opinion/investigation/widening-gaps-on-the-front-why-ukraines-forces-struggle-to-hold-back-advancing-russians/)). So the map protects **three positions 820 ft apart, 1,640 ft across.**
 
-**Each position gets ±45°.** A drone can be heard coming within 45° of straight on at any of the three positions, so the front row is a 90° arc split open by the unit's width, **1.7 mi from end to end.** Coming in flatter than 45° means starting farther to the side than in front. A crew a mile forward would have to launch more than a mile to the side, in front of the neighbouring unit. That is our reasoning; we found no source on how far to the side FPV crews launch. ±60° would take about 3–4 more front darts.
+**Each position gets ±45°.** A drone can be heard coming within 45° of straight on at any of the three positions, so the front row is a 90° arc split open by the unit's width, 1.7 mi long. **The row runs on 300 ft past both 45° lines, 2.0 mi from end dart to end dart,** so a net rotated a few degrees by compass error still covers both edges ([Drop, then confirm](#drop-then-confirm)). Coming in flatter than 45° means starting farther to the side than in front. A crew a mile forward would have to launch more than a mile to the side, in front of the neighbouring unit. That is our reasoning; we found no source on how far to the side FPV crews launch. ±60° would take about 3 more front darts.
 
 **The net is wider than the unit.** 1.7 mi of front is roughly what 40 soldiers hold at 15 per km. Neighbouring units can share one continuous front row, at about 5.5 darts per mile of front, and each adds only its own trunk.
 
 ## Two trunks, for redundancy
 
-**The net always has two trunks,** one from each end of the front row: **20 darts** on open, flat ground, 10 in the front row and 10 relays. For one position instead of three, the row is 9 darts, so 19 in all. Real ground takes more: the [lay model](#laying-the-net) plans 25 on its example sector and uses about 35 to lay them.
+**The net always has two trunks,** one from each end of the front row: **22 darts** on open, flat ground, 12 in the front row and 10 relays, plus the root dart placed by hand. For one position instead of three, the row is 11 darts, so 21 in all. Laying them takes more: on flat ground the [lay model](#laying-the-net) uses about 29 darts and 8 sorties, after bad landings and short hops. Real ground takes more again: on its example sector it plans 25 and uses about 35.
 
 - **No single dart can silence it.** Knocking out any one dart cuts off at most 1 other. If a trunk dart dies, alerts run the other way along the front row to the other trunk.
 - **A single trunk is not offered.** It would save 5 darts, but one dead relay would silence the whole net, and every front dart beyond a dead one would go quiet.
-- **The longest route home is 9 hops.** At 0.05–1 s a hop that adds at most about 9 s, and short hops allow the fast radio settings (airtime estimate).
+- **The longest route home is 11 hops,** counting the root dart. At 0.05–1 s a hop that adds at most about 11 s, so the fast radio settings matter, and short hops allow them (airtime estimate).
 
 What the package costs is on [Projected costs]({{ site.baseurl }}{% link costs.md %}).
 
@@ -179,23 +179,23 @@ GPS is jammed routinely at the front ([field conditions]({{ site.baseurl }}{% li
 
 ## What placement has to get right
 
-**Accuracy decides the dart count, unless every link is confirmed.** The 20-dart net assumes every dart lands on its point. A dart that lands off its point can end up beyond radio reach of its neighbour. So the plan has to shrink every gap by twice the expected drop error:
+**Accuracy decides the dart count, unless every link is confirmed.** The 22-dart net assumes every dart lands on its point. A dart that lands off its point can end up beyond radio reach of its neighbour. So the plan has to shrink every gap by twice the expected drop error:
 
 | Drop error | Planned spacing | Front row | Relays per trunk | Total |
 |---|---|---|---|---|
-| none | 980 ft | 10 | 5 | **20** |
-| ±33 ft | 914 ft | 11 | 6 | **23** |
-| ±66 ft | 848 ft | 12 | 6 | **24** |
-| ±160 ft | 660 ft | 14 | 8 | **30** |
+| none | 980 ft | 12 | 5 | **22** |
+| ±33 ft | 914 ft | 13 | 6 | **25** |
+| ±66 ft | 848 ft | 14 | 6 | **26** |
+| ±160 ft | 660 ft | 18 | 8 | **34** |
 
-How close a drop lands is test T13. The tripwire page's working figure, that drops 66–160 ft off still make a line, needs revisiting: at 160 ft off, this net needs 30 darts, not 20. The [lay model](#laying-the-net) takes the other route: it plans at the full hop and confirms every link as it is made, which costs fewer darts than planning for the error.
+How close a drop lands is test T13. The tripwire page's working figure, that drops 66–160 ft off still make a line, needs revisiting: at 160 ft off, this net needs 34 darts, not 22. The [lay model](#laying-the-net) takes the other route: it plans at the full hop and confirms every link as it is made, which costs fewer darts than planning for the error.
 
 **The other requirements:**
 
 - **Land upright, point first, in soil.** The tip goes in about 2.8 in, holding the microphone about 20 in up. Whether the fins turn a dart nose-down in time is the first drop test ([dart model]({{ site.baseurl }}{% link build-3d.md %}#why-it-should-fall-point-first)).
 - **Nothing solid between neighbours.** A ridge, a building or a thick tree belt between two darts can break a hop. Plan hops along open ground and shorten them under trees, which also shortens hearing.
 - **Relay darts keep their radio listening.** A listening dart can sleep until it hears something, but a relay has to be awake to catch its neighbour's packet. How long its cell lasts in the cold is unknown until the battery test (T12). Relays may need re-laying sooner than listening darts.
-- **A receiver at every position, and a root dart.** Receivers never transmit. Every alert ends at a dart placed by hand beside P2, which relays it once more; P1 and P3 sit 820 ft away, within one hop, so all three receivers hear it.
+- **A receiver at every position, and a root dart.** Receivers never transmit. Every alert ends at a dart placed by hand about 250 ft in front of P2, which relays it once more; P1 and P3 are about 860 ft from it, within one hop, so all three receivers hear it. If the root dart dies, alerts still reach P2 directly, but P1 or P3 can miss them, so the roll call checks it first and the crew replaces it by hand.
 - **Keep the unit's own drones out of the alarm.** Ukrainian FPVs sound like Russian ones. The proposed answer is to alarm only on drones heading inbound, outside the unit's own flight times (test T15).
 - **Re-lay before the cells run out,** and replace darts lost to shelling. The darts' battery reports forecast when.
 
@@ -215,10 +215,11 @@ Same map, with time compressed. A relay is knocked out, found by the roll call a
 
 | Failure | What the unit loses | Fix | Our cost |
 |---|---|---|---|
-| **A front dart** | A blind gap about 670 ft wide: its neighbours end up 1,938 ft apart and each hears 635 ft | One sortie drops a dart on its point | ~$27–31 |
+| **A front dart** | A blind gap about 660 ft wide: its neighbours end up 1,926 ft apart and each hears 635 ft | One sortie drops a dart on its point | ~$27–31 |
 | **A trunk dart** | No coverage, but the net is down to one trunk | Same, and first | ~$27–31 |
-| **Two darts** | One on each trunk silences the net: 36 of the 190 possible pairs do that | Repair after the first loss | Per dart |
+| **Two darts** | One on each trunk silences the net: 36 of the 231 possible pairs do that | Repair after the first loss | Per dart |
 | **The receiver** | Everything, until swapped | By hand, at the position | ~$22 |
+| **The root dart** | P1 and P3 may miss alerts; P2 still hears | By hand, at the position | ~$29 |
 | **Cells run down** | Darts drop out one by one | A re-lay: about 35 darts, 9 sorties | ~$1,190, with drone wear |
 | **The drone** | Any repair or re-lay | A new quad | ~$850–920 |
 | **LoRa jammed** | Every dart at once | No dart fixes it: change channel or settings, or wait | none |
@@ -229,13 +230,13 @@ Same map, with time compressed. A relay is knocked out, found by the roll call a
 
 ### Drop, then confirm
 
-**Compass navigation over a mile is worse than the placement budget.** With GPS jammed, each degree of compass error puts a dart 93 ft sideways at 5,316 ft; 3° is about 280 ft. Inside one sortie that mostly doesn't matter: every drop is off the same way, and consecutive drops 980 ft apart are only about 51 ft off each other. **The joins between sorties break.** Each sortie starts again from the unit, and the sortie that closes the front row has two joins; at 3°, one closes to about 680 ft and the other opens to about 1,250 ft.
+**Compass navigation over a mile is worse than the placement budget.** With GPS jammed, each degree of compass error puts a dart 93 ft sideways at 5,316 ft; 3° is about 280 ft. Inside one sortie that mostly doesn't matter: every drop is off the same way, and consecutive drops about 960 ft apart are only about 50 ft off each other. **The joins between sorties break.** Each sortie starts again from the unit, and the sortie that closes the front row has two joins; at 3°, one closes to about 680 ft and the other opens to about 1,250 ft.
 
 **Proposed fix (untested):** the drone carries a receive-only LoRa board (about $20, transmits nothing).
 
 1. Each dart sends "landed" once it is down, and its neighbour relays it, once.
 2. The drone, still hovering, hears that relay. That proves the new dart reached its neighbour.
-3. If it hears nothing, the drone drops a spare about 300 ft toward the neighbour's logged point and listens again.
+3. If it hears nothing, or the dart closing the row is relayed from one side only, the drone drops a spare about 300 ft toward the silent neighbour's logged point and listens again.
 
 That measures every link as it is made, so the drone never needs to know where it is to within a hop, and a failed join costs one spare. Absolute error is cheap in the middle of the row, at most about 3 s of warning for 280 ft. **It is not cheap at the ends:** a net rotated 3° moves an end dart about 280 ft along the row, and the old ends, 635 ft inside the 45° lines, then left one edge unheard. The lay model puts the ends 300 ft past the 45° lines instead, and confirms every dart, not just the joins ([Laying the net](#laying-the-net)).
 
@@ -243,10 +244,10 @@ That measures every link as it is made, so the drone never needs to know where i
 
 | Radio hop | Front darts | Relays per trunk | Total |
 |---|---|---|---|
-| 650 ft | 15 | 8 | 31 |
-| 800 ft | 12 | 7 | 26 |
-| **980 ft (plan)** | **10** | **5** | **20** |
-| 1,250 ft | 9 | 4 | 17 |
+| 650 ft | 17 | 8 | 33 |
+| 800 ft | 15 | 7 | 29 |
+| **980 ft (plan)** | **12** | **5** | **22** |
+| 1,250 ft | 10 | 4 | 18 |
 
 ## What the net misses
 

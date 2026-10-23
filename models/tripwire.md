@@ -50,7 +50,7 @@ From [what the front actually looks like]({{ site.baseurl }}{% link research/fie
 
 | Problem | What it means day to day | Our fix | What the line learns |
 |---|---|---|---|
-| **GPS is jammed** | The drone may not put listeners where planned | Short flights from a spot the crew can see; accept drops 66–160 ft off. Listeners carry no GPS, which saves money. Troops walking in can also place them by hand | Where GPS fails along the unit's routes |
+| **GPS is jammed** | The drone may not put listeners where planned | Fly on compass, optical flow and lidar from an origin set at launch, in daylight, and confirm every dart by radio as it lands ([how]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). Listeners carry no GPS, which saves money. Troops walking in can also place them by hand | Where GPS fails along the unit's routes |
 | **Friendly drones everywhere** | A line that alarms on every drone gets switched off | Alarm only for drones heading **in**, outside the unit's own flight times | Enemy drone habits: when, where and how fast |
 | **Tree lines** | Lines follow the tree belts, where radio range is short | Drop listeners at belt edges, not inside. Hear them with a listen-only receiver raised at the edge of the unit's own tree line, wired back to the dugout. Space them closer, paid for by dropping GPS | When leaf fall changes radio range |
 | **Cold** | Batteries die sooner in winter | Listeners report battery and temperature; re-lay a line when it runs low | Real winter battery life |
@@ -88,7 +88,7 @@ Covering a whole area against small drones would take thousands of nodes ([the d
 
 - **One line**, 1.2–2.5 mi out, says *something crossed here, at this time*.
 - **A second line** a few hundred yards behind adds **direction and speed**, and filters false alarms: a real drone trips both lines in order.
-- A listener only has to hear the drone, not locate it, so listeners sit about one detection range apart: every 660–980 ft against FPVs, or closer under trees. A 1.9 mi front takes about 12 per line ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}) works out a relayed net for one unit: 10 listening darts a mile out and two chains of relay darts, 20 darts in all; [Projected costs]({{ site.baseurl }}{% link costs.md %}) prices it).
+- A listener only has to hear the drone, not locate it, so listeners sit about one detection range apart: every 660–980 ft against FPVs, or closer under trees. A 1.9 mi front takes about 12 per line ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}) works out a relayed net for one unit: 12 listening darts a mile out and two chains of relay darts, 22 darts on open ground, about 25 on real ground and about 35 used in laying them; [Projected costs]({{ site.baseurl }}{% link costs.md %}) prices it).
 - Pinpointing the drone is left to the dense ring near the unit ([M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) on [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %}) placements).
 
 ### Throwaway listeners
@@ -184,7 +184,7 @@ This is test T17. It also adds a windbreak run to [T9]({{ site.baseurl }}{% link
 
 | Problem | Fix | What the line learns | Extra cost |
 |---|---|---|---|
-| **GPS is jammed** ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)) | No GPS on the listener. Its position is the planned drop point, corrected by where the drone's flight log says it released. Its clock is set when it is loaded and kept in step with neighbours whenever they relay. Its own GPS would be jammed in the same places as the drone's anyway. The drone flies short legs from a point the crew can confirm by eye; drops 66–160 ft off still make a line (T14). Troops walking in at night can also place listeners by hand (an inference) | ArduPilot's flight log records GPS fix quality on every flight, so each sortie maps where GPS failed or jumped along the unit's routes | **Saves $8–15 per listener** |
+| **GPS is jammed** ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)) | No GPS on the listener. Its position is the planned drop point, corrected by where the drone's flight log says it released. Its clock is set when it is loaded and kept in step with neighbours whenever they relay. Its own GPS would be jammed in the same places as the drone's anyway. The drone flies on compass, optical flow and lidar from an origin set at launch, and confirms each dart by radio as it lands, so drops a few hundred feet off still make a net (T14, [how]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). Troops walking in at night can also place listeners by hand (an inference) | ArduPilot's flight log records GPS fix quality on every flight, so each sortie maps where GPS failed or jumped along the unit's routes | **Saves $8–15 per listener** |
 | **Friendly drones** ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#what-infantry-use-to-hear-drones-today)) | A drone heading in trips the outer line first; one heading out trips the inner line first. The unit enters its own flight times on the receiving tablet. An inbound drone outside those times is an alarm; everything else is logged quietly | Each alert carries a few bytes describing the sound (main tone, loudness, duration). Alerts during friendly flights label themselves, so the line builds training examples for the next batch's classifier | None: a few more bytes per alert |
 | **Tree lines** ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#where-infantry-actually-sit-tree-lines)) | Lay lines across the tree belts and the gaps between them, spaced closer under canopy. The money that bought 12 listeners with GPS buys about 15–17 without. Hear them with a listen-only receiver at the edge of the unit's own tree line ([design](#getting-alerts-out-of-the-trees)) | Every received packet comes with its signal strength. Logged per link, it shows when leaf fall or growth changes range and which links are about to fail | None |
 | **Cold** ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#seasons)) | No pricier cold-rated cells up front. Listeners add battery voltage and chip temperature to packets they already send, plus a rare stand-alone check-in | Measured winter battery life, which no source we found has published, and a forecast of when each line needs re-laying | None on boards that already read their battery, such as the Heltec V3 (Meshtastic reports its level); two resistors, a few cents, on a custom board. The ESP32-S3 has a [built-in temperature sensor](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/peripherals/temp_sensor.html), which reads close to air temperature only while the listener sleeps |
@@ -243,14 +243,14 @@ A reader suggested one central node with a known position, and listeners that me
 | **Total** | | **~$17–50** | Against a **$30–60 target** (~$25–65 with GPS) |
 
 {: .warning }
-> Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first ones. A full kit of 24 listeners and one delivery drone is estimated at **$1,500–2,500**.
+> Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first ones. A unit's package, 40 darts, 3 receivers and an outfitted delivery drone, costs us about **$2,620** in a small batch ([Projected costs]({{ site.baseurl }}{% link costs.md %})).
 
 ### The running cost: lines are ammunition
 
-The kit price is only the start. Listeners aren't recovered, so every line is re-laid when its batteries run out. All figures below are estimates, built on the part prices above and the unproven "weeks" battery target (T12):
+The package price is only the start. Listeners aren't recovered, so every net is re-laid when its batteries run out. All figures below are estimates from [Projected costs]({{ site.baseurl }}{% link costs.md %}), built on the unproven "weeks" battery target (T12):
 
-- **One re-lay** of two 12-listener lines: 24 × $17–50 ≈ **$400–1,200** in listeners, plus 6–8 drone sorties at 3–4 listeners each.
-- **At four weeks per battery:** about 13 re-lays a year, so **≈ $5–16k a year** per 1.9 mi front. That doubles at two weeks.
+- **One re-lay** of a unit's net: about 35 darts and 9 drone sorties at 4 darts each ([lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)), **≈ $810–1,290** at our cost with drone wear.
+- **At four weeks per battery:** about 13 re-lays a year, so **≈ $10.5–17k a year** per unit. That doubles at two weeks.
 - **Plus** listeners lost to shelling, and the occasional delivery drone.
 
 So the tripwire is a consumable, not a one-off purchase. It costs less than a radar but more than a radio detector bought once. Two things shrink the bill: battery life measured in months, not weeks, and a cheaper listener. Test T12 decides which bill is real.
@@ -285,7 +285,7 @@ The claim is narrow: **for early warning of low drones approaching a unit, inclu
 
 | | Fibre-optic FPV | Behind trees or a ridge | Warning time vs FPV | Emits while watching | Rough cost | A unit can carry it |
 |---|:-:|:-:|---|:-:|---|:-:|
-| **Drone-laid tripwire** | ✅ | ✅ | **~1–2 min** | ❌ | **~$1.5–2.5k kit, then ≈ $5–16k a year in re-lays** ([est.](#the-running-cost-lines-are-ammunition)) | ✅ |
+| **Drone-laid tripwire** | ✅ | ✅ | **~1–2 min** | ❌ | **~$1.9–2.9k package, then ≈ $10.5–17k a year in re-lays** ([est.](#the-running-cost-lines-are-ammunition)) | ✅ |
 | Hand-placed acoustic ring | ✅ | ✅ | ~10 s | ❌ | similar | ✅ |
 | Radio detector (e.g. Chuyka) | ❌ | partly | long, if it emits | ❌ | ~$584–701 | ✅ |
 | Camera (e.g. WISP) | ✅ if in sight | ❌ | depends on sight lines | ❌ | far higher | ❌ |
@@ -355,7 +355,7 @@ Partly, by simulation calibrated to the published measurements. Nothing publishe
 
 - **Getting alerts home is the hardest part.** Published measurements with antennas near the ground show over 2.5 mi in open country, but only 160–820 ft in most forest tests and about 0.6 mi at best. In woods a line would relay hop by hop at perhaps 330–660 ft. Nobody has measured a 1.6–3.3 ft listener reaching a raised receiver 1.2–2.5 mi away. A listen-only receiver at the edge of the unit's tree line is the [proposed answer](#getting-alerts-out-of-the-trees). [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
 - **The relay chain can point home.** A chain of bursts leading back to the unit could be traced. Keep bursts short and rare, bend the chain instead of running it straight, and treat listeners as disposable.
-- **Laying the line is noisy.** The drone can be heard and seen, so the enemy may learn roughly where the line is. Lay lines at night or under other noise, and expect losses.
+- **Laying the line is noisy.** The drone can be heard and seen, so the enemy may learn roughly where the line is. Lay at night or under other noise when GPS works; with GPS jammed, the optical-flow navigation needs daylight. Expect losses.
 - **Only drones that cross the line are caught.** A drone launched from inside the line, or routed around its ends, is missed. The inner ring is still needed.
 - **False alarms with nobody to check.** Wind, vehicles and birds can trip a single listener. Requiring both lines, or two neighbours, to agree is the main filter.
 - **Litter.** Throwaway listeners are electronic waste. Consider biodegradable printed bodies and batteries that can't leak.

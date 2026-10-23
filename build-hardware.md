@@ -243,7 +243,7 @@ Hover power for fixed props grows with mass to the power 1.5, by momentum theory
 
 **What this changes:**
 
-- A 2-line, 24-listener kit at 4 per sortie is 6 sorties. At 1.9 mi out with the TL-1 it is 8 sorties of 3. Either way it's one night's work for one crew (estimate).
+- A unit's net takes about 35 darts and 9 sorties of 4 to lay, about 2.2 h with 6 packs and a 2-channel charger ([lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). With GPS jammed it is a daylight job: the optical-flow sensor needs to see the ground.
 - Lines 2.5 mi out need the TL-1 with 2 darts, or a fixed-wing carrier. Printed fixed-wing airframes such as Eclipson's take off at 1.1–3.3 lb ([air-rc](https://www.air-rc.com/aircraft/Eclipson-Airplanes_Apex_apex)) but publish no payload or endurance, so a fixed-wing stays unscoped until T13 shows whether 1.9 mi is enough.
 - T13 now has a prediction to beat: **X500, 4 v2 darts, about 11–12 minutes' hover.** The v2 rows use the model's masses: 4.4 oz per dart, 2.8 oz for the harness.
 

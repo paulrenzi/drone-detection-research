@@ -73,7 +73,7 @@ GPS jamming is routine at the front ([Front-line conditions]({{ site.baseurl }}{
 | **Matching the camera view to satellite maps** | Open research code exists, e.g. [WildNav](https://github.com/TIERS/wildnav), but nothing found that plugs into ArduPilot. Needs a camera and an onboard computer, adding weight and cost. Ukrainian systems doing this are reported but proprietary |
 | **Anti-jam antennas (CRPA)** | Around $7,000–8,000 each for the units found ([Nordsint](https://nordsint.org/2026/05/08/geraniums-in-bloom-how-a-major-chinese-antenna-manufacturer-powers-russias-drone-fleet/)). Far beyond this budget |
 
-**Our working approach (an inference, to be tested):** a node line doesn't need yard accuracy. Drop points 66–160 ft off still make a line. So start with plain GPS, measure how badly it fails at realistic sites, and fall back to short, low legs flown on compass, barometer and optical flow from a point the crew can confirm by eye. Map matching is the upgrade if tests show GPS is unusable. This is tracked as T14 in [Open questions]({{ site.baseurl }}{% link research/open-questions.md %}).
+**Our working approach (an inference, to be tested):** a net doesn't need yard accuracy if every dart is confirmed by radio as it lands ([Laying the net]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). So start with plain GPS, measure how badly it fails at realistic sites, and fall back to compass, optical flow and lidar (an MTF-01P, about $42) from an origin set at launch, cruising 35 ft up in daylight. Map matching is the upgrade if tests show GPS is unusable. This is tracked as T14 in [Open questions]({{ site.baseurl }}{% link research/open-questions.md %}).
 
 ## Recommended prototype
 

@@ -174,12 +174,12 @@ Batear's gateway role minus Wi-Fi and MQTT, plus:
 ### 4. Mission tooling: `lay_line`
 
 ```
-lay_line plan   line.geojson --spacing 150 --per-sortie 4 --alt 15  →  sortie-1.waypoints, sortie-2.waypoints, …
+lay_line plan   sector.json --per-sortie 4                            →  sortie-1.waypoints, sortie-2.waypoints, …
 lay_line sitl   sortie-1.waypoints                                    →  simulated flight + release positions
 lay_line ingest 00000042.BIN --sortie 1                               →  listeners.json (I4)
 ```
 
-- **plan:** splits the line into drop points at the set spacing (from T11's range), groups them 3–4 per sortie, orders each sortie so the farthest drop comes first and the drone lightens as it returns, and writes I5 files. It warns if a sortie's distance exceeds the flight-time budget measured in T13.
+- **plan:** places the drop points by the rules on [How it works]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net) (one radio hop apart, off trees and ravine floors, short of the enemy edge, the ends past the 45° lines), orders them outward from the root dart so each new dart is confirmed by the one before, groups them into sorties that pass the battery check in the forecast wind, and writes I5 files.
 - **ingest:** reads the ArduPilot DataFlash log with pymavlink, finds each servo output change, and takes the position and GPS quality at that moment. The same pass writes the jamming map the [tripwire describes]({{ site.baseurl }}{% link models/tripwire.md %}#the-fixes).
 - **IDs:** each listener's ID is printed on its body and scanned or typed into the sortie at loading time, so the harness slot maps to an ID.
 - **A working prototype of `plan`** is [`tools/laymodel/lay_model.py`](https://github.com/paulrenzi/tripwire/blob/main/tools/laymodel/lay_model.py) ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). It checks drop points against trees, ravines and the enemy edge, picks a ground speed for each leg, checks each sortie against the battery in the wind, and writes terrain-relative missions. **Still to build for flight:** an ArduPilot Lua script that reads the confirm radio over serial and inserts re-drops, the 2-byte relayer ID in each relayed packet, and setting the origin and declination before a sortie flown with GPS jammed.
