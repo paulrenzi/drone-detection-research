@@ -267,7 +267,7 @@ v1 is kept because its drop-test questions still apply to v2, and as a fallback 
 
 **One fix the model found:** the hanging darts reach about **8.6 in below the rails**, about 1.7 in lower than the X500's stock feet (8.5 in gear, [Holybro](https://holybro.com/products/px4-development-kit-x500-v2); rail height below the plate estimated). The drone needs **leg extensions of about 2.4–3.1 in** to take off and land with darts on. Holybro doesn't publish the leg tube size, so those aren't modelled yet. *Measure the legs.*
 
-**Bench checks before flying:** each pin releases under a 7.1 oz load at the servo's commanded PWM; no pin releases while the airframe is shaken by hand; a pin with no dart doesn't jam; SITL fires the same mission ([software page]({{ site.baseurl }}{% link build-software.md %}#6-test-harness)).
+**Bench checks before flying:** each pin releases under a 7.1 oz load at the servo's commanded PWM; no pin releases while the airframe is shaken by hand; a pin with no dart doesn't jam; SITL fires the same mission ([software page]({{ site.baseurl }}{% link build-software.md %}#test-harness)).
 
 </details>
 
@@ -340,7 +340,7 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 - **Edge receiver mount,** only where fibre can't go: a pole-top box for a receive-only Heltec, an RS-485 module and a Yagi clamp, from the [edge receiver design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees). It follows T17's bench version.
 - **X500 leg extensions:** only for v1 darts; v2 darts ride high enough for stock legs.
 - **TL-1 with the v2 plate:** the hull still carries v1's release blocks and tall legs.
-- **A custom listener board:** it shrinks the head pod and fixes the sleep current (see [wake-on-sound]({{ site.baseurl }}{% link build-software.md %}#1-listener-firmware)).
+- **A custom listener board:** it shrinks the head pod and fixes the sleep current (see [wake-on-sound]({{ site.baseurl }}{% link build-software.md %}#listener-firmware)).
 
 </details>
 

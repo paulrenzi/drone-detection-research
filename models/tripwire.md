@@ -94,7 +94,7 @@ nav_tripwire: 1
 
 Ten seconds is enough to raise a shotgun. A minute is enough to stop people walking into the open.
 
-## How it works
+## Lay, listen, report, warn
 
 <div class="vz-steps">
   <div class="vz-step">
@@ -164,7 +164,7 @@ Each section opens for the full reasoning, numbers and sources.
 3. **Report back.** A few-byte alert hops listener to listener to one of two tip darts, which send it home down a fibre the drone laid.
 4. **Warn.** Warning time is distance ÷ drone speed, so a row about 1 mi out gives about 45–60 seconds against an FPV at top speed, and 1.3–1.8 minutes at its usual 37–50 mph. A ring of microphones 980 ft out gives 8–10 (both estimates).
 
-### Why it matters
+### Why it matters: the evidence
 
 - **Drones cause about 80% of casualties** at the front, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)).
 - **Units cope by not moving:** underground, under nets, taking hours to cover half a mile. Every trip out is exposure (same source).
@@ -173,7 +173,7 @@ Each section opens for the full reasoning, numbers and sources.
 
 Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
 
-### Where it stands
+### Where it stands, in detail
 
 - **Rated 3 out of 5.** Every part exists, but nobody has shown the whole chain working: a dart that hears an FPV, hops along the row, and light home down a fibre.
 - **The deciding tests are the hops along the row (T9), light down the fibre (T21) and radio near jammers (T19).** Fibre carries alerts the last mile, so the old question, whether radio could get out of the trees to the unit, is gone. Radio is left only dart to dart along the row, about 980 ft a hop. Published measurements say open ground probably works; a tree belt between two darts can still break a hop. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
@@ -520,7 +520,7 @@ All are tracked in [Open questions]({{ site.baseurl }}{% link research/open-ques
 
 In the Vietnam War, **Operation Igloo White** air-dropped acoustic and seismic sensors (including the ACOUBUOY and SPIKEBUOY) along the Ho Chi Minh Trail and relayed their detections back by aircraft. What's new is that the sensor, the delivery drone and the classifier are now cheap enough to throw away.
 
-### Rating history
+### How the rating changed
 
 | Date | Rating | Why |
 |---|---|---|
