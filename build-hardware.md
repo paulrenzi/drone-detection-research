@@ -10,7 +10,7 @@ nav_tripwire: 6
 <p class="vz-lede">Printable designs for the <a href="{{ site.baseurl }}{% link models/tripwire.md %}">tripwire</a>: <strong>a dart of three parts</strong> that sticks point-first in soil, and a <strong>one-servo harness</strong> that drops four of them from an X500.</p>
 
 <figure class="vz-figure">
-<img src="{{ site.baseurl }}/assets/images/build/v3-harness.png" alt="Four v3 darts under the X500's rails on the v2 plate and rotor; one dart is falling" style="width:100%;height:auto;display:block">
+<img src="{{ site.baseurl }}/assets/images/build/v3-harness.png" alt="Four v3 darts under the X500's rails on the v2 plate and rotor; one dart is falling" style="width:100%;height:auto;aspect-ratio:2/1;object-fit:cover;display:block">
 <figcaption>Four v3 darts on the harness under an X500, the first one falling. A render from the CAD; never printed or flown.</figcaption>
 </figure>
 
