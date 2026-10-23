@@ -16,6 +16,7 @@ A net in front of a position protects people who are a few yards from a dugout, 
 - **How many:** 21 posts and 35–58 darts for 4 mi of road, **about 14–20 a mile**. A road running toward the front costs more than one running along it, because the fence has to wrap both sides and the forward end. Fibre took out the 25–35 relay darts the radio trunks needed.
 - **What it costs us:** a package of about **$5,700–6,800**, then about **$37–56k a year** at four-week cells, **$9–14k a mile**. Posts alone cost about $1,400 and $6,500 a year; they find landings but give no minute.
 - **Jamming: the trucks' own jammers are the threat, and a wire answers it.** A truck's jammer deafens its own receiver and the posts near it, so a radio-only guard tells a jamming truck nothing on the move. Posts on a cable along the verge, each with a hooded lamp facing the road, keep the warning in the model (100% of tracks with a minute) for about $200 a mile more (est.). In the worst case for jamming, the truck's jammer reaches the fence too, and the fibres only partly save it.
+- **Against nets and the rest: lead with the posts.** At about $1,600 a mile a year they hear what nothing else on sale does, a fibre-optic FPV landing to wait. The fence costs about as much as netting the road; it pays where roads won't be netted, or where trucks have cover to reach in a minute ([comparison](#against-whats-already-on-roads)).
 - **What it misses:** drones parked before it was laid, drones carried in on foot, and landings more than about 600 ft from the road. Our own drone crews, who live in this strip, are a risk worse here than at a position.
 
 1. TOC
@@ -155,10 +156,44 @@ Small-batch cost to us, from [Projected costs]({{ site.baseurl }}{% link costs.m
 
 ## Against what's already on roads
 
-- **Nets and net tunnels** are going up fast: Ukraine plans another 2,500 mi of net-covered road in 2026 ([Liga.net](https://news.liga.net/en/politics/news/another-4000-km-of-roads-will-be-covered-with-anti-drone-tunnels-in-ukraine-by-the-end-of-the-year-photo)). But waiting drones "can also hide under the nets", and fibre-optic FPVs fly underneath them ([What troops have]({{ site.baseurl }}{% link research/frontline-kit.md %})). Posts along a netted road would hear those landings; the fence would warn of the ones that fly under.
-- **Russia's roadside "traffic lights"** already time movement round distant drones ([Espreso](https://global.espreso.tv/russia-ukraine-war-russia-installs-traffic-lights-to-counter-ukrainian-fpv-drones)). That is this job, and someone already pays for it.
-- **Radio detectors** like the Chuyka ride in the cab, but cannot hear fibre-optic drones at all.
-- **Zvook already pitches acoustic sensors for roads.** Its maker describes NW0 networks "protecting… logistics routes" with sensors 400–600 m (about 1,300–2,000 ft) apart, reporting over Ethernet, fibre, twisted pair, LTE or LoRa ([Militarnyi](https://militarnyi.com/en/news/ukraine-develops-acoustic-detector-for-fpv-drones/), [dev.ua](https://dev.ua/en/news/ukrainska-kompaniia-zvook-stvoryla-akustychnyi-sensor-dlia-vyiavlennia-fpv-droniv-za-zvukom-1769187556)). That is the posts, wired, at about $834–950 a sensor against our $45. It is a direct rival on the road. What it lacks is the fence a mile out, which is what gives the minute ([competitors]({{ site.baseurl }}{% link research/competitors.md %})).
+**Lead with the posts. Add the fence only where the minute will be used.** The posts do a job nothing on sale does cheaply. The fence costs about as much as netting the road, and earns its place on roads that won't be netted, roads that matter for a few weeks, or roads with somewhere to go when the alert comes. Per mile, small-batch costs to us (est.); labour isn't costed:
+
+| Option | To set up, a mile | A year, a mile | Against a fibre-optic FPV |
+|---|---|---|---|
+| **Our posts alone** | **~$350** | **~$1,600** | Hear a drone land to wait. 4–9 s of warning of a strike |
+| **Our full guard,** posts and fibre fence | ~$1,400–1,700 | **~$9,300–14,000** at four-week cells; ~$4,500–6,400 at twelve, ~$16,600–25,000 at two | A minute's warning of every drone flying in, and the landings |
+| Zvook NW0 posts, wired | ~$2,300–4,000 plus power | not known | The posts' job, at about 10–20 times the price a sensor. No minute |
+| Net tunnels | **~$29,000–64,000** ($18–40k a km in Kherson) | repairs, not known | Stop many strikes with nobody doing anything. But fibre-optic FPVs fly under them and waiting drones hide under them |
+| Interceptor drones | – | ~$1,000–3,000 a shot | Need something to cue them. Nothing found on fibre-optic FPVs specifically |
+| Radio detectors (Chuyka, ~$584) | – | – | Can't hear a fibre-optic FPV at all |
+
+Sources: nets, ~1.8 million UAH a km ([Most.ks.ua](https://most.ks.ua/en/news/url/urjad-vidiliv-96-mln-grn-na-antidronovi-koridori-dlja-avtoshljahiv-hersonschini/)); 4,000 km more planned for 2026 ([Liga.net](https://news.liga.net/en/politics/news/another-4000-km-of-roads-will-be-covered-with-anti-drone-tunnels-in-ukraine-by-the-end-of-the-year-photo)), 1,170 km in place by May ([Ukrainska Pravda](https://www.pravda.com.ua/eng/news/2026/05/18/8035246/)); "can also hide under the nets" and flying underneath ([What troops have]({{ site.baseurl }}{% link research/frontline-kit.md %})); interceptors about $1,000–3,000 ([Wikipedia: Sting](https://en.wikipedia.org/wiki/Sting_(drone)), [Euromaidan Press](https://euromaidanpress.com/2026/04/24/ukrainian-p1-sun-drones-down-3000-plus-shaheds-in-2026-at-about-3000-apiece/)); Zvook and Chuyka from [competitors]({{ site.baseurl }}{% link research/competitors.md %}).
+
+**The posts: worth it wherever fibre-optic FPVs hunt a road.**
+
+- Nothing else on sale hears a fibre-optic FPV land by the road and wait, the tactic these drones are now known for ([Trench Art](https://www.trenchart.us/p/russias-best-drones-lie-in-wait-beside)).
+- At about $1,600 a mile a year they cost about one truck a road every few years.
+- **Zvook already pitches acoustic sensors for roads,** NW0 networks "protecting… logistics routes" 400–600 m (about 1,300–2,000 ft) apart, over Ethernet, fibre, twisted pair, LTE or LoRa ([Militarnyi](https://militarnyi.com/en/news/ukraine-develops-acoustic-detector-for-fpv-drones/), [dev.ua](https://dev.ua/en/news/ukrainska-kompaniia-zvook-stvoryla-akustychnyi-sensor-dlia-vyiavlennia-fpv-droniv-za-zvukom-1769187556)). That is the posts, wired, at about $834–950 a sensor against our $45. It is the direct rival on the road.
+- **Unproven:** whether a post tells a landing from a drone flying out of earshot (T20), and who sets posts on a mined verge.
+
+**The fence: not a cheaper net.**
+
+- It is 70–76% of the guard's bill, about $6,500–10,600 a mile a year at four-week cells. A net costs $29,000–64,000 a mile once, so it pays back against the fence in about 3–9 years, sooner if its repairs are cheap.
+- A net protects without anyone acting on anything. The minute only counts if drivers hold, drive out of the hot stretch or reach cover.
+- **Where the fence wins:**
+  - **Roads that won't be netted.** Fibre-optic FPVs now reach 12–30 mi, and the whole netting programme is about 2,500 mi of road. There are far more roads inside that reach than that.
+  - **Roads that matter for a few weeks.** A fence goes in in a day and moves with the fight; a net stays where it was built.
+  - **On top of nets.** It warns of drones flying in to go under a net, and the posts hear the ones that land beneath it.
+- **What sets its value is what is built round it:** holding points, cover every half mile (a minute at 30 mph), or an interceptor team the alert can cue. Without them the minute buys a "don't go yet", and little more.
+- **Russia's roadside "traffic lights"** already sell that "don't go yet" call ([Espreso](https://global.espreso.tv/russia-ukraine-war-russia-installs-traffic-lights-to-counter-ukrainian-fpv-drones)). Someone already pays for the job.
+
+**Break-even, roughly:** at four-week cells the full guard has to save about one truck a mile a year, if a used pickup costs about $10k (a guess). The posts alone have to save about one a road every few years. No count of trucks lost per mile of road was found, so whether a given road clears that bar is a judgment.
+
+**What would break the case:**
+
+- **Two-week cells (T12)** put the full guard at $17–25k a mile a year: the price of a net, without its armour.
+- **Labour**, not in the model: a drone crew spends about 3–5 h of flying and charging per 4 mi road on each re-lay, and posts go in by hand on mined verges.
+- **The minute going unused (T18).** Then the fence is worth close to nothing. The posts don't depend on it.
 
 ## What it misses
 
