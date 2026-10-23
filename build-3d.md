@@ -6,13 +6,24 @@ nav_primary: 2
 # 3D models and downloads
 {: .no_toc }
 
+<p class="vz-lede">Models of the hardware: one listener, the <strong>dart</strong>; the <strong>harness</strong> that drops four of them from an X500; and a <strong>stake</strong> for placing one by hand. Each model below plays its own assembly; drag to turn it.</p>
+
+<div class="stats">
+  <div class="stat"><p class="stat-num">5.9 oz</p><p class="stat-label">one dart, from the model's geometry</p></div>
+  <div class="stat"><p class="stat-num">1.9 lb</p><p class="stat-label">four darts and the harness: the X500's payload</p></div>
+  <div class="stat"><p class="stat-num">19.7 in</p><p class="stat-label">mic above the ground, dart or stake</p></div>
+  <div class="stat"><p class="stat-num">0</p><p class="stat-label">printed, dropped or flown yet</p></div>
+</div>
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">About these models</span><span class="layer-sub">How the viewer works, and what is computed rather than measured</span></summary>
+
 The [tripwire]({{ site.baseurl }}{% link index.md %}) depends on a drone carrying listeners forward and dropping them so they stand up and listen. These are the models of that hardware: one listener (the **dart**), the **harness** that holds and releases four of them, both on a Holybro X500, and a **stake mount** for placing a listener by hand. Each model plays its assembly on its own: press **Pause** to stop it, then rotate, zoom, or drag the slider to take it apart by hand. Point at a part to name it; click it for its mass and what it does. Every printed part is [downloadable](#8-downloads) as STL and STEP.
 
 {: .warning }
 > **A computer model, not a tested design.** Nothing here has been printed, assembled, dropped or flown. The bought parts are the manufacturers' own CAD where it exists (the X500 frame, the Seeed XIAO ESP32S3 and Wio-SX1262 boards), and every other dimension comes from a datasheet or is flagged *measure*. Masses are computed from the model's geometry. The open question is whether a dart released sideways from the drone turns nose-down and sticks in soil with the microphone working, and no model answers it. The weighted [dummy](#5-the-drop-test-dummy) dropped from the drone does.
 
-1. TOC
-{:toc}
+</details>
 
 <script type="importmap">
 { "imports": {
@@ -27,6 +38,11 @@ The [tripwire]({{ site.baseurl }}{% link index.md %}) depends on a drone carryin
 ## 1. One dart
 
 <div class="cad-viewer" data-src="{{ web }}dart.glb" data-manifest="{{ web }}manifest.json" data-model="dart"></div>
+
+**A rod, a body and a pod.** The cell sits near the tip, the board and mic in the pod at the top, and four fins steer it point-first as it falls.
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">The detail</span><span class="layer-sub">Parts, masses, the balance point, and why it should fall point first</span></summary>
 
 A 0.24 × 20 in fibreglass rod is the spike, the spine and the mast. Three printed parts sit on it. The **body**, near the tip, holds the 18650 cell in snap fingers and carries the hanger post the harness grips. The **pod**, on the top end, is a small tray and a screwed lid. It holds the XIAO ESP32S3 with the Wio-SX1262 radio board plugged on top, the microphone behind a side port, and the kit's two flat antennas: the LoRa one on a strip that runs past the pod, the WiFi one inside. Between them, the **tail**: four thin fins on two collars glued to the rod, to make the dart fall point first. Two wires run along the rod from the cell to pads under the XIAO.
 
@@ -67,9 +83,16 @@ A dart steers itself the way a lawn dart or a shuttlecock does. Its weight sits 
 
 That is arithmetic, not a test. Drag slows the fall, which steepens the lean, but it also carries the dart downwind, which reduces it, and which wins needs a real drop. The fins may also not finish turning the dart in a short drop. None of this shows that a dart lands upright or survives landing: the [dummy](#5-the-drop-test-dummy), with the same fins, is what will tell.
 
+</details>
+
 ## 2. The harness, loaded with four darts
 
 <div class="cad-viewer" data-src="{{ web }}harness.glb" data-manifest="{{ web }}manifest.json" data-model="harness"></div>
+
+**One servo, one rotor.** Each 16° step lines a gap in the rotor up with one dart's head, and that dart drops.
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">The detail</span><span class="layer-sub">How it releases, masses, and what still has to be measured</span></summary>
 
 One printed plate is zip-tied to the X500's two payload rails at four saddles. An SG90 servo hangs under the plate and turns a printed **rotor** on top of it. Each dart's hanger post comes up through a slot in the plate, and its round head rests on the rotor's rim. The rim has four gaps at different angles. Each 16° servo step lines one gap up with one head, and that dart drops: the inner pair first, then the outer pair.
 
@@ -79,18 +102,32 @@ The darts' weight bears on a ridge on the plate, faced with PTFE tape, not on th
 - **Four darts plus the harness: 1.9 lb** (1.88 lb), up from 1.7 lb before the fins. That is the payload the X500 has to carry on top of its own battery and avionics. Whether it carries it well is a flight test, not a model result.
 - **The rotor's fit and the servo's torque are calculations.** The real breakaway torque has to be measured with the PTFE tape and all four darts loaded. Stall torque is not a torque a servo can hold continuously.
 
+</details>
+
 ## 3. On the drone
 
 <div class="cad-viewer" data-src="{{ web }}aircraft.glb" data-manifest="{{ web }}manifest.json" data-model="aircraft"></div>
+
+**Nothing overlaps when carried.** The lowest dart rides 3.7 in above the ground on stock skids; the fall itself is untested.
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">The detail</span><span class="layer-sub">The clearance checks and what the model does not show</span></summary>
 
 The Holybro X500 V2 is the manufacturer's own STEP model, simplified for the web. The translucent discs are the propellers' swept area, used for the clearance check, not blade models. Exploded, the whole payload lowers 16 in clear of the airframe, then opens as in the harness view.
 
 - **In the carried state nothing overlaps:** darts, frame, rails, clamps, motors, prop discs, landing legs or each other, at the nominal dimensions. The lowest dart is 3.7 in above the ground plane of the stock skids.
 - **The model checks a clear path out, not the fall.** It checks each dart, fins included, sliding 3.5 in straight down through its gap, and a nose-down rotation once a dart is 17 in below the drone. It does not show that a real dart waits that long before it tips, or that it lands upright. The fins' [estimate](#why-it-should-fall-point-first) is the only word on the fall so far.
 
+</details>
+
 ## 4. The stake listener
 
 <div class="cad-viewer" data-src="{{ web }}stake.glb" data-manifest="{{ web }}manifest.json" data-model="stake"></div>
+
+**The same pod on a 48 in garden stake,** for placing a listener by hand with no drone.
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">The detail</span><span class="layer-sub">The stake adapter, cell holder and mass</span></summary>
 
 For placing a listener by hand, with no drone. The same pod, board and cell go on a 48 in fibreglass garden stake from a hardware store. A printed **stake adapter** holds the pod: two V-shaped saddles and zip ties grip any stake from 0.31 to 0.51 in across, so the stake's exact size doesn't matter. A 1.6 in offcut of the dart rod plugs the adapter into the pod's usual socket. A separate printed **cell holder**, tied lower on the stake, holds the 18650, wired to the board as in the dart.
 
@@ -98,7 +135,16 @@ Push the stake in by hand, then slide the adapter until the microphone is 19.7 i
 
 - **Model mass: 10.9 oz** for the whole installation, stake and cell included. Nothing on the stake flies, so this is not drone payload.
 
-## 5. The drop-test dummy
+</details>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="5-the-drop-test-dummy" markdown="block">
+<summary><span class="layer-title">5. The drop-test dummy</span><span class="layer-sub">An inert dart ballasted to the real one's mass and balance, for the first drops</span></summary>
 
 <p><img src="{{ site.baseurl }}/cad/gpt61/renders/dummy_assembled.png" alt="The inert dummy dart standing in soil: the same rod, hanger and pod as a real dart, with a ballast box where the cell would be" width="300"></p>
 
@@ -108,7 +154,10 @@ The first test is a drop, and a dummy is cheaper to break. It uses the same rod,
 - **Weigh the printed dummy first,** then re-solve the ballast with the real numbers. The model's match is only as good as its estimates.
 - **What the drops answer:** whether the dart turns nose-down, when it starts to turn, whether it sticks, and whether the snaps, post and rod survive.
 
-## 6. Every part
+</details>
+
+<details class="layer" id="6-every-part" markdown="block">
+<summary><span class="layer-title">6. Every part</span><span class="layer-sub">Each part, its material and its mass</span></summary>
 
 Masses are the model's estimates. A dash means no separate figure: the servo and its horn share one 0.32 oz catalogue mass. **Bought** parts are the manufacturer's CAD where one exists and a datasheet build otherwise; **printed** parts are modelled from scratch.
 
@@ -151,7 +200,10 @@ Masses are the model's estimates. A dash means no separate figure: the servo and
 | PTFE film on the bearing ridge | bought | 0.01 | 3M datasheet | Low-friction face for the rotor |
 | **Harness total** (with the servo's 0.32 oz) | | **6.47** | | |
 
-## 7. What the model does and does not show
+</details>
+
+<details class="layer" id="7-what-the-model-does-and-does-not-show" markdown="block">
+<summary><span class="layer-title">7. What the model does and does not show</span><span class="layer-sub">What is computed, what is measured, and what only a test can say</span></summary>
 
 **What it shows:** every part at a sourced or flagged size, fitting together without overlap in the carried, releasing and standing states, on the stake, and with the dummy's ballast in its pockets. Those are GPT-6.1's 164 generated checks, and they test the model against itself. It also shows the order the parts go together, and a mass for everything.
 
@@ -164,7 +216,10 @@ Masses are the model's estimates. A dash means no separate figure: the servo and
 - **About 60 dimensions marked *measure*:** how far apart the two boards sit when plugged together, the antennas, the microphone breakout, the servo's spline and screw thread, and the print fits. They have to be checked with calipers on the bought parts and a printed fit coupon before the real print.
 - **The animation is an assembly diagram.** It slides rigid parts apart. It does not show screws turning, ties being cut, inserts being heated in, or the servo's real release sequence.
 
-## 8. Downloads
+</details>
+
+<details class="layer" id="8-downloads" markdown="block">
+<summary><span class="layer-title">8. Downloads</span><span class="layer-sub">STL, STEP and GLB files, with sources and provenance</span></summary>
 
 <p><a class="cad-btn cad-download" href="{{ site.baseurl }}/cad/gpt61/out/print-kit.zip" download>Download the print kit (.zip, 2.4 MB)</a></p>
 
@@ -201,3 +256,5 @@ The print kit holds the STL and STEP for all fourteen printed parts, the print s
 - **Print files and design notes:** STL and STEP for every printed part, and the print settings, sources and assembly steps, in [`cad/gpt61/`](https://github.com/paulrenzi/tripwire/tree/main/cad/gpt61). Start with [`DESIGN.md`](https://github.com/paulrenzi/tripwire/blob/main/cad/gpt61/DESIGN.md).
 - **Who made it:** GPT-6.1, run as an agent through the Codex CLI on 2026-10-15 and 10-16 from a written brief, and again on 2026-10-21 to rebuild it round the XIAO kit ([brief](https://github.com/paulrenzi/tripwire/blob/main/cad/gpt61/BRIEF-xiao.md)). The CAD is CadQuery (Python). Rebuild the viewer models with `cad/gpt61/web_export.py`.
 - **The older designs** (v1–v3, hand-built boxes and cylinders) are on [Build: hardware]({{ site.baseurl }}{% link build-hardware.md %}). This model replaces their geometry, not their concept.
+
+</details>
