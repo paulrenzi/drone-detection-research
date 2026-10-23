@@ -6,7 +6,7 @@ nav_primary: 5
 # The MVP path: $80 to a working line
 {: .no_toc }
 
-The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five cheap layers. Each answers one question, and its gate decides whether to buy the next. **MVP = layer 5:** six hand-placed listeners hear a real drone and alert a screen in a tree line, while the receiving end transmits nothing.
+The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) built in five cheap layers. Each answers one question, and its gate decides whether to buy the next. **MVP = layer 5:** six hand-placed listeners hear a real drone and alert a screen at the base box over fibre, while nothing at the unit transmits.
 
 {: .warning }
 > **A plan, not a result: no layer has been run yet.** Gates marked *proposed* are ours; T9's are the site's. Links were loaded 2026-10-15. Items that wouldn't load are search terms.
@@ -50,11 +50,11 @@ These are standard acoustics estimates, not measurements of our kit.
 | Layer | Question | Spend | Total | Gate |
 |---|---|---|---|---|
 | [0](#layer-0) T18 | Where does a minute help most, and how would troops place a line? | $0 | $0 | None: sizes the payoff, shapes placement |
-| [1](#layer-1-the-radio-test-t9) T9 | Can a board at 1.6–3.3 ft report back over 1.2–1.9 mi, through trees? | ~$65–80 | ~$80 | T9's marks, or margins that predict them |
+| [1](#layer-1-the-radio-test-t9) T9 | Do dart-to-dart hops hold at 660–980 ft, in the open and across trees? | ~$65–80 | ~$80 | T9's marks, or margins that predict them |
 | [2](#layer-2-hear-a-drone-from-near-the-ground-t11) T11 | How far does a mic at 1.6–3.3 ft hear a drone? | ~$50 | ~$130 | ≥330 ft (sets spacing, so cost per km) |
-| [3](#layer-3-the-edge-receiver-t17) T17 | Can the edge receiver hear the line without transmitting? | ~$90–130 | ~$250 | Layer 1's delivery, SDR sees nothing |
-| [4](#layer-4-battery-and-cold-t12) T12 | Does a listener last weeks, and in the cold? | ~$35–135 | ~$300–400 | ≥3 weeks, cold loss measured |
-| [5](#layer-5-the-mvp-a-six-listener-line) MVP | Does the whole chain work? | ~$250–350 | ~$600–750 | 18/20 crossings in 10 s, <1 false alarm/day, silent |
+| [3](#layer-3-fibre-home-t21) T21 | Does a tip's light get home down the fibre, and what does it cost the battery? | ~$110–470 | ~$240–600 | Every frame with 10 dB to spare; battery cost measured |
+| [4](#layer-4-battery-and-cold-t12) T12 | Does a listener last weeks, and in the cold? | ~$35–135 | ~$275–735 | ≥3 weeks, cold loss measured |
+| [5](#layer-5-the-mvp-a-six-listener-line) MVP | Does the whole chain work? | ~$250–350 | ~$525–1,085 | 18/20 crossings in 10 s, <1 false alarm/day, silent |
 
 Assumed owned: laptop, phone, USB power banks, soldering iron.
 
@@ -63,16 +63,16 @@ Assumed owned: laptop, phone, USB power banks, soldering iron.
 Earlier warning against a threat nothing else detects (fibre-optic FPVs), at lower cost, is worth having; that is not tested here. 5–10 interviews ([questions]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)) only tune the build: which moments matter most (sizes the [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %})), and how troops would place listeners and a receiver.
 
 <details class="layer" id="layer-1-the-radio-test-t9" markdown="block" open>
-<summary><span class="layer-title">Layer 1: radio test (T9), ~$80</span><span class="layer-sub">Board at 1.6–3.3 ft to a raised receiver, 1.2–1.9 mi, across open ground, forest and hedgerows</span></summary>
+<summary><span class="layer-title">Layer 1: radio test (T9), ~$80</span><span class="layer-sub">Two boards at 1.6–3.3 ft, dart to dart, across open ground, woods and hedgerows</span></summary>
 
-**Why first:** it is the [deciding question]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-home), it needs no drone, and every later layer reuses the boards.
+**Why first:** the hop along the row sets dart spacing, and so the cost of a line ([how]({{ site.baseurl }}{% link models/line-layout.md %})). It needs no drone, and every later layer reuses the boards. Alerts come home by fibre (layer 3), so the long radio leg to the unit is tested only for the fallback, run F.
 
 | Item | Buy | Alternatives |
 |---|---|---|
 | **2 × LoRa board**, 915 MHz | **Bought:** Seeed XIAO ESP32S3 + Wio-SX1262 kit, [Rokland, $15.97 each](https://store.rokland.com/products/seeed-studio-xiao-esp32s3-wio-sx1262-kit-for-meshtastic-lora) | Heltec V3 2-pack, [Amazon, $44.98](https://www.amazon.com/dp/B0CW6151WJ); [Rokland, $29.97 each](https://store.rokland.com/products/heltec-wifi-lora-32v3); [Heltec direct, $17.90–19.90](https://heltec.org/project/wifi-lora-32-v3/) + China shipping; [RAK WisBlock kit, $34.97](https://store.rokland.com/products/rak-wireless-wisblock-meshtastic-starter-kit); [LILYGO T3S3, $72.99](https://www.tindie.com/products/yihang/915mhz-meshtastic-kit-t3s3-s3-sx1262/) |
 | **u.FL→SMA cable** (neither board has SMA) | Proxicast, [Amazon, $7.94](https://www.amazon.com/dp/B09GJGNPQX) | [Adafruit 851, $3.95](https://www.adafruit.com/product/851) |
 | **10 dB attenuator** (margin method) | MWRF, [Amazon, $12.49](https://www.amazon.com/dp/B07MRG9RDV) | [Inmet AHC-10, RF Parts, $15.91](https://www.rfparts.com/ahc-10.html); [L-com 20 dB, $92.09](https://www.l-com.com/coaxial-2w-20db-rf-fixed-attenuator-sma-male-to-sma-female-passivated-stainless-steel-body-up-to-6-ghz) |
-| **Mast**, 20–33 ft | **Free:** upstairs window, roof edge, tree | Mifoci 23 ft, [Amazon, $59.99](https://www.amazon.com/dp/B0GYYL3S6C) (16 ft [$39.99](https://www.amazon.com/dp/B0GYXPXCNY)); [Spiderbeam 39 ft HD, $109.99](https://moonrakeronline.com/us/spiderpole-12hd-telescopic-pole-12m-heavy-duty-fibreglass) |
+| **Mast**, 20–33 ft (run F only) | **Free:** upstairs window, roof edge, tree | Mifoci 23 ft, [Amazon, $59.99](https://www.amazon.com/dp/B0GYYL3S6C) (16 ft [$39.99](https://www.amazon.com/dp/B0GYXPXCNY)); [Spiderbeam 39 ft HD, $109.99](https://moonrakeronline.com/us/spiderpole-12hd-telescopic-pole-12m-heavy-duty-fibreglass) |
 | **Antenna** (run D) | 915 MHz omni with u.FL lead, [Amazon, $16.95](https://www.amazon.com/dp/B0GSB5XKLF) | [8 dBi omni, Newegg Business, $16.99](https://www.neweggbusiness.com/p/9B-2VT-04FG-00029); [Rokland 5.8 dBi kit, $49.97](https://store.rokland.com/products/meshtastic-compatible-6-dbi-n-female-omni-outdoor-915-mhz-antenna-kit-with-6-10-or-15-cable-choice) |
 
 **Minimum:** 2 boards + cable, $53. With the attenuator, $65.
@@ -81,21 +81,21 @@ Earlier warning against a threat nothing else detects (fibre-optic FPVs), at low
 - **Quick walk:** Meshtastic [Range Test](https://meshtastic.org/docs/configuration/module/range-test/), region US. Logs `rangetest.csv` with GPS. It sends one packet every 15–60 s, so it finds where the link dies but can't count delivery.
 - **Counted points:** a [RadioLib](https://github.com/jgromes/RadioLib) ping sketch sending one packet every 1–2 s, 100 per point. It sets output power directly, which the margin method needs.
 
-**Margin method:** lets a woodlot stand in for 1.2 mi of forest.
+**Margin method:** lets a small woodlot stand in for deeper forest.
 1. At each point, step power down 22 → 17 → 12 → 7 → 2 dBm, then add the attenuator, until delivery drops below 80%. The power you cut is the margin. Each spreading-factor step (SF12 → SF7) adds about 2.5 dB.
 2. Repeat 150, 300 and 2,000 ft into forest. Margin lost per 330 ft predicts where the link dies.
-3. This is an extrapolation ([Weissberger](https://en.wikipedia.org/wiki/Weissberger%27s_model)), so one real 1.2 mi forest point is still needed.
+3. This is an extrapolation ([Weissberger](https://en.wikipedia.org/wiki/Weissberger%27s_model)), so one real hop inside deep forest is still needed.
 
 | Run | Place | Node | Receiver |
 |---|---|---|---|
-| A | Field or farm road | 20 in and 3.3 ft | 20–33 ft and 6.6 ft |
-| B | Woodlot, node inside | 3.3 ft | Edge, raised |
-| C | Same woods, node to node | 3.3 ft, 330–980 ft apart | — |
-| E | Hedgerows (US stand-in for [windbreak belts]({{ site.baseurl }}{% link models/tripwire.md %}#a-windbreak-belt-is-not-a-forest)) | Across 1, 2, 3 belts | Raised, last belt |
+| A | Field or farm road, node to node | 20 in and 3.3 ft, 660–1,600 ft apart | Same height |
+| C | Woodlot, node to node | 3.3 ft, 330–980 ft apart | Same height |
+| E | Hedgerows (US stand-in for [windbreak belts]({{ site.baseurl }}{% link research/field-conditions.md %}#where-infantry-actually-sit-tree-lines)), node to node | One either side of 1, then 2 belts, 490–980 ft apart | Same height |
+| F | Fallback only: woodlot or hedgerows to a raised receiver at the edge | 3.3 ft, 0.6–1.2 mi | 16–33 ft |
 
 Run with leaves on now and leaves off in December.
 
-**Gate:** [T9's marks]({{ site.baseurl }}{% link research/open-questions.md %}#the-test-t9), e.g. 90% at 1.9 mi open from a 3.3 ft node, or 80% node to node at 660 ft in forest. If open ground passes but forest fails, carry on with denser lines under trees or another way home.
+**Gate:** [T9's marks]({{ site.baseurl }}{% link research/open-questions.md %}#the-test-t9), e.g. 90% at 980 ft between two boards at 3.3 ft in the open, and 80% node to node at 660 ft in woods. If open ground passes but woods fail, plan rows along open ground and belt edges, with closer darts under trees.
 **Not testable at home:** jamming (T19), which is illegal in the US. 915 MHz at legal power is licence-free.
 
 </details>
@@ -124,14 +124,40 @@ Run with leaves on now and leaves off in December.
 
 **Gate (proposed):**
 - **Pass:** 9 of 10 passes heard at ≥330 ft with a consumer drone, or ≥490 ft with an FPV, in light wind. 660 ft spacing holds.
-- **Fail, under 200 ft:** a line needs 3–4× the listeners per km. Redo the [cost]({{ site.baseurl }}{% link models/tripwire.md %}#what-it-costs-estimates) first.
+- **Fail, under 200 ft:** a line needs 3–4× the listeners per km. Redo the [cost]({{ site.baseurl }}{% link costs.md %}) first.
+
+</details>
+
+<details class="layer" id="layer-3-fibre-home-t21" markdown="block">
+<summary><span class="layer-title">Layer 3: fibre home (T21), ~$110 on the bench, ~$470 with a real spool</span><span class="layer-sub">A board's alerts sent as light down FPV fibre to a base box, what it costs the battery, and whether a laid spool survives</span></summary>
+
+**Why:** alerts come home by fibre, so the line's way home is a tip dart's light, not a radio the unit has to receive beside its own jammers. This proves a tip can send a few bytes down a full spool on a dart's battery ([design]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)). Nothing at the base box transmits, so the silence check that layer 3 used to need comes free.
+
+{: .warning }
+> **Less firm than the other layers.** The sellers' pages wouldn't load on 2026-10-23, so these prices are from search listings, unconfirmed. No cheap bare laser for single-mode fibre was found at retail; the bench uses FPV fibre transceivers that already carry serial data instead.
+
+| Item | Buy | Alternatives |
+|---|---|---|
+| **Reference link, ×2:** FPV fibre transceivers that carry serial data | NanoHD F3, "video + UART serial/CRSF", [Unmanned Tech, £29.69 each](https://www.unmannedtechshop.co.uk/collections/fibre-optic) | Sky and ground modules, [GetFPV, $110 each](https://www.getfpv.com/commercial-industry-drones/fiber-optics.html); Sky TX kit with 3 km of fibre, [Sigmanortec, ~€421](https://sigmanortec.ro/en/fiber-optic-fpv-kit-3km-with-sky-tx-module) |
+| **Bench fibre** | A short single-mode patch cord in the transceivers' connector, plus a fixed optical attenuator (search terms) | – |
+| **A real spool** (step 4 only) | 1 km canister, [GetFPV, about $360](https://www.getfpv.com/commercial-industry-drones/fiber-optics.html) | [2 km canister, GetFPV](https://www.getfpv.com/commercial-industry-drones/fiber-optic-canister-v2-2km.html); bulk G657A2 at about $30 a km, with a large minimum order ([Alibaba](https://electronics.alibaba.com/product/fiber-drone-cable)) |
+| **The cheap tip's light source** | None found cheap. Pigtailed 1310 nm laser diodes start at about $328 ([MKS](https://np.d1.mks.com/f/fiber-pigtailed-laser-diodes)) | Ask the FPV fibre module makers for their bare transmitter. That part is what a $94 tip dart assumes |
+| **Current meter** | Layer 4's PPK2 | – |
+
+**Run**
+1. Pair the two transceivers on the patch cord. Feed a board's serial output, the 44-byte frame from [Build: software]({{ site.baseurl }}{% link build-software.md %}) at 9,600 baud, into one end and read it on a laptop at the other. Count frames for an hour.
+2. Add attenuation until frames drop. That is the margin. The fibre itself loses under 1 dB over 1.2 mi on paper.
+3. Measure the sending end's current: always on, and keyed only for alerts and the 10 s heartbeat, if it can be.
+4. Lay the real spool from the drone over plough, grass and a hedgerow, with the home end plugged in first. Count breaks (1 in 20 assumed).
+
+**Gate (proposed):** every frame arrives with at least 10 dB to spare; a cut shows dark within 30 s; the light and heartbeat leave a tip lasting the four-week cell plan. If the reference link draws too much for a dart, that is the gap a cheap light source has to close. If none can, use the fallback below.
 
 </details>
 
 <details class="layer" id="layer-3-the-edge-receiver-t17" markdown="block">
-<summary><span class="layer-title">Layer 3: silent edge receiver (T17), ~$90–130</span><span class="layer-sub">Receive-only board at the tree-line edge, wired to the dugout, proven silent with an SDR</span></summary>
+<summary><span class="layer-title">Fallback: silent edge receiver (T17), ~$90–130</span><span class="layer-sub">Only where fibre can't go: a receive-only board at the tree-line edge, wired to the dugout, proven silent with an SDR</span></summary>
 
-**Why:** a unit that transmits gets found. This proves it can [hear the line silently]({{ site.baseurl }}{% link models/tripwire.md %}#the-design-a-listen-only-receiver-at-the-tree-line-edge-wired-home).
+**Why:** where a tip dart can't be laid, or its fibre keeps being cut, the unit has to hear the line by radio without transmitting. This proves it can ([fallback design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees)). Skip it if layer 3 passes.
 
 | Item | Buy | Alternatives |
 |---|---|---|
@@ -176,9 +202,9 @@ Run with leaves on now and leaves off in December.
 </details>
 
 <details class="layer" id="layer-5-the-mvp-a-six-listener-line" markdown="block">
-<summary><span class="layer-title">Layer 5: the MVP, six listeners, ~$250–350</span><span class="layer-sub">Hand-placed line 0.6–1.2 mi out, the silent edge receiver, real drone crossings</span></summary>
+<summary><span class="layer-title">Layer 5: the MVP, six listeners, ~$250–350</span><span class="layer-sub">Hand-placed line 0.6–1.2 mi out, home on layer 3's fibre, real drone crossings</span></summary>
 
-**Proves:** drone crosses → listener hears → alert hops home → edge hears → screen in the trees shows it, in time.
+**Proves:** drone crosses → listener hears → alert hops along the row → the tip sends it down the fibre → the screen at the base box shows it, in time. One of the six carries layer 3's link as the tip; where fibre failed, the edge receiver stands in.
 
 | Per listener | Source | Cost |
 |---|---|---|
@@ -192,7 +218,7 @@ Run with leaves on now and leaves off in December.
 Six listeners cost $270–330. Add four if layer 1's forest hops need tighter spacing.
 
 **Run**
-1. [Place by hand]({{ site.baseurl }}{% link models/tripwire.md %}#why-not-have-people-place-the-listeners) across a hedgerow gap, at layer 2's spacing, 0.6–1.2 mi from the edge.
+1. [Place by hand]({{ site.baseurl }}{% link models/tripwire.md %}#why-not-have-people-place-the-listeners) across a hedgerow gap, at layer 2's spacing, 0.6–1.2 mi from the base box.
 2. Fly 20 crossings, varying height, time of day and wind, and GPS-log each one.
 3. Leave the line running a week (T5) to count false alarms.
 
@@ -206,7 +232,7 @@ Six listeners cost $270–330. Add four if layer 1's forest hops need tighter sp
 **Gate (proposed):**
 - **18 of 20** crossings on screen, each within **10 s**.
 - **Under 1** false alarm per line per day.
-- **No transmission** from the receiving end, checked on the SDR.
+- **No transmission** from anything at the unit, checked on the SDR.
 
 A pass shows the idea works at small scale on US ground. It does not show it against jamming, Ukrainian terrain, mass raids or air-dropped placement.
 
@@ -228,13 +254,15 @@ A pass shows the idea works at small scale on US ground. It does not show it aga
 | 2 | Seeed XIAO ESP32S3 Sense (recorder) | [Amazon](https://www.amazon.com/dp/B0C69FFVHH) | $23.99 |
 | 2 | 48 in fiberglass stakes, 20-pack | [Amazon](https://www.amazon.com/dp/B0DF58T198) | $23.99 |
 | 2 | Anemometer (optional) | [Amazon](https://www.amazon.com/dp/B0D7Z43M9S) | $12.99 |
-| 3 | Heltec V3, single | [Amazon](https://www.amazon.com/dp/B0D1H1FN9Y) | $34.99 |
-| 3 | MAX3485 RS-485 modules (3.3 V), 5-pack | [Amazon](https://www.amazon.com/dp/B0FTFXT876) | $8.99 |
-| 3 | USB→RS-485, FT232RL | [Amazon](https://www.amazon.com/dp/B081MB6PN2) | $16.31 |
-| 3 | RTL-SDR Blog V3 + dipole kit | [Amazon](https://www.amazon.com/dp/B0BMKB3L47) | $47.95 |
-| 3 | 915 MHz Yagi, 7 dBi (optional; DIY is a few dollars) | [Amazon](https://www.amazon.com/dp/B0CPFT1V9L) | $24.99 |
-| 3 | Throw line kit (optional; a tennis ball works) | [Amazon](https://www.amazon.com/dp/B0DH2SV5XK) | $21.68 |
-| 3 | Burial Cat5e, 1000 ft (980 ft run only) | [Amazon](https://www.amazon.com/dp/B0092TJ4K2) | $89.99 |
+| 3 | NanoHD F3 fibre transceiver, ×2 (listed, unconfirmed) | [Unmanned Tech](https://www.unmannedtechshop.co.uk/collections/fibre-optic) | £59.38 |
+| 3 | 1 km FPV fibre canister (step 4 only; listed, unconfirmed) | [GetFPV](https://www.getfpv.com/commercial-industry-drones/fiber-optics.html) | ~$360 |
+| 3 fallback | Heltec V3, single | [Amazon](https://www.amazon.com/dp/B0D1H1FN9Y) | $34.99 |
+| 3 fallback | MAX3485 RS-485 modules (3.3 V), 5-pack | [Amazon](https://www.amazon.com/dp/B0FTFXT876) | $8.99 |
+| 3 fallback | USB→RS-485, FT232RL | [Amazon](https://www.amazon.com/dp/B081MB6PN2) | $16.31 |
+| 3, 5 | RTL-SDR Blog V3 + dipole kit | [Amazon](https://www.amazon.com/dp/B0BMKB3L47) | $47.95 |
+| 3 fallback | 915 MHz Yagi, 7 dBi (optional; DIY is a few dollars) | [Amazon](https://www.amazon.com/dp/B0CPFT1V9L) | $24.99 |
+| 3 fallback | Throw line kit (optional; a tennis ball works) | [Amazon](https://www.amazon.com/dp/B0DH2SV5XK) | $21.68 |
+| 3 fallback | Burial Cat5e, 1000 ft (980 ft run only) | [Amazon](https://www.amazon.com/dp/B0092TJ4K2) | $89.99 |
 | 4 | Nordic PPK2 current meter | [Adafruit](https://www.adafruit.com/product/5048) (Amazon $189.99) | $99.95 |
 | 4 | 18650 cells, Molicel P28A (not on Amazon) | [18650 Battery Store](https://www.18650batterystore.com/products/molicel-p28a) | $5.99 each |
 | 4 | 18650 holders with leads, 2-pack | [Amazon](https://www.amazon.com/dp/B092TGQ7PB) | $5.99 |

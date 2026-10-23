@@ -20,7 +20,7 @@ The ratings on this site are judgements. These tests would turn them into measur
 | T6 | Obtain Shahed-class engine recordings (partner or surrogate engine of similar size) | Classifier accuracy on the real target | partnership | Not started |
 | T7 | LoRa mesh with 20+ nodes reporting simultaneously | Latency and loss during a mass-raid burst | ~$1,000 | Not started |
 | T8 | Measure each node's radio emissions (duty cycle, power, burst length) with an SDR | How detectable is a node? Backs the passive claim in SBIR proposals | < $300 | Not started |
-| T9 | [Tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): ground-to-ground LoRa range at 1.2–1.9 mi, open ground and trees, raised receiver at the unit. [Evidence and test plan](#t9-can-a-forward-line-report-back) | Can a forward line report back at all? The deciding question for the tripwire | < $300 | Literature reviewed; field test designed, not run |
+| T9 | [Tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): LoRa hops between two boards at 1.6–3.3 ft, 330–1,600 ft apart, on open ground, in woods and across tree belts; and, for the fallback only, 0.6–1.9 mi to a raised receiver. [Evidence and test plan](#t9-can-a-forward-line-report-back) | Do the hops along the row hold? Alerts come home by fibre (T21), so the hop sets dart spacing, and so the cost of a line | < $300 | Literature reviewed; field test designed, not run |
 | T10 | Tripwire: drop-test printed dart bodies onto soil, sand, mud and grass | Do nodes land upright with the mic clear? Does a [v3 dart]({{ site.baseurl }}{% link build-hardware.md %}#1-v3-three-parts-per-dart), released flat, turn point-down within 16–49 ft? | < $200 | Not started |
 | T11 | Tripwire: FPV detection range for one mic on a 1.6–3.3 ft spring mast | Node spacing along a line | < $300 | Not started |
 | T12 | Tripwire: wake-on-sound battery life with a small drone classifier on a microcontroller, including the battery and temperature reports, in cold | Is "weeks on a small battery" real, and how much shorter in winter? | < $200 | Not started |
@@ -29,13 +29,13 @@ The ratings on this site are judgements. These tests would turn them into measur
 | T15 | Record friendly drone types (observation quads, bombers, resupply) and test whether the classifier, which line trips first, and friendly flight times can sort friend from foe, with node clocks kept in step without GPS, by neighbours relaying or by a rare time beacon from a surveyed point ([design]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost)) | Will a line raise false alarms on its own side's drones? | < $200 | Not started |
 | T16 | [M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) and [M3]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}) under GPS jamming: survey 3–5 nodes and one anchor, then compare three ways to keep positions and clocks without GPS: time-of-flight ranging to the anchor (SX1280 boards), a time beacon from the anchor, and calibrating against the delivery drone's logged track as it flies over. Suggested by a reader. [Evidence](#t16-positions-and-clocks-without-gps) | Can nodes that need precise positions and clocks keep them under jamming, and how much do they have to transmit to do it? | < $300 (est.) | Not started |
 | T19 | [Tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): repeat the best T9 link next to a working ELRS jammer (900 MHz band), at 433, 868/915 MHz and every spreading factor, then with the jammer at 300 ft, 0.25 mi, 0.5 mi and 1 mi from the receiving dart, and with a vehicle jammer passing a post ([why]({{ site.baseurl }}{% link research/build-or-scrap.md %}#2-the-radio-link-home-gets-jammed-or-found-t9-new-t19), [model]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)) | How far from a jammer does a link near the ground still work: a few hundred feet (our estimate) or about a mile (the worst case)? That decides whether a radio net can work near the front | < $300 (est.); a licensed range or Ukraine | Not started |
-| T17 | [Tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): build a [listen-only edge receiver]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees), a LoRa board raised 16–33 ft at a tree-belt edge with a small Yagi, wired 980–3,300 ft to the dugout over RS-485, with a second receiver on the same wire. Confirm with an SDR that it emits nothing (as in T8) | Can a unit hear its lines from inside a tree line without transmitting from its position? Keep the receiver at least about 1,000 ft from the unit's own jammers, or use a forward root on fibre ([why]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)) | < $300 (est.) | Not started |
+| T17 | **Fallback only.** [Tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): build a [listen-only edge receiver]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees), a LoRa board raised 16–33 ft at a tree-belt edge with a small Yagi, wired 980–3,300 ft to the dugout over RS-485, with a second receiver on the same wire. Confirm with an SDR that it emits nothing (as in T8). Steps: [MVP, fallback]({{ site.baseurl }}{% link mvp.md %}#layer-3-the-edge-receiver-t17) | Where a tip dart can't be laid, can a unit hear its lines from inside a tree line without transmitting? Needed only if T21 fails or a site rules out fibre. The receiver must sit at least about 1,000 ft from the unit's own jammers ([why]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)) | < $300 (est.) | Not started |
 | T20 | [Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %}): fly an FPV-size quad in, land it 50–600 ft from a post and cut the motors, with and without trucks passing | Can a post tell "landed" from "flew out of range", and how far does a passing truck cut its hearing? | < $200 (est.) | Not started |
-| T21 | [How it works]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box): a tip dart's board driving a small laser into a full 1.2 mi spool of FPV fibre, read by a base box; then cut the fibre, and lay a spool from the drone over plough, grass and a windbreak | Does enough light get home? What do the laser and a heartbeat every 10 s cost the battery? How much does a tip weigh, and how often does fibre break while a drone lays it (1 in 20 assumed)? | < $300 (est.) | Not started |
+| T21 | [How it works]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box): a tip dart's board driving a small laser into a full 1.2 mi spool of FPV fibre, read by a base box; then cut the fibre, and lay a spool from the drone over plough, grass and a windbreak | Does enough light get home? What do the laser and a heartbeat every 10 s cost the battery? How much does a tip weigh, and how often does fibre break while a drone lays it (1 in 20 assumed)? Steps: [MVP layer 3]({{ site.baseurl }}{% link mvp.md %}#layer-3-fibre-home-t21) | ~$110 on the bench, ~$470 with a real spool (listed prices) | Not started |
 
-## T9: can a forward line report back?
+## T9: do the hops along the row hold? {#t9-can-a-forward-line-report-back}
 
-The [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) only works if a node sitting 1.6–3.3 ft above the ground, 1.2–2.5 mi forward, can get a few bytes back to the unit, either directly to a raised receiver or by hopping node to node. This section collects what is already published and sets out the test that would settle the rest.
+Alerts now come home by fibre from a tip dart in the row ([T21]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)), so the radio's job in the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) is short: a few bytes from dart to dart along the row, both 1.6–3.3 ft above the ground, about 980 ft a hop. That hop sets the spacing, and so how many darts a line needs ([how]({{ site.baseurl }}{% link models/line-layout.md %})). The old question, whether a node 1.2–2.5 mi forward can reach a raised receiver at the unit directly, now matters only for the [fallback]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees) where fibre can't go. This section collects what is already published and sets out the test that would settle the rest.
 
 ### What has been measured
 
@@ -58,11 +58,12 @@ At 915 MHz a radio link needs a clear zone around the straight line between the 
 
 ### Verdict: existing evidence does not settle it
 
-- **Open ground, direct to a raised receiver: probably yes.** Callebaut measured over 2.5 mi with both ends at only 4.9 ft. A raised receiver should only help. But nobody has measured a 1.6–3.3 ft node at 915 MHz to a mast at 1.2–2.5 mi.
-- **Forest, direct at 1.2–2.5 mi: unsupported.** Every forest measurement with low antennas stops at 0.6 mi or less, most at 160–820 ft.
-- **Forest, hopping node to node at 660–980 ft: marginal.** Ferreira's 820 ft used 7 dBi antennas; stock antennas are weaker. In dense forest, plan on hops of 330–660 ft until measured, which means more nodes than the 12 per line the tripwire page assumes.
+- **Open ground, dart to dart at 980 ft: probably yes.** Callebaut measured over 2.5 mi with both ends at only 4.9 ft, and Iova 1,500–3,000 ft on short-range settings. But nobody has measured two 1.6–3.3 ft boards at 915 MHz.
+- **Forest, dart to dart at 660–980 ft: marginal.** Ferreira's 820 ft used 7 dBi antennas; stock antennas are weaker. In dense forest, plan on hops of 330–660 ft until measured, which means more darts than the open-ground plan.
+- **Across a tree belt between two darts: unmeasured.** A 33 ft windbreak costs about 4–5 dB at 915 MHz on Weissberger's model; one belt probably fits in a hop's margin, two may not.
+- **Fallback, direct to a raised receiver at 1.2–2.5 mi:** probably yes on open ground; unsupported in forest, where every low-antenna measurement stops at 0.6 mi or less.
 
-**Only a field test can settle the forest case**, and the forest case is the one that matters, because a line laid along a treeline or through woods is the realistic deployment.
+**Only a field test can settle the woods and belts**, and they are what matter, because rows laid along tree lines and across windbreaks are the realistic deployment.
 
 ### Predicting it before the field test
 
@@ -72,7 +73,7 @@ A simulation could estimate that (not yet built):
 
 1. Fit a path-loss model to the measurements above, adding foliage loss from a standard vegetation model such as [Weissberger's](https://en.wikipedia.org/wiki/Weissberger%27s_model) and random shadowing.
 2. Scatter thousands of lines, each listener 66–160 ft off its planned point, and check every link against the SX1262's sensitivity at SF7–12.
-3. Report the chance a line connects at each spacing, in forest and in windbreak country, to a receiver under a belt and to a [raised edge receiver]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees).
+3. Report the chance a row connects end to end at each spacing, in forest and in windbreak country, and, for the fallback, to a [raised edge receiver]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees).
 
 Ready-made simulators cover the routing side: [Meshtasticator](https://github.com/meshtastic/Meshtasticator) (Meshtastic's own), [ns-3 LoRaWAN](https://github.com/signetlabdei/lorawan) and [FLoRa](https://flora.aalto.fi/). The result would be a prediction, not proof, but it would let the field test check the model at a few points instead of surveying blind.
 
@@ -92,7 +93,7 @@ Uses the two Heltec WiFi LoRa 32 V3 boards from the [weekend test kit]({{ site.b
 
 **Set-up**
 
-- **Receiver** at the "unit" end, logging every packet with time, RSSI and SNR to a laptop or SD card. Test it at **6.6 ft** (tripod) and **26–33 ft** (mast).
+- **Receiver** is the neighbouring dart, at the same height, logging every packet with time, RSSI and SNR to a laptop or SD card. For run E only (the fallback), it goes at the unit end at **6.6 ft** (tripod) and **26–33 ft** (mast).
 - **Transmitter** is the "node". It sends a numbered packet every few seconds. A phone carried with it records a GPS track, so each packet can be matched to a distance afterwards.
 - **Settings:** the US region setting in the firmware, full power (22 dBm), 125 kHz bandwidth, at **SF7, SF10 and SF12**. The forest evidence says the long-range answer will come from SF12; SF7 shows what a fast, short burst gets, which matters for emissions and battery.
 
@@ -100,22 +101,23 @@ Uses the two Heltec WiFi LoRa 32 V3 boards from the [weekend test kit]({{ site.b
 
 | Run | Terrain | Node height | Receiver height | Distances |
 |---|---|---|---|---|
-| A | Open ground | 20 in and 3.3 ft | 6.6 ft and 26–33 ft | 820 ft, 1,600 ft, 0.6, 1.2, 1.9, 2.5 mi |
-| B | Forest (node under canopy, receiver at the edge or in a clearing) | 3.3 ft | 26–33 ft | 820 ft, 1,600 ft, 0.6, 0.9, 1.2 mi |
-| C | Forest, node to node (both under canopy) | 3.3 ft both | — | 330, 490, 660, 980 ft |
+| A | Open ground, node to node | 20 in and 3.3 ft | Same | 660, 980, 1,300, 1,600 ft |
+| B | Across tree belts, node to node: one either side of 1, then 2 belts | 3.3 ft | Same | 490, 660, 980 ft |
+| C | Forest, node to node (both under canopy) | 3.3 ft both | Same | 330, 490, 660, 980 ft |
 | D | Repeat the best and worst of A–C with the 3–5 dBi antennas | as above | as above | as above |
-| E | Windbreak country: node in the open or at a belt edge, with 1, 2 and 3 belts between it and the receiver | 3.3 ft | Edge receiver at a belt: 6.6 ft inside the belt, then 16–33 ft in the canopy, with and without a small Yagi ([design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees)) | 0.6, 1.2, 1.9 mi |
+| E | **Fallback only:** node in the open, in forest or behind 1–3 belts, to an edge receiver at a belt: 6.6 ft inside it, then 16–33 ft in the canopy, with and without a small Yagi ([design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees)) | 3.3 ft | 6.6 ft and 16–33 ft | 0.6, 1.2, 1.9 mi |
 
 At each point: stake the node, send **at least 100 packets per spreading factor**, and log packets sent and received, RSSI, SNR, node and receiver heights, terrain and canopy, temperature and wind. Fading in forest is severe, so also move the node a few yards and repeat at each forest point. Run on at least **two different days**, one of them warm.
 
 **Pass for "rises to 4"**
 
-- **Open ground:** 90% or more of packets delivered at **1.9 mi** from a 3.3 ft node to the 26–33 ft receiver, at any spreading factor.
-- **Forest, one of:** 80% or more delivered **direct at 1.2 mi** to the raised receiver, **or** 80% or more **node to node at 660 ft** (so a hop chain at the planned spacing holds).
-- **Windbreak country:** 90% or more delivered at **1.2 mi across two belts** to a raised edge receiver.
-- Both on two separate days.
+- **Open ground:** 90% or more of packets delivered at **980 ft** between two 3.3 ft boards, the hop the net plans on, at any spreading factor.
+- **Forest:** 80% or more **node to node at 660 ft**, so a row at closer spacing holds under trees.
+- **Across one belt:** 80% or more at **660 ft**.
+- **Fallback (run E), not a gate:** 90% or more at **1.2 mi across two belts** to a raised edge receiver.
+- All on two separate days.
 
-**What a fail means:** if forest hops fall under 80% at 490 ft, the tripwire still works in open country, but in woods it needs either far denser lines or a different way home: a relay drone left on high ground, or an [aerostat]({{ site.baseurl }}{% link models/m05-aerostats.md %}) at the unit. Either way, record the numbers on the tripwire page.
+**What a fail means:** a shorter hop means more darts, not a dead line: at 800 ft instead of 980, the [lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net) needs a few more darts a lay. If forest hops fall under 80% at 490 ft, lay rows along open ground and belt edges, not through woods. If run E fails, there is no radio fallback where fibre can't go. Either way, record the numbers on [How it works]({{ site.baseurl }}{% link models/line-layout.md %}).
 
 {: .warning }
 > Two boards measure one link at a time. How well a chain of many hops holds up is estimated from single-link delivery rates, not measured, until T7's 20-node test.
