@@ -1058,6 +1058,8 @@ body.ou {
   border: 1px solid $ou-ink;
 
   svg { display: block; width: 100%; height: auto; }
+  svg.vz-hero-tall { display: none; }
+  svg.vz-hero-tall { max-width: 420px; margin: 0 auto; }
 
   figcaption {
     margin-top: 8px;
@@ -1178,6 +1180,8 @@ body.ou {
 @media (max-width: 640px) {
   .ou .main-content .vz-lede { font-size: 17px; }
   .ou .main-content .vz-figure { padding: 8px; }
+  .ou .main-content .vz-figure svg.vz-hero-wide { display: none; }
+  .ou .main-content .vz-figure svg.vz-hero-tall { display: block; }
   .vz-bar-row { grid-template-columns: 1fr 70px; }
   .vz-bar-label { grid-column: 1 / -1; }
   .vz-steps, .vz-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }

@@ -9,7 +9,7 @@ nav_tripwire: 1
 <p class="vz-lede">Don't make a microphone hear farther. <strong>Drop cheap ones a mile forward</strong>, and a unit gets about a minute of warning instead of ten seconds, even against fibre-optic FPVs that emit no radio.</p>
 
 <figure class="vz-figure">
-<svg class="vz-hero" viewBox="0 0 720 430" role="img" aria-labelledby="vz-hero-t vz-hero-d">
+<svg class="vz-hero vz-hero-wide" viewBox="0 0 720 430" role="img" aria-labelledby="vz-hero-t vz-hero-d">
   <title id="vz-hero-t">How the tripwire works</title>
   <desc id="vz-hero-d">Seen from above. A row of listening darts lies across the enemy's approach about a mile out from the unit. A drone crossing the row is heard by the nearest dart; the alert hops along the row and comes home down two fibres to the unit, about a minute before the drone arrives. A ring of microphones at the unit would hear it only about ten seconds out.</desc>
   <rect x="0" y="0" width="720" height="62" fill="#f3e1d8"/>
@@ -43,6 +43,35 @@ nav_tripwire: 1
   <rect x="316" y="332" width="88" height="36" fill="#151515"/>
   <text x="360" y="357" class="vz-t-unit" text-anchor="middle">UNIT</text>
   <text x="360" y="424" class="vz-t-small" text-anchor="middle">a ring at the unit hears it only ~10 s out</text>
+</svg>
+<svg class="vz-hero vz-hero-tall" viewBox="0 0 360 530" role="img" aria-labelledby="vz-hero2-t">
+  <title id="vz-hero2-t">How the tripwire works: a row of darts about a mile out hears the drone and warns the unit about a minute ahead; a ring at the unit hears it about ten seconds out</title>
+  <rect x="0" y="0" width="360" height="44" fill="#f3e1d8"/>
+  <text x="14" y="29" class="vz-t-tag" style="font-size:15px">ENEMY SIDE</text>
+  <g fill="#d2451e" fill-opacity=".07" stroke="#d2451e" stroke-opacity=".45" stroke-dasharray="4 4">
+    <circle cx="30" cy="150" r="50"/><circle cx="105" cy="150" r="50"/><circle cx="180" cy="150" r="50"/><circle cx="255" cy="150" r="50"/><circle cx="330" cy="150" r="50"/>
+  </g>
+  <path d="M30 150 Q30 400 138 425" fill="none" stroke="#2f6b3a" stroke-width="3"/>
+  <path d="M330 150 Q330 400 222 425" fill="none" stroke="#2f6b3a" stroke-width="3"/>
+  <circle cx="180" cy="425" r="48" fill="none" stroke="#6a625a" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="270" y1="52" x2="190" y2="400" stroke="#151515" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <g transform="translate(262 84)" stroke="#151515" stroke-width="3">
+    <line x1="-10" y1="-10" x2="10" y2="10"/><line x1="10" y1="-10" x2="-10" y2="10"/>
+    <g fill="#fff" stroke-width="2"><circle cx="-10" cy="-10" r="4.5"/><circle cx="10" cy="-10" r="4.5"/><circle cx="-10" cy="10" r="4.5"/><circle cx="10" cy="10" r="4.5"/></g>
+  </g>
+  <g fill="#d2451e"><circle cx="30" cy="150" r="7"/><circle cx="105" cy="150" r="7"/><circle cx="180" cy="150" r="7"/><circle cx="330" cy="150" r="7"/></g>
+  <circle cx="249" cy="150" r="11" fill="#d2451e" stroke="#151515" stroke-width="3"/>
+  <text x="240" y="90" class="vz-t" text-anchor="end" style="font-size:17px">FPV crosses the row</text>
+  <text x="56" y="228" class="vz-t-small" style="font-size:16px">darts ~960 ft apart</text>
+  <line x1="118" y1="250" x2="118" y2="392" stroke="#151515" stroke-width="2"/>
+  <path d="M111 258 L118 246 L125 258 M111 384 L118 396 L125 384" fill="none" stroke="#151515" stroke-width="2"/>
+  <text x="130" y="306" class="vz-t-big" style="font-size:28px">~1 mi</text>
+  <text x="130" y="336" class="vz-t-accent" style="font-size:19px">≈ 1 min</text>
+  <text x="130" y="358" class="vz-t-accent" style="font-size:19px">warning</text>
+  <rect x="138" y="408" width="84" height="34" fill="#151515"/>
+  <text x="180" y="431" class="vz-t-unit" text-anchor="middle" style="font-size:16px">UNIT</text>
+  <text x="350" y="478" class="vz-t-green" text-anchor="end" style="font-size:16px">fibre home</text>
+  <text x="180" y="518" class="vz-t-small" text-anchor="middle" style="font-size:16px">a ring at the unit: only ~10 s</text>
 </svg>
 <figcaption>Seen from above, not to scale. Each dashed circle is one dart's hearing. The alert hops dart to dart and comes home by fibre.</figcaption>
 </figure>
