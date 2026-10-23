@@ -28,6 +28,7 @@ permalink: /countermeasures/
 
 <div class="vz-cards vz-2">
   <div class="vz-card"><p class="vz-card-num"><a href="{{ site.baseurl }}{% link countermeasures/fibre-cutter.md %}">The fibre cutter</a></p><p>A fence wire about 3 ft up, with a trolley on each 165 ft span. When the tripwire hears a drone cross, the trolley runs along its wire and cuts the fibre lying over it. Its best job is on a road, cutting the line of a drone parked and waiting.</p></div>
+  <div class="vz-card"><p class="vz-card-num"><a href="{{ site.baseurl }}{% link countermeasures/laser.md %}">The laser</a></p><p>Can a laser burn through the line "for a moment"? Only about 100 W, held on a spot you already know. It works against a drone parked by a road: a beam looped around it must cross its line. It takes 40–200 s from a road post, and it brings fire and eye risks. Blinding the drone's camera with a $120 diode is a cheaper first step.</p></div>
   <div class="vz-card"><p class="vz-card-num">More to come</p><p>Handing a drone whose line has been cut over to the unit's jammers, and anything else the alert can trigger without putting a person in the open.</p></div>
 </div>
 
