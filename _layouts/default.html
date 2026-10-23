@@ -27,7 +27,7 @@ layout: table_wrappers
         <p class="ou-nav-label ou-nav-head">THE TRIPWIRE</p>
         <a href="{{ '/' | relative_url }}" class="ou-nav-link ou-nav-top{% if page.url == '/' %} is-active{% endif %}"><span class="ou-nav-num">01</span>Overview</a>
         {% for p in primary %}
-          <a href="{{ p.url | relative_url }}" class="ou-nav-link ou-nav-top{% if p.url == page.url %} is-active{% endif %}"><span class="ou-nav-num">0{{ forloop.index | plus: 1 }}</span>{{ p.nav_label | default: p.title }}</a>
+          <a href="{{ p.url | relative_url }}" class="ou-nav-link ou-nav-top{% if p.url == page.url %} is-active{% endif %}">{% assign n = forloop.index | plus: 1 %}<span class="ou-nav-num">{% if n < 10 %}0{% endif %}{{ n }}</span>{{ p.nav_label | default: p.title }}</a>
           {% if p.url == '/countermeasures/' %}
             {% assign counter = site.pages | where_exp: "c", "c.nav_counter" | sort: "nav_counter" %}
             {% for c in counter %}
