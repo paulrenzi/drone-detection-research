@@ -40,7 +40,7 @@ Everything else is either in the other market or out of reach for a platoon: see
 **What the list says (inference):**
 - **Per sensor we are much cheaper than NW0.** An NW0 is $834–950, plus the power it needs. A tripwire listener is $17–50 (estimate) and a hand-placed node about $125–300 (a $1,500–2,500 kit of 8–12 nodes, local fusion included). That is roughly 3–50x less.
 - **Per position, nobody knows yet.** It depends on real range. Comparing NW0 at its claimed 1,500 ft with us at our cautious measured range would make NW0 look cheaper; that is a best case against a worst case. At equal range we are cheaper per position too. T11 and any independent NW0 test decide the real figure.
-- **What NW0 and RADD can't do is reach forward.** NW0 needs 15–18 W and a link, so it lives at a post. RADD is worn. Neither is laid 1.2–2.5 mi out, which is where a minute of warning comes from.
+- **What NW0 and RADD can't do is reach forward.** NW0 needs 15–18 W and a link, so it lives at a post. RADD is worn. Neither is laid a mile out, which is where a minute of warning comes from.
 - **Komodo's star variant shows that dropping sensors by drone works as a product idea.** It's sold for Shaheds and long range, not as cheap FPV lines.
 
 ## What is actually measured
@@ -98,10 +98,12 @@ So **T11, our own range test with a real FPV, is the most valuable test on the s
 - **Spacing:** Zvook advises 1,300–2,000 ft between sensors.
 - **Not found:** an independent test, or any unit reported using it. Zvook's own vehicle sensor trial at NATO's BATT26 exercise "worked. Not perfectly", by Zvook's account.
 - **Plausibility (inference):** 490 ft is in line with measured results. 1,500 ft is above anything measured with a cheap sensor.
+- **It can report by wire.** The Ethernet version, and the fibre and twisted-pair links Zvook's maker describes, can't be jammed ([dev.ua](https://dev.ua/en/news/ukrainska-kompaniia-zvook-stvoryla-akustychnyi-sensor-dlia-vyiavlennia-fpv-droniv-za-zvukom-1769187556)). Our darts rely on radio, which jammers on both sides cover ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
+- **On roads it is the direct rival to our posts.** A wired line of NW0s every 1,300–2,000 ft along a road is what our [road guard]({{ site.baseurl }}{% link models/route-guard.md %}) does with its posts, at about $45 a post against $834–950. What NW0 lacks is the fence a mile out that gives the minute.
 - **Where we differ:**
   - We run for weeks on a battery, not 15–18 W.
   - Our listeners are cheap enough to lose.
-  - We lay lines 1.2–2.5 mi forward instead of placing sensors at the post.
+  - We lay a row about a mile forward instead of placing sensors at the post.
   - Per sensor we cost roughly 3–50x less, and need no power supply.
 
 ### RADD GLADIUS — soldier-worn, US
@@ -174,7 +176,7 @@ They serve the rear, cost too much for a platoon, or don't hear fibre-optic dron
 
 **On capability**, what neither NW0 nor RADD offers:
 1. **Weeks on a battery, no wire.** It can sit anywhere, including where nobody can run power.
-2. **Placed forward.** Lines 1.2–2.5 mi out give about a minute of warning. A sensor at the post gives seconds: about what a sentry's ear gives if its range is near the measured figures, somewhat more if NW0's claimed 1,500 ft holds (an inference).
+2. **Placed forward.** A row about a mile out gives about a minute of warning. A sensor at the post gives seconds: about what a sentry's ear gives if its range is near the measured figures, somewhat more if NW0's claimed 1,500 ft holds (an inference).
 3. **Throwaway.** Losing a listener costs $17–50.
 4. **Passive at the unit:** nothing there transmits.
 
@@ -192,10 +194,10 @@ They serve the rear, cost too much for a platoon, or don't hear fibre-optic dron
 - **Short cheap-mic range.** The one measured cheap-microphone figure is about 160–200 ft. If FPVs aren't much louder, lines need two to three times as many listeners. T11 decides.
 - **NW0 is already on sale at a radio detector's price** (plus its power supply). If it works, units may not want a second acoustic product. Possible answers: we become NW0's forward layer, or we partner with Zvook.
 - **The architecture is no moat.** DroneAlert already sells LoRa acoustic modules on a battery at ~$211. If its price falls to listener level, only drone-laying, data and fielding set us apart.
-- **The radio link home gets jammed.** Common Russian jammers cover 100 MHz–1.1 GHz, and a LoRa-hunting prototype ("Tishina") is described ([Armada, Sep 2026](https://www.armadainternational.com/2026/09/russia-tishina-software-defined-jammer-electronic-warfare/)). Test T19 decides.
+- **The radio link home gets jammed.** Common Russian jammers cover 100 MHz–1.1 GHz, and a LoRa-hunting prototype ("Tishina") is described ([Armada, Sep 2026](https://www.armadainternational.com/2026/09/russia-tishina-software-defined-jammer-electronic-warfare/)). On our [estimate]({{ site.baseurl }}{% link models/line-layout.md %}#jamming) a jammer near the ground blinds a dart only within a few hundred feet, but about a mile in the worst case. A wired NW0 has no such risk. Test T19 decides.
 - **Komodo or RADD go cheap and forward.** Komodo already drops sensors by drone, and RADD has US Army access. Our defence is speed and cost per listener.
 - **A listening sentry or an AI turret is good enough at the position.** Turrets that carry their own sensor are in more than 10 units ([what troops have]({{ site.baseurl }}{% link research/frontline-kit.md %})). Then only forward placement pays.
-- **Warning may not change much.** No source measures what warning saves. Our central guess is about 1–4 of every 100 drone casualties averted, range 0.3–14 ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). RUSI's brigades report about half of casualties in the rear, during rotation and resupply ([RUSI, Feb 2025](https://static.rusi.org/tactical-developments-third-year-russo-ukrainian-war-february-2205.pdf)). A sensor at the position misses those, and lines along routes might not.
+- **Warning may not change much.** No source measures what warning saves. Our central guess is about 1–4 of every 100 drone casualties averted, range 0.3–14 ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). RUSI's brigades report about half of casualties in the rear, during rotation and resupply ([RUSI, Feb 2025](https://static.rusi.org/tactical-developments-third-year-russo-ukrainian-war-february-2205.pdf)). A sensor at the position misses those. A [guard along the road]({{ site.baseurl }}{% link models/route-guard.md %}) would not, on our model.
 - **No moat in hardware.** The lasting advantage is front-line training data and fielded integrations.
 
 ## Sources

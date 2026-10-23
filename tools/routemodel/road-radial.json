@@ -1,0 +1,76 @@
+{
+  "_note": "Example supply road for the route model: a 4 mi road running toward the front. Local frame in feet: x along the front, y toward the enemy, our trench line near y = 0. Every feature is invented to exercise the planner; it is not a real place.",
+  "name": "a road running toward the front",
+  "origin_latlon": [
+    47.9,
+    37.6
+  ],
+  "road": [
+    [
+      0,
+      -30000
+    ],
+    [
+      -900,
+      -21000
+    ],
+    [
+      600,
+      -14000
+    ],
+    [
+      1500,
+      -9000
+    ]
+  ],
+  "positions_y": 0,
+  "enemy_edge": [
+    [
+      -30000,
+      3000
+    ],
+    [
+      30000,
+      3000
+    ]
+  ],
+  "tree_belts": [
+    {
+      "name": "windbreak",
+      "line": [
+        [
+          -9000,
+          -24500
+        ],
+        [
+          9000,
+          -24000
+        ]
+      ],
+      "width": 40
+    },
+    {
+      "name": "windbreak",
+      "line": [
+        [
+          -9000,
+          -15800
+        ],
+        [
+          9000,
+          -16400
+        ]
+      ],
+      "width": 40
+    }
+  ],
+  "ravines": [],
+  "slope_ft_per_ft": 0.0,
+  "wind": {
+    "mph": 9,
+    "toward_deg": 0,
+    "gust_margin_mph": 5
+  },
+  "air_temp_f": 30,
+  "packs_warmed": true
+}

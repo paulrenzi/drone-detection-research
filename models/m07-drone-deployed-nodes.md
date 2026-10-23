@@ -20,7 +20,7 @@ nav_order: 7
 **Payoff:** The delivery method behind the drone-laid tripwire.
 
 {: .note }
-> The strongest use of this model is the [drone-laid tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): throwaway listeners dropped in lines 1.2–2.5 mi forward of a unit for a minute or more of warning.
+> The strongest use of this model is the [drone-laid tripwire]({{ site.baseurl }}{% link models/tripwire.md %}): throwaway listeners dropped in a row about a mile forward of a unit for a minute or more of warning.
 
 1. TOC
 {:toc}

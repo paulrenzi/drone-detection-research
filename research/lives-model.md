@@ -56,7 +56,7 @@ A minute of warning only saves someone who meets all five conditions:
 | Drone casualties among people moving in the rear (rotation, resupply, recovery, evacuation) | 50 of 100 | 35–60 | claimed (RUSI: about half, but that figure includes artillery and glide bombs) | unit casualty logs (T18) |
 | …from FPVs that fly in across the line, not ones already waiting in ambush or launched inside it | 50% | 30–70% | guess. Fibre-optic FPVs wait by roads for up to 12 h ([Trench Art](https://www.trenchart.us/p/russias-best-drones-lie-in-wait-beside)) and stay silent until launch | T18 |
 | …that the line hears | 60% | 40–85% | guess. No FPV has been range-tested acoustically | T11 |
-| …where the alert gets through | 80% | 60–95% | guess | T9, T17 |
+| …where the alert gets through | 80% | 60–95% | guess. Jamming beside the receiver could cut this to near zero unless the last link is wired ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)) | T9, T17, T19 |
 | …where troops act on it rather than ignoring it (false-alarm fatigue) | 60% | 30–80% | guess | T18 |
 | …and acting avoids the hit (holding the run, stopping under trees, delaying the evacuation) | 50% | 30–70% | guess | T18 |
 | **Averted, unit with no radio detector** | **≈3.6** | **≈0.4–14** | | |
@@ -86,6 +86,8 @@ The ranges multiply the low ends together and the high ends together, so the tru
 - Against **fibre-optic FPVs**, jammers do nothing and weapons get only seconds whatever the warning. The line's minute is the only early warning available, and its value is entirely in **avoidance by people who are about to move**.
 - So the line's value grows with the fibre-optic share in a sector and with how much movement the unit has to make in the open.
 
+**A guard on the road itself would change the second step** (not re-estimated). In the [route model]({{ site.baseurl }}{% link models/route-guard.md %}), posts along the road hear every drone that lands within 300 ft of it, and a fence a mile out warns of every drone flying in, so drones waiting in ambush stop being outside the guard's reach.
+
 ## Is it worth the cost?
 
 The tripwire costs about $1.9–2.9k for a unit's package and about $10.5–17k a year in re-lays at four-week cells ([running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)).
@@ -93,6 +95,8 @@ The tripwire costs about $1.9–2.9k for a unit's package and about $10.5–17k 
 **Inference (rule of thumb, no source):** if a battalion takes even a few dozen drone casualties a year, averting 1–4% of them is plausibly worth that cost. It is not worth it where:
 - most drone casualties come from FPVs already waiting in ambush, or launched inside the line; or
 - the roads are already netted.
+
+A guard on a supply road costs more: about $44–64k a year for 4 mi at four-week cells ([costs]({{ site.baseurl }}{% link costs.md %}#guarding-a-road)). It is aimed at the rear, where about half the casualties are.
 
 ## The Israeli analogue
 
@@ -108,6 +112,7 @@ The tripwire costs about $1.9–2.9k for a unit's package and about $10.5–17k 
   - What share of a unit's drone casualties happen while moving.
   - How many come from FPVs that wait in ambush.
   - Whether drivers and medics would hold a movement on an alert.
+  - How far from the road waiting drones land, and how often trucks run their jammers ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %})).
 - **T11:** whether a listener hears an FPV at all, and at what distance.
 - **T9/T17:** whether the alert gets out of the trees.
 - **A unit casualty rate:** with one, the estimate becomes lives per battalion per year, and can be set against the re-lay cost.

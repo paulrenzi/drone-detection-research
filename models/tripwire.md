@@ -10,21 +10,21 @@ nav_tripwire: 1
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | **3/5** | **5/5** | 3/5 | 4/5 | 4/5 | 4/5 |
 
-**In one line:** don't try to make a microphone hear farther; drop cheap ones 1.2–2.5 mi forward. A unit then gets about a minute of warning instead of about ten seconds, including against fibre-optic FPVs that emit no radio.
+**In one line:** don't try to make a microphone hear farther; drop cheap ones about a mile forward. A unit then gets about a minute of warning instead of about ten seconds, including against fibre-optic FPVs that emit no radio.
 
 <div class="stats">
-  <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a line 1.2 mi out, against ~10 s from a ring near the unit (est.)</p></div>
+  <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a row about 1 mi out, against ~10 s from a ring near the unit (est.)</p></div>
   <div class="stat"><p class="stat-num">$17–50</p><p class="stat-label">per throwaway listener (est.)</p></div>
-  <div class="stat"><p class="stat-num">24</p><p class="stat-label">listeners for two lines across a 1.9 mi front</p></div>
+  <div class="stat"><p class="stat-num">35</p><p class="stat-label">darts to lay one unit's net, 25 of them planned (lay model)</p></div>
   <div class="stat"><p class="stat-num">T9</p><p class="stat-label">the deciding test: can a line report back from under trees?</p></div>
 </div>
 
 ## The idea in four steps
 
-1. **Lay a line.** A small drone with no pilot drops 3–4 throwaway listeners per flight across the enemy's approach, 1.2–2.5 mi out. Two lines, a few hundred yards apart.
+1. **Lay a line.** A small drone with no pilot drops 4 throwaway listeners per flight in a row across the enemy's approach, about 1 mi out, with two trunks of relay darts back to the unit ([How it works]({{ site.baseurl }}{% link models/line-layout.md %})).
 2. **Listen quietly.** Each listener sleeps until it hears something drone-like, and transmits nothing while it waits.
 3. **Report back.** A few-byte alert hops listener to listener to a raised receiver at the unit.
-4. **Warn.** Warning time is distance ÷ drone speed, so a line 1.2 mi out gives about 50–65 seconds against an FPV at top speed, and 1.5–2 minutes at its usual 37–50 mph. A ring of microphones 980 ft out gives 8–10 (both estimates).
+4. **Warn.** Warning time is distance ÷ drone speed, so a row about 1 mi out gives about 45–60 seconds against an FPV at top speed, and 1.3–1.8 minutes at its usual 37–50 mph. A ring of microphones 980 ft out gives 8–10 (both estimates).
 
 ## Why it matters
 
@@ -38,7 +38,8 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 ## Where it stands
 
 - **Rated 3 out of 5.** Every part exists, but nobody has shown that a forward line can get its alerts home.
-- **The deciding test is radio under trees (T9).** Published measurements say open ground probably works. Under trees, where troops and attacking drones actually go, it is unproven. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
+- **The deciding tests are radio under trees (T9) and radio near jammers (T19).** Published measurements say open ground probably works. Under trees, where troops and attacking drones actually go, it is unproven. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
+- **Jamming covers our band, but distance decides it.** On our estimate a trench jammer blinds a dart only within about 390 ft; in the worst case, about a mile. The unit's own jammers, beside its receivers, are the first threat, so the links at the position go by wire or fibre ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
 - **The proposed answer: hear the lines from the edge of the unit's tree line.** A listen-only receiver, placed by hand and raised at the belt edge, wired back to the dugout so the unit's position emits nothing. [Design](#getting-alerts-out-of-the-trees).
 - **The payoff is a guess, not a doubt.** Fibre-optic FPVs get no warning today. Our central guess is about 1–4 of every 100 drone casualties averted, almost all among people about to move ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Front-line interviews would narrow it ([T18]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)); they are not a gate.
 - **Next steps cost little.** The first five tests each cost under $500; see [Parts and first build](#components-and-mvp).
@@ -53,6 +54,7 @@ From [what the front actually looks like]({{ site.baseurl }}{% link research/fie
 | **GPS is jammed** | The drone may not put listeners where planned | Fly on compass, optical flow and lidar from an origin set at launch, in daylight, and confirm every dart by radio as it lands ([how]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). Listeners carry no GPS, which saves money. Troops walking in can also place them by hand | Where GPS fails along the unit's routes |
 | **Friendly drones everywhere** | A line that alarms on every drone gets switched off | Alarm only for drones heading **in**, outside the unit's own flight times | Enemy drone habits: when, where and how fast |
 | **Tree lines** | Lines follow the tree belts, where radio range is short | Drop listeners at belt edges, not inside. Hear them with a listen-only receiver raised at the edge of the unit's own tree line, wired back to the dugout. Space them closer, paid for by dropping GPS | When leaf fall changes radio range |
+| **Jammers on both sides cover 868–915 MHz** | Radios beside a working jammer can't receive | Keep every radio that must receive a few hundred feet from jammers; wire or fibre where it can't be ([how]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)) | Where the radio fails, from the daily roll call |
 | **Cold** | Batteries die sooner in winter | Listeners report battery and temperature; re-lay a line when it runs low | Real winter battery life |
 
 ## The details
@@ -74,8 +76,8 @@ A microphone hears a small FPV at roughly **330–980 ft** ([working estimate]({
 | Where the listeners sit | Warning against an FPV at top speed, 67–89 mph | At its usual speed with a warhead, 37–50 mph |
 |---|---|---|
 | Ring placed by hand, ~980 ft out | ~8–10 seconds | ~13–18 seconds |
-| Line laid by drone, 1.2 mi out | ~50–65 seconds | ~1.5–2 minutes |
-| Line laid by drone, 2.5 mi out | ~1.5–2 minutes | ~3–4 minutes |
+| Row laid by drone, about 1 mi out ([the modelled net]({{ site.baseurl }}{% link models/line-layout.md %})) | ~45–60 seconds | ~1.3–1.8 minutes |
+| A deeper row, 2.5 mi out | ~1.5–2 minutes | ~3–4 minutes |
 
 {: .warning }
 > FPV speeds and detection ranges are planning estimates, not field measurements ([how fast and how high the drones fly]({{ site.baseurl }}{% link research/threat-profile.md %})). The ratio is what matters: ten times the distance is roughly ten times the warning.
@@ -86,8 +88,8 @@ Ten seconds is enough to get a shotgun or net-gun up; weapons have only about 1�
 
 Covering a whole area against small drones would take thousands of nodes ([the density problem]({{ site.baseurl }}{% link research/range-and-cost.md %}#worked-examples)). Attacking drones mostly come from one side, so a tripwire only covers the approaches.
 
-- **One line**, 1.2–2.5 mi out, says *something crossed here, at this time*.
-- **A second line** a few hundred yards behind adds **direction and speed**, and filters false alarms: a real drone trips both lines in order.
+- **One row**, about a mile out, says *something crossed here, at this time*. That is the [modelled net]({{ site.baseurl }}{% link models/line-layout.md %}).
+- **Direction comes from order:** a drone heading in trips a front dart, then trunk darts nearer the unit. A second row a few hundred yards behind would add speed and a firmer filter for about a dozen more darts; it is an option, not in the model.
 - A listener only has to hear the drone, not locate it, so listeners sit about one detection range apart: every 660–980 ft against FPVs, or closer under trees. A 1.9 mi front takes about 12 per line ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}) works out a relayed net for one unit: 12 listening darts a mile out and two chains of relay darts, 22 darts on open ground, about 25 on real ground and about 35 used in laying them; [Projected costs]({{ site.baseurl }}{% link costs.md %}) prices it).
 - Pinpointing the drone is left to the dense ring near the unit ([M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) on [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %}) placements).
 
@@ -140,7 +142,7 @@ On paper there is room for it. An SX1262 at full power and SF12 has roughly 159 
 ### The design: a listen-only receiver at the tree-line edge, wired home
 
 - **Placed by hand where the unit already is.** One receiver at the edge of the unit's own tree line, facing the lines, raised 16–33 ft: on a pole, or hoisted into the canopy with a throw line so the leaves hide it (heights are estimates). The unit's radio then sits out of the trees instead of under them.
-- **It never transmits.** A wire carries alerts to the dugout, so nothing at the unit's position emits. Put the receiver 330–980 ft along the belt from the dugout, and the listeners' bursts point at a box on a pole, not at the people.
+- **It never transmits.** A wire carries alerts to the dugout, so nothing at the unit's position emits. Put the receiver well along the belt from the dugout, and the listeners' bursts point at a box on a pole, not at the people. It must also sit at least about 1,000 ft from the unit's own jammers: on our estimate a 20 W trench jammer deafens a raised receiver within about 1,030 ft ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
 - **A small directional antenna** (a Yagi) aimed at the lines adds gain on the receiving end only, roughly 6–9 dB (estimate), and hears less from other directions. Listeners keep their simple antennas, since nobody knows which way a dropped one faces.
 - **Two or three receivers on the same wire**, spread along the belt. A listener only has to reach one of them, which gets round fading and a single blocked path.
 - **The wire.** Alerts are a few bytes, so a slow serial link is plenty. RS-485 over ordinary twisted pair is rated to about **0.7 mi** ([TI](https://www.ti.com/document-viewer/SN65HVD72/datasheet/typical-application-sllse118349)), and several receivers can share one pair. A second pair can carry power, so nothing at the edge needs a battery. The alternative is fibre from spent FPV spools: light, unjammable, and already lying across the battlefield in such quantity that one more run is hard to trace ([Business Insider](https://www.yahoo.com/news/articles/unjammable-drones-leaving-wires-everywhere-114504509.html)). Fibre needs optical converters at each end, which draw far more power than an RS-485 chip.
@@ -154,7 +156,7 @@ Safer than anything forward of the unit. It goes where the troops already are, i
 ### When it isn't enough
 
 - **Deep forest.** Hops of 160–820 ft are what has been measured. Options: listeners only at forest edges and clearings, denser hops, a relay drone left on high ground, or an [aerostat]({{ site.baseurl }}{% link models/m05-aerostats.md %}) at the unit.
-- **A wired forward hop (an idea, untested).** The delivery drone could unspool fibre to a forward hop point as it flies out, the way fibre-optic FPVs do.
+- **A wired forward hop (an idea, untested).** The delivery drone could unspool fibre to a forward hop point as it flies out, the way fibre-optic FPVs do. [How it works]({{ site.baseurl }}{% link models/line-layout.md %}#jamming) now proposes exactly that against the unit's own jammers: a root dart at the foot of each trunk, about 1,000 ft forward, each sending alerts home one way down its own fibre. FPV fibre is about $20–35 a km in 2026, up from $4–5 ([DroneXL](https://dronexl.co/2026/05/11/ukraine-fiber-optic-spool-price-ai-data-center-demand/)), so a 0.2 mi run is about $10.
 
 ### What it costs (estimates)
 
@@ -262,7 +264,7 @@ Each step answers one question before money goes into the next. They match the [
 | Step | What you build | What it proves | Rough cost |
 |---|---|---|---|
 | **1. Weekend test kit** | 2 Heltec V3 boards running [Batear]({{ site.baseurl }}{% link research/open-source-builds.md %}#batear), 3 INMP441 mics, windscreens, phones as recorders | A cheap mic hears a drone at known distances; first labelled training audio; a first radio range figure | **~$80–90** with a borrowed drone, tripods and power banks; ~$360–480 buying everything |
-| **2. Radio range test (T9)** | The same two boards, one carried away from a raised receiver | Whether a line 1.2–2.5 mi out can report back at all. **The deciding question** | < $300 |
+| **2. Radio range test (T9)** | The same two boards, one carried away from a raised receiver | Whether a row a mile out can report back at all. **The deciding question** | < $300 |
 | **3. Listener on a mast (T10, T11)** | One listener on a 1.6–3.3 ft spring mast, plus a drop-tested printed dart body | Detection range at listener height (sets spacing), and whether listeners land upright | < $500 |
 | **4. Battery test (T12)** | One listener with wake-on-sound and a small classifier | Whether "weeks on a small battery" is real | < $200 |
 | **5. Drop flight (T13)** | A printed quad that lays 4 listeners on planned points | Placement accuracy and payload | < $500 |
@@ -321,7 +323,7 @@ The phone's one real advantage is computing power. A listener only has to answer
 
 **For the first builds, they should.** Placing listeners by hand tests what decides everything (radio range, detection range and battery: T9, T11, T12) without also depending on the drop and no-GPS flights (T13, T14). People also place them better: upright, hidden, and at belt edges where the radio carries.
 
-The drone earns its place later. A line 1.2–2.5 mi out sits inside the drone kill zone, which units describe as 3.1–4.3 mi deep or more ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#the-drone-kill-zone)). Every walk out risks people and takes hours, and lines need re-laying as listeners die. A drone sortie takes minutes and risks a drone. Placing by hand stays the right tool near the unit: the inner ring, the [edge receiver](#getting-alerts-out-of-the-trees), and nights when the drone can't fly.
+The drone earns its place later. A row a mile out sits inside the drone kill zone, which units describe as 3.1–4.3 mi deep or more ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#the-drone-kill-zone)). Every walk out risks people and takes hours, and lines need re-laying as listeners die. A drone sortie takes minutes and risks a drone. Placing by hand stays the right tool near the unit: the inner ring, the [edge receiver](#getting-alerts-out-of-the-trees), and nights when the drone can't fly.
 
 ### Is it worth it if it works exactly as specified?
 
@@ -354,10 +356,11 @@ Partly, by simulation calibrated to the published measurements. Nothing publishe
 <summary><span class="layer-title">Other risks</span><span class="layer-sub">Radio range, tracing, noisy laying, gaps, false alarms, litter, export rules</span></summary>
 
 - **Getting alerts home is the hardest part.** Published measurements with antennas near the ground show over 2.5 mi in open country, but only 160–820 ft in most forest tests and about 0.6 mi at best. In woods a line would relay hop by hop at perhaps 330–660 ft. Nobody has measured a 1.6–3.3 ft listener reaching a raised receiver 1.2–2.5 mi away. A listen-only receiver at the edge of the unit's tree line is the [proposed answer](#getting-alerts-out-of-the-trees). [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
+- **Jamming.** Jammers on both sides cover our band. On our estimate a jammer near the ground blinds a dart only within a few hundred feet, so jamming becomes a question of where darts and roots go; in the worst case it blinds darts out to about a mile, and a radio net can't work near the front. T19 decides which ([model]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
 - **The relay chain can point home.** A chain of bursts leading back to the unit could be traced. Keep bursts short and rare, bend the chain instead of running it straight, and treat listeners as disposable.
 - **Laying the line is noisy.** The drone can be heard and seen, so the enemy may learn roughly where the line is. Lay at night or under other noise when GPS works; with GPS jammed, the optical-flow navigation needs daylight. Expect losses.
 - **Only drones that cross the line are caught.** A drone launched from inside the line, or routed around its ends, is missed. The inner ring is still needed.
-- **False alarms with nobody to check.** Wind, vehicles and birds can trip a single listener. Requiring both lines, or two neighbours, to agree is the main filter.
+- **False alarms with nobody to check.** Wind, vehicles and birds can trip a single listener. Requiring two neighbours, or a front dart then a trunk dart, to agree is the main filter.
 - **Litter.** Throwaway listeners are electronic waste. Consider biodegradable printed bodies and batteries that can't leak.
 - **Export controls.** A counter-drone sensor kit may fall under ITAR/EAR once built for military use.
 
@@ -394,7 +397,7 @@ A **printed fixed-wing** carrier is worth testing too: it flies much farther on 
 </details>
 
 <details class="layer" id="open-questions" markdown="block">
-<summary><span class="layer-title">Tests</span><span class="layer-sub">Eight cheap tests, from radio range to friendly drones</span></summary>
+<summary><span class="layer-title">Tests</span><span class="layer-sub">Nine cheap tests, from radio range and jamming to friendly drones</span></summary>
 
 | Test | What it answers | Rough cost |
 |---|---|---|
@@ -406,6 +409,7 @@ A **printed fixed-wing** carrier is worth testing too: it flies much farther on 
 | **T14** The same flight with GPS unavailable | Can a line be laid under jamming? | < $300 |
 | **T15** Record friendly drones; test whether sound, which line trips first and flight times can sort friend from foe, with clocks kept in step without GPS | Will the line cry wolf? | < $200 |
 | **T17** Build a [listen-only edge receiver](#getting-alerts-out-of-the-trees) raised at a tree-belt edge, wired 980–3,300 ft to the dugout | Can a unit hear its lines from inside a tree line without transmitting from its position? | < $300 |
+| **T19** The best T9 link beside a working ELRS jammer, then 300 ft to 1 mi from it | How far from a jammer does a link near the ground still work? | < $300 |
 
 All are tracked in [Open questions]({{ site.baseurl }}{% link research/open-questions.md %}).
 
@@ -429,4 +433,5 @@ In the Vietnam War, **Operation Igloo White** air-dropped acoustic and seismic s
 | 2026-10-15 | 3 (unchanged) | Page reorganised into layers: summary, front-line problems in plain terms, then fold-out detail. No change to the evidence. |
 | 2026-10-15 | 3 (unchanged); payoff 5 confirmed | [Front-line evidence]({{ site.baseurl }}{% link research/problem-check.md %}) supports the payoff: drones cause about 80% of casualties, fibre-optic FPVs beat the radio detectors units carry, and no cheap system fills the gap. Feasibility is unchanged: radio out of the trees (T9, T17) and whether warning changes behaviour (T18) are still unproven. |
 | 2026-10-15 | 3 (unchanged) | Proposed an engineering answer to the radio question: a listen-only receiver at the edge of the unit's tree line, wired back. Windbreak belts are 10–49 ft wide, not forests, and cost a few dB each on paper. Untested (T9, T17). |
+| 2026-10-23 | 3 (unchanged) | A [jamming model]({{ site.baseurl }}{% link models/line-layout.md %}#jamming): a jammer near the ground blinds a dart only within a few hundred feet on our estimate, about a mile in the worst case. The unit's own jammers deafen receivers at the positions, so the position's links go by wire or fibre. T19 now measures at range, and decides between the two cases. |
 </details>

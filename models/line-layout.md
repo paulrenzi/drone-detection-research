@@ -35,7 +35,7 @@ Three drones fly in at 60 mph: one straight at the middle position, exactly betw
 
 1. **Hear.** Every listening dart listens all the time, in every direction. It only answers one question: *is that a drone?*
 2. **Pass it back.** The dart that hears it radios a few bytes to its neighbour. Each dart relays an alert once, until it reaches the **root dart**, placed by hand beside the receiver at P2, which repeats it once more. Each hop takes about 0.05–1 s depending on the radio's settings.
-3. **Warn.** Every position has a receiver within a hop of the root dart. Receivers never transmit; each passes the alarm to a phone or tablet. Warning is distance ÷ speed, from wherever the drone was first heard.
+3. **Warn.** Every position has a receiver within a hop of the root dart. Receivers never transmit; each passes the alarm to a phone or tablet. Warning is distance ÷ speed, from wherever the drone was first heard. Receivers beside the unit's own jammers go deaf whenever those are on, so the model now proposes a root dart about 1,000 ft forward with a wire or fibre to the positions ([Jamming](#jamming)).
 
 **It is a tripwire, not a microphone array.** An array combines its microphones to find a direction, which needs exact spacing and shared timing. Here each dart only says "I heard it", and the net carries that home.
 
@@ -142,7 +142,7 @@ The example sector, 1,000 lays per row. **"Whole"** means every drone track with
 
 **Still open, not modelled:**
 - The drone's return shows the enemy where it launched from. Launch 300–500 ft from the positions, and vary the spot.
-- The unit's own trench jammers may cover our 900 MHz band. That needs a bench test with a real jammer.
+- The unit's own trench jammers cover our 900 MHz band. A [jamming model](#jamming) now says what that does: it deafens receivers at the positions, so the root needs a wire. T19 has to measure it.
 - The trunks point at the positions.
 - A sortie can't be recalled.
 - Handing the net over to a relieving unit isn't designed.
@@ -219,10 +219,11 @@ Same map, with time compressed. A relay is knocked out, found by the roll call a
 | **A trunk dart** | No coverage, but the net is down to one trunk | Same, and first | ~$27–31 |
 | **Two darts** | One on each trunk silences the net: 36 of the 231 possible pairs do that | Repair after the first loss | Per dart |
 | **The receiver** | Everything, until swapped | By hand, at the position | ~$22 |
-| **The root dart** | P1 and P3 may miss alerts; P2 still hears | By hand, at the position | ~$29 |
+| **The root dart** | P1 and P3 may miss alerts; P2 still hears. With the proposed forward roots on fibre, one trunk | By hand, at the position | ~$29 |
 | **Cells run down** | Darts drop out one by one | A re-lay: about 35 darts, 9 sorties | ~$1,190, with drone wear |
 | **The drone** | Any repair or re-lay | A new quad | ~$850–920 |
-| **LoRa jammed** | Every dart at once | No dart fixes it: change channel or settings, or wait | none |
+| **The unit's own jammer on** | Receivers at the positions go deaf: everything, for as long as it is on | Forward roots on a wire or fibre ([Jamming](#jamming)) | ~$60–100 (est.) |
+| **An enemy jammer near the front row** | Darts within a few hundred feet of it can't relay; a LoRa hunter would open a gap | Pull the row back from it; a second band, 433 MHz (untested) | none |
 
 **The repair model.** The receiver lists the darts that have gone quiet, the crew taps "re-drop", and the planning tool writes one mission for up to 4 darts. The flight to the farthest point is about 1.1 mi and about 10 minutes. A dead trunk dart or front dart goes on the next sortie; anything else waits for the next re-lay. Battery wear is about $0.30 a sortie. **The drone is the hidden cost:** a 2% chance of losing it adds about $20 to every sortie, as much as the dart it carries. So repairs are batched, and a spare drone is worth quoting.
 
@@ -249,9 +250,42 @@ That measures every link as it is made, so the drone never needs to know where i
 | **980 ft (plan)** | **12** | **5** | **22** |
 | 1,250 ft | 10 | 4 | 18 |
 
+## Jamming
+
+{: .warning }
+> Estimates from a link-budget model, [`jam_model.py`](https://github.com/paulrenzi/tripwire/blob/main/tools/jamming/jam_model.py), run on the example sector with every jammer on all the time. Jammer powers and heights are assumed, not measured. [T19]({{ site.baseurl }}{% link research/open-questions.md %}) measures it.
+
+**Jamming is everywhere near the front, and it covers our band.** RUSI counted at least one major Russian jamming system per 6 mi (10 km) of front ([via Wikipedia](https://en.wikipedia.org/wiki/Electronic_Warfare_Troops_of_the_Russian_Federation)). "Most mobile jammers" cover 868–915 MHz, and FPV control links run on the same LoRa chips our darts use ([Armada International, Feb 2026](https://www.armadainternational.com/2026/02/the-curran-papers-no-5-jamming-uninhabited-aerial-vehicle-video-signals-electronic-warfare/)). So the jammers on both sides are already built against our radio. More in [field conditions]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare).
+
+**What decides it is distance, not how common jamming is.** A jammer is a transmitter like a dart. It spreads its power across the band, about 640 of our 125 kHz channels, so a 20 W trench jammer puts less into our channel than a dart's 0.16 W does. Near the ground its signal fades as fast as ours. So it blinds a dart only from closer than about 0.4 of a hop:
+
+| Jammer (assumed) | Blinds a dart within | Worst case |
+|---|---|---|
+| Trench jammer, 20 W, 5 ft up | **about 390 ft** | 1.1 mi |
+| Vehicle jammer, 100 W, 8 ft up | about 740 ft | 2.2 mi |
+| Jammer on a mast, 50 W, 33 ft up | about 1,260 ft | 3.7 mi |
+| A LoRa hunter like Tishina, 20 W all in our channel | about 1,970 ft | 5.7 mi |
+
+The worst case assumes the jammer's signal crosses open ground with none of the losses that hold our own hop to 980 ft. That is nearer the truth for a jammer up high than for one in a trench. A jammed dart still hears drones and still transmits. It can't receive, so it can't relay.
+
+**What that does to the net:**
+
+| Jammers on | Main estimate | Worst case |
+|---|---|---|
+| The enemy's trench jammers, every 1,640 ft along their edge | Net whole, 60 s | Net silent |
+| A LoRa hunter every 1,640 ft along their edge | 7 front darts can't relay; gaps in the row | Net silent |
+| **Our own trench jammers, at the positions** | **Receivers deaf: net silent** | Net silent |
+| Ours, with the root 1,000 ft forward on a wire to the positions | Net whole, 60 s, 24 darts | Net silent |
+
+- **The first threat is our own jammers.** The plan puts the receivers in the positions, beside the unit's trench jammers, so whenever those are on, the net is deaf. **Proposed fix:** a root dart at the foot of each trunk, about 1,000 ft forward, out of their reach, each sending alerts home down its own fibre or wire. Nothing at a position then has to receive by radio. The drone can pay out the fibre as it flies the root out, the way fibre-optic FPVs do: about 0.2 mi of FPV fibre, about $10 at today's $20–35 a km ([DroneXL, May 2026](https://dronexl.co/2026/05/11/ukraine-fiber-optic-spool-price-ai-data-center-demand/)). The link only has to run one way, so the root needs just an LED that flashes when there is an alert, and the dugout end draws on the unit's power. A design idea, untested; about $60–100 for both roots and the wire between positions (est.).
+- **Enemy jammers matter only near their edge,** on the main estimate. A LoRa hunter would open gaps in the front row. Pulling the row back from a known jammer costs warning; a second band at 433 MHz, which most mobile jammers don't list ([Armada](https://www.armadainternational.com/2026/02/the-curran-papers-no-5-jamming-uninhabited-aerial-vehicle-video-signals-electronic-warfare/)), costs a second radio. Both need T19.
+- **Jammers aren't always on.** Crews switch them on when a detector warns ([problem check]({{ site.baseurl }}{% link research/problem-check.md %})). The net's alert comes a minute before the drone, so it may get home before the jammers go on. Not modelled.
+- **Why not fibre everywhere?** Fibre can't be jammed and gives off nothing to find. But an air-dropped row can't share one: every dart would need its own run, and a single cut would silence everything beyond it. Fibre fits the fixed links that sit beside jammers: the roots here, and the posts along a road ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %}#jamming-and-a-wire-along-the-road)).
+- **Which case is real decides the project.** If the main estimate holds, jamming is a placement problem: keep radios a few hundred feet from jammers. If the worst case holds, a radio net cannot work near the front at all. T19 now has to measure at range from a jammer, not only beside one.
+
 ## What the net misses
 
-- **Fibre-optic FPVs already parked in ambush.** They sit silent by a road and lift off seconds before they strike.
+- **Fibre-optic FPVs already parked in ambush.** They sit silent by a road and lift off seconds before they strike. A guard on the road itself is the answer: posts that hear them land ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %})).
 - **Drones launched from inside the net,** drones flying higher than a dart can hear, and drones coming in flatter than 45°.
 - **Direction.** A dart hearing a drone can't tell if it is the unit's own, unless the unit's drones fly at set times.
 

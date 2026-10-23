@@ -5,15 +5,15 @@ nav_order: 1
 ---
 
 <div class="hero" markdown="1">
-<span class="hero-tag">RESEARCH NOTEBOOK · REVIEWED 2026-10-21</span>
+<span class="hero-tag">RESEARCH NOTEBOOK · REVIEWED 2026-10-23</span>
 
 # The drone-laid acoustic tripwire
 
-Don't try to make a microphone hear farther. Drop cheap ones 1.2–2.5 mi forward, so a front-line unit gets about a minute of warning of an incoming FPV instead of about ten seconds, including fibre-optic FPVs that emit no radio.
+Don't try to make a microphone hear farther. Drop cheap ones about a mile forward, so a front-line unit gets about a minute of warning of an incoming FPV instead of about ten seconds, including fibre-optic FPVs that emit no radio.
 </div>
 
 <div class="stats">
-  <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a line 1.2 mi out, against ~10 s from a ring near the unit (est.)</p></div>
+  <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a row about 1 mi out, against ~10 s from a ring near the unit (est.)</p></div>
   <div class="stat"><p class="stat-num">$17–50</p><p class="stat-label">per throwaway listener (parts estimate)</p></div>
   <div class="stat"><p class="stat-num">160–200 ft</p><p class="stat-label">the only measured cheap-mic range; we plan on 330–980 ft, unproven</p></div>
   <div class="stat"><p class="stat-num">3/5</p><p class="stat-label">feasibility: every part exists, the whole chain is untested</p></div>
@@ -26,12 +26,14 @@ Don't try to make a microphone hear farther. Drop cheap ones 1.2–2.5 mi forwar
 
 ## Lay a line, listen quietly, report back, warn.
 
-1. **Lay a line.** A small drone with no pilot drops 3–4 throwaway listeners per flight across the enemy's approach, 1.2–2.5 mi out. Two lines, a few hundred yards apart.
+1. **Lay a line.** A small drone with no pilot drops 4 throwaway listeners per flight in a row across the enemy's approach, about 1 mi out, and two trunks of relay darts back to the unit ([How it works]({{ site.baseurl }}{% link models/line-layout.md %})): about 35 darts a lay.
 2. **Listen quietly.** Each listener sleeps until it hears something drone-like, and transmits nothing while it waits.
-3. **Report back.** A few-byte alert hops listener to listener to a listen-only receiver at the edge of the unit's tree line, wired back to the dugout, so the unit's position emits nothing.
-4. **Warn.** Warning time is distance ÷ drone speed. A line 1.2 mi out gives about 50–65 seconds against an FPV at top speed, and 1.5–2 minutes at the 37–50 mph it usually flies with a warhead ([the drones]({{ site.baseurl }}{% link research/threat-profile.md %})); a ring of microphones 980 ft out gives 8–10 (both estimates).
+3. **Report back.** A few-byte alert hops listener to listener to a listen-only receiver at the edge of the unit's tree line, wired back to the dugout, so the unit's position emits nothing. The wire also keeps the last link clear of the unit's own jammers ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
+4. **Warn.** Warning time is distance ÷ drone speed. A row about 1 mi out gives about 45–60 seconds against an FPV at top speed, and 1.3–1.8 minutes at the 37–50 mph it usually flies with a warhead ([the drones]({{ site.baseurl }}{% link research/threat-profile.md %})); a ring of microphones 980 ft out gives 8–10 (both estimates).
 
 The idea is to buy warning with distance rather than with sensitivity. A better microphone gains tens of yards; laying the line forward gains miles.
+
+**The same darts can guard a supply road,** where about half of casualties happen: a fence a mile out gives every drone flying in at least 58 s in the model, and posts along the verge hear drones that land to wait in ambush ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %})).
 
 <p class="kicker">02 · Why it matters</p>
 
@@ -83,13 +85,14 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 
 <p class="kicker">04 · Where it stands</p>
 
-## Three open questions, each under $500 to answer.
+## Four open questions, each under $500 to answer.
 
 | Question | Why it decides the tripwire | Test | Status |
 |---|---|---|---|
 | **Can a line report back from under trees?** | A line that can't get its alerts home is useless | [T9]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back), ~$80 | Open ground probably works on published figures; under trees, unproven |
 | **How far does a mic at 1.6–3.3 ft hear an FPV?** | Range sets listener spacing, so the cost of a line. Under about 130 ft the idea stops making sense | [T11]({{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11), ~$50 | Only measured cheap-mic range is 160–200 ft, on a consumer drone |
-| **Does a dropped dart land upright and working?** | Drone laying is what puts the line 1.2–2.5 mi out | A weighted dummy dropped from the drone | Modelled, not printed or dropped |
+| **Does the radio work near jammers?** | Jammers on both sides cover our band. On our estimate a jammer blinds a dart only within a few hundred feet; in the worst case, about a mile, and then a radio net can't work near the front | [T19]({{ site.baseurl }}{% link research/open-questions.md %}), ~$300, needs a licensed range or Ukraine | [Modelled]({{ site.baseurl }}{% link models/line-layout.md %}#jamming), not measured |
+| **Does a dropped dart land upright and working?** | Drone laying is what puts the row a mile out | A weighted dummy dropped from the drone | Modelled, not printed or dropped |
 
 Ratings are working judgements, not test results. [Build or scrap?]({{ site.baseurl }}{% link research/build-or-scrap.md %}) sets out what result would stop the project.
 

@@ -66,7 +66,7 @@ Licences, stars and activity read from GitHub on 2026-10-15.
 
 GPS jamming is routine at the front ([Front-line conditions]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)). ArduPilot rejects GPS readings that disagree sharply with its own motion estimate ([EKF failsafe docs](https://ardupilot.org/copter/docs/common-ekf-inav-failsafe.html)), but that handles glitches, not a slow, deliberate spoof. Options without GPS:
 
-| Approach | Good enough for a 1.2–2.5 mi leg? |
+| Approach | Good enough for a 1–2.5 mi leg? |
 |---|---|
 | **Optical flow camera + rangefinder** | Holds position and speed, but drifts over miles with no absolute fix ([ArduPilot non-GPS navigation](https://ardupilot.org/copter/docs/common-non-gps-navigation-landing-page.html)). Not enough on its own |
 | **Visual odometry** (camera-based motion tracking) | PX4 documents how to feed it in ([PX4 docs](https://docs.px4.io/v1.17/en/ros/external_position_estimation)). Also drifts without a reference |

@@ -32,8 +32,8 @@ How fast and how high the drones that attack Ukrainian troops fly, and whether a
 | Where the listeners sit | At top speed, 67–89 mph | At usual combat speed, 37–50 mph |
 |---|---|---|
 | Ring placed by hand, ~980 ft out | ~8–10 s | ~13–18 s |
-| Line laid by drone, 1.2 mi out | ~50–65 s | ~1.5–2 min |
-| Line laid by drone, 2.5 mi out | ~1.5–2 min | ~3–4 min |
+| Row laid by drone, about 1 mi out (the modelled net) | ~45–60 s | ~1.3–1.8 min |
+| A deeper row, 2.5 mi out | ~1.5–2 min | ~3–4 min |
 
 These are our arithmetic, not measurements.
 
@@ -43,7 +43,7 @@ These are our arithmetic, not measurements.
 
 ## Where a microphone can't help
 
-- **Drones already parked in ambush.** A landed fibre-optic FPV is silent until it lifts off, seconds from its target. A listener line warns only of drones flying in, not of one already waiting by the road.
+- **Drones already parked in ambush.** A landed fibre-optic FPV is silent until it lifts off, seconds from its target. A listener line warns only of drones flying in, not of one already waiting by the road. Posts along the road can hear one land, which is when it is exposed ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %})).
 - **Friendly drones.** Ukrainian FPVs sound like Russian ones. The tripwire's answer is to alarm only on drones crossing the lines inbound, outside the unit's own flight times ([the fix]({{ site.baseurl }}{% link models/tripwire.md %}#solving-the-field-limits-at-no-extra-cost)). That is proposed, not tested (T15).
 - **Wind and battle noise.** Strong wind can more than halve range, and artillery and engines mask the drone.
 

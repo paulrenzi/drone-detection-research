@@ -69,7 +69,7 @@ Warning is the distance at which the drone is detected, divided by its speed. FP
 | A sentry's ear | ~490 ft (Mavic-class, quiet field, [measured](https://www.mdpi.com/2076-3417/10/16/5501)) | ~4–5 s | Yes, if it is heard |
 | Acoustic sensor at the position | 390 ft (DroneAlert) to 1,500 ft (NW0), both makers' claims | ~3–16 s | Yes, on the makers' claims |
 | Radio detector (Chuyka 3.0) | Up to 2.5 mi, scanning every "4 to 8 seconds" ([Militarnyi, May 2025](https://militarnyi.com/en/news/ukraine-develops-chuyka-3-0-drone-video-signal-detector/)) | ~1.5–2.5 min | **No**: it hears only analog video |
-| **Forward listener line** | 1.2–2.5 mi out | **~50 s–2.5 min** | Yes, if the listeners hear it (T11) |
+| **Forward listener row** | About 1 mi out, deeper if wanted | **~45 s–2.5 min** | Yes, if the listeners hear it (T11) |
 
 **A minute is not new. A radio detector already gives one against radio-controlled FPVs.** What is new is a minute against fibre-optic FPVs, where every other source drops to seconds.
 

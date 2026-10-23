@@ -28,7 +28,7 @@ A review of whether the case for our model holds, after a fresh sweep of competi
 | A sentry's ear | At the position | ~490 ft (Mavic-class, quiet field, measured) | ~4 s |
 | DroneAlert module | At the position | 390 ft (seller's claim) | ~3 s |
 | Zvook NW0 | At the position | 1,500 ft (maker's claim, best case) | ~14 s |
-| **Our listener line** | **1.2–2.5 mi forward** | **Only needs to hear the drone cross the line** | **~70–140 s** |
+| **Our listener row** | **About 1 mi forward (the [modelled net]({{ site.baseurl }}{% link models/line-layout.md %}))** | **Only needs to hear the drone cross the row** | **~60 s; more from a deeper row** |
 
 Every sensor at the position gives seconds, even on its maker's best figure. Only distance gives a minute. **A listener's range sets how many listeners a line needs, not how much warning it gives.** That makes the tripwire the part of the case least exposed to the range question.
 
@@ -78,7 +78,7 @@ We found **no study, after-action report or soldier account comparing outcomes w
 - **Against:** the Tsukorok designer calls his detector a last warning device that loses value where drones are everywhere (Foreign Policy). Troops already cope by staying put for a month or more and moving at night ([RUSI, Feb 2025](https://static.rusi.org/tactical-developments-third-year-russo-ukrainian-war-february-2205.pdf)).
 - **Where the evidence points instead: routes.** About half of casualties are in the rear, during rotation and resupply (RUSI). Fibre-optic FPVs now hunt roads and wait beside them for hours ([Mezha, Nov 2025](https://oboronka.mezha.ua/en/droni-zhduni-yak-pracyuyut-novi-rosiyski-droni-306465/)).
 
-  A line across the approach would warn a convoy of drones flying in. It **would not** warn of one already waiting with its motors off, which is silent until it launches (inference).
+  A line across the approach would warn a convoy of drones flying in. It **would not** warn of one already waiting with its motors off, which is silent until it launches (inference). A guard along the road itself would: in the [route model]({{ site.baseurl }}{% link models/route-guard.md %}), posts beside the road hear every drone that lands within 300 ft of it, and a fence a mile out gives every drone flying in at least 58 s.
 
 **Weapons need seconds; a minute buys go/no-go calls on movement.** Russia's roadside drone "traffic lights" already serve that purpose ([the comparison]({{ site.baseurl }}{% link research/problem-check.md %}#a-minute-against-the-alternatives)). In lives, our central guess is about 1–4 of every 100 drone casualties averted, range 0.3–14 ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})).
 
@@ -92,7 +92,13 @@ We found **no study, after-action report or soldier account comparing outcomes w
 
 Listeners that sit quiet are hard to find. **The receiver at the unit and any relay chain are the parts that are exposed.** The [listen-only edge receiver]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees) already keeps the unit's end silent.
 
-**Scrap or rethink the back-haul if** T19 shows packets don't get through near a working ELRS jammer at any band or spreading factor.
+**What a jamming model says** ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}#jamming), estimates):
+
+- **Distance decides it.** A jammer spreads its power over hundreds of our channels, so near the ground a 20 W trench jammer blinds a dart only within about 390 ft. That is the main estimate. In the worst case, where the jammer's signal crosses open ground with none of the losses that limit our own hops, it reaches about 1.1 mi.
+- **Our own jammers are the first threat.** Receivers at the positions sit beside the unit's trench jammers and go deaf whenever those are on; so do receivers in trucks with vehicle jammers. The fix is a wire: forward roots on fibre at the position, posts on a cable with lamps on a road. Both keep a full minute in the model on the main estimate.
+- **Fibre for everything is not the answer.** An air-dropped row can't share one, and every cut silences everything beyond it. Wire or fibre fits the fixed links beside jammers; radio stays for the darts out in the fields.
+
+**Scrap or rethink the back-haul if** T19 shows a near-ground link fails out to about a mile from a working jammer, the worst case. Then a radio net can't work near the front, and only wired links can. **It survives if** links fail only within a few hundred feet of a jammer: then jamming is a matter of where the darts and roots go.
 
 ### 3. The real range is very short (T11)
 
@@ -107,7 +113,7 @@ Below about 160 ft, a 1.9 mi line needs 60 or more listeners and each re-lay tak
 ## What would make the case bulletproof
 
 1. **T11:** fly a real FPV past one cheap microphone on a mast and log the range in calm and in wind. Under $300.
-2. **T19:** run the T9 radio test again next to a working ELRS jammer. Under $300.
+2. **T19:** run the T9 radio test again next to a working ELRS jammer, and at 300 ft, 0.25 mi, 0.5 mi and 1 mi from it. Under $300.
 3. **An independent test of NW0 or DroneAlert alongside ours.** Buying one DroneAlert kit (~$670 for three modules and a gateway) would give the first like-for-like range figure anyone has published.
 4. **T18:** 5–10 front-line interviews, including drivers and medics, to narrow the lives estimate. $0.
 

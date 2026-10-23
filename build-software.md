@@ -153,6 +153,7 @@ Batear's gateway role minus Wi-Fi and MQTT, plus:
 - RS-485 output (I3) through a MAX3485-class transceiver on a spare UART.
 - The reboot-safe replay table from I1a, stored in flash, so a receiver reboot doesn't accept old replays.
 - RSSI and SNR on every frame, for line health.
+- **The noise floor, logged every minute.** A jammer shows as a raised floor. That tells the unit when its own jammers deafen the receiver, which the [jamming model]({{ site.baseurl }}{% link models/line-layout.md %}#jamming) says they will within about 1,000 ft, and gives T19 its field data.
 
 ### 3. Dugout display
 
