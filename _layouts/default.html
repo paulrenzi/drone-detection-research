@@ -36,6 +36,12 @@ layout: table_wrappers
           <a href="{{ p.url | relative_url }}" class="ou-nav-link{% if p.url == page.url %} is-active{% endif %}">{{ p.title }}</a>
         {% endfor %}
 
+        {% assign counter = site.pages | where_exp: "p", "p.nav_counter" | sort: "nav_counter" %}
+        <p class="ou-nav-label">COUNTERMEASURES</p>
+        {% for p in counter %}
+          <a href="{{ p.url | relative_url }}" class="ou-nav-link{% if p.url == page.url %} is-active{% endif %}">{{ p.title }}</a>
+        {% endfor %}
+
         {% assign models_page = site.pages | where: "title", "Sensor Models" | first %}
         {% assign research_page = site.pages | where: "title", "Research Notes" | first %}
         {% assign other_models = site.pages | where: "parent", "Sensor Models" | sort: "nav_order", "last" %}
