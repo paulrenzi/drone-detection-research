@@ -21,6 +21,8 @@ The military doesn't want a new app. It wants tracks to appear in the tools it a
 | **SAPIENT** | UK MOD open interface standard for counter-UAS sensors and fusion nodes | Adopted in NATO counter-UAS interoperability work; lets a sensor plug into others' C2 systems |
 | GeoJSON / REST / WebSocket | Plain web API | For dashboards, partners, testing |
 
+For the systems Ukrainian troops already carry, and which to target first, see [Partners for the alert]({{ site.baseurl }}{% link research/partners.md %}).
+
 ## Suggested data flow
 
 1. **Node → server:** detection report (time, node position, bearing, elevation, class, confidence). Small enough for LoRa.
