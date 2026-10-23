@@ -30,7 +30,7 @@ nav_primary: 2.15
   <text x="274" y="196" class="vz-t" text-anchor="end" style="font-size:16px">flying in: heard</text>
   <text x="274" y="216" class="vz-t" text-anchor="end" style="font-size:16px">at the fence</text>
   <text x="274" y="242" class="vz-t-accent" text-anchor="end" style="font-size:18px">≥ 60 s warning</text>
-  <text x="128" y="230" class="vz-t-green" style="font-size:15px">fibre</text>
+  <text x="98" y="205" class="vz-t-green" text-anchor="end" style="font-size:15px">fibre</text>
   <g transform="translate(200 360)" stroke="#151515" stroke-width="2.5">
     <line x1="-8" y1="-8" x2="8" y2="8"/><line x1="8" y1="-8" x2="-8" y2="8"/>
     <g fill="#fff" stroke-width="2"><circle cx="-8" cy="-8" r="3.5"/><circle cx="8" cy="-8" r="3.5"/><circle cx="-8" cy="8" r="3.5"/><circle cx="8" cy="8" r="3.5"/></g>
