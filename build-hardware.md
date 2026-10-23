@@ -7,6 +7,50 @@ nav_tripwire: 6
 # Build: hardware, the dart, the harness and a printed carrier
 {: .no_toc }
 
+<p class="vz-lede">Printable designs for the <a href="{{ site.baseurl }}{% link models/tripwire.md %}">tripwire</a>: <strong>a dart of three parts</strong> that sticks point-first in soil, and a <strong>one-servo harness</strong> that drops four of them from an X500.</p>
+
+<figure class="vz-figure">
+<img src="{{ site.baseurl }}/assets/images/build/v3-harness.png" alt="Four v3 darts under the X500's rails on the v2 plate and rotor; one dart is falling" style="width:100%;height:auto;display:block">
+<figcaption>Four v3 darts on the harness under an X500, the first one falling. A render from the CAD; never printed or flown.</figcaption>
+</figure>
+
+<div class="stats">
+  <div class="stat"><p class="stat-num">3 parts</p><p class="stat-label">a dart: fibreglass rod, printed body, head pod</p></div>
+  <div class="stat"><p class="stat-num">≈ $50</p><p class="stat-label">parts for 4 darts and the harness, prices checked 2026-10-15</p></div>
+  <div class="stat"><p class="stat-num">~1.7 mi</p><p class="stat-label">out with 4 darts on an X500 (est.)</p></div>
+  <div class="stat"><p class="stat-num">0</p><p class="stat-label">printed or flown yet: version 0 designs</p></div>
+</div>
+
+### The dart, standing in soil
+
+<div class="vz-cards vz-2">
+  <div class="vz-card" style="display:flex;gap:14px;align-items:flex-start">
+    <img src="{{ site.baseurl }}/assets/images/build/v3-dart.png" alt="v3 dart standing in soil: rod tip in the ground, orange body up to the hanger post, blue head pod with its whip at the top" style="width:90px;height:auto;flex:none">
+    <div>
+      <p class="vz-card-num">~4.5 oz</p>
+      <p><strong>Rod</strong> is spike, spine and mast. <strong>Body</strong> holds the cell near the tip and the hanger post at the balance point. <strong>Head pod</strong> holds the board, mic and whip about 20 in up.</p>
+    </div>
+  </div>
+  <div class="vz-card">
+    <p class="vz-card-num">Which design is current</p>
+    <p><span class="vz-chip vz-chip-done">current</span> <strong>v3 dart</strong>: 3 parts, a 4-dart kit is 15 parts</p>
+    <p><span class="vz-chip vz-chip-done">current</span> <strong>v2 harness</strong>: one plate, one rotor, one servo</p>
+    <p><span class="vz-chip vz-chip-open">option</span> <strong>TL-1</strong>: a fully printed quad, about 8 oz lighter</p>
+    <p><span class="vz-chip">superseded</span> <strong>v1</strong>: folding mast, four servos; kept as a fallback</p>
+  </div>
+</div>
+
+<p class="vz-done">A newer, detailed model built from manufacturer CAD, with a 3D viewer, is on <a href="{{ site.baseurl }}{% link build-3d.md %}">Build: 3D models</a>. Software: <a href="{{ site.baseurl }}{% link build-software.md %}">Build: software</a>.</p>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">The designs, as first listed</span><span class="layer-sub">The page's original opening, the 3D-model note and the version-0 warning</span></summary>
+
 Printable designs for the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}):
 
 - **v3, the current design:** each dart is a fibreglass rod, one printed body and a head pod: 3 parts. It hangs from v2's one-servo harness unchanged. A 4-dart kit has 15 parts against v2's 27, and the parts list is about $50 against $63.
@@ -22,10 +66,10 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 {: .warning }
 > **Version 0 designs, never printed or flown.** Dimensions from datasheets are sourced; masses, flight times and impact figures are estimates from the models and labelled as such. Parts marked *measure* in [`cad/params.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/params.py) must be checked with calipers before printing.
 
-1. TOC
-{:toc}
+</details>
 
-## Short answer
+<details class="layer" id="short-answer" markdown="block">
+<summary><span class="layer-title">Short answer</span><span class="layer-sub">v3 dart, v2 harness and TL-1 side by side: parts, mass, hover, reach</span></summary>
 
 | | v3 dart | v2 X500 harness | Printed TL-1 quad |
 |---|---|---|---|
@@ -39,12 +83,18 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 - **The printed quad wins on mass, not money.** The frame cost saving is small, as [the tripwire says]({{ site.baseurl }}{% link models/tripwire.md %}#why-3d-print-the-drones-and-the-nodes). But an estimated ~8.1 oz lighter frame is worth about 2.5 more minutes of hover with four darts, and the dart bay is built into the hull.
 - **Print the dart first.** It is needed for T10 (drop test), T11 (range at 1.6–3.3 ft) and T12 (battery), whichever drone carries it.
 
-## The printer and the CAD
+</details>
+
+<details class="layer" id="the-printer-and-the-cad" markdown="block">
+<summary><span class="layer-title">The printer and the CAD</span><span class="layer-sub">An Anycubic Vyper printing PETG, and CadQuery scripts for every part</span></summary>
 
 - **Printer: Anycubic Vyper.** Build volume 9.6 × 9.6 × 10.2 in, nozzle up to 500 °F, bed up to 230 °F. Officially it prints PLA, PETG, TPU, ABS and wood fill ([spec, via 3DSourced](https://www.3dsourced.com/3d-printer-reviews/anycubic-vyper-test-review-specs/)). It has no enclosure, so print in **PETG**: it tolerates sun and heat better than PLA and prints well without an enclosure (inference). Carbon-filled nylon and ASA, the usual next step for arms, warp without an enclosure and need a hardened nozzle. That is a second printer, needed only after the prototype stage.
 - **CAD: CadQuery,** text-based and in Python. Every model is a script in [`cad/`](https://github.com/paulrenzi/tripwire/tree/main/cad) that reads its dimensions from one file, `cad/params.py`, so a change shows up as a readable diff. Each run writes STL (for slicing), STEP (for any other CAD tool) and the PNG renders on this page, and prints bed-fit checks, masses and the flight-time table. Install: `python -m venv cad-env` then `cad-env/Scripts/pip install cadquery`. Run `python v2.py`, `dart.py`, `harness_simple.py` or `quad.py` from `cad/`.
 
-## 1. v3: three parts per dart
+</details>
+
+<details class="layer" id="1-v3-three-parts-per-dart" markdown="block">
+<summary><span class="layer-title">1. v3: three parts per dart</span><span class="layer-sub">Rod, body and pod; what changed from v2, and what to check</span></summary>
 
 <img src="{{ site.baseurl }}/assets/images/build/v3-harness.png" alt="Four v3 darts under the X500's rails on the v2 plate and rotor: each dart is a fibreglass rod with one long orange printed body, holding the cell near the tip and the hanger post at the balance point, and a blue head pod at the back; one dart is falling" width="760">
 
@@ -85,7 +135,10 @@ Software: [Build: software]({{ site.baseurl }}{% link build-software.md %}).
 
 *Measure before printing:* as v2, plus the cell's real diameter. The snap needs the lips narrower than the cell, and the 25R measures 0.72 in, not 18.6.
 
-## 2. v2: one rod, one servo
+</details>
+
+<details class="layer" id="2-v2-one-rod-one-servo" markdown="block">
+<summary><span class="layer-title">2. v2: one rod, one servo</span><span class="layer-sub">The rotor harness that still carries v3, and the flat-carried dart</span></summary>
 
 v3 keeps v2's plate, rotor and servo as they are; only the dart changed. v2's dart is the fallback if the snap cradle or the fixed hanger position fails.
 
@@ -138,7 +191,10 @@ v3 keeps v2's plate, rotor and servo as they are; only the dart changed. v2's da
 
 *Measure before printing:* how high the SG90's shaft stands above its tabs, which sets the rotor height (sand the ring to match), the rail spacing, and the rod's real diameter.
 
-## 3. v1 dart: folding mast (superseded by v2)
+</details>
+
+<details class="layer" id="3-v1-dart-folding-mast-superseded-by-v2" markdown="block">
+<summary><span class="layer-title">3. v1 dart: folding mast (superseded by v2)</span><span class="layer-sub">Kept for its drop-test questions and as a fallback</span></summary>
 
 v1 is kept because its drop-test questions still apply to v2, and as a fallback if a flat-carried dart won't turn point-down.
 
@@ -178,7 +234,10 @@ v1 is kept because its drop-test questions still apply to v2, and as a fallback 
 | Does the mast deploy in a 1–2 s fall? | Unknown | Video; if not, deploy on impact instead (a pin knocked out by the landing) |
 | No drop-deployed sensor with published drop figures was found | The Vietnam-era ADSID dart used a steel spike and a drag plate, but its patent gives no drop height ([US3984804A](https://patents.google.com/patent/US3984804A)) | |
 
-## 4. v1 harness: four servos (superseded by v2)
+</details>
+
+<details class="layer" id="4-v1-harness-four-servos-superseded-by-v2" markdown="block">
+<summary><span class="layer-title">4. v1 harness: four servos (superseded by v2)</span><span class="layer-sub">One servo per dart, kept as a fallback</span></summary>
 
 <img src="{{ site.baseurl }}/assets/images/build/harness-simple.png" alt="One printed plate zip-tied under the X500's two rails, four SG90 servos dropped into pockets, four darts hanging upright; the front-left dart is falling after its servo turned" width="720">
 
@@ -210,7 +269,10 @@ v1 is kept because its drop-test questions still apply to v2, and as a fallback 
 
 **Bench checks before flying:** each pin releases under a 7.1 oz load at the servo's commanded PWM; no pin releases while the airframe is shaken by hand; a pin with no dart doesn't jam; SITL fires the same mission ([software page]({{ site.baseurl }}{% link build-software.md %}#6-test-harness)).
 
-## 5. A fully printed carrier: TL-1
+</details>
+
+<details class="layer" id="5-a-fully-printed-carrier-tl-1" markdown="block">
+<summary><span class="layer-title">5. A fully printed carrier: TL-1</span><span class="layer-sub">A printed quad with a dart bay, and its payload and flight time</span></summary>
 
 <img src="{{ site.baseurl }}/assets/images/build/quad-tl1.png" alt="Printed quad TL-1: orange hull with built-in dart bay, four blue printed arms and tall legs, 10 inch prop discs, four darts hanging under the hull" width="760">
 
@@ -247,7 +309,10 @@ Hover power for fixed props grows with mass to the power 1.5, by momentum theory
 - Lines 2.5 mi out need the TL-1 with 2 darts, or a fixed-wing carrier. Printed fixed-wing airframes such as Eclipson's take off at 1.1–3.3 lb ([air-rc](https://www.air-rc.com/aircraft/Eclipson-Airplanes_Apex_apex)) but publish no payload or endurance, so a fixed-wing stays unscoped until T13 shows whether 1.9 mi is enough.
 - T13 now has a prediction to beat: **X500, 4 v2 darts, about 11–12 minutes' hover.** The v2 rows use the model's masses: 4.4 oz per dart, 2.8 oz for the harness.
 
-## 6. Parts to buy: v3, 4 darts and the harness
+</details>
+
+<details class="layer" id="6-parts-to-buy-v3-4-darts-and-the-harness" markdown="block">
+<summary><span class="layer-title">6. Parts to buy: v3, 4 darts and the harness</span><span class="layer-sub">Every part with a checked price and an alternative, about $50</span></summary>
 
 Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Cart at the price given. Electronics already on the [MVP list]({{ site.baseurl }}{% link mvp.md %}#shopping-list) (Heltec boards, INMP441) are not repeated.
 
@@ -263,7 +328,10 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 
 **Where v1's $76 went (v1 to v2):** the folding mast (pole kit $29.95, springs $10.99, M3 hardware $15.89), the steel spike ($9.99), three of four servos (a 2-pack replaces a 10-pack), and fur (foam instead). v1's list was PETG, a 10-pack of SG90s, the pole kit, stainless rod, springs, M3 hardware, fur and cells, ≈ $139.
 
-## 7. Not yet designed
+</details>
+
+<details class="layer" id="7-not-yet-designed" markdown="block">
+<summary><span class="layer-title">7. Not yet designed</span><span class="layer-sub">Tip dart, solar on the pod, post, base box, edge receiver, custom board</span></summary>
 
 - **Tip dart:** a dart body that also carries a spool of about 1.2 mi of FPV fibre and a small laser, about 10 oz (est.), from [the fibres and the base box]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box). The harness slot has to take its weight and let the fibre pay out freely from the first drop. It follows T21's bench version.
 - **Solar on the head pod:** a 2.4 × 2.4 in epoxy panel lying flat on top of the pod, matte so it doesn't glint to a drone overhead, and a charger chip with a thermistor that stops charging below 32°F ([why]({{ site.baseurl }}{% link costs.md %}#keeping-it-up)). About 0.4 oz at the tail moves the balance point back, against the point-first fall, so `v3.py` has to place the hanger post again with it fitted, and T10 drops darts with it.
@@ -274,7 +342,10 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 - **TL-1 with the v2 plate:** the hull still carries v1's release blocks and tall legs.
 - **A custom listener board:** it shrinks the head pod and fixes the sleep current (see [wake-on-sound]({{ site.baseurl }}{% link build-software.md %}#1-listener-firmware)).
 
-## Files
+</details>
+
+<details class="layer" id="files" markdown="block">
+<summary><span class="layer-title">Files</span><span class="layer-sub">Every CAD script and its STL, STEP and renders</span></summary>
 
 | Model | Script | Printable outputs (STL and STEP) | Render |
 |---|---|---|---|
@@ -287,3 +358,5 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 | Shared | [`cad/params.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/params.py), [`cad/render.py`](https://github.com/paulrenzi/tripwire/blob/main/cad/render.py) | | |
 
 STL and STEP files are in [`cad/out/`](https://github.com/paulrenzi/tripwire/tree/main/cad/out).
+
+</details>
