@@ -1,14 +1,16 @@
-// Animated top-down map of one tripwire line. Scale: 1 unit = 12 ft.
+// Animated top-down map of 12 darts relaying an alert back to a unit, hop by hop.
+// Scale: 1 unit = 20 ft. Three layouts share the same darts and radio hop.
 (function () {
   var box = document.getElementById("line-layout");
   if (!box) return;
 
   var NS = "http://www.w3.org/2000/svg";
-  var FT = 1 / 12;                 // svg units per foot
-  var R = 490 * FT;                // hearing range, and the spacing
-  var LINE_Y = 150, UNIT_X = 300, UNIT_Y = 678;   // 1.2 mi apart
-  var MPH = 45, FTS = MPH * 5280 / 3600;          // 66 ft/s
-  var SPEEDUP = 10;
+  var FT = 1 / 20;                 // svg units per foot
+  var HEAR = 490, HOP = 1000;      // ft: hearing range; longest radio hop allowed (~300 m)
+  var R = HEAR * FT;
+  var UX = 300, UY = 760;          // the unit
+  var MPH = 45, FTS = MPH * 5280 / 3600;
+  var SPEEDUP = 10, HOP_SECS = 0.35;
   var ACC = "#c2562c", GREEN = "#4f7a3a", BLUE = "#1f5f8b";
 
   function el(tag, attrs, parent) {
@@ -18,166 +20,190 @@
     return e;
   }
   function text(x, y, s, attrs, parent) {
-    var a = { x: x, y: y, "font-size": 12, fill: "currentColor" };
+    var a = { x: x, y: y, "font-size": 15, fill: "currentColor" };
     for (var k in attrs) a[k] = attrs[k];
     var t = el("text", a, parent);
     t.textContent = s;
     return t;
   }
+  function polar(rFt, phi) { return [UX + rFt * FT * Math.sin(phi), UY - rFt * FT * Math.cos(phi)]; }
+  function fmt(s) { s = Math.max(0, Math.round(s)); return s >= 60 ? Math.floor(s / 60) + " min " + (s % 60) + " s" : s + " s"; }
 
-  var svg = el("svg", { viewBox: "0 0 600 780", width: "100%", role: "img",
+  var svg = el("svg", { viewBox: "0 0 600 820", width: "100%", role: "img",
     "aria-labelledby": "llTitle llDesc", style: "font-family:inherit;color:inherit;display:block" }, box);
-  el("title", { id: "llTitle" }).textContent = "One tripwire line, seen from above";
-  el("desc", { id: "llDesc" }).textContent =
-    "To scale. Twelve darts stand in a row 1.2 miles in front of the unit's tree line, 490 feet apart, each hearing about 490 feet. " +
-    "A drone flying toward the unit crosses the line between two darts; the nearer dart hears it and radios the receiver at the unit, " +
-    "giving about a minute and a half of warning at 45 mph. A second drone flies round the end of the line, is missed, " +
-    "and is heard only by the unit itself, about 7 seconds out.";
-
-  // ground
-  el("rect", { x: 0, y: 0, width: 600, height: 780, fill: "#efe9d8" });
-  el("rect", { x: 0, y: 0, width: 600, height: 100, fill: ACC, "fill-opacity": 0.1 });
-  text(300, 36, "ENEMY SIDE", { "text-anchor": "middle", "font-size": 22, "font-weight": 700, "letter-spacing": "0.08em", fill: ACC });
-  text(300, 66, "drones launch from farther out, off the map", { "text-anchor": "middle", "font-size": 16, opacity: 0.85 });
-
-  // windbreak tree belts (illustrative)
-  [[0, 335, 600], [0, 490, 600]].forEach(function (b) {
-    el("rect", { x: b[0], y: b[1], width: b[2], height: 9, rx: 4, fill: GREEN, "fill-opacity": 0.55 });
-  });
-  text(596, 328, "windbreak tree belt", { "text-anchor": "end", "font-size": 14, opacity: 0.8 });
-
-  // the unit's own tree line, unit, receiver
-  el("rect", { x: 0, y: UNIT_Y - 15, width: 600, height: 30, fill: GREEN, "fill-opacity": 0.75 });
-  el("circle", { cx: UNIT_X, cy: UNIT_Y, r: R, fill: "none", stroke: BLUE, "stroke-dasharray": "3 3", "stroke-opacity": 0.8 });
-  [-14, 0, 14].forEach(function (dx) {
-    el("rect", { x: UNIT_X + dx - 5, y: UNIT_Y - 4, width: 10, height: 8, rx: 2, fill: "#3b2f22" });
-  });
-  var RX = UNIT_X - 62, RY = UNIT_Y - 14;
-  el("line", { x1: RX, y1: RY, x2: RX, y2: RY - 14, stroke: BLUE, "stroke-width": 2 });
-  var rxDot = el("circle", { cx: RX, cy: RY - 15, r: 4, fill: BLUE });
-  text(RX + 4, RY - 26, "receiver + tablet", { "text-anchor": "end", "font-size": 15, fill: BLUE, "font-weight": 600 });
-  text(UNIT_X + 30, UNIT_Y + 5, "YOUR UNIT · dugouts", { "font-size": 15, "font-weight": 700, fill: "#fff" });
-  text(300, UNIT_Y + 42, "dashed circle: what the unit hears itself, ~490 ft, about 7 s", { "text-anchor": "middle", "font-size": 14, fill: BLUE });
-  text(300, 760, "REAR · camp and resupply, farther back", { "text-anchor": "middle", "font-size": 15, "font-weight": 700, opacity: 0.7, "letter-spacing": "0.05em" });
-
-  // distance from line to unit
-  el("line", { x1: 24, y1: LINE_Y, x2: 24, y2: UNIT_Y, stroke: "currentColor", "stroke-opacity": 0.6, "marker-start": "url(#llArr)", "marker-end": "url(#llArr)" });
+  var titleEl = el("title", { id: "llTitle" });
+  var descEl = el("desc", { id: "llDesc" });
   var defs = el("defs", {});
   var mk = el("marker", { id: "llArr", viewBox: "0 0 10 10", refX: 5, refY: 5, markerWidth: 6, markerHeight: 6, orient: "auto-start-reverse" }, defs);
   el("path", { d: "M0,0 L10,5 L0,10 z", fill: "currentColor", "fill-opacity": 0.6 }, mk);
-  text(0, 0, "1.2 mi from the line to the unit", { transform: "translate(18 " + ((LINE_Y + UNIT_Y) / 2) + ") rotate(-90)", "text-anchor": "middle", "font-size": 16, "font-weight": 600 });
 
-  // the darts
-  var darts = [];
-  for (var i = 0; i < 12; i++) {
-    var x = UNIT_X + (i - 5.5) * R;
-    var ring = el("circle", { cx: x, cy: LINE_Y, r: R, fill: ACC, "fill-opacity": 0.07, stroke: ACC, "stroke-opacity": 0.35 });
-    var dot = el("circle", { cx: x, cy: LINE_Y, r: 5, fill: "#fff", stroke: ACC, "stroke-width": 2 });
-    text(x, LINE_Y - 10, String(i + 1), { "text-anchor": "middle", "font-size": 14, "font-weight": 700, fill: ACC });
-    darts.push({ x: x, ring: ring, dot: dot });
-  }
-  var x0 = darts[0].x, x1 = darts[1].x;
-  el("line", { x1: x0, y1: LINE_Y + R + 10, x2: x1, y2: LINE_Y + R + 10, stroke: "currentColor", "stroke-opacity": 0.7, "marker-start": "url(#llArr)", "marker-end": "url(#llArr)" });
-  text(x1 + 8, LINE_Y + R + 15, "490 ft apart = one hearing range", { "font-size": 16, "font-weight": 600 });
-  text(300, LINE_Y + R + 50, "12 darts cover about 1.1 mi of front", { "text-anchor": "middle", "font-size": 20, "font-weight": 700, fill: ACC });
-  text(300, LINE_Y + R + 74, "circle = what one dart hears: ~490 ft, not yet measured", { "text-anchor": "middle", "font-size": 15, opacity: 0.85 });
+  // ground, enemy side, tree belts, the unit
+  el("rect", { x: 0, y: 0, width: 600, height: 820, fill: "#efe9d8" });
+  el("rect", { x: 0, y: 0, width: 600, height: 92, fill: ACC, "fill-opacity": 0.1 });
+  text(300, 34, "ENEMY SIDE", { "text-anchor": "middle", "font-size": 22, "font-weight": 700, "letter-spacing": "0.08em", fill: ACC });
+  text(300, 62, "drones launch from farther out, off the map", { "text-anchor": "middle", "font-size": 16, opacity: 0.85 });
+  [330, 545].forEach(function (y) { el("rect", { x: 0, y: y, width: 600, height: 9, rx: 4, fill: GREEN, "fill-opacity": 0.5 }); });
+  text(596, 323, "windbreak tree belt", { "text-anchor": "end", "font-size": 14, opacity: 0.8 });
+  el("rect", { x: 0, y: UY - 15, width: 600, height: 30, fill: GREEN, "fill-opacity": 0.75 });
+  el("circle", { cx: UX, cy: UY, r: R, fill: "none", stroke: BLUE, "stroke-dasharray": "3 3", "stroke-opacity": 0.8 });
+  [-14, 0, 14].forEach(function (dx) { el("rect", { x: UX + dx - 5, y: UY - 4, width: 10, height: 8, rx: 2, fill: "#3b2f22" }); });
+  text(UX + 30, UY + 5, "YOUR UNIT · dugouts, receiver", { "font-size": 15, "font-weight": 700, fill: "#fff" });
+  text(300, UY + 40, "REAR · camp and resupply, farther back", { "text-anchor": "middle", "font-size": 15, "font-weight": 700, opacity: 0.7 });
 
-  // moving parts
+  var gLay = el("g", {});
   var trail = el("path", { d: "", fill: "none", stroke: "#222", "stroke-opacity": 0.45, "stroke-dasharray": "2 4", "stroke-width": 1.5 });
-  var packet = el("circle", { r: 4, fill: BLUE, opacity: 0 });
-  var link = el("line", { stroke: BLUE, "stroke-width": 1.5, "stroke-dasharray": "5 4", opacity: 0 });
   var pulse = el("circle", { r: 0, fill: "none", stroke: ACC, "stroke-width": 2, opacity: 0 });
+  var packet = el("circle", { r: 5, fill: BLUE, opacity: 0 });
   var drone = el("g", {});
-  var droneShape = el("g", { transform: "scale(1.5)" }, drone);
+  var ds = el("g", { transform: "scale(1.5)" }, drone);
   [[-5, -5], [5, -5], [-5, 5], [5, 5]].forEach(function (p) {
-    el("circle", { cx: p[0], cy: p[1], r: 3.2, fill: "none", stroke: "#111", "stroke-width": 1.2 }, droneShape);
+    el("circle", { cx: p[0], cy: p[1], r: 3.2, fill: "none", stroke: "#111", "stroke-width": 1.2 }, ds);
   });
-  el("rect", { x: -3, y: -3, width: 6, height: 6, fill: "#111" }, droneShape);
+  el("rect", { x: -3, y: -3, width: 6, height: 6, fill: "#111" }, ds);
 
-  // the status panel under the map
+  // ---- the three layouts: 12 darts each, no hop longer than ~980 ft
+  function trailLayout() {
+    var d = [];
+    for (var k = 1; k <= 12; k++) d.push(polar(980 * k, 0));
+    return d;
+  }
+  function crossbarLayout() {
+    var d = [], D = 6860;
+    for (var k = 1; k <= 8; k++) d.push(polar(D * k / 8, 0));
+    var c = polar(D, 0);
+    [-980, -490, 490, 980].forEach(function (dx) { d.push([c[0] + dx * FT, c[1]]); });
+    return d;
+  }
+  function arcLayout() {
+    var d = [], D = 3900;
+    for (var k = 1; k <= 3; k++) d.push(polar(D * k / 4, 0));
+    for (var j = 0; j < 9; j++) d.push(polar(D, (j - 4) * 0.2308));
+    return d;
+  }
+  var LAYOUTS = {
+    trail: { label: "Trail", make: trailLayout, front: 11760,
+      caption: "Trail: 12 darts in a chain, 980 ft apart, front dart 2.2 mi out",
+      desc: "Twelve darts in a single file from the unit toward the enemy, 980 feet apart, so each can radio the one behind it. The front dart is 2.2 miles out." },
+    crossbar: { label: "Trail + crossbar", make: crossbarLayout, front: 6860,
+      caption: "Trail + crossbar: 8 in a chain, 4 across the head, 1.3 mi out",
+      desc: "Eight darts in a chain from the unit, about 860 feet apart, to a crossbar of five darts 490 feet apart, 1.3 miles out." },
+    arc: { label: "Arc", make: arcLayout, front: 3900,
+      caption: "Arc: 3 in a chain, 9 in an arc 0.74 mi out, ~900 ft apart",
+      desc: "Three darts in a chain from the unit to an arc of nine darts, about 900 feet apart, 0.74 miles out, spreading about 50 degrees either side." }
+  };
+
+  var lay, darts, hopTo;   // hopTo[i] = next node toward the unit (-1 = receiver)
+  function build(name) {
+    lay = LAYOUTS[name];
+    while (gLay.firstChild) gLay.removeChild(gLay.firstChild);
+    var pts = lay.make();
+    // radio links: breadth-first from the receiver over hops of <= HOP ft
+    var n = pts.length, hops = [], i, j;
+    function dist(a, b) { return Math.hypot(a[0] - b[0], a[1] - b[1]) / FT; }
+    for (i = 0; i < n; i++) hops.push(Infinity);
+    hopTo = new Array(n);
+    var q = [];
+    for (i = 0; i < n; i++) if (dist(pts[i], [UX, UY]) <= HOP) { hops[i] = 1; hopTo[i] = -1; q.push(i); }
+    while (q.length) {
+      var a = q.shift();
+      for (j = 0; j < n; j++) if (hops[j] === Infinity && dist(pts[a], pts[j]) <= HOP) { hops[j] = hops[a] + 1; hopTo[j] = a; q.push(j); }
+    }
+    darts = pts.map(function (p, k) { return { x: p[0], y: p[1], hops: hops[k] }; });
+    darts.forEach(function (d, k) {
+      var to = hopTo[k] === -1 ? [UX, UY] : [darts[hopTo[k]].x, darts[hopTo[k]].y];
+      el("line", { x1: d.x, y1: d.y, x2: to[0], y2: to[1], stroke: BLUE, "stroke-opacity": 0.5, "stroke-dasharray": "4 3" }, gLay);
+    });
+    darts.forEach(function (d, k) {
+      d.ring = el("circle", { cx: d.x, cy: d.y, r: R, fill: ACC, "fill-opacity": 0.08, stroke: ACC, "stroke-opacity": 0.35 }, gLay);
+    });
+    darts.forEach(function (d) { d.dot = el("circle", { cx: d.x, cy: d.y, r: 5, fill: "#fff", stroke: ACC, "stroke-width": 2 }, gLay); });
+
+    // distance from the unit to the front, and labels
+    var fy = UY - lay.front * FT;
+    el("line", { x1: 24, y1: fy, x2: 24, y2: UY, stroke: "currentColor", "stroke-opacity": 0.6, "marker-start": "url(#llArr)", "marker-end": "url(#llArr)" }, gLay);
+    var mi = (lay.front / 5280).toFixed(lay.front < 5280 ? 2 : 1);
+    text(0, 0, mi + " mi from the unit to the front darts", { transform: "translate(18 " + ((fy + UY) / 2) + ") rotate(-90)", "text-anchor": "middle", "font-size": 15, "font-weight": 600 }, gLay);
+    text(300, 116, lay.caption, { "text-anchor": "middle", "font-size": 16, "font-weight": 700, fill: ACC }, gLay);
+    text(300, 136, "circles: what each dart hears, ~490 ft · dashes: radio hops back to the unit", { "text-anchor": "middle", "font-size": 13, opacity: 0.85 }, gLay);
+    titleEl.textContent = "Twelve darts relaying back to a unit, seen from above: " + lay.label;
+    descEl.textContent = "To scale. " + lay.desc + " A drone heading straight for the unit is heard by a forward dart, and the alert is passed back dart to dart. " +
+      "A second drone comes in 30 degrees off to the side.";
+  }
+
+  // ---- two passes: straight in, then 30 degrees off the axis
+  function approach(phiDeg) {
+    var phi = phiDeg * Math.PI / 180;
+    // start where the ray from the unit leaves the map (top or right edge)
+    var rTop = (UY - 4) / Math.cos(phi) / FT, rSide = phi > 0 ? (596 - UX) / Math.sin(phi) / FT : Infinity;
+    var r0 = Math.min(rTop, rSide);
+    return { rFt: r0, pt: function (t) { return polar(r0 * (1 - t), phi); } };
+  }
+  var passes = [
+    { name: "straight", a: approach(1.5), intro: "A drone heads straight for the unit at 45 mph." },
+    { name: "side", a: approach(30), intro: "A second drone comes in 30° off to the side." }
+  ];
+
   var panel = document.getElementById("line-layout-status");
   var btn = document.getElementById("line-layout-play");
-
-  // two passes: one crosses between darts 7 and 8, one goes round the end
-  function lerp(a, b, t) { return a + (b - a) * t; }
-  var passes = [
-    { name: "a", pt: function (t) { return [lerp(353, UNIT_X, t), lerp(-10, UNIT_Y - 2, t)]; } },
-    { name: "b", pt: function (t) {
-        var u = 1 - t;
-        return [u * u * 592 + 2 * u * t * 612 + t * t * UNIT_X, u * u * -10 + 2 * u * t * 440 + t * t * (UNIT_Y - 2)];
-      } }
-  ];
-  passes.forEach(function (p) {          // path length in svg units, by sampling
-    var L = 0, prev = p.pt(0);
-    for (var k = 1; k <= 400; k++) { var q = p.pt(k / 400); L += Math.hypot(q[0] - prev[0], q[1] - prev[1]); prev = q; }
-    p.len = L;
-    p.dur = (L / FT) / FTS / SPEEDUP;    // real seconds
-  });
-
-  var state, raf = null, last = 0, playing = false;
-  function reset(idx) {
-    state = { idx: idx, t: 0, hit: -1, hitAt: 0, unitHeard: false, done: 0, d: [] };
-    darts.forEach(function (d) { d.dot.setAttribute("fill", "#fff"); d.ring.setAttribute("fill-opacity", 0.07); });
-    trail.setAttribute("d", "");
-    packet.setAttribute("opacity", 0); link.setAttribute("opacity", 0); pulse.setAttribute("opacity", 0);
-    rxDot.setAttribute("r", 4);
-    say(idx === 0
-      ? "A drone heads for the unit at 45 mph. Watch the line."
-      : "A second drone flies round the end of the line.");
-  }
   function say(s) { if (panel) panel.textContent = s; }
-  function fmt(s) { s = Math.max(0, Math.round(s)); return s >= 60 ? Math.floor(s / 60) + " min " + (s % 60) + " s" : s + " s"; }
+
+  var st, playing = false, last = 0;
+  function reset(idx) {
+    st = { idx: idx, t: 0, hit: -1, route: null, hopT: 0, warn: null, done: 0, d: [] };
+    darts.forEach(function (d) { d.dot.setAttribute("fill", "#fff"); d.ring.setAttribute("fill-opacity", 0.08); });
+    trail.setAttribute("d", ""); packet.setAttribute("opacity", 0); pulse.setAttribute("opacity", 0);
+    var p0 = passes[idx].a.pt(0);
+    drone.setAttribute("transform", "translate(" + p0[0] + " " + p0[1] + ")");
+    say(passes[idx].intro);
+  }
 
   function step(dt) {
-    var p = passes[state.idx];
-    if (state.done) {
-      state.done += dt;
-      if (state.done > 3.2) reset((state.idx + 1) % passes.length);
-      return;
-    }
-    state.t = Math.min(1, state.t + dt / p.dur);
-    var pos = p.pt(state.t);
+    var p = passes[st.idx], a = p.a;
+    if (st.done) { st.done += dt; if (st.done > 3.5) reset((st.idx + 1) % passes.length); return; }
+    var dur = a.rFt / FTS / SPEEDUP;
+    st.t = Math.min(1, st.t + dt / dur);
+    var pos = a.pt(st.t), leftS = a.rFt * (1 - st.t) / FTS;
     drone.setAttribute("transform", "translate(" + pos[0] + " " + pos[1] + ")");
-    state.d.push(pos[0].toFixed(1) + " " + pos[1].toFixed(1));
-    trail.setAttribute("d", "M" + state.d.join(" L"));
-    var leftFt = (1 - state.t) * p.len / FT;
+    st.d.push(pos[0].toFixed(1) + " " + pos[1].toFixed(1));
+    trail.setAttribute("d", "M" + st.d.join(" L"));
 
-    if (state.hit < 0) {
+    if (st.hit < 0) {
       for (var i = 0; i < darts.length; i++) {
-        if (Math.hypot(pos[0] - darts[i].x, pos[1] - LINE_Y) < R) {
-          state.hit = i; state.hitAt = 0; state.warn = leftFt / FTS;
-          darts[i].dot.setAttribute("fill", ACC); darts[i].ring.setAttribute("fill-opacity", 0.22);
-          link.setAttribute("x1", darts[i].x); link.setAttribute("y1", LINE_Y);
-          link.setAttribute("x2", RX); link.setAttribute("y2", RY - 15);
+        if (Math.hypot(pos[0] - darts[i].x, pos[1] - darts[i].y) < R) {
+          st.hit = i; st.warn = leftS; st.hopT = 0;
+          var route = [[darts[i].x, darts[i].y]], k = i;
+          while (k !== -1) { k = hopTo[k]; route.push(k === -1 ? [UX, UY] : [darts[k].x, darts[k].y]); if (k !== -1) darts[k].dot.setAttribute("fill", "#f3c9b5"); }
+          st.route = route;
+          darts[i].dot.setAttribute("fill", ACC); darts[i].ring.setAttribute("fill-opacity", 0.25);
           break;
         }
       }
+      if (st.hit < 0 && Math.hypot(pos[0] - UX, pos[1] - UY) < R) { st.hit = 99; st.warn = leftS; }
     }
-    if (state.hit >= 0) {
-      state.hitAt += dt;
-      var d = darts[state.hit], a = Math.min(1, state.hitAt / 1.2);
-      pulse.setAttribute("cx", d.x); pulse.setAttribute("cy", LINE_Y);
-      pulse.setAttribute("r", 6 + 40 * ((state.hitAt % 0.8) / 0.8)); pulse.setAttribute("opacity", 0.9 * (1 - (state.hitAt % 0.8) / 0.8));
-      link.setAttribute("opacity", 0.7);
-      packet.setAttribute("opacity", a < 1 ? 1 : 0);
-      packet.setAttribute("cx", lerp(d.x, RX, a)); packet.setAttribute("cy", lerp(LINE_Y, RY - 15, a));
-      if (a >= 1) {
-        rxDot.setAttribute("r", 4 + 2 * Math.abs(Math.sin(state.hitAt * 6)));
-        say("ALERT · dart " + (state.hit + 1) + " heard a drone. It arrives in about " + fmt(leftFt / FTS) + ". Take cover.");
+    if (st.hit >= 0 && st.hit !== 99) {
+      st.hopT += dt;
+      var d = darts[st.hit], ph = (st.hopT % 0.8) / 0.8;
+      pulse.setAttribute("cx", d.x); pulse.setAttribute("cy", d.y);
+      pulse.setAttribute("r", 6 + 34 * ph); pulse.setAttribute("opacity", 0.9 * (1 - ph));
+      var nh = st.route.length - 1, f = st.hopT / HOP_SECS;
+      if (f < nh) {
+        var s = Math.floor(f), u = f - s, A = st.route[s], B = st.route[s + 1];
+        packet.setAttribute("opacity", 1);
+        packet.setAttribute("cx", A[0] + (B[0] - A[0]) * u); packet.setAttribute("cy", A[1] + (B[1] - A[1]) * u);
+        say("Dart " + (st.hit + 1) + " heard it. Passing the alert back, dart to dart: hop " + (s + 1) + " of " + nh + "…");
       } else {
-        say("Dart " + (state.hit + 1) + " hears it and radios the unit…");
+        packet.setAttribute("opacity", 0);
+        say("ALERT at the unit · drone arrives in about " + fmt(leftS) + ". Take cover.");
       }
-    } else if (p.name === "b" && Math.hypot(pos[0] - UNIT_X, pos[1] - UNIT_Y) < R) {
-      if (!state.unitHeard) { state.unitHeard = true; state.warn = leftFt / FTS; }
-      say("Missed by the line. Only the unit's own ears catch it: " + fmt(state.warn) + " of warning.");
-    } else if (p.name === "b" && pos[1] > LINE_Y + R) {
-      say("Missed: it flew round the end of the line, outside every dart's range.");
+    } else if (st.hit === 99) {
+      say("No dart heard it. Only the unit's own ears catch it, about " + fmt(st.warn) + " out.");
+    } else if (a.rFt * (1 - st.t) < lay.front) {
+      say("Not heard yet: it is passing outside every dart's 490 ft.");
     }
-    if (state.t >= 1) {
-      state.done = 0.0001;
-      say(p.name === "a"
-        ? "Warning from the line: about " + fmt(state.warn) + ". A sentry hearing it ~490 ft out gets about 7 s."
-        : "Warning: about " + fmt(state.warn) + ". A line only protects the front it covers.");
+    if (st.t >= 1) {
+      st.done = 0.0001;
+      say("Warning: " + (st.warn != null ? "about " + fmt(st.warn) : "none") + (st.hit >= 0 && st.hit !== 99 ? " from the darts" : "") +
+        ". A sentry hearing it ~490 ft out gets about 7 s.");
     }
   }
 
@@ -185,23 +211,27 @@
     var dt = last ? Math.min(0.1, (ts - last) / 1000) : 0;
     last = ts;
     step(dt);
-    raf = playing ? requestAnimationFrame(frame) : null;
+    if (playing) requestAnimationFrame(frame);
   }
-  function play() { if (playing) return; playing = true; last = 0; raf = requestAnimationFrame(frame); if (btn) btn.textContent = "Pause"; }
+  function play() { if (playing) return; playing = true; last = 0; requestAnimationFrame(frame); if (btn) btn.textContent = "Pause"; }
   function pause() { playing = false; if (btn) btn.textContent = "Play"; }
 
-  reset(0);
-  var p0 = passes[0].pt(0);
-  drone.setAttribute("transform", "translate(" + p0[0] + " " + p0[1] + ")");
+  function choose(name) {
+    build(name); reset(0);
+    var bs = document.querySelectorAll("[data-layout]");
+    for (var i = 0; i < bs.length; i++) bs[i].setAttribute("aria-pressed", bs[i].getAttribute("data-layout") === name ? "true" : "false");
+  }
+  choose("trail");
+  var lbs = document.querySelectorAll("[data-layout]");
+  for (var i = 0; i < lbs.length; i++) lbs[i].addEventListener("click", function () { choose(this.getAttribute("data-layout")); play(); });
   if (btn) btn.addEventListener("click", function () { playing ? pause() : play(); });
   var replay = document.getElementById("line-layout-replay");
   if (replay) replay.addEventListener("click", function () { reset(0); play(); });
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduce && "IntersectionObserver" in window) {
-    new IntersectionObserver(function (es) {
-      es.forEach(function (e) { e.isIntersecting ? play() : pause(); });
-    }, { threshold: 0.3 }).observe(box);
+    new IntersectionObserver(function (es) { es.forEach(function (e) { e.isIntersecting ? play() : pause(); }); }, { threshold: 0.3 }).observe(box);
   }
-  window.__lineLayout = { passes: passes, darts: darts, R: R, LINE_Y: LINE_Y, step: step, reset: reset, state: function () { return state; } };
+  window.__lineLayout = { choose: choose, step: step, reset: reset, passes: passes,
+    state: function () { return st; }, darts: function () { return darts; }, R: R };
 })();

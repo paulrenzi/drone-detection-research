@@ -88,7 +88,7 @@ Covering a whole area against small drones would take thousands of nodes ([the d
 
 - **One line**, 1.2–2.5 mi out, says *something crossed here, at this time*.
 - **A second line** a few hundred yards behind adds **direction and speed**, and filters false alarms: a real drone trips both lines in order.
-- A listener only has to hear the drone, not locate it, so listeners sit about one detection range apart: every 660–980 ft against FPVs, or closer under trees. A 1.9 mi front takes about 12 per line ([what a line looks like]({{ site.baseurl }}{% link models/line-layout.md %}), with the spacing rules).
+- A listener only has to hear the drone, not locate it, so listeners sit about one detection range apart: every 660–980 ft against FPVs, or closer under trees. A 1.9 mi front takes about 12 per line ([12 darts in the field]({{ site.baseurl }}{% link models/line-layout.md %}) draws 12 darts as a relay chain, and weighs depth against width).
 - Pinpointing the drone is left to the dense ring near the unit ([M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) on [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %}) placements).
 
 ### Throwaway listeners
