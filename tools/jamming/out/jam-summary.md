@@ -13,16 +13,18 @@ Assumed: jammer power spread over 860-940 MHz, SF9, 125 kHz, 5 dB link margin, a
 ## The position net (the lay model's sector), every jammer on
 | Case | Path | Darts jammed | Receiver jammed | Darts that reach the unit | Worst warning |
 |---|---|---|---|---|---|
-| Enemy trench jammers along their edge | near the ground | 0 | no | 25 of 25 | 60 s |
-| Enemy trench jammers along their edge | clear | 25 | yes | 0 of 25 | none |
-| LoRa hunters along their edge | near the ground | 7 | no | 20 of 25 | none |
-| LoRa hunters along their edge | clear | 25 | yes | 0 of 25 | none |
-| Our trench jammers at the positions | near the ground | 0 | yes | 0 of 25 | none |
-| Our trench jammers at the positions | clear | 25 | yes | 0 of 25 | none |
-| Ours, receiver 1,000 ft forward on a wire, at dart height | near the ground | 0 | no | 24 of 24 | 60 s |
-| Ours, receiver 1,000 ft forward on a wire, at dart height | clear | 24 | yes | 0 of 24 | none |
-| Ours, receiver 0.5 mi forward on a fibre | near the ground | 0 | no | 21 of 21 | 60 s |
-| Ours, receiver 0.5 mi forward on a fibre | clear | 21 | yes | 0 of 21 | none |
+| Enemy trench jammers along their edge | near the ground | 0 | no | 16 of 16 | 60 s |
+| Enemy trench jammers along their edge | clear | 16 | no | 2 of 16 | none |
+| LoRa hunters along their edge | near the ground | 7 | no | 11 of 16 | none |
+| LoRa hunters along their edge | clear | 16 | no | 2 of 16 | none |
+| Our trench jammers at the positions | near the ground | 0 | no | 16 of 16 | 60 s |
+| Our trench jammers at the positions | clear | 16 | no | 2 of 16 | none |
+| All of them | near the ground | 0 | no | 16 of 16 | 60 s |
+| All of them | clear | 16 | no | 2 of 16 | none |
+| Last plan (radio trunks to a receiver at P2), our trench jammers | near the ground | 0 | yes | 0 of 25 | none |
+| Last plan (radio trunks to a receiver at P2), our trench jammers | clear | 25 | yes | 0 of 25 | none |
+| Last plan, enemy trench jammers | near the ground | 0 | no | 25 of 25 | 60 s |
+| Last plan, enemy trench jammers | clear | 25 | yes | 0 of 25 | none |
 
 ## The road guard: share of strike tracks with a minute (55 s)
 | Road | Case | Near the ground | Clear path |

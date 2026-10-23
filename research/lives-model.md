@@ -90,7 +90,7 @@ The ranges multiply the low ends together and the high ends together, so the tru
 
 ## Is it worth the cost?
 
-The tripwire costs about $1.9–2.9k for a unit's package and about $10.5–17k a year in re-lays at four-week cells ([running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)).
+The tripwire costs about $1.9–2.9k for a unit's package and about $8.5–13k a year in re-lays at four-week cells ([running cost]({{ site.baseurl }}{% link models/tripwire.md %}#the-running-cost-lines-are-ammunition)).
 
 **Inference (rule of thumb, no source):** if a battalion takes even a few dozen drone casualties a year, averting 1–4% of them is plausibly worth that cost. It is not worth it where:
 - most drone casualties come from FPVs already waiting in ambush, or launched inside the line; or

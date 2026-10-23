@@ -81,32 +81,38 @@ def reach(j, h_rx, bound): return reach_low(j, h_rx) if bound == "low" else reac
 
 
 # ---- the position net -------------------------------------------------------------------------
-def position_net(bound, own=True, enemy=True, rx_fwd=0.0, jammer=0):
+def position_net(bound, own=True, enemy=True, jammer=0, last=False):
     """The lay model's planned net with our trench jammers at the positions and the enemy's along
-    its edge, all switched on. rx_fwd moves the receiver straight forward of the positions, toward
-    the net, on a wire (or a one-way fibre) back to the dugout."""
+    its edge, all switched on. The plan: two fibres from the base box to tip darts, which no jammer
+    touches. last=True: the last plan, radio trunks to a raised receiver at P2."""
     cfg = json.load(open(os.path.join(HERE, "..", "laymodel", "sector.json")))
-    cfg["receiver"] = [cfg["receiver"][0], cfg["receiver"][1] + rx_fwd]   # the trunks are planned to it
-    sec = lm.Sector(cfg); P = lm.plan(sec)
-    n = lm.Lay(sec, P, random.Random(0))
-    for s_ in lm.lay_sequence(P): n.darts[s_["id"]] = {"p": s_["p"], "ok": True, "logged": s_["p"]}
-    J = jammer_points(cfg, own, enemy)
-    tj = JAMMERS[jammer]
-    deaf = set()
-    for name, d in n.darts.items():
-        h = TARGETS[2]["h"] if name == "RX" and not rx_fwd else REF_FT   # a forward receiver is a dart with a tail
-        if any(dist(d["p"], q) < reach(tj, h, bound) for q in J): deaf.add(name)
-    # the receiver's wire back to the dugout is not a radio link; the rx-to-root hop is
-    link = lambda a, b: a != b and dist(n.darts[a]["p"], n.darts[b]["p"]) <= sec.reach(n.darts[a]["p"], n.darts[b]["p"])
-    seen, q = {"RX"}, ["RX"]
-    while q:
-        a = q.pop()
-        if a in deaf: continue          # a jammed node cannot receive, so cannot pass anything on
-        for b in n.darts:
-            if b not in seen and link(a, b): seen.add(b); q.append(b)
-    if "RX" in deaf: seen = {"RX"}
-    w = n.warning(seen)
-    return {"deaf": len(deaf - {"RX"}), "rx_deaf": "RX" in deaf, "reach": len(seen) - 1, "darts": len(n.darts) - 1, "warn": w}
+    def f(c):
+        sec = lm.Sector(c); P = lm.plan(sec)
+        n = lm.Lay(sec, P, random.Random(0))
+        seq = lm.lay_sequence(P)
+        for s_ in seq: n.darts[s_["id"]] = {"p": s_["p"], "ok": True, "logged": s_["p"]}
+        tips = {s_["id"] for s_ in seq if s_["kind"] == "tip"}
+        J = jammer_points(c, own, enemy)
+        tj = JAMMERS[jammer]
+        deaf = set()
+        for name, d in n.darts.items():
+            if name == "RX" and lm.FIBRE: continue   # the base box hears the fibres, not the radio
+            h = TARGETS[2]["h"] if name == "RX" else REF_FT
+            if any(dist(d["p"], q) < reach(tj, h, bound) for q in J): deaf.add(name)
+        def link(a, b):
+            if a == b: return False
+            if "RX" in (a, b) and lm.FIBRE: return (b if a == "RX" else a) in tips
+            return dist(n.darts[a]["p"], n.darts[b]["p"]) <= sec.reach(n.darts[a]["p"], n.darts[b]["p"])
+        seen, q = {"RX"}, ["RX"]
+        while q:
+            a = q.pop()
+            if a in deaf: continue          # a jammed node cannot receive, so cannot pass anything on
+            for b in n.darts:
+                if b not in seen and link(a, b): seen.add(b); q.append(b)
+        if "RX" in deaf: seen = {"RX"}
+        w = n.warning(seen)
+        return {"deaf": len(deaf - {"RX"}), "rx_deaf": "RX" in deaf, "reach": len(seen) - 1, "darts": len(n.darts) - 1, "warn": w}
+    return lm.with_params(cfg, {"FIBRE": False, "COVER_DEG": 45.0} if last else {}, f)
 
 
 def jammer_points(cfg, own, enemy, every=1640.0):
@@ -204,8 +210,9 @@ def main(argv):
     for lab, kw in (("Enemy trench jammers along their edge", {"own": False}),
                     ("LoRa hunters along their edge", {"own": False, "jammer": 3}),
                     ("Our trench jammers at the positions", {"enemy": False}),
-                    ("Ours, receiver 1,000 ft forward on a wire, at dart height", {"enemy": False, "rx_fwd": 1000.0}),
-                    ("Ours, receiver 0.5 mi forward on a fibre", {"enemy": False, "rx_fwd": 2640.0})):
+                    ("All of them", {}),
+                    ("Last plan (radio trunks to a receiver at P2), our trench jammers", {"enemy": False, "last": True}),
+                    ("Last plan, enemy trench jammers", {"own": False, "last": True})):
         for b in ("low", "high"):
             r = position_net(b, **kw); pos[(lab, b)] = r
             say("| %s | %s | %d | %s | %d of %d | %s |" % (lab, {"low": "near the ground", "high": "clear"}[b], r["deaf"], "yes" if r["rx_deaf"] else "no", r["reach"], r["darts"], rm.fmt_s(r["warn"])))

@@ -1,7 +1,7 @@
 """Fibre trunks and wider coverage, on the lay model's example sector.
 
-Compares the current net (radio trunks, each position covered +/-45 deg) with fibre trunks and with
-+/-60 deg coverage, laying each 1,000 times with GPS jammed and drop-then-confirm. Writes
+Compares the last plan (radio trunks, each position covered +/-45 deg) with fibre trunks and with
++/-60 deg coverage (the plan now, and lay_model.py's defaults), laying each 1,000 times with GPS jammed and drop-then-confirm. Writes
 out/fibre-summary.md.
 
     py fibre_cases.py [--runs 1000] [--seed 7]
@@ -31,15 +31,6 @@ def one(sec, P, rng):
     tips_tried = sum(1 for n in L.darts if n != "RX" and n.split("+")[0] in {s["id"] for s in L.seq if s["kind"] == "tip"})
     sc["tips"] = tips_tried
     sc["usd"] = (sc["darts"] - tips_tried) * DART_USD + tips_tried * (DART_USD + TIP_EXTRA_USD)
-    if lm.FIBRE and sc["whole"]:   # one fibre cut after the lay: does the net stay whole?
-        cut_ok = True
-        for t in list(L.tips):
-            L.tips.discard(t); L.links = {}
-            if L.warning(L.graph()) < lm.WHOLE_S: cut_ok = False
-            L.tips.add(t); L.links = {}
-        sc["cut"] = cut_ok
-    else:
-        sc["cut"] = None
     return sc
 
 
@@ -77,20 +68,20 @@ def main(argv):
             label, r["front"], r["relays"], r["planned"], r["planned_sorties"], 100 * r["whole"], 100 * r["tolerant"],
             "-" if r["cut"] is None else "%.0f%%" % (100 * r["cut"]), r["darts"], r["darts90"], r["sorties"], r["hours"],
             r["hops"], r["hops90"], r["usd"], lm.secs(r["warn10"])))
-    row("Now: radio trunks, +/-45", {})
-    row("Fibre trunks, +/-45", {"FIBRE": True})
-    row("Radio trunks, +/-60", {"COVER_DEG": 60.0})
-    row("**Fibre trunks, +/-60**", {"FIBRE": True, "COVER_DEG": 60.0})
+    row("Last plan: radio trunks, +/-45", {"FIBRE": False, "COVER_DEG": 45.0})
+    row("Fibre trunks, +/-45", {"FIBRE": True, "COVER_DEG": 45.0})
+    row("Radio trunks, +/-60", {"FIBRE": False, "COVER_DEG": 60.0})
+    row("**Fibre trunks, +/-60 (the plan)**", {"FIBRE": True, "COVER_DEG": 60.0})
     row("  same, judged at +/-45", {"FIBRE": True, "COVER_DEG": 60.0, "JUDGE_DEG": 45})
     row("  compass 4 deg, not 2", {"FIBRE": True, "COVER_DEG": 60.0, "COMPASS_DEG": 4.0, "COMPASS_SORTIE_DEG": 1.4})
     row("  radio hop 800 ft, not 980", {"FIBRE": True, "COVER_DEG": 60.0, "HOP": 800.0})
     row("  landings 95% upright", {"FIBRE": True, "COVER_DEG": 60.0, "P_UPRIGHT": 0.95, "P_TILTED": 0.03})
     row("  1 fibre in 5 breaks while laid", {"FIBRE": True, "COVER_DEG": 60.0, "P_SNAG": 0.20})
     row("  15 mph wind", {"FIBRE": True, "COVER_DEG": 60.0, "wind_mph": 15})
-    row("Fibre trunks, +/-45, compass 4 deg", {"FIBRE": True, "COMPASS_DEG": 4.0, "COMPASS_SORTIE_DEG": 1.4})
+    row("Fibre trunks, +/-45, compass 4 deg", {"FIBRE": True, "COVER_DEG": 45.0, "COMPASS_DEG": 4.0, "COMPASS_SORTIE_DEG": 1.4})
     row("Fibre trunks, +/-60, compass 4 deg, judged at +/-45", {"FIBRE": True, "COVER_DEG": 60.0, "JUDGE_DEG": 45, "COMPASS_DEG": 4.0, "COMPASS_SORTIE_DEG": 1.4})
-    row("Radio trunks, +/-45, compass 4 deg", {"COMPASS_DEG": 4.0, "COMPASS_SORTIE_DEG": 1.4})
-    row("Radio trunks, +/-60, compass 4 deg", {"COVER_DEG": 60.0, "COMPASS_DEG": 4.0, "COMPASS_SORTIE_DEG": 1.4})
+    row("Radio trunks, +/-45, compass 4 deg", {"FIBRE": False, "COVER_DEG": 45.0, "COMPASS_DEG": 4.0, "COMPASS_SORTIE_DEG": 1.4})
+    row("Radio trunks, +/-60, compass 4 deg", {"FIBRE": False, "COVER_DEG": 60.0, "COMPASS_DEG": 4.0, "COMPASS_SORTIE_DEG": 1.4})
     os.makedirs(os.path.join(here, "out"), exist_ok=True)
     p = os.path.join(here, "out", "fibre-summary.md")
     open(p + ".new", "w", encoding="utf-8").write("\n".join(md) + "\n"); os.replace(p + ".new", p)

@@ -1,4 +1,4 @@
-"""Lay model for the two-trunk net on How it works.
+"""Lay model for the two-trunk net on How it works: a front row of darts, and two FPV fibres home.
 
 Plans a net on a sector map (positions, enemy edge, tree belts, ravines, slope), checks every
 sortie against the battery in the forecast wind, writes one ArduPilot mission per sortie, then
@@ -7,7 +7,8 @@ drop-then-confirm, and reports how often the net comes out whole.
 
     py lay_model.py [sector.json] [--runs 2000] [--seed 7] [--out out]
 
-Stdlib only. Local frame in feet: x along the front, y toward the enemy, receiver at (0, 0).
+Stdlib only. Local frame in feet: x along the front, y toward the enemy, P2 at (0, 0). The fibres end
+at the base box, at the launch point; with FIBRE off (the old radio trunks) they end at the receiver at P2.
 Every number marked ASSUME is a planning number, not a measurement; the test that measures it
 is named beside it.
 """
@@ -67,11 +68,11 @@ COMPASS_DEG, COMPASS_SORTIE_DEG = 2.0, 0.7   # GPS jammed: heading error per lay
 FLOW_SCALE, FLOW_SORTIE = 0.02, 0.005        # optical-flow distance error, same split (T14) ASSUME
 WHOLE_S = 55.0                        # a lay is whole if every track gets at least this much warning
 MAX_EXTRA = 3                         # extra darts tried per point before it is left for the crew
-END_INSET = -300.0                    # end darts 300 ft beyond the 45° edge line; the old plan set them 635 ft in
+END_INSET = -300.0                    # end darts 300 ft beyond the edge lines; the first plan set them 635 ft in
 PLAN_FRAC = 1.0                       # plan hops at this share of the 90% hop
-COVER_DEG = 45.0                      # each position is covered for drones within this angle of straight on
+COVER_DEG = 60.0                      # each position is covered for drones within this angle of straight on
 JUDGE_DEG = None                      # angle the "whole" check uses; None = COVER_DEG
-FIBRE = False                         # trunks are FPV fibre to a tip dart, not radio relays (idea, untested)
+FIBRE = True                          # trunks are FPV fibre from the base box to a tip dart, not radio relays (untested)
 TIP_G = 285.0                         # tip dart with ~1.2 mi of fibre on its spool and a small laser, 10 oz ASSUME
 P_SNAG = 0.05                         # fibre breaks while being laid (snag, tree, wire) ASSUME
 
@@ -242,7 +243,7 @@ def plan(sec):
     for i, p in enumerate(front):
         q = arc_point(fr[i][0], DEPTH)
         if dist(p, q) > 1: notes["pulled"].append({"from": q, "to": p})
-    rx = tuple(sec.cfg["receiver"])
+    rx = LAUNCH if FIBRE else tuple(sec.cfg["receiver"])   # where the trunks end: the base box, or the receiver
     trunks = []
     for j in (1, len(front) - 2):
         if FIBRE: trunks.append([]); continue   # the fibre runs from the receiver straight to the tip dart
@@ -525,7 +526,8 @@ class Lay:
                     name = s["id"] if tries == 0 else "%s+%d" % (s["id"], tries)
                     st = self.land_one(name, f.at); f.drop(); left -= 1
                     self.darts[name]["logged"] = spot
-                    if s["kind"] == "tip" and self.rng.random() >= P_SNAG: self.tips.add(name)
+                    fibre = s["kind"] == "tip" and self.rng.random() >= P_SNAG
+                    if fibre: self.tips.add(name)
                     if st == "upright": group.append(name)
                     # The drone hears the new dart's own 'landed' (unless it is a dud) and which neighbours
                     # relayed it: each relay carries the relayer's ID. So it knows which side is joined.
@@ -533,7 +535,8 @@ class Lay:
                     ok = bool(side) and (second is None or second in self.joined(anchor, group, [second]))
                     if not self.confirm and st == "upright": ok = True; side = [name]
                     ev = {"id": name, "planned": s["id"], "at": [round(f.at[0]), round(f.at[1])], "state": st,
-                          "confirmed": bool(ok) if self.confirm else None, "anchor": anchor, "second": second, "joined": bool(side)}
+                          "confirmed": bool(ok) if self.confirm else None, "anchor": anchor, "second": second, "joined": bool(side),
+                          "kind": s["kind"], "fibre": fibre if s["kind"] == "tip" else None}
                     log["drops"].append(ev); f.track[-1]["ev"] = ev
                     if ok or not self.confirm:
                         if side: self.holder[s["id"]] = min(side, key=lambda n: dist(self.darts[n]["logged"], s["p"]))
@@ -597,7 +600,17 @@ class Lay:
             if len(live) - len(self.graph(drop=n)) > 2: tol = False; break
         lay_min = timeline([f.t / 60 for _, f in self.sorties])
         return {"warn": warn, "whole": warn >= WHOLE_S, "tolerant": tol and warn >= WHOLE_S, "darts": self.used,
-                "sorties": len(self.sorties), "hours": (lay_min[-1][1]) / 60, "lost": self.lost_drones, "gaps": len(self.gaps)}
+                "sorties": len(self.sorties), "hours": (lay_min[-1][1]) / 60, "lost": self.lost_drones, "gaps": len(self.gaps),
+                "cut": self.cut_ok() if FIBRE and warn >= WHOLE_S else None}
+
+    def cut_ok(self):
+        """Cut either fibre after the lay: does the net stay whole on the other one?"""
+        ok = True
+        for t in list(self.tips):
+            self.tips.discard(t); self.links = {}
+            if self.warning(self.graph()) < WHOLE_S: ok = False
+            self.tips.add(t); self.links = {}
+        return ok
 
 
 # ---- report ---------------------------------------------------------------------------------
@@ -612,7 +625,8 @@ def run_case(sec, P, runs, seed, **kw):
     return {"whole": sum(r["whole"] for r in res) / n, "tolerant": sum(r["tolerant"] for r in res) / n,
             "darts": sum(r["darts"] for r in res) / n, "darts90": pct([r["darts"] for r in res], 0.9),
             "sorties": sum(r["sorties"] for r in res) / n, "hours": sum(r["hours"] for r in res) / n,
-            "lost": sum(r["lost"] for r in res) / n, "warn10": pct([r["warn"] for r in res], 0.1)}
+            "lost": sum(r["lost"] for r in res) / n, "warn10": pct([r["warn"] for r in res], 0.1),
+            "cut": sum(r["cut"] is not False for r in res if r["whole"]) / max(1, sum(r["whole"] for r in res)) if FIBRE else None}
 
 
 def derive():
@@ -635,12 +649,9 @@ def with_params(cfg, kv, fn):
         g.update(old); derive()
 
 
-def old_plan(sec):
-    """The page's first plan: ends inset one hearing range, trunks at sixths, no ground checks."""
-    a = DEPTH * math.pi / 4; L = W + 2 * a; n = math.ceil((L - 2 * REFF) / HOP) + 1
-    F = [arc_point(REFF + i * (L - 2 * REFF) / (n - 1), DEPTH) for i in range(n)]
-    T = [[(F[j][0] * k / 6, F[j][1] * k / 6) for k in range(1, 6)] for j in (1, n - 2)]
-    return {"front": F, "trunks": T, "nominal_front": n, "notes": {"moved": [], "pulled": []}, "rx": tuple(sec.cfg["receiver"])}
+def radio_plan(cfg):
+    """The last plan, for comparison: radio relay trunks to the receiver at P2, each position covered +/-45."""
+    return with_params(cfg, {"FIBRE": False, "COVER_DEG": 45.0}, lambda c: plan(Sector(c)))
 
 
 def secs(w): return "none (a track no dart hears)" if w < -1e8 else "%.0f s" % w
@@ -676,8 +687,8 @@ def main(argv):
     for m in P["notes"]["moved"]: say("- moved off %s: (%.0f, %.0f) to (%.0f, %.0f)" % (m["why"], m["from"][0], m["from"][1], m["to"][0], m["to"][1]))
     for m in P["notes"]["pulled"]: say("- pulled in from the enemy edge: (%.0f, %.0f) to (%.0f, %.0f)" % (m["from"][0], m["from"][1], m["to"][0], m["to"][1]))
     w, a, b = nominal_warn(sec, P); say("planned net with no errors: worst warning %s, %d of %d darts reach the unit" % (secs(w), a, b))
-    OP = old_plan(sec)
-    w, a, b = nominal_warn(sec, OP); say("the page's first 20-dart plan on this ground, no errors: worst warning %s, %d of %d darts reach the unit" % (secs(w), a, b))
+    OP = radio_plan(cfg)
+    say("the last plan (radio trunks, +/-45): %d front darts and %d relays" % (len(OP["front"]), sum(len(t) for t in OP["trunks"])))
     say()
     say("| Sortie | Darts | Miles | Minutes | Battery used |")
     say("|---|---|---|---|---|")
@@ -696,38 +707,38 @@ def main(argv):
         say("- %d mph: %s" % (wmph, with_params(cfg, {"wind_mph": wmph}, f_)))
     say()
     say("## Simulated lays (%d each)" % runs)
-    say("| Case | Whole | Survives any one loss | Darts used | 90th pct darts | Sorties | Hours | Worst warning, 10th pct | Drones lost |")
-    say("|---|---|---|---|---|---|---|---|---|")
-    def case(label, kv, PP=None, **kw):
+    say("| Case | Whole | Survives any one loss | Darts used | 90th pct darts | Sorties | Hours | Worst warning, 10th pct | Drones lost | Survives a fibre cut |")
+    say("|---|---|---|---|---|---|---|---|---|---|")
+    def case(label, kv, **kw):
         def f_(c):
-            sc_ = Sector(c); pp = PP if PP is not None else plan(sc_)
-            return run_case(sc_, pp, runs, seed, **kw)
-        say(fmt_case(label, with_params(cfg, kv, f_)))
-    case("First plan, GPS working, no confirm", {}, PP=OP, jammed=False, confirm=False)
+            sc_ = Sector(c)
+            return run_case(sc_, plan(sc_), runs, seed, **kw)
+        r = with_params(cfg, kv, f_)
+        say(fmt_case(label, r) + " %s |" % ("-" if r["cut"] is None else "%.0f%%" % (100 * r["cut"])))
+    case("Last plan: radio trunks, +/-45, GPS jammed, confirm", {"FIBRE": False, "COVER_DEG": 45.0}, jammed=True, confirm=True)
     case("This plan, GPS working, no confirm", {}, jammed=False, confirm=False)
     case("This plan, GPS working, confirm", {}, jammed=False, confirm=True)
     case("This plan, GPS jammed, confirm", {}, jammed=True, confirm=True)
     case("  landings 95% upright", {"P_UPRIGHT": 0.95, "P_TILTED": 0.03}, jammed=True, confirm=True)
     case("  radio hop 800 ft, not 980", {"HOP": 800.0}, jammed=True, confirm=True)
     case("  compass 4 degrees, not 2", {"COMPASS_DEG": 4.0, "COMPASS_SORTIE_DEG": 1.4}, jammed=True, confirm=True)
+    case("  1 fibre in 5 breaks while laid", {"P_SNAG": 0.20}, jammed=True, confirm=True)
     case("  15 mph wind", {"wind_mph": 15}, jammed=True, confirm=True)
     case("  14 F, packs not warmed", {"air_temp_f": 14, "packs_warmed": False}, jammed=True, confirm=True)
-    # one representative lay for the animation: jammed, confirmed, whole, with a step-back spare, a tilt and a dud
-    for k in range(3000):
+    # one representative lay for the animation: jammed, confirmed, whole, with a step-back spare, a tilt, a dud
+    # and a tip whose fibre breaks
+    for k in range(5000):
         L = Lay(sec, P, random.Random(seed * 1000 + k), jammed=True, confirm=True).run(); sc = L.score()
         evs = [d for lg, f in L.sorties for d in lg["drops"]]
-        steps = [d for d in evs if "+" in d["id"] and d["state"] == "upright"]
-        if sc["whole"] and sc["tolerant"] and not L.lost_drones and steps and any(d["state"] == "tilted" for d in evs) \
-           and any(d["state"] == "dud" for d in evs) and len(L.sorties) <= 9 and sc["darts"] <= 31:
+        steps = [d for d in evs if "+" in d["id"] and d["state"] == "upright" and d["kind"] != "tip"]
+        snag = [d for d in evs if d["kind"] == "tip" and d["state"] == "upright" and not d["fibre"]]
+        if sc["whole"] and sc["tolerant"] and sc["cut"] and not L.lost_drones and steps and snag and any(d["state"] == "tilted" for d in evs) \
+           and any(d["state"] == "dud" for d in evs) and len(L.sorties) <= 9 and sc["darts"] <= 25:
             break
     tlL = timeline([f.t / 60 for _, f in L.sorties])
     live = L.graph()
-    old_seq = lay_sequence(OP)
-    old_pts = {x["id"]: x["p"] for x in old_seq}; old_pts["RX"] = P["rx"]
-    old_why = [[round(x["p"][0]), round(x["p"][1]), sec.why_not(x["p"])] for x in old_seq if sec.why_not(x["p"])]
-    old_bad = [[[round(c) for c in old_pts[x["anchor"]]], [round(c) for c in x["p"]]] for x in old_seq
-               if dist(old_pts[x["anchor"]], x["p"]) > sec.reach(old_pts[x["anchor"]], x["p"])]
-    demo = {"sector": cfg, "old_why": old_why, "old_bad_links": old_bad, "packs": PACKS, "channels": CHANNELS, "launch": LAUNCH, "standoff": STANDOFF, "reff": REFF, "front_plan": P["front"], "trunks": P["trunks"],
+    demo = {"sector": cfg, "packs": PACKS, "channels": CHANNELS, "launch": LAUNCH, "standoff": STANDOFF, "reff": REFF, "cover_deg": COVER_DEG,
+            "front_plan": P["front"], "trunks": P["trunks"], "tips": sorted(L.tips), "planned_sorties": len(groups),
             "moved": P["notes"]["moved"], "pulled": P["notes"]["pulled"], "old_front": OP["front"], "old_trunks": OP["trunks"],
             "plan": [{"id": s_["id"], "p": s_["p"], "anchor": s_["anchor"]} for s_ in seq],
             "sorties": [{"start_min": round(a, 1), "end_min": round(b, 1), "plan": lg["plan"], "drops": lg["drops"], "track": f.track, "used": lg.get("used")}

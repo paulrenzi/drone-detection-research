@@ -243,7 +243,7 @@ Hover power for fixed props grows with mass to the power 1.5, by momentum theory
 
 **What this changes:**
 
-- A unit's net takes about 35 darts and 9 sorties of 4 to lay, about 2.2 h with 6 packs and a 2-channel charger ([lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). With GPS jammed it is a daylight job: the optical-flow sensor needs to see the ground.
+- A unit's net takes about 22 darts and 7 sorties of up to 4 to lay, about 1.4 h with 6 packs and a 2-channel charger ([lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). With GPS jammed it is a daylight job: the optical-flow sensor needs to see the ground.
 - Lines 2.5 mi out need the TL-1 with 2 darts, or a fixed-wing carrier. Printed fixed-wing airframes such as Eclipson's take off at 1.1–3.3 lb ([air-rc](https://www.air-rc.com/aircraft/Eclipson-Airplanes_Apex_apex)) but publish no payload or endurance, so a fixed-wing stays unscoped until T13 shows whether 1.9 mi is enough.
 - T13 now has a prediction to beat: **X500, 4 v2 darts, about 11–12 minutes' hover.** The v2 rows use the model's masses: 4.4 oz per dart, 2.8 oz for the harness.
 
@@ -265,7 +265,9 @@ Every Amazon listing was opened in a browser on 2026-10-15 and showed Add to Car
 
 ## 7. Not yet designed
 
-- **Edge receiver mount:** a pole-top box for a receive-only Heltec, an RS-485 module and a Yagi clamp, from the [edge receiver design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees). It follows T17's bench version.
+- **Tip dart:** a dart body that also carries a spool of about 1.2 mi of FPV fibre and a small laser, about 10 oz (est.), from [the fibres and the base box]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box). The harness slot has to take its weight and let the fibre pay out freely from the first drop. It follows T21's bench version.
+- **Base box:** a small box for a receive-only Heltec, two light detectors with fibre connectors and an RS-485 module, on the unit's power.
+- **Edge receiver mount,** only where fibre can't go: a pole-top box for a receive-only Heltec, an RS-485 module and a Yagi clamp, from the [edge receiver design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees). It follows T17's bench version.
 - **X500 leg extensions:** only for v1 darts; v2 darts ride high enough for stock legs.
 - **TL-1 with the v2 plate:** the hull still carries v1's release blocks and tall legs.
 - **A custom listener board:** it shrinks the head pod and fixes the sleep current (see [wake-on-sound]({{ site.baseurl }}{% link build-software.md %}#1-listener-firmware)).

@@ -21,9 +21,9 @@ nav_tripwire: 1
 
 ## The idea in four steps
 
-1. **Lay a line.** A small drone with no pilot drops 4 throwaway listeners per flight in a row across the enemy's approach, about 1 mi out, with two trunks of relay darts back to the unit ([How it works]({{ site.baseurl }}{% link models/line-layout.md %})).
+1. **Lay a line.** A small drone with no pilot drops 4 throwaway listeners per flight in a row across the enemy's approach, about 1 mi out, with two FPV fibres from the row back to the unit ([How it works]({{ site.baseurl }}{% link models/line-layout.md %})).
 2. **Listen quietly.** Each listener sleeps until it hears something drone-like, and transmits nothing while it waits.
-3. **Report back.** A few-byte alert hops listener to listener to a raised receiver at the unit.
+3. **Report back.** A few-byte alert hops listener to listener to one of two tip darts, which send it home down a fibre the drone laid.
 4. **Warn.** Warning time is distance ÷ drone speed, so a row about 1 mi out gives about 45–60 seconds against an FPV at top speed, and 1.3–1.8 minutes at its usual 37–50 mph. A ring of microphones 980 ft out gives 8–10 (both estimates).
 
 ## Why it matters
@@ -39,8 +39,8 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 
 - **Rated 3 out of 5.** Every part exists, but nobody has shown that a forward line can get its alerts home.
 - **The deciding tests are radio under trees (T9) and radio near jammers (T19).** Published measurements say open ground probably works. Under trees, where troops and attacking drones actually go, it is unproven. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
-- **Jamming covers our band, but distance decides it.** On our estimate a trench jammer blinds a dart only within about 390 ft; in the worst case, about a mile. The unit's own jammers, beside its receivers, are the first threat, so the links at the position go by wire or fibre ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
-- **The proposed answer: hear the lines from the edge of the unit's tree line.** A listen-only receiver, placed by hand and raised at the belt edge, wired back to the dugout so the unit's position emits nothing. [Design](#getting-alerts-out-of-the-trees).
+- **Jamming covers our band, but distance decides it.** On our estimate a trench jammer blinds a dart only within about 390 ft; in the worst case, about a mile. The unit's own jammers were the first threat to a receiver at the position, so alerts now come home by fibre and reach the positions by wire ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
+- **The proposed answer: carry the last mile on fibre.** Two tip darts in the row send alerts down FPV fibre the drone pays out as it lays them, to a base box behind the unit, so nothing at the position emits or receives by radio ([design]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)). Untested ([T21](#open-questions)). Hearing a line from the edge of the unit's tree line is the fallback where fibre can't go ([design](#getting-alerts-out-of-the-trees)).
 - **The payoff is a guess, not a doubt.** Fibre-optic FPVs get no warning today. Our central guess is about 1–4 of every 100 drone casualties averted, almost all among people about to move ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Front-line interviews would narrow it ([T18]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)); they are not a gate.
 - **Next steps cost little.** The first five tests each cost under $500; see [Parts and first build](#components-and-mvp).
 - **Designs exist now:** a printable dart, an X500 release harness and a printed carrier ([Build: hardware]({{ site.baseurl }}{% link build-hardware.md %})), and the software laid out component by component ([Build: software]({{ site.baseurl }}{% link build-software.md %})).
@@ -89,8 +89,8 @@ Ten seconds is enough to get a shotgun or net-gun up; weapons have only about 1�
 Covering a whole area against small drones would take thousands of nodes ([the density problem]({{ site.baseurl }}{% link research/range-and-cost.md %}#worked-examples)). Attacking drones mostly come from one side, so a tripwire only covers the approaches.
 
 - **One row**, about a mile out, says *something crossed here, at this time*. That is the [modelled net]({{ site.baseurl }}{% link models/line-layout.md %}).
-- **Direction comes from order:** a drone heading in trips a front dart, then trunk darts nearer the unit. A second row a few hundred yards behind would add speed and a firmer filter for about a dozen more darts; it is an option, not in the model.
-- A listener only has to hear the drone, not locate it, so listeners sit about one detection range apart: every 660–980 ft against FPVs, or closer under trees. A 1.9 mi front takes about 12 per line ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}) works out a relayed net for one unit: 12 listening darts a mile out and two chains of relay darts, 22 darts on open ground, about 25 on real ground and about 35 used in laying them; [Projected costs]({{ site.baseurl }}{% link costs.md %}) prices it).
+- **Direction comes from order, with a second row:** a drone heading in trips the outer row first. A second row a few hundred yards behind would add direction, speed and a firmer filter for about a dozen more darts; it is an option, not in the model.
+- A listener only has to hear the drone, not locate it, so listeners sit about one detection range apart: every 660–980 ft against FPVs, or closer under trees. A 1.9 mi front takes about 12 per line ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}) works out a net for one unit: 15 listening darts a mile out with two fibres home, 16 on real ground and about 22 used in laying them; [Projected costs]({{ site.baseurl }}{% link costs.md %}) prices it).
 - Pinpointing the drone is left to the dense ring near the unit ([M1]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) on [M4]({{ site.baseurl }}{% link models/m04-elevated-nodes.md %}) placements).
 
 ### Throwaway listeners
@@ -111,7 +111,7 @@ Open-source starting points exist: [Batear]({{ site.baseurl }}{% link research/o
 
 ### Getting alerts home
 
-A listener sends a few bytes only when it hears something: time, its ID, what it heard, how sure it is, a short description of the sound and its battery level. Alerts hop down the line to a raised receiver at the unit ([getting alerts out of the trees](#getting-alerts-out-of-the-trees)), on a mast or [aerostat]({{ site.baseurl }}{% link models/m05-aerostats.md %}), which feeds the shared map, TAK and [Lattice]({{ site.baseurl }}{% link research/integration.md %}#anduril-lattice).
+A listener sends a few bytes only when it hears something: time, its ID, what it heard, how sure it is, a short description of the sound and its battery level. Alerts hop down the line to a tip dart and home by fibre ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)), or to a raised receiver at the unit ([getting alerts out of the trees](#getting-alerts-out-of-the-trees)), on a mast or [aerostat]({{ site.baseurl }}{% link models/m05-aerostats.md %}), which feeds the shared map, TAK and [Lattice]({{ site.baseurl }}{% link research/integration.md %}#anduril-lattice).
 
 As more units lay lines that report to the same map, they add up to a wider network that nobody had to plan or fund centrally.
 
@@ -156,7 +156,7 @@ Safer than anything forward of the unit. It goes where the troops already are, i
 ### When it isn't enough
 
 - **Deep forest.** Hops of 160–820 ft are what has been measured. Options: listeners only at forest edges and clearings, denser hops, a relay drone left on high ground, or an [aerostat]({{ site.baseurl }}{% link models/m05-aerostats.md %}) at the unit.
-- **A wired forward hop (an idea, untested).** The delivery drone could unspool fibre to a forward hop point as it flies out, the way fibre-optic FPVs do. [How it works]({{ site.baseurl }}{% link models/line-layout.md %}#jamming) now proposes exactly that against the unit's own jammers: a root dart at the foot of each trunk, about 1,000 ft forward, each sending alerts home one way down its own fibre. FPV fibre is about $20–35 a km in 2026, up from $4–5 ([DroneXL](https://dronexl.co/2026/05/11/ukraine-fiber-optic-spool-price-ai-data-center-demand/)), so a 0.2 mi run is about $10.
+- **Fibre home (now the plan, untested).** The delivery drone unspools FPV fibre to a tip dart in the row as it flies out, the way fibre-optic FPVs do ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)). FPV fibre is about $32–56 a mile in 2026, up from about $6–8 ([DroneXL](https://dronexl.co/2026/05/11/ukraine-fiber-optic-spool-price-ai-data-center-demand/)), so a tip's 1.2 mi is about $40–70.
 
 ### What it costs (estimates)
 
@@ -245,14 +245,14 @@ A reader suggested one central node with a known position, and listeners that me
 | **Total** | | **~$17–50** | Against a **$30–60 target** (~$25–65 with GPS) |
 
 {: .warning }
-> Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first ones. A unit's package, 40 darts, 3 receivers and an outfitted delivery drone, costs us about **$2,620** in a small batch ([Projected costs]({{ site.baseurl }}{% link costs.md %})).
+> Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first ones. A unit's package, 22 darts, 4 tip darts with their fibre, a base box and an outfitted delivery drone, costs us about **$2,580** in a small batch ([Projected costs]({{ site.baseurl }}{% link costs.md %})).
 
 ### The running cost: lines are ammunition
 
 The package price is only the start. Listeners aren't recovered, so every net is re-laid when its batteries run out. All figures below are estimates from [Projected costs]({{ site.baseurl }}{% link costs.md %}), built on the unproven "weeks" battery target (T12):
 
-- **One re-lay** of a unit's net: about 35 darts and 9 drone sorties at 4 darts each ([lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)), **≈ $810–1,290** at our cost with drone wear.
-- **At four weeks per battery:** about 13 re-lays a year, so **≈ $10.5–17k a year** per unit. That doubles at two weeks.
+- **One re-lay** of a unit's net: about 22 darts and 7 drone sorties at up to 4 darts each ([lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)), **≈ $660–1,020** at our cost with drone wear.
+- **At four weeks per battery:** about 13 re-lays a year, so **≈ $8.5–13k a year** per unit. That doubles at two weeks.
 - **Plus** listeners lost to shelling, and the occasional delivery drone.
 
 So the tripwire is a consumable, not a one-off purchase. It costs less than a radar but more than a radio detector bought once. Two things shrink the bill: battery life measured in months, not weeks, and a cheaper listener. Test T12 decides which bill is real.
@@ -287,7 +287,7 @@ The claim is narrow: **for early warning of low drones approaching a unit, inclu
 
 | | Fibre-optic FPV | Behind trees or a ridge | Warning time vs FPV | Emits while watching | Rough cost | A unit can carry it |
 |---|:-:|:-:|---|:-:|---|:-:|
-| **Drone-laid tripwire** | ✅ | ✅ | **~1–2 min** | ❌ | **~$1.9–2.9k package, then ≈ $10.5–17k a year in re-lays** ([est.](#the-running-cost-lines-are-ammunition)) | ✅ |
+| **Drone-laid tripwire** | ✅ | ✅ | **~1–2 min** | ❌ | **~$1.9–2.9k package, then ≈ $8.5–13k a year in re-lays** ([est.](#the-running-cost-lines-are-ammunition)) | ✅ |
 | Hand-placed acoustic ring | ✅ | ✅ | ~10 s | ❌ | similar | ✅ |
 | Radio detector (e.g. Chuyka) | ❌ | partly | long, if it emits | ❌ | ~$584–701 | ✅ |
 | Camera (e.g. WISP) | ✅ if in sight | ❌ | depends on sight lines | ❌ | far higher | ❌ |
@@ -397,7 +397,7 @@ A **printed fixed-wing** carrier is worth testing too: it flies much farther on 
 </details>
 
 <details class="layer" id="open-questions" markdown="block">
-<summary><span class="layer-title">Tests</span><span class="layer-sub">Nine cheap tests, from radio range and jamming to friendly drones</span></summary>
+<summary><span class="layer-title">Tests</span><span class="layer-sub">Ten cheap tests, from radio range and jamming to friendly drones and the fibre home</span></summary>
 
 | Test | What it answers | Rough cost |
 |---|---|---|
@@ -410,6 +410,7 @@ A **printed fixed-wing** carrier is worth testing too: it flies much farther on 
 | **T15** Record friendly drones; test whether sound, which line trips first and flight times can sort friend from foe, with clocks kept in step without GPS | Will the line cry wolf? | < $200 |
 | **T17** Build a [listen-only edge receiver](#getting-alerts-out-of-the-trees) raised at a tree-belt edge, wired 980–3,300 ft to the dugout | Can a unit hear its lines from inside a tree line without transmitting from its position? | < $300 |
 | **T19** The best T9 link beside a working ELRS jammer, then 300 ft to 1 mi from it | How far from a jammer does a link near the ground still work? | < $300 |
+| **T21** A tip dart with a laser on a full 1.2 mi spool of FPV fibre, into a base box ([design]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)) | Does enough light get home, what does the heartbeat cost the battery, how much does a tip weigh, and how often does fibre break when a drone lays it? | < $300 |
 
 All are tracked in [Open questions]({{ site.baseurl }}{% link research/open-questions.md %}).
 
@@ -434,4 +435,5 @@ In the Vietnam War, **Operation Igloo White** air-dropped acoustic and seismic s
 | 2026-10-15 | 3 (unchanged); payoff 5 confirmed | [Front-line evidence]({{ site.baseurl }}{% link research/problem-check.md %}) supports the payoff: drones cause about 80% of casualties, fibre-optic FPVs beat the radio detectors units carry, and no cheap system fills the gap. Feasibility is unchanged: radio out of the trees (T9, T17) and whether warning changes behaviour (T18) are still unproven. |
 | 2026-10-15 | 3 (unchanged) | Proposed an engineering answer to the radio question: a listen-only receiver at the edge of the unit's tree line, wired back. Windbreak belts are 10–49 ft wide, not forests, and cost a few dB each on paper. Untested (T9, T17). |
 | 2026-10-23 | 3 (unchanged) | A [jamming model]({{ site.baseurl }}{% link models/line-layout.md %}#jamming): a jammer near the ground blinds a dart only within a few hundred feet on our estimate, about a mile in the worst case. The unit's own jammers deafen receivers at the positions, so the position's links go by wire or fibre. T19 now measures at range, and decides between the two cases. |
+| 2026-10-23 | 3 (unchanged) | Alerts now come home on [two FPV fibres]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box) from tip darts in the front row, and each position is covered ±60°. The lay model's net drops from 35 darts a lay to 22, and nothing at the unit uses radio. Untested: the fibre link is T21. |
 </details>

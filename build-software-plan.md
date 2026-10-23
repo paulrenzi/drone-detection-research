@@ -116,7 +116,8 @@ The **packet codec** (I1, I1a) is written twice, in C for the firmware and in Py
 - **Display v0:** a list of alerts and a beep over Web Serial on a laptop.
 - **Test the Android tablet with a wired USB–RS-485 adapter.** If it fails, choose then between a laptop at the dugout and a small native app on usb-serial-for-android.
 - **Silence test** with `rtl_power`, plus gr-lora_sdr to show nothing decodable leaves the edge receiver.
-- **Done when:** T17 passes, and a listener reboot mid-test loses no alerts.
+- **Base box role:** the same build with two fibre inputs (I2a) on two UARTs and a heartbeat watch; the tip's laser output and heartbeat in the listener build. Bench it with a full spool of FPV fibre (T21).
+- **Done when:** T17 and T21 pass, and a listener reboot mid-test loses no alerts.
 
 ### Phase 3: battery life (T12, layer 4; M)
 

@@ -17,11 +17,12 @@ The six programs the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %})
 
 ## Short answer
 
-- **Six components.** Listener firmware, edge receiver firmware, dugout display, mission tooling, classifier pipeline, test harness.
-- **Batear covers about half of the two firmwares.** It has the audio front end, a harmonic detector, LoRa transmit and receive, encryption, battery reads and a receive-only gateway. It lacks wake-on-sound, relaying, a wired output, line awareness, and a nonce scheme that is safe with more than one detector (below).
+- **Six components.** Listener firmware (including the tip dart's fibre output), base box firmware, dugout display, mission tooling, classifier pipeline, test harness.
+- **Alerts come home by fibre.** The net on [How it works]({{ site.baseurl }}{% link models/line-layout.md %}) has two tip darts that send alerts down FPV fibre to a base box behind the unit ([design]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)). The base box is the old edge receiver's board with light detectors in place of the radio as its main input, and writes the same serial frame.
+- **Batear covers about half of the two firmwares.** It has the audio front end, a harmonic detector, LoRa transmit and receive, encryption, battery reads and a receive-only gateway. It lacks wake-on-sound, relaying, a fibre link, a wired output, line awareness, and a nonce scheme that is safe with more than one detector (below).
 - **Batear covers none of the other four.** Mission tooling and the display are new. The classifier pipeline and test harness reuse public datasets and ArduPilot's simulator.
 - **One interface carries the design:** the alert packet. Its contents fix what the display can show, what relays must do, and how many bytes each alert costs on air.
-- **Order:** fork Batear for layers 1–3 of the [MVP]({{ site.baseurl }}{% link mvp.md %}), fix its nonce, add the RS-485 output, then add relaying and wake-on-sound for layers 4–5. Mission tooling waits for T13.
+- **Order:** fork Batear for layers 1–3 of the [MVP]({{ site.baseurl }}{% link mvp.md %}), fix its nonce, add the fibre link and the serial output, then add relaying and wake-on-sound for layers 4–5. Mission tooling waits for T13.
 
 ## The chain
 
@@ -35,17 +36,17 @@ The six programs the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %})
                listeners.json ─────────────────────────────────────► dugout display
                (id → position)                                            ▲
                                                                           │ RS-485
- listener ──LoRa──► listener ──LoRa──► … ──LoRa──► edge receiver ─────────┘
- (hears, alerts)   (relays once)                 (never transmits)
+ listener ──LoRa──► listener ──LoRa──► … ──► tip dart ──fibre──► base box ┘
+ (hears, alerts)   (relays once)          (laser, one way)   (never transmits)
 ```
 
 ## Components and what Batear covers
 
 | # | Component | Runs on | In → out | Batear covers | New work |
 |---|---|---|---|---|---|
-| 1 | **Listener firmware** | ESP32-S3 + SX1262 (Heltec V3 now, custom board later) | sound → alert packet; neighbours' packets → one relay | I²S mic, 1024-point FFT harmonic detector, hysteresis, AES-128-GCM packet, battery read, heartbeat ([source](https://github.com/batear-io/batear/blob/main/docs/architecture.md)) | Wake-on-sound sleep, learned classifier stage, relay with dedup, temperature, safe nonce, check-in at most 1–2 a day |
-| 2 | **Edge receiver firmware** | Same board, radio in receive only | LoRa packets → RS-485 frames | LoRa receive, decrypt, per-device replay check. Its gateway already never transmits on LoRa: no ACKs, by design ([protocol](https://github.com/batear-io/batear/blob/main/docs/protocol.md)) | Wi-Fi and MQTT off and compiled out, RS-485 output, RSSI/SNR per packet, a reboot-safe replay check |
-| 3 | **Dugout display** | Phone or tablet over a USB–RS-485 adapter, or a laptop | frames + `listeners.json` → map, alarm, line health | Nothing (Batear goes to Home Assistant) | All |
+| 1 | **Listener firmware** | ESP32-S3 + SX1262 (Heltec V3 now, custom board later) | sound → alert packet; neighbours' packets → one relay; on a tip dart, every alert → the fibre | I²S mic, 1024-point FFT harmonic detector, hysteresis, AES-128-GCM packet, battery read, heartbeat ([source](https://github.com/batear-io/batear/blob/main/docs/architecture.md)) | Wake-on-sound sleep, learned classifier stage, relay with dedup, temperature, safe nonce, check-in at most 1–2 a day by radio; on a tip, the fibre link (I2a) and a heartbeat every 10 s |
+| 2 | **Base box firmware** | Same board; two light detectors on two serial inputs; radio, if fitted, receive only | fibre frames → serial frames | LoRa receive, decrypt, per-device replay check. Its gateway already never transmits on LoRa: no ACKs, by design ([protocol](https://github.com/batear-io/batear/blob/main/docs/protocol.md)) | Two fibre inputs, the heartbeat watch, Wi-Fi and MQTT off and compiled out, RS-485 output, a reboot-safe replay check |
+| 3 | **Dugout display** | Phone or tablet over a USB–RS-485 adapter, or a laptop, at each position | frames + `listeners.json` → map, alarm, line health, fibre health | Nothing (Batear goes to Home Assistant) | All |
 | 4 | **Mission tooling** (`lay_line`) | Laptop, Python | planned line → ArduPilot mission; flight log → `listeners.json` | Nothing | All |
 | 5 | **Classifier pipeline** | Laptop or cloud GPU, offline | labelled audio → model file baked into the next batch's firmware | Its SD-card alarm recordings collect field audio ([config](https://github.com/batear-io/batear/blob/main/docs/configuration.md)) | Dataset assembly, training, on-device export, scoring against Batear's detector |
 | 6 | **Test harness** | Laptop + bench boards + SDR | recorded audio, simulated flights → pass/fail | Nothing | SITL drop missions, audio replay into a listener, RF silence check |
@@ -95,7 +96,16 @@ Managed flooding with duplicate suppression, the scheme Meshtastic uses ([Meshta
 4. **No hop limit is needed** on a line of 12–30, since each listener relays each alert once. Cap `hops` at 63 or more, not 15: the relay simulator shows a 30-listener line in dense forest needs more than 15 hops (`tripwire-tools/reports/relay-sim-phase0.md`).
 5. **CHECKIN packets are not relayed by default**, so a quiet line stays quiet. The unit can turn relaying on for one day's check-in to get a health map.
 
-### I3. RS-485 frame (edge receiver → dugout)
+### I2a. The fibre link (tip dart → base box)
+
+One way, tip to home. The tip sends **the same 40-byte encrypted packet** it would send by radio, framed for the wire: a sync byte, a length byte, the packet and a CRC-16, 44 bytes in all. Its serial output drives a small laser on and off at 9,600 baud (proposed), so a frame takes about 46 ms of light. The base box's light detector feeds the board's serial input directly.
+
+- **Every alert the tip sends or relays goes down the fibre,** and, like any relay, also out by radio to its neighbours.
+- **A heartbeat every 10 s:** a CHECKIN sent down the fibre only, never by radio. Light inside a fibre can't be picked up, so this gives nothing away. The base box marks a fibre dark after 30 s without one.
+- **Nothing comes back.** The base box never answers, so the tip needs no light detector, and nothing at home can be made to transmit.
+- **To measure (T21):** whether a small laser couples enough light into FPV fibre, which is single-mode, and what the heartbeat costs the tip's battery.
+
+### I3. Serial frame from the base box to the display
 
 One line of ASCII per received packet at 9,600 baud, so any serial terminal can read it if the display fails:
 
@@ -103,7 +113,7 @@ One line of ASCII per received packet at 9,600 baud, so any serial terminal can 
 $TW,<listener_id>,<type>,<age_ds>,<hops>,<f0_bin>,<rms_db>,<conf>,<vbat_cv>,<temp_c>,<rssi>,<snr>,<rx_id>*<crc8>
 ```
 
-`rx_id` names which edge receiver heard it, since several share one wire ([design]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees)). Receivers on a shared pair answer only when polled by the display, which avoids collisions on the wire and keeps the dugout the only master. The receiver decrypts, so it holds the key; the dugout needs none.
+`rx_id` names how the packet came home: fibre `A`, fibre `B`, or the base box's own radio if one is fitted. `rssi` and `snr` are the last radio hop's, as the tip heard it. A line `$TWF,<fibre>,<LIT|DARK>*<crc8>` reports each change in a fibre's heartbeat. One shared RS-485 pair runs from the base box to a display at each position; the base box is the only sender and the displays only listen. The base box decrypts, so it holds the key; the displays need none.
 
 ### I4. `listeners.json` (mission tooling → display)
 
@@ -145,15 +155,17 @@ Start with **A**, because it needs no hardware change and T12 measures it. **The
 - **No GPS, no over-the-air updates.** Position comes from I4. A new classifier ships in the next batch of listeners ([why]({{ site.baseurl }}{% link models/tripwire.md %}#rules-that-keep-it-cheap-and-quiet)).
 - **From Batear, unchanged:** I²S set-up, FFT and harmonic scoring, battery divider gating, the RadioLib HAL. **From Batear, changed:** the packet (I1), the nonce (I1a), the heartbeat (every 30 min in Batear; at most 1–2 a day here, since every transmission can give a listener away).
 
-### 2. Edge receiver firmware
+### 2. Base box firmware
 
-Batear's gateway role minus Wi-Fi and MQTT, plus:
+Batear's gateway role minus Wi-Fi and MQTT, with fibre in place of the radio as its main input, plus:
 
-- **A build-time guarantee that it cannot transmit:** the transmit functions are compiled out, not just unused, and T17's SDR check confirms nothing is emitted.
+- **Two fibre inputs (I2a),** one per UART, each with its own frame check and heartbeat watch.
+- **A build-time guarantee that it cannot transmit:** the transmit functions are compiled out, not just unused, and an SDR check confirms nothing is emitted.
 - RS-485 output (I3) through a MAX3485-class transceiver on a spare UART.
-- The reboot-safe replay table from I1a, stored in flash, so a receiver reboot doesn't accept old replays.
-- RSSI and SNR on every frame, for line health.
-- **The noise floor, logged every minute.** A jammer shows as a raised floor. That tells the unit when its own jammers deafen the receiver, which the [jamming model]({{ site.baseurl }}{% link models/line-layout.md %}#jamming) says they will within about 1,000 ft, and gives T19 its field data.
+- The reboot-safe replay table from I1a, stored in flash, so a reboot doesn't accept old replays. It also drops the second copy when both tips pass on the same alert.
+- **Optionally, its own radio, receive only,** to hear darts near the launch point if both fibres are cut. The [jamming model]({{ site.baseurl }}{% link models/line-layout.md %}#jamming) says the unit's own jammers deafen it within about 1,000 ft, so it logs the noise floor every minute: a jammer shows as a raised floor, which gives T19 field data.
+
+The same firmware, with the radio as its only input, is the edge receiver that hears a [line]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees) from the edge of a tree belt.
 
 ### 3. Dugout display
 
@@ -168,7 +180,7 @@ Batear's gateway role minus Wi-Fi and MQTT, plus:
 | Inside a friendly flight window the unit entered | Log only, labelled "friendly window" |
 | Listener muted itself (I1 flags) | Grey dot, no alarms from it |
 
-**Line health:** last check-in and battery per listener, listeners silent for over a day (possibly destroyed, [a signal in itself]({{ site.baseurl }}{% link models/tripwire.md %}#what-the-unit-gets)), weakest-link RSSI, and a re-lay forecast from battery trends.
+**Line health:** last check-in and battery per listener, listeners silent for over a day (possibly destroyed, [a signal in itself]({{ site.baseurl }}{% link models/tripwire.md %}#what-the-unit-gets)), weakest-link RSSI, and a re-lay forecast from battery trends. **Fibre health:** each fibre lit or dark, from its heartbeat; a dark fibre is a repair sortie, first.
 
 **Build:** a single offline HTML page, served from the device and reading the serial port through the browser's Web Serial API, is the least code. It runs in Chrome on a laptop. Chrome on Android has Web Serial over Bluetooth; whether it reads a **wired** USB serial adapter was not settled from public sources on 2026-10-19, so test it on the actual tablet ([plan, phase 2]({{ site.baseurl }}{% link build-software-plan.md %}#phase-2-edge-receiver-and-display-v0-t17-layer-3-m)). Offline map tiles are loaded before deployment. A TAK output (CoT messages) comes later ([integration]({{ site.baseurl }}{% link research/integration.md %})).
 
@@ -180,7 +192,7 @@ lay_line sitl   sortie-1.waypoints                                    →  simul
 lay_line ingest 00000042.BIN --sortie 1                               →  listeners.json (I4)
 ```
 
-- **plan:** places the drop points by the rules on [How it works]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net) (one radio hop apart, off trees and ravine floors, short of the enemy edge, the ends past the 45° lines), orders them outward from the root dart so each new dart is confirmed by the one before, groups them into sorties that pass the battery check in the forecast wind, and writes I5 files.
+- **plan:** places the drop points by the rules on [How it works]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net) (one radio hop apart, off trees and ravine floors, short of the enemy edge, the ends past the 60° lines), orders them outward from each tip dart so each new dart is confirmed by the one before, puts each tip first on its sortie, groups them into sorties that pass the battery check in the forecast wind, and writes I5 files.
 - **ingest:** reads the ArduPilot DataFlash log with pymavlink, finds each servo output change, and takes the position and GPS quality at that moment. The same pass writes the jamming map the [tripwire describes]({{ site.baseurl }}{% link models/tripwire.md %}#the-fixes).
 - **IDs:** each listener's ID is printed on its body and scanned or typed into the sortie at loading time, so the harness slot maps to an ID.
 - **A working prototype of `plan`** is [`tools/laymodel/lay_model.py`](https://github.com/paulrenzi/tripwire/blob/main/tools/laymodel/lay_model.py) ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). It checks drop points against trees, ravines and the enemy edge, picks a ground speed for each leg, checks each sortie against the battery in the wind, and writes terrain-relative missions. **Still to build for flight:** an ArduPilot Lua script that reads the confirm radio over serial and inserts re-drops, the 2-byte relayer ID in each relayed packet, and setting the origin and declination before a sortie flown with GPS jammed.
@@ -199,8 +211,9 @@ lay_line ingest 00000042.BIN --sortie 1                               →  liste
 |---|---|---|
 | Drop missions | ArduPilot SITL running `lay_line` output ([SITL](https://ardupilot.org/dev/docs/sitl-simulator-software-in-the-loop.html)) | Every `DO_SET_SERVO` fires at its point; the mission continues with the radio failsafe triggered |
 | Classifier on the board | Recorded clips played through a speaker at a listener in a box, at set levels | Same detections as on the laptop, within the time budget |
-| Relay and dedup | 6 bench listeners at low power, one alarm source | Every alert reaches the receiver once; no listener relays twice |
-| Silence | SDR next to the edge receiver and an armed-wait listener (T17, T8) | Nothing above the noise floor |
+| Relay and dedup | 6 bench listeners at low power, one alarm source | Every alert reaches the base box once; no listener relays twice |
+| Fibre link | A tip dart on a full spool into the base box (T21) | Every frame arrives; a cut fibre shows dark within 30 s; the laser's battery cost is measured |
+| Silence | SDR next to the base box and an armed-wait listener (T17, T8) | Nothing above the noise floor |
 | Reboot and nonce | Reboot a listener mid-test | Its next alert is accepted; no two packets share an IV |
 
 ## Order of work
@@ -208,7 +221,7 @@ lay_line ingest 00000042.BIN --sortie 1                               →  liste
 | Step | Goes with | Work |
 |---|---|---|
 | 1 | MVP layer 1 (T9) | Flash Batear as is. Log RSSI and SNR |
-| 2 | Layer 3 (T17) | Edge receiver: transmit compiled out, RS-485 output, the nonce fix |
+| 2 | Layer 3 (T17, T21) | Base box: fibre inputs, transmit compiled out, RS-485 output, the nonce fix. The tip's fibre output and heartbeat |
 | 3 | Layer 3 | Display v0: serial log to a list and a beep |
 | 4 | Layer 4 (T12) | Wake-on-sound option A, temperature, the new packet; measure battery |
 | 5 | Layer 5 (MVP) | Relay rules, display map and line health |
