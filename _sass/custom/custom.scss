@@ -180,6 +180,7 @@ body.ou {
 }
 
 .ou-nav-top {
+  display: flex;
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 14px;
@@ -213,7 +214,9 @@ body.ou {
 
 .ou-nav-num {
   display: inline-block;
+  flex: 0 0 26px;
   width: 26px;
+  padding-top: 2px;
   font-family: $ou-mono;
   font-size: 11px;
   color: $ou-accent;
