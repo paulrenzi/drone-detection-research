@@ -6,27 +6,136 @@ nav_tripwire: 1
 # The tripwire: full design
 {: .no_toc }
 
+<p class="vz-lede">Don't make a microphone hear farther. <strong>Drop cheap ones a mile forward</strong>, and a unit gets about a minute of warning instead of ten seconds, even against fibre-optic FPVs that emit no radio.</p>
+
+<figure class="vz-figure">
+<svg class="vz-hero" viewBox="0 0 720 430" role="img" aria-labelledby="vz-hero-t vz-hero-d">
+  <title id="vz-hero-t">How the tripwire works</title>
+  <desc id="vz-hero-d">Seen from above. A row of listening darts lies across the enemy's approach about a mile out from the unit. A drone crossing the row is heard by the nearest dart; the alert hops along the row and comes home down two fibres to the unit, about a minute before the drone arrives. A ring of microphones at the unit would hear it only about ten seconds out.</desc>
+  <rect x="0" y="0" width="720" height="62" fill="#f3e1d8"/>
+  <text x="20" y="39" class="vz-t-tag">ENEMY SIDE</text>
+  <g fill="#d2451e" fill-opacity=".07" stroke="#d2451e" stroke-opacity=".45" stroke-dasharray="4 4">
+    <circle cx="60" cy="140" r="50"/><circle cx="135" cy="140" r="50"/><circle cx="210" cy="140" r="50"/>
+    <circle cx="285" cy="140" r="50"/><circle cx="360" cy="140" r="50"/><circle cx="435" cy="140" r="50"/>
+    <circle cx="510" cy="140" r="50"/><circle cx="585" cy="140" r="50"/><circle cx="660" cy="140" r="50"/>
+  </g>
+  <path d="M60 140 Q60 330 316 350" fill="none" stroke="#2f6b3a" stroke-width="3"/>
+  <path d="M660 140 Q660 330 404 350" fill="none" stroke="#2f6b3a" stroke-width="3"/>
+  <circle cx="360" cy="350" r="52" fill="none" stroke="#6a625a" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="478" y1="22" x2="372" y2="318" stroke="#151515" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <g transform="translate(466 56)" stroke="#151515" stroke-width="3">
+    <line x1="-11" y1="-11" x2="11" y2="11"/><line x1="11" y1="-11" x2="-11" y2="11"/>
+    <g fill="#fff" stroke-width="2"><circle cx="-11" cy="-11" r="5"/><circle cx="11" cy="-11" r="5"/><circle cx="-11" cy="11" r="5"/><circle cx="11" cy="11" r="5"/></g>
+  </g>
+  <g fill="#d2451e">
+    <circle cx="60" cy="140" r="7"/><circle cx="135" cy="140" r="7"/><circle cx="210" cy="140" r="7"/>
+    <circle cx="285" cy="140" r="7"/><circle cx="360" cy="140" r="7"/><circle cx="510" cy="140" r="7"/>
+    <circle cx="585" cy="140" r="7"/><circle cx="660" cy="140" r="7"/>
+  </g>
+  <circle cx="435" cy="140" r="11" fill="#d2451e" stroke="#151515" stroke-width="3"/>
+  <text x="494" y="62" class="vz-t">FPV crosses the row</text>
+  <text x="20" y="222" class="vz-t-small">darts ~960 ft apart, each hears ~635 ft</text>
+  <line x1="250" y1="206" x2="250" y2="306" stroke="#151515" stroke-width="2"/>
+  <path d="M243 214 L250 202 L257 214 M243 298 L250 310 L257 298" fill="none" stroke="#151515" stroke-width="2"/>
+  <text x="262" y="250" class="vz-t-big">~1 mi</text>
+  <text x="262" y="280" class="vz-t-accent">≈ 1 min warning</text>
+  <text x="560" y="300" class="vz-t-green">fibre home</text>
+  <rect x="316" y="332" width="88" height="36" fill="#151515"/>
+  <text x="360" y="357" class="vz-t-unit" text-anchor="middle">UNIT</text>
+  <text x="360" y="424" class="vz-t-small" text-anchor="middle">a ring at the unit hears it only ~10 s out</text>
+</svg>
+<figcaption>Seen from above, not to scale. Each dashed circle is one dart's hearing. The alert hops dart to dart and comes home by fibre.</figcaption>
+</figure>
+
+<div class="stats">
+  <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a row about 1 mi out (est.)</p></div>
+  <div class="stat"><p class="stat-num">$17–50</p><p class="stat-label">per throwaway listener (est.)</p></div>
+  <div class="stat"><p class="stat-num">35</p><p class="stat-label">darts to lay one unit's net (lay model)</p></div>
+  <div class="stat"><p class="stat-num">3/5</p><p class="stat-label">rating: every part exists, the chain is unproven</p></div>
+</div>
+
+## Warning time
+
+<div class="vz-bars" role="img" aria-label="Seconds of warning against an FPV: about 3 to 4 at the position, 8 to 10 from a ring 980 feet out, 45 to 108 from a row about a mile out">
+  <div class="vz-bar-row"><span class="vz-bar-label">A detector at the position <em>(DroneAlert, VolAnti)</em></span><span class="vz-bar-track"><span class="vz-bar vz-bar-them" style="width:3.6%"></span></span><span class="vz-bar-val">3–4 s</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">A ring of mics 980 ft out</span><span class="vz-bar-track"><span class="vz-bar vz-bar-them" style="width:9%"></span></span><span class="vz-bar-val">8–10 s</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label"><strong>Our row, about 1 mi out</strong></span><span class="vz-bar-track"><span class="vz-bar vz-bar-us" style="width:54.5%"></span><span class="vz-bar vz-bar-us-light" style="width:43.6%"></span></span><span class="vz-bar-val"><strong>45–108 s</strong></span></div>
+  <p class="vz-bar-note">Warning = distance ÷ drone speed. Dark: an FPV at top speed. Light: at its usual 37–50 mph. All estimates; nobody has yet measured how far a cheap mic hears an FPV.</p>
+</div>
+
+Ten seconds is enough to raise a shotgun. A minute is enough to stop people walking into the open.
+
+## How it works
+
+<div class="vz-steps">
+  <div class="vz-step">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="#151515" stroke-width="3"><line x1="10" y1="10" x2="22" y2="18"/><line x1="38" y1="10" x2="26" y2="18"/><circle cx="8" cy="8" r="4"/><circle cx="40" cy="8" r="4"/></g><line x1="24" y1="22" x2="24" y2="44" stroke="#d2451e" stroke-width="4"/><path d="M18 38 L24 46 L30 38" fill="none" stroke="#d2451e" stroke-width="3"/></svg>
+    <p class="vz-step-num">1 · Lay</p>
+    <p>A drone with no pilot drops 4 darts a flight in a row about 1 mi out (<a href="{{ site.baseurl }}{% link models/line-layout.md %}">how</a>).</p>
+  </div>
+  <div class="vz-step">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="14" cy="24" r="5" fill="#d2451e"/><g fill="none" stroke="#151515" stroke-width="3"><path d="M24 14 Q30 24 24 34"/><path d="M31 8 Q41 24 31 40"/></g></svg>
+    <p class="vz-step-num">2 · Listen</p>
+    <p>Each dart sleeps until it hears something drone-like. It sends nothing while it waits.</p>
+  </div>
+  <div class="vz-step">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><g fill="#d2451e"><circle cx="6" cy="30" r="4"/><circle cx="24" cy="30" r="4"/><circle cx="42" cy="30" r="4"/></g><g fill="none" stroke="#151515" stroke-width="3"><path d="M8 24 Q15 12 22 24"/><path d="M26 24 Q33 12 40 24"/></g><line x1="42" y1="34" x2="42" y2="46" stroke="#2f6b3a" stroke-width="3"/></svg>
+    <p class="vz-step-num">3 · Report</p>
+    <p>A few-byte alert hops dart to dart, then home down a fibre the drone laid.</p>
+  </div>
+  <div class="vz-step">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6 L44 42 H4 Z" fill="#d2451e"/><rect x="22" y="18" width="4" height="13" fill="#fff"/><rect x="22" y="34" width="4" height="4" fill="#fff"/></svg>
+    <p class="vz-step-num">4 · Warn</p>
+    <p>The unit knows a drone crossed, and where, about a minute before it arrives.</p>
+  </div>
+</div>
+
+## Where it stands
+
+Every part exists. Nobody has shown the whole chain working. Each link has a cheap test:
+
+<div class="vz-chain">
+  <a class="vz-link" href="{{ site.baseurl }}{% link research/open-questions.md %}"><span class="vz-link-title">Hear an FPV</span><span class="vz-link-test">T11 · range of one mic</span><span class="vz-chip vz-chip-open">untested</span></a>
+  <a class="vz-link" href="{{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back"><span class="vz-link-title">Hop along the row</span><span class="vz-link-test">T9 · T19 near jammers</span><span class="vz-chip vz-chip-open">untested</span></a>
+  <a class="vz-link" href="{{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box"><span class="vz-link-title">Light home by fibre</span><span class="vz-link-test">T21 · a full spool</span><span class="vz-chip vz-chip-open">untested</span></a>
+  <a class="vz-link" href="{{ site.baseurl }}{% link build-hardware.md %}"><span class="vz-link-title">Laid by a drone</span><span class="vz-link-test">T10 · T13 · T14</span><span class="vz-chip vz-chip-open">untested</span></a>
+</div>
+
+<p class="vz-done"><span class="vz-chip vz-chip-done">designed</span> a printable dart, a release harness and a printed carrier (<a href="{{ site.baseurl }}{% link build-hardware.md %}">hardware</a>) · the software, part by part (<a href="{{ site.baseurl }}{% link build-software.md %}">software</a>) · each test under $500 (<a href="#open-questions">tests</a>)</p>
+
+## Why it matters
+
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">~80%</p><p>of casualties at the front come from drones, by analysts' estimates (<a href="https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone">NPR</a>)</p></div>
+  <div class="vz-card"><p class="vz-card-num">No radio</p><p>from a fibre-optic FPV, so radio detectors miss it and jammers can't stop it. A microphone hears it</p></div>
+  <div class="vz-card"><p class="vz-card-num">Nothing forward</p><p>Cheap acoustic sensors sit at the unit and give seconds (<a href="{{ site.baseurl }}{% link research/competitors.md %}">competitors</a>)</p></div>
+</div>
+
+The evidence, the open risks and the front-line fixes are in [the short version, in full](#the-short-version-in-full) below.
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">The short version, in full</span><span class="layer-sub">Ratings, the four steps with numbers, the evidence it matters, where it stands, and front-line problems in plain terms</span></summary>
+
+### Ratings
+
 | Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
 | **3/5** | **5/5** | 3/5 | 4/5 | 4/5 | 4/5 |
 
-**In one line:** don't try to make a microphone hear farther; drop cheap ones about a mile forward. A unit then gets about a minute of warning instead of about ten seconds, including against fibre-optic FPVs that emit no radio.
-
-<div class="stats">
-  <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a row about 1 mi out, against ~10 s from a ring near the unit (est.)</p></div>
-  <div class="stat"><p class="stat-num">$17–50</p><p class="stat-label">per throwaway listener (est.)</p></div>
-  <div class="stat"><p class="stat-num">35</p><p class="stat-label">darts to lay one unit's net, 25 of them planned (lay model)</p></div>
-  <div class="stat"><p class="stat-num">T9</p><p class="stat-label">the deciding test: can a line report back from under trees?</p></div>
-</div>
-
-## The idea in four steps
+### The idea in four steps
 
 1. **Lay a line.** A small drone with no pilot drops 4 throwaway listeners per flight in a row across the enemy's approach, about 1 mi out, with two FPV fibres from the row back to the unit ([How it works]({{ site.baseurl }}{% link models/line-layout.md %})).
 2. **Listen quietly.** Each listener sleeps until it hears something drone-like, and transmits nothing while it waits.
 3. **Report back.** A few-byte alert hops listener to listener to one of two tip darts, which send it home down a fibre the drone laid.
 4. **Warn.** Warning time is distance ÷ drone speed, so a row about 1 mi out gives about 45–60 seconds against an FPV at top speed, and 1.3–1.8 minutes at its usual 37–50 mph. A ring of microphones 980 ft out gives 8–10 (both estimates).
 
-## Why it matters
+### Why it matters
 
 - **Drones cause about 80% of casualties** at the front, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)).
 - **Units cope by not moving:** underground, under nets, taking hours to cover half a mile. Every trip out is exposure (same source).
@@ -35,7 +144,7 @@ nav_tripwire: 1
 
 Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
 
-## Where it stands
+### Where it stands
 
 - **Rated 3 out of 5.** Every part exists, but nobody has shown the whole chain working: a dart that hears an FPV, hops along the row, and light home down a fibre.
 - **The deciding tests are the hops along the row (T9), light down the fibre (T21) and radio near jammers (T19).** Fibre carries alerts the last mile, so the old question, whether radio could get out of the trees to the unit, is gone. Radio is left only dart to dart along the row, about 980 ft a hop. Published measurements say open ground probably works; a tree belt between two darts can still break a hop. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
@@ -45,7 +154,7 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 - **Next steps cost little.** The first five tests each cost under $500; see [Parts and first build](#components-and-mvp).
 - **Designs exist now:** a printable dart, an X500 release harness and a printed carrier ([Build: hardware]({{ site.baseurl }}{% link build-hardware.md %})), and the software laid out component by component ([Build: software]({{ site.baseurl }}{% link build-software.md %})).
 
-## Front-line problems, in plain terms
+### Front-line problems, in plain terms
 
 From [what the front actually looks like]({{ site.baseurl }}{% link research/field-conditions.md %}). Each fix adds no cost, and each also gathers information the unit can use. These are proposals, not tested yet.
 
@@ -57,11 +166,8 @@ From [what the front actually looks like]({{ site.baseurl }}{% link research/fie
 | **Jammers on both sides cover 868–915 MHz** | Radios beside a working jammer can't receive | Keep every radio that must receive a few hundred feet from jammers; wire or fibre where it can't be ([how]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)) | Where the radio fails, from the daily roll call |
 | **Cold** | Batteries die sooner in winter | Listeners report battery and temperature; re-lay a line when it runs low | Real winter battery life |
 
-## The details
+</details>
 
-Each section opens for the full reasoning, numbers and sources.
-
-<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
 
 <details class="layer" id="how-it-works" markdown="block">
 <summary><span class="layer-title">How it works</span><span class="layer-sub">Warning time, why lines beat coverage, the listeners, the drone, getting alerts home</span></summary>

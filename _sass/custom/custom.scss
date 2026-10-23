@@ -1041,3 +1041,151 @@ body.ou {
   color: $ou-green;
   font-size: 14px;
 }
+
+// Visual summaries (vz-): hero diagram, bars, step cards, test chain
+.ou .main-content .vz-lede {
+  margin: 8px 0 0;
+  max-width: 760px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: $ou-ink;
+}
+
+.ou .main-content .vz-figure {
+  margin: 24px 0 0;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid $ou-ink;
+
+  svg { display: block; width: 100%; height: auto; }
+
+  figcaption {
+    margin-top: 8px;
+    font-size: 13px;
+    color: $ou-muted;
+  }
+}
+
+.vz-t, .vz-t-small, .vz-t-big, .vz-t-accent, .vz-t-green, .vz-t-unit, .vz-t-tag { font-family: $ou-sans; }
+.vz-t { font-size: 20px; font-weight: 700; fill: $ou-ink; }
+.vz-t-small { font-size: 19px; fill: $ou-muted; }
+.vz-t-big { font-size: 30px; font-weight: 900; fill: $ou-ink; }
+.vz-t-accent { font-size: 22px; font-weight: 800; fill: $ou-accent-dark; }
+.vz-t-green { font-size: 20px; font-weight: 700; fill: $ou-green; }
+.vz-t-unit { font-size: 18px; font-weight: 800; fill: #fff; letter-spacing: 2px; }
+.vz-t-tag { font-family: $ou-mono; font-size: 18px; font-weight: 700; letter-spacing: 3px; fill: $ou-accent-dark; }
+
+.vz-bars {
+  margin: 16px 0 8px;
+  padding: 18px 18px 6px;
+  background: #fff;
+  border: 1px solid $ou-ink;
+}
+
+.vz-bar-row {
+  display: grid;
+  grid-template-columns: 230px 1fr 90px;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 14px;
+  line-height: 1.3;
+  color: $ou-ink;
+
+  em { color: $ou-muted; font-style: normal; }
+}
+
+.vz-bar-track { display: flex; height: 22px; background: $ou-ground; }
+.vz-bar { display: block; height: 100%; }
+.vz-bar-them { background: $ou-muted; }
+.vz-bar-us { background: $ou-accent; }
+.vz-bar-us-light { background: #f0b49f; }
+.vz-bar-val { font-family: $ou-mono; font-size: 14px; font-weight: 700; text-align: right; }
+
+.ou .main-content .vz-bar-note { margin: 4px 0 10px; font-size: 13px; color: $ou-muted; }
+
+.vz-steps, .vz-chain, .vz-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid $ou-ink;
+  margin: 16px 0;
+}
+
+.vz-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.vz-step, .vz-card, .ou .main-content a.vz-link {
+  padding: 16px 14px;
+  background: #fff;
+  border-right: 1px solid $ou-ink;
+
+  &:last-child { border-right: 0; }
+}
+
+.vz-step {
+  svg { width: 44px; height: 44px; display: block; }
+}
+
+.ou .main-content .vz-step p,
+.ou .main-content .vz-card p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.ou .main-content .vz-step-num {
+  @include ou-label;
+  margin-top: 10px;
+  color: $ou-accent-dark;
+}
+
+.ou .main-content .vz-card-num {
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: $ou-ink;
+}
+
+.ou .main-content a.vz-link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: $ou-body;
+  text-decoration: none;
+
+  &:hover { background: $ou-ground; }
+}
+
+.vz-link-title { font-size: 17px; font-weight: 800; line-height: 1.2; color: $ou-ink; }
+.vz-link-test { font-family: $ou-mono; font-size: 12px; }
+
+.vz-chip {
+  align-self: flex-start;
+  display: inline-block;
+  padding: 2px 8px;
+  font-family: $ou-mono;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.vz-chip-open { background: #f6e2b8; color: $ou-amber; }
+.vz-chip-done { background: #d9ead9; color: $ou-green; }
+
+.ou .main-content .vz-done { font-size: 14px; }
+
+@media (max-width: 640px) {
+  .ou .main-content .vz-lede { font-size: 17px; }
+  .ou .main-content .vz-figure { padding: 8px; }
+  .vz-bar-row { grid-template-columns: 1fr 70px; }
+  .vz-bar-label { grid-column: 1 / -1; }
+  .vz-steps, .vz-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vz-cards { grid-template-columns: 1fr; }
+  .vz-step, .ou .main-content a.vz-link {
+    border-bottom: 1px solid $ou-ink;
+    &:nth-child(2n) { border-right: 0; }
+    &:nth-last-child(-n+2) { border-bottom: 0; }
+  }
+  .vz-card { border-right: 0; border-bottom: 1px solid $ou-ink; &:last-child { border-bottom: 0; } }
+}
