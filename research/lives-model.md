@@ -19,12 +19,13 @@ We estimate what a minute of warning from a forward listening line does for troo
 - **Our central guess:** the line averts **about 1–4 of every 100 drone casualties** in a unit that uses it. The plausible range is **0.3–14**.
   - The low end is a unit that already has a radio detector, in a sector with few fibre-optic FPVs.
   - The high end is a unit with no radio detector, in a sector where most FPVs are fibre-optic.
+- **Guarding the supply road as well roughly doubles it, to about 5–8,** on the roads that are guarded. Posts by the road catch drones waiting in ambush, which the line can't ([below](#adding-a-guard-on-the-supply-road)).
 - **Partner systems:**
   - Jammers and interceptors make the line's minute more useful against radio-controlled drones.
   - Against fibre-optic drones, nothing but avoidance works, and only the line gives a minute's warning of them.
 - **Three tests decide which end of the range is real:**
   - T18: do troops act on alerts?
-  - T9/T17: does the alert get out of the trees?
+  - T9/T21: do the hops along the row hold, and does the light get home down the fibre?
   - T11: does a listener hear an FPV?
 
 ## Scale
@@ -86,7 +87,23 @@ The ranges multiply the low ends together and the high ends together, so the tru
 - Against **fibre-optic FPVs**, jammers do nothing and weapons get only seconds whatever the warning. The line's minute is the only early warning available, and its value is entirely in **avoidance by people who are about to move**.
 - So the line's value grows with the fibre-optic share in a sector and with how much movement the unit has to make in the open.
 
-**A guard on the road itself would change the second step** (not re-estimated). In the [route model]({{ site.baseurl }}{% link models/route-guard.md %}), posts along the road hear every drone that lands within 300 ft of it, and a fence a mile out warns of every drone flying in, so drones waiting in ambush stop being outside the guard's reach.
+## Adding a guard on the supply road
+
+The chain above writes off the half of rear casualties caused by drones already waiting by the road: a position's line can't hear something sitting still. A [road guard]({{ site.baseurl }}{% link models/route-guard.md %}) changes that. In the route model, posts along the road hear every drone that lands within 300 ft of it, and keep the alert ("drone waiting near post 17") up for hours. A rough re-run, using the same steps:
+
+| | Central | Range |
+|---|---|---|
+| Drones flying in, warned by the minute (the chain above) | ≈3.6 | ≈0.2–19 |
+| **Drones waiting by the road, caught by the posts:** 50 rear × 50% waiting × 50% caught (30–70%) × 80% alert through × 60% acted on × 70% avoided (50–85%) | **≈4.2** | ≈0.3–19 |
+| **Total, unit with no radio detector** | **≈8** | |
+| **Total, unit that already has a radio detector** | **≈5–6** | |
+
+- **Caught: 50%, a guess.** Every landing within 300 ft is heard in the model, but only 10–13% of landings 600–1,500 ft out, and drones parked before the guard went in or carried in on foot are missed.
+- **No hearing step:** the loudest post is a median ~340 ft from a landed drone. That is from the model, not a measurement (T20).
+- **Avoided: 70%, not 50%.** A drone known to sit near one post for hours is easier to avoid or clear than one arriving in a minute.
+- **A radio detector barely dents the new row.** Drones waiting by roads are mostly fibre-optic ([Trench Art](https://www.trenchart.us/p/russias-best-drones-lie-in-wait-beside)), and a landed drone isn't transmitting.
+- **It applies only to movement on guarded roads.** The last stretch on foot to a position isn't covered. If half a unit's movement casualties happen on its guarded roads, the gain is about half: roughly 4 more per 100, not 8.
+- **Without the cable and lamps,** a truck with its jammer on hears nothing on the move ([jamming]({{ site.baseurl }}{% link models/route-guard.md %}#jamming-and-a-wire-along-the-road)).
 
 ## Is it worth the cost?
 

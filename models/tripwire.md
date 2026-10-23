@@ -37,10 +37,10 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 
 ## Where it stands
 
-- **Rated 3 out of 5.** Every part exists, but nobody has shown that a forward line can get its alerts home.
-- **The deciding tests are radio under trees (T9) and radio near jammers (T19).** Published measurements say open ground probably works. Under trees, where troops and attacking drones actually go, it is unproven. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
+- **Rated 3 out of 5.** Every part exists, but nobody has shown the whole chain working: a dart that hears an FPV, hops along the row, and light home down a fibre.
+- **The deciding tests are the hops along the row (T9), light down the fibre (T21) and radio near jammers (T19).** Fibre carries alerts the last mile, so the old question, whether radio could get out of the trees to the unit, is gone. Radio is left only dart to dart along the row, about 980 ft a hop. Published measurements say open ground probably works; a tree belt between two darts can still break a hop. [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
 - **Jamming covers our band, but distance decides it.** On our estimate a trench jammer blinds a dart only within about 390 ft; in the worst case, about a mile. The unit's own jammers were the first threat to a receiver at the position, so alerts now come home by fibre and reach the positions by wire ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
-- **The proposed answer: carry the last mile on fibre.** Two tip darts in the row send alerts down FPV fibre the drone pays out as it lays them, to a base box behind the unit, so nothing at the position emits or receives by radio ([design]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)). Untested ([T21](#open-questions)). Hearing a line from the edge of the unit's tree line is the fallback where fibre can't go ([design](#getting-alerts-out-of-the-trees)).
+- **The last mile is fibre.** Two tip darts in the row send alerts down FPV fibre the drone pays out as it lays them, to a base box behind the unit, so nothing at the position emits or receives by radio ([design]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)). Untested ([T21](#open-questions)). Where fibre can't go, the fallback is a listen-only receiver at the edge of the unit's tree line ([fallback](#getting-alerts-out-of-the-trees)).
 - **The payoff is a guess, not a doubt.** Fibre-optic FPVs get no warning today. Our central guess is about 1–4 of every 100 drone casualties averted, almost all among people about to move ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Front-line interviews would narrow it ([T18]({{ site.baseurl }}{% link research/problem-check.md %}#the-next-step-ask-before-building-t18)); they are not a gate.
 - **Next steps cost little.** The first five tests each cost under $500; see [Parts and first build](#components-and-mvp).
 - **Designs exist now:** a printable dart, an X500 release harness and a printed carrier ([Build: hardware]({{ site.baseurl }}{% link build-hardware.md %})), and the software laid out component by component ([Build: software]({{ site.baseurl }}{% link build-software.md %})).
@@ -53,7 +53,7 @@ From [what the front actually looks like]({{ site.baseurl }}{% link research/fie
 |---|---|---|---|
 | **GPS is jammed** | The drone may not put listeners where planned | Fly on compass, optical flow and lidar from an origin set at launch, in daylight, and confirm every dart by radio as it lands ([how]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). Listeners carry no GPS, which saves money. Troops walking in can also place them by hand | Where GPS fails along the unit's routes |
 | **Friendly drones everywhere** | A line that alarms on every drone gets switched off | Alarm only for drones heading **in**, outside the unit's own flight times | Enemy drone habits: when, where and how fast |
-| **Tree lines** | Lines follow the tree belts, where radio range is short | Drop listeners at belt edges, not inside. Hear them with a listen-only receiver raised at the edge of the unit's own tree line, wired back to the dugout. Space them closer, paid for by dropping GPS | When leaf fall changes radio range |
+| **Tree lines** | Lines follow the tree belts, where radio range is short | Drop listeners at belt edges, not inside, and plan each hop along open ground so no belt sits between neighbours. Alerts come home by fibre, so the unit's own tree line no longer blocks them. Space them closer, paid for by dropping GPS | When leaf fall changes radio range |
 | **Jammers on both sides cover 868–915 MHz** | Radios beside a working jammer can't receive | Keep every radio that must receive a few hundred feet from jammers; wire or fibre where it can't be ([how]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)) | Where the radio fails, from the daily roll call |
 | **Cold** | Batteries die sooner in winter | Listeners report battery and temperature; re-lay a line when it runs low | Real winter battery life |
 
@@ -111,68 +111,25 @@ Open-source starting points exist: [Batear]({{ site.baseurl }}{% link research/o
 
 ### Getting alerts home
 
-A listener sends a few bytes only when it hears something: time, its ID, what it heard, how sure it is, a short description of the sound and its battery level. Alerts hop down the line to a tip dart and home by fibre ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)), or to a raised receiver at the unit ([getting alerts out of the trees](#getting-alerts-out-of-the-trees)), on a mast or [aerostat]({{ site.baseurl }}{% link models/m05-aerostats.md %}), which feeds the shared map, TAK and [Lattice]({{ site.baseurl }}{% link research/integration.md %}#anduril-lattice).
+A listener sends a few bytes only when it hears something: time, its ID, what it heard, how sure it is, a short description of the sound and its battery level. Alerts hop along the row to a tip dart and home by fibre to a base box behind the unit, and a wire takes them to each position ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)). The base box feeds the shared map, TAK and [Lattice]({{ site.baseurl }}{% link research/integration.md %}#anduril-lattice). Where fibre can't go, a raised receiver at the unit is the [fallback](#getting-alerts-out-of-the-trees).
 
 As more units lay lines that report to the same map, they add up to a wider network that nobody had to plan or fund centrally.
 
 </details>
 
 <details class="layer" id="getting-alerts-out-of-the-trees" markdown="block">
-<summary><span class="layer-title">Getting alerts out of the trees</span><span class="layer-sub">The radio problem as an engineering problem: a listen-only receiver at the edge of the unit's tree line, wired back</span></summary>
+<summary><span class="layer-title">The fallback: an edge receiver where fibre can't go</span><span class="layer-sub">Before fibre, this was how alerts got out of the trees. Kept for where a tip dart can't be laid</span></summary>
 
-{: .warning }
-> A design proposal, not a tested system. Loss figures are model estimates; the measurements are in [T9]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
+**Alerts now come home by fibre** ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)), so the question this section used to answer, whether radio can get from the row through the unit's tree line, no longer decides the tripwire. Radio is left only between darts along the row, about 980 ft a hop (T9).
 
-Getting alerts home is the tripwire's deciding question. Rather than wait for a test to say yes or no, treat it as something to engineer.
+Where a fibre can't be laid, or keeps being cut, the old design still works:
 
-### A windbreak belt is not a forest
-
-Most published forest tests put both radios deep under canopy, and found hops of 160–820 ft. But much of the front is open farmland cut by planted windbreaks only **10–49 ft wide**, and that is where units sit ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#where-infantry-actually-sit-tree-lines)). A signal crossing a belt passes through yards of trees, not hundreds.
-
-| Trees the signal crosses | 433 MHz | 915 MHz | 2.4 GHz |
-|---|:-:|:-:|:-:|
-| One 33 ft windbreak belt | ~3.5 dB | ~4.4 dB | ~5.8 dB |
-| 660 ft of forest | ~24 dB | ~29 dB | ~38 dB |
-
-{: .note }
-> Estimates from [Weissberger's model](https://en.wikipedia.org/wiki/Weissberger%27s_model) for dense, leafy trees, not measurements. A belt crossed at an angle is deeper than its width. The low-antenna forest tests in T9 lost more than this model predicts.
-
-On paper there is room for it. An SX1262 at full power and SF12 has roughly 159 dB to spend. A listener at 3.3 ft reaching a receiver at 33 ft, 1.9 mi away over open ground, uses roughly 119 dB of that (free space plus the ground loss worked out in T9). That leaves about 40 dB for belts, fading and margin, so four belts at about 4–5 dB each fit (all estimates). **Deep forest does not fit** and needs the fallbacks below.
-
-### The design: a listen-only receiver at the tree-line edge, wired home
-
-- **Placed by hand where the unit already is.** One receiver at the edge of the unit's own tree line, facing the lines, raised 16–33 ft: on a pole, or hoisted into the canopy with a throw line so the leaves hide it (heights are estimates). The unit's radio then sits out of the trees instead of under them.
-- **It never transmits.** A wire carries alerts to the dugout, so nothing at the unit's position emits. Put the receiver well along the belt from the dugout, and the listeners' bursts point at a box on a pole, not at the people. It must also sit at least about 1,000 ft from the unit's own jammers: on our estimate a 20 W trench jammer deafens a raised receiver within about 1,030 ft ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
-- **A small directional antenna** (a Yagi) aimed at the lines adds gain on the receiving end only, roughly 6–9 dB (estimate), and hears less from other directions. Listeners keep their simple antennas, since nobody knows which way a dropped one faces.
-- **Two or three receivers on the same wire**, spread along the belt. A listener only has to reach one of them, which gets round fading and a single blocked path.
-- **The wire.** Alerts are a few bytes, so a slow serial link is plenty. RS-485 over ordinary twisted pair is rated to about **0.7 mi** ([TI](https://www.ti.com/document-viewer/SN65HVD72/datasheet/typical-application-sllse118349)), and several receivers can share one pair. A second pair can carry power, so nothing at the edge needs a battery. The alternative is fibre from spent FPV spools: light, unjammable, and already lying across the battlefield in such quantity that one more run is hard to trace ([Business Insider](https://www.yahoo.com/news/articles/unjammable-drones-leaving-wires-everywhere-114504509.html)). Fibre needs optical converters at each end, which draw far more power than an RS-485 chip.
-- **Listeners at belt edges, not inside them.** Drop listeners on the home-facing edge of forward belts, or in the gaps. The microphone still hears drones flying along the belt, and the radio path crosses fewer trees.
-- **A lower band if needed.** 433 MHz loses about 1 dB less per belt than 915 MHz, and about 5 dB less through 660 ft of forest (model estimates), at the cost of longer antennas.
-
-### Is the hop point safe to place by hand? (inference)
-
-Safer than anything forward of the unit. It goes where the troops already are, it emits nothing, and it can be installed at night. What can give it away is visual: a pole, a cable run, or a hoisted box seen by a drone overhead. So hoist it into the canopy rather than on a pole where possible, run the wire along the belt, and, if it is found, it points to a box, not to the dugout.
-
-### When it isn't enough
-
-- **Deep forest.** Hops of 160–820 ft are what has been measured. Options: listeners only at forest edges and clearings, denser hops, a relay drone left on high ground, or an [aerostat]({{ site.baseurl }}{% link models/m05-aerostats.md %}) at the unit.
-- **Fibre home (now the plan, untested).** The delivery drone unspools FPV fibre to a tip dart in the row as it flies out, the way fibre-optic FPVs do ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)). FPV fibre is about $32–56 a mile in 2026, up from about $6–8 ([DroneXL](https://dronexl.co/2026/05/11/ukraine-fiber-optic-spool-price-ai-data-center-demand/)), so a tip's 1.2 mi is about $40–70.
-
-### What it costs (estimates)
-
-| Part | Est. cost |
-|---|---|
-| LoRa board, receive only (e.g. Heltec V3) | $20–30 |
-| Small 915 MHz Yagi | $20–40 |
-| RS-485 transceiver modules, one per end | $2–5 |
-| Twisted pair or field cable, 980–3,300 ft | $30–100 |
-| USB-to-RS-485 adapter at the dugout, feeding the tablet | $5–15 |
-| Pole, or throw line and pulley for the canopy | $20–60 |
-| **One edge receiver and its wire** | **≈ $100–250** |
-
-The wire works in every terrain case: a few yards to an edge in a windbreak, hundreds of yards in real forest, a short run to a roof or pole in ruins (inference; no source gives the distance, see [field conditions]({{ site.baseurl }}{% link research/field-conditions.md %}#where-infantry-actually-sit-tree-lines)). The open risk is the radio leg from listeners to the edge receiver, which is T9 run E.
-
-This is test T17. It also adds a windbreak run to [T9]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
+- **A listen-only receiver at the edge of the unit's own tree line,** raised 16–33 ft on a pole or hoisted into the canopy, with a small Yagi aimed at the line for about 6–9 dB (est.). Two or three on one wire get round fading and a single blocked path.
+- **It never transmits.** RS-485 over twisted pair, rated to about 0.7 mi ([TI](https://www.ti.com/document-viewer/SN65HVD72/datasheet/typical-application-sllse118349)), carries alerts, and power on a second pair, to the dugout.
+- **Its weakness is why fibre replaced it:** it must sit at least about 1,000 ft from the unit's own jammers. On our estimate a 20 W trench jammer deafens a raised receiver within about 1,030 ft ([jamming]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
+- **Range on paper:** a listener at 3.3 ft reaching a receiver at 33 ft, 1.9 mi away over open ground, leaves about 40 dB of an SX1262's roughly 159 dB. That is room for about four windbreak belts at 4–5 dB each ([Weissberger's model](https://en.wikipedia.org/wiki/Weissberger%27s_model), estimates). 660 ft of forest costs about 29 dB at 915 MHz, so deep forest doesn't fit.
+- **Cost:** about $100–250 for a receiver, its Yagi and its wire (est.).
+- **Tests:** T17, and T9 run E across windbreaks. Build steps are [MVP layer 3]({{ site.baseurl }}{% link mvp.md %}#layer-3-the-edge-receiver-t17).
 
 </details>
 
@@ -188,7 +145,7 @@ This is test T17. It also adds a windbreak run to [T9]({{ site.baseurl }}{% link
 |---|---|---|---|
 | **GPS is jammed** ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#electronic-warfare)) | No GPS on the listener. Its position is the planned drop point, corrected by where the drone's flight log says it released. Its clock is set when it is loaded and kept in step with neighbours whenever they relay. Its own GPS would be jammed in the same places as the drone's anyway. The drone flies on compass, optical flow and lidar from an origin set at launch, and confirms each dart by radio as it lands, so drops a few hundred feet off still make a net (T14, [how]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)). Troops walking in at night can also place listeners by hand (an inference) | ArduPilot's flight log records GPS fix quality on every flight, so each sortie maps where GPS failed or jumped along the unit's routes | **Saves $8–15 per listener** |
 | **Friendly drones** ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#what-infantry-use-to-hear-drones-today)) | A drone heading in trips the outer line first; one heading out trips the inner line first. The unit enters its own flight times on the receiving tablet. An inbound drone outside those times is an alarm; everything else is logged quietly | Each alert carries a few bytes describing the sound (main tone, loudness, duration). Alerts during friendly flights label themselves, so the line builds training examples for the next batch's classifier | None: a few more bytes per alert |
-| **Tree lines** ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#where-infantry-actually-sit-tree-lines)) | Lay lines across the tree belts and the gaps between them, spaced closer under canopy. The money that bought 12 listeners with GPS buys about 15–17 without. Hear them with a listen-only receiver at the edge of the unit's own tree line ([design](#getting-alerts-out-of-the-trees)) | Every received packet comes with its signal strength. Logged per link, it shows when leaf fall or growth changes range and which links are about to fail | None |
+| **Tree lines** ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#where-infantry-actually-sit-tree-lines)) | Lay lines across the tree belts and the gaps between them, spaced closer under canopy. The money that bought 12 listeners with GPS buys about 15–17 without. Plan each hop along open ground so no belt sits between neighbours; alerts come home by fibre ([How it works]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)) | Every received packet comes with its signal strength. Logged per link, it shows when leaf fall or growth changes range and which links are about to fail | None |
 | **Cold** ([source]({{ site.baseurl }}{% link research/field-conditions.md %}#seasons)) | No pricier cold-rated cells up front. Listeners add battery voltage and chip temperature to packets they already send, plus a rare stand-alone check-in | Measured winter battery life, which no source we found has published, and a forecast of when each line needs re-laying | None on boards that already read their battery, such as the Heltec V3 (Meshtastic reports its level); two resistors, a few cents, on a custom board. The ESP32-S3 has a [built-in temperature sensor](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/peripherals/temp_sensor.html), which reads close to air temperature only while the listener sleeps |
 
 ### What the unit gets
@@ -355,7 +312,7 @@ Partly, by simulation calibrated to the published measurements. Nothing publishe
 <details class="layer" id="limits-and-risks" markdown="block">
 <summary><span class="layer-title">Other risks</span><span class="layer-sub">Radio range, tracing, noisy laying, gaps, false alarms, litter, export rules</span></summary>
 
-- **Getting alerts home is the hardest part.** Published measurements with antennas near the ground show over 2.5 mi in open country, but only 160–820 ft in most forest tests and about 0.6 mi at best. In woods a line would relay hop by hop at perhaps 330–660 ft. Nobody has measured a 1.6–3.3 ft listener reaching a raised receiver 1.2–2.5 mi away. A listen-only receiver at the edge of the unit's tree line is the [proposed answer](#getting-alerts-out-of-the-trees). [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
+- **The hops along the row.** Fibre carries alerts home, but darts still relay to a tip by radio. Published measurements with antennas near the ground show over 2.5 mi in open country, but only 160–820 ft in most forest tests. In woods a row would need hops of perhaps 330–660 ft, so more darts. The tip's laser and the fibre are untested too (T21). [Evidence and test plan]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back).
 - **Jamming.** Jammers on both sides cover our band. On our estimate a jammer near the ground blinds a dart only within a few hundred feet, so jamming becomes a question of where darts and roots go; in the worst case it blinds darts out to about a mile, and a radio net can't work near the front. T19 decides which ([model]({{ site.baseurl }}{% link models/line-layout.md %}#jamming)).
 - **The relay chain can point home.** A chain of bursts leading back to the unit could be traced. Keep bursts short and rare, bend the chain instead of running it straight, and treat listeners as disposable.
 - **Laying the line is noisy.** The drone can be heard and seen, so the enemy may learn roughly where the line is. Lay at night or under other noise when GPS works; with GPS jammed, the optical-flow navigation needs daylight. Expect losses.
@@ -408,7 +365,7 @@ A **printed fixed-wing** carrier is worth testing too: it flies much farther on 
 | **T13** Drop flight: 4 listeners on planned points from a printed quad | Placement accuracy and payload | < $500 |
 | **T14** The same flight with GPS unavailable | Can a line be laid under jamming? | < $300 |
 | **T15** Record friendly drones; test whether sound, which line trips first and flight times can sort friend from foe, with clocks kept in step without GPS | Will the line cry wolf? | < $200 |
-| **T17** Build a [listen-only edge receiver](#getting-alerts-out-of-the-trees) raised at a tree-belt edge, wired 980–3,300 ft to the dugout | Can a unit hear its lines from inside a tree line without transmitting from its position? | < $300 |
+| **T17** Build a [listen-only edge receiver](#getting-alerts-out-of-the-trees) raised at a tree-belt edge, wired 980–3,300 ft to the dugout | The fallback where fibre can't go: can a unit hear its lines from inside a tree line without transmitting from its position? | < $300 |
 | **T19** The best T9 link beside a working ELRS jammer, then 300 ft to 1 mi from it | How far from a jammer does a link near the ground still work? | < $300 |
 | **T21** A tip dart with a laser on a full 1.2 mi spool of FPV fibre, into a base box ([design]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)) | Does enough light get home, what does the heartbeat cost the battery, how much does a tip weigh, and how often does fibre break when a drone lays it? | < $300 |
 

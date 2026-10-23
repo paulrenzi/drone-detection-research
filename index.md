@@ -14,7 +14,7 @@ Don't try to make a microphone hear farther. Drop cheap ones about a mile forwar
 
 <div class="stats">
   <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a row about 1 mi out, against ~10 s from a ring near the unit (est.)</p></div>
-  <div class="stat"><p class="stat-num">$17–50</p><p class="stat-label">per throwaway listener (parts estimate)</p></div>
+  <div class="stat"><p class="stat-num">$29 / $94</p><p class="stat-label">a throwaway dart, and a tip dart with its fibre (small-batch est.)</p></div>
   <div class="stat"><p class="stat-num">160–200 ft</p><p class="stat-label">the only measured cheap-mic range; we plan on 330–980 ft, unproven</p></div>
   <div class="stat"><p class="stat-num">3/5</p><p class="stat-label">feasibility: every part exists, the whole chain is untested</p></div>
 </div>
@@ -33,7 +33,11 @@ Don't try to make a microphone hear farther. Drop cheap ones about a mile forwar
 
 The idea is to buy warning with distance rather than with sensitivity. A better microphone gains tens of yards; laying the line forward gains miles.
 
-**The same darts can guard a supply road,** where about half of casualties happen: a fence a mile out gives every drone flying in at least 60 s in the model, and posts along the verge hear drones that land to wait in ambush ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %})).
+**The same darts can guard a supply road,** where about half of casualties happen ([Guarding a road]({{ site.baseurl }}{% link models/route-guard.md %})):
+
+- **Posts along the verge,** about 5 a mile, hear drones that land to wait in ambush, which nothing else on sale does. On their own they cost about $1,600 a mile a year.
+- **A fence of darts a mile out,** home on fibre like a position's line, gives every drone flying in at least 60 s in the model.
+- **The alert travels with the troops:** receivers in their vehicles, lamps on the posts, and, if a partner takes it, the phone systems they already carry ([Partners]({{ site.baseurl }}{% link research/partners.md %})).
 
 <p class="kicker">02 · Why it matters</p>
 
@@ -42,13 +46,13 @@ The idea is to buy warning with distance rather than with sensitivity. A better 
 - **Drones cause about 80% of casualties** at the front, by analysts' estimates ([NPR, Oct 2026](https://www.tpr.org/news/2026-10-05/drones-buzz-overhead-troops-hunker-underground-in-ukraines-hellish-kill-zone)). Units cope by not moving, and every trip out is exposure.
 - **Fibre-optic FPVs emit no radio**, so the radio detectors units carry miss them and jamming does nothing. In some sectors they are 30–50% or more of FPVs. A microphone hears them ([what troops have]({{ site.baseurl }}{% link research/frontline-kit.md %})).
 - **Acoustic detection works at scale, against a different target.** Ukraine's Sky Fortress hears Shaheds and cruise missiles over the rear with thousands of cheap pole-mounted sensors. Loud, low-pitched engines carry for miles; small electric FPVs don't. Against FPVs at the front, no acoustic system has an independent test yet.
-- **Our central guess is 1–4 of every 100 drone casualties averted**, almost all among people about to move ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). That is a guess, not a measurement.
+- **Our central guess is 1–4 of every 100 drone casualties averted** by a position's line, almost all among people about to move. **Guarding the supply road as well roughly doubles it, to about 5–8,** on the roads that are guarded, because the posts also catch drones waiting in ambush ([estimate]({{ site.baseurl }}{% link research/lives-model.md %}#adding-a-guard-on-the-supply-road)). Both are guesses, not measurements.
 
 Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link research/problem-check.md %})
 
 <p class="kicker">03 · How to assess it</p>
 
-## Four things decide whether the tripwire is worth building.
+## What decides whether the tripwire is worth building.
 
 <div class="assess">
 <a class="assess-card" href="{{ site.baseurl }}{% link build-3d.md %}">
@@ -57,20 +61,44 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 <span class="assess-q">Can a printed dart and harness carry, release and stand a listener?</span>
 <span class="assess-body">Rotate the dart, the harness and the loaded X500, and watch them come apart. STL and STEP files for every printed part.</span>
 </a>
-<a class="assess-card" href="{{ site.baseurl }}{% link research/competitors.md %}">
+<a class="assess-card" href="{{ site.baseurl }}{% link models/line-layout.md %}">
 <span class="assess-num">03</span>
+<span class="assess-title">How it works</span>
+<span class="assess-q">How many darts give a unit a minute, and how do alerts get home?</span>
+<span class="assess-body">About 22 darts a lay, a row a mile out, and two FPV fibres to a base box behind the unit, wired to each position.</span>
+</a>
+<a class="assess-card" href="{{ site.baseurl }}{% link models/route-guard.md %}">
+<span class="assess-num">04</span>
+<span class="assess-title">Guarding a road</span>
+<span class="assess-q">Can the same darts protect a supply road?</span>
+<span class="assess-body">Posts on the verge hear drones waiting in ambush; a fence a mile out gives a minute. About $9–14k a mile a year in full, $1,600 for posts alone.</span>
+</a>
+<a class="assess-card" href="{{ site.baseurl }}{% link costs.md %}">
+<span class="assess-num">05</span>
+<span class="assess-title">Projected costs</span>
+<span class="assess-q">What does it cost to buy, and to keep laid?</span>
+<span class="assess-body">Parts per dart, a unit's package at about $1.9–2.9k, and re-lays at about $8.5–13k a year: lines are ammunition.</span>
+</a>
+<a class="assess-card" href="{{ site.baseurl }}{% link research/competitors.md %}">
+<span class="assess-num">06</span>
 <span class="assess-title">Competitors</span>
 <span class="assess-q">Who else warns a position of FPVs, and at what cost?</span>
 <span class="assess-body">Zvook NW0 at $834–950 a sensor, RADD, Komodo's drone-dropped sensor, DroneAlert. All claims, no independent FPV range.</span>
 </a>
+<a class="assess-card" href="{{ site.baseurl }}{% link research/partners.md %}">
+<span class="assess-num">07</span>
+<span class="assess-title">Partners</span>
+<span class="assess-q">How does an alert reach troops on the move?</span>
+<span class="assess-body">Hrafit's Sova module first, which already alerts drivers' phones; a TAK output as the fallback and a way into Delta.</span>
+</a>
 <a class="assess-card" href="{{ site.baseurl }}{% link weekend-test.md %}">
-<span class="assess-num">04</span>
+<span class="assess-num">08</span>
 <span class="assess-title">Saturday test</span>
 <span class="assess-q">How far does a mic near the ground hear a drone?</span>
 <span class="assess-body">One day and an $80–90 kit, in ten numbered steps. A phone and a Bluetooth speaker do most of the distances.</span>
 </a>
 <a class="assess-card" href="{{ site.baseurl }}{% link mvp.md %}">
-<span class="assess-num">05</span>
+<span class="assess-num">09</span>
 <span class="assess-title">MVP path</span>
 <span class="assess-q">Can a line of listeners report home without being found?</span>
 <span class="assess-body">Five gated layers to a six-listener line, about $600–750 in total.</span>
@@ -79,19 +107,20 @@ Full evidence: [Is the problem worth solving?]({{ site.baseurl }}{% link researc
 <span class="assess-num">+</span>
 <span class="assess-title">The full design</span>
 <span class="assess-q">How each piece works, what it costs, and what could kill it.</span>
-<span class="assess-body">Warning time, the listener, the delivery drone, getting alerts out of the trees, field limits and risks.</span>
+<span class="assess-body">Warning time, the listener, the delivery drone, getting alerts home by fibre, field limits and risks.</span>
 </a>
 </div>
 
 <p class="kicker">04 · Where it stands</p>
 
-## Four open questions, each under $500 to answer.
+## Five open questions, each under $500 to answer.
 
 | Question | Why it decides the tripwire | Test | Status |
 |---|---|---|---|
-| **Can a line report back from under trees?** | A line that can't get its alerts home is useless | [T9]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back), ~$80 | Open ground probably works on published figures; under trees, unproven |
+| **Do the hops along the row hold?** | Fibre carries alerts the last mile home, so radio is left only between darts along the row, about 980 ft a hop. A tree belt or a ridge between two darts can break a hop | [T9]({{ site.baseurl }}{% link research/open-questions.md %}#t9-can-a-forward-line-report-back), ~$80 | Open ground probably works on published figures; across tree belts, unproven |
+| **Does a tip dart get its light home?** | The fibre is the line's only way home. A small laser has to put enough light into 1.2 mi of FPV fibre on a dart's battery, and the fibre has to survive being laid | [T21]({{ site.baseurl }}{% link research/open-questions.md %}), < $300 (est.) | Not started. The fibre loses under 1 dB over 1.2 mi on paper; 1 in 20 assumed to break while laid |
 | **How far does a mic at 1.6–3.3 ft hear an FPV?** | Range sets listener spacing, so the cost of a line. Under about 130 ft the idea stops making sense | [T11]({{ site.baseurl }}{% link mvp.md %}#layer-2-hear-a-drone-from-near-the-ground-t11), ~$50 | Only measured cheap-mic range is 160–200 ft, on a consumer drone |
-| **Does the radio work near jammers?** | Jammers on both sides cover our band. On our estimate a jammer blinds a dart only within a few hundred feet; in the worst case, about a mile, and then a radio net can't work near the front | [T19]({{ site.baseurl }}{% link research/open-questions.md %}), ~$300, needs a licensed range or Ukraine | [Modelled]({{ site.baseurl }}{% link models/line-layout.md %}#jamming), not measured |
+| **Do the row's hops work near enemy jammers?** | With fibre home, the unit's own jammers can't deafen the line. What's left is enemy jammers near the row, a mile out. On our estimate a jammer blinds a dart only within a few hundred feet; in the worst case, about a mile | [T19]({{ site.baseurl }}{% link research/open-questions.md %}), ~$300, needs a licensed range or Ukraine | [Modelled]({{ site.baseurl }}{% link models/line-layout.md %}#jamming), not measured |
 | **Does a dropped dart land upright and working?** | Drone laying is what puts the row a mile out | A weighted dummy dropped from the drone | Modelled, not printed or dropped |
 
 Ratings are working judgements, not test results. [Build or scrap?]({{ site.baseurl }}{% link research/build-or-scrap.md %}) sets out what result would stop the project.
