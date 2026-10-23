@@ -8,18 +8,49 @@ nav_tripwire: 3
 # Is the problem worth solving?
 {: .no_toc }
 
+<p class="vz-lede">Before building more, check the premise: are units' current methods failing, would earlier warning change anything, and is someone already solving it? <strong>The case for the problem is strong; the size of the payoff is a guess.</strong></p>
+
+<div class="vz-cards">
+  <div class="vz-card"><p class="vz-card-num">Failing? Yes</p><p>Drones are the biggest killer at the front. Troops survive by hiding and not moving, and fibre-optic FPVs defeat the detectors they carry</p></div>
+  <div class="vz-card"><p class="vz-card-num">Worth it? A guess</p><p>About <strong>1–4 of every 100</strong> drone casualties averted (range 0.3–14), almost all among people about to move (<a href="{{ site.baseurl }}{% link research/lives-model.md %}">estimate</a>)</p></div>
+  <div class="vz-card"><p class="vz-card-num">Solved? Not forward</p><p>A Ukrainian firm sells acoustic FPV sensors, but at the position, giving seconds. Camera systems aren't at the front</p></div>
+</div>
+
+### Warning against a fibre-optic FPV
+
+<div class="vz-bars">
+  <div class="vz-bar-row"><span class="vz-bar-label">Nothing: seen at the last moment</span><span class="vz-bar-track"></span><span class="vz-bar-val">0 s</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">A sentry's ear</span><span class="vz-bar-track"><span class="vz-bar vz-bar-them" style="width:2.7%"></span><span class="vz-bar vz-bar-them-light" style="width:0.7%"></span></span><span class="vz-bar-val">4–5 s</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">An acoustic sensor at the position <em>(makers' claims)</em></span><span class="vz-bar-track"><span class="vz-bar vz-bar-them" style="width:2.0%"></span><span class="vz-bar vz-bar-them-light" style="width:8.7%"></span></span><span class="vz-bar-val">3–16 s</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label">A radio detector <em>(hears only radio-controlled FPVs)</em></span><span class="vz-bar-track"></span><span class="vz-bar-val">0 s</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label"><strong>A forward listener row</strong></span><span class="vz-bar-track"><span class="vz-bar vz-bar-us" style="width:30.0%"></span><span class="vz-bar vz-bar-us-light" style="width:70.0%"></span></span><span class="vz-bar-val"><strong>45 s–2.5 min</strong></span></div>
+  <p class="vz-bar-note">Warning = how far out the drone is detected ÷ its speed, at the worst-case 63–87 mph. A radio detector gives 1.5–2.5 min against radio-controlled FPVs, but nothing against fibre-optic ones. <strong>A minute isn't new; a minute against fibre-optic FPVs is.</strong> All estimates; the row's figure needs T11.</p>
+</div>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">The opening, as first written</span><span class="layer-sub">The three questions this page checks</span></summary>
+
 Before building more, check the premise: are units' current methods failing, would earlier warning change anything, and is someone already solving it? Every point is sourced; where nothing was found, this page says so. Reviewed 2026-10-15.
 
-1. TOC
-{:toc}
+</details>
 
-## Short answer
+<details class="layer" id="short-answer" markdown="block">
+<summary><span class="layer-title">Short answer</span><span class="layer-sub">The case for the problem, and how many lives a forward line might save</span></summary>
 
 **The case for the problem is strong.** Drones are the biggest killer at the front. Troops survive mainly by staying hidden and not moving, which is coping, not protection. The fastest-growing part of the threat, fibre-optic FPVs, defeats the cheap detectors units carry, and the expensive camera systems are not at the front. A Ukrainian firm is now building acoustic FPV sensors for positions, which supports the approach.
 
 **Fibre-optic FPVs arrive unwarned.** Radio detectors can't hear them, so any earlier warning, at lower cost, fills a gap. How many lives that saves is a guess. Our central estimate: our estimate is that a forward line averts about **1–4 of every 100 drone casualties** (range 0.3–14), almost all among people about to move: rotation, resupply, evacuation ([estimate]({{ site.baseurl }}{% link research/lives-model.md %})). Weapons need only seconds, so at a fixed position a minute adds little. Interviews (T18) would firm up that number; they are not a gate.
 
-## What the evidence says
+</details>
+
+<details class="layer" id="what-the-evidence-says" markdown="block">
+<summary><span class="layer-title">What the evidence says</span><span class="layer-sub">Drones as the main killer, how units cope, the fibre-optic gap, and who else is working on it</span></summary>
 
 ### The threat is real and is the main killer
 
@@ -55,7 +86,10 @@ How much each defence actually needs is worked through [below](#a-minute-against
 
 **ZVOOK NW0** (January 2026) is a Ukrainian acoustic FPV sensor for positions, on sale at about $834–950. It claims 490–1,500 ft range and fibre-optic detection, and draws 15–20 W. Every figure is the maker's; we found no independent test and no unit reported using it ([profile]({{ site.baseurl }}{% link research/competitors.md %}#zvook-nw0--direct-competitor-claims-only)). That's weak validation that a credible team thinks the approach is worth building, and it's competition. The US Army's March 2026 review says Ukrainian acoustic networks detect FPVs, but its sources cover Shaheds over the rear ([details]({{ site.baseurl }}{% link research/competitors.md %}#two-markets-only-one-of-them-ours)). Against FPVs at a position, acoustic detection is still unproven, for us and for Zvook alike.
 
-## A minute against the alternatives
+</details>
+
+<details class="layer" id="a-minute-against-the-alternatives" markdown="block">
+<summary><span class="layer-title">A minute against the alternatives</span><span class="layer-sub">How much warning each defence needs, and what each source of warning gives</span></summary>
 
 How much warning each defence needs, and so what a minute adds over the few seconds that other sources of warning already give.
 
@@ -106,7 +140,10 @@ The middle column is sourced. The four right-hand columns are our inference from
 {: .warning }
 > Almost every timing here is inference. No source gives the seconds of warning a defence needs, the time to reach cover, the time to build a smoke screen, or the time from cue to interceptor launch. A shallow search also found nothing on Scan Horizon or Sky Sentinel reaction times. These are T18 questions.
 
-## What would make it a waste
+</details>
+
+<details class="layer" id="what-would-make-it-a-waste" markdown="block">
+<summary><span class="layer-title">What would make it a waste</span><span class="layer-sub">Four findings that would kill or re-aim the tripwire</span></summary>
 
 Any of these, found by asking users or by testing:
 
@@ -115,7 +152,10 @@ Any of these, found by asking users or by testing:
 3. **A cheap enough sensor is already in units' hands**, such as the NW0 at scale.
 4. **Radio can't get out of the trees**, even with a [wired edge receiver]({{ site.baseurl }}{% link models/tripwire.md %}#getting-alerts-out-of-the-trees) (T9, T17).
 
-## Questions for front-line users (T18) {#the-next-step-ask-before-building-t18}
+</details>
+
+<details class="layer" id="the-next-step-ask-before-building-t18" markdown="block">
+<summary><span class="layer-title">Questions for front-line users (T18)</span><span class="layer-sub">Who to ask, and the questions, before building more</span></summary>
 
 Talk to 5–10 people with recent front-line experience: soldiers, the volunteers who equip units, Brave1, and Ukrainian drone and EW firms. Ask:
 
@@ -130,3 +170,5 @@ Talk to 5–10 people with recent front-line experience: soldiers, the volunteer
 9. What share of your drone casualties happen on the move, and how many come from drones already waiting by the road?
 
 **Not a gate.** Warning of a threat nothing else detects is worth having. The answers size the [lives estimate]({{ site.baseurl }}{% link research/lives-model.md %}) and shape placement.
+
+</details>
