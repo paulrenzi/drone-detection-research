@@ -76,6 +76,15 @@ Nobody walks a mile forward to plant darts. A small drone does it, with no pilot
 3. **Lay the trunks first, then the front row.** A dart can only report once the darts behind it are down. Laid from the unit outward, every new dart checks in through the net as soon as it lands, so the crew sees each one arrive.
 4. **Check the net.** The receiver lists every dart that has checked in and how strong its link is. A missing or weak dart gets a spare dropped beside it on the next sortie.
 
+### What the drone knows
+
+**Nothing about north, the enemy or spacing.** It flies a list of coordinates.
+
+- **The crew gives the planning tool two things:** its positions on the map, and one arrow for the threat direction, normally square to the line of contact. The tool lays out the front row 5,316 ft out along the arrow, ±45°, at 969 ft spacing, with the trunks to darts 1 and 8, and writes a coordinate for every drop. Importing positions from the unit's mapping app is still to build.
+- **The drone gets north and its position from its own sensors:** GPS and compass, or the fallbacks below.
+- **The darts know nothing either.** The microphone hears all round and nothing needs a heading. "Dart 7" is a place only because the plan tied that ID to that point.
+- **Spacing is checked by radio, after each drop.** See [Drop, then confirm](#drop-then-confirm).
+
 **The net's 20 darts are 5 sorties:** two for the trunks and three for the front row. The longest flies about 1.1 mi out, along about half a mile of the row and back. An X500-class quad with 4 darts is estimated at 11–12 minutes' hover ([Hardware]({{ site.baseurl }}{% link build-hardware.md %})); whether a sortie that long fits one battery is test T13.
 
 ### Finding the drop points when GPS is jammed
@@ -86,7 +95,7 @@ GPS is jammed routinely at the front ([field conditions]({{ site.baseurl }}{% li
 |---|---|---|
 | **Plain GPS** | Nothing extra | Where it isn't jammed. Each flight log records where GPS failed or jumped, so the unit learns its own map of jamming |
 | **Short legs on compass, barometer and optical flow** from a point the crew can confirm by eye | A downward optical-flow camera and rangefinder | Drifts over distance with no fixed reference, so legs stay short ([ArduPilot](https://ardupilot.org/copter/docs/common-non-gps-navigation-landing-page.html)) |
-| **Computer vision: matching the camera's view to satellite maps** | A camera, an onboard computer and stored map tiles | The upgrade if GPS proves unusable. Open research code exists ([WildNav](https://github.com/TIERS/wildnav)), but nothing found plugs into ArduPilot. Ukrainian systems doing this are reported but proprietary |
+| **Computer vision: matching the camera's view to satellite maps** | A downward camera, a Jetson Orin NX-class computer (several hundred dollars, est.) and stored map tiles | Not used yet; the upgrade if T14 shows compass drift is much worse than 3°. Best open candidate: [NGPS](https://github.com/snktshrma/ngps_flight) (MIT licence, ROS 2, feeds ArduPilot), whose author reports about 10–20 ft error over 5 real flights at 200–490 ft up ([paper](https://arxiv.org/abs/2607.18936)). [gnss-denied-nav](https://github.com/koksalan/gnss-denied-nav) (MIT) reports a 79 ft median on unseen regions and refuses to fix when seasons change the ground; simulation and datasets only. [WildNav](https://github.com/TIERS/wildnav) relies on SuperGlue, whose licence bars commercial use. Ukrainian systems doing this are reported but proprietary |
 | **By hand** | Troops walking in at night | Only for the trunk darts nearest the unit, an inference |
 
 A downward camera could also record each drop, so the crew can check after landing that a dart stood upright. That adds weight but no radio link (an idea, untested).
@@ -112,6 +121,55 @@ How close a drop lands is test T13. The tripwire page's working figure, that dro
 - **A receiver at every position.** P1 and P3 sit 820 ft from P2, within one hop, so the receiver at P2 passes the alarm on.
 - **Keep the unit's own drones out of the alarm.** Ukrainian FPVs sound like Russian ones. The proposed answer is to alarm only on drones heading inbound, outside the unit's own flight times (test T15).
 - **Re-lay before the cells run out,** and replace darts lost to shelling. The darts' battery reports forecast when.
+
+## When it breaks
+
+<figure style="margin:12px 0 8px;max-width:600px">
+<div id="repair-model"></div>
+<figcaption style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px">
+<button type="button" id="repair-play" class="btn btn-sm">Play</button>
+<button type="button" id="repair-replay" class="btn btn-sm">Replay</button>
+<span id="repair-status" aria-live="polite" style="font-weight:600;flex:1 1 220px"></span>
+</figcaption>
+</figure>
+<script src="{{ '/assets/js/repair.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+
+Same map, with time compressed. A relay is knocked out, found by the roll call and replaced; then a re-lay sortie flown on a compass 3° off is caught by drop, then confirm.
+
+| Failure | What the unit loses | Fix | Our cost |
+|---|---|---|---|
+| **A listening dart** | A blind gap about 670 ft wide: its neighbours end up 1,938 ft apart and each hears 635 ft | One sortie drops a dart on its point | ~$25–29 |
+| **A relay dart** | No coverage, but the net is down to one trunk | Same, and first | ~$23–26 |
+| **Two darts** | One on each trunk silences the net: 36 of the 190 possible pairs do that | Repair after the first loss | Per dart |
+| **The receiver** | Everything, until swapped | By hand, at the position | ~$22 |
+| **Cells run down** | Darts drop out one by one | A re-lay: 20 darts, 5 sorties | ~$515 |
+| **The drone** | Any repair or re-lay | A new quad | ~$850–920 |
+| **LoRa jammed** | Every dart at once | No dart fixes it: change channel or settings, or wait | none |
+
+**The repair model.** The receiver lists the darts that have gone quiet, the crew taps "re-drop", and the planning tool writes one mission for up to 4 darts. The flight to the farthest point is about 1.1 mi and about 10 minutes. A dead trunk dart or front dart goes on the next sortie; anything else waits for the next re-lay. Battery wear is about $0.30 a sortie. **The drone is the hidden cost:** a 2% chance of losing it adds about $20 to every sortie, as much as the dart it carries. So repairs are batched, and a spare drone is worth quoting.
+
+**Roll call: how the unit knows a dart is dead** (a design change). As planned, check-ins aren't relayed ([software plan]({{ site.baseurl }}{% link build-software.md %})), so a dead dart goes unnoticed. Proposed: once a day every dart sends one check-in and every other dart relays it once. That is about 400 short bursts across the net, a second or two of airtime per dart. A dart missing from the roll call is named from the plan within a day.
+
+### Drop, then confirm
+
+**Compass navigation over a mile is worse than the placement budget.** With GPS jammed, each degree of compass error puts a dart 93 ft sideways at 5,316 ft; 3° is about 280 ft. Inside one sortie that mostly doesn't matter: every drop is off the same way, and consecutive drops 980 ft apart are only about 51 ft off each other. **The joins between sorties break.** Each sortie starts again from the unit, and the sortie that closes the front row has two joins; at 3°, one closes to about 680 ft and the other opens to about 1,250 ft.
+
+**Proposed fix (untested):** the drone carries a receive-only LoRa board (about $20, transmits nothing).
+
+1. Each dart sends "landed" once it is down, and its neighbour relays it, once.
+2. The drone, still hovering, hears that relay. That proves the new dart reached its neighbour.
+3. If it hears nothing, the drone drops a spare about 300 ft toward the neighbour's logged point and listens again.
+
+That measures every link as it is made, so the drone never needs to know where it is to within a hop, and a failed join costs one spare. Absolute error is cheap: a front row 280 ft off costs at most about 3 s of warning. The 4 spares in the package then go to failed joins and bad landings. If drops really land ±66 ft off, all 24 darts are in the net, and repair stock is extra.
+
+**If the planning numbers are wrong, the fix is more darts, not a redesign:**
+
+| Radio hop | Front darts | Relays per trunk | Total |
+|---|---|---|---|
+| 650 ft | 15 | 8 | 31 |
+| 800 ft | 12 | 7 | 26 |
+| **980 ft (plan)** | **10** | **5** | **20** |
+| 1,250 ft | 9 | 4 | 17 |
 
 ## What the net misses
 

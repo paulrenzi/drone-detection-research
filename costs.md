@@ -63,6 +63,8 @@ Darts aren't recovered. Every net is re-laid when its cells run down, and darts 
 | 4 weeks | 13 | ~$6,500 | ~$4,700 |
 | 12 weeks | 4 | ~$2,000 | ~$1,400 |
 
+**Repairs between re-lays** cost one dart each, about $23–29, plus about $0.30 of drone battery a sortie; up to 4 go on one sortie. The drone is the risk: a 2% chance of losing it adds about $20 a sortie, and replacing it costs about $850–920 ([When it breaks]({{ site.baseurl }}{% link models/line-layout.md %}#when-it-breaks)). If drops land ±66 ft off, all 24 darts go into the net and repair stock is extra.
+
 None of these cell lives is measured. Listening darts sleep until they hear something. Relay darts keep their radio listening, so they may run down first. Test T12 decides which row is real, and it is the biggest number in the whole budget.
 
 ## Pricing: our cost plus markup
