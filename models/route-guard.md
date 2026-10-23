@@ -27,9 +27,9 @@ nav_primary: 2.15
   <g fill="#d2451e" stroke="#2f6b3a" stroke-width="3"><circle cx="90" cy="95" r="8"/><circle cx="390" cy="95" r="8"/></g>
   <circle cx="292" cy="95" r="10" fill="#d2451e" stroke="#151515" stroke-width="3"/>
   <text x="240" y="152" class="vz-t-small" text-anchor="middle" style="font-size:15px">fence of darts, ~1 mi out</text>
-  <text x="304" y="196" class="vz-t" style="font-size:16px">flying in: heard</text>
-  <text x="304" y="216" class="vz-t" style="font-size:16px">at the fence</text>
-  <text x="304" y="242" class="vz-t-accent" style="font-size:18px">≥ 60 s warning</text>
+  <text x="274" y="196" class="vz-t" text-anchor="end" style="font-size:16px">flying in: heard</text>
+  <text x="274" y="216" class="vz-t" text-anchor="end" style="font-size:16px">at the fence</text>
+  <text x="274" y="242" class="vz-t-accent" text-anchor="end" style="font-size:18px">≥ 60 s warning</text>
   <text x="128" y="230" class="vz-t-green" style="font-size:15px">fibre</text>
   <g transform="translate(200 360)" stroke="#151515" stroke-width="2.5">
     <line x1="-8" y1="-8" x2="8" y2="8"/><line x1="8" y1="-8" x2="-8" y2="8"/>
