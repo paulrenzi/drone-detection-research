@@ -2,6 +2,8 @@
 title: Partners for the alert
 parent: Research Notes
 nav_order: 0.4
+nav_primary: 3.1
+nav_label: Partners
 ---
 
 # Partners: getting the alert to troops on the move
