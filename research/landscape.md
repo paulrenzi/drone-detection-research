@@ -37,7 +37,7 @@ Software is the comparatively easy part. The hard parts are **range** (how far a
 ## Eight ways to build the network.
 
 <div class="vz-gridwrap">
-<p class="vz-grid-ylab">Payoff if it works →</p>
+<p class="vz-grid-ylab">↑ Payoff if it works</p>
 <div class="vz-grid">
 <span class="vz-grid-y">5</span>
 <span class="vz-gcell"></span>
@@ -174,7 +174,6 @@ The first integration target is **Anduril Lattice**, which the US Army has picke
 
 <details class="layer" id="how-ratings-work" markdown="block">
 <summary><span class="layer-title">How ratings work</span><span class="layer-sub">What feasible and payoff mean, and how a model earns each score</span></summary>
-{: #how-ratings-work }
 
 **Feasibility** is scored 1–5 on four axes, and the feasibility score is a judgement, not an average:
 
