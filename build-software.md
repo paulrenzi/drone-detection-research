@@ -7,15 +7,60 @@ nav_tripwire: 7
 # Build: software, from listener to dugout
 {: .no_toc }
 
+<p class="vz-lede">The <strong>six programs</strong> the <a href="{{ site.baseurl }}{% link models/tripwire.md %}">tripwire</a> needs, how they connect, and how much of each the open-source <a href="{{ site.baseurl }}{% link research/open-source-builds.md %}#batear">Batear</a> already covers. A design, not code: nothing is written or tested yet.</p>
+
+<div class="vz-flow" role="img" aria-label="The chain: mission tooling on a laptop plans the drone's drops; listener firmware on each dart hears and relays by LoRa to a tip dart; the tip sends alerts down fibre to the base box; the base box passes them by RS-485 wire to the dugout display.">
+  <div class="vz-node"><span class="vz-node-n">4</span><strong>Mission tooling</strong><span>laptop plans the drops; the drone's log gives each dart's position</span></div>
+  <div class="vz-arrow">drone lays</div>
+  <div class="vz-node vz-node-hot"><span class="vz-node-n">1</span><strong>Listener firmware</strong><span>each dart hears, alerts, relays once</span></div>
+  <div class="vz-arrow">LoRa hops</div>
+  <div class="vz-node vz-node-hot"><span class="vz-node-n">1</span><strong>Tip dart</strong><span>flashes alerts down its fibre</span></div>
+  <div class="vz-arrow vz-arrow-green">fibre</div>
+  <div class="vz-node"><span class="vz-node-n">2</span><strong>Base box</strong><span>never transmits</span></div>
+  <div class="vz-arrow">RS-485 wire</div>
+  <div class="vz-node vz-node-dark"><span class="vz-node-n">3</span><strong>Dugout display</strong><span>map, alarm, line and fibre health</span></div>
+</div>
+<p class="vz-bar-note">Offline, around the chain: <strong>5 · the classifier pipeline</strong> trains the model baked into the next batch of darts, and <strong>6 · the test harness</strong> replays audio and simulated flights.</p>
+
+### How much Batear already covers
+
+<div class="vz-bars">
+  <div class="vz-bar-row"><span class="vz-bar-label"><strong>1</strong> Listener firmware</span><span class="vz-bar-track"><span class="vz-bar vz-bar-us" style="width:50%"></span></span><span class="vz-bar-val">~half</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label"><strong>2</strong> Base box firmware</span><span class="vz-bar-track"><span class="vz-bar vz-bar-us" style="width:50%"></span></span><span class="vz-bar-val">~half</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label"><strong>3</strong> Dugout display</span><span class="vz-bar-track"></span><span class="vz-bar-val">none</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label"><strong>4</strong> Mission tooling</span><span class="vz-bar-track"></span><span class="vz-bar-val">none</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label"><strong>5</strong> Classifier pipeline</span><span class="vz-bar-track"><span class="vz-bar vz-bar-us-light" style="width:8%"></span></span><span class="vz-bar-val">recordings</span></div>
+  <div class="vz-bar-row"><span class="vz-bar-label"><strong>6</strong> Test harness</span><span class="vz-bar-track"></span><span class="vz-bar-val">none</span></div>
+  <p class="vz-bar-note">Batear has the mic front end, a harmonic detector, LoRa, encryption and a receive-only gateway. It lacks wake-on-sound, relaying, the fibre link, a wired output and a nonce scheme safe with more than one detector. Rough shares, from reading its source on 2026-10-15.</p>
+</div>
+
+### What gets built when
+
+<div class="vz-steps vz-4">
+  <div class="vz-step"><p class="vz-step-num">1 · now</p><p>Flash Batear as is for the radio test. Log signal strength.</p></div>
+  <div class="vz-step"><p class="vz-step-num">2–3 · layer 3</p><p>Base box: fibre inputs, transmit compiled out, wired output, the nonce fix. A first display: a list and a beep.</p></div>
+  <div class="vz-step"><p class="vz-step-num">4–5 · layers 4–5</p><p>Wake-on-sound and the new packet; then relaying, the map and line health for the MVP.</p></div>
+  <div class="vz-step"><p class="vz-step-num">6–7 · later</p><p>A learned classifier once there's field audio; laying tools once T13 flies.</p></div>
+</div>
+
+## The details
+
+Each section opens for the full reasoning, numbers and sources.
+
+<button type="button" class="layer-toggle" data-layers-toggle>Open all sections</button>
+
+<details class="layer" id="the-short-version-in-full" markdown="block">
+<summary><span class="layer-title">The opening, as first written</span><span class="layer-sub">The page's original introduction and the design-not-code warning</span></summary>
+
 The six programs the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %}) needs, the interfaces between them, and how much of each [Batear]({{ site.baseurl }}{% link research/open-source-builds.md %}#batear) (MIT licence) already covers. Hardware: [Build: hardware]({{ site.baseurl }}{% link build-hardware.md %}). The open-source parts to build each one from, and the build plan: [Build: software plan]({{ site.baseurl }}{% link build-software-plan.md %}).
 
 {: .warning }
 > **A design, not code.** Nothing here is written or tested yet. Batear's behaviour was read from its source and docs on 2026-10-15 (last push 2026-10-06). Every byte count and timing below is a proposal or an estimate unless a source is linked.
 
-1. TOC
-{:toc}
+</details>
 
-## Short answer
+<details class="layer" id="short-answer" markdown="block">
+<summary><span class="layer-title">Short answer</span><span class="layer-sub">Six components, alerts home by fibre, what Batear covers, the one interface that carries the design</span></summary>
 
 - **Six components.** Listener firmware (including the tip dart's fibre output), base box firmware, dugout display, mission tooling, classifier pipeline, test harness.
 - **Alerts come home by fibre.** The net on [How it works]({{ site.baseurl }}{% link models/line-layout.md %}) has two tip darts that send alerts down FPV fibre to a base box behind the unit ([design]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box)). The base box is the old edge receiver's board with light detectors in place of the radio as its main input, and writes the same serial frame.
@@ -24,7 +69,10 @@ The six programs the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %})
 - **One interface carries the design:** the alert packet. Its contents fix what the display can show, what relays must do, and how many bytes each alert costs on air.
 - **Order:** fork Batear for layers 1–3 of the [MVP]({{ site.baseurl }}{% link mvp.md %}), fix its nonce, add the fibre link and the serial output, then add relaying and wake-on-sound for layers 4–5. Mission tooling waits for T13.
 
-## The chain
+</details>
+
+<details class="layer" id="the-chain" markdown="block">
+<summary><span class="layer-title">The chain</span><span class="layer-sub">Plan, field and unit as one diagram, from the laptop to the dugout display</span></summary>
 
 ```
  PLAN (laptop)                 FIELD                                   UNIT
@@ -40,7 +88,10 @@ The six programs the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %})
  (hears, alerts)   (relays once)          (laser, one way)   (never transmits)
 ```
 
-## Components and what Batear covers
+</details>
+
+<details class="layer" id="components-and-what-batear-covers" markdown="block">
+<summary><span class="layer-title">Components and what Batear covers</span><span class="layer-sub">Each program: what it runs on, its inputs and outputs, what exists, what's new</span></summary>
 
 | # | Component | Runs on | In → out | Batear covers | New work |
 |---|---|---|---|---|---|
@@ -53,7 +104,10 @@ The six programs the [tripwire]({{ site.baseurl }}{% link models/tripwire.md %})
 
 Owner for all six: us. ArduPilot, pymavlink and the public datasets are upstream dependencies, not components.
 
-## Interfaces
+</details>
+
+<details class="layer" id="interfaces" markdown="block">
+<summary><span class="layer-title">Interfaces</span><span class="layer-sub">The alert packet, its nonce, relay rules, the fibre link, the serial frame and the files</span></summary>
 
 ### I1. The alert packet (listener → air)
 
@@ -131,7 +185,10 @@ Standard QGroundControl plain-text waypoint format, loaded with MAVProxy or pyma
 
 On a Pixhawk 6C, the [v2 harness]({{ site.baseurl }}{% link build-hardware.md %}#2-v2-one-rod-one-servo) uses **AUX 1** only, with `SERVO9_FUNCTION = 0`: each drop is a `DO_SET_SERVO` to that dart's step on the rotor, so the PWM rises by one step per listener. ArduPilot needs an unassigned output for `DO_SET_SERVO`, and advises against servos on the 400 Hz MAIN outputs ([ArduPilot servo docs](https://ardupilot.org/copter/docs/common-servo.html)). The v1 harness used AUX 1–4, one servo per dart, so a stuck servo cost one listener. With v2, a jammed rotor keeps the rest of the sortie's darts on board.
 
-## The components in detail
+</details>
+
+<details class="layer" id="the-components-in-detail" markdown="block">
+<summary><span class="layer-title">The components in detail</span><span class="layer-sub">Listener and base box firmware, display, mission tooling, classifier, test harness</span></summary>
 
 ### 1. Listener firmware
 
@@ -216,7 +273,10 @@ lay_line ingest 00000042.BIN --sortie 1                               →  liste
 | Silence | SDR next to the base box and an armed-wait listener (T17, T8) | Nothing above the noise floor |
 | Reboot and nonce | Reboot a listener mid-test | Its next alert is accepted; no two packets share an IV |
 
-## Order of work
+</details>
+
+<details class="layer" id="order-of-work" markdown="block">
+<summary><span class="layer-title">Order of work</span><span class="layer-sub">Seven steps, each tied to an MVP layer or test</span></summary>
 
 | Step | Goes with | Work |
 |---|---|---|
@@ -227,3 +287,5 @@ lay_line ingest 00000042.BIN --sortie 1                               →  liste
 | 5 | Layer 5 (MVP) | Relay rules, display map and line health |
 | 6 | After layer 2 data | Classifier stage 2 |
 | 7 | T13 | `lay_line`, SITL first |
+
+</details>
