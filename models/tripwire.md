@@ -34,12 +34,12 @@ nav_tripwire: 1
   </g>
   <circle cx="435" cy="140" r="11" fill="#d2451e" stroke="#151515" stroke-width="3"/>
   <text x="494" y="62" class="vz-t">FPV crosses the row</text>
-  <text x="20" y="222" class="vz-t-small">darts ~960 ft apart, each hears ~635 ft</text>
-  <line x1="250" y1="206" x2="250" y2="306" stroke="#151515" stroke-width="2"/>
-  <path d="M243 214 L250 202 L257 214 M243 298 L250 310 L257 298" fill="none" stroke="#151515" stroke-width="2"/>
-  <text x="262" y="250" class="vz-t-big">~1 mi</text>
-  <text x="262" y="280" class="vz-t-accent">≈ 1 min warning</text>
-  <text x="560" y="300" class="vz-t-green">fibre home</text>
+  <text x="90" y="224" class="vz-t-small">darts ~960 ft apart</text>
+  <line x1="300" y1="238" x2="300" y2="318" stroke="#151515" stroke-width="2"/>
+  <path d="M293 246 L300 234 L307 246 M293 310 L300 322 L307 310" fill="none" stroke="#151515" stroke-width="2"/>
+  <text x="288" y="266" class="vz-t-big" text-anchor="end">~1 mi</text>
+  <text x="288" y="296" class="vz-t-accent" text-anchor="end">≈ 1 min warning</text>
+  <text x="575" y="300" class="vz-t-green" text-anchor="end">fibre home</text>
   <rect x="316" y="332" width="88" height="36" fill="#151515"/>
   <text x="360" y="357" class="vz-t-unit" text-anchor="middle">UNIT</text>
   <text x="360" y="424" class="vz-t-small" text-anchor="middle">a ring at the unit hears it only ~10 s out</text>
