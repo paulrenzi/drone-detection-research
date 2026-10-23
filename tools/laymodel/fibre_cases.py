@@ -13,7 +13,7 @@ by radio and sends alerts home down the fibre. Every number marked ASSUME in lay
 import json, os, random, sys
 import lay_model as lm
 
-DART_USD = 32.0          # a dart with its solar panel, small batch (Projected costs)
+DART_USD = 37.5          # a dart with its solar panel and 4-mic array, small batch (Projected costs)
 TIP_EXTRA_USD = 90.0     # ~1.2 mi of fibre at $55-80 a mile, plus spool and laser, est.
 
 

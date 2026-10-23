@@ -27,15 +27,15 @@ simulated, GPS jammed, confirm, 200 lays: darts 45.9 (9 in 10 within 51), 6.1 of
 tracks with a minute after the lay: mean 100%, lays with at least 97%: 100%
 
 ## Costs, ours, small batch (est.)
-package: 50 air-dropped darts, 9 tip darts and 5 fibre ends, 25 posts, 14 receivers, outfitted drone with 12 packs and 4 channels: $6188 ($1549 a mile)
-one re-lay of the fence: $2294 (46 darts, 6.1 of them tip darts, 0.32 drones, pack wear)
+package: 50 air-dropped darts, 9 tip darts and 5 fibre ends, 25 posts, 14 receivers, outfitted drone with 12 packs and 4 channels: $6517 ($1631 a mile)
+one re-lay of the fence: $2550 (46 darts, 6.1 of them tip darts, 0.32 drones, pack wear)
 | Power | Fence re-lays a year | Fence | Post cell swaps | Repairs between re-lays | A year | A mile a year |
 |---|---|---|---|---|---|---|
-| Solar, 4 winter re-lays | 4.0 | $9176 | $0 | $9440 | $18616 | $4659 |
-| Solar, 2 winter re-lays | 2.0 | $4588 | $0 | $9440 | $14028 | $3511 |
-| No solar, 2-week cells | 26.0 | $59647 | $6688 | $9440 | $75775 | $18964 |
-| No solar, 4-week cells | 13.0 | $29823 | $3344 | $9440 | $42607 | $10663 |
-| No solar, 12-week cells | 4.3 | $9941 | $1115 | $9440 | $20495 | $5129 |
+| Solar, 4 winter re-lays | 4.0 | $10198 | $0 | $9905 | $20103 | $5031 |
+| Solar, 2 winter re-lays | 2.0 | $5099 | $0 | $9905 | $15004 | $3755 |
+| No solar, 2-week cells | 26.0 | $66290 | $6688 | $9905 | $82884 | $20743 |
+| No solar, 4-week cells | 13.0 | $33145 | $3344 | $9905 | $46394 | $11611 |
+| No solar, 12-week cells | 4.3 | $11048 | $1115 | $9905 | $22068 | $5523 |
 posts only, solar: $3756 a year in lost posts ($940 a mile); package 25 posts and 14 receivers $1533
 
 ## If the planning numbers are wrong (50 lays each)

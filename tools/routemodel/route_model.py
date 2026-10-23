@@ -51,8 +51,8 @@ P_LOSS_DART_DAY, P_LOSS_POST_DAY, REPAIR_DAYS = 0.005, 0.01, 1.0
 derive()
 
 # ---- costs, small batch, ours (Projected costs) ASSUME ------------------------------------------
-DART_USD, POST_USD, RX_USD = 32.0, 49.0, 22.0   # with solar: a dart's 2.4 in panel and charger ~$3; a post: the dart's board, 4 cells, a 2 ft whip, a stake and a 1 W panel (est.)
-TIP_USD = 122.0                                  # a tip dart: a dart plus ~1.2 mi of fibre at $55-80 a mile and a laser (costs.md, small batch)
+DART_USD, POST_USD, RX_USD = 37.5, 49.0, 22.0   # with solar and the 4-mic array: a dart's 2.4 in panel and charger ~$3, the array ~$6-8 for the old mic's $1-2; posts keep one mic; a post: the dart's board, 4 cells, a 2 ft whip, a stake and a 1 W panel (est.)
+TIP_USD = 128.0                                  # a tip dart: a dart plus ~1.2 mi of fibre at $55-80 a mile and a laser (costs.md, small batch)
 END_USD = 20.0                                   # a fibre's end at its post: light detector, connector, box (est.)
 DRONE_USD, PACK_WEAR_USD = 850.0, 0.30
 KIT_USD = 1397.0 + 360.0 + 100.0                 # the outfitted drone, plus 6 more packs and 2 more charger channels

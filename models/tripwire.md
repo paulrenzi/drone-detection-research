@@ -78,9 +78,9 @@ nav_tripwire: 1
 
 <div class="stats">
   <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a row about 1 mi out (est.)</p></div>
-  <div class="stat"><p class="stat-num">$17–50</p><p class="stat-label">per throwaway listener (est.)</p></div>
+  <div class="stat"><p class="stat-num">$21–59</p><p class="stat-label">per throwaway listener (est.)</p></div>
   <div class="stat"><p class="stat-num">35</p><p class="stat-label">darts to lay one unit's net (lay model)</p></div>
-  <div class="stat"><p class="stat-num">3/5</p><p class="stat-label">rating: every part exists, the chain is unproven</p></div>
+  <div class="stat"><p class="stat-num">4/5</p><p class="stat-label">feasibility: every part exists, fibre took out the long radio link; field tests still to run</p></div>
 </div>
 
 ## Warning time
@@ -155,7 +155,7 @@ Each section opens for the full reasoning, numbers and sources.
 
 | Feasibility | Payoff | Technical readiness | Cost per sq mi | Persistence | Deployability |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-| **3/5** | **5/5** | 3/5 | 4/5 | 4/5 | 4/5 |
+| **4/5** | **5/5** | 3/5 | 4/5 | 4/5 | 4/5 |
 
 ### The idea in four steps
 
@@ -331,25 +331,25 @@ A reader suggested one central node with a known position, and listeners that me
 | Part | Example | Est. cost | Why it's there |
 |---|---|---|---|
 | Microcontroller | ESP32-S3 | $4–10 | Runs the drone / no-drone classifier on the device, so only a few bytes are sent |
-| Microphone | INMP441 or ICS-43434 (I²S digital MEMS) | $1–3 | One mic is enough: a line listener only has to hear; heading comes from timing across neighbouring darts |
+| Microphones | 4 analog MEMS mics on the fin tips, about 4 in apart, an ES7210 4-channel audio chip and a compass chip | $3–8 | Each dart takes its own bearing, which fixes the head-on, one-dart case. One mic listens; the other three wake on a detection. Timing across neighbouring darts still works without it ([costs]({{ site.baseurl }}{% link costs.md %}#per-component)) |
 | LoRa radio | SX1262, 915 MHz in the US | $6–25 | Sends alerts and relays neighbours' alerts toward the unit |
 | GPS | none | $0 (was $8–15) | Dropped: it would be jammed where it matters most ([why](#solving-the-field-limits-at-no-extra-cost)) |
 | Battery | small LiPo cell | ~$3–8 (estimate) | Weeks, not days, only if the listener sleeps until it hears something |
 | Solar | a 2.4 × 2.4 in panel lying flat on the pod, and a charger chip that stops charging below 32°F | ~$2–4 (estimate) | Covers a dart's daily use from March to October, so cells run flat only in midwinter ([running cost](#the-running-cost-lines-are-ammunition)) |
 | One printed body and a head pod on a fibreglass rod | 3D-printed, plus a ~$1.10 rod | $1–2 in filament | Sticks upright and holds the mic about 20 in up |
 | Windscreen | fur or foam cover | ~$1–3 (estimate) | Wind is the biggest range-killer in [VolAnti's tests]({{ site.baseurl }}{% link research/open-source-builds.md %}#volanti) |
-| **Total** | | **~$19–54** | Against a **$30–60 target** (~$25–65 with GPS) |
+| **Total** | | **~$21–59** | Against a **$30–60 target** (~$25–65 with GPS) |
 
 {: .warning }
-> Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first ones. A unit's package, 22 darts, 4 tip darts with their fibre, a base box and an outfitted delivery drone, costs us about **$2,760** in a small batch ([Projected costs]({{ site.baseurl }}{% link costs.md %})).
+> Part prices come from [Hardware]({{ site.baseurl }}{% link research/hardware.md %}); the battery and windscreen figures are estimates. All are hobby-grade, small-volume prices. A board that already combines the ESP32-S3 and LoRa radio, such as the Heltec WiFi LoRa 32 V3, costs about $25–30 and is the easiest way to build the first ones. A unit's package, 22 darts, 4 tip darts with their fibre, a base box and an outfitted delivery drone, costs us about **$2,900** in a small batch ([Projected costs]({{ site.baseurl }}{% link costs.md %})).
 
 ### The running cost: lines are ammunition
 
 The package price is only the start. Listeners aren't recovered, so every net is re-laid when its batteries run out. A small solar panel on every dart keeps that to midwinter. All figures below are estimates from [Projected costs]({{ site.baseurl }}{% link costs.md %}#keeping-it-up), built on an unmeasured battery life and winter solar harvest (T12):
 
-- **One re-lay** of a unit's net: about 22 darts and 7 drone sorties at up to 4 darts each ([lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)), **≈ $770–1,190** at our cost with drone wear.
-- **With solar:** a dart's panel covers its daily use from March to October, and about half to two-thirds of it from December to January, so the net goes flat only in midwinter: about 2–4 re-lays a year, **≈ $3–5k a year** per unit.
-- **Without solar,** at four weeks per battery, it would be 13 re-lays and **≈ $10–15.5k a year**.
+- **One re-lay** of a unit's net: about 22 darts and 7 drone sorties at up to 4 darts each ([lay model]({{ site.baseurl }}{% link models/line-layout.md %}#laying-the-net)), **≈ $810–1,590** at our cost with drone wear.
+- **With solar:** a dart's panel covers its daily use from March to October, and about half to two-thirds of it from December to January, so the net goes flat only in midwinter: about 2–4 re-lays a year, **≈ $1.6–6.3k a year** per unit. A second cell in every dart might cut that to 0–1 re-lays (an option, [costs]({{ site.baseurl }}{% link costs.md %}#keeping-it-up)).
+- **Without solar,** at four weeks per battery, it would be 13 re-lays and **≈ $10.6–20.6k a year**.
 - **Plus** listeners lost to shelling, and the occasional delivery drone.
 
 So the tripwire is a consumable, not a one-off purchase. It costs less than a radar but more than a radio detector bought once. What shrinks the bill now is a panel that collects more in winter, a cell that lasts longer in the cold, and fewer listeners lost. Test T12 decides which bill is real.
@@ -533,4 +533,5 @@ In the Vietnam War, **Operation Igloo White** air-dropped acoustic and seismic s
 | 2026-10-15 | 3 (unchanged) | Proposed an engineering answer to the radio question: a listen-only receiver at the edge of the unit's tree line, wired back. Windbreak belts are 10–49 ft wide, not forests, and cost a few dB each on paper. Untested (T9, T17). |
 | 2026-10-23 | 3 (unchanged) | A [jamming model]({{ site.baseurl }}{% link models/line-layout.md %}#jamming): a jammer near the ground blinds a dart only within a few hundred feet on our estimate, about a mile in the worst case. The unit's own jammers deafen receivers at the positions, so the position's links go by wire or fibre. T19 now measures at range, and decides between the two cases. |
 | 2026-10-23 | 3 (unchanged) | Alerts now come home on [two FPV fibres]({{ site.baseurl }}{% link models/line-layout.md %}#the-fibres-and-the-base-box) from tip darts in the front row, and each position is covered ±60°. The lay model's net drops from 35 darts a lay to 22, and nothing at the unit uses radio. Untested: the fibre link is T21. |
+| 2026-10-23 | **4** (up from 3) | The rating was 3 because nobody had shown a forward line could report back 1.2–2.5 mi by radio, and it was to rise to 4 once that was solved. The two FPV fibres from the tip darts now carry every alert home, so that link is gone, and FPV fibre is flown every day at the front. What remains is short radio hops between darts about 960 ft apart, and tests not yet run: a laid fibre lasting on the ground (T21), landing upright (T10), winter power (T12) and whether warning changes what troops do (T18). A failure in any of them drops it back. |
 </details>

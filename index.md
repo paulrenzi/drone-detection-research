@@ -14,9 +14,9 @@ Don't try to make a microphone hear farther. Drop cheap ones about a mile forwar
 
 <div class="stats">
   <div class="stat"><p class="stat-num">~1 min</p><p class="stat-label">warning from a row about 1 mi out, against ~10 s from a ring near the unit (est.)</p></div>
-  <div class="stat"><p class="stat-num">$32 / $122</p><p class="stat-label">a throwaway dart, and a tip dart with its fibre (small-batch est.)</p></div>
+  <div class="stat"><p class="stat-num">$38 / $128</p><p class="stat-label">a throwaway dart, and a tip dart with its fibre (small-batch est.)</p></div>
   <div class="stat"><p class="stat-num">160–200 ft</p><p class="stat-label">the only measured cheap-mic range; we plan on 330–980 ft, unproven</p></div>
-  <div class="stat"><p class="stat-num">3/5</p><p class="stat-label">feasibility: every part exists, the whole chain is untested</p></div>
+  <div class="stat"><p class="stat-num">4/5</p><p class="stat-label">feasibility: every part exists and fibre took out the long radio link; the chain is still untested</p></div>
 </div>
 
 {: .warning }

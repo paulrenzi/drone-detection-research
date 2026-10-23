@@ -27,7 +27,7 @@
   "share55": 1.0,
   "share30": 1.0,
   "share10": 1.0,
-  "median": 72.00296546963062,
+  "median": 71.96183350847132,
   "heard": 1.0
  },
  "land": {
@@ -55,15 +55,15 @@
  "snap_land": 0.9931666666666666,
  "one_worst": 0.981,
  "posts_only_year": 3755.8499999999995,
- "pkg": 6188.0,
- "pkg_mile": 1548.6747045569696,
- "relay_cost": 2294.1029999999996,
+ "pkg": 6517.0,
+ "pkg_mile": 1631.0137442788898,
+ "relay_cost": 2549.6204999999995,
  "yearly": {
-  "Solar, 4 winter re-lays": 18615.996374999995,
-  "Solar, 2 winter re-lays": 14027.790374999997,
-  "No solar, 2-week cells": 75774.76237499999,
-  "No solar, 4-week cells": 42607.17337499999,
-  "No solar, 12-week cells": 20495.447374999996
+  "Solar, 4 winter re-lays": 20103.441375,
+  "Solar, 2 winter re-lays": 15004.200375,
+  "No solar, 2-week cells": 82883.592375,
+  "No solar, 4-week cells": 46394.27587499999,
+  "No solar, 12-week cells": 22068.064874999996
  },
  "carry_air": 50,
  "carry_tips": 9,

@@ -60,8 +60,8 @@ nav_primary: 2.15
 ### What it is made of
 
 <div class="vz-cards vz-4">
-  <div class="vz-card"><p class="vz-card-num">$32</p><p><strong>Dart:</strong> a mic, a LoRa radio and a cell in a finned body, dropped point-first in the fence</p></div>
-  <div class="vz-card"><p class="vz-card-num">$122</p><p><strong>Tip dart:</strong> a dart with 1.2 mi of FPV fibre and a small laser, sending alerts to a post</p></div>
+  <div class="vz-card"><p class="vz-card-num">$38</p><p><strong>Dart:</strong> four mics, a LoRa radio and a cell in a finned body, dropped point-first in the fence</p></div>
+  <div class="vz-card"><p class="vz-card-num">$128</p><p><strong>Tip dart:</strong> a dart with 1.2 mi of FPV fibre and a small laser, sending alerts to a post</p></div>
   <div class="vz-card"><p class="vz-card-num">$49</p><p><strong>Post:</strong> a dart's board on a stake by the road, 4 cells, a tilted solar panel, a 2 ft whip</p></div>
   <div class="vz-card"><p class="vz-card-num">Listen only</p><p><strong>Receivers</strong> in every vehicle and at checkpoints only listen, so a truck gives nothing away</p></div>
 </div>
@@ -109,8 +109,8 @@ A net in front of a position protects people who are a few yards from a dugout, 
 <details class="layer" id="the-parts" markdown="block">
 <summary><span class="layer-title">The parts</span><span class="layer-sub">Darts, tip darts, posts, what each is connected to, and where alerts go</span></summary>
 
-- **A dart** is a small listening sensor: a microphone that hears drone motors, a LoRa radio and one battery cell, in a finned body dropped from a drone so it sticks point-first in the ground ([dart model]({{ site.baseurl }}{% link build-3d.md %}#why-it-should-fall-point-first)). It only says "I heard a drone", and its neighbours relay that along the row. A small solar panel on its head keeps the cell topped up from March to October. About $32.
-- **A tip dart** is a dart with a spool of FPV fibre, about 1.2 mi, and a small laser. It is dropped first, paying the fibre out from a post, and sends every alert it hears or is passed home as light. About $122, most of it fibre.
+- **A dart** is a small listening sensor: four microphones on its fins that hear drone motors and take a bearing, a LoRa radio and one battery cell, in a finned body dropped from a drone so it sticks point-first in the ground ([dart model]({{ site.baseurl }}{% link build-3d.md %}#why-it-should-fall-point-first)). It only says "I heard a drone", and its neighbours relay that along the row. A small solar panel on its head keeps the cell topped up from March to October. About $32.
+- **A tip dart** is a dart with a spool of FPV fibre, about 1.2 mi, and a small laser. It is dropped first, paying the fibre out from a post, and sends every alert it hears or is passed home as light. About $128, most of it fibre.
 - **A post** is a dart's board on a stake, set in by hand from a vehicle at night, 40 ft off the road and at most 1,100 ft apart: about 5 a mile. It has 4 cells instead of 1 and a 1 W solar panel tilted toward the sun, so it should run through winter without a cell swap, and a 2 ft whip antenna, so its radio should reach about 2,500 ft, past the next post (est., T9, T12). About $49.
 - **What a post is connected to:** its neighbour posts, by radio and, as proposed, by a twisted-pair cable along the verge ([below](#jamming-and-a-wire-along-the-road)); and, at 5–7 of a road's 21 posts, a tip dart's fibre. Nothing else: no mains power, no network.
 - **Where the alerts go:** there is no central box. Every post repeats every alert along the whole road, so anything listening anywhere on it hears all of it. Each vehicle carries a receiver that never transmits. Each checkpoint has one wired to a phone, tablet or laptop that shows the road's map and which stretches are hot. A laptop sees the whole road from a checkpoint within radio reach of the end post, or plugged into the end of the cable. Anywhere further back needs a link this page doesn't design. To put the alert on the phones and radios troops already carry, see [Partners for the alert]({{ site.baseurl }}{% link research/partners.md %}).
@@ -124,9 +124,9 @@ A net in front of a position protects people who are a few yards from a dugout, 
 - **The fence gives the minute.** In the model, every drone flying in to strike the road, from anywhere within 60° of the enemy, is heard at least 60 s before it can reach the road; the median is 72–102 s. Posts alone give 4–9 s.
 - **The posts catch drones landing to wait.** Every landing within 300 ft of the road is heard, about 340 ft from the post that hears it loudest. The alert, "drone waiting near post 17", stays up until someone clears it.
 - **How many:** 21 posts and 35–58 darts for 4 mi of road, **about 14–20 a mile**. A road running toward the front costs more than one running along it, because the fence has to wrap both sides and the forward end. Fibre took out the 25–35 relay darts the radio trunks needed.
-- **What it costs us:** a package of about **$6,200–7,400**, then about **$19–27k a year** with solar, **$4,700–6,700 a mile**. Without solar, at four-week cells, it would be $43–64k. Posts alone cost about $1,500 and $3,800 a year; they find landings but give no minute.
+- **What it costs us:** a package of about **$6,500–7,900**, then about **$20–30k a year** with solar, **$5,000–7,300 a mile**. Without solar, at four-week cells, it would be $46–70k. Posts alone cost about $1,500 and $3,800 a year; they find landings but give no minute.
 - **Jamming: the trucks' own jammers are the threat, and a wire answers it.** A truck's jammer deafens its own receiver and the posts near it, so a radio-only guard tells a jamming truck nothing on the move. Posts on a cable along the verge, each with a hooded lamp facing the road, keep the warning in the model (100% of tracks with a minute) for about $200 a mile more (est.). In the worst case for jamming, the truck's jammer reaches the fence too, and the fibres only partly save it.
-- **Against nets and the rest: lead with the posts.** At about $940 a mile a year they hear what nothing else on sale does, a fibre-optic FPV landing to wait. With solar the fence costs less than netting the road for its first 5–17 years, but it only warns; it pays where roads won't be netted, or where trucks have cover to reach in a minute ([comparison](#against-whats-already-on-roads)).
+- **Against nets and the rest: lead with the posts.** At about $940 a mile a year they hear what nothing else on sale does, a fibre-optic FPV landing to wait. With solar the fence costs less than netting the road for its first 5–16 years, but it only warns; it pays where roads won't be netted, or where trucks have cover to reach in a minute ([comparison](#against-whats-already-on-roads)).
 - **What it misses:** drones parked before it was laid, drones carried in on foot, and landings more than about 600 ft from the road. Our own drone crews, who live in this strip, are a risk worse here than at a position.
 
 1. TOC
@@ -248,17 +248,17 @@ Small-batch cost to us, from [Projected costs]({{ site.baseurl }}{% link costs.m
 
 | | Along the front | Toward the front |
 |---|---|---|
-| **Package:** 25 posts, 50 or 80 darts, 9 or 11 tip darts and a fibre end at each fibre's post, 14 receivers (12 vehicles, 2 checkpoints), the outfitted drone with 12 packs and 4 charger channels | **~$6,190** | **~$7,430** |
-| One re-lay of the fence: about 46 or 76 darts (6 or 9 of them tip darts), about 0.3–0.6 of a lost drone, pack wear | ~$2,290 | ~$3,710 |
-| **A year with solar, 4 winter re-lays:** repairs between re-lays, cut fibres, no post cell swaps | **~$18,600** | **~$27,200** |
-| A year with solar, 2 winter re-lays | ~$14,000 | ~$19,700 |
-| A year without solar, four-week cells: 13 re-lays, post cells every 16 weeks | ~$42,600 | ~$63,900 |
-| A year without solar, two-week cells | ~$75,800 | ~$115,500 |
-| **A mile a year with solar, 4 winter re-lays** | **~$4,700** | **~$6,700** |
+| **Package:** 25 posts, 50 or 80 darts, 9 or 11 tip darts and a fibre end at each fibre's post, 14 receivers (12 vehicles, 2 checkpoints), the outfitted drone with 12 packs and 4 charger channels | **~$6,520** | **~$7,940** |
+| One re-lay of the fence: about 46 or 76 darts (6 or 9 of them tip darts), about 0.3–0.6 of a lost drone, pack wear | ~$2,550 | ~$4,140 |
+| **A year with solar, 4 winter re-lays:** repairs between re-lays, cut fibres, no post cell swaps | **~$20,100** | **~$29,600** |
+| A year with solar, 2 winter re-lays | ~$15,000 | ~$21,300 |
+| A year without solar, four-week cells: 13 re-lays, post cells every 16 weeks | ~$46,400 | ~$70,200 |
+| A year without solar, two-week cells | ~$82,900 | ~$127,300 |
+| **A mile a year with solar, 4 winter re-lays** | **~$5,000** | **~$7,300** |
 
-- **Solar halves the bill.** Without it, battery life set the bill: re-lays were 70–76% of a year at four-week cells. With it, re-lays are a third to a half, and **repairs are the other half**: darts and posts lost to shelling and cut fibres, about $9,400–12,300 a year. Those loss rates are guesses, and now the ones that matter most.
-- **Fibre made it cheaper.** A tip dart costs about $122 against a dart's $32, but each fibre replaces about 5 relay darts, and fewer darts means fewer sorties and fewer lost drones.
-- **Cut fibres are a running cost:** at the guessed 1% of days each, about 18–26 new tips a year, each on its own sortie, about $2,500–3,600.
+- **Solar halves the bill.** Without it, battery life set the bill: re-lays were 70–76% of a year at four-week cells. With it, re-lays are a third to a half, and **repairs are the other half**: darts and posts lost to shelling and cut fibres, about $9,900–13,100 a year. Those loss rates are guesses, and now the ones that matter most.
+- **Fibre made it cheaper.** A tip dart costs about $128 against a dart's $38, but each fibre replaces about 5 relay darts, and fewer darts means fewer sorties and fewer lost drones.
+- **Cut fibres are a running cost:** at the guessed 1% of days each, about 18–26 new tips a year, each on its own sortie, about $2,600–3,800.
 - **The drone is the hidden cost again.** At the guessed 2% lost per sortie, a re-lay loses about 0.3–0.6 drones, about $270–500.
 - **Posts only:** about $1,500 for 25 posts and 14 receivers, and about $3,800 a year, all of it posts lost; solar ends the cell swaps, and with them most of the night stops on a mined verge. No drone is needed. It finds landings by the road but gives 4–9 s of warning of a strike.
 - **The cable and lamps** add about $800 a road ([above](#jamming-and-a-wire-along-the-road)). Repairs to cuts are not costed.
@@ -268,12 +268,12 @@ Small-batch cost to us, from [Projected costs]({{ site.baseurl }}{% link costs.m
 <details class="layer" id="against-whats-already-on-roads" markdown="block">
 <summary><span class="layer-title">Against what's already on roads</span><span class="layer-sub">Nets, guns, jammers and detectors compared</span></summary>
 
-**Lead with the posts. Add the fence only where the minute will be used.** The posts do a job nothing on sale does cheaply. With solar the fence costs less than netting the road for its first 5–17 years, but a net stops drones and the fence only warns. It earns its place on roads that won't be netted, roads that matter for a few weeks, or roads with somewhere to go when the alert comes. Per mile, small-batch costs to us (est.); labour isn't costed:
+**Lead with the posts. Add the fence only where the minute will be used.** The posts do a job nothing on sale does cheaply. With solar the fence costs less than netting the road for its first 5–16 years, but a net stops drones and the fence only warns. It earns its place on roads that won't be netted, roads that matter for a few weeks, or roads with somewhere to go when the alert comes. Per mile, small-batch costs to us (est.); labour isn't costed:
 
 | Option | To set up, a mile | A year, a mile | Against a fibre-optic FPV |
 |---|---|---|---|
 | **Our posts alone** | **~$380** | **~$940** | Hear a drone land to wait. 4–9 s of warning of a strike |
-| **Our full guard,** posts and fibre fence | ~$1,550–1,850 | **~$4,700–6,700** with solar; ~$3,500–4,900 if winters need only 2 re-lays; ~$10,700–15,900 without solar at four-week cells | A minute's warning of every drone flying in, and the landings |
+| **Our full guard,** posts and fibre fence | ~$1,630–1,970 | **~$5,000–7,300** with solar; ~$3,800–5,300 if winters need only 2 re-lays; ~$11,600–17,400 without solar at four-week cells | A minute's warning of every drone flying in, and the landings |
 | Zvook NW0 posts, wired | ~$2,300–4,000 plus power | not known | The posts' job, at about 10–20 times the price a sensor. No minute |
 | Net tunnels | **~$29,000–64,000** ($18–40k a km in Kherson) | repairs, not known | Stop many strikes with nobody doing anything. But fibre-optic FPVs fly under them and waiting drones hide under them |
 | Interceptor drones | – | ~$1,000–3,000 a shot | Need something to cue them. Nothing found on fibre-optic FPVs specifically |
@@ -290,7 +290,7 @@ Sources: nets, ~1.8 million UAH a km ([Most.ks.ua](https://most.ks.ua/en/news/ur
 
 **The fence: cheaper than a net for years, but not a net.**
 
-- It is 80–86% of the guard's bill, about $3,700–5,900 a mile a year with solar. A net costs $29,000–64,000 a mile once, so it pays back against the fence in about 5–17 years, sooner if its repairs are cheap. Solar made the fence the cheaper choice for a road needed only a few years.
+- It is 81–87% of the guard's bill, about $4,100–6,400 a mile a year with solar. A net costs $29,000–64,000 a mile once, so it pays back against the fence in about 5–16 years, sooner if its repairs are cheap. Solar made the fence the cheaper choice for a road needed only a few years.
 - A net protects without anyone acting on anything. The minute only counts if drivers hold, drive out of the hot stretch or reach cover.
 - **Where the fence wins:**
   - **Roads that won't be netted.** Fibre-optic FPVs now reach 12–30 mi, and the whole netting programme is about 2,500 mi of road. There are far more roads inside that reach than that.

@@ -159,7 +159,7 @@ The tripwire costs about $2.0–3.1k for a unit's package and about $3–5k a ye
 - most drone casualties come from FPVs already waiting in ambush, or launched inside the line; or
 - the roads are already netted.
 
-A guard on a supply road costs more: about $19–27k a year for 4 mi with solar ([costs]({{ site.baseurl }}{% link costs.md %}#guarding-a-road)). It is aimed at the rear, where about half the casualties are.
+A guard on a supply road costs more: about $20–30k a year for 4 mi with solar ([costs]({{ site.baseurl }}{% link costs.md %}#guarding-a-road)). It is aimed at the rear, where about half the casualties are.
 
 </details>
 

@@ -41,8 +41,8 @@ Software is the comparatively easy part. The hard parts are **range** (how far a
 <div class="vz-grid">
 <span class="vz-grid-y">5</span>
 <span class="vz-gcell"></span>
+<span class="vz-gcell"></span>
 <span class="vz-gcell vz-gcell-hot"><a class="vz-gchip vz-gchip-us" href="{{ site.baseurl }}{% link models/tripwire.md %}" title="Drone-laid tripwire (use case: M3 nodes laid by M7)">Tripwire</a></span>
-<span class="vz-gcell vz-gcell-hot"></span>
 <span class="vz-gcell vz-gcell-hot"></span>
 <span class="vz-grid-y">4</span>
 <span class="vz-gcell"></span>
@@ -63,7 +63,7 @@ Software is the comparatively easy part. The hard parts are **range** (how far a
 </div>
 <p class="vz-grid-xlab">Feasible today →</p>
 </div>
-<p class="vz-bar-note">Each model's two scores, 1 to 5. Tap one to open its page. Top right is where to be: the tripwire has the highest payoff, but it is only a 3 on feasibility until its tests run. M1 (cheap mic-array nodes), M4 (raising them up) and M10 (adding radio and camera cues) are the solid middle.</p>
+<p class="vz-bar-note">Each model's two scores, 1 to 5. Tap one to open its page. Top right is where to be: the tripwire has the highest payoff, and is a 4 on feasibility now that fibre has taken out its long radio link; its field tests still have to run. M1 (cheap mic-array nodes), M4 (raising them up) and M10 (adding radio and camera cues) are the solid middle.</p>
 
 <details class="layer" markdown="block">
 <summary><span class="layer-title">The scores as a table</span><span class="layer-sub">Each model's feasibility, payoff, unit cost and status, and how the scores are set</span></summary>
@@ -72,7 +72,7 @@ Each model gets two scores. **Feasible** runs from 1 (not feasible now) to 5 (pr
 
 | # | Model | Feasible | Payoff | Unit cost | Status |
 |---|---|:-:|:-:|---|---|
-| UC | [Drone-laid tripwire (use case: M3 nodes laid by M7)]({{ site.baseurl }}{% link models/tripwire.md %}) | <span class="score score-mid">3</span> | <span class="score score-hi">5</span> | ~$2.0–3.1k package + ~$3–5k/yr re-lays | Highest payoff; one radio test away |
+| UC | [Drone-laid tripwire (use case: M3 nodes laid by M7)]({{ site.baseurl }}{% link models/tripwire.md %}) | <span class="score score-hi">4</span> | <span class="score score-hi">5</span> | ~$2.1–3.5k package + ~$1.6–6.3k/yr re-lays | Highest payoff; fibre replaced the radio link home |
 | M1 | [Fixed ground mic-array mesh]({{ site.baseurl }}{% link models/m01-ground-array-mesh.md %}) | <span class="score score-hi">4</span> | <span class="score score-hi">4</span> | $60–120 | Recommended core |
 | M2 | [Phone-based sensor network]({{ site.baseurl }}{% link models/m02-phone-network.md %}) | <span class="score score-hi">5</span> | <span class="score score-mid">3</span> | $100–500 | Proven at scale (Ukraine) |
 | M3 | [Single-mic nodes + time-difference]({{ site.baseurl }}{% link models/m03-single-mic-tdoa.md %}) | <span class="score score-mid">3</span> | <span class="score score-mid">3</span> | $30–50 | Cheapest, harder to make work |
