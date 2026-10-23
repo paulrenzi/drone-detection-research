@@ -1205,3 +1205,14 @@ body.ou {
   }
   .vz-card { border-right: 0; border-bottom: 1px solid $ou-ink; &:last-child { border-bottom: 0; } }
 }
+
+.vz-scale { display: flex; height: 30px; font-family: $ou-mono; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.vz-scale-seg { display: flex; align-items: center; justify-content: center; color: #fff; overflow: hidden; }
+.vz-scale-fail { background: $ou-accent-dark; }
+.vz-scale-mid { background: #d9a441; }
+.vz-scale-pass { background: $ou-green; }
+.vz-scale-ticks { position: relative; height: 22px; margin: 4px 0 6px; font-family: $ou-mono; font-size: 12px; color: $ou-body;
+  span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  span:first-child { transform: none; }
+  span:last-child { transform: translateX(-100%); }
+}

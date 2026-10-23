@@ -6,11 +6,29 @@ nav_primary: 4
 # The Saturday test
 {: .no_toc }
 
-**One day, about $80–90, and no drone.** How far does a mic 20 in off the ground hear a drone, and how far can its alarm travel by radio? A Bluetooth speaker 16 ft from the mic plays a recorded drone turned down to the level it would reach the mic from 80 to 1,000 ft, so the far distances fit in a yard. The radio's range is walked for real.
+<p class="vz-lede">How far does a mic 20 in off the ground hear a drone, and how far does its alarm travel by radio? <strong>One day, about $80–90, and no drone.</strong></p>
 
-**Pass:** heard in 3 of 3 plays at 330 ft. **Fail:** not heard that reliably at 200 ft. In between is short of a pass, not a fail. The sweep plays every distance three times, because the logger only rules on a distance with 3 or more plays.
+<div class="stats">
+  <div class="stat"><p class="stat-num">1 day</p><p class="stat-label">in a yard or park; the laptop work is done the day before</p></div>
+  <div class="stat"><p class="stat-num">$80–90</p><p class="stat-label">for the kit (<a href="{{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector">list and prices</a>)</p></div>
+  <div class="stat"><p class="stat-num">16 ft</p><p class="stat-label">speaker to mic, playing a drone turned down to 80–1,000 ft</p></div>
+  <div class="stat"><p class="stat-num">3 of 3</p><p class="stat-label">plays heard at 330 ft is a pass</p></div>
+</div>
+
+<div class="vz-bars" role="img" aria-label="Pass or fail by distance: not heard reliably at 200 feet is a fail, heard 3 of 3 at 330 feet is a pass, in between is short of a pass">
+  <div class="vz-scale">
+    <span class="vz-scale-seg vz-scale-fail" style="width:20%">fail</span><span class="vz-scale-seg vz-scale-mid" style="width:13%">short</span><span class="vz-scale-seg vz-scale-pass" style="width:67%">pass</span>
+  </div>
+  <div class="vz-scale-ticks"><span style="left:0">0</span><span style="left:20%">200</span><span style="left:33%">330 ft</span><span style="left:100%">1,000 ft</span></div>
+  <p class="vz-bar-note"><strong>Fail:</strong> not heard in 3 of 3 plays at 200 ft. <strong>Pass:</strong> heard in 3 of 3 at 330 ft. In between is short of a pass, not a fail. Every distance plays three times; the logger only rules on a distance with 3 or more plays. The radio range is walked for real.</p>
+</div>
+
+<details class="layer" markdown="block">
+<summary><span class="layer-title">What you need</span><span class="layer-sub">Two radio kits, a mic, two phones, a speaker, a laptop, power banks and a tape measure</span></summary>
 
 **You need:** the two XIAO ESP32S3 + Wio-SX1262 kits with their antennas (one becomes the detector, the other the gateway), a USB-C data cable, a laptop with Chrome, an INMP441 mic with jumper wires (its pins need soldering), two fur windscreens, a Bluetooth speaker, two phones with mobile data (an old one will do for the mic phone), two power banks and a tape measure ([kit and prices]({{ site.baseurl }}{% link research/open-source-builds.md %}#weekend-test-kit-start-training-the-detector)).
+
+</details>
 
 ## At a glance
 
