@@ -1,0 +1,14 @@
+sources/
+run.jsonl
+run.err
+run.pid
+__pycache__/
+cache/
+tmp/
+vendor/
+*.log
+# >100 MB, over the GitHub limit; regenerate with build.py
+run2.*
+run3.*
+run4.*
+run5.*
